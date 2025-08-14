@@ -1,5 +1,23 @@
 # @twin.org/engine-server - Changelog
 
+## [0.0.2-next.5](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.2-next.4...engine-server-v0.0.2-next.5) (2025-08-14)
+
+
+### Features
+
+* add synchronised storage support ([5142e34](https://github.com/twinfoundation/engine/commit/5142e3488f09195cf9f48a9c6c6d1014231a4c2c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.2-next.4 to 0.0.2-next.5
+    * @twin.org/engine-models bumped from 0.0.2-next.4 to 0.0.2-next.5
+    * @twin.org/engine-server-types bumped from 0.0.2-next.4 to 0.0.2-next.5
+  * devDependencies
+    * @twin.org/engine bumped from 0.0.2-next.4 to 0.0.2-next.5
+
 ## [0.0.2-next.4](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.2-next.3...engine-server-v0.0.2-next.4) (2025-07-25)
 
 

@@ -1,5 +1,12 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.2-next.5](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.4...engine-models-v0.0.2-next.5) (2025-08-14)
+
+
+### Features
+
+* add synchronised storage support ([5142e34](https://github.com/twinfoundation/engine/commit/5142e3488f09195cf9f48a9c6c6d1014231a4c2c))
+
 ## [0.0.2-next.4](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.3...engine-models-v0.0.2-next.4) (2025-07-25)
 
 
