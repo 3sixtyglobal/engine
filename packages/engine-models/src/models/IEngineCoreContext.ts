@@ -27,9 +27,12 @@ export interface IEngineCoreContext<
 	stateDirty: boolean;
 
 	/**
-	 * The default types to use when components don't have custom types.
+	 * The registered instances to use when components don't have custom types.
+	 * The default entry will be the first in the list.
 	 */
-	defaultTypes: { [type: string]: string };
+	registeredInstances: {
+		[name: string]: { type: string; features?: string[] }[];
+	};
 
 	/**
 	 * The components.

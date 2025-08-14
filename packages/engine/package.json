@@ -33,7 +33,8 @@
 		"@twin.org/core": "next",
 		"@twin.org/engine-core": "0.0.2-next.4",
 		"@twin.org/engine-types": "0.0.2-next.4",
-		"@twin.org/entity": "next"
+		"@twin.org/entity": "next",
+		"@twin.org/nameof": "next"
 	},
 	"devDependencies": {
 		"@twin.org/nameof-transformer": "next",

@@ -39,6 +39,7 @@ import {
 	NftConnectorType,
 	RightsManagementComponentType,
 	RightsManagementPapComponentType,
+	SynchronisedStorageComponentType,
 	TaskSchedulerComponentType,
 	TelemetryComponentType,
 	TelemetryConnectorType,
@@ -106,7 +107,7 @@ describe("engine", () => {
 					loggingConnector: [{ type: LoggingConnectorType.Console }],
 					loggingComponent: [{ type: LoggingComponentType.Service }],
 					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
-					blobStorageConnector: [{ type: BlobStorageConnectorType.Memory }],
+					blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 					blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
 					backgroundTaskConnector: [{ type: BackgroundTaskConnectorType.EntityStorage }],
 					eventBusConnector: [{ type: EventBusConnectorType.Local }],
@@ -144,12 +145,6 @@ describe("engine", () => {
 					dataExtractorConnector: [{ type: DataExtractorConnectorType.JsonPath }],
 					dataProcessingComponent: [{ type: DataProcessingComponentType.Service }],
 					documentManagementComponent: [{ type: DocumentManagementComponentType.Service }],
-					federatedCatalogueComponent: [
-						{
-							type: FederatedCatalogueComponentType.Service,
-							options: { config: { clearingHouseApproverList: [] } }
-						}
-					],
 					rightsManagementComponent: [
 						{
 							type: RightsManagementComponentType.Service
@@ -163,6 +158,18 @@ describe("engine", () => {
 					taskSchedulerComponent: [
 						{
 							type: TaskSchedulerComponentType.Service
+						}
+					],
+					synchronisedStorageComponent: [
+						{
+							type: SynchronisedStorageComponentType.Service,
+							options: { config: { verifiableStorageKeyId: "testnet" } }
+						}
+					],
+					federatedCatalogueComponent: [
+						{
+							type: FederatedCatalogueComponentType.Service,
+							options: { config: { clearingHouseApproverList: [] } }
 						}
 					]
 				}
@@ -196,9 +203,10 @@ describe("engine", () => {
 			"auditable-item-stream-service",
 			"data-processing-service",
 			"document-management-service",
-			"federated-catalogue-service",
 			"policy-administration-point-service",
-			"rights-management-service"
+			"rights-management-service",
+			"synchronised-storage-service",
+			"federated-catalogue-service"
 		]);
 
 		expect(EntitySchemaFactory.names()).toEqual([
@@ -229,11 +237,12 @@ describe("engine", () => {
 			"AuditableItemStreamEntry",
 			"ExtractionRuleGroup",
 			"ExtractionRule",
+			"OdrlPolicy",
+			"SyncSnapshotEntry",
 			"ParticipantEntry",
 			"DataResourceEntry",
 			"ServiceOfferingEntry",
-			"DataSpaceConnectorEntry",
-			"OdrlPolicy"
+			"DataSpaceConnectorEntry"
 		]);
 
 		expect(engine).toBeDefined();
@@ -321,7 +330,7 @@ describe("engine", () => {
 					loggingConnector: [{ type: LoggingConnectorType.Console }],
 					loggingComponent: [{ type: LoggingComponentType.Service }],
 					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
-					blobStorageConnector: [{ type: BlobStorageConnectorType.Memory }],
+					blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 					blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
 					backgroundTaskConnector: [{ type: BackgroundTaskConnectorType.EntityStorage }],
 					eventBusConnector: [{ type: EventBusConnectorType.Local }],
@@ -359,12 +368,6 @@ describe("engine", () => {
 					dataExtractorConnector: [{ type: DataExtractorConnectorType.JsonPath }],
 					dataProcessingComponent: [{ type: DataProcessingComponentType.Service }],
 					documentManagementComponent: [{ type: DocumentManagementComponentType.Service }],
-					federatedCatalogueComponent: [
-						{
-							type: FederatedCatalogueComponentType.Service,
-							options: { config: { clearingHouseApproverList: [] } }
-						}
-					],
 					rightsManagementComponent: [
 						{
 							type: RightsManagementComponentType.Service
@@ -378,6 +381,18 @@ describe("engine", () => {
 					taskSchedulerComponent: [
 						{
 							type: TaskSchedulerComponentType.Service
+						}
+					],
+					synchronisedStorageComponent: [
+						{
+							type: SynchronisedStorageComponentType.Service,
+							options: { config: { verifiableStorageKeyId: "testnet" } }
+						}
+					],
+					federatedCatalogueComponent: [
+						{
+							type: FederatedCatalogueComponentType.Service,
+							options: { config: { clearingHouseApproverList: [] } }
 						}
 					]
 				}
@@ -399,7 +414,7 @@ describe("engine", () => {
 		expect(canContinue2).toEqual(true);
 		expect(clone.getConfig()).toEqual(engine.getConfig());
 		expect(clone.getState()).toEqual(engine.getState());
-		expect(clone.getDefaultTypes()).toEqual(engine.getDefaultTypes());
+		expect(clone.getRegisteredInstances()).toEqual(engine.getRegisteredInstances());
 	});
 
 	test("Can clone the engine and silence it", async () => {
@@ -410,7 +425,7 @@ describe("engine", () => {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
 				entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
-				blobStorageConnector: [{ type: BlobStorageConnectorType.Memory }],
+				blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 				blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
 				backgroundTaskConnector: [{ type: BackgroundTaskConnectorType.EntityStorage }],
 				eventBusConnector: [{ type: EventBusConnectorType.Local }],
@@ -448,12 +463,6 @@ describe("engine", () => {
 				dataExtractorConnector: [{ type: DataExtractorConnectorType.JsonPath }],
 				dataProcessingComponent: [{ type: DataProcessingComponentType.Service }],
 				documentManagementComponent: [{ type: DocumentManagementComponentType.Service }],
-				federatedCatalogueComponent: [
-					{
-						type: FederatedCatalogueComponentType.Service,
-						options: { config: { clearingHouseApproverList: [] } }
-					}
-				],
 				rightsManagementComponent: [
 					{
 						type: RightsManagementComponentType.Service
@@ -467,6 +476,18 @@ describe("engine", () => {
 				taskSchedulerComponent: [
 					{
 						type: TaskSchedulerComponentType.Service
+					}
+				],
+				synchronisedStorageComponent: [
+					{
+						type: SynchronisedStorageComponentType.Service,
+						options: { config: { verifiableStorageKeyId: "testnet" } }
+					}
+				],
+				federatedCatalogueComponent: [
+					{
+						type: FederatedCatalogueComponentType.Service,
+						options: { config: { clearingHouseApproverList: [] } }
 					}
 				]
 			}
@@ -490,7 +511,7 @@ describe("engine", () => {
 		expect(canContinue2).toEqual(true);
 		expect(clone.getConfig()).toEqual(engine.getConfig());
 		expect(clone.getState()).toEqual(engine.getState());
-		expect(clone.getDefaultTypes()).toEqual(engine.getDefaultTypes());
+		expect(clone.getRegisteredInstances()).toEqual(engine.getRegisteredInstances());
 	});
 
 	test("Can start engine with REST client config", async () => {
@@ -508,7 +529,7 @@ describe("engine", () => {
 						}
 					],
 					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
-					blobStorageConnector: [{ type: BlobStorageConnectorType.Memory }],
+					blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 					blobStorageComponent: [
 						{
 							type: BlobStorageComponentType.RestClient,
@@ -613,12 +634,6 @@ describe("engine", () => {
 							options: { endpoint: "http://localhost:3000" }
 						}
 					],
-					federatedCatalogueComponent: [
-						{
-							type: FederatedCatalogueComponentType.RestClient,
-							options: { endpoint: "http://localhost:3000" }
-						}
-					],
 					rightsManagementComponent: [
 						{
 							type: RightsManagementComponentType.RestClient,
@@ -633,6 +648,18 @@ describe("engine", () => {
 					taskSchedulerComponent: [
 						{
 							type: TaskSchedulerComponentType.Service
+						}
+					],
+					synchronisedStorageComponent: [
+						{
+							type: SynchronisedStorageComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
+						}
+					],
+					federatedCatalogueComponent: [
+						{
+							type: FederatedCatalogueComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
 						}
 					]
 				}
@@ -665,9 +692,10 @@ describe("engine", () => {
 			"auditable-item-stream-client",
 			"data-processing-client",
 			"document-management-client",
-			"federated-catalogue-client",
 			"policy-administration-point-service",
-			"rights-management-client"
+			"rights-management-client",
+			"synchronised-storage-client",
+			"federated-catalogue-client"
 		]);
 
 		expect(EntitySchemaFactory.names()).toEqual([

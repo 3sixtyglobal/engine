@@ -148,7 +148,7 @@ export function initialiseBlobStorageComponent(
 		);
 
 		component = new BlobStorageService({
-			vaultConnectorType: context.defaultTypes.vaultConnector,
+			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
 			...instanceConfig.options
 		});
 		instanceType = StringHelper.kebabCase(nameof(BlobStorageService));

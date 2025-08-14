@@ -10,7 +10,8 @@ import {
 	Is,
 	type IError,
 	ObjectHelper,
-	ComponentFactory
+	ComponentFactory,
+	StringHelper
 } from "@twin.org/core";
 import type {
 	EngineTypeInitialiser,
@@ -50,9 +51,17 @@ export class EngineCore<
 	public static readonly LOGGER_TYPE_NAME: string = "engine";
 
 	/**
-	 * Runtime name for the class.
+	 * Runtime name for the class in camel case.
+	 * @internal
 	 */
-	public readonly CLASS_NAME: string = nameof<EngineCore>();
+	private static readonly _CLASS_NAME_CAMEL_CASE: string =
+		StringHelper.camelCase(nameof<EngineCore>());
+
+	/**
+	 * Runtime name for the class.
+	 * @internal
+	 */
+	private static readonly _CLASS_NAME: string = nameof<EngineCore>();
 
 	/**
 	 * The core context.
@@ -137,7 +146,7 @@ export class EngineCore<
 
 		this._context = {
 			config: options.config,
-			defaultTypes: {},
+			registeredInstances: {},
 			componentInstances: [],
 			state: { componentStates: {} } as unknown as S,
 			stateDirty: false
@@ -183,10 +192,10 @@ export class EngineCore<
 		}
 
 		this.setupEngineLogger();
-		this.logInfo(I18n.formatMessage("engineCore.starting"));
+		this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.starting`));
 
 		if (this._context.config.debug) {
-			this.logInfo(I18n.formatMessage("engineCore.debuggingEnabled"));
+			this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.debuggingEnabled`));
 		}
 
 		let canContinue;
@@ -200,14 +209,14 @@ export class EngineCore<
 
 				await this.bootstrap();
 
-				this.logInfo(I18n.formatMessage("engineCore.componentsStarting"));
+				this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentsStarting`));
 
 				for (const instance of this._context.componentInstances) {
 					if (Is.function(instance.component.start)) {
 						const instanceName = this.getInstanceName(instance);
 
 						this.logInfo(
-							I18n.formatMessage("engineCore.componentStarting", {
+							I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentStarting`, {
 								element: instance.instanceType
 							})
 						);
@@ -230,10 +239,10 @@ export class EngineCore<
 					}
 				}
 
-				this.logInfo(I18n.formatMessage("engineCore.componentsComplete"));
+				this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentsComplete`));
 			}
 
-			this.logInfo(I18n.formatMessage("engineCore.started"));
+			this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.started`));
 			this._isStarted = true;
 		} catch (err) {
 			canContinue = false;
@@ -252,8 +261,8 @@ export class EngineCore<
 	 * @returns Nothing.
 	 */
 	public async stop(): Promise<void> {
-		this.logInfo(I18n.formatMessage("engineCore.stopping"));
-		this.logInfo(I18n.formatMessage("engineCore.componentsStopping"));
+		this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.stopping`));
+		this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentsStopping`));
 
 		for (const instance of this._context.componentInstances) {
 			if (Is.function(instance.component.stop)) {
@@ -265,7 +274,9 @@ export class EngineCore<
 				const lastState = ObjectHelper.clone(componentState);
 
 				this.logInfo(
-					I18n.formatMessage("engineCore.componentStopping", { element: instance.instanceType })
+					I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentStopping`, {
+						element: instance.instanceType
+					})
 				);
 
 				try {
@@ -282,7 +293,7 @@ export class EngineCore<
 				} catch (err) {
 					this.logError(
 						new GeneralError(
-							this.CLASS_NAME,
+							EngineCore._CLASS_NAME,
 							"componentStopFailed",
 							{
 								component: instance.instanceType
@@ -296,8 +307,8 @@ export class EngineCore<
 
 		await this.stateSave();
 
-		this.logInfo(I18n.formatMessage("engineCore.componentsStopped"));
-		this.logInfo(I18n.formatMessage("engineCore.stopped"));
+		this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentsStopped`));
+		this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.stopped`));
 	}
 
 	/**
@@ -306,7 +317,7 @@ export class EngineCore<
 	 */
 	public logInfo(message: string): void {
 		this._engineLoggingConnector?.log({
-			source: this.CLASS_NAME,
+			source: EngineCore._CLASS_NAME,
 			level: "info",
 			message
 		});
@@ -326,7 +337,7 @@ export class EngineCore<
 				message += `\n${formattedError.stack}`;
 			}
 			this._engineLoggingConnector?.log({
-				source: this.CLASS_NAME,
+				source: EngineCore._CLASS_NAME,
 				level: "error",
 				message
 			});
@@ -350,11 +361,68 @@ export class EngineCore<
 	}
 
 	/**
-	 * Get the types for the component.
-	 * @returns The default types.
+	 * Get all the registered instances.
+	 * @returns The registered instances.
 	 */
-	public getDefaultTypes(): { [type: string]: string } {
-		return this._context.defaultTypes;
+	public getRegisteredInstances(): {
+		[name: string]: {
+			type: string;
+			features?: string[];
+		}[];
+	} {
+		return this._context.registeredInstances;
+	}
+
+	/**
+	 * Get the registered instance type for the component/connector.
+	 * @param componentConnectorType The type of the component/connector.
+	 * @param features The requested features of the component, if not specified the default entry will be retrieved.
+	 * @returns The instance type matching the criteria if one is registered.
+	 * @throws If a matching instance was not found.
+	 */
+	public getRegisteredInstanceType(componentConnectorType: string, features?: string[]): string {
+		Guards.stringValue(
+			EngineCore._CLASS_NAME,
+			nameof(componentConnectorType),
+			componentConnectorType
+		);
+
+		const registeredType = this.getRegisteredInstanceTypeOptional(componentConnectorType, features);
+
+		if (!Is.stringValue(registeredType)) {
+			throw new GeneralError(EngineCore._CLASS_NAME, "instanceTypeNotFound", {
+				type: componentConnectorType,
+				features: (features ?? ["default"]).join(",")
+			});
+		}
+
+		return registeredType;
+	}
+
+	/**
+	 * Get the registered instance type for the component/connector if it exists.
+	 * @param componentConnectorType The type of the component/connector.
+	 * @param features The requested features of the component, if not specified the default entry will be retrieved.
+	 * @returns The instance type matching the criteria if one is registered.
+	 */
+	public getRegisteredInstanceTypeOptional(
+		componentConnectorType: string,
+		features?: string[]
+	): string | undefined {
+		let registeredType: string | undefined;
+
+		const registeredTypes = this._context.registeredInstances[componentConnectorType];
+		if (Is.arrayValue(registeredTypes)) {
+			if (Is.arrayValue(features)) {
+				registeredType = registeredTypes.find(t =>
+					t.features?.every(f => features.includes(f))
+				)?.type;
+			} else {
+				registeredType = registeredTypes[0]?.type;
+			}
+		}
+
+		return registeredType;
 	}
 
 	/**
@@ -388,10 +456,14 @@ export class EngineCore<
 	 * @param silent Should the clone be silent.
 	 */
 	public populateClone(cloneData: IEngineCoreClone<C, S>, silent?: boolean): void {
-		Guards.object(this.CLASS_NAME, nameof(cloneData), cloneData);
-		Guards.object(this.CLASS_NAME, nameof(cloneData.config), cloneData.config);
-		Guards.object(this.CLASS_NAME, nameof(cloneData.state), cloneData.state);
-		Guards.array(this.CLASS_NAME, nameof(cloneData.typeInitialisers), cloneData.typeInitialisers);
+		Guards.object(EngineCore._CLASS_NAME, nameof(cloneData), cloneData);
+		Guards.object(EngineCore._CLASS_NAME, nameof(cloneData.config), cloneData.config);
+		Guards.object(EngineCore._CLASS_NAME, nameof(cloneData.state), cloneData.state);
+		Guards.array(
+			EngineCore._CLASS_NAME,
+			nameof(cloneData.typeInitialisers),
+			cloneData.typeInitialisers
+		);
 
 		this._loggerTypeName = cloneData.loggerTypeName;
 		this._skipBootstrap = true;
@@ -402,7 +474,7 @@ export class EngineCore<
 
 		this._context = {
 			config: cloneData.config,
-			defaultTypes: {},
+			registeredInstances: {},
 			componentInstances: [],
 			state: { componentStates: {} } as unknown as S,
 			stateDirty: false
@@ -443,11 +515,20 @@ export class EngineCore<
 					typeConfig[i],
 					typeConfig[i].overrideInstanceType
 				);
-				if (
-					Is.stringValue(instanceType) &&
-					(Is.empty(this._context.defaultTypes[typeKey]) || typeConfig[i].isDefault)
-				) {
-					this._context.defaultTypes[typeKey] = instanceType;
+				if (Is.stringValue(instanceType)) {
+					this._context.registeredInstances[typeKey] ??= [];
+
+					if (typeConfig[i].isDefault ?? false) {
+						this._context.registeredInstances[typeKey].unshift({
+							type: instanceType,
+							features: typeConfig[i].features
+						});
+					} else {
+						this._context.registeredInstances[typeKey].push({
+							type: instanceType,
+							features: typeConfig[i].features
+						});
+					}
 				}
 			}
 		}
@@ -476,14 +557,22 @@ export class EngineCore<
 		LoggingConnectorFactory.register(this._loggerTypeName, () => engineLoggerConnector);
 
 		this._engineLoggingConnector = engineLoggerConnector;
-		this._context.defaultTypes.loggingConnector = this._loggerTypeName;
+		this._context.registeredInstances.loggingConnector = [
+			{
+				type: this._loggerTypeName
+			}
+		];
 
 		const engineLoggerComponent = new LoggingService({
 			loggingConnectorType: this._loggerTypeName
 		});
 
 		ComponentFactory.register("logging-service", () => engineLoggerComponent);
-		this._context.defaultTypes.loggingComponent = "logging-service";
+		this._context.registeredInstances.loggingComponent = [
+			{
+				type: "logging-service"
+			}
+		];
 	}
 
 	/**
@@ -534,7 +623,7 @@ export class EngineCore<
 	 */
 	private async bootstrap(): Promise<void> {
 		if (!this._skipBootstrap) {
-			this.logInfo(I18n.formatMessage("engineCore.bootstrapStarted"));
+			this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.bootstrapStarted`));
 
 			// First bootstrap the components.
 			for (const instance of this._context.componentInstances) {
@@ -542,7 +631,7 @@ export class EngineCore<
 					const instanceName = this.getInstanceName(instance);
 
 					this.logInfo(
-						I18n.formatMessage("engineCore.bootstrapping", {
+						I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.bootstrapping`, {
 							element: instanceName
 						})
 					);
@@ -559,7 +648,7 @@ export class EngineCore<
 
 					// If the bootstrap method failed then throw an error
 					if (!bootstrapSuccess) {
-						throw new GeneralError(this.CLASS_NAME, "bootstrapFailed", {
+						throw new GeneralError(EngineCore._CLASS_NAME, "bootstrapFailed", {
 							component: `${instance.component.CLASS_NAME}:${instance.instanceType}`
 						});
 					}
@@ -575,7 +664,7 @@ export class EngineCore<
 				await this._customBootstrap(this, this._context);
 			}
 
-			this.logInfo(I18n.formatMessage("engineCore.bootstrapComplete"));
+			this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.bootstrapComplete`));
 		}
 	}
 

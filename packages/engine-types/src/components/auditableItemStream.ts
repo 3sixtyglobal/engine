@@ -58,8 +58,8 @@ export function initialiseAuditableItemStreamComponent(
 		);
 
 		component = new AuditableItemStreamService({
-			immutableProofComponentType: context.defaultTypes.immutableProofComponent,
-			eventBusComponentType: context.defaultTypes.eventBusComponent,
+			immutableProofComponentType: engineCore.getRegisteredInstanceType("immutableProofComponent"),
+			eventBusComponentType: engineCore.getRegisteredInstanceTypeOptional("eventBusComponent"),
 			...instanceConfig.options
 		});
 		instanceType = StringHelper.kebabCase(nameof(AuditableItemStreamService));

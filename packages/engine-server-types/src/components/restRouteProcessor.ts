@@ -42,7 +42,7 @@ export function initialiseRestRouteProcessorComponent(
 
 	if (type === RestRouteProcessorType.AuthHeader) {
 		component = new AuthHeaderProcessor({
-			vaultConnectorType: context.defaultTypes.vaultConnector,
+			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
 			config: {
 				...instanceConfig.options?.config
 			}
@@ -50,7 +50,7 @@ export function initialiseRestRouteProcessorComponent(
 		instanceType = StringHelper.kebabCase(nameof(AuthHeaderProcessor));
 	} else if (type === RestRouteProcessorType.Logging) {
 		component = new LoggingProcessor({
-			loggingComponentType: context.defaultTypes.loggingComponent,
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			config: {
 				...instanceConfig.options?.config
 			}

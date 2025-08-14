@@ -50,8 +50,10 @@ export function initialiseAuthenticationComponent(
 		);
 
 		component = new EntityStorageAuthenticationService({
-			vaultConnectorType: context.defaultTypes.vaultConnector,
-			authenticationAdminServiceType: context.defaultTypes.authenticationAdminComponent,
+			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+			authenticationAdminServiceType: engineCore.getRegisteredInstanceType(
+				"authenticationAdminComponent"
+			),
 			...instanceConfig.options
 		});
 		instanceType = StringHelper.kebabCase(nameof(EntityStorageAuthenticationService));

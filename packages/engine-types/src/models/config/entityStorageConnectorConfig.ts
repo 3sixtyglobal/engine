@@ -8,6 +8,7 @@ import type { IMongoDbEntityStorageConnectorConstructorOptions } from "@twin.org
 import type { IMySqlEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-mysql";
 import type { IPostgreSqlEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-postgresql";
 import type { IScyllaDBTableConnectorConstructorOptions } from "@twin.org/entity-storage-connector-scylladb";
+import type { ISynchronisedEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-synchronised";
 import type { EntityStorageConnectorType } from "../types/entityStorageConnectorType";
 
 /**
@@ -84,4 +85,8 @@ export type EntityStorageConnectorConfig =
 				config: Omit<IPostgreSqlEntityStorageConnectorConstructorOptions["config"], "tableName">;
 				tablePrefix?: string;
 			};
+	  }
+	| {
+			type: typeof EntityStorageConnectorType.Synchronised;
+			options: Omit<ISynchronisedEntityStorageConnectorConstructorOptions, "entitySchema">;
 	  };

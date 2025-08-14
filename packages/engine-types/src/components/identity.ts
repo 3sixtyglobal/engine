@@ -48,11 +48,10 @@ export function initialiseIdentityConnector(
 	let connector: IIdentityConnector;
 	let instanceType: string;
 	if (type === IdentityConnectorType.Iota) {
-		const dltConfig = context.config.types.dltConfig?.find(
-			dlt => dlt.type === context.defaultTypes.dltConfig
-		);
+		const defaultConfigType = engineCore.getRegisteredInstanceType("dltConfig");
+		const dltConfig = context.config.types.dltConfig?.find(dlt => dlt.type === defaultConfigType);
 		connector = new IotaIdentityConnector({
-			vaultConnectorType: context.defaultTypes.vaultConnector,
+			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
 			...instanceConfig.options,
 			config: {
 				...dltConfig?.options?.config,
@@ -69,7 +68,7 @@ export function initialiseIdentityConnector(
 			nameof<IdentityDocument>()
 		);
 		connector = new EntityStorageIdentityConnector({
-			vaultConnectorType: context.defaultTypes.vaultConnector,
+			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
 			...instanceConfig.options
 		});
 		instanceType = EntityStorageIdentityConnector.NAMESPACE;

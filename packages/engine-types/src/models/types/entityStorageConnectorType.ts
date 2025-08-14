@@ -49,7 +49,12 @@ export const EntityStorageConnectorType = {
 	/**
 	 * Postgre SQL.
 	 */
-	PostgreSql: "postgresql"
+	PostgreSql: "postgresql",
+
+	/**
+	 * Synchronised.
+	 */
+	Synchronised: "synchronised"
 } as const;
 
 /**

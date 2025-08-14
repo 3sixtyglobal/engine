@@ -63,7 +63,7 @@ export function initialiseTelemetryConnector(
 			nameof<TelemetryMetricValue>()
 		);
 		connector = new EntityStorageTelemetryConnector({
-			loggingConnectorType: context.defaultTypes.loggingConnector,
+			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
 			...instanceConfig.options
 		});
 		instanceType = EntityStorageTelemetryConnector.NAMESPACE;
@@ -107,7 +107,7 @@ export function initialiseTelemetryComponent(
 
 	if (type === TelemetryComponentType.Service) {
 		component = new TelemetryService({
-			telemetryConnectorType: context.defaultTypes.telemetryConnector,
+			telemetryConnectorType: engineCore.getRegisteredInstanceType("telemetryConnector"),
 			...instanceConfig.options
 		});
 		instanceType = StringHelper.kebabCase(nameof(TelemetryService));

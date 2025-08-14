@@ -43,8 +43,8 @@ export function initialiseAttestationConnector(
 	let instanceType: string;
 	if (type === AttestationConnectorType.Nft) {
 		connector = new NftAttestationConnector({
-			identityConnectorType: context.defaultTypes.identityConnector,
-			nftConnectorType: context.defaultTypes.nftConnector,
+			identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
+			nftConnectorType: engineCore.getRegisteredInstanceType("nftConnector"),
 			...instanceConfig.options
 		});
 		instanceType = NftAttestationConnector.NAMESPACE;

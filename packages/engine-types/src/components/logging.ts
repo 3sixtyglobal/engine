@@ -105,7 +105,7 @@ export function initialiseLoggingComponent(
 
 	if (type === LoggingComponentType.Service) {
 		component = new LoggingService({
-			loggingConnectorType: context.defaultTypes.loggingConnector,
+			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
 			...instanceConfig.options
 		});
 		instanceType = StringHelper.kebabCase(nameof(LoggingService));

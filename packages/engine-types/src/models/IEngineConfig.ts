@@ -36,6 +36,7 @@ import type { NftComponentConfig } from "./config/nftComponentConfig";
 import type { NftConnectorConfig } from "./config/nftConnectorConfig";
 import type { RightsManagementComponentConfig } from "./config/rightsManagementComponentConfig";
 import type { RightsManagementPapComponentConfig } from "./config/rightsManagementPapComponentConfig";
+import type { SynchronisedStorageComponentConfig } from "./config/synchronisedStorageComponentConfig";
 import type { TaskSchedulerComponentConfig } from "./config/taskSchedulerComponentConfig";
 import type { TelemetryComponentConfig } from "./config/telemetryComponentConfig";
 import type { TelemetryConnectorConfig } from "./config/telemetryConnectorConfig";
@@ -250,11 +251,6 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		documentManagementComponent?: IEngineCoreTypeConfig<DocumentManagementComponentConfig>[];
 
 		/**
-		 * Federated catalogue options which can be overridden by individual components by specifying types other than default.
-		 */
-		federatedCatalogueComponent?: IEngineCoreTypeConfig<FederatedCatalogueComponentConfig>[];
-
-		/**
 		 * Rights management options which can be overridden by individual components by specifying types other than default.
 		 */
 		rightsManagementComponent?: IEngineCoreTypeConfig<RightsManagementComponentConfig>[];
@@ -263,5 +259,15 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Rights management PAP options which can be overridden by individual components by specifying types other than default.
 		 */
 		rightsManagementPapComponent?: IEngineCoreTypeConfig<RightsManagementPapComponentConfig>[];
+
+		/**
+		 * Synchronised storage options which can be overridden by individual components by specifying types other than default.
+		 */
+		synchronisedStorageComponent?: IEngineCoreTypeConfig<SynchronisedStorageComponentConfig>[];
+
+		/**
+		 * Federated catalogue options which can be overridden by individual components by specifying types other than default.
+		 */
+		federatedCatalogueComponent?: IEngineCoreTypeConfig<FederatedCatalogueComponentConfig>[];
 	};
 }

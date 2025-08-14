@@ -46,6 +46,7 @@ import {
 	NftConnectorType,
 	RightsManagementComponentType,
 	RightsManagementPapComponentType,
+	SynchronisedStorageComponentType,
 	TaskSchedulerComponentType,
 	TelemetryComponentType,
 	TelemetryConnectorType,
@@ -97,7 +98,7 @@ describe("engine-server", () => {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
 				entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
-				blobStorageConnector: [{ type: BlobStorageConnectorType.Memory }],
+				blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 				blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
 				backgroundTaskConnector: [{ type: BackgroundTaskConnectorType.EntityStorage }],
 				eventBusConnector: [{ type: EventBusConnectorType.Local }],
@@ -135,12 +136,6 @@ describe("engine-server", () => {
 				dataExtractorConnector: [{ type: DataExtractorConnectorType.JsonPath }],
 				dataProcessingComponent: [{ type: DataProcessingComponentType.Service }],
 				documentManagementComponent: [{ type: DocumentManagementComponentType.Service }],
-				federatedCatalogueComponent: [
-					{
-						type: FederatedCatalogueComponentType.Service,
-						options: { config: { clearingHouseApproverList: [] } }
-					}
-				],
 				rightsManagementComponent: [
 					{
 						type: RightsManagementComponentType.Service
@@ -154,6 +149,18 @@ describe("engine-server", () => {
 				taskSchedulerComponent: [
 					{
 						type: TaskSchedulerComponentType.Service
+					}
+				],
+				synchronisedStorageComponent: [
+					{
+						type: SynchronisedStorageComponentType.Service,
+						options: { config: { verifiableStorageKeyId: "testnet" } }
+					}
+				],
+				federatedCatalogueComponent: [
+					{
+						type: FederatedCatalogueComponentType.Service,
+						options: { config: { clearingHouseApproverList: [] } }
 					}
 				],
 				informationComponent: [
@@ -278,6 +285,13 @@ describe("engine-server", () => {
 			"/documents/:auditableItemGraphDocumentId/:revision",
 			"/documents/:auditableItemGraphDocumentId/:revision",
 			"/documents",
+			"/rights-management/pap",
+			"/rights-management/pap/:id",
+			"/rights-management/pap/:id",
+			"/rights-management/pap/:id",
+			"/rights-management/pap/query",
+			"/synchronised-storage/sync-changeset",
+			"/synchronised-storage/decryption-key",
 			"/federated-catalogue/participant-credentials",
 			"/federated-catalogue/service-offering-credentials",
 			"/federated-catalogue/data-resource-credentials",
@@ -289,12 +303,7 @@ describe("engine-server", () => {
 			"/federated-catalogue/data-resources",
 			"/federated-catalogue/data-resources/:id",
 			"/federated-catalogue/data-space-connectors",
-			"/federated-catalogue/data-space-connectors/:id",
-			"/rights-management/pap",
-			"/rights-management/pap/:id",
-			"/rights-management/pap/:id",
-			"/rights-management/pap/:id",
-			"/rights-management/pap/query"
+			"/federated-catalogue/data-space-connectors/:id"
 		]);
 
 		const res = await fetch("http://localhost:3000/info");

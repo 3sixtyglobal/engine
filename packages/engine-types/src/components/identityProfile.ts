@@ -100,7 +100,7 @@ export function initialiseIdentityProfileComponent(
 
 	if (type === IdentityProfileComponentType.Service) {
 		component = new IdentityProfileService({
-			profileEntityConnectorType: context.defaultTypes.identityProfileConnector,
+			profileEntityConnectorType: engineCore.getRegisteredInstanceType("identityProfileConnector"),
 			...instanceConfig.options
 		});
 		instanceType = StringHelper.kebabCase(nameof(IdentityProfileService));

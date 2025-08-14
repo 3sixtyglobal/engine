@@ -49,9 +49,8 @@ export function initialiseIdentityResolverConnector(
 	let connector: IIdentityResolverConnector;
 	let instanceType: string;
 	if (type === IdentityResolverConnectorType.Iota) {
-		const dltConfig = context.config.types.dltConfig?.find(
-			dlt => dlt.type === context.defaultTypes.dltConfig
-		);
+		const defaultConfigType = engineCore.getRegisteredInstanceType("dltConfig");
+		const dltConfig = context.config.types.dltConfig?.find(dlt => dlt.type === defaultConfigType);
 		connector = new IotaIdentityResolverConnector({
 			...instanceConfig.options,
 			config: {
@@ -69,7 +68,7 @@ export function initialiseIdentityResolverConnector(
 			nameof<IdentityDocument>()
 		);
 		connector = new EntityStorageIdentityResolverConnector({
-			vaultConnectorType: context.defaultTypes.vaultConnector,
+			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
 			...instanceConfig.options
 		});
 		instanceType = EntityStorageIdentityResolverConnector.NAMESPACE;
@@ -117,9 +116,13 @@ export function initialiseIdentityResolverComponent(
 	let instanceType: string;
 
 	if (type === IdentityResolverComponentType.Service) {
+		const defaultIdentityResolverType = engineCore.getRegisteredInstanceType(
+			"identityResolverConnector"
+		);
+
 		component = new IdentityResolverService({
 			fallbackResolverConnectorType:
-				context.defaultTypes.identityResolverConnector !== IdentityResolverConnectorType.Universal
+				defaultIdentityResolverType !== IdentityResolverConnectorType.Universal
 					? IdentityResolverConnectorType.Universal
 					: undefined,
 			...instanceConfig.options

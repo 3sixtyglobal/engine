@@ -37,10 +37,12 @@ export function initialiseDocumentManagementComponent(
 
 	if (type === DocumentManagementComponentType.Service) {
 		component = new DocumentManagementService({
-			auditableItemGraphComponentType: context.defaultTypes.auditableItemGraphComponent,
-			blobStorageComponentType: context.defaultTypes.blobStorageComponent,
-			attestationComponentType: context.defaultTypes.attestationComponent,
-			dataProcessingComponentType: context.defaultTypes.dataProcessingComponent,
+			auditableItemGraphComponentType: engineCore.getRegisteredInstanceType(
+				"auditableItemGraphComponent"
+			),
+			blobStorageComponentType: engineCore.getRegisteredInstanceType("blobStorageComponent"),
+			attestationComponentType: engineCore.getRegisteredInstanceType("attestationComponent"),
+			dataProcessingComponentType: engineCore.getRegisteredInstanceType("dataProcessingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = StringHelper.kebabCase(nameof(DocumentManagementService));

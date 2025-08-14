@@ -118,17 +118,24 @@ export function addDefaultRestPaths(serverConfig: IEngineServerConfig): void {
 	}
 
 	if (
-		Is.arrayValue(serverConfig.types.federatedCatalogueComponent) &&
-		!Is.stringValue(serverConfig.types.federatedCatalogueComponent[0].restPath)
-	) {
-		serverConfig.types.federatedCatalogueComponent[0].restPath = "/federated-catalogue";
-	}
-
-	if (
 		Is.arrayValue(serverConfig.types.rightsManagementComponent) &&
 		!Is.stringValue(serverConfig.types.rightsManagementComponent[0].restPath)
 	) {
 		serverConfig.types.rightsManagementComponent[0].restPath = "/rights-management";
+	}
+
+	if (
+		Is.arrayValue(serverConfig.types.synchronisedStorageComponent) &&
+		!Is.stringValue(serverConfig.types.synchronisedStorageComponent[0].restPath)
+	) {
+		serverConfig.types.synchronisedStorageComponent[0].restPath = "/synchronised-storage";
+	}
+
+	if (
+		Is.arrayValue(serverConfig.types.federatedCatalogueComponent) &&
+		!Is.stringValue(serverConfig.types.federatedCatalogueComponent[0].restPath)
+	) {
+		serverConfig.types.federatedCatalogueComponent[0].restPath = "/federated-catalogue";
 	}
 }
 

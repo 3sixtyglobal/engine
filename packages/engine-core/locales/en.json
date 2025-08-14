@@ -6,7 +6,8 @@
 			"entityStorageCustomMissing": "Entity storage custom \"{typeCustom}\" missing for component \"{storageName}\"",
 			"entityStorageMissing": "Entity storage configuration missing for component \"{storageName}\"",
 			"bootstrapFailed": "Bootstrap failed for component \"{component}\", please check the logs for more information",
-			"componentStopFailed": "Failed to stop component \"{component}\""
+			"componentStopFailed": "Failed to stop component \"{component}\"",
+			"instanceTypeNotFound": "Instance type not found for \"{type}\" with features \"{features}\""
 		},
 		"fileStateStorage": {
 			"failedLoading": "Failed to load file state storage from \"{filename}\"",

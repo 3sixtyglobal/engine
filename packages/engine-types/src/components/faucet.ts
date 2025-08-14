@@ -36,9 +36,8 @@ export function initialiseFaucetConnector(
 	let instanceType: string;
 
 	if (type === FaucetConnectorType.Iota) {
-		const dltConfig = context.config.types.dltConfig?.find(
-			dlt => dlt.type === context.defaultTypes.dltConfig
-		);
+		const defaultConfigType = engineCore.getRegisteredInstanceType("dltConfig");
+		const dltConfig = context.config.types.dltConfig?.find(dlt => dlt.type === defaultConfigType);
 		connector = new IotaFaucetConnector({
 			...instanceConfig.options,
 			config: {

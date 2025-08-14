@@ -72,8 +72,10 @@ export function initialiseFederatedCatalogueComponent(
 		);
 
 		component = new FederatedCatalogueService({
-			loggingConnectorType: context.defaultTypes.loggingConnector,
-			identityResolverComponentType: context.defaultTypes.identityResolverComponent,
+			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
+			identityResolverComponentType: engineCore.getRegisteredInstanceType(
+				"identityResolverComponent"
+			),
 			...instanceConfig.options
 		});
 		instanceType = StringHelper.kebabCase(nameof(FederatedCatalogueService));

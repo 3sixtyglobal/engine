@@ -255,8 +255,9 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 		);
 
 		const coreConfig = this._engineCore.getConfig();
-		const defaults = this._engineCore.getDefaultTypes();
-		this._loggingComponentType = coreConfig.silent ? undefined : defaults.loggingComponent;
+		this._loggingComponentType = coreConfig.silent
+			? undefined
+			: this._engineCore.getRegisteredInstanceType("loggingComponent");
 
 		this._webServer = new FastifyWebServer({
 			loggingComponentType: this._loggingComponentType,
@@ -319,8 +320,6 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 		method: string
 	): Promise<void> {
 		if (Is.arrayValue(typeConfig)) {
-			const defaultEngineTypes = this._engineCore.getDefaultTypes();
-
 			const generateRoutes = await ModuleHelper.getModuleEntry<
 				(baseRouteName: string, componentName: string) => IRestRoute[]
 			>(module, method);
@@ -329,7 +328,9 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 				const restPath = typeConfig[i].restPath;
 
 				if (Is.string(restPath)) {
-					const serviceType = typeConfig[i].overrideInstanceType ?? defaultEngineTypes[typeKey];
+					const serviceType =
+						typeConfig[i].overrideInstanceType ??
+						this._engineCore.getRegisteredInstanceType(typeKey);
 					if (Is.stringValue(serviceType)) {
 						const generatedRoutes = generateRoutes(restPath, serviceType);
 						for (const route of generatedRoutes) {
@@ -362,8 +363,6 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 		method: string
 	): Promise<void> {
 		if (Is.arrayValue(typeConfig)) {
-			const defaultEngineTypes = this._engineCore.getDefaultTypes();
-
 			const generateRoutes = await ModuleHelper.getModuleEntry<
 				(baseRouteName: string, componentName: string) => ISocketRoute[]
 			>(module, method);
@@ -371,7 +370,9 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 			for (let i = 0; i < typeConfig.length; i++) {
 				const socketPath = typeConfig[i].socketPath;
 				if (Is.string(socketPath)) {
-					const serviceType = typeConfig[i].overrideInstanceType ?? defaultEngineTypes[typeKey];
+					const serviceType =
+						typeConfig[i].overrideInstanceType ??
+						this._engineCore.getRegisteredInstanceType(typeKey);
 					if (Is.stringValue(serviceType)) {
 						routes.push(...generateRoutes(socketPath, serviceType));
 					}
@@ -537,16 +538,22 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 			"generateRestRoutesDocumentManagement"
 		);
 		this.addRestRouteGenerator(
-			"federatedCatalogueComponent",
-			coreConfig.types.federatedCatalogueComponent,
-			"@twin.org/federated-catalogue-service",
-			"generateRestRoutesFederatedCatalogue"
-		);
-		this.addRestRouteGenerator(
 			"rightsManagementComponent",
 			coreConfig.types.rightsManagementComponent,
 			"@twin.org/rights-management-service",
 			"generateRestRoutesRightsManagement"
+		);
+		this.addRestRouteGenerator(
+			"synchronisedStorageComponent",
+			coreConfig.types.synchronisedStorageComponent,
+			"@twin.org/synchronised-storage-service",
+			"generateRestRoutesSynchronisedStorage"
+		);
+		this.addRestRouteGenerator(
+			"federatedCatalogueComponent",
+			coreConfig.types.federatedCatalogueComponent,
+			"@twin.org/federated-catalogue-service",
+			"generateRestRoutesFederatedCatalogue"
 		);
 	}
 

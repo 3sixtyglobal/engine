@@ -12,6 +12,7 @@ import { MongoDbEntityStorageConnector } from "@twin.org/entity-storage-connecto
 import { MySqlEntityStorageConnector } from "@twin.org/entity-storage-connector-mysql";
 import { PostgreSqlEntityStorageConnector } from "@twin.org/entity-storage-connector-postgresql";
 import { ScyllaDBTableConnector } from "@twin.org/entity-storage-connector-scylladb";
+import { SynchronisedEntityStorageConnector } from "@twin.org/entity-storage-connector-synchronised";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageComponent,
@@ -31,6 +32,7 @@ import { EntityStorageConnectorType } from "../models/types/entityStorageConnect
  * @param context The context for the engine.
  * @param typeCustom Override the type of connector to use instead of default configuration.
  * @param schema The schema for the entity storage.
+ * @returns The name of the instance type that was created.
  * @throws GeneralError if the connector type is unknown.
  */
 export function initialiseEntityStorageConnector(
@@ -38,7 +40,7 @@ export function initialiseEntityStorageConnector(
 	context: IEngineCoreContext<IEngineConfig>,
 	typeCustom: string | undefined,
 	schema: string
-): void {
+): string {
 	const instanceName = StringHelper.kebabCase(schema);
 
 	if (!EntityStorageConnectorFactory.hasName(instanceName)) {
@@ -158,6 +160,28 @@ export function initialiseEntityStorageConnector(
 					tableName: `${entityStorageConfig.options.tablePrefix ?? ""}${instanceName}`
 				}
 			});
+		} else if (type === EntityStorageConnectorType.Synchronised) {
+			// Create the entity storage that is wrapped by the synchronised connector
+			// by removing the custom type it will default to the standard storage
+			// mechanism for entity storage
+			const wrappedInstanceName = initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				undefined,
+				schema
+			);
+
+			// Use the wrapped instance name as the entity storage connector type
+			// for the synchronised connector
+			entityStorageConnector = new SynchronisedEntityStorageConnector({
+				entitySchema: schema,
+				...entityStorageConfig.options,
+				entityStorageConnectorType: wrappedInstanceName,
+				eventBusComponentType: engineCore.getRegisteredInstanceType("eventBusComponent"),
+				config: {
+					...entityStorageConfig.options.config
+				}
+			});
 		} else {
 			throw new GeneralError("engineCore", "connectorUnknownType", {
 				type,
@@ -171,6 +195,8 @@ export function initialiseEntityStorageConnector(
 		});
 		EntityStorageConnectorFactory.register(instanceName, () => entityStorageConnector);
 	}
+
+	return instanceName;
 }
 
 /**

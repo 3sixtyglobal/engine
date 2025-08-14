@@ -64,10 +64,35 @@ export interface IEngineCore<
 	getState(): S;
 
 	/**
-	 * Get the types for the component.
-	 * @returns The default types.
+	 * Get all the registered instances.
+	 * @returns The registered instances.
 	 */
-	getDefaultTypes(): { [type: string]: string };
+	getRegisteredInstances(): {
+		[name: string]: {
+			type: string;
+			features?: string[];
+		}[];
+	};
+
+	/**
+	 * Get the registered instance type for the component/connector.
+	 * @param componentConnectorType The type of the component/connector.
+	 * @param features The requested features of the component, if not specified the default entry will be retrieved.
+	 * @returns The instance type matching the criteria if one is registered.
+	 * @throws If a matching instance was not found.
+	 */
+	getRegisteredInstanceType(componentConnectorType: string, features?: string[]): string;
+
+	/**
+	 * Get the registered instance type for the component/connector.
+	 * @param componentConnectorType The type of the component/connector.
+	 * @param features The requested features of the component, if not specified the default entry will be retrieved.
+	 * @returns The instance type matching the criteria if one is registered.
+	 */
+	getRegisteredInstanceTypeOptional(
+		componentConnectorType: string,
+		features?: string[]
+	): string | undefined;
 
 	/**
 	 * Get the data required to create a clone of the engine.

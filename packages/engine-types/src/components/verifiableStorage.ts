@@ -48,11 +48,10 @@ export function initialiseVerifiableStorageConnector(
 	let connector: IVerifiableStorageConnector;
 	let instanceType: string;
 	if (type === VerifiableStorageConnectorType.Iota) {
-		const dltConfig = context.config.types.dltConfig?.find(
-			dlt => dlt.type === context.defaultTypes.dltConfig
-		);
+		const defaultConfigType = engineCore.getRegisteredInstanceType("dltConfig");
+		const dltConfig = context.config.types.dltConfig?.find(dlt => dlt.type === defaultConfigType);
 		connector = new IotaVerifiableStorageConnector({
-			vaultConnectorType: context.defaultTypes.vaultConnector,
+			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
 			...instanceConfig.options,
 			config: {
 				...dltConfig?.options?.config,

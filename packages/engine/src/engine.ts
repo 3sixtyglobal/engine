@@ -282,13 +282,6 @@ export class Engine<
 		);
 
 		this.addTypeInitialiser(
-			"federatedCatalogueComponent",
-			this._context.config.types.federatedCatalogueComponent,
-			"@twin.org/engine-types",
-			"initialiseFederatedCatalogueComponent"
-		);
-
-		this.addTypeInitialiser(
 			"rightsManagementPapComponent",
 			this._context.config.types.rightsManagementPapComponent,
 			"@twin.org/engine-types",
@@ -300,6 +293,20 @@ export class Engine<
 			this._context.config.types.rightsManagementComponent,
 			"@twin.org/engine-types",
 			"initialiseRightsManagementComponent"
+		);
+
+		this.addTypeInitialiser(
+			"synchronisedStorageComponent",
+			this._context.config.types.synchronisedStorageComponent,
+			"@twin.org/engine-types",
+			"initialiseSynchronisedStorageComponent"
+		);
+
+		this.addTypeInitialiser(
+			"federatedCatalogueComponent",
+			this._context.config.types.federatedCatalogueComponent,
+			"@twin.org/engine-types",
+			"initialiseFederatedCatalogueComponent"
 		);
 	}
 }

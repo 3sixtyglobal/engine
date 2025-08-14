@@ -9,4 +9,5 @@ export type IEngineCoreTypeConfig<T extends IEngineCoreTypeBaseConfig = { type: 
 	[id: string]: unknown;
 	overrideInstanceType?: string;
 	isDefault?: boolean;
+	features?: string[];
 };

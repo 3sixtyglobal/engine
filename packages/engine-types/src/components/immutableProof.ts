@@ -51,10 +51,10 @@ export function initialiseImmutableProofComponent(
 		);
 
 		component = new ImmutableProofService({
-			verifiableStorageType: context.defaultTypes.verifiableStorageConnector,
-			identityConnectorType: context.defaultTypes.identityConnector,
-			backgroundTaskConnectorType: context.defaultTypes.backgroundTaskConnector,
-			eventBusComponentType: context.defaultTypes.eventBusComponent,
+			verifiableStorageType: engineCore.getRegisteredInstanceType("verifiableStorageConnector"),
+			identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
+			backgroundTaskConnectorType: engineCore.getRegisteredInstanceType("backgroundTaskConnector"),
+			eventBusComponentType: engineCore.getRegisteredInstanceTypeOptional("eventBusComponent"),
 			...instanceConfig.options
 		});
 		instanceType = StringHelper.kebabCase(nameof(ImmutableProofService));

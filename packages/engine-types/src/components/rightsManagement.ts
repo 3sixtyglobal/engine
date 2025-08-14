@@ -37,7 +37,7 @@ export function initialiseRightsManagementComponent(
 
 	if (type === RightsManagementComponentType.Service) {
 		component = new RightsManagementService({
-			papComponentType: context.defaultTypes.rightsManagementPapComponent,
+			papComponentType: engineCore.getRegisteredInstanceType("rightsManagementPapComponent"),
 			...instanceConfig.options
 		});
 		instanceType = StringHelper.kebabCase(nameof(RightsManagementService));

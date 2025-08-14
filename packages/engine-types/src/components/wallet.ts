@@ -41,12 +41,11 @@ export function initialiseWalletConnector(
 	let instanceType: string;
 
 	if (type === WalletConnectorType.Iota) {
-		const dltConfig = context.config.types.dltConfig?.find(
-			dlt => dlt.type === context.defaultTypes.dltConfig
-		);
+		const defaultConfigType = engineCore.getRegisteredInstanceType("dltConfig");
+		const dltConfig = context.config.types.dltConfig?.find(dlt => dlt.type === defaultConfigType);
 		connector = new IotaWalletConnector({
-			vaultConnectorType: context.defaultTypes.vaultConnector,
-			faucetConnectorType: context.defaultTypes.faucetConnector,
+			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+			faucetConnectorType: engineCore.getRegisteredInstanceType("faucetConnector"),
 			...instanceConfig.options,
 			config: {
 				...dltConfig?.options?.config,
@@ -56,8 +55,8 @@ export function initialiseWalletConnector(
 		instanceType = IotaWalletConnector.NAMESPACE;
 	} else if (type === WalletConnectorType.EntityStorage) {
 		connector = new EntityStorageWalletConnector({
-			vaultConnectorType: context.defaultTypes.vaultConnector,
-			faucetConnectorType: context.defaultTypes.faucetConnector,
+			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+			faucetConnectorType: engineCore.getRegisteredInstanceType("faucetConnector"),
 			...instanceConfig.options
 		});
 		instanceType = EntityStorageWalletConnector.NAMESPACE;
