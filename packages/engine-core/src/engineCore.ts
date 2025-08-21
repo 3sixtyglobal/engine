@@ -27,9 +27,9 @@ import type {
 import { EntitySchemaFactory, type IEntitySchema } from "@twin.org/entity";
 import { ConsoleLoggingConnector } from "@twin.org/logging-connector-console";
 import {
+	type ILoggingComponent,
 	LoggingConnectorFactory,
-	SilentLoggingConnector,
-	type ILoggingConnector
+	SilentLoggingConnector
 } from "@twin.org/logging-models";
 import { LoggingService } from "@twin.org/logging-service";
 import { ModuleHelper } from "@twin.org/modules";
@@ -75,10 +75,10 @@ export class EngineCore<
 	private _stateStorage?: IEngineStateStorage<S>;
 
 	/**
-	 * The logging connector for the engine.
+	 * The logging component for the engine.
 	 * @internal
 	 */
-	private _engineLoggingConnector?: ILoggingConnector;
+	private _engineLoggingComponent?: ILoggingComponent;
 
 	/**
 	 * Skip the bootstrap process.
@@ -316,7 +316,7 @@ export class EngineCore<
 	 * @param message The message to log.
 	 */
 	public logInfo(message: string): void {
-		this._engineLoggingConnector?.log({
+		this._engineLoggingComponent?.log({
 			source: EngineCore._CLASS_NAME,
 			level: "info",
 			message
@@ -336,7 +336,7 @@ export class EngineCore<
 			if (this._context.config.debug && Is.stringValue(formattedError.stack)) {
 				message += `\n${formattedError.stack}`;
 			}
-			this._engineLoggingConnector?.log({
+			this._engineLoggingComponent?.log({
 				source: EngineCore._CLASS_NAME,
 				level: "error",
 				message
@@ -556,7 +556,6 @@ export class EngineCore<
 
 		LoggingConnectorFactory.register(this._loggerTypeName, () => engineLoggerConnector);
 
-		this._engineLoggingConnector = engineLoggerConnector;
 		this._context.registeredInstances.loggingConnector = [
 			{
 				type: this._loggerTypeName
@@ -566,6 +565,7 @@ export class EngineCore<
 		const engineLoggerComponent = new LoggingService({
 			loggingConnectorType: this._loggerTypeName
 		});
+		this._engineLoggingComponent = engineLoggerComponent;
 
 		ComponentFactory.register("logging-service", () => engineLoggerComponent);
 		this._context.registeredInstances.loggingComponent = [

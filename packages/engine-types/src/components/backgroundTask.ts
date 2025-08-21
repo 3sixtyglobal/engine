@@ -51,7 +51,7 @@ export function initialiseBackgroundTaskConnector(
 			nameof<BackgroundTask>()
 		);
 		connector = new EntityStorageBackgroundTaskConnector({
-			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = EntityStorageBackgroundTaskConnector.NAMESPACE;

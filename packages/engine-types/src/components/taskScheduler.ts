@@ -36,7 +36,7 @@ export function initialiseTaskSchedulerComponent(
 
 	if (type === TaskSchedulerComponentType.Service) {
 		component = new TaskSchedulerService({
-			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = StringHelper.kebabCase(nameof(TaskSchedulerService));

@@ -72,7 +72,7 @@ export function initialiseFederatedCatalogueComponent(
 		);
 
 		component = new FederatedCatalogueService({
-			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			identityResolverComponentType: engineCore.getRegisteredInstanceType(
 				"identityResolverComponent"
 			),

@@ -63,7 +63,7 @@ export function initialiseTelemetryConnector(
 			nameof<TelemetryMetricValue>()
 		);
 		connector = new EntityStorageTelemetryConnector({
-			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = EntityStorageTelemetryConnector.NAMESPACE;

@@ -203,6 +203,7 @@ describe("engine-server", () => {
 		const buildRestRoutes = engineServer.getRestRoutes();
 		expect(buildRestRoutes.map(r => r.path)).toEqual([
 			"/",
+			"/favicon.ico",
 			"/info",
 			"/health",
 			"/spec",
@@ -222,6 +223,7 @@ describe("engine-server", () => {
 			"/blob/:id",
 			"/blob",
 			"/identity",
+			"/identity/:identity",
 			"/identity/:identity/verification-method",
 			"/identity/:identity/verification-method/:verificationMethodId",
 			"/identity/:identity/service",

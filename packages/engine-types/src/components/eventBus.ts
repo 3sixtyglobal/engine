@@ -44,7 +44,7 @@ export function initialiseEventBusConnector(
 
 	if (type === EventBusConnectorType.Local) {
 		connector = new LocalEventBusConnector({
-			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = LocalEventBusConnector.NAMESPACE;
@@ -94,7 +94,7 @@ export function initialiseEventBusComponent(
 		instanceType = StringHelper.kebabCase(nameof(EventBusService));
 	} else if (type === EventBusComponentType.SocketClient) {
 		component = new EventBusSocketClient({
-			loggingComponentType: engineCore.getRegisteredInstanceType("loggingConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = StringHelper.kebabCase(nameof(EventBusSocketClient));

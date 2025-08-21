@@ -77,13 +77,13 @@ export function initialiseMessagingEmailConnector(
 			nameof<EmailEntry>()
 		);
 		connector = new EntityStorageMessagingEmailConnector({
-			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = EntityStorageMessagingEmailConnector.NAMESPACE;
 	} else if (type === MessagingEmailConnectorType.Aws) {
 		connector = new AwsMessagingEmailConnector({
-			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = AwsMessagingEmailConnector.NAMESPACE;
@@ -134,13 +134,13 @@ export function initialiseMessagingSmsConnector(
 			nameof<SmsEntry>()
 		);
 		connector = new EntityStorageMessagingSmsConnector({
-			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = EntityStorageMessagingSmsConnector.NAMESPACE;
 	} else if (type === MessagingSmsConnectorType.Aws) {
 		connector = new AwsMessagingSmsConnector({
-			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = AwsMessagingSmsConnector.NAMESPACE;
@@ -197,13 +197,13 @@ export function initialiseMessagingPushNotificationConnector(
 			nameof<PushNotificationMessageEntry>()
 		);
 		connector = new EntityStorageMessagingPushNotificationConnector({
-			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = EntityStorageMessagingPushNotificationConnector.NAMESPACE;
 	} else if (type === MessagingPushNotificationConnectorType.Aws) {
 		connector = new AwsMessagingPushNotificationConnector({
-			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = AwsMessagingPushNotificationConnector.NAMESPACE;
