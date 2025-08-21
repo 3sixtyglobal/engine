@@ -1,5 +1,20 @@
 # @twin.org/engine - Changelog
 
+## [0.0.2-next.6](https://github.com/twinfoundation/engine/compare/engine-v0.0.2-next.5...engine-v0.0.2-next.6) (2025-08-21)
+
+
+### Features
+
+* update framework core ([acc0f8d](https://github.com/twinfoundation/engine/commit/acc0f8d455a4b8ec47f1da643139fa0f07775fa6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.2-next.5 to 0.0.2-next.6
+    * @twin.org/engine-types bumped from 0.0.2-next.5 to 0.0.2-next.6
+
 ## [0.0.2-next.5](https://github.com/twinfoundation/engine/compare/engine-v0.0.2-next.4...engine-v0.0.2-next.5) (2025-08-14)
 
 
