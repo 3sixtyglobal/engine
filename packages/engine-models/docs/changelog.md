@@ -1,5 +1,12 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.2-next.7](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.6...engine-models-v0.0.2-next.7) (2025-08-22)
+
+
+### Features
+
+* remove unused component states ([d56d648](https://github.com/twinfoundation/engine/commit/d56d6486119ea8b8501a33f9e3a3101a08b826ed))
+
 ## [0.0.2-next.6](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.5...engine-models-v0.0.2-next.6) (2025-08-21)
 
 
