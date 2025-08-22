@@ -1,5 +1,23 @@
 # @twin.org/engine-server - Changelog
 
+## [0.0.2-next.8](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.2-next.7...engine-server-v0.0.2-next.8) (2025-08-22)
+
+
+### Features
+
+* add rights management modules ([e02cadc](https://github.com/twinfoundation/engine/commit/e02cadc840d242fe16a73ab41ba61376c7467e50))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.2-next.7 to 0.0.2-next.8
+    * @twin.org/engine-models bumped from 0.0.2-next.7 to 0.0.2-next.8
+    * @twin.org/engine-server-types bumped from 0.0.2-next.7 to 0.0.2-next.8
+  * devDependencies
+    * @twin.org/engine bumped from 0.0.2-next.7 to 0.0.2-next.8
+
 ## [0.0.2-next.7](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.2-next.6...engine-server-v0.0.2-next.7) (2025-08-22)
 
 

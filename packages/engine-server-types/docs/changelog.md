@@ -1,5 +1,20 @@
 # @twin.org/engine-server-types - Changelog
 
+## [0.0.2-next.8](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.2-next.7...engine-server-types-v0.0.2-next.8) (2025-08-22)
+
+
+### Features
+
+* add rights management modules ([e02cadc](https://github.com/twinfoundation/engine/commit/e02cadc840d242fe16a73ab41ba61376c7467e50))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.2-next.7 to 0.0.2-next.8
+    * @twin.org/engine-types bumped from 0.0.2-next.7 to 0.0.2-next.8
+
 ## [0.0.2-next.7](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.2-next.6...engine-server-types-v0.0.2-next.7) (2025-08-22)
 
 

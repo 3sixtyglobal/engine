@@ -1,5 +1,12 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.2-next.8](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.7...engine-models-v0.0.2-next.8) (2025-08-22)
+
+
+### Miscellaneous Chores
+
+* **engine-models:** Synchronize repo versions
+
 ## [0.0.2-next.7](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.6...engine-models-v0.0.2-next.7) (2025-08-22)
 
 
