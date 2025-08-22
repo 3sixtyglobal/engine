@@ -9,13 +9,4 @@ export interface IEngineState {
 	 * The identity for the node.
 	 */
 	nodeIdentity?: string;
-
-	/**
-	 * The component states.
-	 */
-	componentStates: {
-		[component: string]: {
-			[id: string]: unknown;
-		};
-	};
 }

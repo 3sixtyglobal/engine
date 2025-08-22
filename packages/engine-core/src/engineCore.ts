@@ -2,15 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0.
 import {
 	BaseError,
+	ComponentFactory,
 	ErrorHelper,
 	GeneralError,
 	Guards,
 	I18n,
 	type IComponent,
-	Is,
 	type IError,
-	ObjectHelper,
-	ComponentFactory,
+	Is,
 	StringHelper
 } from "@twin.org/core";
 import type {
@@ -148,7 +147,7 @@ export class EngineCore<
 			config: options.config,
 			registeredInstances: {},
 			componentInstances: [],
-			state: { componentStates: {} } as unknown as S,
+			state: {} as S,
 			stateDirty: false
 		};
 		this._stateStorage = options.stateStorage;
@@ -213,29 +212,13 @@ export class EngineCore<
 
 				for (const instance of this._context.componentInstances) {
 					if (Is.function(instance.component.start)) {
-						const instanceName = this.getInstanceName(instance);
-
 						this.logInfo(
 							I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentStarting`, {
 								element: instance.instanceType
 							})
 						);
 
-						const componentState: {
-							[id: string]: unknown;
-						} = this._context.state.componentStates[instanceName] ?? {};
-						const lastState = ObjectHelper.clone(componentState);
-
-						await instance.component.start(
-							this._context.state.nodeIdentity,
-							this._loggerTypeName,
-							componentState
-						);
-
-						if (!ObjectHelper.equal(lastState, componentState)) {
-							this._context.state.componentStates[instanceName] = componentState;
-							this._context.stateDirty = true;
-						}
+						await instance.component.start(this._context.state.nodeIdentity, this._loggerTypeName);
 					}
 				}
 
@@ -266,13 +249,6 @@ export class EngineCore<
 
 		for (const instance of this._context.componentInstances) {
 			if (Is.function(instance.component.stop)) {
-				const instanceName = this.getInstanceName(instance);
-
-				const componentState: {
-					[id: string]: unknown;
-				} = this._context.state.componentStates[instanceName] ?? {};
-				const lastState = ObjectHelper.clone(componentState);
-
 				this.logInfo(
 					I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentStopping`, {
 						element: instance.instanceType
@@ -280,16 +256,7 @@ export class EngineCore<
 				);
 
 				try {
-					await instance.component.stop(
-						this._context.state.nodeIdentity,
-						this._loggerTypeName,
-						componentState
-					);
-
-					if (!ObjectHelper.equal(lastState, componentState)) {
-						this._context.state.componentStates[instanceName] = componentState;
-						this._context.stateDirty = true;
-					}
+					await instance.component.stop(this._context.state.nodeIdentity, this._loggerTypeName);
 				} catch (err) {
 					this.logError(
 						new GeneralError(
@@ -476,7 +443,7 @@ export class EngineCore<
 			config: cloneData.config,
 			registeredInstances: {},
 			componentInstances: [],
-			state: { componentStates: {} } as unknown as S,
+			state: {} as S,
 			stateDirty: false
 		};
 
@@ -583,10 +550,7 @@ export class EngineCore<
 	private async stateLoad(): Promise<boolean> {
 		if (this._stateStorage) {
 			try {
-				this._context.state = ((await this._stateStorage.load(this)) ?? {
-					componentStates: {}
-				}) as unknown as S;
-				this._context.state.componentStates ??= {};
+				this._context.state = ((await this._stateStorage.load(this)) ?? {}) as S;
 				this._context.stateDirty = false;
 
 				return true;
@@ -636,26 +600,13 @@ export class EngineCore<
 						})
 					);
 
-					const componentState: {
-						[id: string]: unknown;
-					} = this._context.state.componentStates[instanceName] ?? {};
-					const lastState = ObjectHelper.clone(componentState);
-
-					const bootstrapSuccess = await instance.component.bootstrap(
-						this._loggerTypeName,
-						componentState
-					);
+					const bootstrapSuccess = await instance.component.bootstrap(this._loggerTypeName);
 
 					// If the bootstrap method failed then throw an error
 					if (!bootstrapSuccess) {
 						throw new GeneralError(EngineCore._CLASS_NAME, "bootstrapFailed", {
 							component: `${instance.component.CLASS_NAME}:${instance.instanceType}`
 						});
-					}
-
-					if (!ObjectHelper.equal(lastState, componentState)) {
-						this._context.state.componentStates[instanceName] = componentState;
-						this._context.stateDirty = true;
 					}
 				}
 			}
