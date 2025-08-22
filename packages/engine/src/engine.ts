@@ -289,6 +289,41 @@ export class Engine<
 		);
 
 		this.addTypeInitialiser(
+			"rightsManagementPmpComponent",
+			this._context.config.types.rightsManagementPmpComponent,
+			"@twin.org/engine-types",
+			"initialiseRightsManagementPmpComponent"
+		);
+
+		this.addTypeInitialiser(
+			"rightsManagementPxpComponent",
+			this._context.config.types.rightsManagementPxpComponent,
+			"@twin.org/engine-types",
+			"initialiseRightsManagementPxpComponent"
+		);
+
+		this.addTypeInitialiser(
+			"rightsManagementPipComponent",
+			this._context.config.types.rightsManagementPipComponent,
+			"@twin.org/engine-types",
+			"initialiseRightsManagementPipComponent"
+		);
+
+		this.addTypeInitialiser(
+			"rightsManagementPdpComponent",
+			this._context.config.types.rightsManagementPdpComponent,
+			"@twin.org/engine-types",
+			"initialiseRightsManagementPdpComponent"
+		);
+
+		this.addTypeInitialiser(
+			"rightsManagementPepComponent",
+			this._context.config.types.rightsManagementPepComponent,
+			"@twin.org/engine-types",
+			"initialiseRightsManagementPepComponent"
+		);
+
+		this.addTypeInitialiser(
 			"rightsManagementComponent",
 			this._context.config.types.rightsManagementComponent,
 			"@twin.org/engine-types",

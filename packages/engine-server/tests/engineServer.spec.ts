@@ -46,6 +46,11 @@ import {
 	NftConnectorType,
 	RightsManagementComponentType,
 	RightsManagementPapComponentType,
+	RightsManagementPdpComponentType,
+	RightsManagementPepComponentType,
+	RightsManagementPipComponentType,
+	RightsManagementPmpComponentType,
+	RightsManagementPxpComponentType,
 	SynchronisedStorageComponentType,
 	TaskSchedulerComponentType,
 	TelemetryComponentType,
@@ -146,6 +151,32 @@ describe("engine-server", () => {
 						type: RightsManagementPapComponentType.Service
 					}
 				],
+				rightsManagementPepComponent: [
+					{
+						type: RightsManagementPepComponentType.Service
+					}
+				],
+				rightsManagementPdpComponent: [
+					{
+						type: RightsManagementPdpComponentType.Service
+					}
+				],
+				rightsManagementPipComponent: [
+					{
+						type: RightsManagementPipComponentType.Service
+					}
+				],
+				rightsManagementPxpComponent: [
+					{
+						type: RightsManagementPxpComponentType.Service
+					}
+				],
+				rightsManagementPmpComponent: [
+					{
+						type: RightsManagementPmpComponentType.Service
+					}
+				],
+
 				taskSchedulerComponent: [
 					{
 						type: TaskSchedulerComponentType.Service
@@ -292,6 +323,7 @@ describe("engine-server", () => {
 			"/rights-management/pap/:id",
 			"/rights-management/pap/:id",
 			"/rights-management/pap/query",
+			"/rights-management/pep/intercept",
 			"/synchronised-storage/sync-changeset",
 			"/synchronised-storage/decryption-key",
 			"/federated-catalogue/participant-credentials",

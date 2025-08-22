@@ -39,6 +39,11 @@ import {
 	NftConnectorType,
 	RightsManagementComponentType,
 	RightsManagementPapComponentType,
+	RightsManagementPdpComponentType,
+	RightsManagementPepComponentType,
+	RightsManagementPipComponentType,
+	RightsManagementPmpComponentType,
+	RightsManagementPxpComponentType,
 	SynchronisedStorageComponentType,
 	TaskSchedulerComponentType,
 	TelemetryComponentType,
@@ -155,6 +160,31 @@ describe("engine", () => {
 							type: RightsManagementPapComponentType.Service
 						}
 					],
+					rightsManagementPepComponent: [
+						{
+							type: RightsManagementPepComponentType.Service
+						}
+					],
+					rightsManagementPdpComponent: [
+						{
+							type: RightsManagementPdpComponentType.Service
+						}
+					],
+					rightsManagementPipComponent: [
+						{
+							type: RightsManagementPipComponentType.Service
+						}
+					],
+					rightsManagementPxpComponent: [
+						{
+							type: RightsManagementPxpComponentType.Service
+						}
+					],
+					rightsManagementPmpComponent: [
+						{
+							type: RightsManagementPmpComponentType.Service
+						}
+					],
 					taskSchedulerComponent: [
 						{
 							type: TaskSchedulerComponentType.Service
@@ -204,6 +234,11 @@ describe("engine", () => {
 			"data-processing-service",
 			"document-management-service",
 			"policy-administration-point-service",
+			"policy-management-point-service",
+			"policy-execution-point-service",
+			"policy-information-point-service",
+			"policy-decision-point-service",
+			"policy-enforcement-point-service",
 			"rights-management-service",
 			"synchronised-storage-service",
 			"federated-catalogue-service"
@@ -378,6 +413,32 @@ describe("engine", () => {
 							type: RightsManagementPapComponentType.Service
 						}
 					],
+					rightsManagementPepComponent: [
+						{
+							type: RightsManagementPepComponentType.Service
+						}
+					],
+					rightsManagementPdpComponent: [
+						{
+							type: RightsManagementPdpComponentType.Service
+						}
+					],
+					rightsManagementPipComponent: [
+						{
+							type: RightsManagementPipComponentType.Service
+						}
+					],
+					rightsManagementPxpComponent: [
+						{
+							type: RightsManagementPxpComponentType.Service
+						}
+					],
+					rightsManagementPmpComponent: [
+						{
+							type: RightsManagementPmpComponentType.Service
+						}
+					],
+
 					taskSchedulerComponent: [
 						{
 							type: TaskSchedulerComponentType.Service
@@ -471,6 +532,31 @@ describe("engine", () => {
 				rightsManagementPapComponent: [
 					{
 						type: RightsManagementPapComponentType.Service
+					}
+				],
+				rightsManagementPepComponent: [
+					{
+						type: RightsManagementPepComponentType.Service
+					}
+				],
+				rightsManagementPdpComponent: [
+					{
+						type: RightsManagementPdpComponentType.Service
+					}
+				],
+				rightsManagementPipComponent: [
+					{
+						type: RightsManagementPipComponentType.Service
+					}
+				],
+				rightsManagementPxpComponent: [
+					{
+						type: RightsManagementPxpComponentType.Service
+					}
+				],
+				rightsManagementPmpComponent: [
+					{
+						type: RightsManagementPmpComponentType.Service
 					}
 				],
 				taskSchedulerComponent: [
@@ -645,6 +731,31 @@ describe("engine", () => {
 							type: RightsManagementPapComponentType.Service
 						}
 					],
+					rightsManagementPepComponent: [
+						{
+							type: RightsManagementPepComponentType.Service
+						}
+					],
+					rightsManagementPdpComponent: [
+						{
+							type: RightsManagementPdpComponentType.Service
+						}
+					],
+					rightsManagementPipComponent: [
+						{
+							type: RightsManagementPipComponentType.Service
+						}
+					],
+					rightsManagementPxpComponent: [
+						{
+							type: RightsManagementPxpComponentType.Service
+						}
+					],
+					rightsManagementPmpComponent: [
+						{
+							type: RightsManagementPmpComponentType.Service
+						}
+					],
 					taskSchedulerComponent: [
 						{
 							type: TaskSchedulerComponentType.Service
@@ -693,6 +804,11 @@ describe("engine", () => {
 			"data-processing-client",
 			"document-management-client",
 			"policy-administration-point-service",
+			"policy-management-point-service",
+			"policy-execution-point-service",
+			"policy-information-point-service",
+			"policy-decision-point-service",
+			"policy-enforcement-point-service",
 			"rights-management-client",
 			"synchronised-storage-client",
 			"federated-catalogue-client"

@@ -300,6 +300,36 @@ Rights management options which can be overridden by individual components by sp
 
 Rights management PAP options which can be overridden by individual components by specifying types other than default.
 
+#### rightsManagementPdpComponent?
+
+> `optional` **rightsManagementPdpComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPdpComponentConfig`](../type-aliases/RightsManagementPdpComponentConfig.md)\>[]
+
+Rights management PDP options which can be overridden by individual components by specifying types other than default.
+
+#### rightsManagementPepComponent?
+
+> `optional` **rightsManagementPepComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPepComponentConfig`](../type-aliases/RightsManagementPepComponentConfig.md)\>[]
+
+Rights management PEP options which can be overridden by individual components by specifying types other than default.
+
+#### rightsManagementPipComponent?
+
+> `optional` **rightsManagementPipComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPipComponentConfig`](../type-aliases/RightsManagementPipComponentConfig.md)\>[]
+
+Rights management PIP options which can be overridden by individual components by specifying types other than default.
+
+#### rightsManagementPmpComponent?
+
+> `optional` **rightsManagementPmpComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPmpComponentConfig`](../type-aliases/RightsManagementPmpComponentConfig.md)\>[]
+
+Rights management PMP options which can be overridden by individual components by specifying types other than default.
+
+#### rightsManagementPxpComponent?
+
+> `optional` **rightsManagementPxpComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPxpComponentConfig`](../type-aliases/RightsManagementPxpComponentConfig.md)\>[]
+
+Rights management PXP options which can be overridden by individual components by specifying types other than default.
+
 #### synchronisedStorageComponent?
 
 > `optional` **synchronisedStorageComponent**: `IEngineCoreTypeConfig`\<[`SynchronisedStorageComponentConfig`](../type-aliases/SynchronisedStorageComponentConfig.md)\>[]

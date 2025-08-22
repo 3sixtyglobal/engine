@@ -36,6 +36,11 @@ import type { NftComponentConfig } from "./config/nftComponentConfig";
 import type { NftConnectorConfig } from "./config/nftConnectorConfig";
 import type { RightsManagementComponentConfig } from "./config/rightsManagementComponentConfig";
 import type { RightsManagementPapComponentConfig } from "./config/rightsManagementPapComponentConfig";
+import type { RightsManagementPdpComponentConfig } from "./config/rightsManagementPdpComponentConfig";
+import type { RightsManagementPepComponentConfig } from "./config/rightsManagementPepComponentConfig";
+import type { RightsManagementPipComponentConfig } from "./config/rightsManagementPipComponentConfig";
+import type { RightsManagementPmpComponentConfig } from "./config/rightsManagementPmpComponentConfig";
+import type { RightsManagementPxpComponentConfig } from "./config/rightsManagementPxpComponentConfig";
 import type { SynchronisedStorageComponentConfig } from "./config/synchronisedStorageComponentConfig";
 import type { TaskSchedulerComponentConfig } from "./config/taskSchedulerComponentConfig";
 import type { TelemetryComponentConfig } from "./config/telemetryComponentConfig";
@@ -259,6 +264,31 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Rights management PAP options which can be overridden by individual components by specifying types other than default.
 		 */
 		rightsManagementPapComponent?: IEngineCoreTypeConfig<RightsManagementPapComponentConfig>[];
+
+		/**
+		 * Rights management PDP options which can be overridden by individual components by specifying types other than default.
+		 */
+		rightsManagementPdpComponent?: IEngineCoreTypeConfig<RightsManagementPdpComponentConfig>[];
+
+		/**
+		 * Rights management PEP options which can be overridden by individual components by specifying types other than default.
+		 */
+		rightsManagementPepComponent?: IEngineCoreTypeConfig<RightsManagementPepComponentConfig>[];
+
+		/**
+		 * Rights management PIP options which can be overridden by individual components by specifying types other than default.
+		 */
+		rightsManagementPipComponent?: IEngineCoreTypeConfig<RightsManagementPipComponentConfig>[];
+
+		/**
+		 * Rights management PMP options which can be overridden by individual components by specifying types other than default.
+		 */
+		rightsManagementPmpComponent?: IEngineCoreTypeConfig<RightsManagementPmpComponentConfig>[];
+
+		/**
+		 * Rights management PXP options which can be overridden by individual components by specifying types other than default.
+		 */
+		rightsManagementPxpComponent?: IEngineCoreTypeConfig<RightsManagementPxpComponentConfig>[];
 
 		/**
 		 * Synchronised storage options which can be overridden by individual components by specifying types other than default.

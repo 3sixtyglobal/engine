@@ -3,19 +3,14 @@
 import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
-import type { IPolicyAdministrationPointComponent } from "@twin.org/rights-management-models";
-import {
-	initSchema as initSchemaRightsManagementPap,
-	type OdrlPolicy,
-	PolicyAdministrationPointService
-} from "@twin.org/rights-management-pap-service";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { RightsManagementPapComponentConfig } from "../models/config/rightsManagementPapComponentConfig";
+import type { IPolicyEnforcementPointComponent } from "@twin.org/rights-management-models";
+import { PolicyEnforcementPointService } from "@twin.org/rights-management-pep-service";
+import type { RightsManagementPepComponentConfig } from "../models/config/rightsManagementPepComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
-import { RightsManagementPapComponentType } from "../models/types/rightsManagementPapComponentType";
+import { RightsManagementPepComponentType } from "../models/types/rightsManagementPepComponentType";
 
 /**
- * Initialise the rights management PAP component.
+ * Initialise the rights management PEP component.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
@@ -23,41 +18,35 @@ import { RightsManagementPapComponentType } from "../models/types/rightsManageme
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseRightsManagementPapComponent(
+export function initialiseRightsManagementPepComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: RightsManagementPapComponentConfig,
+	instanceConfig: RightsManagementPepComponentConfig,
 	overrideInstanceType?: string
 ): string | undefined {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
-			element: `Rights Management PAP Component: ${instanceConfig.type}`
+			element: `Rights Management PEP Component: ${instanceConfig.type}`
 		})
 	);
 
 	const type = instanceConfig.type;
-	let component: IPolicyAdministrationPointComponent;
+	let component: IPolicyEnforcementPointComponent;
 	let instanceType: string;
 
-	if (type === RightsManagementPapComponentType.Service) {
-		initSchemaRightsManagementPap();
-
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.odrlPolicyEntityStorageType,
-			nameof<OdrlPolicy>()
-		);
-
-		component = new PolicyAdministrationPointService({
+	if (type === RightsManagementPepComponentType.Service) {
+		component = new PolicyEnforcementPointService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+			policyDecisionPointComponentType: engineCore.getRegisteredInstanceType(
+				"rightsManagementPdpComponent"
+			),
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(PolicyAdministrationPointService));
+		instanceType = StringHelper.kebabCase(nameof(PolicyEnforcementPointService));
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,
-			componentType: "RightsManagementPapComponent"
+			componentType: "RightsManagementPepComponent"
 		});
 	}
 
