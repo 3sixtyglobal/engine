@@ -1,5 +1,20 @@
 # @twin.org/engine - Changelog
 
+## [0.0.2-next.9](https://github.com/twinfoundation/engine/compare/engine-v0.0.2-next.8...engine-v0.0.2-next.9) (2025-08-25)
+
+
+### Features
+
+* add isPrimary and isClone methods ([a7c63e9](https://github.com/twinfoundation/engine/commit/a7c63e97f54c95b104cc81e66d3fa42c6607bdc1))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.2-next.8 to 0.0.2-next.9
+    * @twin.org/engine-types bumped from 0.0.2-next.8 to 0.0.2-next.9
+
 ## [0.0.2-next.8](https://github.com/twinfoundation/engine/compare/engine-v0.0.2-next.7...engine-v0.0.2-next.8) (2025-08-22)
 
 
