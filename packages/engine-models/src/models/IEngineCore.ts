@@ -40,6 +40,24 @@ export interface IEngineCore<
 	stop(): Promise<void>;
 
 	/**
+	 * Is the engine started.
+	 * @returns True if the engine is started.
+	 */
+	isStarted(): boolean;
+
+	/**
+	 * Is this the primary engine instance.
+	 * @returns True if the engine is the primary instance.
+	 */
+	isPrimary(): boolean;
+
+	/**
+	 * Is this engine instance a clone.
+	 * @returns True if the engine instance is a clone.
+	 */
+	isClone(): boolean;
+
+	/**
 	 * Log info.
 	 * @param message The message to log.
 	 */

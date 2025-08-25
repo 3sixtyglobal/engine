@@ -176,7 +176,6 @@ describe("engine-server", () => {
 						type: RightsManagementPmpComponentType.Service
 					}
 				],
-
 				taskSchedulerComponent: [
 					{
 						type: TaskSchedulerComponentType.Service

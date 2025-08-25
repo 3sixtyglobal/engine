@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { isMainThread } from "node:worker_threads";
 import {
 	BaseError,
 	ComponentFactory,
@@ -109,6 +110,12 @@ export class EngineCore<
 	private _isStarted: boolean;
 
 	/**
+	 * Is the engine a clone.
+	 * @internal
+	 */
+	private _isClone: boolean;
+
+	/**
 	 * Add type initialisers to the engine.
 	 * @internal
 	 */
@@ -152,6 +159,7 @@ export class EngineCore<
 		};
 		this._stateStorage = options.stateStorage;
 		this._isStarted = false;
+		this._isClone = false;
 
 		if (Is.function(this._populateTypeInitialisers)) {
 			this._populateTypeInitialisers(this, this._context);
@@ -276,6 +284,30 @@ export class EngineCore<
 
 		this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentsStopped`));
 		this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.stopped`));
+	}
+
+	/**
+	 * Is the engine started.
+	 * @returns True if the engine is started.
+	 */
+	public isStarted(): boolean {
+		return this._isStarted;
+	}
+
+	/**
+	 * Is this the primary engine instance.
+	 * @returns True if the engine is the primary instance.
+	 */
+	public isPrimary(): boolean {
+		return isMainThread && !this._isClone;
+	}
+
+	/**
+	 * Is this engine instance a clone.
+	 * @returns True if the engine instance is a clone.
+	 */
+	public isClone(): boolean {
+		return this._isClone;
 	}
 
 	/**
@@ -434,6 +466,7 @@ export class EngineCore<
 
 		this._loggerTypeName = cloneData.loggerTypeName;
 		this._skipBootstrap = true;
+		this._isClone = true;
 
 		if (silent ?? false) {
 			cloneData.config.silent = true;
