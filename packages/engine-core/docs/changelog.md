@@ -1,5 +1,19 @@
 # @twin.org/engine-core - Changelog
 
+## [0.0.2-next.10](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.2-next.9...engine-core-v0.0.2-next.10) (2025-08-26)
+
+
+### Miscellaneous Chores
+
+* **engine-core:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.2-next.9 to 0.0.2-next.10
+
 ## [0.0.2-next.9](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.2-next.8...engine-core-v0.0.2-next.9) (2025-08-25)
 
 

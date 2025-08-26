@@ -1,5 +1,20 @@
 # @twin.org/engine - Changelog
 
+## [0.0.2-next.10](https://github.com/twinfoundation/engine/compare/engine-v0.0.2-next.9...engine-v0.0.2-next.10) (2025-08-26)
+
+
+### Features
+
+* add data space connector ([a824d99](https://github.com/twinfoundation/engine/commit/a824d9931faeaa8115e01f8e7545b802d0e7ac70))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.2-next.9 to 0.0.2-next.10
+    * @twin.org/engine-types bumped from 0.0.2-next.9 to 0.0.2-next.10
+
 ## [0.0.2-next.9](https://github.com/twinfoundation/engine/compare/engine-v0.0.2-next.8...engine-v0.0.2-next.9) (2025-08-25)
 
 
