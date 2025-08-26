@@ -11,6 +11,7 @@ import type { BlobStorageConnectorConfig } from "./config/blobStorageConnectorCo
 import type { DataConverterConnectorConfig } from "./config/dataConverterConnectorConfig";
 import type { DataExtractorConnectorConfig } from "./config/dataExtractorConnectorConfig";
 import type { DataProcessingComponentConfig } from "./config/dataProcessingComponentConfig";
+import type { DataSpaceConnectorComponentConfig } from "./config/dataSpaceConnectorComponentConfig";
 import type { DltConfig } from "./config/dltConfig";
 import type { DocumentManagementComponentConfig } from "./config/documentManagementComponentConfig";
 import type { EntityStorageComponentConfig } from "./config/entityStorageComponentConfig";
@@ -299,5 +300,10 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Federated catalogue options which can be overridden by individual components by specifying types other than default.
 		 */
 		federatedCatalogueComponent?: IEngineCoreTypeConfig<FederatedCatalogueComponentConfig>[];
+
+		/**
+		 * Data space connector options which can be overridden by individual components by specifying types other than default.
+		 */
+		dataSpaceConnectorComponent?: IEngineCoreTypeConfig<DataSpaceConnectorComponentConfig>[];
 	};
 }

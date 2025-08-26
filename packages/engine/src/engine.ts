@@ -343,5 +343,12 @@ export class Engine<
 			"@twin.org/engine-types",
 			"initialiseFederatedCatalogueComponent"
 		);
+
+		this.addTypeInitialiser(
+			"dataSpaceConnectorComponent",
+			this._context.config.types.dataSpaceConnectorComponent,
+			"@twin.org/engine-types",
+			"initialiseDataSpaceConnectorComponent"
+		);
 	}
 }

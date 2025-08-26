@@ -342,6 +342,12 @@ Synchronised storage options which can be overridden by individual components by
 
 Federated catalogue options which can be overridden by individual components by specifying types other than default.
 
+#### dataSpaceConnectorComponent?
+
+> `optional` **dataSpaceConnectorComponent**: `IEngineCoreTypeConfig`\<[`DataSpaceConnectorComponentConfig`](../type-aliases/DataSpaceConnectorComponentConfig.md)\>[]
+
+Data space connector options which can be overridden by individual components by specifying types other than default.
+
 #### Overrides
 
 `IEngineCoreConfig.types`

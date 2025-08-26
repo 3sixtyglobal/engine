@@ -555,6 +555,12 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 			"@twin.org/federated-catalogue-service",
 			"generateRestRoutesFederatedCatalogue"
 		);
+		this.addRestRouteGenerator(
+			"dataSpaceConnectorComponent",
+			coreConfig.types.dataSpaceConnectorComponent,
+			"@twin.org/data-space-connector-service",
+			"generateRestRoutesDataSpaceConnector"
+		);
 	}
 
 	/**
@@ -569,6 +575,13 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 			coreConfig.types.eventBusComponent,
 			"@twin.org/event-bus-service",
 			"generateSocketRoutesEventBus"
+		);
+
+		this.addSocketRouteGenerator(
+			"dataSpaceConnectorComponent",
+			coreConfig.types.dataSpaceConnectorComponent,
+			"@twin.org/data-space-connector-service",
+			"generateSocketRoutesDataSpaceConnector"
 		);
 	}
 }

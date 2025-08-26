@@ -22,6 +22,7 @@ import {
 	DataConverterConnectorType,
 	DataExtractorConnectorType,
 	DataProcessingComponentType,
+	DataSpaceConnectorComponentType,
 	DocumentManagementComponentType,
 	EntityStorageComponentType,
 	EntityStorageConnectorType,
@@ -65,7 +66,7 @@ import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
 import packageLocales from "../locales/en.json";
 import { EngineServer } from "../src/engineServer";
-import { addDefaultRestPaths } from "../src/utils/engineServerConfigHelper";
+import { addDefaultRestPaths, addDefaultSocketPaths } from "../src/utils/engineServerConfigHelper";
 
 /**
  * Class representing information for a test entity.
@@ -193,6 +194,11 @@ describe("engine-server", () => {
 						options: { config: { clearingHouseApproverList: [] } }
 					}
 				],
+				dataSpaceConnectorComponent: [
+					{
+						type: DataSpaceConnectorComponentType.Service
+					}
+				],
 				informationComponent: [
 					{
 						type: InformationComponentType.Service,
@@ -227,6 +233,7 @@ describe("engine-server", () => {
 		});
 
 		addDefaultRestPaths(config);
+		addDefaultSocketPaths(config);
 		const canContinue = await engineServer.start();
 		expect(canContinue).toEqual(true);
 
@@ -336,7 +343,16 @@ describe("engine-server", () => {
 			"/federated-catalogue/data-resources",
 			"/federated-catalogue/data-resources/:id",
 			"/federated-catalogue/data-space-connectors",
-			"/federated-catalogue/data-space-connectors/:id"
+			"/federated-catalogue/data-space-connectors/:id",
+			"/data-space-connector/notify",
+			"/data-space-connector/activity-logs/:id"
+		]);
+
+		const buildSocketRoutes = engineServer.getSocketRoutes();
+		expect(buildSocketRoutes.map(r => r.path)).toEqual([
+			"event-bus/subscribe",
+			"event-bus/unsubscribe",
+			"data-space-connector/activity-logs/status"
 		]);
 
 		const res = await fetch("http://localhost:3000/info");

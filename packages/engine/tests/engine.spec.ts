@@ -14,6 +14,7 @@ import {
 	DataConverterConnectorType,
 	DataExtractorConnectorType,
 	DataProcessingComponentType,
+	DataSpaceConnectorComponentType,
 	DocumentManagementComponentType,
 	EntityStorageComponentType,
 	EntityStorageConnectorType,
@@ -201,6 +202,11 @@ describe("engine", () => {
 							type: FederatedCatalogueComponentType.Service,
 							options: { config: { clearingHouseApproverList: [] } }
 						}
+					],
+					dataSpaceConnectorComponent: [
+						{
+							type: DataSpaceConnectorComponentType.Service
+						}
 					]
 				}
 			},
@@ -241,7 +247,8 @@ describe("engine", () => {
 			"policy-enforcement-point-service",
 			"rights-management-service",
 			"synchronised-storage-service",
-			"federated-catalogue-service"
+			"federated-catalogue-service",
+			"data-space-connector-service"
 		]);
 
 		expect(EntitySchemaFactory.names()).toEqual([
@@ -277,7 +284,9 @@ describe("engine", () => {
 			"ParticipantEntry",
 			"DataResourceEntry",
 			"ServiceOfferingEntry",
-			"DataSpaceConnectorEntry"
+			"DataSpaceConnectorEntry",
+			"ActivityLogDetails",
+			"ActivityTask"
 		]);
 
 		expect(engine).toBeDefined();
@@ -455,6 +464,11 @@ describe("engine", () => {
 							type: FederatedCatalogueComponentType.Service,
 							options: { config: { clearingHouseApproverList: [] } }
 						}
+					],
+					dataSpaceConnectorComponent: [
+						{
+							type: DataSpaceConnectorComponentType.Service
+						}
 					]
 				}
 			},
@@ -574,6 +588,11 @@ describe("engine", () => {
 					{
 						type: FederatedCatalogueComponentType.Service,
 						options: { config: { clearingHouseApproverList: [] } }
+					}
+				],
+				dataSpaceConnectorComponent: [
+					{
+						type: DataSpaceConnectorComponentType.Service
 					}
 				]
 			}
@@ -772,6 +791,16 @@ describe("engine", () => {
 							type: FederatedCatalogueComponentType.RestClient,
 							options: { endpoint: "http://localhost:3000" }
 						}
+					],
+					dataSpaceConnectorComponent: [
+						{
+							type: DataSpaceConnectorComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
+						},
+						{
+							type: DataSpaceConnectorComponentType.SocketClient,
+							options: { config: { endpoint: "http://localhost:3000" } }
+						}
 					]
 				}
 			},
@@ -811,7 +840,9 @@ describe("engine", () => {
 			"policy-enforcement-point-service",
 			"rights-management-client",
 			"synchronised-storage-client",
-			"federated-catalogue-client"
+			"federated-catalogue-client",
+			"data-space-connector-client",
+			"data-space-connector-socket-client"
 		]);
 
 		expect(EntitySchemaFactory.names()).toEqual([

@@ -137,6 +137,13 @@ export function addDefaultRestPaths(serverConfig: IEngineServerConfig): void {
 	) {
 		serverConfig.types.federatedCatalogueComponent[0].restPath = "/federated-catalogue";
 	}
+
+	if (
+		Is.arrayValue(serverConfig.types.dataSpaceConnectorComponent) &&
+		!Is.stringValue(serverConfig.types.dataSpaceConnectorComponent[0].restPath)
+	) {
+		serverConfig.types.dataSpaceConnectorComponent[0].restPath = "/data-space-connector";
+	}
 }
 
 /**
@@ -149,5 +156,12 @@ export function addDefaultSocketPaths(serverConfig: IEngineServerConfig): void {
 		!Is.stringValue(serverConfig.types.eventBusComponent[0].socketPath)
 	) {
 		serverConfig.types.eventBusComponent[0].socketPath = "event-bus";
+	}
+
+	if (
+		Is.arrayValue(serverConfig.types.dataSpaceConnectorComponent) &&
+		!Is.stringValue(serverConfig.types.dataSpaceConnectorComponent[0].socketPath)
+	) {
+		serverConfig.types.dataSpaceConnectorComponent[0].socketPath = "data-space-connector";
 	}
 }
