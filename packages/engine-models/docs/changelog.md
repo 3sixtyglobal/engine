@@ -1,5 +1,12 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.2-next.11](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.10...engine-models-v0.0.2-next.11) (2025-08-29)
+
+
+### Features
+
+* eslint migration to flat config ([6b978da](https://github.com/twinfoundation/engine/commit/6b978daf777a615d7758b63c3df57d5a376f6dfb))
+
 ## [0.0.2-next.10](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.9...engine-models-v0.0.2-next.10) (2025-08-26)
 
 
