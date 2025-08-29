@@ -7,7 +7,6 @@ import type { RightsManagementComponentType } from "../types/rightsManagementCom
 /**
  * Rights management component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type RightsManagementComponentConfig =
 	| {
 			type: typeof RightsManagementComponentType.Service;

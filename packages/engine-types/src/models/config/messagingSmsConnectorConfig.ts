@@ -7,7 +7,6 @@ import type { MessagingSmsConnectorType } from "../types/messagingSmsConnectorTy
 /**
  * Messaging sms connector config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type MessagingSmsConnectorConfig =
 	| {
 			type: typeof MessagingSmsConnectorType.EntityStorage;

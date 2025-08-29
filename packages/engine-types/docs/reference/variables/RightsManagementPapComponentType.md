@@ -4,7 +4,7 @@
 
 Rights management PAP component types.
 
-## Type declaration
+## Type Declaration
 
 ### Service
 

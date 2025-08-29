@@ -7,7 +7,6 @@ import type { VerifiableStorageComponentType } from "../types/verifiableStorageC
 /**
  * Verifiable storage component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type VerifiableStorageComponentConfig =
 	| {
 			type: typeof VerifiableStorageComponentType.Service;

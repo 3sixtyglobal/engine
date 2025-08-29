@@ -11,7 +11,6 @@ import type { RestRouteProcessorType } from "../types/restRouteProcessorType";
 /**
  * REST route processor config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type RestRouteProcessorConfig =
 	| {
 			type: typeof RestRouteProcessorType.AuthHeader;

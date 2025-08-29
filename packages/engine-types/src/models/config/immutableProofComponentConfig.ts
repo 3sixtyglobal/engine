@@ -7,7 +7,6 @@ import type { ImmutableProofComponentType } from "../types/immutableProofCompone
 /**
  * Immutable proof component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type ImmutableProofComponentConfig =
 	| {
 			type: typeof ImmutableProofComponentType.Service;

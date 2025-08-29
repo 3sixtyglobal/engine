@@ -7,7 +7,6 @@ import type { LoggingComponentType } from "../types/loggingComponentType";
 /**
  * Logging component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type LoggingComponentConfig =
 	| {
 			type: typeof LoggingComponentType.Service;

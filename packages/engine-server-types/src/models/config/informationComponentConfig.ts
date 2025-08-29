@@ -7,7 +7,6 @@ import type { InformationComponentType } from "../types/informationComponentType
 /**
  * Information component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type InformationComponentConfig =
 	| {
 			type: typeof InformationComponentType.Service;

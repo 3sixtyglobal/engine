@@ -7,7 +7,6 @@ import type { EventBusComponentType } from "../types/eventBusComponentType";
 /**
  * Event bus storage component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type EventBusComponentConfig =
 	| {
 			type: typeof EventBusComponentType.Service;

@@ -7,7 +7,6 @@ import type { AuditableItemGraphComponentType } from "../types/auditableItemGrap
 /**
  * Auditable item graph component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type AuditableItemGraphComponentConfig =
 	| {
 			type: typeof AuditableItemGraphComponentType.Service;

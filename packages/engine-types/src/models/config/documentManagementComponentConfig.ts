@@ -7,7 +7,6 @@ import type { DocumentManagementComponentType } from "../types/documentManagemen
 /**
  * Document management component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type DocumentManagementComponentConfig =
 	| {
 			type: typeof DocumentManagementComponentType.Service;

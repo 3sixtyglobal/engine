@@ -4,7 +4,7 @@
 
 Rights management component types.
 
-## Type declaration
+## Type Declaration
 
 ### Service
 

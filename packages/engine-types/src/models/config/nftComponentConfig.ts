@@ -7,7 +7,6 @@ import type { NftComponentType } from "../types/nftComponentType";
 /**
  * NFT component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type NftComponentConfig =
 	| {
 			type: typeof NftComponentType.Service;

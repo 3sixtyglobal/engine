@@ -7,7 +7,6 @@ import type { AuditableItemStreamComponentType } from "../types/auditableItemStr
 /**
  * Auditable item stream component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type AuditableItemStreamComponentConfig =
 	| {
 			type: typeof AuditableItemStreamComponentType.Service;

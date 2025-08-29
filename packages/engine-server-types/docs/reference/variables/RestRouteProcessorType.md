@@ -4,7 +4,7 @@
 
 REST route processor types.
 
-## Type declaration
+## Type Declaration
 
 ### AuthHeader
 

@@ -7,7 +7,6 @@ import type { IdentityResolverComponentType } from "../types/identityResolverCom
 /**
  * Identity resolver component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type IdentityResolverComponentConfig =
 	| {
 			type: typeof IdentityResolverComponentType.Service;

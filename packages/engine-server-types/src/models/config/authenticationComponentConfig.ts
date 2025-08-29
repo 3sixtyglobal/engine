@@ -7,7 +7,6 @@ import type { AuthenticationComponentType } from "../types/authenticationCompone
 /**
  * Authentication component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type AuthenticationComponentConfig =
 	| {
 			type: typeof AuthenticationComponentType.EntityStorage;

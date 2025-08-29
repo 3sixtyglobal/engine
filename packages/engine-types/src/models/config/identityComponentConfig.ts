@@ -7,7 +7,6 @@ import type { IdentityComponentType } from "../types/identityComponentType";
 /**
  * Identity component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type IdentityComponentConfig =
 	| {
 			type: typeof IdentityComponentType.Service;

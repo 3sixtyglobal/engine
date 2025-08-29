@@ -11,7 +11,6 @@ import type { SocketRouteProcessorType } from "../types/socketRouteProcessorType
 /**
  * Socket route processor config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type SocketRouteProcessorConfig =
 	| {
 			type: typeof SocketRouteProcessorType.AuthHeader;

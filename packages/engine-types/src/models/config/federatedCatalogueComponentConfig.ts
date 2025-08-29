@@ -7,7 +7,6 @@ import type { FederatedCatalogueComponentType } from "../types/federatedCatalogu
 /**
  * Federated catalog component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type FederatedCatalogueComponentConfig =
 	| {
 			type: typeof FederatedCatalogueComponentType.Service;

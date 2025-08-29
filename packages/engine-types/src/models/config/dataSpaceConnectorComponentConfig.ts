@@ -8,7 +8,6 @@ import type { DataSpaceConnectorComponentType } from "../types/dataSpaceConnecto
 /**
  * Data space connector component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type DataSpaceConnectorComponentConfig =
 	| {
 			type: typeof DataSpaceConnectorComponentType.Service;

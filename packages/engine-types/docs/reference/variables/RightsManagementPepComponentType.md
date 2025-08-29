@@ -4,7 +4,7 @@
 
 Rights management PEP component types.
 
-## Type declaration
+## Type Declaration
 
 ### Service
 

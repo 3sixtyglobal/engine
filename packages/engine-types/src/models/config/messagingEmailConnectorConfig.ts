@@ -7,7 +7,6 @@ import type { MessagingEmailConnectorType } from "../types/messagingEmailConnect
 /**
  * Messaging email connector config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type MessagingEmailConnectorConfig =
 	| {
 			type: typeof MessagingEmailConnectorType.EntityStorage;

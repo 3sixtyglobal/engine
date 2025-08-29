@@ -4,7 +4,7 @@
 
 Socket route processor types.
 
-## Type declaration
+## Type Declaration
 
 ### AuthHeader
 

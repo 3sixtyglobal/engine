@@ -7,7 +7,6 @@ import type { DataProcessingComponentType } from "../types/dataProcessingCompone
 /**
  * Data processing component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type DataProcessingComponentConfig =
 	| {
 			type: typeof DataProcessingComponentType.Service;

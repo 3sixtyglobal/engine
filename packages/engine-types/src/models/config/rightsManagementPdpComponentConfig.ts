@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IPolicyDecisionPointServiceOptions } from "@twin.org/rights-management-pdp-service";
+import type { IPolicyDecisionPointServiceConstructorOptions } from "@twin.org/rights-management-pdp-service";
 import type { RightsManagementPdpComponentType } from "../types/rightsManagementPdpComponentType";
 
 /**
@@ -9,5 +9,5 @@ import type { RightsManagementPdpComponentType } from "../types/rightsManagement
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type RightsManagementPdpComponentConfig = {
 	type: typeof RightsManagementPdpComponentType.Service;
-	options?: IPolicyDecisionPointServiceOptions;
+	options?: IPolicyDecisionPointServiceConstructorOptions;
 };

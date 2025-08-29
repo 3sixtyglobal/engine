@@ -7,7 +7,6 @@ import type { EntityStorageComponentType } from "../types/entityStorageComponent
 /**
  * Entity storage component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type EntityStorageComponentConfig =
 	| {
 			type: typeof EntityStorageComponentType.Service;

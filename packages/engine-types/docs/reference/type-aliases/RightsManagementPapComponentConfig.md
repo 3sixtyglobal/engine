@@ -14,4 +14,4 @@ Rights management PAP component config types.
 
 ### options?
 
-> `optional` **options**: `IPolicyAdministrationPointServiceOptions`
+> `optional` **options**: `IPolicyAdministrationPointServiceConstructorOptions`

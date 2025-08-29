@@ -7,7 +7,6 @@ import type { MessagingPushNotificationConnectorType } from "../types/messagingP
 /**
  * Messaging push notification connector config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type MessagingPushNotificationConnectorConfig =
 	| {
 			type: typeof MessagingPushNotificationConnectorType.EntityStorage;

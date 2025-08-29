@@ -7,7 +7,6 @@ import type { BlobStorageComponentType } from "../types/blobStorageComponentType
 /**
  * Blob storage component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type BlobStorageComponentConfig =
 	| {
 			type: typeof BlobStorageComponentType.Service;

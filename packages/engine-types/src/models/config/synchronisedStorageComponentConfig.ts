@@ -7,7 +7,6 @@ import type { SynchronisedStorageComponentType } from "../types/synchronisedStor
 /**
  * Synchronised storage component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type SynchronisedStorageComponentConfig =
 	| {
 			type: typeof SynchronisedStorageComponentType.Service;

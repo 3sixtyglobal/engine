@@ -58,7 +58,7 @@ Configuration for the web server.
 
 The types to initialise in the engine.
 
-#### Type declaration
+#### Type Declaration
 
 ##### loggingConnector?
 
@@ -354,7 +354,7 @@ Federated catalogue options which can be overridden by individual components by 
 
 Data space connector options which can be overridden by individual components by specifying types other than default.
 
-#### Type declaration
+#### Type Declaration
 
 ##### informationComponent?
 
