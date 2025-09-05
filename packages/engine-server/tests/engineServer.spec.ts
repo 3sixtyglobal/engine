@@ -66,7 +66,7 @@ import {
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
-import type { IPolicyNegotiationPointComponent } from "../../../../rights-management/packages/rights-management-models/dist/types/models/IPolicyNegotiationPointComponent";
+import type { IPolicyNegotiationPointComponent } from "@twin.org/rights-management-models";
 import packageLocales from "../locales/en.json";
 import { EngineServer } from "../src/engineServer";
 import { addDefaultRestPaths, addDefaultSocketPaths } from "../src/utils/engineServerConfigHelper";
