@@ -33,12 +33,12 @@ import { LoggingConnectorType } from "../models/types/loggingConnectorType";
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseLoggingConnector(
+export async function initialiseLoggingConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: LoggingConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Logging Connector: ${instanceConfig.type}`
@@ -87,12 +87,12 @@ export function initialiseLoggingConnector(
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseLoggingComponent(
+export async function initialiseLoggingComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: LoggingComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Logging Component: ${instanceConfig.type}`

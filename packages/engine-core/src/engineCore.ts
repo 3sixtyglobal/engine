@@ -509,7 +509,7 @@ export class EngineCore<
 			);
 
 			for (let i = 0; i < typeConfig.length; i++) {
-				const instanceType = instanceMethod(
+				const instanceType = await instanceMethod(
 					this,
 					this._context,
 					typeConfig[i],

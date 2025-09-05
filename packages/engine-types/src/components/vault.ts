@@ -25,12 +25,12 @@ import { VaultConnectorType } from "../models/types/vaultConnectorType";
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseVaultConnector(
+export async function initialiseVaultConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: VaultConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Vault Connector: ${instanceConfig.type}`

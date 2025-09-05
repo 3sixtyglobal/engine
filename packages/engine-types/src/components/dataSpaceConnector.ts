@@ -26,12 +26,12 @@ import { DataSpaceConnectorComponentType } from "../models/types/dataSpaceConnec
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseDataSpaceConnectorComponent(
+export async function initialiseDataSpaceConnectorComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: DataSpaceConnectorComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Data Space Connector Component: ${instanceConfig.type}`

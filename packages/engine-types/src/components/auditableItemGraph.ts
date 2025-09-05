@@ -25,12 +25,12 @@ import { AuditableItemGraphComponentType } from "../models/types/auditableItemGr
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseAuditableItemGraphComponent(
+export async function initialiseAuditableItemGraphComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: AuditableItemGraphComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Auditable Item Graph Component: ${instanceConfig.type}`

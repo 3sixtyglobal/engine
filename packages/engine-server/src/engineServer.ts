@@ -538,10 +538,28 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 			"generateRestRoutesDocumentManagement"
 		);
 		this.addRestRouteGenerator(
-			"rightsManagementComponent",
-			coreConfig.types.rightsManagementComponent,
+			"rightsManagementPapComponent",
+			coreConfig.types.rightsManagementPapComponent,
 			"@twin.org/rights-management-service",
-			"generateRestRoutesRightsManagement"
+			"generateRestRoutesPolicyAdministrationPoint"
+		);
+		this.addRestRouteGenerator(
+			"rightsManagementPepComponent",
+			coreConfig.types.rightsManagementPepComponent,
+			"@twin.org/rights-management-service",
+			"generateRestRoutesPolicyEnforcementPoint"
+		);
+		this.addRestRouteGenerator(
+			"rightsManagementPnpComponent",
+			coreConfig.types.rightsManagementPnpComponent,
+			"@twin.org/rights-management-service",
+			"generateRestRoutesPolicyNegotiationPoint"
+		);
+		this.addRestRouteGenerator(
+			"rightsManagementPnapComponent",
+			coreConfig.types.rightsManagementPnapComponent,
+			"@twin.org/rights-management-service",
+			"generateRestRoutesPolicyNegotiationAdminPoint"
 		);
 		this.addRestRouteGenerator(
 			"synchronisedStorageComponent",

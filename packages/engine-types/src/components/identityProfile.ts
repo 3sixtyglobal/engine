@@ -31,12 +31,12 @@ import { IdentityProfileConnectorType } from "../models/types/identityProfileCon
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseIdentityProfileConnector(
+export async function initialiseIdentityProfileConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: IdentityProfileConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Identity Profile Connector: ${instanceConfig.type}`
@@ -82,12 +82,12 @@ export function initialiseIdentityProfileConnector(
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseIdentityProfileComponent(
+export async function initialiseIdentityProfileComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: IdentityProfileComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Identity Profile Component: ${instanceConfig.type}`

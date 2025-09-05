@@ -26,12 +26,12 @@ import { AttestationConnectorType } from "../models/types/attestationConnectorTy
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseAttestationConnector(
+export async function initialiseAttestationConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: AttestationConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Attestation Connector: ${instanceConfig.type}`
@@ -73,12 +73,12 @@ export function initialiseAttestationConnector(
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseAttestationComponent(
+export async function initialiseAttestationComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: AttestationComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Attestation Component: ${instanceConfig.type}`

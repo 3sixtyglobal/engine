@@ -1,9 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n, Is, StringHelper } from "@twin.org/core";
+import { EngineModuleHelper } from "@twin.org/engine-core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
-import type { IPolicyInformationPointComponent } from "@twin.org/rights-management-models";
+import type {
+	IPolicyInformationPointComponent,
+	IPolicyInformationSource
+} from "@twin.org/rights-management-models";
 import { PolicyInformationPointService } from "@twin.org/rights-management-pip-service";
 import type { RightsManagementPipComponentConfig } from "../models/config/rightsManagementPipComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
@@ -18,12 +22,12 @@ import { RightsManagementPipComponentType } from "../models/types/rightsManageme
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseRightsManagementPipComponent(
+export async function initialiseRightsManagementPipComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: RightsManagementPipComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Rights Management PIP Component: ${instanceConfig.type}`
@@ -35,9 +39,23 @@ export function initialiseRightsManagementPipComponent(
 	let instanceType: string;
 
 	if (type === RightsManagementPipComponentType.Service) {
+		const modules: { sourceId: string; source: IPolicyInformationSource }[] = [];
+		if (Is.arrayValue(instanceConfig.options?.informationModulesConfig)) {
+			for (const moduleConfig of instanceConfig.options.informationModulesConfig) {
+				modules.push({
+					sourceId: moduleConfig.id,
+					source: await EngineModuleHelper.loadComponent(engineCore, moduleConfig)
+				});
+			}
+		}
+
 		component = new PolicyInformationPointService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			...instanceConfig.options
+			...instanceConfig.options,
+			config: {
+				...instanceConfig.options?.config,
+				sources: instanceConfig.options?.config?.sources ?? modules
+			}
 		});
 		instanceType = StringHelper.kebabCase(nameof(PolicyInformationPointService));
 	} else {

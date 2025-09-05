@@ -35,12 +35,14 @@ import type { MessagingPushNotificationConnectorConfig } from "./config/messagin
 import type { MessagingSmsConnectorConfig } from "./config/messagingSmsConnectorConfig";
 import type { NftComponentConfig } from "./config/nftComponentConfig";
 import type { NftConnectorConfig } from "./config/nftConnectorConfig";
-import type { RightsManagementComponentConfig } from "./config/rightsManagementComponentConfig";
 import type { RightsManagementPapComponentConfig } from "./config/rightsManagementPapComponentConfig";
 import type { RightsManagementPdpComponentConfig } from "./config/rightsManagementPdpComponentConfig";
 import type { RightsManagementPepComponentConfig } from "./config/rightsManagementPepComponentConfig";
 import type { RightsManagementPipComponentConfig } from "./config/rightsManagementPipComponentConfig";
 import type { RightsManagementPmpComponentConfig } from "./config/rightsManagementPmpComponentConfig";
+import type { RightsManagementPnapComponentConfig } from "./config/rightsManagementPnapComponentConfig";
+import type { RightsManagementPnpComponentConfig } from "./config/rightsManagementPnpComponentConfig";
+import type { RightsManagementPnrpComponentConfig } from "./config/rightsManagementPnrpComponentConfig";
 import type { RightsManagementPxpComponentConfig } from "./config/rightsManagementPxpComponentConfig";
 import type { SynchronisedStorageComponentConfig } from "./config/synchronisedStorageComponentConfig";
 import type { TaskSchedulerComponentConfig } from "./config/taskSchedulerComponentConfig";
@@ -257,11 +259,6 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		documentManagementComponent?: IEngineCoreTypeConfig<DocumentManagementComponentConfig>[];
 
 		/**
-		 * Rights management options which can be overridden by individual components by specifying types other than default.
-		 */
-		rightsManagementComponent?: IEngineCoreTypeConfig<RightsManagementComponentConfig>[];
-
-		/**
 		 * Rights management PAP options which can be overridden by individual components by specifying types other than default.
 		 */
 		rightsManagementPapComponent?: IEngineCoreTypeConfig<RightsManagementPapComponentConfig>[];
@@ -290,6 +287,21 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Rights management PXP options which can be overridden by individual components by specifying types other than default.
 		 */
 		rightsManagementPxpComponent?: IEngineCoreTypeConfig<RightsManagementPxpComponentConfig>[];
+
+		/**
+		 * Rights management PNP options which can be overridden by individual components by specifying types other than default.
+		 */
+		rightsManagementPnpComponent?: IEngineCoreTypeConfig<RightsManagementPnpComponentConfig>[];
+
+		/**
+		 * Rights management PNAP options which can be overridden by individual components by specifying types other than default.
+		 */
+		rightsManagementPnapComponent?: IEngineCoreTypeConfig<RightsManagementPnapComponentConfig>[];
+
+		/**
+		 * Rights management PNRP options which can be overridden by individual components by specifying types other than default.
+		 */
+		rightsManagementPnrpComponent?: IEngineCoreTypeConfig<RightsManagementPnrpComponentConfig>[];
 
 		/**
 		 * Synchronised storage options which can be overridden by individual components by specifying types other than default.

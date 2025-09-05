@@ -33,12 +33,12 @@ import { IdentityResolverConnectorType } from "../models/types/identityResolverC
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseIdentityResolverConnector(
+export async function initialiseIdentityResolverConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: IdentityResolverConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Identity Resolver Connector: ${instanceConfig.type}`
@@ -99,12 +99,12 @@ export function initialiseIdentityResolverConnector(
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseIdentityResolverComponent(
+export async function initialiseIdentityResolverComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: IdentityResolverComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Identity Resolver Component: ${instanceConfig.type}`

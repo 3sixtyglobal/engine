@@ -45,12 +45,14 @@ import {
 	MessagingSmsConnectorType,
 	NftComponentType,
 	NftConnectorType,
-	RightsManagementComponentType,
 	RightsManagementPapComponentType,
 	RightsManagementPdpComponentType,
 	RightsManagementPepComponentType,
 	RightsManagementPipComponentType,
 	RightsManagementPmpComponentType,
+	RightsManagementPnapComponentType,
+	RightsManagementPnpComponentType,
+	RightsManagementPnrpComponentType,
 	RightsManagementPxpComponentType,
 	SynchronisedStorageComponentType,
 	TaskSchedulerComponentType,
@@ -64,6 +66,7 @@ import {
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
+import type { IPolicyNegotiationPointComponent } from "../../../../rights-management/packages/rights-management-models/dist/types/models/IPolicyNegotiationPointComponent";
 import packageLocales from "../locales/en.json";
 import { EngineServer } from "../src/engineServer";
 import { addDefaultRestPaths, addDefaultSocketPaths } from "../src/utils/engineServerConfigHelper";
@@ -142,11 +145,6 @@ describe("engine-server", () => {
 				dataExtractorConnector: [{ type: DataExtractorConnectorType.JsonPath }],
 				dataProcessingComponent: [{ type: DataProcessingComponentType.Service }],
 				documentManagementComponent: [{ type: DocumentManagementComponentType.Service }],
-				rightsManagementComponent: [
-					{
-						type: RightsManagementComponentType.Service
-					}
-				],
 				rightsManagementPapComponent: [
 					{
 						type: RightsManagementPapComponentType.Service
@@ -175,6 +173,27 @@ describe("engine-server", () => {
 				rightsManagementPmpComponent: [
 					{
 						type: RightsManagementPmpComponentType.Service
+					}
+				],
+				rightsManagementPnpComponent: [
+					{
+						type: RightsManagementPnpComponentType.Service
+					}
+				],
+				rightsManagementPnapComponent: [
+					{
+						type: RightsManagementPnapComponentType.Service
+					}
+				],
+				rightsManagementPnrpComponent: [
+					{
+						type: RightsManagementPnrpComponentType.Service,
+						options: {
+							config: {
+								negotiationComponentCreator: async () =>
+									({}) as unknown as IPolicyNegotiationPointComponent
+							}
+						}
 					}
 				],
 				taskSchedulerComponent: [
@@ -330,6 +349,13 @@ describe("engine-server", () => {
 			"/rights-management/pap/:id",
 			"/rights-management/pap/query",
 			"/rights-management/pep/intercept",
+			"/rights-management/pnp/negotiate",
+			"/rights-management/pnp/:policyId",
+			"/rights-management/pnp/:policyId",
+			"/rights-management/pnap/:policyId",
+			"/rights-management/pnap/:policyId",
+			"/rights-management/pnap/:policyId",
+			"/rights-management/pnap",
 			"/synchronised-storage/sync-changeset",
 			"/synchronised-storage/decryption-key",
 			"/federated-catalogue/participant-credentials",

@@ -24,12 +24,12 @@ import { AuthenticationComponentType } from "../models/types/authenticationCompo
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseAuthenticationComponent(
+export async function initialiseAuthenticationComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: AuthenticationComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Authentication Component: ${instanceConfig.type}`

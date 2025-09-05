@@ -24,12 +24,12 @@ import { WalletConnectorType } from "../models/types/walletConnectorType";
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseWalletConnector(
+export async function initialiseWalletConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: WalletConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Wallet Connector: ${instanceConfig.type}`
@@ -85,12 +85,12 @@ export function initialiseWalletConnector(
  * @returns Nothing.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseWalletStorage(
+export async function initialiseWalletStorage(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: WalletConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	const type = instanceConfig.type;
 	if (type === WalletConnectorType.Iota) {
 		// No storage required for IOTA wallet connector.

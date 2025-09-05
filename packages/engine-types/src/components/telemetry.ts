@@ -32,12 +32,12 @@ import { TelemetryConnectorType } from "../models/types/telemetryConnectorType";
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseTelemetryConnector(
+export async function initialiseTelemetryConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: TelemetryConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Telemetry Connector: ${instanceConfig.type}`
@@ -89,12 +89,12 @@ export function initialiseTelemetryConnector(
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseTelemetryComponent(
+export async function initialiseTelemetryComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: TelemetryComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Telemetry Component: ${instanceConfig.type}`

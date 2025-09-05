@@ -118,10 +118,31 @@ export function addDefaultRestPaths(serverConfig: IEngineServerConfig): void {
 	}
 
 	if (
-		Is.arrayValue(serverConfig.types.rightsManagementComponent) &&
-		!Is.stringValue(serverConfig.types.rightsManagementComponent[0].restPath)
+		Is.arrayValue(serverConfig.types.rightsManagementPapComponent) &&
+		!Is.stringValue(serverConfig.types.rightsManagementPapComponent[0].restPath)
 	) {
-		serverConfig.types.rightsManagementComponent[0].restPath = "/rights-management";
+		serverConfig.types.rightsManagementPapComponent[0].restPath = "/rights-management";
+	}
+
+	if (
+		Is.arrayValue(serverConfig.types.rightsManagementPepComponent) &&
+		!Is.stringValue(serverConfig.types.rightsManagementPepComponent[0].restPath)
+	) {
+		serverConfig.types.rightsManagementPepComponent[0].restPath = "/rights-management";
+	}
+
+	if (
+		Is.arrayValue(serverConfig.types.rightsManagementPnpComponent) &&
+		!Is.stringValue(serverConfig.types.rightsManagementPnpComponent[0].restPath)
+	) {
+		serverConfig.types.rightsManagementPnpComponent[0].restPath = "/rights-management";
+	}
+
+	if (
+		Is.arrayValue(serverConfig.types.rightsManagementPnapComponent) &&
+		!Is.stringValue(serverConfig.types.rightsManagementPnapComponent[0].restPath)
+	) {
+		serverConfig.types.rightsManagementPnapComponent[0].restPath = "/rights-management";
 	}
 
 	if (

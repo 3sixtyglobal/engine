@@ -5,6 +5,7 @@ export * from "./factories/engineServerFactory";
 export * from "./models/config/IEngineCoreConfig";
 export * from "./models/config/IEngineCoreTypeBaseConfig";
 export * from "./models/config/IEngineCoreTypeConfig";
+export * from "./models/config/IEngineModuleConfig";
 export * from "./models/engineTypeInitialiser";
 export * from "./models/IEngineCore";
 export * from "./models/IEngineCoreClone";

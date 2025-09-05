@@ -18,12 +18,12 @@ import { TaskSchedulerComponentType } from "../models/types/taskSchedulerCompone
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseTaskSchedulerComponent(
+export async function initialiseTaskSchedulerComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: TaskSchedulerComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Task Scheduler: ${instanceConfig.type}`

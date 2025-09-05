@@ -324,10 +324,24 @@ export class Engine<
 		);
 
 		this.addTypeInitialiser(
-			"rightsManagementComponent",
-			this._context.config.types.rightsManagementComponent,
+			"rightsManagementPnapComponent",
+			this._context.config.types.rightsManagementPnapComponent,
 			"@twin.org/engine-types",
-			"initialiseRightsManagementComponent"
+			"initialiseRightsManagementPnapComponent"
+		);
+
+		this.addTypeInitialiser(
+			"rightsManagementPnpComponent",
+			this._context.config.types.rightsManagementPnpComponent,
+			"@twin.org/engine-types",
+			"initialiseRightsManagementPnpComponent"
+		);
+
+		this.addTypeInitialiser(
+			"rightsManagementPnrpComponent",
+			this._context.config.types.rightsManagementPnrpComponent,
+			"@twin.org/engine-types",
+			"initialiseRightsManagementPnrpComponent"
 		);
 
 		this.addTypeInitialiser(

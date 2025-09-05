@@ -52,12 +52,12 @@ import { MessagingSmsConnectorType } from "../models/types/messagingSmsConnector
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseMessagingEmailConnector(
+export async function initialiseMessagingEmailConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: MessagingEmailConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Messaging Email Connector: ${instanceConfig.type}`
@@ -109,12 +109,12 @@ export function initialiseMessagingEmailConnector(
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseMessagingSmsConnector(
+export async function initialiseMessagingSmsConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: MessagingSmsConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Messaging SMS Connector: ${instanceConfig.type}`
@@ -166,12 +166,12 @@ export function initialiseMessagingSmsConnector(
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseMessagingPushNotificationConnector(
+export async function initialiseMessagingPushNotificationConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: MessagingPushNotificationConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Messaging Push Notification Connector: ${instanceConfig.type}`
@@ -229,12 +229,12 @@ export function initialiseMessagingPushNotificationConnector(
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseMessagingComponent(
+export async function initialiseMessagingComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: MessagingComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Messaging Component: ${instanceConfig.type}`

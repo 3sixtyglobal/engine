@@ -1,10 +1,15 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, Is, I18n, StringHelper } from "@twin.org/core";
+import { EngineModuleHelper } from "@twin.org/engine-core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
-import type { IPolicyEnforcementPointComponent } from "@twin.org/rights-management-models";
+import type {
+	IPolicyEnforcementPointComponent,
+	IPolicyEnforcementProcessor
+} from "@twin.org/rights-management-models";
 import { PolicyEnforcementPointService } from "@twin.org/rights-management-pep-service";
+import { PolicyEnforcementPointClient } from "@twin.org/rights-management-rest-client";
 import type { RightsManagementPepComponentConfig } from "../models/config/rightsManagementPepComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
 import { RightsManagementPepComponentType } from "../models/types/rightsManagementPepComponentType";
@@ -18,12 +23,12 @@ import { RightsManagementPepComponentType } from "../models/types/rightsManageme
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseRightsManagementPepComponent(
+export async function initialiseRightsManagementPepComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: RightsManagementPepComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Rights Management PEP Component: ${instanceConfig.type}`
@@ -35,14 +40,31 @@ export function initialiseRightsManagementPepComponent(
 	let instanceType: string;
 
 	if (type === RightsManagementPepComponentType.Service) {
+		const modules: { processorId: string; processor: IPolicyEnforcementProcessor }[] = [];
+		if (Is.arrayValue(instanceConfig.options?.processorModulesConfig)) {
+			for (const moduleConfig of instanceConfig.options.processorModulesConfig) {
+				modules.push({
+					processorId: moduleConfig.id,
+					processor: await EngineModuleHelper.loadComponent(engineCore, moduleConfig)
+				});
+			}
+		}
+
 		component = new PolicyEnforcementPointService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			policyDecisionPointComponentType: engineCore.getRegisteredInstanceType(
 				"rightsManagementPdpComponent"
 			),
-			...instanceConfig.options
+			...instanceConfig.options,
+			config: {
+				...instanceConfig.options?.config,
+				processors: instanceConfig.options?.config?.processors ?? modules
+			}
 		});
 		instanceType = StringHelper.kebabCase(nameof(PolicyEnforcementPointService));
+	} else if (type === RightsManagementPepComponentType.RestClient) {
+		component = new PolicyEnforcementPointClient(instanceConfig.options);
+		instanceType = StringHelper.kebabCase(nameof(PolicyEnforcementPointClient));
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

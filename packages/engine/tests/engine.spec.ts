@@ -38,12 +38,14 @@ import {
 	MessagingSmsConnectorType,
 	NftComponentType,
 	NftConnectorType,
-	RightsManagementComponentType,
 	RightsManagementPapComponentType,
 	RightsManagementPdpComponentType,
 	RightsManagementPepComponentType,
 	RightsManagementPipComponentType,
 	RightsManagementPmpComponentType,
+	RightsManagementPnapComponentType,
+	RightsManagementPnpComponentType,
+	RightsManagementPnrpComponentType,
 	RightsManagementPxpComponentType,
 	SynchronisedStorageComponentType,
 	TaskSchedulerComponentType,
@@ -57,6 +59,11 @@ import {
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
+import type {
+	IPolicyExecutionPointComponent,
+	IPolicyInformationPointComponent,
+	IPolicyNegotiationPointComponent
+} from "@twin.org/rights-management-models";
 import { Engine } from "../src/engine";
 
 /**
@@ -151,11 +158,6 @@ describe("engine", () => {
 					dataExtractorConnector: [{ type: DataExtractorConnectorType.JsonPath }],
 					dataProcessingComponent: [{ type: DataProcessingComponentType.Service }],
 					documentManagementComponent: [{ type: DocumentManagementComponentType.Service }],
-					rightsManagementComponent: [
-						{
-							type: RightsManagementComponentType.Service
-						}
-					],
 					rightsManagementPapComponent: [
 						{
 							type: RightsManagementPapComponentType.Service
@@ -173,17 +175,83 @@ describe("engine", () => {
 					],
 					rightsManagementPipComponent: [
 						{
-							type: RightsManagementPipComponentType.Service
+							type: RightsManagementPipComponentType.Service,
+							options: {
+								informationModulesConfig: [
+									{
+										id: "static",
+										moduleName: "@twin.org/rights-management-pip-service",
+										className: "StaticPolicyInformationSource",
+										dependencies: [
+											{
+												propertyName: "loggingComponentType",
+												componentName: "loggingComponent"
+											}
+										]
+									},
+									{
+										id: "identity",
+										moduleName: "@twin.org/rights-management-pip-service",
+										className: "IdentityPolicyInformationSource",
+										dependencies: [
+											{
+												propertyName: "loggingComponentType",
+												componentName: "loggingComponent"
+											},
+											{
+												propertyName: "identityResolverComponentType",
+												componentName: "identityResolverComponent"
+											}
+										]
+									}
+								]
+							}
 						}
 					],
 					rightsManagementPxpComponent: [
 						{
-							type: RightsManagementPxpComponentType.Service
+							type: RightsManagementPxpComponentType.Service,
+							options: {
+								actionModulesConfig: [
+									{
+										id: "logging",
+										moduleName: "@twin.org/rights-management-pxp-service",
+										className: "LoggingPolicyExecutionAction",
+										dependencies: [
+											{
+												propertyName: "loggingComponentType",
+												componentName: "loggingComponent"
+											}
+										]
+									}
+								]
+							}
 						}
 					],
 					rightsManagementPmpComponent: [
 						{
 							type: RightsManagementPmpComponentType.Service
+						}
+					],
+					rightsManagementPnpComponent: [
+						{
+							type: RightsManagementPnpComponentType.Service
+						}
+					],
+					rightsManagementPnapComponent: [
+						{
+							type: RightsManagementPnapComponentType.Service
+						}
+					],
+					rightsManagementPnrpComponent: [
+						{
+							type: RightsManagementPnrpComponentType.Service,
+							options: {
+								config: {
+									negotiationComponentCreator: async () =>
+										({}) as unknown as IPolicyNegotiationPointComponent
+								}
+							}
 						}
 					],
 					taskSchedulerComponent: [
@@ -245,7 +313,9 @@ describe("engine", () => {
 			"policy-information-point-service",
 			"policy-decision-point-service",
 			"policy-enforcement-point-service",
-			"rights-management-service",
+			"policy-negotiation-admin-point-service",
+			"policy-negotiation-point-service",
+			"policy-negotiation-request-point-service",
 			"synchronised-storage-service",
 			"federated-catalogue-service",
 			"data-space-connector-service"
@@ -280,6 +350,7 @@ describe("engine", () => {
 			"ExtractionRuleGroup",
 			"ExtractionRule",
 			"OdrlPolicy",
+			"PolicyNegotiation",
 			"SyncSnapshotEntry",
 			"ParticipantEntry",
 			"DataResourceEntry",
@@ -291,6 +362,18 @@ describe("engine", () => {
 
 		expect(engine).toBeDefined();
 		expect(calledCustomBootstrap).toBeDefined();
+
+		const pip = ComponentFactory.get<IPolicyInformationPointComponent>(
+			"policy-information-point-service"
+		);
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		expect((pip as any)._sources.length).toEqual(2);
+
+		const pxp = ComponentFactory.get<IPolicyExecutionPointComponent>(
+			"policy-execution-point-service"
+		);
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		expect((pxp as any)._executionActions.before.length).toEqual(1);
 	});
 
 	test("Can start engine with custom entity storage", async () => {
@@ -412,11 +495,6 @@ describe("engine", () => {
 					dataExtractorConnector: [{ type: DataExtractorConnectorType.JsonPath }],
 					dataProcessingComponent: [{ type: DataProcessingComponentType.Service }],
 					documentManagementComponent: [{ type: DocumentManagementComponentType.Service }],
-					rightsManagementComponent: [
-						{
-							type: RightsManagementComponentType.Service
-						}
-					],
 					rightsManagementPapComponent: [
 						{
 							type: RightsManagementPapComponentType.Service
@@ -447,7 +525,27 @@ describe("engine", () => {
 							type: RightsManagementPmpComponentType.Service
 						}
 					],
-
+					rightsManagementPnpComponent: [
+						{
+							type: RightsManagementPnpComponentType.Service
+						}
+					],
+					rightsManagementPnapComponent: [
+						{
+							type: RightsManagementPnapComponentType.Service
+						}
+					],
+					rightsManagementPnrpComponent: [
+						{
+							type: RightsManagementPnrpComponentType.Service,
+							options: {
+								config: {
+									negotiationComponentCreator: async () =>
+										({}) as unknown as IPolicyNegotiationPointComponent
+								}
+							}
+						}
+					],
 					taskSchedulerComponent: [
 						{
 							type: TaskSchedulerComponentType.Service
@@ -538,11 +636,6 @@ describe("engine", () => {
 				dataExtractorConnector: [{ type: DataExtractorConnectorType.JsonPath }],
 				dataProcessingComponent: [{ type: DataProcessingComponentType.Service }],
 				documentManagementComponent: [{ type: DocumentManagementComponentType.Service }],
-				rightsManagementComponent: [
-					{
-						type: RightsManagementComponentType.Service
-					}
-				],
 				rightsManagementPapComponent: [
 					{
 						type: RightsManagementPapComponentType.Service
@@ -571,6 +664,27 @@ describe("engine", () => {
 				rightsManagementPmpComponent: [
 					{
 						type: RightsManagementPmpComponentType.Service
+					}
+				],
+				rightsManagementPnpComponent: [
+					{
+						type: RightsManagementPnpComponentType.Service
+					}
+				],
+				rightsManagementPnapComponent: [
+					{
+						type: RightsManagementPnapComponentType.Service
+					}
+				],
+				rightsManagementPnrpComponent: [
+					{
+						type: RightsManagementPnrpComponentType.Service,
+						options: {
+							config: {
+								negotiationComponentCreator: async () =>
+									({}) as unknown as IPolicyNegotiationPointComponent
+							}
+						}
 					}
 				],
 				taskSchedulerComponent: [
@@ -739,20 +853,16 @@ describe("engine", () => {
 							options: { endpoint: "http://localhost:3000" }
 						}
 					],
-					rightsManagementComponent: [
-						{
-							type: RightsManagementComponentType.RestClient,
-							options: { endpoint: "http://localhost:3000" }
-						}
-					],
 					rightsManagementPapComponent: [
 						{
-							type: RightsManagementPapComponentType.Service
+							type: RightsManagementPapComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
 						}
 					],
 					rightsManagementPepComponent: [
 						{
-							type: RightsManagementPepComponentType.Service
+							type: RightsManagementPepComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
 						}
 					],
 					rightsManagementPdpComponent: [
@@ -773,6 +883,29 @@ describe("engine", () => {
 					rightsManagementPmpComponent: [
 						{
 							type: RightsManagementPmpComponentType.Service
+						}
+					],
+					rightsManagementPnpComponent: [
+						{
+							type: RightsManagementPnpComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
+						}
+					],
+					rightsManagementPnapComponent: [
+						{
+							type: RightsManagementPnapComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
+						}
+					],
+					rightsManagementPnrpComponent: [
+						{
+							type: RightsManagementPnrpComponentType.Service,
+							options: {
+								config: {
+									negotiationComponentCreator: async () =>
+										({}) as unknown as IPolicyNegotiationPointComponent
+								}
+							}
 						}
 					],
 					taskSchedulerComponent: [
@@ -832,13 +965,15 @@ describe("engine", () => {
 			"auditable-item-stream-client",
 			"data-processing-client",
 			"document-management-client",
-			"policy-administration-point-service",
+			"policy-administration-point-client",
 			"policy-management-point-service",
 			"policy-execution-point-service",
 			"policy-information-point-service",
 			"policy-decision-point-service",
-			"policy-enforcement-point-service",
-			"rights-management-client",
+			"policy-enforcement-point-client",
+			"policy-negotiation-admin-point-client",
+			"policy-negotiation-point-client",
+			"policy-negotiation-request-point-service",
 			"synchronised-storage-client",
 			"federated-catalogue-client",
 			"data-space-connector-client",
@@ -860,8 +995,7 @@ describe("engine", () => {
 			"WalletAddress",
 			"IdentityDocument",
 			"IdentityProfile",
-			"Nft",
-			"OdrlPolicy"
+			"Nft"
 		]);
 
 		expect(engine).toBeDefined();

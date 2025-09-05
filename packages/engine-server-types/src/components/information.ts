@@ -19,12 +19,12 @@ import { InformationComponentType } from "../models/types/informationComponentTy
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseInformationComponent(
+export async function initialiseInformationComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: InformationComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Information Component: ${instanceConfig.type}`

@@ -13,4 +13,4 @@ export type EngineTypeInitialiser<T extends IEngineCoreTypeBaseConfig = IEngineC
 		context: IEngineCoreContext,
 		instanceConfig: T,
 		overrideInstanceType?: string
-	) => string | undefined;
+	) => Promise<string | undefined>;

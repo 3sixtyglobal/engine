@@ -288,12 +288,6 @@ Date processing options which can be overridden by individual components by spec
 
 Document management options which can be overridden by individual components by specifying types other than default.
 
-#### rightsManagementComponent?
-
-> `optional` **rightsManagementComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementComponentConfig`](../type-aliases/RightsManagementComponentConfig.md)\>[]
-
-Rights management options which can be overridden by individual components by specifying types other than default.
-
 #### rightsManagementPapComponent?
 
 > `optional` **rightsManagementPapComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPapComponentConfig`](../type-aliases/RightsManagementPapComponentConfig.md)\>[]
@@ -329,6 +323,24 @@ Rights management PMP options which can be overridden by individual components b
 > `optional` **rightsManagementPxpComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPxpComponentConfig`](../type-aliases/RightsManagementPxpComponentConfig.md)\>[]
 
 Rights management PXP options which can be overridden by individual components by specifying types other than default.
+
+#### rightsManagementPnpComponent?
+
+> `optional` **rightsManagementPnpComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPnpComponentConfig`](../type-aliases/RightsManagementPnpComponentConfig.md)\>[]
+
+Rights management PNP options which can be overridden by individual components by specifying types other than default.
+
+#### rightsManagementPnapComponent?
+
+> `optional` **rightsManagementPnapComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPnapComponentConfig`](../type-aliases/RightsManagementPnapComponentConfig.md)\>[]
+
+Rights management PNAP options which can be overridden by individual components by specifying types other than default.
+
+#### rightsManagementPnrpComponent?
+
+> `optional` **rightsManagementPnrpComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPnrpComponentConfig`](../type-aliases/RightsManagementPnrpComponentConfig.md)\>[]
+
+Rights management PNRP options which can be overridden by individual components by specifying types other than default.
 
 #### synchronisedStorageComponent?
 

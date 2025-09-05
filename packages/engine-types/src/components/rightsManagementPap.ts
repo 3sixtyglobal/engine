@@ -9,6 +9,7 @@ import {
 	type OdrlPolicy,
 	PolicyAdministrationPointService
 } from "@twin.org/rights-management-pap-service";
+import { PolicyAdministrationPointClient } from "@twin.org/rights-management-rest-client";
 import { initialiseEntityStorageConnector } from "./entityStorage";
 import type { RightsManagementPapComponentConfig } from "../models/config/rightsManagementPapComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
@@ -23,12 +24,12 @@ import { RightsManagementPapComponentType } from "../models/types/rightsManageme
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseRightsManagementPapComponent(
+export async function initialiseRightsManagementPapComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: RightsManagementPapComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Rights Management PAP Component: ${instanceConfig.type}`
@@ -54,6 +55,9 @@ export function initialiseRightsManagementPapComponent(
 			...instanceConfig.options
 		});
 		instanceType = StringHelper.kebabCase(nameof(PolicyAdministrationPointService));
+	} else if (type === RightsManagementPapComponentType.RestClient) {
+		component = new PolicyAdministrationPointClient(instanceConfig.options);
+		instanceType = StringHelper.kebabCase(nameof(PolicyAdministrationPointClient));
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

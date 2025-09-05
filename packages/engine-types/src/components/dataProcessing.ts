@@ -39,12 +39,12 @@ import { DataProcessingComponentType } from "../models/types/dataProcessingCompo
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseDataConverterConnector(
+export async function initialiseDataConverterConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: DataConverterConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Data Converter Connector: ${instanceConfig.type}`
@@ -86,12 +86,12 @@ export function initialiseDataConverterConnector(
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseDataExtractorConnector(
+export async function initialiseDataExtractorConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: DataExtractorConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Data Extractor Connector: ${instanceConfig.type}`
@@ -130,12 +130,12 @@ export function initialiseDataExtractorConnector(
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseDataProcessingComponent(
+export async function initialiseDataProcessingComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: DataProcessingComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Data Processing Component: ${instanceConfig.type}`

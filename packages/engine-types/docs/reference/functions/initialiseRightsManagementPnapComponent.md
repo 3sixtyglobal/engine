@@ -1,8 +1,8 @@
-# Function: initialiseRightsManagementComponent()
+# Function: initialiseRightsManagementPnapComponent()
 
-> **initialiseRightsManagementComponent**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseRightsManagementPnapComponent**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `Promise`\<`undefined` \| `string`\>
 
-Initialise the rights management component.
+Initialise the rights management PNAP component.
 
 ## Parameters
 
@@ -20,7 +20,7 @@ The context for the engine.
 
 ### instanceConfig
 
-[`RightsManagementComponentConfig`](../type-aliases/RightsManagementComponentConfig.md)
+[`RightsManagementPnapComponentConfig`](../type-aliases/RightsManagementPnapComponentConfig.md)
 
 The instance config.
 
@@ -32,7 +32,7 @@ The instance type to override the default.
 
 ## Returns
 
-`undefined` \| `string`
+`Promise`\<`undefined` \| `string`\>
 
 The name of the instance created.
 

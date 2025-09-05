@@ -32,12 +32,12 @@ import { VerifiableStorageConnectorType } from "../models/types/verifiableStorag
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseVerifiableStorageConnector(
+export async function initialiseVerifiableStorageConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: VerifiableStorageConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Verifiable Storage Connector: ${instanceConfig.type}`
@@ -94,12 +94,12 @@ export function initialiseVerifiableStorageConnector(
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseVerifiableStorageComponent(
+export async function initialiseVerifiableStorageComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: VerifiableStorageComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Verifiable Storage Component: ${instanceConfig.type}`

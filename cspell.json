@@ -33,6 +33,8 @@
 		"Odrl",
 		"openapi",
 		"Postgre",
+		"PNAP",
+		"PNRP",
 		"scylladb",
 		"Stiftung"
 	],

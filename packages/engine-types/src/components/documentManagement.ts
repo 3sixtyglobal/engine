@@ -19,12 +19,12 @@ import { DocumentManagementComponentType } from "../models/types/documentManagem
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseDocumentManagementComponent(
+export async function initialiseDocumentManagementComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: DocumentManagementComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Document Management Component: ${instanceConfig.type}`

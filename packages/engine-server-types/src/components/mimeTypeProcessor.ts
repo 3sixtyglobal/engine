@@ -18,12 +18,12 @@ import { MimeTypeProcessorType } from "../models/types/mimeTypeProcessorType";
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseMimeTypeProcessorComponent(
+export async function initialiseMimeTypeProcessorComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: MimeTypeProcessorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Mime Type Processor: ${instanceConfig.type}`

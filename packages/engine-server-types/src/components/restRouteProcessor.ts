@@ -24,12 +24,12 @@ import { RestRouteProcessorType } from "../models/types/restRouteProcessorType";
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseRestRouteProcessorComponent(
+export async function initialiseRestRouteProcessorComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: RestRouteProcessorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `REST Route Processor: ${instanceConfig.type}`

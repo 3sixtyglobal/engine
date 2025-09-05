@@ -208,12 +208,12 @@ export function initialiseEntityStorageConnector(
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseEntityStorageComponent(
+export async function initialiseEntityStorageComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: EntityStorageComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Entity Storage Component: ${instanceConfig.type}`

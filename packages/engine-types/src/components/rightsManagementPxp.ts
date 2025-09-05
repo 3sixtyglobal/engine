@@ -1,9 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n, Is, StringHelper } from "@twin.org/core";
+import { EngineModuleHelper } from "@twin.org/engine-core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
-import type { IPolicyExecutionPointComponent } from "@twin.org/rights-management-models";
+import type {
+	IPolicyExecutionAction,
+	IPolicyExecutionPointComponent
+} from "@twin.org/rights-management-models";
 import { PolicyExecutionPointService } from "@twin.org/rights-management-pxp-service";
 import type { RightsManagementPxpComponentConfig } from "../models/config/rightsManagementPxpComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
@@ -18,12 +22,12 @@ import { RightsManagementPxpComponentType } from "../models/types/rightsManageme
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseRightsManagementPxpComponent(
+export async function initialiseRightsManagementPxpComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: RightsManagementPxpComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Rights Management PXP Component: ${instanceConfig.type}`
@@ -35,9 +39,23 @@ export function initialiseRightsManagementPxpComponent(
 	let instanceType: string;
 
 	if (type === RightsManagementPxpComponentType.Service) {
+		const modules: { actionId: string; action: IPolicyExecutionAction }[] = [];
+		if (Is.arrayValue(instanceConfig.options?.actionModulesConfig)) {
+			for (const moduleConfig of instanceConfig.options.actionModulesConfig) {
+				modules.push({
+					actionId: moduleConfig.id,
+					action: await EngineModuleHelper.loadComponent(engineCore, moduleConfig)
+				});
+			}
+		}
+
 		component = new PolicyExecutionPointService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			...instanceConfig.options
+			...instanceConfig.options,
+			config: {
+				...instanceConfig.options?.config,
+				actions: instanceConfig.options?.config?.actions ?? modules
+			}
 		});
 		instanceType = StringHelper.kebabCase(nameof(PolicyExecutionPointService));
 	} else {

@@ -37,12 +37,12 @@ import { BlobStorageConnectorType } from "../models/types/blobStorageConnectorTy
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseBlobStorageConnector(
+export async function initialiseBlobStorageConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: BlobStorageConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Blob Storage Connector: ${instanceConfig.type}`
@@ -122,12 +122,12 @@ export function initialiseBlobStorageConnector(
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseBlobStorageComponent(
+export async function initialiseBlobStorageComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: BlobStorageComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Blob Storage Component: ${instanceConfig.type}`

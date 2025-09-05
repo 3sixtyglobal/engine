@@ -1,13 +1,18 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { IPolicyAdministrationPointServiceConstructorOptions } from "@twin.org/rights-management-pap-service";
 import type { RightsManagementPapComponentType } from "../types/rightsManagementPapComponentType";
 
 /**
  * Rights management PAP component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-export type RightsManagementPapComponentConfig = {
-	type: typeof RightsManagementPapComponentType.Service;
-	options?: IPolicyAdministrationPointServiceConstructorOptions;
-};
+export type RightsManagementPapComponentConfig =
+	| {
+			type: typeof RightsManagementPapComponentType.Service;
+			options?: IPolicyAdministrationPointServiceConstructorOptions;
+	  }
+	| {
+			type: typeof RightsManagementPapComponentType.RestClient;
+			options: IBaseRestClientConfig;
+	  };

@@ -24,12 +24,12 @@ import { SocketRouteProcessorType } from "../models/types/socketRouteProcessorTy
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseSocketRouteProcessorComponent(
+export async function initialiseSocketRouteProcessorComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: SocketRouteProcessorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Socket Route Processor: ${instanceConfig.type}`

@@ -24,12 +24,12 @@ import { SynchronisedStorageComponentType } from "../models/types/synchronisedSt
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseSynchronisedStorageComponent(
+export async function initialiseSynchronisedStorageComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: SynchronisedStorageComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Synchronised Storage Component: ${instanceConfig.type}`

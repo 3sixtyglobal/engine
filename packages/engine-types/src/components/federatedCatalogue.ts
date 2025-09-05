@@ -27,12 +27,12 @@ import { FederatedCatalogueComponentType } from "../models/types/federatedCatalo
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseFederatedCatalogueComponent(
+export async function initialiseFederatedCatalogueComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: FederatedCatalogueComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Federated Catalogue Component: ${instanceConfig.type}`

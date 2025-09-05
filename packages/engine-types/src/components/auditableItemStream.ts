@@ -25,12 +25,12 @@ import { AuditableItemStreamComponentType } from "../models/types/auditableItemS
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseAuditableItemStreamComponent(
+export async function initialiseAuditableItemStreamComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: AuditableItemStreamComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Auditable Item Stream Component: ${instanceConfig.type}`

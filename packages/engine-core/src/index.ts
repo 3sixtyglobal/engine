@@ -4,3 +4,4 @@ export * from "./engineCore";
 export * from "./models/IEngineCoreOptions";
 export * from "./storage/fileStateStorage";
 export * from "./storage/memoryStateStorage";
+export * from "./utils/engineModuleHelper";

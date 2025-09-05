@@ -24,12 +24,12 @@ import { ImmutableProofComponentType } from "../models/types/immutableProofCompo
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseImmutableProofComponent(
+export async function initialiseImmutableProofComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: ImmutableProofComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Immutable Proof Component: ${instanceConfig.type}`

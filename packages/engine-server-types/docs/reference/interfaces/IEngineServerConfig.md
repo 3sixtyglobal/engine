@@ -294,12 +294,6 @@ Date processing options which can be overridden by individual components by spec
 
 Document management options which can be overridden by individual components by specifying types other than default.
 
-##### rightsManagementComponent?
-
-> `optional` **rightsManagementComponent**: `IEngineCoreTypeConfig`\<`RightsManagementComponentConfig`\>[]
-
-Rights management options which can be overridden by individual components by specifying types other than default.
-
 ##### rightsManagementPapComponent?
 
 > `optional` **rightsManagementPapComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPapComponentConfig`\>[]
@@ -335,6 +329,24 @@ Rights management PMP options which can be overridden by individual components b
 > `optional` **rightsManagementPxpComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPxpComponentConfig`\>[]
 
 Rights management PXP options which can be overridden by individual components by specifying types other than default.
+
+##### rightsManagementPnpComponent?
+
+> `optional` **rightsManagementPnpComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPnpComponentConfig`\>[]
+
+Rights management PNP options which can be overridden by individual components by specifying types other than default.
+
+##### rightsManagementPnapComponent?
+
+> `optional` **rightsManagementPnapComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPnapComponentConfig`\>[]
+
+Rights management PNAP options which can be overridden by individual components by specifying types other than default.
+
+##### rightsManagementPnrpComponent?
+
+> `optional` **rightsManagementPnrpComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPnrpComponentConfig`\>[]
+
+Rights management PNRP options which can be overridden by individual components by specifying types other than default.
 
 ##### synchronisedStorageComponent?
 

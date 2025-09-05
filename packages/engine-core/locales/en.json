@@ -12,6 +12,9 @@
 		"fileStateStorage": {
 			"failedLoading": "Failed to load file state storage from \"{filename}\"",
 			"failedSaving": "Failed to save file state storage to \"{filename}\""
+		},
+		"engineModuleHelper": {
+			"moduleNotClass": "The module \"{moduleName}\" does not export a class \"{className}\""
 		}
 	},
 	"engineCore": {

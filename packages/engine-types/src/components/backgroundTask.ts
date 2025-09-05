@@ -26,12 +26,12 @@ import { BackgroundTaskConnectorType } from "../models/types/backgroundTaskConne
  * @returns The name of the instance created.
  * @throws GeneralError if the connector type is unknown.
  */
-export function initialiseBackgroundTaskConnector(
+export async function initialiseBackgroundTaskConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: BackgroundTaskConnectorConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Background Task Connector: ${instanceConfig.type}`

@@ -1,8 +1,8 @@
-# Variable: RightsManagementComponentType
+# Variable: RightsManagementPnpComponentType
 
-> `const` **RightsManagementComponentType**: `object`
+> `const` **RightsManagementPnpComponentType**: `object`
 
-Rights management component types.
+Rights management PNP component types.
 
 ## Type Declaration
 

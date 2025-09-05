@@ -23,12 +23,12 @@ import { AuthenticationAdminComponentType } from "../models/types/authentication
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export function initialiseAuthenticationAdminComponent(
+export async function initialiseAuthenticationAdminComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: AuthenticationAdminComponentConfig,
 	overrideInstanceType?: string
-): string | undefined {
+): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
 			element: `Authentication Admin Component: ${instanceConfig.type}`
