@@ -1,5 +1,12 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.2-next.12](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.11...engine-models-v0.0.2-next.12) (2025-09-05)
+
+
+### Features
+
+* add rights management negotiation ([84ef46b](https://github.com/twinfoundation/engine/commit/84ef46bff110611a19512793425c8c873ee2a590))
+
 ## [0.0.2-next.11](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.10...engine-models-v0.0.2-next.11) (2025-08-29)
 
 
