@@ -544,12 +544,6 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 			"generateRestRoutesPolicyAdministrationPoint"
 		);
 		this.addRestRouteGenerator(
-			"rightsManagementPepComponent",
-			coreConfig.types.rightsManagementPepComponent,
-			"@twin.org/rights-management-service",
-			"generateRestRoutesPolicyEnforcementPoint"
-		);
-		this.addRestRouteGenerator(
 			"rightsManagementPnpComponent",
 			coreConfig.types.rightsManagementPnpComponent,
 			"@twin.org/rights-management-service",

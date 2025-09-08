@@ -861,8 +861,7 @@ describe("engine", () => {
 					],
 					rightsManagementPepComponent: [
 						{
-							type: RightsManagementPepComponentType.RestClient,
-							options: { endpoint: "http://localhost:3000" }
+							type: RightsManagementPepComponentType.Service
 						}
 					],
 					rightsManagementPdpComponent: [
@@ -970,7 +969,7 @@ describe("engine", () => {
 			"policy-execution-point-service",
 			"policy-information-point-service",
 			"policy-decision-point-service",
-			"policy-enforcement-point-client",
+			"policy-enforcement-point-service",
 			"policy-negotiation-admin-point-client",
 			"policy-negotiation-point-client",
 			"policy-negotiation-request-point-service",

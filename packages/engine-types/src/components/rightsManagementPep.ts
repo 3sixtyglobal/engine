@@ -9,7 +9,6 @@ import type {
 	IPolicyEnforcementProcessor
 } from "@twin.org/rights-management-models";
 import { PolicyEnforcementPointService } from "@twin.org/rights-management-pep-service";
-import { PolicyEnforcementPointClient } from "@twin.org/rights-management-rest-client";
 import type { RightsManagementPepComponentConfig } from "../models/config/rightsManagementPepComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
 import { RightsManagementPepComponentType } from "../models/types/rightsManagementPepComponentType";
@@ -62,9 +61,6 @@ export async function initialiseRightsManagementPepComponent(
 			}
 		});
 		instanceType = StringHelper.kebabCase(nameof(PolicyEnforcementPointService));
-	} else if (type === RightsManagementPepComponentType.RestClient) {
-		component = new PolicyEnforcementPointClient(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(PolicyEnforcementPointClient));
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

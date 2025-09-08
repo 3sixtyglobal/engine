@@ -348,7 +348,6 @@ describe("engine-server", () => {
 			"/rights-management/pap/:id",
 			"/rights-management/pap/:id",
 			"/rights-management/pap/query",
-			"/rights-management/pep/intercept",
 			"/rights-management/pnp/negotiate",
 			"/rights-management/pnp/:policyId",
 			"/rights-management/pnp/:policyId",
