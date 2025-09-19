@@ -1,5 +1,20 @@
 # @twin.org/engine-types - Changelog
 
+## [0.0.2-next.14](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.2-next.13...engine-types-v0.0.2-next.14) (2025-09-19)
+
+
+### Features
+
+* add latest rights management components ([2d305c8](https://github.com/twinfoundation/engine/commit/2d305c8c85c77bb4f5694c76422db4a11efc1a40))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.2-next.13 to 0.0.2-next.14
+    * @twin.org/engine-models bumped from 0.0.2-next.13 to 0.0.2-next.14
+
 ## [0.0.2-next.13](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.2-next.12...engine-types-v0.0.2-next.13) (2025-09-08)
 
 
