@@ -1,8 +1,8 @@
-# Function: initialiseRightsManagementPnrpComponent()
+# Function: initialiseRightsManagementDapComponent()
 
-> **initialiseRightsManagementPnrpComponent**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `Promise`\<`undefined` \| `string`\>
+> **initialiseRightsManagementDapComponent**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `Promise`\<`undefined` \| `string`\>
 
-Initialise the rights management PNRP component.
+Initialise the rights management DAP component.
 
 ## Parameters
 
@@ -20,7 +20,7 @@ The context for the engine.
 
 ### instanceConfig
 
-[`RightsManagementPnrpComponentConfig`](../type-aliases/RightsManagementPnrpComponentConfig.md)
+[`RightsManagementDapComponentConfig`](../type-aliases/RightsManagementDapComponentConfig.md)
 
 The instance config.
 

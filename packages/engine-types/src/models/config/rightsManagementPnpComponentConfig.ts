@@ -11,8 +11,9 @@ import type { RightsManagementPnpComponentType } from "../types/rightsManagement
 export type RightsManagementPnpComponentConfig =
 	| {
 			type: typeof RightsManagementPnpComponentType.Service;
-			options?: IPolicyNegotiationPointServiceConstructorOptions & {
+			options: IPolicyNegotiationPointServiceConstructorOptions & {
 				negotiatorModulesConfig?: IEngineModuleConfig[];
+				requesterModulesConfig?: IEngineModuleConfig[];
 			};
 	  }
 	| {

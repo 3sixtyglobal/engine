@@ -556,6 +556,12 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 			"generateRestRoutesPolicyNegotiationAdminPoint"
 		);
 		this.addRestRouteGenerator(
+			"rightsManagementDapComponent",
+			coreConfig.types.rightsManagementDapComponent,
+			"@twin.org/rights-management-service",
+			"generateRestRoutesDataAccessPoint"
+		);
+		this.addRestRouteGenerator(
 			"synchronisedStorageComponent",
 			coreConfig.types.synchronisedStorageComponent,
 			"@twin.org/synchronised-storage-service",

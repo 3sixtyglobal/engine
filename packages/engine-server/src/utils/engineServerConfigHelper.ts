@@ -146,6 +146,13 @@ export function addDefaultRestPaths(serverConfig: IEngineServerConfig): void {
 	}
 
 	if (
+		Is.arrayValue(serverConfig.types.rightsManagementDapComponent) &&
+		!Is.stringValue(serverConfig.types.rightsManagementDapComponent[0].restPath)
+	) {
+		serverConfig.types.rightsManagementDapComponent[0].restPath = "/rights-management";
+	}
+
+	if (
 		Is.arrayValue(serverConfig.types.synchronisedStorageComponent) &&
 		!Is.stringValue(serverConfig.types.synchronisedStorageComponent[0].restPath)
 	) {

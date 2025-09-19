@@ -117,6 +117,7 @@
 		"@twin.org/nft-rest-client": "next",
 		"@twin.org/nft-service": "next",
 		"@twin.org/rights-management-models": "next",
+		"@twin.org/rights-management-dap-service": "next",
 		"@twin.org/rights-management-pap-service": "next",
 		"@twin.org/rights-management-pdp-service": "next",
 		"@twin.org/rights-management-pep-service": "next",

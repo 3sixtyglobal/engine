@@ -6,7 +6,8 @@ import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
 import type {
 	IPolicyNegotiationPointComponent,
-	IPolicyNegotiator
+	IPolicyNegotiator,
+	IPolicyRequester
 } from "@twin.org/rights-management-models";
 import { PolicyNegotiationPointService } from "@twin.org/rights-management-pnp-service";
 import { PolicyNegotiationPointClient } from "@twin.org/rights-management-rest-client";
@@ -40,12 +41,22 @@ export async function initialiseRightsManagementPnpComponent(
 	let instanceType: string;
 
 	if (type === RightsManagementPnpComponentType.Service) {
-		const modules: { negotiatorId: string; negotiator: IPolicyNegotiator }[] = [];
+		const negotiatorModules: { negotiatorId: string; negotiator: IPolicyNegotiator }[] = [];
 		if (Is.arrayValue(instanceConfig.options?.negotiatorModulesConfig)) {
 			for (const moduleConfig of instanceConfig.options.negotiatorModulesConfig) {
-				modules.push({
+				negotiatorModules.push({
 					negotiatorId: moduleConfig.id,
 					negotiator: await EngineModuleHelper.loadComponent(engineCore, moduleConfig)
+				});
+			}
+		}
+
+		const requesterModules: { requesterId: string; requester: IPolicyRequester }[] = [];
+		if (Is.arrayValue(instanceConfig.options?.requesterModulesConfig)) {
+			for (const moduleConfig of instanceConfig.options.requesterModulesConfig) {
+				requesterModules.push({
+					requesterId: moduleConfig.id,
+					requester: await EngineModuleHelper.loadComponent(engineCore, moduleConfig)
 				});
 			}
 		}
@@ -65,7 +76,8 @@ export async function initialiseRightsManagementPnpComponent(
 			...instanceConfig.options,
 			config: {
 				...instanceConfig.options?.config,
-				negotiators: instanceConfig.options?.config?.negotiators ?? modules
+				negotiators: instanceConfig.options?.config?.negotiators ?? negotiatorModules,
+				requesters: instanceConfig.options?.config?.requesters ?? requesterModules
 			}
 		});
 		instanceType = StringHelper.kebabCase(nameof(PolicyNegotiationPointService));

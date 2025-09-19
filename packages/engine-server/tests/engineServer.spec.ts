@@ -46,13 +46,14 @@ import {
 	NftComponentType,
 	NftConnectorType,
 	RightsManagementPapComponentType,
+	RightsManagementDarpComponentType,
+	RightsManagementDapComponentType,
 	RightsManagementPdpComponentType,
 	RightsManagementPepComponentType,
 	RightsManagementPipComponentType,
 	RightsManagementPmpComponentType,
 	RightsManagementPnapComponentType,
 	RightsManagementPnpComponentType,
-	RightsManagementPnrpComponentType,
 	RightsManagementPxpComponentType,
 	SynchronisedStorageComponentType,
 	TaskSchedulerComponentType,
@@ -66,7 +67,10 @@ import {
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
-import type { IPolicyNegotiationPointComponent } from "@twin.org/rights-management-models";
+import type {
+	IDataAccessPointComponent,
+	IPolicyNegotiationPointComponent
+} from "@twin.org/rights-management-models";
 import packageLocales from "../locales/en.json";
 import { EngineServer } from "../src/engineServer";
 import { addDefaultRestPaths, addDefaultSocketPaths } from "../src/utils/engineServerConfigHelper";
@@ -177,7 +181,14 @@ describe("engine-server", () => {
 				],
 				rightsManagementPnpComponent: [
 					{
-						type: RightsManagementPnpComponentType.Service
+						type: RightsManagementPnpComponentType.Service,
+						options: {
+							config: {
+								baseCallbackUrl: "http://localhost:3000",
+								negotiationComponentCreator: async () =>
+									({}) as unknown as IPolicyNegotiationPointComponent
+							}
+						}
 					}
 				],
 				rightsManagementPnapComponent: [
@@ -185,13 +196,17 @@ describe("engine-server", () => {
 						type: RightsManagementPnapComponentType.Service
 					}
 				],
-				rightsManagementPnrpComponent: [
+				rightsManagementDapComponent: [
 					{
-						type: RightsManagementPnrpComponentType.Service,
+						type: RightsManagementDapComponentType.Service
+					}
+				],
+				rightsManagementDarpComponent: [
+					{
+						type: RightsManagementDarpComponentType.Service,
 						options: {
 							config: {
-								negotiationComponentCreator: async () =>
-									({}) as unknown as IPolicyNegotiationPointComponent
+								dataAccessComponentCreator: async () => ({}) as unknown as IDataAccessPointComponent
 							}
 						}
 					}
@@ -343,18 +358,29 @@ describe("engine-server", () => {
 			"/documents/:auditableItemGraphDocumentId/:revision",
 			"/documents/:auditableItemGraphDocumentId/:revision",
 			"/documents",
-			"/rights-management/pap",
-			"/rights-management/pap/:id",
-			"/rights-management/pap/:id",
-			"/rights-management/pap/:id",
-			"/rights-management/pap/query",
-			"/rights-management/pnp/negotiate",
-			"/rights-management/pnp/:policyId",
-			"/rights-management/pnp/:policyId",
-			"/rights-management/pnap/:policyId",
-			"/rights-management/pnap/:policyId",
-			"/rights-management/pnap/:policyId",
-			"/rights-management/pnap",
+			"/rights-management/policy/admin",
+			"/rights-management/policy/admin/:id",
+			"/rights-management/policy/admin/:id",
+			"/rights-management/policy/admin/:id",
+			"/rights-management/policy/admin",
+			"/rights-management/negotiations/:id",
+			"/rights-management/negotiations/request",
+			"/rights-management/negotiations/:id/request",
+			"/rights-management/negotiations/:id/events",
+			"/rights-management/negotiations/:id/agreement/verification",
+			"/rights-management/negotiations/:id/termination",
+			"/rights-management/negotiations/offers",
+			"/rights-management/negotiations/:id/offers",
+			"/rights-management/negotiations/:id/agreement",
+			"/rights-management/negotiations/admin/:policyId",
+			"/rights-management/negotiations/admin/:policyId",
+			"/rights-management/negotiations/admin/:policyId",
+			"/rights-management/negotiations/admin",
+			"/rights-management/data/:assetType",
+			"/rights-management/data/:assetType/:id",
+			"/rights-management/data/:assetType/:id",
+			"/rights-management/data/:assetType/:id",
+			"/rights-management/data/:assetType/query",
 			"/synchronised-storage/sync-changeset",
 			"/synchronised-storage/decryption-key",
 			"/federated-catalogue/participant-credentials",

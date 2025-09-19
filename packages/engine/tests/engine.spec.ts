@@ -38,6 +38,8 @@ import {
 	MessagingSmsConnectorType,
 	NftComponentType,
 	NftConnectorType,
+	RightsManagementDapComponentType,
+	RightsManagementDarpComponentType,
 	RightsManagementPapComponentType,
 	RightsManagementPdpComponentType,
 	RightsManagementPepComponentType,
@@ -45,7 +47,6 @@ import {
 	RightsManagementPmpComponentType,
 	RightsManagementPnapComponentType,
 	RightsManagementPnpComponentType,
-	RightsManagementPnrpComponentType,
 	RightsManagementPxpComponentType,
 	SynchronisedStorageComponentType,
 	TaskSchedulerComponentType,
@@ -60,6 +61,7 @@ import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
 import type {
+	IDataAccessPointComponent,
 	IPolicyExecutionPointComponent,
 	IPolicyInformationPointComponent,
 	IPolicyNegotiationPointComponent
@@ -235,7 +237,14 @@ describe("engine", () => {
 					],
 					rightsManagementPnpComponent: [
 						{
-							type: RightsManagementPnpComponentType.Service
+							type: RightsManagementPnpComponentType.Service,
+							options: {
+								config: {
+									baseCallbackUrl: "http://localhost:3000",
+									negotiationComponentCreator: async () =>
+										({}) as unknown as IPolicyNegotiationPointComponent
+								}
+							}
 						}
 					],
 					rightsManagementPnapComponent: [
@@ -243,13 +252,18 @@ describe("engine", () => {
 							type: RightsManagementPnapComponentType.Service
 						}
 					],
-					rightsManagementPnrpComponent: [
+					rightsManagementDapComponent: [
 						{
-							type: RightsManagementPnrpComponentType.Service,
+							type: RightsManagementDapComponentType.Service
+						}
+					],
+					rightsManagementDarpComponent: [
+						{
+							type: RightsManagementDarpComponentType.Service,
 							options: {
 								config: {
-									negotiationComponentCreator: async () =>
-										({}) as unknown as IPolicyNegotiationPointComponent
+									dataAccessComponentCreator: async () =>
+										({}) as unknown as IDataAccessPointComponent
 								}
 							}
 						}
@@ -315,7 +329,8 @@ describe("engine", () => {
 			"policy-enforcement-point-service",
 			"policy-negotiation-admin-point-service",
 			"policy-negotiation-point-service",
-			"policy-negotiation-request-point-service",
+			"data-access-point-service",
+			"data-access-request-point-service",
 			"synchronised-storage-service",
 			"federated-catalogue-service",
 			"data-space-connector-service"
@@ -527,7 +542,14 @@ describe("engine", () => {
 					],
 					rightsManagementPnpComponent: [
 						{
-							type: RightsManagementPnpComponentType.Service
+							type: RightsManagementPnpComponentType.Service,
+							options: {
+								config: {
+									baseCallbackUrl: "http://localhost:3000",
+									negotiationComponentCreator: async () =>
+										({}) as unknown as IPolicyNegotiationPointComponent
+								}
+							}
 						}
 					],
 					rightsManagementPnapComponent: [
@@ -535,13 +557,18 @@ describe("engine", () => {
 							type: RightsManagementPnapComponentType.Service
 						}
 					],
-					rightsManagementPnrpComponent: [
+					rightsManagementDapComponent: [
 						{
-							type: RightsManagementPnrpComponentType.Service,
+							type: RightsManagementDapComponentType.Service
+						}
+					],
+					rightsManagementDarpComponent: [
+						{
+							type: RightsManagementDarpComponentType.Service,
 							options: {
 								config: {
-									negotiationComponentCreator: async () =>
-										({}) as unknown as IPolicyNegotiationPointComponent
+									dataAccessComponentCreator: async () =>
+										({}) as unknown as IDataAccessPointComponent
 								}
 							}
 						}
@@ -668,7 +695,14 @@ describe("engine", () => {
 				],
 				rightsManagementPnpComponent: [
 					{
-						type: RightsManagementPnpComponentType.Service
+						type: RightsManagementPnpComponentType.Service,
+						options: {
+							config: {
+								baseCallbackUrl: "http://localhost:3000",
+								negotiationComponentCreator: async () =>
+									({}) as unknown as IPolicyNegotiationPointComponent
+							}
+						}
 					}
 				],
 				rightsManagementPnapComponent: [
@@ -676,13 +710,17 @@ describe("engine", () => {
 						type: RightsManagementPnapComponentType.Service
 					}
 				],
-				rightsManagementPnrpComponent: [
+				rightsManagementDapComponent: [
 					{
-						type: RightsManagementPnrpComponentType.Service,
+						type: RightsManagementDapComponentType.Service
+					}
+				],
+				rightsManagementDarpComponent: [
+					{
+						type: RightsManagementDarpComponentType.Service,
 						options: {
 							config: {
-								negotiationComponentCreator: async () =>
-									({}) as unknown as IPolicyNegotiationPointComponent
+								dataAccessComponentCreator: async () => ({}) as unknown as IDataAccessPointComponent
 							}
 						}
 					}
@@ -896,13 +934,19 @@ describe("engine", () => {
 							options: { endpoint: "http://localhost:3000" }
 						}
 					],
-					rightsManagementPnrpComponent: [
+					rightsManagementDapComponent: [
 						{
-							type: RightsManagementPnrpComponentType.Service,
+							type: RightsManagementDapComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
+						}
+					],
+					rightsManagementDarpComponent: [
+						{
+							type: RightsManagementDarpComponentType.Service,
 							options: {
 								config: {
-									negotiationComponentCreator: async () =>
-										({}) as unknown as IPolicyNegotiationPointComponent
+									dataAccessComponentCreator: async () =>
+										({}) as unknown as IDataAccessPointComponent
 								}
 							}
 						}
@@ -972,7 +1016,8 @@ describe("engine", () => {
 			"policy-enforcement-point-service",
 			"policy-negotiation-admin-point-client",
 			"policy-negotiation-point-client",
-			"policy-negotiation-request-point-service",
+			"data-access-point-client",
+			"data-access-request-point-service",
 			"synchronised-storage-client",
 			"federated-catalogue-client",
 			"data-space-connector-client",

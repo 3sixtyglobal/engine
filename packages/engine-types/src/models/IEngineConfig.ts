@@ -35,6 +35,8 @@ import type { MessagingPushNotificationConnectorConfig } from "./config/messagin
 import type { MessagingSmsConnectorConfig } from "./config/messagingSmsConnectorConfig";
 import type { NftComponentConfig } from "./config/nftComponentConfig";
 import type { NftConnectorConfig } from "./config/nftConnectorConfig";
+import type { RightsManagementDapComponentConfig } from "./config/rightsManagementDapComponentConfig";
+import type { RightsManagementDarpComponentConfig } from "./config/rightsManagementDarpComponentConfig";
 import type { RightsManagementPapComponentConfig } from "./config/rightsManagementPapComponentConfig";
 import type { RightsManagementPdpComponentConfig } from "./config/rightsManagementPdpComponentConfig";
 import type { RightsManagementPepComponentConfig } from "./config/rightsManagementPepComponentConfig";
@@ -42,7 +44,6 @@ import type { RightsManagementPipComponentConfig } from "./config/rightsManageme
 import type { RightsManagementPmpComponentConfig } from "./config/rightsManagementPmpComponentConfig";
 import type { RightsManagementPnapComponentConfig } from "./config/rightsManagementPnapComponentConfig";
 import type { RightsManagementPnpComponentConfig } from "./config/rightsManagementPnpComponentConfig";
-import type { RightsManagementPnrpComponentConfig } from "./config/rightsManagementPnrpComponentConfig";
 import type { RightsManagementPxpComponentConfig } from "./config/rightsManagementPxpComponentConfig";
 import type { SynchronisedStorageComponentConfig } from "./config/synchronisedStorageComponentConfig";
 import type { TaskSchedulerComponentConfig } from "./config/taskSchedulerComponentConfig";
@@ -299,9 +300,14 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		rightsManagementPnapComponent?: IEngineCoreTypeConfig<RightsManagementPnapComponentConfig>[];
 
 		/**
-		 * Rights management PNRP options which can be overridden by individual components by specifying types other than default.
+		 * Rights management DAP options which can be overridden by individual components by specifying types other than default.
 		 */
-		rightsManagementPnrpComponent?: IEngineCoreTypeConfig<RightsManagementPnrpComponentConfig>[];
+		rightsManagementDapComponent?: IEngineCoreTypeConfig<RightsManagementDapComponentConfig>[];
+
+		/**
+		 * Rights management DARP options which can be overridden by individual components by specifying types other than default.
+		 */
+		rightsManagementDarpComponent?: IEngineCoreTypeConfig<RightsManagementDarpComponentConfig>[];
 
 		/**
 		 * Synchronised storage options which can be overridden by individual components by specifying types other than default.

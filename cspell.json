@@ -23,6 +23,7 @@
 		"autorelease",
 		"bech",
 		"cosmosdb",
+		"DARP",
 		"devnet",
 		"Fastify",
 		"faucet",

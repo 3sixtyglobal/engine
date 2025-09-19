@@ -39,10 +39,10 @@ export async function initialiseRightsManagementPepComponent(
 	let instanceType: string;
 
 	if (type === RightsManagementPepComponentType.Service) {
-		const modules: { processorId: string; processor: IPolicyEnforcementProcessor }[] = [];
+		const processorModules: { processorId: string; processor: IPolicyEnforcementProcessor }[] = [];
 		if (Is.arrayValue(instanceConfig.options?.processorModulesConfig)) {
 			for (const moduleConfig of instanceConfig.options.processorModulesConfig) {
-				modules.push({
+				processorModules.push({
 					processorId: moduleConfig.id,
 					processor: await EngineModuleHelper.loadComponent(engineCore, moduleConfig)
 				});
@@ -57,7 +57,7 @@ export async function initialiseRightsManagementPepComponent(
 			...instanceConfig.options,
 			config: {
 				...instanceConfig.options?.config,
-				processors: instanceConfig.options?.config?.processors ?? modules
+				processors: instanceConfig.options?.config?.processors ?? processorModules
 			}
 		});
 		instanceType = StringHelper.kebabCase(nameof(PolicyEnforcementPointService));

@@ -3,14 +3,15 @@
 import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
-import type { IPolicyNegotiationRequestPointComponent } from "@twin.org/rights-management-models";
-import { PolicyNegotiationRequestPointService } from "@twin.org/rights-management-pnp-service";
-import type { RightsManagementPnrpComponentConfig } from "../models/config/rightsManagementPnrpComponentConfig";
+import { DataAccessPointService } from "@twin.org/rights-management-dap-service";
+import type { IDataAccessPointComponent } from "@twin.org/rights-management-models";
+import { DataAccessPointClient } from "@twin.org/rights-management-rest-client";
+import type { RightsManagementDapComponentConfig } from "../models/config/rightsManagementDapComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
-import { RightsManagementPnrpComponentType } from "../models/types/rightsManagementPnrpComponentType";
+import { RightsManagementDapComponentType } from "../models/types/rightsManagementDapComponentType";
 
 /**
- * Initialise the rights management PNRP component.
+ * Initialise the rights management DAP component.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
@@ -18,36 +19,42 @@ import { RightsManagementPnrpComponentType } from "../models/types/rightsManagem
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export async function initialiseRightsManagementPnrpComponent(
+export async function initialiseRightsManagementDapComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: RightsManagementPnrpComponentConfig,
+	instanceConfig: RightsManagementDapComponentConfig,
 	overrideInstanceType?: string
 ): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
-			element: `Rights Management PNRP Component: ${instanceConfig.type}`
+			element: `Rights Management DAP Component: ${instanceConfig.type}`
 		})
 	);
 
 	const type = instanceConfig.type;
-	let component: IPolicyNegotiationRequestPointComponent;
+	let component: IDataAccessPointComponent;
 	let instanceType: string;
 
-	if (type === RightsManagementPnrpComponentType.Service) {
-		component = new PolicyNegotiationRequestPointService({
+	if (type === RightsManagementDapComponentType.Service) {
+		component = new DataAccessPointService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
-			policyInformationPointComponentType: engineCore.getRegisteredInstanceType(
-				"rightsManagementPipComponent"
+			policyEnforcementPointComponentType: engineCore.getRegisteredInstanceType(
+				"rightsManagementPepComponent"
 			),
-			...instanceConfig.options
+			...instanceConfig.options,
+			config: {
+				...instanceConfig.options?.config
+			}
 		});
-		instanceType = StringHelper.kebabCase(nameof(PolicyNegotiationRequestPointService));
+		instanceType = StringHelper.kebabCase(nameof(DataAccessPointService));
+	} else if (type === RightsManagementDapComponentType.RestClient) {
+		component = new DataAccessPointClient(instanceConfig.options);
+		instanceType = StringHelper.kebabCase(nameof(DataAccessPointClient));
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,
-			componentType: "RightsManagementPnrpComponent"
+			componentType: "RightsManagementDapComponent"
 		});
 	}
 

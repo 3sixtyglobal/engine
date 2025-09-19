@@ -1,9 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n, Is, StringHelper } from "@twin.org/core";
+import { EngineModuleHelper } from "@twin.org/engine-core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
-import type { IPolicyDecisionPointComponent } from "@twin.org/rights-management-models";
+import type {
+	IPolicyArbiter,
+	IPolicyDecisionPointComponent
+} from "@twin.org/rights-management-models";
 import { PolicyDecisionPointService } from "@twin.org/rights-management-pdp-service";
 import type { RightsManagementPdpComponentConfig } from "../models/config/rightsManagementPdpComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
@@ -35,6 +39,16 @@ export async function initialiseRightsManagementPdpComponent(
 	let instanceType: string;
 
 	if (type === RightsManagementPdpComponentType.Service) {
+		const arbiterModules: { arbiterId: string; arbiter: IPolicyArbiter }[] = [];
+		if (Is.arrayValue(instanceConfig.options?.arbiterModulesConfig)) {
+			for (const moduleConfig of instanceConfig.options.arbiterModulesConfig) {
+				arbiterModules.push({
+					arbiterId: moduleConfig.id,
+					arbiter: await EngineModuleHelper.loadComponent(engineCore, moduleConfig)
+				});
+			}
+		}
+
 		component = new PolicyDecisionPointService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			policyInformationPointComponentType: engineCore.getRegisteredInstanceType(
@@ -46,7 +60,11 @@ export async function initialiseRightsManagementPdpComponent(
 			policyExecutionPointComponentType: engineCore.getRegisteredInstanceType(
 				"rightsManagementPxpComponent"
 			),
-			...instanceConfig.options
+			...instanceConfig.options,
+			config: {
+				...instanceConfig.options?.config,
+				arbiters: instanceConfig.options?.config?.arbiters ?? arbiterModules
+			}
 		});
 		instanceType = StringHelper.kebabCase(nameof(PolicyDecisionPointService));
 	} else {

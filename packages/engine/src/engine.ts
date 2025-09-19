@@ -338,10 +338,17 @@ export class Engine<
 		);
 
 		this.addTypeInitialiser(
-			"rightsManagementPnrpComponent",
-			this._context.config.types.rightsManagementPnrpComponent,
+			"rightsManagementDapComponent",
+			this._context.config.types.rightsManagementDapComponent,
 			"@twin.org/engine-types",
-			"initialiseRightsManagementPnrpComponent"
+			"initialiseRightsManagementDapComponent"
+		);
+
+		this.addTypeInitialiser(
+			"rightsManagementDarpComponent",
+			this._context.config.types.rightsManagementDarpComponent,
+			"@twin.org/engine-types",
+			"initialiseRightsManagementDarpComponent"
 		);
 
 		this.addTypeInitialiser(

@@ -39,10 +39,10 @@ export async function initialiseRightsManagementPipComponent(
 	let instanceType: string;
 
 	if (type === RightsManagementPipComponentType.Service) {
-		const modules: { sourceId: string; source: IPolicyInformationSource }[] = [];
+		const informationSourceModules: { sourceId: string; source: IPolicyInformationSource }[] = [];
 		if (Is.arrayValue(instanceConfig.options?.informationModulesConfig)) {
 			for (const moduleConfig of instanceConfig.options.informationModulesConfig) {
-				modules.push({
+				informationSourceModules.push({
 					sourceId: moduleConfig.id,
 					source: await EngineModuleHelper.loadComponent(engineCore, moduleConfig)
 				});
@@ -54,7 +54,7 @@ export async function initialiseRightsManagementPipComponent(
 			...instanceConfig.options,
 			config: {
 				...instanceConfig.options?.config,
-				sources: instanceConfig.options?.config?.sources ?? modules
+				sources: instanceConfig.options?.config?.sources ?? informationSourceModules
 			}
 		});
 		instanceType = StringHelper.kebabCase(nameof(PolicyInformationPointService));
