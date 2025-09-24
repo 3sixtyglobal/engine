@@ -1,5 +1,20 @@
 # @twin.org/engine-server-types - Changelog
 
+## [0.0.2-next.15](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.2-next.14...engine-server-types-v0.0.2-next.15) (2025-09-24)
+
+
+### Features
+
+* update rights management and add authentication generators ([f728a1e](https://github.com/twinfoundation/engine/commit/f728a1efea15ada8d10cfbe17cafe7e2b252f527))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.2-next.14 to 0.0.2-next.15
+    * @twin.org/engine-types bumped from 0.0.2-next.14 to 0.0.2-next.15
+
 ## [0.0.2-next.14](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.2-next.13...engine-server-types-v0.0.2-next.14) (2025-09-19)
 
 
