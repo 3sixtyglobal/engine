@@ -12,6 +12,12 @@ Socket route processor types.
 
 Auth header.
 
+### AuthVerifiableCredential
+
+> `readonly` **AuthVerifiableCredential**: `"auth-verifiable-credential"` = `"auth-verifiable-credential"`
+
+Auth verifiable credential.
+
 ### Logging
 
 > `readonly` **Logging**: `"logging"` = `"logging"`

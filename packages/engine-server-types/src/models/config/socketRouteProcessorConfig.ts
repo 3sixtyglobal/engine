@@ -6,6 +6,7 @@ import type {
 	ISocketRouteProcessorConstructorOptions,
 	IStaticUserIdentityProcessorConstructorOptions
 } from "@twin.org/api-processors";
+import type { IVerifiableCredentialAuthenticationProcessorConstructorOptions } from "@twin.org/identity-authentication";
 import type { SocketRouteProcessorType } from "../types/socketRouteProcessorType";
 
 /**
@@ -15,6 +16,10 @@ export type SocketRouteProcessorConfig =
 	| {
 			type: typeof SocketRouteProcessorType.AuthHeader;
 			options?: IAuthHeaderProcessorConstructorOptions;
+	  }
+	| {
+			type: typeof SocketRouteProcessorType.AuthVerifiableCredential;
+			options?: IVerifiableCredentialAuthenticationProcessorConstructorOptions;
 	  }
 	| {
 			type: typeof SocketRouteProcessorType.Logging;

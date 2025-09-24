@@ -63,7 +63,6 @@ export async function initialiseRightsManagementPnpComponent(
 
 		component = new PolicyNegotiationPointService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
 			policyNegotiationAdministrationPointComponentType: engineCore.getRegisteredInstanceType(
 				"rightsManagementPnapComponent"
 			),
@@ -82,7 +81,14 @@ export async function initialiseRightsManagementPnpComponent(
 		});
 		instanceType = StringHelper.kebabCase(nameof(PolicyNegotiationPointService));
 	} else if (type === RightsManagementPnpComponentType.RestClient) {
-		component = new PolicyNegotiationPointClient(instanceConfig.options);
+		component = new PolicyNegotiationPointClient({
+			...instanceConfig.options,
+			authenticationGeneratorType:
+				instanceConfig.options?.authenticationGeneratorType ??
+				engineCore.getRegisteredInstanceType("authenticationGeneratorComponent", [
+					"verifiable-credential"
+				])
+		});
 		instanceType = StringHelper.kebabCase(nameof(PolicyNegotiationPointClient));
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {

@@ -38,7 +38,6 @@ export async function initialiseRightsManagementDapComponent(
 	if (type === RightsManagementDapComponentType.Service) {
 		component = new DataAccessPointService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
 			policyEnforcementPointComponentType: engineCore.getRegisteredInstanceType(
 				"rightsManagementPepComponent"
 			),
@@ -49,7 +48,14 @@ export async function initialiseRightsManagementDapComponent(
 		});
 		instanceType = StringHelper.kebabCase(nameof(DataAccessPointService));
 	} else if (type === RightsManagementDapComponentType.RestClient) {
-		component = new DataAccessPointClient(instanceConfig.options);
+		component = new DataAccessPointClient({
+			...instanceConfig.options,
+			authenticationGeneratorType:
+				instanceConfig.options?.authenticationGeneratorType ??
+				engineCore.getRegisteredInstanceType("authenticationGeneratorComponent", [
+					"verifiable-credential"
+				])
+		});
 		instanceType = StringHelper.kebabCase(nameof(DataAccessPointClient));
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {

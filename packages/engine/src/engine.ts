@@ -282,6 +282,13 @@ export class Engine<
 		);
 
 		this.addTypeInitialiser(
+			"authenticationGeneratorComponent",
+			this._context.config.types.authenticationGeneratorComponent,
+			"@twin.org/engine-types",
+			"initialiseAuthenticationGeneratorComponent"
+		);
+
+		this.addTypeInitialiser(
 			"rightsManagementPapComponent",
 			this._context.config.types.rightsManagementPapComponent,
 			"@twin.org/engine-types",

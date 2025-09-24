@@ -10,6 +10,7 @@ import {
 } from "@twin.org/api-processors";
 import { GeneralError, I18n, StringHelper } from "@twin.org/core";
 import type { IEngineCoreContext, IEngineCore } from "@twin.org/engine-models";
+import { VerifiableCredentialAuthenticationProcessor } from "@twin.org/identity-authentication";
 import { nameof } from "@twin.org/nameof";
 import type { RestRouteProcessorConfig } from "../models/config/restRouteProcessorConfig";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig";
@@ -48,6 +49,15 @@ export async function initialiseRestRouteProcessorComponent(
 			}
 		});
 		instanceType = StringHelper.kebabCase(nameof(AuthHeaderProcessor));
+	} else if (type === RestRouteProcessorType.AuthVerifiableCredential) {
+		component = new VerifiableCredentialAuthenticationProcessor({
+			identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+			config: {
+				...instanceConfig.options?.config
+			}
+		});
+		instanceType = StringHelper.kebabCase(nameof(VerifiableCredentialAuthenticationProcessor));
 	} else if (type === RestRouteProcessorType.Logging) {
 		component = new LoggingProcessor({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),

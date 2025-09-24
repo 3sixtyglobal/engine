@@ -56,8 +56,10 @@ export async function initialiseSynchronisedStorageComponent(
 			verifiableStorageConnectorType: engineCore.getRegisteredInstanceType(
 				"verifiableStorageConnector"
 			),
-			identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
 			taskSchedulerComponentType: engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
+			policyEnforcementPointComponentType: engineCore.getRegisteredInstanceTypeOptional(
+				"rightsManagementPepComponent"
+			),
 			trustedSynchronisedStorageComponentType: engineCore.getRegisteredInstanceTypeOptional(
 				"synchronisedStorageComponent",
 				["trusted"]
@@ -69,7 +71,14 @@ export async function initialiseSynchronisedStorageComponent(
 		});
 		instanceType = StringHelper.kebabCase(nameof(SynchronisedStorageService));
 	} else if (type === SynchronisedStorageComponentType.RestClient) {
-		component = new SynchronisedStorageClient(instanceConfig.options);
+		component = new SynchronisedStorageClient({
+			...instanceConfig.options,
+			authenticationGeneratorType:
+				instanceConfig.options?.authenticationGeneratorType ??
+				engineCore.getRegisteredInstanceType("authenticationGeneratorComponent", [
+					"verifiable-credential"
+				])
+		});
 		instanceType = StringHelper.kebabCase(nameof(SynchronisedStorageClient));
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {

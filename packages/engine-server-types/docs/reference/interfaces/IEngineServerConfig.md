@@ -294,6 +294,12 @@ Date processing options which can be overridden by individual components by spec
 
 Document management options which can be overridden by individual components by specifying types other than default.
 
+##### authenticationGeneratorComponent?
+
+> `optional` **authenticationGeneratorComponent**: `IEngineCoreTypeConfig`\<`AuthenticationGeneratorComponentConfig`\>[]
+
+Authentication generator options which can be overridden by individual components by specifying types other than default.
+
 ##### rightsManagementPapComponent?
 
 > `optional` **rightsManagementPapComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPapComponentConfig`\>[]

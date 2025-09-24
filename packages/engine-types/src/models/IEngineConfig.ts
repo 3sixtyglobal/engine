@@ -5,6 +5,7 @@ import type { AttestationComponentConfig } from "./config/attestationComponentCo
 import type { AttestationConnectorConfig } from "./config/attestationConnectorConfig";
 import type { AuditableItemGraphComponentConfig } from "./config/auditableItemGraphComponentConfig";
 import type { AuditableItemStreamComponentConfig } from "./config/auditableItemStreamComponentConfig";
+import type { AuthenticationGeneratorComponentConfig } from "./config/authenticationGeneratorComponentConfig";
 import type { BackgroundTaskConnectorConfig } from "./config/backgroundTaskConnectorConfig";
 import type { BlobStorageComponentConfig } from "./config/blobStorageComponentConfig";
 import type { BlobStorageConnectorConfig } from "./config/blobStorageConnectorConfig";
@@ -258,6 +259,11 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Document management options which can be overridden by individual components by specifying types other than default.
 		 */
 		documentManagementComponent?: IEngineCoreTypeConfig<DocumentManagementComponentConfig>[];
+
+		/**
+		 * Authentication generator options which can be overridden by individual components by specifying types other than default.
+		 */
+		authenticationGeneratorComponent?: IEngineCoreTypeConfig<AuthenticationGeneratorComponentConfig>[];
 
 		/**
 		 * Rights management PAP options which can be overridden by individual components by specifying types other than default.

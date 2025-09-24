@@ -1,16 +1,19 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import {
+	AuthenticationGeneratorFactory,
+	type IAuthenticationGenerator
+} from "@twin.org/api-models";
+import { GeneralError, I18n, StringHelper } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import { VerifiableCredentialAuthenticationGenerator } from "@twin.org/identity-authentication";
 import { nameof } from "@twin.org/nameof";
-import { DataAccessRequestPointService } from "@twin.org/rights-management-dap-service";
-import type { IDataAccessRequestPointComponent } from "@twin.org/rights-management-models";
-import type { RightsManagementDarpComponentConfig } from "../models/config/rightsManagementDarpComponentConfig";
+import type { AuthenticationGeneratorComponentConfig } from "../models/config/authenticationGeneratorComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
-import { RightsManagementDarpComponentType } from "../models/types/rightsManagementDarpComponentType";
+import { AuthenticationGeneratorComponentType } from "../models/types/authenticationGeneratorComponentType";
 
 /**
- * Initialise the rights management DARP component.
+ * Initialise the authentication generator component.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
@@ -18,32 +21,33 @@ import { RightsManagementDarpComponentType } from "../models/types/rightsManagem
  * @returns The name of the instance created.
  * @throws GeneralError if the component type is unknown.
  */
-export async function initialiseRightsManagementDarpComponent(
+export async function initialiseAuthenticationGeneratorComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: RightsManagementDarpComponentConfig,
+	instanceConfig: AuthenticationGeneratorComponentConfig,
 	overrideInstanceType?: string
 ): Promise<string | undefined> {
 	engineCore.logInfo(
 		I18n.formatMessage("engineCore.configuring", {
-			element: `Rights Management DARP Component: ${instanceConfig.type}`
+			element: `Authentication Generator Component: ${instanceConfig.type}`
 		})
 	);
 
 	const type = instanceConfig.type;
-	let component: IDataAccessRequestPointComponent;
+	let component: IAuthenticationGenerator;
 	let instanceType: string;
 
-	if (type === RightsManagementDarpComponentType.Service) {
-		component = new DataAccessRequestPointService({
+	if (type === AuthenticationGeneratorComponentType.VerifiableCredential) {
+		component = new VerifiableCredentialAuthenticationGenerator({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+			identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(DataAccessRequestPointService));
+		instanceType = StringHelper.kebabCase(nameof(VerifiableCredentialAuthenticationGenerator));
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,
-			componentType: "RightsManagementDarpComponent"
+			componentType: "AuthenticationGeneratorComponent"
 		});
 	}
 
@@ -52,6 +56,6 @@ export async function initialiseRightsManagementDarpComponent(
 		instanceType: finalInstanceType,
 		component
 	});
-	ComponentFactory.register(finalInstanceType, () => component);
+	AuthenticationGeneratorFactory.register(finalInstanceType, () => component);
 	return finalInstanceType;
 }

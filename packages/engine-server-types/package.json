@@ -31,11 +31,6 @@
 		"prepare": "ts-patch install -s"
 	},
 	"dependencies": {
-		"@twin.org/core": "next",
-		"@twin.org/engine-models": "0.0.2-next.14",
-		"@twin.org/engine-types": "0.0.2-next.14",
-		"@twin.org/entity": "next",
-		"@twin.org/nameof": "next",
 		"@twin.org/api-auth-entity-storage-rest-client": "next",
 		"@twin.org/api-auth-entity-storage-service": "next",
 		"@twin.org/api-core": "next",
@@ -43,7 +38,13 @@
 		"@twin.org/api-processors": "next",
 		"@twin.org/api-rest-client": "next",
 		"@twin.org/api-service": "next",
-		"@twin.org/api-server-fastify": "next"
+		"@twin.org/api-server-fastify": "next",
+		"@twin.org/core": "next",
+		"@twin.org/engine-models": "0.0.2-next.14",
+		"@twin.org/engine-types": "0.0.2-next.14",
+		"@twin.org/entity": "next",
+		"@twin.org/identity-authentication": "next",
+		"@twin.org/nameof": "next"
 	},
 	"devDependencies": {
 		"@twin.org/nameof-transformer": "next",

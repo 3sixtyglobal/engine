@@ -62,7 +62,8 @@ import {
 	VaultConnectorType,
 	VerifiableStorageComponentType,
 	VerifiableStorageConnectorType,
-	WalletConnectorType
+	WalletConnectorType,
+	AuthenticationGeneratorComponentType
 } from "@twin.org/engine-types";
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
@@ -149,6 +150,13 @@ describe("engine-server", () => {
 				dataExtractorConnector: [{ type: DataExtractorConnectorType.JsonPath }],
 				dataProcessingComponent: [{ type: DataProcessingComponentType.Service }],
 				documentManagementComponent: [{ type: DocumentManagementComponentType.Service }],
+				authenticationGeneratorComponent: [
+					{
+						type: AuthenticationGeneratorComponentType.VerifiableCredential,
+						options: { config: { verificationMethodId: "my-key" } },
+						features: ["verifiable-credential"]
+					}
+				],
 				rightsManagementPapComponent: [
 					{
 						type: RightsManagementPapComponentType.Service
@@ -250,11 +258,17 @@ describe("engine-server", () => {
 				restRouteProcessor: [
 					{
 						type: RestRouteProcessorType.RestRoute
+					},
+					{
+						type: RestRouteProcessorType.AuthVerifiableCredential
 					}
 				],
 				socketRouteProcessor: [
 					{
 						type: SocketRouteProcessorType.SocketRoute
+					},
+					{
+						type: SocketRouteProcessorType.AuthVerifiableCredential
 					}
 				]
 			}
