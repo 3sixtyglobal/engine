@@ -1,11 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
-import {
-	EngineTypeHelper,
-	type IEngineCore,
-	type IEngineCoreContext
-} from "@twin.org/engine-models";
+import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
 import {
 	EntityStorageVerifiableStorageConnector,
@@ -28,6 +24,7 @@ import type { IEngineConfig } from "../models/IEngineConfig";
 import { DltConfigType } from "../models/types/dltConfigType";
 import { VerifiableStorageComponentType } from "../models/types/verifiableStorageComponentType";
 import { VerifiableStorageConnectorType } from "../models/types/verifiableStorageConnectorType";
+import { EngineTypeHelper } from "../utils/engineTypeHelper";
 
 /**
  * Initialise the verifiable storage connector.

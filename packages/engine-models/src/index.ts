@@ -13,4 +13,3 @@ export * from "./models/IEngineCoreContext";
 export * from "./models/IEngineServer";
 export * from "./models/IEngineState";
 export * from "./models/IEngineStateStorage";
-export * from "./utils/engineTypeHelper";

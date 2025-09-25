@@ -143,3 +143,4 @@ export * from "./models/types/vaultConnectorType";
 export * from "./models/types/verifiableStorageComponentType";
 export * from "./models/types/verifiableStorageConnectorType";
 export * from "./models/types/walletConnectorType";
+export * from "./utils/engineTypeHelper";

@@ -1,11 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { GeneralError, I18n } from "@twin.org/core";
-import {
-	EngineTypeHelper,
-	type IEngineCore,
-	type IEngineCoreContext
-} from "@twin.org/engine-models";
+import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { EntityStorageFaucetConnector } from "@twin.org/wallet-connector-entity-storage";
 import { IotaFaucetConnector } from "@twin.org/wallet-connector-iota";
 import { FaucetConnectorFactory, type IFaucetConnector } from "@twin.org/wallet-models";
@@ -14,6 +10,7 @@ import type { FaucetConnectorConfig } from "../models/config/faucetConnectorConf
 import type { IEngineConfig } from "../models/IEngineConfig";
 import { DltConfigType } from "../models/types/dltConfigType";
 import { FaucetConnectorType } from "../models/types/faucetConnectorType";
+import { EngineTypeHelper } from "../utils/engineTypeHelper";
 
 /**
  * Initialise a faucet connector.

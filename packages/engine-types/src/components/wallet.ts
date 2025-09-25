@@ -1,11 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { GeneralError, I18n } from "@twin.org/core";
-import {
-	EngineTypeHelper,
-	type IEngineCore,
-	type IEngineCoreContext
-} from "@twin.org/engine-models";
+import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
 import {
 	EntityStorageWalletConnector,
@@ -20,6 +16,7 @@ import type { WalletConnectorConfig } from "../models/config/walletConnectorConf
 import type { IEngineConfig } from "../models/IEngineConfig";
 import { DltConfigType } from "../models/types/dltConfigType";
 import { WalletConnectorType } from "../models/types/walletConnectorType";
+import { EngineTypeHelper } from "../utils/engineTypeHelper";
 
 /**
  * Initialise a wallet connector.

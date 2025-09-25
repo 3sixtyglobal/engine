@@ -1,5 +1,9 @@
 # @twin.org/engine-types
 
+## Classes
+
+- [EngineTypeHelper](classes/EngineTypeHelper.md)
+
 ## Interfaces
 
 - [IEngineConfig](interfaces/IEngineConfig.md)

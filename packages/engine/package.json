@@ -33,6 +33,7 @@
 	"dependencies": {
 		"@twin.org/core": "next",
 		"@twin.org/engine-core": "0.0.2-next.16",
+		"@twin.org/engine-models": "0.0.2-next.16",
 		"@twin.org/engine-types": "0.0.2-next.16",
 		"@twin.org/entity": "next",
 		"@twin.org/nameof": "next"

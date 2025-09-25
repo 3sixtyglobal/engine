@@ -1,10 +1,9 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { Is } from "@twin.org/core";
-import type { IEngineConfig } from "@twin.org/engine-types";
+import type { IEngineCoreTypeBaseConfig, IEngineCoreTypeConfig } from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
-import type { IEngineCoreTypeBaseConfig } from "../models/config/IEngineCoreTypeBaseConfig";
-import type { IEngineCoreTypeConfig } from "../models/config/IEngineCoreTypeConfig";
+import type { IEngineConfig } from "../models/IEngineConfig";
 
 /**
  * Helper methods for engine config types.

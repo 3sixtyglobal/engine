@@ -1,11 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
-import {
-	EngineTypeHelper,
-	type IEngineCore,
-	type IEngineCoreContext
-} from "@twin.org/engine-models";
+import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import {
 	EntityStorageIdentityResolverConnector,
 	initSchema as initSchemaIdentityStorage,
@@ -29,6 +25,7 @@ import type { IEngineConfig } from "../models/IEngineConfig";
 import { DltConfigType } from "../models/types/dltConfigType";
 import { IdentityResolverComponentType } from "../models/types/identityResolverComponentType";
 import { IdentityResolverConnectorType } from "../models/types/identityResolverConnectorType";
+import { EngineTypeHelper } from "../utils/engineTypeHelper";
 
 /**
  * Initialise the identity resolver connector.
