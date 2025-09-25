@@ -1,7 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { GeneralError, I18n } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import {
+	EngineTypeHelper,
+	type IEngineCore,
+	type IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
 import {
 	EntityStorageWalletConnector,
@@ -11,8 +15,10 @@ import {
 import { IotaWalletConnector } from "@twin.org/wallet-connector-iota";
 import { WalletConnectorFactory, type IWalletConnector } from "@twin.org/wallet-models";
 import { initialiseEntityStorageConnector } from "./entityStorage";
+import type { DltConfig } from "../models/config/dltConfig";
 import type { WalletConnectorConfig } from "../models/config/walletConnectorConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
+import { DltConfigType } from "../models/types/dltConfigType";
 import { WalletConnectorType } from "../models/types/walletConnectorType";
 
 /**
@@ -41,8 +47,11 @@ export async function initialiseWalletConnector(
 	let instanceType: string;
 
 	if (type === WalletConnectorType.Iota) {
-		const defaultConfigType = engineCore.getRegisteredInstanceType("dltConfig");
-		const dltConfig = context.config.types.dltConfig?.find(dlt => dlt.type === defaultConfigType);
+		const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
+			engineCore.getConfig(),
+			"dltConfig",
+			DltConfigType.Iota
+		);
 		connector = new IotaWalletConnector({
 			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
 			faucetConnectorType: engineCore.getRegisteredInstanceType("faucetConnector"),

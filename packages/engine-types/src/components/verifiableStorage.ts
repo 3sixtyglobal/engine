@@ -1,7 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import {
+	EngineTypeHelper,
+	type IEngineCore,
+	type IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
 import {
 	EntityStorageVerifiableStorageConnector,
@@ -17,9 +21,11 @@ import {
 import { VerifiableStorageClient } from "@twin.org/verifiable-storage-rest-client";
 import { VerifiableStorageService } from "@twin.org/verifiable-storage-service";
 import { initialiseEntityStorageConnector } from "./entityStorage";
+import type { DltConfig } from "../models/config/dltConfig";
 import type { VerifiableStorageComponentConfig } from "../models/config/verifiableStorageComponentConfig";
 import type { VerifiableStorageConnectorConfig } from "../models/config/verifiableStorageConnectorConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
+import { DltConfigType } from "../models/types/dltConfigType";
 import { VerifiableStorageComponentType } from "../models/types/verifiableStorageComponentType";
 import { VerifiableStorageConnectorType } from "../models/types/verifiableStorageConnectorType";
 
@@ -48,10 +54,14 @@ export async function initialiseVerifiableStorageConnector(
 	let connector: IVerifiableStorageConnector;
 	let instanceType: string;
 	if (type === VerifiableStorageConnectorType.Iota) {
-		const defaultConfigType = engineCore.getRegisteredInstanceType("dltConfig");
-		const dltConfig = context.config.types.dltConfig?.find(dlt => dlt.type === defaultConfigType);
+		const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
+			engineCore.getConfig(),
+			"dltConfig",
+			DltConfigType.Iota
+		);
 		connector = new IotaVerifiableStorageConnector({
 			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
 			...instanceConfig.options,
 			config: {
 				...dltConfig?.options?.config,

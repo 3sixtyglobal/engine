@@ -1,7 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import {
+	EngineTypeHelper,
+	type IEngineCore,
+	type IEngineCoreContext
+} from "@twin.org/engine-models";
 import {
 	EntityStorageIdentityResolverConnector,
 	initSchema as initSchemaIdentityStorage,
@@ -18,9 +22,11 @@ import { IdentityResolverClient } from "@twin.org/identity-rest-client";
 import { IdentityResolverService } from "@twin.org/identity-service";
 import { nameof } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage";
+import type { DltConfig } from "../models/config/dltConfig";
 import type { IdentityResolverComponentConfig } from "../models/config/identityResolverComponentConfig";
 import type { IdentityResolverConnectorConfig } from "../models/config/identityResolverConnectorConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
+import { DltConfigType } from "../models/types/dltConfigType";
 import { IdentityResolverComponentType } from "../models/types/identityResolverComponentType";
 import { IdentityResolverConnectorType } from "../models/types/identityResolverConnectorType";
 
@@ -49,8 +55,11 @@ export async function initialiseIdentityResolverConnector(
 	let connector: IIdentityResolverConnector;
 	let instanceType: string;
 	if (type === IdentityResolverConnectorType.Iota) {
-		const defaultConfigType = engineCore.getRegisteredInstanceType("dltConfig");
-		const dltConfig = context.config.types.dltConfig?.find(dlt => dlt.type === defaultConfigType);
+		const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
+			engineCore.getConfig(),
+			"dltConfig",
+			DltConfigType.Iota
+		);
 		connector = new IotaIdentityResolverConnector({
 			...instanceConfig.options,
 			config: {

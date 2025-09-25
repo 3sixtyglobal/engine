@@ -1,7 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import {
+	EngineTypeHelper,
+	type IEngineCore,
+	type IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
 import {
 	EntityStorageNftConnector,
@@ -13,9 +17,11 @@ import { NftConnectorFactory, type INftComponent, type INftConnector } from "@tw
 import { NftClient } from "@twin.org/nft-rest-client";
 import { NftService } from "@twin.org/nft-service";
 import { initialiseEntityStorageConnector } from "./entityStorage";
+import type { DltConfig } from "../models/config/dltConfig";
 import type { NftComponentConfig } from "../models/config/nftComponentConfig";
 import type { NftConnectorConfig } from "../models/config/nftConnectorConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
+import { DltConfigType } from "../models/types/dltConfigType";
 import { NftComponentType } from "../models/types/nftComponentType";
 import { NftConnectorType } from "../models/types/nftConnectorType";
 
@@ -55,10 +61,20 @@ export async function initialiseNftConnector(
 		connector = new EntityStorageNftConnector(instanceConfig.options);
 		instanceType = EntityStorageNftConnector.NAMESPACE;
 	} else if (type === NftConnectorType.Iota) {
+		const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
+			engineCore.getConfig(),
+			"dltConfig",
+			DltConfigType.Iota
+		);
 		connector = new IotaNftConnector({
 			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
 			walletConnectorType: engineCore.getRegisteredInstanceType("walletConnector"),
-			...instanceConfig.options
+			loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
+			...instanceConfig.options,
+			config: {
+				...dltConfig?.options?.config,
+				...instanceConfig.options.config
+			}
 		});
 		instanceType = IotaNftConnector.NAMESPACE;
 	} else {
