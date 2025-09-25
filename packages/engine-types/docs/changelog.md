@@ -1,5 +1,20 @@
 # @twin.org/engine-types - Changelog
 
+## [0.0.2-next.16](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.2-next.15...engine-types-v0.0.2-next.16) (2025-09-25)
+
+
+### Features
+
+* add engine type helper for config lookups ([7d5eeef](https://github.com/twinfoundation/engine/commit/7d5eeefd3e7b9daab1ba20e2fb6b1ebfec178aec))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.2-next.15 to 0.0.2-next.16
+    * @twin.org/engine-models bumped from 0.0.2-next.15 to 0.0.2-next.16
+
 ## [0.0.2-next.15](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.2-next.14...engine-types-v0.0.2-next.15) (2025-09-24)
 
 
