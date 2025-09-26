@@ -1,5 +1,23 @@
 # @twin.org/engine-server - Changelog
 
+## [0.0.2-next.17](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.2-next.16...engine-server-v0.0.2-next.17) (2025-09-26)
+
+
+### Features
+
+* add REST options for route construction ([4adf0af](https://github.com/twinfoundation/engine/commit/4adf0af8a03689a4dbdf67e8527d6db0d2c5d59d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.2-next.16 to 0.0.2-next.17
+    * @twin.org/engine-models bumped from 0.0.2-next.16 to 0.0.2-next.17
+    * @twin.org/engine-server-types bumped from 0.0.2-next.16 to 0.0.2-next.17
+  * devDependencies
+    * @twin.org/engine bumped from 0.0.2-next.16 to 0.0.2-next.17
+
 ## [0.0.2-next.16](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.2-next.15...engine-server-v0.0.2-next.16) (2025-09-25)
 
 

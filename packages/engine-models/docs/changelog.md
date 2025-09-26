@@ -1,5 +1,13 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.2-next.17](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.16...engine-models-v0.0.2-next.17) (2025-09-26)
+
+
+### Features
+
+* add engine type helper for config lookups ([a20a398](https://github.com/twinfoundation/engine/commit/a20a3987016c48351178ab8410bc05b0fba0f2c1))
+* add REST options for route construction ([4adf0af](https://github.com/twinfoundation/engine/commit/4adf0af8a03689a4dbdf67e8527d6db0d2c5d59d))
+
 ## [0.0.2-next.16](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.15...engine-models-v0.0.2-next.16) (2025-09-25)
 
 
