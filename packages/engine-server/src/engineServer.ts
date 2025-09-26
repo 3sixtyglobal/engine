@@ -321,18 +321,19 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	): Promise<void> {
 		if (Is.arrayValue(typeConfig)) {
 			const generateRoutes = await ModuleHelper.getModuleEntry<
-				(baseRouteName: string, componentName: string) => IRestRoute[]
+				(baseRouteName: string, componentName: string, options?: unknown) => IRestRoute[]
 			>(module, method);
 
 			for (let i = 0; i < typeConfig.length; i++) {
 				const restPath = typeConfig[i].restPath;
+				const restOptions = typeConfig[i].restOptions;
 
 				if (Is.string(restPath)) {
 					const serviceType =
 						typeConfig[i].overrideInstanceType ??
 						this._engineCore.getRegisteredInstanceType(typeKey);
 					if (Is.stringValue(serviceType)) {
-						const generatedRoutes = generateRoutes(restPath, serviceType);
+						const generatedRoutes = generateRoutes(restPath, serviceType, restOptions);
 						for (const route of generatedRoutes) {
 							// Don't strip trailing slashes from the root path.
 							if (Is.stringValue(route.path) && route.path.length > 1) {
@@ -364,17 +365,18 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	): Promise<void> {
 		if (Is.arrayValue(typeConfig)) {
 			const generateRoutes = await ModuleHelper.getModuleEntry<
-				(baseRouteName: string, componentName: string) => ISocketRoute[]
+				(baseRouteName: string, componentName: string, options?: unknown) => ISocketRoute[]
 			>(module, method);
 
 			for (let i = 0; i < typeConfig.length; i++) {
 				const socketPath = typeConfig[i].socketPath;
+				const socketOptions = typeConfig[i].socketOptions;
 				if (Is.string(socketPath)) {
 					const serviceType =
 						typeConfig[i].overrideInstanceType ??
 						this._engineCore.getRegisteredInstanceType(typeKey);
 					if (Is.stringValue(serviceType)) {
-						routes.push(...generateRoutes(socketPath, serviceType));
+						routes.push(...generateRoutes(socketPath, serviceType, socketOptions));
 					}
 				}
 			}
