@@ -1,5 +1,12 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.2-next.18](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.17...engine-models-v0.0.2-next.18) (2025-09-29)
+
+
+### Features
+
+* upgrade framework components ([efd52e8](https://github.com/twinfoundation/engine/commit/efd52e80564fff29c3897bfa09b6305b3a322812))
+
 ## [0.0.2-next.17](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.16...engine-models-v0.0.2-next.17) (2025-09-26)
 
 
