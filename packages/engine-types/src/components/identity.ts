@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import {
 	EntityStorageIdentityConnector,
@@ -15,7 +15,7 @@ import {
 } from "@twin.org/identity-models";
 import { IdentityClient } from "@twin.org/identity-rest-client";
 import { IdentityService } from "@twin.org/identity-service";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage";
 import type { DltConfig } from "../models/config/dltConfig";
 import type { IdentityComponentConfig } from "../models/config/identityComponentConfig";
@@ -118,10 +118,10 @@ export async function initialiseIdentityComponent(
 
 	if (type === IdentityComponentType.Service) {
 		component = new IdentityService(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(IdentityService));
+		instanceType = nameofKebabCase(IdentityService);
 	} else if (type === IdentityComponentType.RestClient) {
 		component = new IdentityClient(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(IdentityClient));
+		instanceType = nameofKebabCase(IdentityClient);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

@@ -30,6 +30,7 @@ import type { IdentityResolverConnectorConfig } from "./config/identityResolverC
 import type { ImmutableProofComponentConfig } from "./config/immutableProofComponentConfig";
 import type { LoggingComponentConfig } from "./config/loggingComponentConfig";
 import type { LoggingConnectorConfig } from "./config/loggingConnectorConfig";
+import type { MessagingAdminComponentConfig } from "./config/messagingAdminComponentConfig";
 import type { MessagingComponentConfig } from "./config/messagingComponentConfig";
 import type { MessagingEmailConnectorConfig } from "./config/messagingEmailConnectorConfig";
 import type { MessagingPushNotificationConnectorConfig } from "./config/messagingPushNotificationConnectorConfig";
@@ -119,6 +120,11 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Messaging push notification connector options which can be overridden by individual components by specifying types other than default.
 		 */
 		messagingPushNotificationConnector?: IEngineCoreTypeConfig<MessagingPushNotificationConnectorConfig>[];
+
+		/**
+		 * Messaging admin component options which can be overridden by individual components by specifying types other than default.
+		 */
+		messagingAdminComponent?: IEngineCoreTypeConfig<MessagingAdminComponentConfig>[];
 
 		/**
 		 * Messaging component options which can be overridden by individual components by specifying types other than default.

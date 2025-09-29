@@ -34,6 +34,7 @@ import {
 	ImmutableProofComponentType,
 	LoggingComponentType,
 	LoggingConnectorType,
+	MessagingAdminComponentType,
 	MessagingComponentType,
 	MessagingEmailConnectorType,
 	MessagingPushNotificationConnectorType,
@@ -136,6 +137,7 @@ describe("engine", () => {
 					messagingPushNotificationConnector: [
 						{ type: MessagingPushNotificationConnectorType.EntityStorage }
 					],
+					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 					messagingComponent: [{ type: MessagingComponentType.Service }],
 					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
 					verifiableStorageConnector: [{ type: VerifiableStorageConnectorType.EntityStorage }],
@@ -317,6 +319,7 @@ describe("engine", () => {
 			"task-scheduler-service",
 			"event-bus-service",
 			"telemetry-service",
+			"messaging-admin-service",
 			"messaging-service",
 			"blob-storage-service",
 			"verifiable-storage-service",
@@ -497,6 +500,7 @@ describe("engine", () => {
 					messagingPushNotificationConnector: [
 						{ type: MessagingPushNotificationConnectorType.EntityStorage }
 					],
+					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 					messagingComponent: [{ type: MessagingComponentType.Service }],
 					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
 					verifiableStorageConnector: [{ type: VerifiableStorageConnectorType.EntityStorage }],
@@ -657,6 +661,7 @@ describe("engine", () => {
 				messagingPushNotificationConnector: [
 					{ type: MessagingPushNotificationConnectorType.EntityStorage }
 				],
+				messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 				messagingComponent: [{ type: MessagingComponentType.Service }],
 				vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
 				verifiableStorageConnector: [{ type: VerifiableStorageConnectorType.EntityStorage }],
@@ -840,6 +845,7 @@ describe("engine", () => {
 					messagingPushNotificationConnector: [
 						{ type: MessagingPushNotificationConnectorType.EntityStorage }
 					],
+					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 					messagingComponent: [{ type: MessagingComponentType.Service }],
 					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
 					verifiableStorageConnector: [{ type: VerifiableStorageConnectorType.EntityStorage }],
@@ -1029,6 +1035,7 @@ describe("engine", () => {
 			"task-scheduler-service",
 			"event-bus-socket-client",
 			"telemetry-client",
+			"messaging-admin-service",
 			"messaging-service",
 			"blob-storage-client",
 			"verifiable-storage-client",

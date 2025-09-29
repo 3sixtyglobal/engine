@@ -120,6 +120,12 @@ Messaging SMS connector options which can be overridden by individual components
 
 Messaging push notification connector options which can be overridden by individual components by specifying types other than default.
 
+#### messagingAdminComponent?
+
+> `optional` **messagingAdminComponent**: `IEngineCoreTypeConfig`\<[`MessagingAdminComponentConfig`](../type-aliases/MessagingAdminComponentConfig.md)\>[]
+
+Messaging admin component options which can be overridden by individual components by specifying types other than default.
+
 #### messagingComponent?
 
 > `optional` **messagingComponent**: `IEngineCoreTypeConfig`\<[`MessagingComponentConfig`](../type-aliases/MessagingComponentConfig.md)\>[]

@@ -8,9 +8,9 @@ import {
 	type AuditableItemGraphVertex,
 	initSchema as initSchemaAuditableItemGraph
 } from "@twin.org/auditable-item-graph-service";
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage";
 import type { AuditableItemGraphComponentConfig } from "../models/config/auditableItemGraphComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
@@ -62,10 +62,10 @@ export async function initialiseAuditableItemGraphComponent(
 			eventBusComponentType: engineCore.getRegisteredInstanceTypeOptional("eventBusComponent"),
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(AuditableItemGraphService));
+		instanceType = nameofKebabCase(AuditableItemGraphService);
 	} else if (type === AuditableItemGraphComponentType.RestClient) {
 		component = new AuditableItemGraphClient(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(AuditableItemGraphClient));
+		instanceType = nameofKebabCase(AuditableItemGraphClient);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

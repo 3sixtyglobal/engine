@@ -18,9 +18,9 @@ import {
 	initSchema as initSchemaBlobStorage,
 	type BlobStorageEntry
 } from "@twin.org/blob-storage-service";
-import { ComponentFactory, GeneralError, I18n, Is, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n, Is } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage";
 import type { BlobStorageComponentConfig } from "../models/config/blobStorageComponentConfig";
 import type { BlobStorageConnectorConfig } from "../models/config/blobStorageConnectorConfig";
@@ -151,10 +151,10 @@ export async function initialiseBlobStorageComponent(
 			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(BlobStorageService));
+		instanceType = nameofKebabCase(BlobStorageService);
 	} else if (type === BlobStorageComponentType.RestClient) {
 		component = new BlobStorageClient(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(BlobStorageClient));
+		instanceType = nameofKebabCase(BlobStorageClient);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

@@ -8,10 +8,10 @@ import {
 	RestRouteProcessor,
 	StaticUserIdentityProcessor
 } from "@twin.org/api-processors";
-import { GeneralError, I18n, StringHelper } from "@twin.org/core";
-import type { IEngineCoreContext, IEngineCore } from "@twin.org/engine-models";
+import { GeneralError, I18n } from "@twin.org/core";
+import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { VerifiableCredentialAuthenticationProcessor } from "@twin.org/identity-authentication";
-import { nameof } from "@twin.org/nameof";
+import { nameofKebabCase } from "@twin.org/nameof";
 import type { RestRouteProcessorConfig } from "../models/config/restRouteProcessorConfig";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig";
 import { RestRouteProcessorType } from "../models/types/restRouteProcessorType";
@@ -48,7 +48,7 @@ export async function initialiseRestRouteProcessorComponent(
 				...instanceConfig.options?.config
 			}
 		});
-		instanceType = StringHelper.kebabCase(nameof(AuthHeaderProcessor));
+		instanceType = nameofKebabCase(AuthHeaderProcessor);
 	} else if (type === RestRouteProcessorType.AuthVerifiableCredential) {
 		component = new VerifiableCredentialAuthenticationProcessor({
 			identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
@@ -57,7 +57,7 @@ export async function initialiseRestRouteProcessorComponent(
 				...instanceConfig.options?.config
 			}
 		});
-		instanceType = StringHelper.kebabCase(nameof(VerifiableCredentialAuthenticationProcessor));
+		instanceType = nameofKebabCase(VerifiableCredentialAuthenticationProcessor);
 	} else if (type === RestRouteProcessorType.Logging) {
 		component = new LoggingProcessor({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
@@ -65,16 +65,16 @@ export async function initialiseRestRouteProcessorComponent(
 				...instanceConfig.options?.config
 			}
 		});
-		instanceType = StringHelper.kebabCase(nameof(LoggingProcessor));
+		instanceType = nameofKebabCase(LoggingProcessor);
 	} else if (type === RestRouteProcessorType.NodeIdentity) {
 		component = new NodeIdentityProcessor();
-		instanceType = StringHelper.kebabCase(nameof(NodeIdentityProcessor));
+		instanceType = nameofKebabCase(NodeIdentityProcessor);
 	} else if (type === RestRouteProcessorType.StaticUserIdentity) {
 		component = new StaticUserIdentityProcessor(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(StaticUserIdentityProcessor));
+		instanceType = nameofKebabCase(StaticUserIdentityProcessor);
 	} else if (type === RestRouteProcessorType.RestRoute) {
 		component = new RestRouteProcessor(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(RestRouteProcessor));
+		instanceType = nameofKebabCase(RestRouteProcessor);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

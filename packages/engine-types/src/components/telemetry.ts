@@ -1,8 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import {
 	EntityStorageTelemetryConnector,
 	initSchema,
@@ -110,10 +110,10 @@ export async function initialiseTelemetryComponent(
 			telemetryConnectorType: engineCore.getRegisteredInstanceType("telemetryConnector"),
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(TelemetryService));
+		instanceType = nameofKebabCase(TelemetryService);
 	} else if (type === TelemetryComponentType.RestClient) {
 		component = new TelemetryClient(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(TelemetryClient));
+		instanceType = nameofKebabCase(TelemetryClient);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

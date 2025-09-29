@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { ITaskSchedulerComponent } from "@twin.org/background-task-models";
 import { TaskSchedulerService } from "@twin.org/background-task-scheduler";
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameofKebabCase } from "@twin.org/nameof";
 import type { TaskSchedulerComponentConfig } from "../models/config/taskSchedulerComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
 import { TaskSchedulerComponentType } from "../models/types/taskSchedulerComponentType";
@@ -39,7 +39,7 @@ export async function initialiseTaskSchedulerComponent(
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(TaskSchedulerService));
+		instanceType = nameofKebabCase(TaskSchedulerService);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

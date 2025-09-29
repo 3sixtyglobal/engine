@@ -3,9 +3,9 @@
 import type { IInformationComponent } from "@twin.org/api-models";
 import { InformationClient } from "@twin.org/api-rest-client";
 import { InformationService } from "@twin.org/api-service";
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameofKebabCase } from "@twin.org/nameof";
 import type { InformationComponentConfig } from "../models/config/informationComponentConfig";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig";
 import { InformationComponentType } from "../models/types/informationComponentType";
@@ -37,10 +37,10 @@ export async function initialiseInformationComponent(
 
 	if (type === InformationComponentType.Service) {
 		component = new InformationService(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(InformationService));
+		instanceType = nameofKebabCase(InformationService);
 	} else if (type === InformationComponentType.RestClient) {
 		component = new InformationClient(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(InformationClient));
+		instanceType = nameofKebabCase(InformationClient);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

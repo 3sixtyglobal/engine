@@ -1,11 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
 import type { IDocumentManagementComponent } from "@twin.org/document-management-models";
 import { DocumentManagementClient } from "@twin.org/document-management-rest-client";
 import { DocumentManagementService } from "@twin.org/document-management-service";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameofKebabCase } from "@twin.org/nameof";
 import type { DocumentManagementComponentConfig } from "../models/config/documentManagementComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
 import { DocumentManagementComponentType } from "../models/types/documentManagementComponentType";
@@ -45,10 +45,10 @@ export async function initialiseDocumentManagementComponent(
 			dataProcessingComponentType: engineCore.getRegisteredInstanceType("dataProcessingComponent"),
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(DocumentManagementService));
+		instanceType = nameofKebabCase(DocumentManagementService);
 	} else if (type === DocumentManagementComponentType.RestClient) {
 		component = new DocumentManagementClient(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(DocumentManagementClient));
+		instanceType = nameofKebabCase(DocumentManagementClient);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

@@ -1,8 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameofKebabCase } from "@twin.org/nameof";
 import { DataAccessPointService } from "@twin.org/rights-management-dap-service";
 import type { IDataAccessPointComponent } from "@twin.org/rights-management-models";
 import { DataAccessPointClient } from "@twin.org/rights-management-rest-client";
@@ -46,7 +46,7 @@ export async function initialiseRightsManagementDapComponent(
 				...instanceConfig.options?.config
 			}
 		});
-		instanceType = StringHelper.kebabCase(nameof(DataAccessPointService));
+		instanceType = nameofKebabCase(DataAccessPointService);
 	} else if (type === RightsManagementDapComponentType.RestClient) {
 		component = new DataAccessPointClient({
 			...instanceConfig.options,
@@ -56,7 +56,7 @@ export async function initialiseRightsManagementDapComponent(
 					"verifiable-credential"
 				])
 		});
-		instanceType = StringHelper.kebabCase(nameof(DataAccessPointClient));
+		instanceType = nameofKebabCase(DataAccessPointClient);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

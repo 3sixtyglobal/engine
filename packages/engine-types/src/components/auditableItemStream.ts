@@ -8,9 +8,9 @@ import {
 	AuditableItemStreamService,
 	initSchema as initSchemaAuditableItemStream
 } from "@twin.org/auditable-item-stream-service";
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage";
 import type { AuditableItemStreamComponentConfig } from "../models/config/auditableItemStreamComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
@@ -62,10 +62,10 @@ export async function initialiseAuditableItemStreamComponent(
 			eventBusComponentType: engineCore.getRegisteredInstanceTypeOptional("eventBusComponent"),
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(AuditableItemStreamService));
+		instanceType = nameofKebabCase(AuditableItemStreamService);
 	} else if (type === AuditableItemStreamComponentType.RestClient) {
 		component = new AuditableItemStreamClient(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(AuditableItemStreamClient));
+		instanceType = nameofKebabCase(AuditableItemStreamClient);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

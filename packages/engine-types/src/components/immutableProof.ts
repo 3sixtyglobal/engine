@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import type { IImmutableProofComponent } from "@twin.org/immutable-proof-models";
 import { ImmutableProofClient } from "@twin.org/immutable-proof-rest-client";
@@ -9,7 +9,7 @@ import {
 	ImmutableProofService,
 	initSchema as initSchemaImmutableProof
 } from "@twin.org/immutable-proof-service";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage";
 import type { ImmutableProofComponentConfig } from "../models/config/immutableProofComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
@@ -57,10 +57,10 @@ export async function initialiseImmutableProofComponent(
 			eventBusComponentType: engineCore.getRegisteredInstanceTypeOptional("eventBusComponent"),
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(ImmutableProofService));
+		instanceType = nameofKebabCase(ImmutableProofService);
 	} else if (type === ImmutableProofComponentType.RestClient) {
 		component = new ImmutableProofClient(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(ImmutableProofClient));
+		instanceType = nameofKebabCase(ImmutableProofClient);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

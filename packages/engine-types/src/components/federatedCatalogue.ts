@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import type { IFederatedCatalogueComponent } from "@twin.org/federated-catalogue-models";
 import { FederatedCatalogueClient } from "@twin.org/federated-catalogue-rest-client";
@@ -12,7 +12,7 @@ import {
 	type ParticipantEntry,
 	type ServiceOfferingEntry
 } from "@twin.org/federated-catalogue-service";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage";
 import type { FederatedCatalogueComponentConfig } from "../models/config/federatedCatalogueComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
@@ -78,10 +78,10 @@ export async function initialiseFederatedCatalogueComponent(
 			),
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(FederatedCatalogueService));
+		instanceType = nameofKebabCase(FederatedCatalogueService);
 	} else if (type === FederatedCatalogueComponentType.RestClient) {
 		component = new FederatedCatalogueClient(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(FederatedCatalogueClient));
+		instanceType = nameofKebabCase(FederatedCatalogueClient);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

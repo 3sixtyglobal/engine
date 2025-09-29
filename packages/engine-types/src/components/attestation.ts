@@ -8,9 +8,9 @@ import {
 } from "@twin.org/attestation-models";
 import { AttestationClient } from "@twin.org/attestation-rest-client";
 import { AttestationService } from "@twin.org/attestation-service";
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameofKebabCase } from "@twin.org/nameof";
 import type { AttestationComponentConfig } from "../models/config/attestationComponentConfig";
 import type { AttestationConnectorConfig } from "../models/config/attestationConnectorConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
@@ -93,10 +93,10 @@ export async function initialiseAttestationComponent(
 		component = new AttestationService({
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(AttestationService));
+		instanceType = nameofKebabCase(AttestationService);
 	} else if (type === AttestationComponentType.RestClient) {
 		component = new AttestationClient(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(AttestationClient));
+		instanceType = nameofKebabCase(AttestationClient);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

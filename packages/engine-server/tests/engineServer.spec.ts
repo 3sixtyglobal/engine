@@ -39,6 +39,7 @@ import {
 	ImmutableProofComponentType,
 	LoggingComponentType,
 	LoggingConnectorType,
+	MessagingAdminComponentType,
 	MessagingComponentType,
 	MessagingEmailConnectorType,
 	MessagingPushNotificationConnectorType,
@@ -124,6 +125,7 @@ describe("engine-server", () => {
 				messagingPushNotificationConnector: [
 					{ type: MessagingPushNotificationConnectorType.EntityStorage }
 				],
+				messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 				messagingComponent: [{ type: MessagingComponentType.Service }],
 				vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
 				verifiableStorageConnector: [{ type: VerifiableStorageConnectorType.EntityStorage }],

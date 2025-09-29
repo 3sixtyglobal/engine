@@ -1,9 +1,9 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, Is, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n, Is } from "@twin.org/core";
 import { EngineModuleHelper } from "@twin.org/engine-core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameofKebabCase } from "@twin.org/nameof";
 import type {
 	IPolicyEnforcementPointComponent,
 	IPolicyEnforcementProcessor
@@ -60,7 +60,7 @@ export async function initialiseRightsManagementPepComponent(
 				processors: instanceConfig.options?.config?.processors ?? processorModules
 			}
 		});
-		instanceType = StringHelper.kebabCase(nameof(PolicyEnforcementPointService));
+		instanceType = nameofKebabCase(PolicyEnforcementPointService);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

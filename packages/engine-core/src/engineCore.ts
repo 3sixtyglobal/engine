@@ -10,8 +10,7 @@ import {
 	I18n,
 	type IComponent,
 	type IError,
-	Is,
-	StringHelper
+	Is
 } from "@twin.org/core";
 import type {
 	EngineTypeInitialiser,
@@ -33,7 +32,7 @@ import {
 } from "@twin.org/logging-models";
 import { LoggingService } from "@twin.org/logging-service";
 import { ModuleHelper } from "@twin.org/modules";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofCamelCase } from "@twin.org/nameof";
 import type { IEngineCoreOptions } from "./models/IEngineCoreOptions";
 import { MemoryStateStorage } from "./storage/memoryStateStorage";
 
@@ -49,13 +48,6 @@ export class EngineCore<
 	 * Name for the engine logger.
 	 */
 	public static readonly LOGGER_TYPE_NAME: string = "engine";
-
-	/**
-	 * Runtime name for the class in camel case.
-	 * @internal
-	 */
-	private static readonly _CLASS_NAME_CAMEL_CASE: string =
-		StringHelper.camelCase(nameof<EngineCore>());
 
 	/**
 	 * Runtime name for the class.
@@ -199,10 +191,10 @@ export class EngineCore<
 		}
 
 		this.setupEngineLogger();
-		this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.starting`));
+		this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.starting`));
 
 		if (this._context.config.debug) {
-			this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.debuggingEnabled`));
+			this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.debuggingEnabled`));
 		}
 
 		let canContinue;
@@ -216,12 +208,12 @@ export class EngineCore<
 
 				await this.bootstrap();
 
-				this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentsStarting`));
+				this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStarting`));
 
 				for (const instance of this._context.componentInstances) {
 					if (Is.function(instance.component.start)) {
 						this.logInfo(
-							I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentStarting`, {
+							I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStarting`, {
 								element: instance.instanceType
 							})
 						);
@@ -230,10 +222,10 @@ export class EngineCore<
 					}
 				}
 
-				this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentsComplete`));
+				this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsComplete`));
 			}
 
-			this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.started`));
+			this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.started`));
 			this._isStarted = true;
 		} catch (err) {
 			canContinue = false;
@@ -252,13 +244,13 @@ export class EngineCore<
 	 * @returns Nothing.
 	 */
 	public async stop(): Promise<void> {
-		this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.stopping`));
-		this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentsStopping`));
+		this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopping`));
+		this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopping`));
 
 		for (const instance of this._context.componentInstances) {
 			if (Is.function(instance.component.stop)) {
 				this.logInfo(
-					I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentStopping`, {
+					I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStopping`, {
 						element: instance.instanceType
 					})
 				);
@@ -282,8 +274,8 @@ export class EngineCore<
 
 		await this.stateSave();
 
-		this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.componentsStopped`));
-		this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.stopped`));
+		this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopped`));
+		this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopped`));
 	}
 
 	/**
@@ -620,7 +612,7 @@ export class EngineCore<
 	 */
 	private async bootstrap(): Promise<void> {
 		if (!this._skipBootstrap) {
-			this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.bootstrapStarted`));
+			this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapStarted`));
 
 			// First bootstrap the components.
 			for (const instance of this._context.componentInstances) {
@@ -628,7 +620,7 @@ export class EngineCore<
 					const instanceName = this.getInstanceName(instance);
 
 					this.logInfo(
-						I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.bootstrapping`, {
+						I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapping`, {
 							element: instanceName
 						})
 					);
@@ -648,7 +640,7 @@ export class EngineCore<
 				await this._customBootstrap(this, this._context);
 			}
 
-			this.logInfo(I18n.formatMessage(`${EngineCore._CLASS_NAME_CAMEL_CASE}.bootstrapComplete`));
+			this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapComplete`));
 		}
 	}
 

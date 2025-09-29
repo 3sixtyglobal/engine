@@ -4,10 +4,10 @@ import {
 	AuthenticationGeneratorFactory,
 	type IAuthenticationGenerator
 } from "@twin.org/api-models";
-import { GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { GeneralError, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { VerifiableCredentialAuthenticationGenerator } from "@twin.org/identity-authentication";
-import { nameof } from "@twin.org/nameof";
+import { nameofKebabCase } from "@twin.org/nameof";
 import type { AuthenticationGeneratorComponentConfig } from "../models/config/authenticationGeneratorComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
 import { AuthenticationGeneratorComponentType } from "../models/types/authenticationGeneratorComponentType";
@@ -43,7 +43,7 @@ export async function initialiseAuthenticationGeneratorComponent(
 			identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(VerifiableCredentialAuthenticationGenerator));
+		instanceType = nameofKebabCase(VerifiableCredentialAuthenticationGenerator);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

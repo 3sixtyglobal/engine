@@ -1,9 +1,9 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, Is, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n, Is } from "@twin.org/core";
 import { EngineModuleHelper } from "@twin.org/engine-core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameofKebabCase } from "@twin.org/nameof";
 import type {
 	IPolicyNegotiationPointComponent,
 	IPolicyNegotiator,
@@ -79,7 +79,7 @@ export async function initialiseRightsManagementPnpComponent(
 				requesters: instanceConfig.options?.config?.requesters ?? requesterModules
 			}
 		});
-		instanceType = StringHelper.kebabCase(nameof(PolicyNegotiationPointService));
+		instanceType = nameofKebabCase(PolicyNegotiationPointService);
 	} else if (type === RightsManagementPnpComponentType.RestClient) {
 		component = new PolicyNegotiationPointClient({
 			...instanceConfig.options,
@@ -89,7 +89,7 @@ export async function initialiseRightsManagementPnpComponent(
 					"verifiable-credential"
 				])
 		});
-		instanceType = StringHelper.kebabCase(nameof(PolicyNegotiationPointClient));
+		instanceType = nameofKebabCase(PolicyNegotiationPointClient);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

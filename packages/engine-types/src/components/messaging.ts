@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import {
 	AwsMessagingEmailConnector,
@@ -18,6 +18,7 @@ import {
 	type SmsEntry
 } from "@twin.org/messaging-connector-entity-storage";
 import {
+	type IMessagingAdminComponent,
 	type IMessagingComponent,
 	type IMessagingEmailConnector,
 	type IMessagingPushNotificationsConnector,
@@ -27,17 +28,20 @@ import {
 	MessagingSmsConnectorFactory
 } from "@twin.org/messaging-models";
 import {
-	initSchema as initSchemaService,
+	initSchema as initSchemaMessagingService,
+	MessagingAdminService,
 	MessagingService,
 	type TemplateEntry
 } from "@twin.org/messaging-service";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage";
+import type { MessagingAdminComponentConfig } from "../models/config/messagingAdminComponentConfig";
 import type { MessagingComponentConfig } from "../models/config/messagingComponentConfig";
 import type { MessagingEmailConnectorConfig } from "../models/config/messagingEmailConnectorConfig";
 import type { MessagingPushNotificationConnectorConfig } from "../models/config/messagingPushNotificationConnectorConfig";
 import type { MessagingSmsConnectorConfig } from "../models/config/messagingSmsConnectorConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
+import { MessagingAdminComponentType } from "../models/types/messagingAdminComponentType";
 import { MessagingComponentType } from "../models/types/messagingComponentType";
 import { MessagingEmailConnectorType } from "../models/types/messagingEmailConnectorType";
 import { MessagingPushNotificationConnectorType } from "../models/types/messagingPushNotificationConnectorType";
@@ -246,15 +250,6 @@ export async function initialiseMessagingComponent(
 	let instanceType: string;
 
 	if (type === MessagingComponentType.Service) {
-		initSchemaService();
-
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.templateEntryStorageConnectorType,
-			nameof<TemplateEntry>()
-		);
-
 		component = new MessagingService({
 			messagingEmailConnectorType:
 				engineCore.getRegisteredInstanceTypeOptional("messagingEmailConnector"),
@@ -263,13 +258,67 @@ export async function initialiseMessagingComponent(
 			messagingPushNotificationConnectorType: engineCore.getRegisteredInstanceTypeOptional(
 				"messagingNotificationConnector"
 			),
+			messagingAdminComponentType:
+				engineCore.getRegisteredInstanceTypeOptional("messagingAdminComponent"),
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(MessagingService));
+		instanceType = nameofKebabCase(MessagingService);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,
 			componentType: "messagingComponent"
+		});
+	}
+
+	const finalInstanceType = overrideInstanceType ?? instanceType;
+	context.componentInstances.push({ instanceType: finalInstanceType, component });
+	ComponentFactory.register(finalInstanceType, () => component);
+	return finalInstanceType;
+}
+
+/**
+ * Initialise the messaging admin component.
+ * @param engineCore The engine core.
+ * @param context The context for the engine.
+ * @param instanceConfig The instance config.
+ * @param overrideInstanceType The instance type to override the default.
+ * @returns The name of the instance created.
+ * @throws GeneralError if the component type is unknown.
+ */
+export async function initialiseMessagingAdminComponent(
+	engineCore: IEngineCore<IEngineConfig>,
+	context: IEngineCoreContext<IEngineConfig>,
+	instanceConfig: MessagingAdminComponentConfig,
+	overrideInstanceType?: string
+): Promise<string | undefined> {
+	engineCore.logInfo(
+		I18n.formatMessage("engineCore.configuring", {
+			element: `Messaging Admin Component: ${instanceConfig.type}`
+		})
+	);
+
+	const type = instanceConfig.type;
+	let component: IMessagingAdminComponent;
+	let instanceType: string;
+
+	if (type === MessagingAdminComponentType.Service) {
+		initSchemaMessagingService();
+
+		initialiseEntityStorageConnector(
+			engineCore,
+			context,
+			instanceConfig.options?.templateEntryStorageConnectorType,
+			nameof<TemplateEntry>()
+		);
+
+		component = new MessagingAdminService({
+			...instanceConfig.options
+		});
+		instanceType = nameofKebabCase(MessagingAdminService);
+	} else {
+		throw new GeneralError("engineCore", "componentUnknownType", {
+			type,
+			componentType: "messagingAdminComponent"
 		});
 	}
 

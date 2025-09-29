@@ -6,10 +6,10 @@ import {
 	initSchema as initSchemaAuthEntityStorage,
 	type AuthenticationUser
 } from "@twin.org/api-auth-entity-storage-service";
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { initialiseEntityStorageConnector } from "@twin.org/engine-types";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { AuthenticationAdminComponentConfig } from "../models/config/authenticationAdminComponentConfig";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig";
 import { AuthenticationAdminComponentType } from "../models/types/authenticationAdminComponentType";
@@ -51,7 +51,7 @@ export async function initialiseAuthenticationAdminComponent(
 		component = new EntityStorageAuthenticationAdminService({
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(EntityStorageAuthenticationAdminService));
+		instanceType = nameofKebabCase(EntityStorageAuthenticationAdminService);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

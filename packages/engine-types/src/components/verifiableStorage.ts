@@ -1,8 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, StringHelper } from "@twin.org/core";
+import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import {
 	EntityStorageVerifiableStorageConnector,
 	initSchema as initSchemaVerifiableStorageStorage,
@@ -121,10 +121,10 @@ export async function initialiseVerifiableStorageComponent(
 		component = new VerifiableStorageService({
 			...instanceConfig.options
 		});
-		instanceType = StringHelper.kebabCase(nameof(VerifiableStorageService));
+		instanceType = nameofKebabCase(VerifiableStorageService);
 	} else if (type === VerifiableStorageComponentType.RestClient) {
 		component = new VerifiableStorageClient(instanceConfig.options);
-		instanceType = StringHelper.kebabCase(nameof(VerifiableStorageClient));
+		instanceType = nameofKebabCase(VerifiableStorageClient);
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,

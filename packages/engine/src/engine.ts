@@ -104,6 +104,12 @@ export class Engine<
 			"initialiseMessagingPushNotificationConnector"
 		);
 		this.addTypeInitialiser(
+			"messagingAdminComponent",
+			this._context.config.types.messagingAdminComponent,
+			"@twin.org/engine-types",
+			"initialiseMessagingAdminComponent"
+		);
+		this.addTypeInitialiser(
 			"messagingComponent",
 			this._context.config.types.messagingComponent,
 			"@twin.org/engine-types",

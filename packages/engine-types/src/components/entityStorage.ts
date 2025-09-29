@@ -20,7 +20,7 @@ import {
 } from "@twin.org/entity-storage-models";
 import { EntityStorageClient } from "@twin.org/entity-storage-rest-client";
 import { EntityStorageService } from "@twin.org/entity-storage-service";
-import { nameof } from "@twin.org/nameof";
+import { nameofKebabCase } from "@twin.org/nameof";
 import type { EntityStorageComponentConfig } from "../models/config/entityStorageComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
 import { EntityStorageComponentType } from "../models/types/entityStorageComponentType";
@@ -251,7 +251,7 @@ export async function initialiseEntityStorageComponent(
 			pathPrefix: kebabName,
 			...instanceConfig.options
 		});
-		instanceType = `${StringHelper.kebabCase(nameof(EntityStorageClient))}-${kebabName}`;
+		instanceType = `${nameofKebabCase(EntityStorageClient)}-${kebabName}`;
 	} else {
 		throw new GeneralError("engineCore", "componentUnknownType", {
 			type,
