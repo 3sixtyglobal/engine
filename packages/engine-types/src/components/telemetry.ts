@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import {
@@ -28,27 +28,21 @@ import { TelemetryConnectorType } from "../models/types/telemetryConnectorType";
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseTelemetryConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: TelemetryConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Telemetry Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: TelemetryConnectorConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof TelemetryConnectorFactory;
+	component?: IComponent;
+}> {
+	let component: ITelemetryConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let connector: ITelemetryConnector;
-	let instanceType: string;
-
-	if (type === TelemetryConnectorType.EntityStorage) {
+	if (instanceConfig.type === TelemetryConnectorType.EntityStorage) {
 		initSchema();
 		initialiseEntityStorageConnector(
 			engineCore,
@@ -62,22 +56,18 @@ export async function initialiseTelemetryConnector(
 			instanceConfig.options?.telemetryMetricValueStorageConnectorType,
 			nameof<TelemetryMetricValue>()
 		);
-		connector = new EntityStorageTelemetryConnector({
+		component = new EntityStorageTelemetryConnector({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = EntityStorageTelemetryConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "telemetryConnector"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component: connector });
-	TelemetryConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		instanceType,
+		factory: TelemetryConnectorFactory,
+		component
+	};
 }
 
 /**
@@ -85,44 +75,34 @@ export async function initialiseTelemetryConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseTelemetryComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: TelemetryComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Telemetry Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: TelemetryComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: ITelemetryComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: ITelemetryComponent;
-	let instanceType: string;
-
-	if (type === TelemetryComponentType.Service) {
+	if (instanceConfig.type === TelemetryComponentType.Service) {
 		component = new TelemetryService({
 			telemetryConnectorType: engineCore.getRegisteredInstanceType("telemetryConnector"),
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(TelemetryService);
-	} else if (type === TelemetryComponentType.RestClient) {
+	} else if (instanceConfig.type === TelemetryComponentType.RestClient) {
 		component = new TelemetryClient(instanceConfig.options);
 		instanceType = nameofKebabCase(TelemetryClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "telemetryComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component });
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

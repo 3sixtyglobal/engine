@@ -16,7 +16,7 @@ Interface describing the engine core methods.
 
 ### addTypeInitialiser()
 
-> **addTypeInitialiser**(`type`, `typeConfig`, `module`, `method`): `void`
+> **addTypeInitialiser**(`type`, `module`, `method`): `void`
 
 Add a type initialiser.
 
@@ -27,12 +27,6 @@ Add a type initialiser.
 `string`
 
 The type to add the initialiser for.
-
-##### typeConfig
-
-The type config.
-
-`undefined` | [`IEngineCoreTypeConfig`](../type-aliases/IEngineCoreTypeConfig.md)[]
 
 ##### module
 
@@ -49,6 +43,28 @@ The name of the method to call.
 #### Returns
 
 `void`
+
+***
+
+### getTypeConfig()
+
+> **getTypeConfig**(`type`): `undefined` \| [`IEngineCoreTypeConfig`](../type-aliases/IEngineCoreTypeConfig.md)[]
+
+Get the type config for a specific type.
+
+#### Parameters
+
+##### type
+
+`string`
+
+The type to get the config for.
+
+#### Returns
+
+`undefined` \| [`IEngineCoreTypeConfig`](../type-aliases/IEngineCoreTypeConfig.md)[]
+
+The type config or undefined if not found.
 
 ***
 

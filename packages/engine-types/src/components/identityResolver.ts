@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import {
 	EntityStorageIdentityResolverConnector,
@@ -32,32 +32,27 @@ import { EngineTypeHelper } from "../utils/engineTypeHelper";
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseIdentityResolverConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: IdentityResolverConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Identity Resolver Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: IdentityResolverConnectorConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof IdentityResolverConnectorFactory;
+	component?: IComponent;
+}> {
+	let component: IIdentityResolverConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let connector: IIdentityResolverConnector;
-	let instanceType: string;
-	if (type === IdentityResolverConnectorType.Iota) {
+	if (instanceConfig.type === IdentityResolverConnectorType.Iota) {
 		const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
 			engineCore.getConfig(),
 			"dltConfig",
 			DltConfigType.Iota
 		);
-		connector = new IotaIdentityResolverConnector({
+		component = new IotaIdentityResolverConnector({
 			...instanceConfig.options,
 			config: {
 				...dltConfig?.options?.config,
@@ -65,7 +60,7 @@ export async function initialiseIdentityResolverConnector(
 			}
 		});
 		instanceType = IotaIdentityResolverConnector.NAMESPACE;
-	} else if (type === IdentityResolverConnectorType.EntityStorage) {
+	} else if (instanceConfig.type === IdentityResolverConnectorType.EntityStorage) {
 		initSchemaIdentityStorage({ includeProfile: false });
 		initialiseEntityStorageConnector(
 			engineCore,
@@ -73,27 +68,23 @@ export async function initialiseIdentityResolverConnector(
 			instanceConfig.options?.didDocumentEntityStorageType,
 			nameof<IdentityDocument>()
 		);
-		connector = new EntityStorageIdentityResolverConnector({
+		component = new EntityStorageIdentityResolverConnector({
 			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
 			...instanceConfig.options
 		});
 		instanceType = EntityStorageIdentityResolverConnector.NAMESPACE;
-	} else if (type === IdentityResolverConnectorType.Universal) {
-		connector = new UniversalResolverConnector({
+	} else if (instanceConfig.type === IdentityResolverConnectorType.Universal) {
+		component = new UniversalResolverConnector({
 			...instanceConfig.options
 		});
 		instanceType = UniversalResolverConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "identityResolverConnector"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component: connector });
-	IdentityResolverConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: IdentityResolverConnectorFactory
+	};
 }
 
 /**
@@ -101,27 +92,21 @@ export async function initialiseIdentityResolverConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseIdentityResolverComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: IdentityResolverComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Identity Resolver Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: IdentityResolverComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IIdentityResolverComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IIdentityResolverComponent;
-	let instanceType: string;
-
-	if (type === IdentityResolverComponentType.Service) {
+	if (instanceConfig.type === IdentityResolverComponentType.Service) {
 		const defaultIdentityResolverType = engineCore.getRegisteredInstanceType(
 			"identityResolverConnector"
 		);
@@ -134,18 +119,14 @@ export async function initialiseIdentityResolverComponent(
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(IdentityResolverService);
-	} else if (type === IdentityResolverComponentType.RestClient) {
+	} else if (instanceConfig.type === IdentityResolverComponentType.RestClient) {
 		component = new IdentityResolverClient(instanceConfig.options);
 		instanceType = nameofKebabCase(IdentityResolverClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "identityResolverComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component });
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

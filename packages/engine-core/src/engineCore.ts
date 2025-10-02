@@ -18,7 +18,6 @@ import type {
 	IEngineCoreClone,
 	IEngineCoreConfig,
 	IEngineCoreContext,
-	IEngineCoreTypeBaseConfig,
 	IEngineCoreTypeConfig,
 	IEngineState,
 	IEngineStateStorage
@@ -90,7 +89,6 @@ export class EngineCore<
 	 */
 	private _typeInitialisers: {
 		type: string;
-		typeConfig: IEngineCoreTypeConfig[];
 		module: string;
 		method: string;
 	}[];
@@ -161,24 +159,29 @@ export class EngineCore<
 	/**
 	 * Add a type initialiser.
 	 * @param type The type to add the initialiser for.
-	 * @param typeConfig The type config.
 	 * @param module The name of the module which contains the initialiser method.
 	 * @param method The name of the method to call.
 	 */
-	public addTypeInitialiser(
-		type: string,
-		typeConfig: IEngineCoreTypeConfig[] | undefined,
-		module: string,
-		method: string
-	): void {
-		if (!Is.empty(typeConfig)) {
-			this._typeInitialisers.push({
-				type,
-				typeConfig,
-				module,
-				method
-			});
-		}
+	public addTypeInitialiser(type: string, module: string, method: string): void {
+		Guards.stringValue(EngineCore._CLASS_NAME, nameof(type), type);
+		Guards.stringValue(EngineCore._CLASS_NAME, nameof(module), module);
+		Guards.stringValue(EngineCore._CLASS_NAME, nameof(method), method);
+
+		this._typeInitialisers.push({
+			type,
+			module,
+			method
+		});
+	}
+
+	/**
+	 * Get the type config for a specific type.
+	 * @param type The type to get the config for.
+	 * @returns The type config or undefined if not found.
+	 */
+	public getTypeConfig(type: string): IEngineCoreTypeConfig[] | undefined {
+		Guards.stringValue(EngineCore._CLASS_NAME, nameof(type), type);
+		return this._context.config.types?.[type];
 	}
 
 	/**
@@ -202,8 +205,8 @@ export class EngineCore<
 			canContinue = await this.stateLoad();
 
 			if (canContinue) {
-				for (const { type, typeConfig, module, method } of this._typeInitialisers) {
-					await this.initialiseTypeConfig(type, typeConfig, module, method);
+				for (const { type, module, method } of this._typeInitialisers) {
+					await this.initialiseTypeConfig(type, module, method);
 				}
 
 				await this.bootstrap();
@@ -488,12 +491,13 @@ export class EngineCore<
 	 * @param instanceMethod The function to initialise the instance.
 	 * @internal
 	 */
-	private async initialiseTypeConfig<Y extends IEngineCoreTypeBaseConfig>(
+	private async initialiseTypeConfig(
 		typeKey: string,
-		typeConfig: IEngineCoreTypeConfig<Y>[],
 		module: string,
 		method: string
 	): Promise<void> {
+		const typeConfig: IEngineCoreTypeConfig[] | undefined = this._context.config.types?.[typeKey];
+
 		if (Is.arrayValue(typeConfig)) {
 			const instanceMethod = await ModuleHelper.getModuleEntry<EngineTypeInitialiser>(
 				module,
@@ -501,26 +505,40 @@ export class EngineCore<
 			);
 
 			for (let i = 0; i < typeConfig.length; i++) {
-				const instanceType = await instanceMethod(
-					this,
-					this._context,
-					typeConfig[i],
-					typeConfig[i].overrideInstanceType
+				this.logInfo(
+					I18n.formatMessage("engineCore.configuring", {
+						element: `${typeKey}: ${typeConfig[i].type}`
+					})
 				);
-				if (Is.stringValue(instanceType)) {
+				const result = await instanceMethod(this, this._context, typeConfig[i]);
+
+				if (Is.stringValue(result.instanceType) && Is.object(result.component)) {
+					const finalInstanceType = typeConfig[i].overrideInstanceType ?? result.instanceType;
+					this._context.componentInstances.push({
+						instanceType: finalInstanceType,
+						component: result.component
+					});
+
+					result.factory?.register(finalInstanceType, () => result.component);
+
 					this._context.registeredInstances[typeKey] ??= [];
 
 					if (typeConfig[i].isDefault ?? false) {
 						this._context.registeredInstances[typeKey].unshift({
-							type: instanceType,
+							type: finalInstanceType,
 							features: typeConfig[i].features
 						});
 					} else {
 						this._context.registeredInstances[typeKey].push({
-							type: instanceType,
+							type: finalInstanceType,
 							features: typeConfig[i].features
 						});
 					}
+				} else {
+					throw new GeneralError("engineCore", "componentUnknownType", {
+						type: typeConfig[i].type,
+						componentType: typeKey
+					});
 				}
 			}
 		}

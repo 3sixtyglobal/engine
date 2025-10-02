@@ -40,10 +40,6 @@ The type initialisers for the engine.
 
 > **type**: `string`
 
-#### typeConfig
-
-> **typeConfig**: [`IEngineCoreTypeConfig`](../type-aliases/IEngineCoreTypeConfig.md)[]
-
 #### module
 
 > **module**: `string`

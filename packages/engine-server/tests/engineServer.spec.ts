@@ -4,7 +4,6 @@ import path from "node:path";
 import { ComponentFactory, Factory, I18n, ObjectHelper } from "@twin.org/core";
 import { Engine } from "@twin.org/engine";
 import engineLocales from "@twin.org/engine-core/locales/en.json";
-import type { IEngineCoreTypeConfig } from "@twin.org/engine-models";
 import {
 	InformationComponentType,
 	RestRouteProcessorType,
@@ -16,6 +15,7 @@ import {
 	AttestationConnectorType,
 	AuditableItemGraphComponentType,
 	AuditableItemStreamComponentType,
+	AuthenticationGeneratorComponentType,
 	BackgroundTaskConnectorType,
 	BlobStorageComponentType,
 	BlobStorageConnectorType,
@@ -46,9 +46,9 @@ import {
 	MessagingSmsConnectorType,
 	NftComponentType,
 	NftConnectorType,
-	RightsManagementPapComponentType,
-	RightsManagementDarpComponentType,
 	RightsManagementDapComponentType,
+	RightsManagementDarpComponentType,
+	RightsManagementPapComponentType,
 	RightsManagementPdpComponentType,
 	RightsManagementPepComponentType,
 	RightsManagementPipComponentType,
@@ -63,8 +63,7 @@ import {
 	VaultConnectorType,
 	VerifiableStorageComponentType,
 	VerifiableStorageConnectorType,
-	WalletConnectorType,
-	AuthenticationGeneratorComponentType
+	WalletConnectorType
 } from "@twin.org/engine-types";
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
@@ -76,6 +75,9 @@ import type {
 import packageLocales from "../locales/en.json";
 import { EngineServer } from "../src/engineServer";
 import { addDefaultRestPaths, addDefaultSocketPaths } from "../src/utils/engineServerConfigHelper";
+
+const basePort = Math.floor(Math.random() * 1000);
+let port = 3000 + basePort;
 
 /**
  * Class representing information for a test entity.
@@ -95,13 +97,57 @@ describe("engine-server", () => {
 	});
 
 	beforeEach(async () => {
+		port++;
+
 		Factory.clearFactories();
 	});
 
 	test("Can start engine server with no config", async () => {
-		const engine = new Engine();
+		const engine = new Engine({ config: { types: {}, web: { port } } });
 		const engineServer = new EngineServer({ engineCore: engine });
 		await engineServer.start();
+		await engineServer.stop();
+		expect(engineServer).toBeDefined();
+	});
+
+	test("Can start engine server with custom rest path", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					informationComponent: [
+						{
+							type: InformationComponentType.Service,
+							options: {
+								config: {
+									serverInfo: {
+										name: "foo",
+										version: "1"
+									}
+								}
+							},
+							restPath: "/foo"
+						}
+					]
+				},
+				web: { port }
+			}
+		});
+		const engineServer = new EngineServer({
+			engineCore: engine
+		});
+		const canContinue = await engineServer.start();
+		expect(canContinue).toEqual(true);
+
+		// Give the server a moment to start
+		await new Promise(resolve => setTimeout(resolve, 1000));
+
+		const res = await fetch(`http://localhost:${port}/foo/info`);
+		expect(await res.json()).toEqual({
+			name: "foo",
+			version: "1"
+		});
+
 		await engineServer.stop();
 		expect(engineServer).toBeDefined();
 	});
@@ -194,7 +240,7 @@ describe("engine-server", () => {
 						type: RightsManagementPnpComponentType.Service,
 						options: {
 							config: {
-								baseCallbackUrl: "http://localhost:3000",
+								baseCallbackUrl: `http://localhost:${port}`,
 								negotiationComponentCreator: async () =>
 									({}) as unknown as IPolicyNegotiationPointComponent
 							}
@@ -253,8 +299,7 @@ describe("engine-server", () => {
 									version: "1"
 								}
 							}
-						},
-						restPath: ""
+						}
 					}
 				],
 				restRouteProcessor: [
@@ -273,7 +318,8 @@ describe("engine-server", () => {
 						type: SocketRouteProcessorType.AuthVerifiableCredential
 					}
 				]
-			}
+			},
+			web: { port }
 		};
 		const engine = new Engine({
 			config
@@ -339,13 +385,13 @@ describe("engine-server", () => {
 			"/verifiable/:id",
 			"/verifiable/:id",
 			"/verifiable/:id",
+			"/immutable-proof",
+			"/immutable-proof/:id",
+			"/immutable-proof/:id/verify",
 			"/attestation",
 			"/attestation/:id",
 			"/attestation/:id/transfer",
 			"/attestation/:id",
-			"/immutable-proof",
-			"/immutable-proof/:id",
-			"/immutable-proof/:id/verify",
 			"/aig",
 			"/aig/:id",
 			"/aig/:id",
@@ -422,45 +468,10 @@ describe("engine-server", () => {
 			"data-space-connector/activity-logs/status"
 		]);
 
-		const res = await fetch("http://localhost:3000/info");
-		expect(await res.json()).toEqual({
-			name: "foo",
-			version: "1"
-		});
+		// Give the server a moment to start
+		await new Promise(resolve => setTimeout(resolve, 1000));
 
-		await engineServer.stop();
-		expect(engineServer).toBeDefined();
-	});
-
-	test("Can start engine server with custom rest path", async () => {
-		const engine = new Engine({
-			config: {
-				silent: true,
-				types: {
-					informationComponent: [
-						{
-							type: InformationComponentType.Service,
-							options: {
-								config: {
-									serverInfo: {
-										name: "foo",
-										version: "1"
-									}
-								}
-							},
-							restPath: "/foo"
-						}
-					]
-				}
-			}
-		});
-		const engineServer = new EngineServer({
-			engineCore: engine
-		});
-		const canContinue = await engineServer.start();
-		expect(canContinue).toEqual(true);
-
-		const res = await fetch("http://localhost:3000/foo/info");
+		const res = await fetch(`http://localhost:${port}/info`);
 		expect(await res.json()).toEqual({
 			name: "foo",
 			version: "1"
@@ -471,15 +482,17 @@ describe("engine-server", () => {
 	});
 
 	test("Can start engine server with custom component and rest path", async () => {
-		const customTypeConfig: IEngineCoreTypeConfig[] = [
-			{ type: "test-type", restPath: "test", options: { value: 1234 } }
-		];
-
-		const engine = new Engine();
+		const engine = new Engine({
+			config: {
+				types: {
+					testType: [{ type: "test-type", restPath: "test", options: { value: 1234 } }]
+				},
+				web: { port }
+			}
+		});
 
 		engine.addTypeInitialiser(
-			"test-type",
-			customTypeConfig,
+			"testType",
 			`file://${path.join(__dirname, "testComponent.js")}`,
 			"testTypeInitialiser"
 		);
@@ -489,8 +502,7 @@ describe("engine-server", () => {
 		});
 
 		engineServer.addRestRouteGenerator(
-			"test-type",
-			customTypeConfig,
+			"testType",
 			`file://${path.join(__dirname, "testComponent.js")}`,
 			"generateRestRoutes"
 		);
@@ -498,7 +510,10 @@ describe("engine-server", () => {
 		const canContinue = await engineServer.start();
 		expect(canContinue).toEqual(true);
 
-		const res = await fetch("http://localhost:3000/test/value");
+		// Give the server a moment to start
+		await new Promise(resolve => setTimeout(resolve, 1000));
+
+		const res = await fetch(`http://localhost:${port}/test/value`);
 		expect(await res.json()).toEqual({
 			value: 1234
 		});
@@ -531,7 +546,8 @@ describe("engine-server", () => {
 							restPath: "foo"
 						}
 					]
-				}
+				},
+				web: { port }
 			}
 		});
 
@@ -545,7 +561,10 @@ describe("engine-server", () => {
 		const service = ComponentFactory.get<IEntityStorageComponent<TestEntity>>("test-entity");
 		await service.set({ id: "test1234" });
 
-		const res = await fetch("http://localhost:3000/foo/test1234");
+		// Give the server a moment to start
+		await new Promise(resolve => setTimeout(resolve, 1000));
+
+		const res = await fetch(`http://localhost:${port}/foo/test1234`);
 		expect(await res.json()).toEqual({
 			id: "test1234"
 		});

@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
 import { DataAccessPointService } from "@twin.org/rights-management-dap-service";
@@ -15,27 +15,21 @@ import { RightsManagementDapComponentType } from "../models/types/rightsManageme
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseRightsManagementDapComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: RightsManagementDapComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Rights Management DAP Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: RightsManagementDapComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IDataAccessPointComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IDataAccessPointComponent;
-	let instanceType: string;
-
-	if (type === RightsManagementDapComponentType.Service) {
+	if (instanceConfig.type === RightsManagementDapComponentType.Service) {
 		component = new DataAccessPointService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			policyEnforcementPointComponentType: engineCore.getRegisteredInstanceType(
@@ -47,7 +41,7 @@ export async function initialiseRightsManagementDapComponent(
 			}
 		});
 		instanceType = nameofKebabCase(DataAccessPointService);
-	} else if (type === RightsManagementDapComponentType.RestClient) {
+	} else if (instanceConfig.type === RightsManagementDapComponentType.RestClient) {
 		component = new DataAccessPointClient({
 			...instanceConfig.options,
 			authenticationGeneratorType:
@@ -57,18 +51,11 @@ export async function initialiseRightsManagementDapComponent(
 				])
 		});
 		instanceType = nameofKebabCase(DataAccessPointClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "RightsManagementDapComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

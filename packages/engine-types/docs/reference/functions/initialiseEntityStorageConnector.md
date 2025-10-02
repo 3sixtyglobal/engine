@@ -38,4 +38,4 @@ The name of the instance type that was created.
 
 ## Throws
 
-GeneralError if the connector type is unknown.
+GeneralError when the configuration is invalid.

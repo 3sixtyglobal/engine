@@ -8,7 +8,7 @@ import {
 } from "@twin.org/attestation-models";
 import { AttestationClient } from "@twin.org/attestation-rest-client";
 import { AttestationService } from "@twin.org/attestation-service";
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
 import type { AttestationComponentConfig } from "../models/config/attestationComponentConfig";
@@ -22,46 +22,34 @@ import { AttestationConnectorType } from "../models/types/attestationConnectorTy
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseAttestationConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: AttestationConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Attestation Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: AttestationConnectorConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof AttestationConnectorFactory;
+	component?: IComponent;
+}> {
+	let component: IAttestationConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let connector: IAttestationConnector;
-	let instanceType: string;
-	if (type === AttestationConnectorType.Nft) {
-		connector = new NftAttestationConnector({
+	if (instanceConfig.type === AttestationConnectorType.Nft) {
+		component = new NftAttestationConnector({
 			identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
 			nftConnectorType: engineCore.getRegisteredInstanceType("nftConnector"),
 			...instanceConfig.options
 		});
 		instanceType = NftAttestationConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "attestationConnector"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component: connector
-	});
-	AttestationConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: AttestationConnectorFactory
+	};
 }
 
 /**
@@ -69,46 +57,29 @@ export async function initialiseAttestationConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseAttestationComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: AttestationComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Attestation Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: AttestationComponentConfig
+): Promise<{ instanceType?: string; factory?: typeof ComponentFactory; component?: IComponent }> {
+	let component: IAttestationComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IAttestationComponent;
-	let instanceType: string;
-
-	if (type === AttestationComponentType.Service) {
+	if (instanceConfig.type === AttestationComponentType.Service) {
 		component = new AttestationService({
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(AttestationService);
-	} else if (type === AttestationComponentType.RestClient) {
+	} else if (instanceConfig.type === AttestationComponentType.RestClient) {
 		component = new AttestationClient(instanceConfig.options);
 		instanceType = nameofKebabCase(AttestationClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "attestationComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

@@ -6,7 +6,7 @@ import {
 	initSchema as initSchemaAuthEntityStorage,
 	type AuthenticationUser
 } from "@twin.org/api-auth-entity-storage-service";
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { initialiseEntityStorageConnector } from "@twin.org/engine-types";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
@@ -19,27 +19,17 @@ import { AuthenticationAdminComponentType } from "../models/types/authentication
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseAuthenticationAdminComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
-	instanceConfig: AuthenticationAdminComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Authentication Admin Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: AuthenticationAdminComponentConfig
+): Promise<{ instanceType?: string; factory?: typeof ComponentFactory; component?: IComponent }> {
+	let component: IAuthenticationAdminComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IAuthenticationAdminComponent;
-	let instanceType: string;
-
-	if (type === AuthenticationAdminComponentType.EntityStorage) {
+	if (instanceConfig.type === AuthenticationAdminComponentType.EntityStorage) {
 		initSchemaAuthEntityStorage();
 		initialiseEntityStorageConnector(
 			engineCore,
@@ -52,18 +42,11 @@ export async function initialiseAuthenticationAdminComponent(
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(EntityStorageAuthenticationAdminService);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "authenticationAdminComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

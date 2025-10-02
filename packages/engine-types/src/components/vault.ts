@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { GeneralError, I18n } from "@twin.org/core";
+import type { IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
 import {
@@ -21,27 +21,21 @@ import { VaultConnectorType } from "../models/types/vaultConnectorType";
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseVaultConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: VaultConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Vault Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: VaultConnectorConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof VaultConnectorFactory;
+	component?: IComponent;
+}> {
+	let component: IVaultConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let connector: IVaultConnector;
-	let instanceType: string;
-
-	if (type === VaultConnectorType.EntityStorage) {
+	if (instanceConfig.type === VaultConnectorType.EntityStorage) {
 		initSchema();
 		initialiseEntityStorageConnector(
 			engineCore,
@@ -55,20 +49,16 @@ export async function initialiseVaultConnector(
 			instanceConfig.options?.vaultSecretEntityStorageType,
 			nameof<VaultSecret>()
 		);
-		connector = new EntityStorageVaultConnector(instanceConfig.options);
+		component = new EntityStorageVaultConnector(instanceConfig.options);
 		instanceType = EntityStorageVaultConnector.NAMESPACE;
-	} else if (type === VaultConnectorType.Hashicorp) {
-		connector = new HashicorpVaultConnector(instanceConfig.options);
+	} else if (instanceConfig.type === VaultConnectorType.Hashicorp) {
+		component = new HashicorpVaultConnector(instanceConfig.options);
 		instanceType = HashicorpVaultConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "vaultConnector"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component: connector });
-	VaultConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: VaultConnectorFactory
+	};
 }

@@ -3,7 +3,7 @@
 import type { IInformationComponent } from "@twin.org/api-models";
 import { InformationClient } from "@twin.org/api-rest-client";
 import { InformationService } from "@twin.org/api-service";
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
 import type { InformationComponentConfig } from "../models/config/informationComponentConfig";
@@ -15,44 +15,27 @@ import { InformationComponentType } from "../models/types/informationComponentTy
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseInformationComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
-	instanceConfig: InformationComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Information Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: InformationComponentConfig
+): Promise<{ instanceType?: string; factory?: typeof ComponentFactory; component?: IComponent }> {
+	let component: IInformationComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IInformationComponent;
-	let instanceType: string;
-
-	if (type === InformationComponentType.Service) {
+	if (instanceConfig.type === InformationComponentType.Service) {
 		component = new InformationService(instanceConfig.options);
 		instanceType = nameofKebabCase(InformationService);
-	} else if (type === InformationComponentType.RestClient) {
+	} else if (instanceConfig.type === InformationComponentType.RestClient) {
 		component = new InformationClient(instanceConfig.options);
 		instanceType = nameofKebabCase(InformationClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "informationComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

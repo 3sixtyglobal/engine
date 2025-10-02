@@ -1,0 +1,33 @@
+[
+	{
+		"type": "authenticationAdminComponent",
+		"module": "@twin.org/engine-server-types",
+		"method": "initialiseAuthenticationAdminComponent"
+	},
+	{
+		"type": "authenticationComponent",
+		"module": "@twin.org/engine-server-types",
+		"method": "initialiseAuthenticationComponent"
+	},
+	{
+		"type": "informationComponent",
+		"module": "@twin.org/engine-server-types",
+		"method": "initialiseInformationComponent",
+		"defaultRestPath": ""
+	},
+	{
+		"type": "restRouteProcessor",
+		"module": "@twin.org/engine-server-types",
+		"method": "initialiseRestRouteProcessorComponent"
+	},
+	{
+		"type": "socketRouteProcessor",
+		"module": "@twin.org/engine-server-types",
+		"method": "initialiseSocketRouteProcessorComponent"
+	},
+	{
+		"type": "mimeTypeProcessor",
+		"module": "@twin.org/engine-server-types",
+		"method": "initialiseMimeTypeProcessorComponent"
+	}
+]

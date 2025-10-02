@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IEntitySchema } from "@twin.org/entity";
 import type { IEngineCoreConfig } from "./config/IEngineCoreConfig";
-import type { IEngineCoreTypeConfig } from "./config/IEngineCoreTypeConfig";
 import type { IEngineState } from "./IEngineState";
 
 /**
@@ -27,7 +26,6 @@ export interface IEngineCoreClone<
 	 */
 	typeInitialisers: {
 		type: string;
-		typeConfig: IEngineCoreTypeConfig[];
 		module: string;
 		method: string;
 	}[];

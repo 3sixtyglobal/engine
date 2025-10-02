@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import {
@@ -31,32 +31,27 @@ import { EngineTypeHelper } from "../utils/engineTypeHelper";
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseVerifiableStorageConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: VerifiableStorageConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Verifiable Storage Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: VerifiableStorageConnectorConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof VerifiableStorageConnectorFactory;
+	component?: IComponent;
+}> {
+	let component: IVerifiableStorageConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let connector: IVerifiableStorageConnector;
-	let instanceType: string;
-	if (type === VerifiableStorageConnectorType.Iota) {
+	if (instanceConfig.type === VerifiableStorageConnectorType.Iota) {
 		const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
 			engineCore.getConfig(),
 			"dltConfig",
 			DltConfigType.Iota
 		);
-		connector = new IotaVerifiableStorageConnector({
+		component = new IotaVerifiableStorageConnector({
 			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
 			loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
 			...instanceConfig.options,
@@ -66,7 +61,7 @@ export async function initialiseVerifiableStorageConnector(
 			}
 		});
 		instanceType = IotaVerifiableStorageConnector.NAMESPACE;
-	} else if (type === VerifiableStorageConnectorType.EntityStorage) {
+	} else if (instanceConfig.type === VerifiableStorageConnectorType.EntityStorage) {
 		initSchemaVerifiableStorageStorage();
 		initialiseEntityStorageConnector(
 			engineCore,
@@ -74,22 +69,15 @@ export async function initialiseVerifiableStorageConnector(
 			instanceConfig.options?.verifiableStorageEntityStorageType,
 			nameof<VerifiableItem>()
 		);
-		connector = new EntityStorageVerifiableStorageConnector(instanceConfig.options);
+		component = new EntityStorageVerifiableStorageConnector(instanceConfig.options);
 		instanceType = EntityStorageVerifiableStorageConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "verifiableStorageConnector"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component: connector
-	});
-	VerifiableStorageConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: VerifiableStorageConnectorFactory
+	};
 }
 
 /**
@@ -97,46 +85,33 @@ export async function initialiseVerifiableStorageConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseVerifiableStorageComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: VerifiableStorageComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Verifiable Storage Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: VerifiableStorageComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IVerifiableStorageComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IVerifiableStorageComponent;
-	let instanceType: string;
-
-	if (type === VerifiableStorageComponentType.Service) {
+	if (instanceConfig.type === VerifiableStorageComponentType.Service) {
 		component = new VerifiableStorageService({
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(VerifiableStorageService);
-	} else if (type === VerifiableStorageComponentType.RestClient) {
+	} else if (instanceConfig.type === VerifiableStorageComponentType.RestClient) {
 		component = new VerifiableStorageClient(instanceConfig.options);
 		instanceType = nameofKebabCase(VerifiableStorageClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "verifiableStorageComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

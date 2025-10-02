@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { IPolicyNegotiationAdminPointComponent } from "@twin.org/rights-management-models";
@@ -20,27 +20,21 @@ import { RightsManagementPnapComponentType } from "../models/types/rightsManagem
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseRightsManagementPnapComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: RightsManagementPnapComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Rights Management PNAP Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: RightsManagementPnapComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IPolicyNegotiationAdminPointComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IPolicyNegotiationAdminPointComponent;
-	let instanceType: string;
-
-	if (type === RightsManagementPnapComponentType.Service) {
+	if (instanceConfig.type === RightsManagementPnapComponentType.Service) {
 		initSchemaRightsManagementPnap();
 
 		initialiseEntityStorageConnector(
@@ -59,21 +53,14 @@ export async function initialiseRightsManagementPnapComponent(
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(PolicyNegotiationAdminPointService);
-	} else if (type === RightsManagementPnapComponentType.RestClient) {
+	} else if (instanceConfig.type === RightsManagementPnapComponentType.RestClient) {
 		component = new PolicyNegotiationAdminPointClient(instanceConfig.options);
 		instanceType = nameofKebabCase(PolicyNegotiationAdminPointClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "RightsManagementPnapComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

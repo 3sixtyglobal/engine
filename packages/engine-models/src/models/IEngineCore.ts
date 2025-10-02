@@ -16,16 +16,17 @@ export interface IEngineCore<
 	/**
 	 * Add a type initialiser.
 	 * @param type The type to add the initialiser for.
-	 * @param typeConfig The type config.
 	 * @param module The name of the module which contains the initialiser method.
 	 * @param method The name of the method to call.
 	 */
-	addTypeInitialiser(
-		type: string,
-		typeConfig: IEngineCoreTypeConfig[] | undefined,
-		module: string,
-		method: string
-	): void;
+	addTypeInitialiser(type: string, module: string, method: string): void;
+
+	/**
+	 * Get the type config for a specific type.
+	 * @param type The type to get the config for.
+	 * @returns The type config or undefined if not found.
+	 */
+	getTypeConfig(type: string): IEngineCoreTypeConfig[] | undefined;
 
 	/**
 	 * Start the engine core.

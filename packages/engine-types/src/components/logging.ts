@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { ConsoleLoggingConnector } from "@twin.org/logging-connector-console";
 import {
@@ -29,30 +29,24 @@ import { LoggingConnectorType } from "../models/types/loggingConnectorType";
  * @param engineCore The engine core.
  * @param context The engine core context.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseLoggingConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: LoggingConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Logging Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: LoggingConnectorConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof LoggingConnectorFactory;
+	component?: IComponent;
+}> {
+	let component: ILoggingConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let connector: ILoggingConnector;
-	let instanceType: string;
-
-	if (type === LoggingConnectorType.Console) {
-		connector = new ConsoleLoggingConnector(instanceConfig.options);
+	if (instanceConfig.type === LoggingConnectorType.Console) {
+		component = new ConsoleLoggingConnector(instanceConfig.options);
 		instanceType = ConsoleLoggingConnector.NAMESPACE;
-	} else if (type === LoggingConnectorType.EntityStorage) {
+	} else if (instanceConfig.type === LoggingConnectorType.EntityStorage) {
 		initSchemaLogging();
 		initialiseEntityStorageConnector(
 			engineCore,
@@ -60,22 +54,18 @@ export async function initialiseLoggingConnector(
 			instanceConfig.options?.logEntryStorageConnectorType,
 			nameof<LogEntry>()
 		);
-		connector = new EntityStorageLoggingConnector(instanceConfig.options);
+		component = new EntityStorageLoggingConnector(instanceConfig.options);
 		instanceType = EntityStorageLoggingConnector.NAMESPACE;
-	} else if (type === LoggingConnectorType.Multi) {
-		connector = new MultiLoggingConnector(instanceConfig.options);
+	} else if (instanceConfig.type === LoggingConnectorType.Multi) {
+		component = new MultiLoggingConnector(instanceConfig.options);
 		instanceType = MultiLoggingConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "loggingConnector"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component: connector });
-	LoggingConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: LoggingConnectorFactory
+	};
 }
 
 /**
@@ -83,44 +73,34 @@ export async function initialiseLoggingConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseLoggingComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: LoggingComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Logging Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: LoggingComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: ILoggingComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: ILoggingComponent;
-	let instanceType: string;
-
-	if (type === LoggingComponentType.Service) {
+	if (instanceConfig.type === LoggingComponentType.Service) {
 		component = new LoggingService({
 			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(LoggingService);
-	} else if (type === LoggingComponentType.RestClient) {
+	} else if (instanceConfig.type === LoggingComponentType.RestClient) {
 		component = new LoggingClient(instanceConfig.options);
 		instanceType = nameofKebabCase(LoggingClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "loggingComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component });
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

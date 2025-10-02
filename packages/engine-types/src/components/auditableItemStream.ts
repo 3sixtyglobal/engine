@@ -8,7 +8,7 @@ import {
 	AuditableItemStreamService,
 	initSchema as initSchemaAuditableItemStream
 } from "@twin.org/auditable-item-stream-service";
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage";
@@ -21,27 +21,17 @@ import { AuditableItemStreamComponentType } from "../models/types/auditableItemS
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseAuditableItemStreamComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: AuditableItemStreamComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Auditable Item Stream Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: AuditableItemStreamComponentConfig
+): Promise<{ instanceType?: string; factory?: typeof ComponentFactory; component?: IComponent }> {
+	let component: IAuditableItemStreamComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IAuditableItemStreamComponent;
-	let instanceType: string;
-
-	if (type === AuditableItemStreamComponentType.Service) {
+	if (instanceConfig.type === AuditableItemStreamComponentType.Service) {
 		initSchemaAuditableItemStream();
 
 		initialiseEntityStorageConnector(
@@ -63,21 +53,14 @@ export async function initialiseAuditableItemStreamComponent(
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(AuditableItemStreamService);
-	} else if (type === AuditableItemStreamComponentType.RestClient) {
+	} else if (instanceConfig.type === AuditableItemStreamComponentType.RestClient) {
 		component = new AuditableItemStreamClient(instanceConfig.options);
 		instanceType = nameofKebabCase(AuditableItemStreamClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "auditableItemStreamComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

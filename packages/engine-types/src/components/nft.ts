@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import {
@@ -27,27 +27,21 @@ import { EngineTypeHelper } from "../utils/engineTypeHelper";
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseNftConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: NftConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `NFT Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: NftConnectorConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof NftConnectorFactory;
+	component?: IComponent;
+}> {
+	let component: INftConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let connector: INftConnector;
-	let instanceType: string;
-
-	if (type === NftConnectorType.EntityStorage) {
+	if (instanceConfig.type === NftConnectorType.EntityStorage) {
 		initSchema();
 		initialiseEntityStorageConnector(
 			engineCore,
@@ -55,15 +49,15 @@ export async function initialiseNftConnector(
 			instanceConfig.options?.nftEntityStorageType,
 			nameof<Nft>()
 		);
-		connector = new EntityStorageNftConnector(instanceConfig.options);
+		component = new EntityStorageNftConnector(instanceConfig.options);
 		instanceType = EntityStorageNftConnector.NAMESPACE;
-	} else if (type === NftConnectorType.Iota) {
+	} else if (instanceConfig.type === NftConnectorType.Iota) {
 		const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
 			engineCore.getConfig(),
 			"dltConfig",
 			DltConfigType.Iota
 		);
-		connector = new IotaNftConnector({
+		component = new IotaNftConnector({
 			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
 			walletConnectorType: engineCore.getRegisteredInstanceType("walletConnector"),
 			loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
@@ -74,20 +68,13 @@ export async function initialiseNftConnector(
 			}
 		});
 		instanceType = IotaNftConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "nftConnector"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component: connector
-	});
-	NftConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: NftConnectorFactory
+	};
 }
 
 /**
@@ -95,44 +82,31 @@ export async function initialiseNftConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseNftComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: NftComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Nft Storage Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: NftComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: INftComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: INftComponent;
-	let instanceType: string;
-
-	if (type === NftComponentType.Service) {
+	if (instanceConfig.type === NftComponentType.Service) {
 		component = new NftService(instanceConfig.options);
 		instanceType = nameofKebabCase(NftService);
-	} else if (type === NftComponentType.RestClient) {
+	} else if (instanceConfig.type === NftComponentType.RestClient) {
 		component = new NftClient(instanceConfig.options);
 		instanceType = nameofKebabCase(NftClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "nftComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

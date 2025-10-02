@@ -25,15 +25,14 @@ export class TestComponent {
  * @param core The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
  * @returns The name of the instance created.
  */
-export function testTypeInitialiser(core, context, instanceConfig, overrideInstanceType) {
-	ComponentFactory.register(
-		'test-component',
-		() => new TestComponent(instanceConfig.options ?? { value: 4567 })
-	);
-	return overrideInstanceType ?? 'test-component';
+export function testTypeInitialiser(core, context, instanceConfig) {
+	return {
+		component: new TestComponent(instanceConfig.options ?? { value: 4567 }),
+		instanceType: 'test-component',
+		factory: ComponentFactory
+	};
 }
 
 /**

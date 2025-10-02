@@ -231,4 +231,3 @@
 - [initialiseVerifiableStorageConnector](functions/initialiseVerifiableStorageConnector.md)
 - [initialiseVerifiableStorageComponent](functions/initialiseVerifiableStorageComponent.md)
 - [initialiseWalletConnector](functions/initialiseWalletConnector.md)
-- [initialiseWalletStorage](functions/initialiseWalletStorage.md)

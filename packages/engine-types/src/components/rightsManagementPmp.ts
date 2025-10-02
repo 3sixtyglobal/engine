@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
 import type { IPolicyManagementPointComponent } from "@twin.org/rights-management-models";
@@ -14,27 +14,21 @@ import { RightsManagementPmpComponentType } from "../models/types/rightsManageme
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseRightsManagementPmpComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: RightsManagementPmpComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Rights Management PMP Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: RightsManagementPmpComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IPolicyManagementPointComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IPolicyManagementPointComponent;
-	let instanceType: string;
-
-	if (type === RightsManagementPmpComponentType.Service) {
+	if (instanceConfig.type === RightsManagementPmpComponentType.Service) {
 		component = new PolicyManagementPointService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			policyAdministrationPointComponentType: engineCore.getRegisteredInstanceType(
@@ -43,18 +37,11 @@ export async function initialiseRightsManagementPmpComponent(
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(PolicyManagementPointService);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "RightsManagementPmpComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

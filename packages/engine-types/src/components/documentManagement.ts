@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IDocumentManagementComponent } from "@twin.org/document-management-models";
 import { DocumentManagementClient } from "@twin.org/document-management-rest-client";
 import { DocumentManagementService } from "@twin.org/document-management-service";
@@ -15,27 +15,21 @@ import { DocumentManagementComponentType } from "../models/types/documentManagem
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseDocumentManagementComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: DocumentManagementComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Document Management Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: DocumentManagementComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IDocumentManagementComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IDocumentManagementComponent;
-	let instanceType: string;
-
-	if (type === DocumentManagementComponentType.Service) {
+	if (instanceConfig.type === DocumentManagementComponentType.Service) {
 		component = new DocumentManagementService({
 			auditableItemGraphComponentType: engineCore.getRegisteredInstanceType(
 				"auditableItemGraphComponent"
@@ -46,21 +40,14 @@ export async function initialiseDocumentManagementComponent(
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(DocumentManagementService);
-	} else if (type === DocumentManagementComponentType.RestClient) {
+	} else if (instanceConfig.type === DocumentManagementComponentType.RestClient) {
 		component = new DocumentManagementClient(instanceConfig.options);
 		instanceType = nameofKebabCase(DocumentManagementClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "documentManagementComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

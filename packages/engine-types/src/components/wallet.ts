@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { GeneralError, I18n } from "@twin.org/core";
+import type { IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
 import {
@@ -23,33 +23,27 @@ import { EngineTypeHelper } from "../utils/engineTypeHelper";
  * @param engineCore The engine core.
  * @param context The context for the node.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseWalletConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: WalletConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Wallet Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: WalletConnectorConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof WalletConnectorFactory;
+	component?: IComponent;
+}> {
+	let component: IWalletConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let connector: IWalletConnector;
-	let instanceType: string;
-
-	if (type === WalletConnectorType.Iota) {
+	if (instanceConfig.type === WalletConnectorType.Iota) {
 		const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
 			engineCore.getConfig(),
 			"dltConfig",
 			DltConfigType.Iota
 		);
-		connector = new IotaWalletConnector({
+		component = new IotaWalletConnector({
 			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
 			faucetConnectorType: engineCore.getRegisteredInstanceType("faucetConnector"),
 			...instanceConfig.options,
@@ -59,48 +53,7 @@ export async function initialiseWalletConnector(
 			}
 		});
 		instanceType = IotaWalletConnector.NAMESPACE;
-	} else if (type === WalletConnectorType.EntityStorage) {
-		connector = new EntityStorageWalletConnector({
-			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-			faucetConnectorType: engineCore.getRegisteredInstanceType("faucetConnector"),
-			...instanceConfig.options
-		});
-		instanceType = EntityStorageWalletConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "walletConnector"
-		});
-	}
-
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component: connector
-	});
-	WalletConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
-}
-
-/**
- * Initialise the wallet storage.
- * @param engineCore The engine core.
- * @param context The context for the engine.
- * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns Nothing.
- * @throws GeneralError if the connector type is unknown.
- */
-export async function initialiseWalletStorage(
-	engineCore: IEngineCore<IEngineConfig>,
-	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: WalletConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	const type = instanceConfig.type;
-	if (type === WalletConnectorType.Iota) {
-		// No storage required for IOTA wallet connector.
-	} else if (type === WalletConnectorType.EntityStorage) {
+	} else if (instanceConfig.type === WalletConnectorType.EntityStorage) {
 		initSchemaWallet();
 		initialiseEntityStorageConnector(
 			engineCore,
@@ -108,11 +61,18 @@ export async function initialiseWalletStorage(
 			instanceConfig.options?.walletAddressEntityStorageType,
 			nameof<WalletAddress>()
 		);
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "walletConnector"
+
+		component = new EntityStorageWalletConnector({
+			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+			faucetConnectorType: engineCore.getRegisteredInstanceType("faucetConnector"),
+			...instanceConfig.options
 		});
+		instanceType = EntityStorageWalletConnector.NAMESPACE;
 	}
-	return undefined;
+
+	return {
+		component,
+		instanceType,
+		factory: WalletConnectorFactory
+	};
 }

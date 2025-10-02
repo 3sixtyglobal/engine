@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import {
 	JsonConverterConnector,
 	XmlConverterConnector
@@ -35,46 +35,33 @@ import { DataProcessingComponentType } from "../models/types/dataProcessingCompo
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseDataConverterConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: DataConverterConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Data Converter Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: DataConverterConnectorConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof DataConverterConnectorFactory;
+	component?: IComponent;
+}> {
+	let component: IDataConverterConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let connector: IDataConverterConnector;
-	let instanceType: string;
-
-	if (type === DataConverterConnectorType.Json) {
-		connector = new JsonConverterConnector();
+	if (instanceConfig.type === DataConverterConnectorType.Json) {
+		component = new JsonConverterConnector();
 		instanceType = JsonConverterConnector.NAMESPACE;
-	} else if (type === DataConverterConnectorType.Xml) {
-		connector = new XmlConverterConnector();
+	} else if (instanceConfig.type === DataConverterConnectorType.Xml) {
+		component = new XmlConverterConnector();
 		instanceType = XmlConverterConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "dataConverterConnector"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component: connector
-	});
-	DataConverterConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: DataConverterConnectorFactory
+	};
 }
 
 /**
@@ -82,43 +69,30 @@ export async function initialiseDataConverterConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseDataExtractorConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: DataExtractorConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Data Extractor Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: DataExtractorConnectorConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof DataExtractorConnectorFactory;
+	component?: IComponent;
+}> {
+	let component: IDataExtractorConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let connector: IDataExtractorConnector;
-	let instanceType: string;
-
-	if (type === DataExtractorConnectorType.JsonPath) {
-		connector = new JsonPathExtractorConnector();
+	if (instanceConfig.type === DataExtractorConnectorType.JsonPath) {
+		component = new JsonPathExtractorConnector();
 		instanceType = JsonPathExtractorConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "dataExtractorConnector"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component: connector
-	});
-	DataExtractorConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: DataExtractorConnectorFactory
+	};
 }
 
 /**
@@ -126,27 +100,21 @@ export async function initialiseDataExtractorConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseDataProcessingComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: DataProcessingComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Data Processing Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: DataProcessingComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IDataProcessingComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IDataProcessingComponent;
-	let instanceType: string;
-
-	if (type === DataProcessingComponentType.Service) {
+	if (instanceConfig.type === DataProcessingComponentType.Service) {
 		initSchemaDataProcessing();
 		initialiseEntityStorageConnector(
 			engineCore,
@@ -159,21 +127,14 @@ export async function initialiseDataProcessingComponent(
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(DataProcessingService);
-	} else if (type === DataProcessingComponentType.RestClient) {
+	} else if (instanceConfig.type === DataProcessingComponentType.RestClient) {
 		component = new DataProcessingClient(instanceConfig.options);
 		instanceType = nameofKebabCase(DataProcessingClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "dataProcessingComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

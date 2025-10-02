@@ -18,7 +18,7 @@ import {
 	initSchema as initSchemaBlobStorage,
 	type BlobStorageEntry
 } from "@twin.org/blob-storage-service";
-import { ComponentFactory, GeneralError, I18n, Is } from "@twin.org/core";
+import { Is, type IComponent, ComponentFactory } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage";
@@ -33,31 +33,25 @@ import { BlobStorageConnectorType } from "../models/types/blobStorageConnectorTy
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseBlobStorageConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: BlobStorageConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Blob Storage Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: BlobStorageConnectorConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof BlobStorageConnectorFactory;
+	component?: IComponent;
+}> {
+	let component: IBlobStorageConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let connector: IBlobStorageConnector;
-	let instanceType: string;
-
-	if (type === BlobStorageConnectorType.Ipfs) {
-		connector = new IpfsBlobStorageConnector(instanceConfig.options);
+	if (instanceConfig.type === BlobStorageConnectorType.Ipfs) {
+		component = new IpfsBlobStorageConnector(instanceConfig.options);
 		instanceType = IpfsBlobStorageConnector.NAMESPACE;
-	} else if (type === BlobStorageConnectorType.File) {
-		connector = new FileBlobStorageConnector({
+	} else if (instanceConfig.type === BlobStorageConnectorType.File) {
+		component = new FileBlobStorageConnector({
 			...instanceConfig.options,
 			config: {
 				...instanceConfig.options.config,
@@ -67,11 +61,11 @@ export async function initialiseBlobStorageConnector(
 			}
 		});
 		instanceType = FileBlobStorageConnector.NAMESPACE;
-	} else if (type === BlobStorageConnectorType.Memory) {
-		connector = new MemoryBlobStorageConnector();
+	} else if (instanceConfig.type === BlobStorageConnectorType.Memory) {
+		component = new MemoryBlobStorageConnector();
 		instanceType = MemoryBlobStorageConnector.NAMESPACE;
-	} else if (type === BlobStorageConnectorType.AwsS3) {
-		connector = new S3BlobStorageConnector({
+	} else if (instanceConfig.type === BlobStorageConnectorType.AwsS3) {
+		component = new S3BlobStorageConnector({
 			...instanceConfig.options,
 			config: {
 				...instanceConfig.options.config,
@@ -79,8 +73,8 @@ export async function initialiseBlobStorageConnector(
 			}
 		});
 		instanceType = S3BlobStorageConnector.NAMESPACE;
-	} else if (type === BlobStorageConnectorType.GcpStorage) {
-		connector = new GcpBlobStorageConnector({
+	} else if (instanceConfig.type === BlobStorageConnectorType.GcpStorage) {
+		component = new GcpBlobStorageConnector({
 			...instanceConfig.options,
 			config: {
 				...instanceConfig.options.config,
@@ -88,8 +82,8 @@ export async function initialiseBlobStorageConnector(
 			}
 		});
 		instanceType = GcpBlobStorageConnector.NAMESPACE;
-	} else if (type === BlobStorageConnectorType.AzureStorage) {
-		connector = new AzureBlobStorageConnector({
+	} else if (instanceConfig.type === BlobStorageConnectorType.AzureStorage) {
+		component = new AzureBlobStorageConnector({
 			...instanceConfig.options,
 			config: {
 				...instanceConfig.options.config,
@@ -97,20 +91,13 @@ export async function initialiseBlobStorageConnector(
 			}
 		});
 		instanceType = AzureBlobStorageConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "blobStorageConnector"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component: connector
-	});
-	BlobStorageConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: BlobStorageConnectorFactory
+	};
 }
 
 /**
@@ -118,27 +105,21 @@ export async function initialiseBlobStorageConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseBlobStorageComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: BlobStorageComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Blob Storage Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: BlobStorageComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IBlobStorageComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IBlobStorageComponent;
-	let instanceType: string;
-
-	if (type === BlobStorageComponentType.Service) {
+	if (instanceConfig.type === BlobStorageComponentType.Service) {
 		initSchemaBlobStorage();
 		initialiseEntityStorageConnector(
 			engineCore,
@@ -152,21 +133,14 @@ export async function initialiseBlobStorageComponent(
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(BlobStorageService);
-	} else if (type === BlobStorageComponentType.RestClient) {
+	} else if (instanceConfig.type === BlobStorageComponentType.RestClient) {
 		component = new BlobStorageClient(instanceConfig.options);
 		instanceType = nameofKebabCase(BlobStorageClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "blobStorageComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

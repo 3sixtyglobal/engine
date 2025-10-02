@@ -76,7 +76,7 @@ The core context.
 
 ### addTypeInitialiser()
 
-> **addTypeInitialiser**(`type`, `typeConfig`, `module`, `method`): `void`
+> **addTypeInitialiser**(`type`, `module`, `method`): `void`
 
 Add a type initialiser.
 
@@ -87,12 +87,6 @@ Add a type initialiser.
 `string`
 
 The type to add the initialiser for.
-
-##### typeConfig
-
-The type config.
-
-`undefined` | `IEngineCoreTypeConfig`[]
 
 ##### module
 
@@ -113,6 +107,32 @@ The name of the method to call.
 #### Inherited from
 
 `EngineCore.addTypeInitialiser`
+
+***
+
+### getTypeConfig()
+
+> **getTypeConfig**(`type`): `undefined` \| `IEngineCoreTypeConfig`[]
+
+Get the type config for a specific type.
+
+#### Parameters
+
+##### type
+
+`string`
+
+The type to get the config for.
+
+#### Returns
+
+`undefined` \| `IEngineCoreTypeConfig`[]
+
+The type config or undefined if not found.
+
+#### Inherited from
+
+`EngineCore.getTypeConfig`
 
 ***
 

@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n, Is } from "@twin.org/core";
+import { ComponentFactory, Is, type IComponent } from "@twin.org/core";
 import { EngineModuleHelper } from "@twin.org/engine-core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
@@ -20,27 +20,21 @@ import { RightsManagementPnpComponentType } from "../models/types/rightsManageme
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseRightsManagementPnpComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: RightsManagementPnpComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Rights Management PNP Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: RightsManagementPnpComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IPolicyNegotiationPointComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IPolicyNegotiationPointComponent;
-	let instanceType: string;
-
-	if (type === RightsManagementPnpComponentType.Service) {
+	if (instanceConfig.type === RightsManagementPnpComponentType.Service) {
 		const negotiatorModules: { negotiatorId: string; negotiator: IPolicyNegotiator }[] = [];
 		if (Is.arrayValue(instanceConfig.options?.negotiatorModulesConfig)) {
 			for (const moduleConfig of instanceConfig.options.negotiatorModulesConfig) {
@@ -80,7 +74,7 @@ export async function initialiseRightsManagementPnpComponent(
 			}
 		});
 		instanceType = nameofKebabCase(PolicyNegotiationPointService);
-	} else if (type === RightsManagementPnpComponentType.RestClient) {
+	} else if (instanceConfig.type === RightsManagementPnpComponentType.RestClient) {
 		component = new PolicyNegotiationPointClient({
 			...instanceConfig.options,
 			authenticationGeneratorType:
@@ -90,18 +84,11 @@ export async function initialiseRightsManagementPnpComponent(
 				])
 		});
 		instanceType = nameofKebabCase(PolicyNegotiationPointClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "RightsManagementPnpComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IDataSpaceConnector } from "@twin.org/data-space-connector-models";
 import { DataSpaceConnectorClient } from "@twin.org/data-space-connector-rest-client";
 import {
@@ -22,27 +22,21 @@ import { DataSpaceConnectorComponentType } from "../models/types/dataSpaceConnec
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseDataSpaceConnectorComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: DataSpaceConnectorComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Data Space Connector Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: DataSpaceConnectorComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IDataSpaceConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IDataSpaceConnector;
-	let instanceType: string;
-
-	if (type === DataSpaceConnectorComponentType.Service) {
+	if (instanceConfig.type === DataSpaceConnectorComponentType.Service) {
 		initSchemaDataSpaceConnector();
 
 		initialiseEntityStorageConnector(
@@ -64,24 +58,20 @@ export async function initialiseDataSpaceConnectorComponent(
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(DataSpaceConnectorService);
-	} else if (type === DataSpaceConnectorComponentType.RestClient) {
+	} else if (instanceConfig.type === DataSpaceConnectorComponentType.RestClient) {
 		component = new DataSpaceConnectorClient(instanceConfig.options);
 		instanceType = nameofKebabCase(DataSpaceConnectorClient);
-	} else if (type === DataSpaceConnectorComponentType.SocketClient) {
+	} else if (instanceConfig.type === DataSpaceConnectorComponentType.SocketClient) {
 		component = new DataSpaceConnectorSocketClient({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(DataSpaceConnectorSocketClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "DataSpaceConnectorComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component });
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

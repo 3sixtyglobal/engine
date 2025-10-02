@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import {
 	AwsMessagingEmailConnector,
@@ -52,27 +52,21 @@ import { MessagingSmsConnectorType } from "../models/types/messagingSmsConnector
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseMessagingEmailConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: MessagingEmailConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Messaging Email Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: MessagingEmailConnectorConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof MessagingEmailConnectorFactory;
+	component?: IComponent;
+}> {
+	let component: IMessagingEmailConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let connector: IMessagingEmailConnector;
-	let instanceType: string;
-
-	if (type === MessagingEmailConnectorType.EntityStorage) {
+	if (instanceConfig.type === MessagingEmailConnectorType.EntityStorage) {
 		initSchema({ email: true, sms: false, pushNotification: false });
 		initialiseEntityStorageConnector(
 			engineCore,
@@ -80,28 +74,24 @@ export async function initialiseMessagingEmailConnector(
 			instanceConfig.options?.messagingEmailEntryStorageConnectorType,
 			nameof<EmailEntry>()
 		);
-		connector = new EntityStorageMessagingEmailConnector({
+		component = new EntityStorageMessagingEmailConnector({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = EntityStorageMessagingEmailConnector.NAMESPACE;
-	} else if (type === MessagingEmailConnectorType.Aws) {
-		connector = new AwsMessagingEmailConnector({
+	} else if (instanceConfig.type === MessagingEmailConnectorType.Aws) {
+		component = new AwsMessagingEmailConnector({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = AwsMessagingEmailConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "messagingEmailConnector"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component: connector });
-	MessagingEmailConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: MessagingEmailConnectorFactory
+	};
 }
 
 /**
@@ -109,27 +99,21 @@ export async function initialiseMessagingEmailConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseMessagingSmsConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: MessagingSmsConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Messaging SMS Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: MessagingSmsConnectorConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof MessagingSmsConnectorFactory;
+	component?: IComponent;
+}> {
+	let connector: IMessagingSmsConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let connector: IMessagingSmsConnector;
-	let instanceType: string;
-
-	if (type === MessagingSmsConnectorType.EntityStorage) {
+	if (instanceConfig.type === MessagingSmsConnectorType.EntityStorage) {
 		initSchema({ email: false, sms: true, pushNotification: false });
 		initialiseEntityStorageConnector(
 			engineCore,
@@ -142,23 +126,19 @@ export async function initialiseMessagingSmsConnector(
 			...instanceConfig.options
 		});
 		instanceType = EntityStorageMessagingSmsConnector.NAMESPACE;
-	} else if (type === MessagingSmsConnectorType.Aws) {
+	} else if (instanceConfig.type === MessagingSmsConnectorType.Aws) {
 		connector = new AwsMessagingSmsConnector({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = AwsMessagingSmsConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "messagingSmsConnector"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component: connector });
-	MessagingSmsConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		instanceType,
+		factory: MessagingSmsConnectorFactory,
+		component: connector
+	};
 }
 
 /**
@@ -166,27 +146,21 @@ export async function initialiseMessagingSmsConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseMessagingPushNotificationConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: MessagingPushNotificationConnectorConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Messaging Push Notification Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: MessagingPushNotificationConnectorConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof MessagingPushNotificationsConnectorFactory;
+	component?: IComponent;
+}> {
+	let component: IMessagingPushNotificationsConnector | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let connector: IMessagingPushNotificationsConnector;
-	let instanceType: string;
-
-	if (type === MessagingPushNotificationConnectorType.EntityStorage) {
+	if (instanceConfig.type === MessagingPushNotificationConnectorType.EntityStorage) {
 		initSchema({ email: false, sms: false, pushNotification: true });
 		initialiseEntityStorageConnector(
 			engineCore,
@@ -200,28 +174,24 @@ export async function initialiseMessagingPushNotificationConnector(
 			instanceConfig.options?.messagingMessageEntryStorageConnectorType,
 			nameof<PushNotificationMessageEntry>()
 		);
-		connector = new EntityStorageMessagingPushNotificationConnector({
+		component = new EntityStorageMessagingPushNotificationConnector({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = EntityStorageMessagingPushNotificationConnector.NAMESPACE;
-	} else if (type === MessagingPushNotificationConnectorType.Aws) {
-		connector = new AwsMessagingPushNotificationConnector({
+	} else if (instanceConfig.type === MessagingPushNotificationConnectorType.Aws) {
+		component = new AwsMessagingPushNotificationConnector({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
 		instanceType = AwsMessagingPushNotificationConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "messagingPushNotificationConnector"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component: connector });
-	MessagingPushNotificationsConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: MessagingPushNotificationsConnectorFactory
+	};
 }
 
 /**
@@ -229,27 +199,21 @@ export async function initialiseMessagingPushNotificationConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseMessagingComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: MessagingComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Messaging Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: MessagingComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IMessagingComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IMessagingComponent;
-	let instanceType: string;
-
-	if (type === MessagingComponentType.Service) {
+	if (instanceConfig.type === MessagingComponentType.Service) {
 		component = new MessagingService({
 			messagingEmailConnectorType:
 				engineCore.getRegisteredInstanceTypeOptional("messagingEmailConnector"),
@@ -263,17 +227,13 @@ export async function initialiseMessagingComponent(
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(MessagingService);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "messagingComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component });
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }
 
 /**
@@ -281,27 +241,21 @@ export async function initialiseMessagingComponent(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseMessagingAdminComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: MessagingAdminComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Messaging Admin Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: MessagingAdminComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IMessagingAdminComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IMessagingAdminComponent;
-	let instanceType: string;
-
-	if (type === MessagingAdminComponentType.Service) {
+	if (instanceConfig.type === MessagingAdminComponentType.Service) {
 		initSchemaMessagingService();
 
 		initialiseEntityStorageConnector(
@@ -315,15 +269,11 @@ export async function initialiseMessagingAdminComponent(
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(MessagingAdminService);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "messagingAdminComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component });
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

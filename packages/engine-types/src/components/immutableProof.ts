@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import type { IImmutableProofComponent } from "@twin.org/immutable-proof-models";
 import { ImmutableProofClient } from "@twin.org/immutable-proof-rest-client";
@@ -20,27 +20,21 @@ import { ImmutableProofComponentType } from "../models/types/immutableProofCompo
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseImmutableProofComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: ImmutableProofComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Immutable Proof Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: ImmutableProofComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IImmutableProofComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IImmutableProofComponent;
-	let instanceType: string;
-
-	if (type === ImmutableProofComponentType.Service) {
+	if (instanceConfig.type === ImmutableProofComponentType.Service) {
 		initSchemaImmutableProof();
 
 		initialiseEntityStorageConnector(
@@ -58,21 +52,14 @@ export async function initialiseImmutableProofComponent(
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(ImmutableProofService);
-	} else if (type === ImmutableProofComponentType.RestClient) {
+	} else if (instanceConfig.type === ImmutableProofComponentType.RestClient) {
 		component = new ImmutableProofClient(instanceConfig.options);
 		instanceType = nameofKebabCase(ImmutableProofClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "immutableProofComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

@@ -1,7 +1,14 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import path from "node:path";
-import { ComponentFactory, GeneralError, I18n, Is, StringHelper } from "@twin.org/core";
+import {
+	ComponentFactory,
+	GeneralError,
+	I18n,
+	Is,
+	StringHelper,
+	type IComponent
+} from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { CosmosDbEntityStorageConnector } from "@twin.org/entity-storage-connector-cosmosdb";
 import { DynamoDbEntityStorageConnector } from "@twin.org/entity-storage-connector-dynamodb";
@@ -33,7 +40,7 @@ import { EntityStorageConnectorType } from "../models/types/entityStorageConnect
  * @param typeCustom Override the type of connector to use instead of default configuration.
  * @param schema The schema for the entity storage.
  * @returns The name of the instance type that was created.
- * @throws GeneralError if the connector type is unknown.
+ * @throws GeneralError when the configuration is invalid.
  */
 export function initialiseEntityStorageConnector(
 	engineCore: IEngineCore<IEngineConfig>,
@@ -204,27 +211,21 @@ export function initialiseEntityStorageConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseEntityStorageComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: EntityStorageComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Entity Storage Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: EntityStorageComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IEntityStorageComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-
-	let component: IEntityStorageComponent;
-	let instanceType: string;
-	if (type === EntityStorageComponentType.Service) {
+	if (instanceConfig.type === EntityStorageComponentType.Service) {
 		const kebabName = StringHelper.kebabCase(instanceConfig.options.entityStorageType);
 
 		// See if there is a custom entity storage for this type, otherwise just use the default one.
@@ -245,25 +246,18 @@ export async function initialiseEntityStorageComponent(
 			}
 		});
 		instanceType = StringHelper.kebabCase(instanceConfig.options.entityStorageType);
-	} else if (type === EntityStorageComponentType.RestClient) {
+	} else if (instanceConfig.type === EntityStorageComponentType.RestClient) {
 		const kebabName = StringHelper.kebabCase(instanceConfig.options.entityStorageType);
 		component = new EntityStorageClient({
 			pathPrefix: kebabName,
 			...instanceConfig.options
 		});
 		instanceType = `${nameofKebabCase(EntityStorageClient)}-${kebabName}`;
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			serviceType: "entityStorageComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }

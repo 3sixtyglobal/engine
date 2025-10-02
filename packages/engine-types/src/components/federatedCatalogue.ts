@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import type { IFederatedCatalogueComponent } from "@twin.org/federated-catalogue-models";
 import { FederatedCatalogueClient } from "@twin.org/federated-catalogue-rest-client";
@@ -23,27 +23,21 @@ import { FederatedCatalogueComponentType } from "../models/types/federatedCatalo
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export async function initialiseFederatedCatalogueComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: FederatedCatalogueComponentConfig,
-	overrideInstanceType?: string
-): Promise<string | undefined> {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Federated Catalogue Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: FederatedCatalogueComponentConfig
+): Promise<{
+	instanceType?: string;
+	factory?: typeof ComponentFactory;
+	component?: IComponent;
+}> {
+	let component: IFederatedCatalogueComponent | undefined;
+	let instanceType: string | undefined;
 
-	const type = instanceConfig.type;
-	let component: IFederatedCatalogueComponent;
-	let instanceType: string;
-
-	if (type === FederatedCatalogueComponentType.Service) {
+	if (instanceConfig.type === FederatedCatalogueComponentType.Service) {
 		initSchemaFederatedCatalogue();
 
 		initialiseEntityStorageConnector(
@@ -79,21 +73,14 @@ export async function initialiseFederatedCatalogueComponent(
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(FederatedCatalogueService);
-	} else if (type === FederatedCatalogueComponentType.RestClient) {
+	} else if (instanceConfig.type === FederatedCatalogueComponentType.RestClient) {
 		component = new FederatedCatalogueClient(instanceConfig.options);
 		instanceType = nameofKebabCase(FederatedCatalogueClient);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "FederatedCatalogueComponent"
-		});
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		component,
+		instanceType,
+		factory: ComponentFactory
+	};
 }
