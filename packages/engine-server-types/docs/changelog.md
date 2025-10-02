@@ -1,5 +1,20 @@
 # @twin.org/engine-server-types - Changelog
 
+## [0.0.2-next.19](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.2-next.18...engine-server-types-v0.0.2-next.19) (2025-10-02)
+
+
+### Features
+
+* simplify config building ([732c871](https://github.com/twinfoundation/engine/commit/732c871c5aca236759168f4bc15aeffd98a330a8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.2-next.18 to 0.0.2-next.19
+    * @twin.org/engine-types bumped from 0.0.2-next.18 to 0.0.2-next.19
+
 ## [0.0.2-next.18](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.2-next.17...engine-server-types-v0.0.2-next.18) (2025-09-29)
 
 

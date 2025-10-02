@@ -1,5 +1,12 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.2-next.19](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.18...engine-models-v0.0.2-next.19) (2025-10-02)
+
+
+### Features
+
+* simplify config building ([732c871](https://github.com/twinfoundation/engine/commit/732c871c5aca236759168f4bc15aeffd98a330a8))
+
 ## [0.0.2-next.18](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.17...engine-models-v0.0.2-next.18) (2025-09-29)
 
 

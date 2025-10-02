@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/engine-server-types",
-	"version": "0.0.2-next.18",
+	"version": "0.0.2-next.19",
 	"description": "Server types to use in an engine server.",
 	"repository": {
 		"type": "git",
@@ -40,8 +40,8 @@
 		"@twin.org/api-service": "next",
 		"@twin.org/api-server-fastify": "next",
 		"@twin.org/core": "next",
-		"@twin.org/engine-models": "0.0.2-next.18",
-		"@twin.org/engine-types": "0.0.2-next.18",
+		"@twin.org/engine-models": "0.0.2-next.19",
+		"@twin.org/engine-types": "0.0.2-next.19",
 		"@twin.org/entity": "next",
 		"@twin.org/identity-authentication": "next",
 		"@twin.org/nameof": "next"
