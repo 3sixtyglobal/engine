@@ -1,5 +1,20 @@
 # @twin.org/engine-types - Changelog
 
+## [0.0.2-next.20](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.2-next.19...engine-types-v0.0.2-next.20) (2025-10-06)
+
+
+### Features
+
+* standardised engine logging naming ([0dbf857](https://github.com/twinfoundation/engine/commit/0dbf857587641f86ddf010143519d0e8333489ff))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.2-next.19 to 0.0.2-next.20
+    * @twin.org/engine-models bumped from 0.0.2-next.19 to 0.0.2-next.20
+
 ## [0.0.2-next.19](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.2-next.18...engine-types-v0.0.2-next.19) (2025-10-02)
 
 
