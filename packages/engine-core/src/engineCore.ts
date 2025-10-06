@@ -44,9 +44,9 @@ export class EngineCore<
 > implements IEngineCore<C, S>
 {
 	/**
-	 * Name for the engine logger.
+	 * Name for the engine logger, used for direct console logging.
 	 */
-	public static readonly LOGGER_TYPE_NAME: string = "engine";
+	public static readonly LOGGING_TYPE_NAME: string = "engine-logging-service";
 
 	/**
 	 * Runtime name for the class.
@@ -76,12 +76,6 @@ export class EngineCore<
 	 * @internal
 	 */
 	private _skipBootstrap?: boolean;
-
-	/**
-	 * The logger type name to use.
-	 * @internal
-	 */
-	private _loggerTypeName: string;
 
 	/**
 	 * The type initialisers.
@@ -137,7 +131,6 @@ export class EngineCore<
 		this._skipBootstrap = options.skipBootstrap ?? false;
 		this._populateTypeInitialisers = options.populateTypeInitialisers;
 		this._customBootstrap = options.customBootstrap;
-		this._loggerTypeName = options.loggerTypeName ?? EngineCore.LOGGER_TYPE_NAME;
 		this._typeInitialisers = [];
 
 		this._context = {
@@ -221,7 +214,10 @@ export class EngineCore<
 							})
 						);
 
-						await instance.component.start(this._context.state.nodeIdentity, this._loggerTypeName);
+						await instance.component.start(
+							this._context.state.nodeIdentity,
+							EngineCore.LOGGING_TYPE_NAME
+						);
 					}
 				}
 
@@ -259,7 +255,10 @@ export class EngineCore<
 				);
 
 				try {
-					await instance.component.stop(this._context.state.nodeIdentity, this._loggerTypeName);
+					await instance.component.stop(
+						this._context.state.nodeIdentity,
+						EngineCore.LOGGING_TYPE_NAME
+					);
 				} catch (err) {
 					this.logError(
 						new GeneralError(
@@ -437,8 +436,7 @@ export class EngineCore<
 			config: this._context.config,
 			state: this._context.state,
 			typeInitialisers: this._typeInitialisers,
-			entitySchemas,
-			loggerTypeName: this._loggerTypeName
+			entitySchemas
 		};
 
 		return cloneData;
@@ -459,7 +457,6 @@ export class EngineCore<
 			cloneData.typeInitialisers
 		);
 
-		this._loggerTypeName = cloneData.loggerTypeName;
 		this._skipBootstrap = true;
 		this._isClone = true;
 
@@ -560,27 +557,27 @@ export class EngineCore<
 				});
 
 		this._context.componentInstances.push({
-			instanceType: this._loggerTypeName,
+			instanceType: EngineCore.LOGGING_TYPE_NAME,
 			component: engineLoggerConnector
 		});
 
-		LoggingConnectorFactory.register(this._loggerTypeName, () => engineLoggerConnector);
+		LoggingConnectorFactory.register(EngineCore.LOGGING_TYPE_NAME, () => engineLoggerConnector);
 
 		this._context.registeredInstances.loggingConnector = [
 			{
-				type: this._loggerTypeName
+				type: EngineCore.LOGGING_TYPE_NAME
 			}
 		];
 
 		const engineLoggerComponent = new LoggingService({
-			loggingConnectorType: this._loggerTypeName
+			loggingConnectorType: EngineCore.LOGGING_TYPE_NAME
 		});
 		this._engineLoggingComponent = engineLoggerComponent;
 
-		ComponentFactory.register("logging-service", () => engineLoggerComponent);
+		ComponentFactory.register(EngineCore.LOGGING_TYPE_NAME, () => engineLoggerComponent);
 		this._context.registeredInstances.loggingComponent = [
 			{
-				type: "logging-service"
+				type: EngineCore.LOGGING_TYPE_NAME
 			}
 		];
 	}
@@ -643,7 +640,7 @@ export class EngineCore<
 						})
 					);
 
-					const bootstrapSuccess = await instance.component.bootstrap(this._loggerTypeName);
+					const bootstrapSuccess = await instance.component.bootstrap(EngineCore.LOGGING_TYPE_NAME);
 
 					// If the bootstrap method failed then throw an error
 					if (!bootstrapSuccess) {

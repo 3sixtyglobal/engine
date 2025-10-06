@@ -59,11 +59,3 @@ The entity schemas for the engine.
 #### Index Signature
 
 \[`schema`: `string`\]: `IEntitySchema`\<`unknown`\>
-
-***
-
-### loggerTypeName
-
-> **loggerTypeName**: `string`
-
-The logger type name.

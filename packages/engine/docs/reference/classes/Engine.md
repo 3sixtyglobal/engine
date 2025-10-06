@@ -50,15 +50,15 @@ Runtime name for the class.
 
 ***
 
-### LOGGER\_TYPE\_NAME
+### LOGGING\_TYPE\_NAME
 
-> `readonly` `static` **LOGGER\_TYPE\_NAME**: `string`
+> `readonly` `static` **LOGGING\_TYPE\_NAME**: `string`
 
-Name for the engine logger.
+Name for the engine logger, used for direct console logging.
 
 #### Inherited from
 
-`EngineCore.LOGGER_TYPE_NAME`
+`EngineCore.LOGGING_TYPE_NAME`
 
 ***
 

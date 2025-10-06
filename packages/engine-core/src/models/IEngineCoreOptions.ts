@@ -45,10 +45,4 @@ export interface IEngineCoreOptions<
 		engineCore: IEngineCore<C, S>,
 		context: IEngineCoreContext<C, S>
 	) => Promise<void>;
-
-	/**
-	 * The name of the logger to use in the engine.
-	 * @default engine
-	 */
-	loggerTypeName?: string;
 }

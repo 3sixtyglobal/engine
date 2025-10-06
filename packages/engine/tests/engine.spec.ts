@@ -315,6 +315,7 @@ describe("engine", () => {
 		await engine.stop();
 
 		expect(ComponentFactory.names()).toEqual([
+			"engine-logging-service",
 			"logging-service",
 			"task-scheduler-service",
 			"event-bus-service",
@@ -430,7 +431,7 @@ describe("engine", () => {
 		await engine.stop();
 
 		expect(canContinue).toEqual(true);
-		expect(ComponentFactory.names()).toEqual(["logging-service", "test-entity"]);
+		expect(ComponentFactory.names()).toEqual(["engine-logging-service", "test-entity"]);
 		expect(EntitySchemaFactory.names()).toEqual(["TestEntity"]);
 	});
 
@@ -470,7 +471,7 @@ describe("engine", () => {
 		await engine.stop();
 
 		expect(canContinue).toEqual(true);
-		expect(ComponentFactory.names()).toEqual(["logging-service", "test-entity"]);
+		expect(ComponentFactory.names()).toEqual(["engine-logging-service", "test-entity"]);
 		expect(EntitySchemaFactory.names()).toEqual(["TestEntity"]);
 
 		const service = ComponentFactory.get<IEntityStorageComponent<TestEntity>>("test-entity");
@@ -1030,7 +1031,7 @@ describe("engine", () => {
 		await engine.stop();
 
 		expect(ComponentFactory.names()).toEqual([
-			"logging-service",
+			"engine-logging-service",
 			"logging-client",
 			"task-scheduler-service",
 			"event-bus-socket-client",
