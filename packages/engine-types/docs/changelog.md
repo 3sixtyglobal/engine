@@ -1,5 +1,20 @@
 # @twin.org/engine-types - Changelog
 
+## [0.0.2-next.22](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.2-next.21...engine-types-v0.0.2-next.22) (2025-10-07)
+
+
+### Features
+
+* regular dependencies ([c95095f](https://github.com/twinfoundation/engine/commit/c95095f6644dc55665108e6749caa2a4187020b8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.2-next.21 to 0.0.2-next.22
+    * @twin.org/engine-models bumped from 0.0.2-next.21 to 0.0.2-next.22
+
 ## [0.0.2-next.21](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.2-next.20...engine-types-v0.0.2-next.21) (2025-10-07)
 
 
