@@ -15,7 +15,7 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<FileStateStorage>();
+	public static readonly CLASS_NAME: string = nameof<FileStateStorage>();
 
 	/**
 	 * The filename to store the state.
@@ -35,7 +35,7 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 	 * @param readonlyMode Whether the file is in read-only mode.
 	 */
 	constructor(filename: string, readonlyMode: boolean = false) {
-		Guards.stringValue(this.CLASS_NAME, nameof(filename), filename);
+		Guards.stringValue(FileStateStorage.CLASS_NAME, nameof(filename), filename);
 		this._filename = filename;
 		this._readonlyMode = readonlyMode;
 	}
@@ -48,7 +48,7 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 	public async load(engineCore: IEngineCore): Promise<S | undefined> {
 		try {
 			engineCore.logInfo(
-				I18n.formatMessage(`${StringHelper.camelCase(this.CLASS_NAME)}.loading`, {
+				I18n.formatMessage(`${StringHelper.camelCase(FileStateStorage.CLASS_NAME)}.loading`, {
 					filename: this._filename
 				})
 			);
@@ -58,7 +58,7 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 			}
 		} catch (err) {
 			throw new GeneralError(
-				this.CLASS_NAME,
+				FileStateStorage.CLASS_NAME,
 				"loadingError",
 				{ filename: this._filename },
 				BaseError.fromError(err)
@@ -76,7 +76,7 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 		if (!this._readonlyMode) {
 			try {
 				engineCore.logInfo(
-					I18n.formatMessage(`${StringHelper.camelCase(this.CLASS_NAME)}.saving`, {
+					I18n.formatMessage(`${StringHelper.camelCase(FileStateStorage.CLASS_NAME)}.saving`, {
 						filename: this._filename
 					})
 				);
@@ -86,7 +86,7 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 				await writeFile(this._filename, JSON.stringify(state, undefined, "\t"), "utf8");
 			} catch (err) {
 				throw new GeneralError(
-					this.CLASS_NAME,
+					FileStateStorage.CLASS_NAME,
 					"savingError",
 					{ filename: this._filename },
 					BaseError.fromError(err)

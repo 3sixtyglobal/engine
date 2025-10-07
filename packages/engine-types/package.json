@@ -30,7 +30,6 @@
 		"dist:no-test": "npm run clean && npm run build && npm run bundle && npm run docs"
 	},
 	"dependencies": {
-		"@twin.org/api-models": "next",
 		"@twin.org/core": "next",
 		"@twin.org/crypto": "next",
 		"@twin.org/data-core": "next",
@@ -38,7 +37,10 @@
 		"@twin.org/engine-models": "0.0.2-next.20",
 		"@twin.org/entity": "next",
 		"@twin.org/modules": "next",
-		"@twin.org/nameof": "next",
+		"@twin.org/nameof": "next"
+	},
+	"peerDependencies": {
+		"@twin.org/api-models": "next",
 		"@twin.org/attestation-models": "next",
 		"@twin.org/attestation-rest-client": "next",
 		"@twin.org/attestation-connector-nft": "next",

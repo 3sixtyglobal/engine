@@ -16,7 +16,7 @@ export class Engine<
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<Engine>();
+	public static readonly CLASS_NAME: string = nameof<Engine>();
 
 	/**
 	 * Create a new instance of Engine.

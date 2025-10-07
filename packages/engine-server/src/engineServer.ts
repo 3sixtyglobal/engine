@@ -29,7 +29,7 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<EngineServer>();
+	public static readonly CLASS_NAME: string = nameof<EngineServer>();
 
 	/**
 	 * The engine.
@@ -81,8 +81,8 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	 * @param options.engineCore The engine core to serve from.
 	 */
 	constructor(options: { engineCore: IEngineCore<T> }) {
-		Guards.object(this.CLASS_NAME, nameof(options), options);
-		Guards.object(this.CLASS_NAME, nameof(options.engineCore), options.engineCore);
+		Guards.object(EngineServer.CLASS_NAME, nameof(options), options);
+		Guards.object(EngineServer.CLASS_NAME, nameof(options.engineCore), options.engineCore);
 
 		this._engineCore = options.engineCore;
 		this._restRouteGenerators = [];
@@ -150,9 +150,9 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	 * @param method The method to call on the module.
 	 */
 	public addRestRouteGenerator(type: string, module: string, method: string): void {
-		Guards.stringValue(this.CLASS_NAME, nameof(type), type);
-		Guards.stringValue(this.CLASS_NAME, nameof(module), module);
-		Guards.stringValue(this.CLASS_NAME, nameof(method), method);
+		Guards.stringValue(EngineServer.CLASS_NAME, nameof(type), type);
+		Guards.stringValue(EngineServer.CLASS_NAME, nameof(module), module);
+		Guards.stringValue(EngineServer.CLASS_NAME, nameof(method), method);
 
 		this._restRouteGenerators.push({
 			type,
@@ -168,9 +168,9 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	 * @param method The method to call on the module.
 	 */
 	public addSocketRouteGenerator(type: string, module: string, method: string): void {
-		Guards.stringValue(this.CLASS_NAME, nameof(type), type);
-		Guards.stringValue(this.CLASS_NAME, nameof(module), module);
-		Guards.stringValue(this.CLASS_NAME, nameof(method), method);
+		Guards.stringValue(EngineServer.CLASS_NAME, nameof(type), type);
+		Guards.stringValue(EngineServer.CLASS_NAME, nameof(module), module);
+		Guards.stringValue(EngineServer.CLASS_NAME, nameof(method), method);
 
 		this._socketRouteGenerators.push({
 			type,

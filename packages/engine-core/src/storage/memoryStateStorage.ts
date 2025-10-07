@@ -13,7 +13,7 @@ export class MemoryStateStorage<S extends IEngineState = IEngineState>
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<MemoryStateStorage>();
+	public static readonly CLASS_NAME: string = nameof<MemoryStateStorage>();
 
 	/**
 	 * Readonly mode state file is not updated.
@@ -44,7 +44,7 @@ export class MemoryStateStorage<S extends IEngineState = IEngineState>
 	 */
 	public async load(engineCore: IEngineCore): Promise<S | undefined> {
 		engineCore.logInfo(
-			I18n.formatMessage(`${StringHelper.camelCase(this.CLASS_NAME)}.loading`, {
+			I18n.formatMessage(`${StringHelper.camelCase(MemoryStateStorage.CLASS_NAME)}.loading`, {
 				filename: this._engineState
 			})
 		);
@@ -59,7 +59,9 @@ export class MemoryStateStorage<S extends IEngineState = IEngineState>
 	 */
 	public async save(engineCore: IEngineCore, state: S): Promise<void> {
 		if (!this._readonlyMode) {
-			engineCore.logInfo(I18n.formatMessage(`${StringHelper.camelCase(this.CLASS_NAME)}.saving`));
+			engineCore.logInfo(
+				I18n.formatMessage(`${StringHelper.camelCase(MemoryStateStorage.CLASS_NAME)}.saving`)
+			);
 			this._engineState = state;
 		}
 	}

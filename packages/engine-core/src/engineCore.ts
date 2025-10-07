@@ -52,7 +52,7 @@ export class EngineCore<
 	 * Runtime name for the class.
 	 * @internal
 	 */
-	private static readonly _CLASS_NAME: string = nameof<EngineCore>();
+	public static readonly CLASS_NAME: string = nameof<EngineCore>();
 
 	/**
 	 * The core context.
@@ -156,9 +156,9 @@ export class EngineCore<
 	 * @param method The name of the method to call.
 	 */
 	public addTypeInitialiser(type: string, module: string, method: string): void {
-		Guards.stringValue(EngineCore._CLASS_NAME, nameof(type), type);
-		Guards.stringValue(EngineCore._CLASS_NAME, nameof(module), module);
-		Guards.stringValue(EngineCore._CLASS_NAME, nameof(method), method);
+		Guards.stringValue(EngineCore.CLASS_NAME, nameof(type), type);
+		Guards.stringValue(EngineCore.CLASS_NAME, nameof(module), module);
+		Guards.stringValue(EngineCore.CLASS_NAME, nameof(method), method);
 
 		this._typeInitialisers.push({
 			type,
@@ -173,7 +173,7 @@ export class EngineCore<
 	 * @returns The type config or undefined if not found.
 	 */
 	public getTypeConfig(type: string): IEngineCoreTypeConfig[] | undefined {
-		Guards.stringValue(EngineCore._CLASS_NAME, nameof(type), type);
+		Guards.stringValue(EngineCore.CLASS_NAME, nameof(type), type);
 		return this._context.config.types?.[type];
 	}
 
@@ -262,7 +262,7 @@ export class EngineCore<
 				} catch (err) {
 					this.logError(
 						new GeneralError(
-							EngineCore._CLASS_NAME,
+							EngineCore.CLASS_NAME,
 							"componentStopFailed",
 							{
 								component: instance.instanceType
@@ -310,7 +310,7 @@ export class EngineCore<
 	 */
 	public logInfo(message: string): void {
 		this._engineLoggingComponent?.log({
-			source: EngineCore._CLASS_NAME,
+			source: EngineCore.CLASS_NAME,
 			level: "info",
 			message
 		});
@@ -330,7 +330,7 @@ export class EngineCore<
 				message += `\n${formattedError.stack}`;
 			}
 			this._engineLoggingComponent?.log({
-				source: EngineCore._CLASS_NAME,
+				source: EngineCore.CLASS_NAME,
 				level: "error",
 				message
 			});
@@ -375,7 +375,7 @@ export class EngineCore<
 	 */
 	public getRegisteredInstanceType(componentConnectorType: string, features?: string[]): string {
 		Guards.stringValue(
-			EngineCore._CLASS_NAME,
+			EngineCore.CLASS_NAME,
 			nameof(componentConnectorType),
 			componentConnectorType
 		);
@@ -383,7 +383,7 @@ export class EngineCore<
 		const registeredType = this.getRegisteredInstanceTypeOptional(componentConnectorType, features);
 
 		if (!Is.stringValue(registeredType)) {
-			throw new GeneralError(EngineCore._CLASS_NAME, "instanceTypeNotFound", {
+			throw new GeneralError(EngineCore.CLASS_NAME, "instanceTypeNotFound", {
 				type: componentConnectorType,
 				features: (features ?? ["default"]).join(",")
 			});
@@ -448,11 +448,11 @@ export class EngineCore<
 	 * @param silent Should the clone be silent.
 	 */
 	public populateClone(cloneData: IEngineCoreClone<C, S>, silent?: boolean): void {
-		Guards.object(EngineCore._CLASS_NAME, nameof(cloneData), cloneData);
-		Guards.object(EngineCore._CLASS_NAME, nameof(cloneData.config), cloneData.config);
-		Guards.object(EngineCore._CLASS_NAME, nameof(cloneData.state), cloneData.state);
+		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData), cloneData);
+		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData.config), cloneData.config);
+		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData.state), cloneData.state);
 		Guards.array(
-			EngineCore._CLASS_NAME,
+			EngineCore.CLASS_NAME,
 			nameof(cloneData.typeInitialisers),
 			cloneData.typeInitialisers
 		);
@@ -644,7 +644,7 @@ export class EngineCore<
 
 					// If the bootstrap method failed then throw an error
 					if (!bootstrapSuccess) {
-						throw new GeneralError(EngineCore._CLASS_NAME, "bootstrapFailed", {
+						throw new GeneralError(EngineCore.CLASS_NAME, "bootstrapFailed", {
 							component: `${instance.component.CLASS_NAME}:${instance.instanceType}`
 						});
 					}
