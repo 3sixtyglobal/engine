@@ -1,5 +1,19 @@
 # @twin.org/engine-core - Changelog
 
+## [0.0.2-next.21](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.2-next.20...engine-core-v0.0.2-next.21) (2025-10-07)
+
+
+### Features
+
+* use peer dependencies ([69dd744](https://github.com/twinfoundation/engine/commit/69dd7449010b8e6f5f35e7fad201ad4c1cab400c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.2-next.20 to 0.0.2-next.21
+
 ## [0.0.2-next.20](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.2-next.19...engine-core-v0.0.2-next.20) (2025-10-06)
 
 
