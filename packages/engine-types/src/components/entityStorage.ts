@@ -59,7 +59,7 @@ export function initialiseEntityStorageConnector(
 				c => c.type === typeCustom || c.overrideInstanceType === typeCustom
 			);
 			if (Is.empty(entityStorageConfig)) {
-				throw new GeneralError("engineCore", "entityStorageCustomMissing", {
+				throw new GeneralError("engineTypes", "entityStorageCustomMissing", {
 					typeCustom,
 					storageName: instanceName
 				});
@@ -71,7 +71,7 @@ export function initialiseEntityStorageConnector(
 				context.config.types.entityStorageConnector?.find(c => c.isDefault ?? false) ??
 				context.config.types.entityStorageConnector?.[0];
 			if (Is.empty(entityStorageConfig)) {
-				throw new GeneralError("engineCore", "entityStorageMissing", {
+				throw new GeneralError("engineTypes", "entityStorageMissing", {
 					storageName: instanceName
 				});
 			}
@@ -81,7 +81,7 @@ export function initialiseEntityStorageConnector(
 		let entityStorageConnector: IEntityStorageConnector;
 
 		engineCore.logInfo(
-			I18n.formatMessage("engineCore.configuringEntityStorage", {
+			I18n.formatMessage("engineTypes.configuringEntityStorage", {
 				element: "Entity Storage",
 				storageName: instanceName,
 				storageType: type
@@ -190,7 +190,7 @@ export function initialiseEntityStorageConnector(
 				}
 			});
 		} else {
-			throw new GeneralError("engineCore", "connectorUnknownType", {
+			throw new GeneralError("engineTypes", "connectorUnknownType", {
 				type,
 				connectorType: "entityStorageConnector"
 			});

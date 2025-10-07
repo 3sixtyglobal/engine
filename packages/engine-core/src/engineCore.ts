@@ -50,7 +50,6 @@ export class EngineCore<
 
 	/**
 	 * Runtime name for the class.
-	 * @internal
 	 */
 	public static readonly CLASS_NAME: string = nameof<EngineCore>();
 
@@ -160,11 +159,17 @@ export class EngineCore<
 		Guards.stringValue(EngineCore.CLASS_NAME, nameof(module), module);
 		Guards.stringValue(EngineCore.CLASS_NAME, nameof(method), method);
 
-		this._typeInitialisers.push({
-			type,
-			module,
-			method
-		});
+		const currentIndex = this._typeInitialisers.findIndex(t => t.type === type);
+		if (currentIndex >= 0) {
+			this._typeInitialisers[currentIndex].module = module;
+			this._typeInitialisers[currentIndex].method = method;
+		} else {
+			this._typeInitialisers.push({
+				type,
+				module,
+				method
+			});
+		}
 	}
 
 	/**

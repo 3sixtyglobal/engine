@@ -46,6 +46,14 @@ Name for the engine logger, used for direct console logging.
 
 ***
 
+### CLASS\_NAME
+
+> `readonly` `static` **CLASS\_NAME**: `string`
+
+Runtime name for the class.
+
+***
+
 ### \_context
 
 > `protected` **\_context**: `IEngineCoreContext`\<`C`, `S`\>

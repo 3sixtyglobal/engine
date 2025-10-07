@@ -154,11 +154,17 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 		Guards.stringValue(EngineServer.CLASS_NAME, nameof(module), module);
 		Guards.stringValue(EngineServer.CLASS_NAME, nameof(method), method);
 
-		this._restRouteGenerators.push({
-			type,
-			module,
-			method
-		});
+		const currentIndex = this._restRouteGenerators.findIndex(r => r.type === type);
+		if (currentIndex >= 0) {
+			this._restRouteGenerators[currentIndex].module = module;
+			this._restRouteGenerators[currentIndex].method = method;
+		} else {
+			this._restRouteGenerators.push({
+				type,
+				module,
+				method
+			});
+		}
 	}
 
 	/**
@@ -172,11 +178,17 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 		Guards.stringValue(EngineServer.CLASS_NAME, nameof(module), module);
 		Guards.stringValue(EngineServer.CLASS_NAME, nameof(method), method);
 
-		this._socketRouteGenerators.push({
-			type,
-			module,
-			method
-		});
+		const currentIndex = this._socketRouteGenerators.findIndex(s => s.type === type);
+		if (currentIndex >= 0) {
+			this._socketRouteGenerators[currentIndex].module = module;
+			this._socketRouteGenerators[currentIndex].method = method;
+		} else {
+			this._socketRouteGenerators.push({
+				type,
+				module,
+				method
+			});
+		}
 	}
 
 	/**

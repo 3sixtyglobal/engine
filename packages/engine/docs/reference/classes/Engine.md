@@ -48,6 +48,10 @@ The options for the engine.
 
 Runtime name for the class.
 
+#### Overrides
+
+`EngineCore.CLASS_NAME`
+
 ***
 
 ### LOGGING\_TYPE\_NAME

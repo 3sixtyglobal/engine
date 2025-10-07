@@ -1,10 +1,7 @@
 {
 	"error": {
 		"engineCore": {
-			"connectorUnknownType": "Unknown connector type \"{type}\" specified for \"{connectorType}\"",
 			"componentUnknownType": "Unknown component type \"{type}\" specified for \"{componentType}\"",
-			"entityStorageCustomMissing": "Entity storage custom \"{typeCustom}\" missing for component \"{storageName}\"",
-			"entityStorageMissing": "Entity storage configuration missing for component \"{storageName}\"",
 			"bootstrapFailed": "Bootstrap failed for component \"{component}\", please check the logs for more information",
 			"componentStopFailed": "Failed to stop component \"{component}\"",
 			"moduleMethodFailed": "Failed to load method \"{method}\" from module \"{module}\""
@@ -21,7 +18,6 @@
 		"stopping": "Engine is stopping",
 		"stopped": "Engine has stopped",
 		"configuring": "Configuring {element}",
-		"configuringEntityStorage": "Configuring {element} with name \"{storageName}\" using \"{storageType}\" connector",
 		"bootstrapStarted": "Bootstrap started",
 		"bootstrapComplete": "Bootstrap complete",
 		"bootstrapping": "Bootstrap {element}",
