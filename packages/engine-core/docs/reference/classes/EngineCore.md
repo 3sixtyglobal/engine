@@ -38,11 +38,19 @@ The options for the engine.
 
 ## Properties
 
-### LOGGING\_TYPE\_NAME
+### LOGGING\_COMPONENT\_TYPE\_NAME
 
-> `readonly` `static` **LOGGING\_TYPE\_NAME**: `string` = `"engine-logging-service"`
+> `readonly` `static` **LOGGING\_COMPONENT\_TYPE\_NAME**: `string` = `"engine-logging-service"`
 
-Name for the engine logger, used for direct console logging.
+Name for the engine logger component, used for direct console logging.
+
+***
+
+### LOGGING\_CONNECTOR\_TYPE\_NAME
+
+> `readonly` `static` **LOGGING\_CONNECTOR\_TYPE\_NAME**: `string` = `"engine-logging-connector"`
+
+Name for the engine logger connector, used for direct console logging.
 
 ***
 

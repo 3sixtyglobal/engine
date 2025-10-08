@@ -31,7 +31,7 @@ export interface IEngineCoreContext<
 	 * The default entry will be the first in the list.
 	 */
 	registeredInstances: {
-		[name: string]: { type: string; features?: string[] }[];
+		[name: string]: { type: string; isDefault?: boolean; features?: string[] }[];
 	};
 
 	/**

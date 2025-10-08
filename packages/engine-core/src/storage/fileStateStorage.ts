@@ -1,10 +1,10 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { readFile, mkdir, stat, writeFile } from "node:fs/promises";
+import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { BaseError, GeneralError, Guards, I18n, StringHelper } from "@twin.org/core";
+import { BaseError, GeneralError, Guards, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineState, IEngineStateStorage } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofCamelCase } from "@twin.org/nameof";
 
 /**
  * Store state in a file.
@@ -48,7 +48,7 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 	public async load(engineCore: IEngineCore): Promise<S | undefined> {
 		try {
 			engineCore.logInfo(
-				I18n.formatMessage(`${StringHelper.camelCase(FileStateStorage.CLASS_NAME)}.loading`, {
+				I18n.formatMessage(`${nameofCamelCase<FileStateStorage>()}.loading`, {
 					filename: this._filename
 				})
 			);
@@ -59,7 +59,7 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 		} catch (err) {
 			throw new GeneralError(
 				FileStateStorage.CLASS_NAME,
-				"loadingError",
+				"failedLoading",
 				{ filename: this._filename },
 				BaseError.fromError(err)
 			);
@@ -76,7 +76,7 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 		if (!this._readonlyMode) {
 			try {
 				engineCore.logInfo(
-					I18n.formatMessage(`${StringHelper.camelCase(FileStateStorage.CLASS_NAME)}.saving`, {
+					I18n.formatMessage(`${nameofCamelCase<FileStateStorage>()}.saving`, {
 						filename: this._filename
 					})
 				);
@@ -87,7 +87,7 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 			} catch (err) {
 				throw new GeneralError(
 					FileStateStorage.CLASS_NAME,
-					"savingError",
+					"failedSaving",
 					{ filename: this._filename },
 					BaseError.fromError(err)
 				);

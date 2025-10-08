@@ -54,15 +54,27 @@ Runtime name for the class.
 
 ***
 
-### LOGGING\_TYPE\_NAME
+### LOGGING\_COMPONENT\_TYPE\_NAME
 
-> `readonly` `static` **LOGGING\_TYPE\_NAME**: `string`
+> `readonly` `static` **LOGGING\_COMPONENT\_TYPE\_NAME**: `string`
 
-Name for the engine logger, used for direct console logging.
+Name for the engine logger component, used for direct console logging.
 
 #### Inherited from
 
-`EngineCore.LOGGING_TYPE_NAME`
+`EngineCore.LOGGING_COMPONENT_TYPE_NAME`
+
+***
+
+### LOGGING\_CONNECTOR\_TYPE\_NAME
+
+> `readonly` `static` **LOGGING\_CONNECTOR\_TYPE\_NAME**: `string`
+
+Name for the engine logger connector, used for direct console logging.
+
+#### Inherited from
+
+`EngineCore.LOGGING_CONNECTOR_TYPE_NAME`
 
 ***
 

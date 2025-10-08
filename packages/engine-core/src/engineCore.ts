@@ -44,9 +44,14 @@ export class EngineCore<
 > implements IEngineCore<C, S>
 {
 	/**
-	 * Name for the engine logger, used for direct console logging.
+	 * Name for the engine logger component, used for direct console logging.
 	 */
-	public static readonly LOGGING_TYPE_NAME: string = "engine-logging-service";
+	public static readonly LOGGING_COMPONENT_TYPE_NAME: string = "engine-logging-service";
+
+	/**
+	 * Name for the engine logger connector, used for direct console logging.
+	 */
+	public static readonly LOGGING_CONNECTOR_TYPE_NAME: string = "engine-logging-connector";
 
 	/**
 	 * Runtime name for the class.
@@ -221,7 +226,7 @@ export class EngineCore<
 
 						await instance.component.start(
 							this._context.state.nodeIdentity,
-							EngineCore.LOGGING_TYPE_NAME
+							EngineCore.LOGGING_COMPONENT_TYPE_NAME
 						);
 					}
 				}
@@ -262,7 +267,7 @@ export class EngineCore<
 				try {
 					await instance.component.stop(
 						this._context.state.nodeIdentity,
-						EngineCore.LOGGING_TYPE_NAME
+						EngineCore.LOGGING_COMPONENT_TYPE_NAME
 					);
 				} catch (err) {
 					this.logError(
@@ -365,6 +370,7 @@ export class EngineCore<
 	public getRegisteredInstances(): {
 		[name: string]: {
 			type: string;
+			isDefault?: boolean;
 			features?: string[];
 		}[];
 	} {
@@ -416,7 +422,13 @@ export class EngineCore<
 					t.features?.every(f => features.includes(f))
 				)?.type;
 			} else {
-				registeredType = registeredTypes[0]?.type;
+				// First look for the default entry
+				registeredType = registeredTypes.find(t => t.isDefault)?.type;
+
+				// Can't find a default so just use the first entry
+				if (!Is.stringValue(registeredType)) {
+					registeredType = registeredTypes[0]?.type;
+				}
 			}
 		}
 
@@ -525,17 +537,11 @@ export class EngineCore<
 
 					this._context.registeredInstances[typeKey] ??= [];
 
-					if (typeConfig[i].isDefault ?? false) {
-						this._context.registeredInstances[typeKey].unshift({
-							type: finalInstanceType,
-							features: typeConfig[i].features
-						});
-					} else {
-						this._context.registeredInstances[typeKey].push({
-							type: finalInstanceType,
-							features: typeConfig[i].features
-						});
-					}
+					this._context.registeredInstances[typeKey].push({
+						type: finalInstanceType,
+						isDefault: typeConfig[i].isDefault,
+						features: typeConfig[i].features
+					});
 				} else {
 					throw new GeneralError("engineCore", "componentUnknownType", {
 						type: typeConfig[i].type,
@@ -562,27 +568,30 @@ export class EngineCore<
 				});
 
 		this._context.componentInstances.push({
-			instanceType: EngineCore.LOGGING_TYPE_NAME,
+			instanceType: EngineCore.LOGGING_CONNECTOR_TYPE_NAME,
 			component: engineLoggerConnector
 		});
 
-		LoggingConnectorFactory.register(EngineCore.LOGGING_TYPE_NAME, () => engineLoggerConnector);
+		LoggingConnectorFactory.register(
+			EngineCore.LOGGING_CONNECTOR_TYPE_NAME,
+			() => engineLoggerConnector
+		);
 
 		this._context.registeredInstances.loggingConnector = [
 			{
-				type: EngineCore.LOGGING_TYPE_NAME
+				type: EngineCore.LOGGING_CONNECTOR_TYPE_NAME
 			}
 		];
 
 		const engineLoggerComponent = new LoggingService({
-			loggingConnectorType: EngineCore.LOGGING_TYPE_NAME
+			loggingConnectorType: EngineCore.LOGGING_CONNECTOR_TYPE_NAME
 		});
 		this._engineLoggingComponent = engineLoggerComponent;
 
-		ComponentFactory.register(EngineCore.LOGGING_TYPE_NAME, () => engineLoggerComponent);
+		ComponentFactory.register(EngineCore.LOGGING_COMPONENT_TYPE_NAME, () => engineLoggerComponent);
 		this._context.registeredInstances.loggingComponent = [
 			{
-				type: EngineCore.LOGGING_TYPE_NAME
+				type: EngineCore.LOGGING_COMPONENT_TYPE_NAME
 			}
 		];
 	}
@@ -645,7 +654,9 @@ export class EngineCore<
 						})
 					);
 
-					const bootstrapSuccess = await instance.component.bootstrap(EngineCore.LOGGING_TYPE_NAME);
+					const bootstrapSuccess = await instance.component.bootstrap(
+						EngineCore.LOGGING_COMPONENT_TYPE_NAME
+					);
 
 					// If the bootstrap method failed then throw an error
 					if (!bootstrapSuccess) {
