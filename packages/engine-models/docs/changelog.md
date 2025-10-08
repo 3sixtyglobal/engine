@@ -1,5 +1,12 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.2-next.24](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.23...engine-models-v0.0.2-next.24) (2025-10-08)
+
+
+### Features
+
+* maintain isDefault flag for registered instances ([2ac5bee](https://github.com/twinfoundation/engine/commit/2ac5bee094bef42b396cc82b0d18bb6aebe27352))
+
 ## [0.0.2-next.23](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.2-next.22...engine-models-v0.0.2-next.23) (2025-10-07)
 
 
