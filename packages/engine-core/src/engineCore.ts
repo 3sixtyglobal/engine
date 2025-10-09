@@ -8,7 +8,6 @@ import {
 	GeneralError,
 	Guards,
 	I18n,
-	type IComponent,
 	type IError,
 	Is
 } from "@twin.org/core";
@@ -646,11 +645,9 @@ export class EngineCore<
 			// First bootstrap the components.
 			for (const instance of this._context.componentInstances) {
 				if (Is.function(instance.component.bootstrap)) {
-					const instanceName = this.getInstanceName(instance);
-
 					this.logInfo(
 						I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapping`, {
-							element: instanceName
+							element: instance.instanceType
 						})
 					);
 
@@ -661,7 +658,7 @@ export class EngineCore<
 					// If the bootstrap method failed then throw an error
 					if (!bootstrapSuccess) {
 						throw new GeneralError(EngineCore.CLASS_NAME, "bootstrapFailed", {
-							component: `${instance.component.CLASS_NAME}:${instance.instanceType}`
+							component: instance.instanceType
 						});
 					}
 				}
@@ -673,17 +670,5 @@ export class EngineCore<
 
 			this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapComplete`));
 		}
-	}
-
-	/**
-	 * Get the instance name.
-	 * @param instance The instance to get the name for.
-	 * @param instance.instanceType The instance type.
-	 * @param instance.component The component.
-	 * @returns The instance name.
-	 * @internal
-	 */
-	private getInstanceName(instance: { instanceType: string; component: IComponent }): string {
-		return `${instance.component.CLASS_NAME}-${instance.instanceType}`;
 	}
 }
