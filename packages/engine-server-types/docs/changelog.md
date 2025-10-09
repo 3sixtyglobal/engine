@@ -1,5 +1,20 @@
 # @twin.org/engine-server-types - Changelog
 
+## [0.0.2-next.25](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.2-next.24...engine-server-types-v0.0.2-next.25) (2025-10-09)
+
+
+### Features
+
+* add validate-locales ([b92ea09](https://github.com/twinfoundation/engine/commit/b92ea09dbcfe35225271a51f24d231f59e2d363e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.2-next.24 to 0.0.2-next.25
+    * @twin.org/engine-types bumped from 0.0.2-next.24 to 0.0.2-next.25
+
 ## [0.0.2-next.24](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.2-next.23...engine-server-types-v0.0.2-next.24) (2025-10-08)
 
 
