@@ -12,7 +12,7 @@ import {
 	type IIdentityProfileComponent,
 	type IIdentityProfileConnector
 } from "@twin.org/identity-models";
-import { IdentityProfileClient } from "@twin.org/identity-rest-client";
+import { IdentityProfileRestClient } from "@twin.org/identity-rest-client";
 import { IdentityProfileService } from "@twin.org/identity-service";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage";
@@ -86,8 +86,8 @@ export async function initialiseIdentityProfileComponent(
 		});
 		instanceType = nameofKebabCase(IdentityProfileService);
 	} else if (instanceConfig.type === IdentityProfileComponentType.RestClient) {
-		component = new IdentityProfileClient(instanceConfig.options);
-		instanceType = nameofKebabCase(IdentityProfileClient);
+		component = new IdentityProfileRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(IdentityProfileRestClient);
 	}
 
 	return {

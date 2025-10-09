@@ -4,7 +4,7 @@ import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { ISynchronisedStorageComponent } from "@twin.org/synchronised-storage-models";
-import { SynchronisedStorageClient } from "@twin.org/synchronised-storage-rest-client";
+import { SynchronisedStorageRestClient } from "@twin.org/synchronised-storage-rest-client";
 import {
 	type SyncSnapshotEntry,
 	SynchronisedStorageService,
@@ -65,7 +65,7 @@ export async function initialiseSynchronisedStorageComponent(
 		});
 		instanceType = nameofKebabCase(SynchronisedStorageService);
 	} else if (instanceConfig.type === SynchronisedStorageComponentType.RestClient) {
-		component = new SynchronisedStorageClient({
+		component = new SynchronisedStorageRestClient({
 			...instanceConfig.options,
 			authenticationGeneratorType:
 				instanceConfig.options?.authenticationGeneratorType ??
@@ -73,7 +73,7 @@ export async function initialiseSynchronisedStorageComponent(
 					"verifiable-credential"
 				])
 		});
-		instanceType = nameofKebabCase(SynchronisedStorageClient);
+		instanceType = nameofKebabCase(SynchronisedStorageRestClient);
 	}
 
 	return {

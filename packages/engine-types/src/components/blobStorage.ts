@@ -12,7 +12,7 @@ import {
 	type IBlobStorageComponent,
 	type IBlobStorageConnector
 } from "@twin.org/blob-storage-models";
-import { BlobStorageClient } from "@twin.org/blob-storage-rest-client";
+import { BlobStorageRestClient } from "@twin.org/blob-storage-rest-client";
 import {
 	BlobStorageService,
 	initSchema as initSchemaBlobStorage,
@@ -134,8 +134,8 @@ export async function initialiseBlobStorageComponent(
 		});
 		instanceType = nameofKebabCase(BlobStorageService);
 	} else if (instanceConfig.type === BlobStorageComponentType.RestClient) {
-		component = new BlobStorageClient(instanceConfig.options);
-		instanceType = nameofKebabCase(BlobStorageClient);
+		component = new BlobStorageRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(BlobStorageRestClient);
 	}
 
 	return {

@@ -4,6 +4,7 @@ import { mkdir, rm } from "node:fs/promises";
 import { AuthenticationGeneratorFactory } from "@twin.org/api-models";
 import { ComponentFactory, Factory, I18n } from "@twin.org/core";
 import { MemoryStateStorage } from "@twin.org/engine-core";
+import coreLocales from "@twin.org/engine-core/locales/en.json";
 import {
 	AttestationComponentType,
 	AttestationConnectorType,
@@ -60,6 +61,7 @@ import {
 	VerifiableStorageConnectorType,
 	WalletConnectorType
 } from "@twin.org/engine-types";
+import typeLocales from "@twin.org/engine-types/locales/en.json";
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
@@ -85,7 +87,7 @@ export class TestEntity {
 
 describe("engine", () => {
 	beforeAll(async () => {
-		I18n.addDictionary("en", await import("../locales/en.json"));
+		I18n.addDictionary("en", { ...coreLocales, ...typeLocales });
 	});
 
 	beforeEach(async () => {
@@ -1032,37 +1034,37 @@ describe("engine", () => {
 
 		expect(ComponentFactory.names()).toEqual([
 			"engine-logging-service",
-			"logging-client",
+			"logging-rest-client",
 			"task-scheduler-service",
 			"event-bus-socket-client",
-			"telemetry-client",
+			"telemetry-rest-client",
 			"messaging-admin-service",
 			"messaging-service",
-			"blob-storage-client",
-			"verifiable-storage-client",
-			"identity-client",
-			"identity-resolver-client",
-			"identity-profile-client",
-			"nft-client",
-			"immutable-proof-client",
-			"attestation-client",
-			"auditable-item-graph-client",
-			"auditable-item-stream-client",
-			"data-processing-client",
-			"document-management-client",
-			"policy-administration-point-client",
+			"blob-storage-rest-client",
+			"verifiable-storage-rest-client",
+			"identity-rest-client",
+			"identity-resolver-rest-client",
+			"identity-profile-rest-client",
+			"nft-rest-client",
+			"immutable-proof-rest-client",
+			"attestation-rest-client",
+			"auditable-item-graph-rest-client",
+			"auditable-item-stream-rest-client",
+			"data-processing-rest-client",
+			"document-management-rest-client",
+			"policy-administration-point-rest-client",
 			"policy-management-point-service",
 			"policy-execution-point-service",
 			"policy-information-point-service",
 			"policy-decision-point-service",
 			"policy-enforcement-point-service",
-			"policy-negotiation-admin-point-client",
-			"policy-negotiation-point-client",
-			"data-access-point-client",
+			"policy-negotiation-admin-point-rest-client",
+			"policy-negotiation-point-rest-client",
+			"data-access-point-rest-client",
 			"data-access-request-point-service",
-			"synchronised-storage-client",
-			"federated-catalogue-client",
-			"data-space-connector-client",
+			"synchronised-storage-rest-client",
+			"federated-catalogue-rest-client",
+			"data-space-connector-rest-client",
 			"data-space-connector-socket-client"
 		]);
 

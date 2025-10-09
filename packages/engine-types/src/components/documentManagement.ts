@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IDocumentManagementComponent } from "@twin.org/document-management-models";
-import { DocumentManagementClient } from "@twin.org/document-management-rest-client";
+import { DocumentManagementRestClient } from "@twin.org/document-management-rest-client";
 import { DocumentManagementService } from "@twin.org/document-management-service";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
@@ -41,8 +41,8 @@ export async function initialiseDocumentManagementComponent(
 		});
 		instanceType = nameofKebabCase(DocumentManagementService);
 	} else if (instanceConfig.type === DocumentManagementComponentType.RestClient) {
-		component = new DocumentManagementClient(instanceConfig.options);
-		instanceType = nameofKebabCase(DocumentManagementClient);
+		component = new DocumentManagementRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(DocumentManagementRestClient);
 	}
 
 	return {

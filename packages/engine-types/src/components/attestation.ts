@@ -6,7 +6,7 @@ import {
 	type IAttestationComponent,
 	type IAttestationConnector
 } from "@twin.org/attestation-models";
-import { AttestationClient } from "@twin.org/attestation-rest-client";
+import { AttestationRestClient } from "@twin.org/attestation-rest-client";
 import { AttestationService } from "@twin.org/attestation-service";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
@@ -73,8 +73,8 @@ export async function initialiseAttestationComponent(
 		});
 		instanceType = nameofKebabCase(AttestationService);
 	} else if (instanceConfig.type === AttestationComponentType.RestClient) {
-		component = new AttestationClient(instanceConfig.options);
-		instanceType = nameofKebabCase(AttestationClient);
+		component = new AttestationRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(AttestationRestClient);
 	}
 
 	return {

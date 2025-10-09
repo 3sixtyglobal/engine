@@ -14,7 +14,7 @@ import {
 	type IIdentityResolverComponent,
 	type IIdentityResolverConnector
 } from "@twin.org/identity-models";
-import { IdentityResolverClient } from "@twin.org/identity-rest-client";
+import { IdentityResolverRestClient } from "@twin.org/identity-rest-client";
 import { IdentityResolverService } from "@twin.org/identity-service";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage";
@@ -120,8 +120,8 @@ export async function initialiseIdentityResolverComponent(
 		});
 		instanceType = nameofKebabCase(IdentityResolverService);
 	} else if (instanceConfig.type === IdentityResolverComponentType.RestClient) {
-		component = new IdentityResolverClient(instanceConfig.options);
-		instanceType = nameofKebabCase(IdentityResolverClient);
+		component = new IdentityResolverRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(IdentityResolverRestClient);
 	}
 
 	return {

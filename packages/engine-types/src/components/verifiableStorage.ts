@@ -14,7 +14,7 @@ import {
 	type IVerifiableStorageComponent,
 	type IVerifiableStorageConnector
 } from "@twin.org/verifiable-storage-models";
-import { VerifiableStorageClient } from "@twin.org/verifiable-storage-rest-client";
+import { VerifiableStorageRestClient } from "@twin.org/verifiable-storage-rest-client";
 import { VerifiableStorageService } from "@twin.org/verifiable-storage-service";
 import { initialiseEntityStorageConnector } from "./entityStorage";
 import type { DltConfig } from "../models/config/dltConfig";
@@ -105,8 +105,8 @@ export async function initialiseVerifiableStorageComponent(
 		});
 		instanceType = nameofKebabCase(VerifiableStorageService);
 	} else if (instanceConfig.type === VerifiableStorageComponentType.RestClient) {
-		component = new VerifiableStorageClient(instanceConfig.options);
-		instanceType = nameofKebabCase(VerifiableStorageClient);
+		component = new VerifiableStorageRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(VerifiableStorageRestClient);
 	}
 
 	return {

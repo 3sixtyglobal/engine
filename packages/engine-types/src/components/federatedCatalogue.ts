@@ -3,7 +3,7 @@
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import type { IFederatedCatalogueComponent } from "@twin.org/federated-catalogue-models";
-import { FederatedCatalogueClient } from "@twin.org/federated-catalogue-rest-client";
+import { FederatedCatalogueRestClient } from "@twin.org/federated-catalogue-rest-client";
 import {
 	type DataResourceEntry,
 	type DataSpaceConnectorEntry,
@@ -74,8 +74,8 @@ export async function initialiseFederatedCatalogueComponent(
 		});
 		instanceType = nameofKebabCase(FederatedCatalogueService);
 	} else if (instanceConfig.type === FederatedCatalogueComponentType.RestClient) {
-		component = new FederatedCatalogueClient(instanceConfig.options);
-		instanceType = nameofKebabCase(FederatedCatalogueClient);
+		component = new FederatedCatalogueRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(FederatedCatalogueRestClient);
 	}
 
 	return {

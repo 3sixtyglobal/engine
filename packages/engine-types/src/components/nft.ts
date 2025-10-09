@@ -10,7 +10,7 @@ import {
 } from "@twin.org/nft-connector-entity-storage";
 import { IotaNftConnector } from "@twin.org/nft-connector-iota";
 import { NftConnectorFactory, type INftComponent, type INftConnector } from "@twin.org/nft-models";
-import { NftClient } from "@twin.org/nft-rest-client";
+import { NftRestClient } from "@twin.org/nft-rest-client";
 import { NftService } from "@twin.org/nft-service";
 import { initialiseEntityStorageConnector } from "./entityStorage";
 import type { DltConfig } from "../models/config/dltConfig";
@@ -100,8 +100,8 @@ export async function initialiseNftComponent(
 		component = new NftService(instanceConfig.options);
 		instanceType = nameofKebabCase(NftService);
 	} else if (instanceConfig.type === NftComponentType.RestClient) {
-		component = new NftClient(instanceConfig.options);
-		instanceType = nameofKebabCase(NftClient);
+		component = new NftRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(NftRestClient);
 	}
 
 	return {

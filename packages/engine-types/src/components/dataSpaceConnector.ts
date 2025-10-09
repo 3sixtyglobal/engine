@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IDataSpaceConnector } from "@twin.org/data-space-connector-models";
-import { DataSpaceConnectorClient } from "@twin.org/data-space-connector-rest-client";
+import { DataSpaceConnectorRestClient } from "@twin.org/data-space-connector-rest-client";
 import {
 	type ActivityLogDetails,
 	type ActivityTask,
@@ -59,8 +59,8 @@ export async function initialiseDataSpaceConnectorComponent(
 		});
 		instanceType = nameofKebabCase(DataSpaceConnectorService);
 	} else if (instanceConfig.type === DataSpaceConnectorComponentType.RestClient) {
-		component = new DataSpaceConnectorClient(instanceConfig.options);
-		instanceType = nameofKebabCase(DataSpaceConnectorClient);
+		component = new DataSpaceConnectorRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(DataSpaceConnectorRestClient);
 	} else if (instanceConfig.type === DataSpaceConnectorComponentType.SocketClient) {
 		component = new DataSpaceConnectorSocketClient({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),

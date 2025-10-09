@@ -3,8 +3,12 @@
 		"engineTypes": {
 			"entityStorageCustomMissing": "Entity storage custom \"{typeCustom}\" missing for component \"{storageName}\"",
 			"entityStorageMissing": "Entity storage configuration missing for component \"{storageName}\"",
-			"configuringEntityStorage": "Configuring {element} with name \"{storageName}\" using \"{storageType}\" connector",
 			"connectorUnknownType": "Unknown connector type \"{type}\" specified for \"{connectorType}\""
+		}
+	},
+	"info": {
+		"engineTypes": {
+			"configuringEntityStorage": "Configuring {element} with name \"{storageName}\" using \"{storageType}\" connector"
 		}
 	}
 }

@@ -10,7 +10,7 @@ import type {
 	IPolicyRequester
 } from "@twin.org/rights-management-models";
 import { PolicyNegotiationPointService } from "@twin.org/rights-management-pnp-service";
-import { PolicyNegotiationPointClient } from "@twin.org/rights-management-rest-client";
+import { PolicyNegotiationPointRestClient } from "@twin.org/rights-management-rest-client";
 import type { RightsManagementPnpComponentConfig } from "../models/config/rightsManagementPnpComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
 import { RightsManagementPnpComponentType } from "../models/types/rightsManagementPnpComponentType";
@@ -75,7 +75,7 @@ export async function initialiseRightsManagementPnpComponent(
 		});
 		instanceType = nameofKebabCase(PolicyNegotiationPointService);
 	} else if (instanceConfig.type === RightsManagementPnpComponentType.RestClient) {
-		component = new PolicyNegotiationPointClient({
+		component = new PolicyNegotiationPointRestClient({
 			...instanceConfig.options,
 			authenticationGeneratorType:
 				instanceConfig.options?.authenticationGeneratorType ??
@@ -83,7 +83,7 @@ export async function initialiseRightsManagementPnpComponent(
 					"verifiable-credential"
 				])
 		});
-		instanceType = nameofKebabCase(PolicyNegotiationPointClient);
+		instanceType = nameofKebabCase(PolicyNegotiationPointRestClient);
 	}
 
 	return {

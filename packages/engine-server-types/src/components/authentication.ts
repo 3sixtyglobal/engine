@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IAuthenticationComponent } from "@twin.org/api-auth-entity-storage-models";
-import { EntityStorageAuthenticationClient } from "@twin.org/api-auth-entity-storage-rest-client";
+import { EntityStorageAuthenticationRestClient } from "@twin.org/api-auth-entity-storage-rest-client";
 import {
 	EntityStorageAuthenticationService,
 	initSchema as initSchemaAuthEntityStorage,
@@ -48,8 +48,8 @@ export async function initialiseAuthenticationComponent(
 		});
 		instanceType = nameofKebabCase(EntityStorageAuthenticationService);
 	} else if (instanceConfig.type === AuthenticationComponentType.RestClient) {
-		component = new EntityStorageAuthenticationClient(instanceConfig.options);
-		instanceType = nameofKebabCase(EntityStorageAuthenticationClient);
+		component = new EntityStorageAuthenticationRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(EntityStorageAuthenticationRestClient);
 	}
 
 	return {

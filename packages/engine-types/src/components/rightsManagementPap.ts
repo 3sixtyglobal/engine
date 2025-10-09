@@ -9,7 +9,7 @@ import {
 	type OdrlPolicy,
 	PolicyAdministrationPointService
 } from "@twin.org/rights-management-pap-service";
-import { PolicyAdministrationPointClient } from "@twin.org/rights-management-rest-client";
+import { PolicyAdministrationPointRestClient } from "@twin.org/rights-management-rest-client";
 import { initialiseEntityStorageConnector } from "./entityStorage";
 import type { RightsManagementPapComponentConfig } from "../models/config/rightsManagementPapComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
@@ -50,8 +50,8 @@ export async function initialiseRightsManagementPapComponent(
 		});
 		instanceType = nameofKebabCase(PolicyAdministrationPointService);
 	} else if (instanceConfig.type === RightsManagementPapComponentType.RestClient) {
-		component = new PolicyAdministrationPointClient(instanceConfig.options);
-		instanceType = nameofKebabCase(PolicyAdministrationPointClient);
+		component = new PolicyAdministrationPointRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(PolicyAdministrationPointRestClient);
 	}
 
 	return {

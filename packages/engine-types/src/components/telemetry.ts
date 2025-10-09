@@ -14,7 +14,7 @@ import {
 	type ITelemetryComponent,
 	type ITelemetryConnector
 } from "@twin.org/telemetry-models";
-import { TelemetryClient } from "@twin.org/telemetry-rest-client";
+import { TelemetryRestClient } from "@twin.org/telemetry-rest-client";
 import { TelemetryService } from "@twin.org/telemetry-service";
 import { initialiseEntityStorageConnector } from "./entityStorage";
 import type { TelemetryComponentConfig } from "../models/config/telemetryComponentConfig";
@@ -96,8 +96,8 @@ export async function initialiseTelemetryComponent(
 		});
 		instanceType = nameofKebabCase(TelemetryService);
 	} else if (instanceConfig.type === TelemetryComponentType.RestClient) {
-		component = new TelemetryClient(instanceConfig.options);
-		instanceType = nameofKebabCase(TelemetryClient);
+		component = new TelemetryRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(TelemetryRestClient);
 	}
 
 	return {

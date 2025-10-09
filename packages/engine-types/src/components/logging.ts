@@ -14,7 +14,7 @@ import {
 	type ILoggingComponent,
 	type ILoggingConnector
 } from "@twin.org/logging-models";
-import { LoggingClient } from "@twin.org/logging-rest-client";
+import { LoggingRestClient } from "@twin.org/logging-rest-client";
 import { LoggingService } from "@twin.org/logging-service";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage";
@@ -94,8 +94,8 @@ export async function initialiseLoggingComponent(
 		});
 		instanceType = nameofKebabCase(LoggingService);
 	} else if (instanceConfig.type === LoggingComponentType.RestClient) {
-		component = new LoggingClient(instanceConfig.options);
-		instanceType = nameofKebabCase(LoggingClient);
+		component = new LoggingRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(LoggingRestClient);
 	}
 
 	return {

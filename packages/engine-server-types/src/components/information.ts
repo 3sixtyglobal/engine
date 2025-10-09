@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IInformationComponent } from "@twin.org/api-models";
-import { InformationClient } from "@twin.org/api-rest-client";
+import { InformationRestClient } from "@twin.org/api-rest-client";
 import { InformationService } from "@twin.org/api-service";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
@@ -29,8 +29,8 @@ export async function initialiseInformationComponent(
 		component = new InformationService(instanceConfig.options);
 		instanceType = nameofKebabCase(InformationService);
 	} else if (instanceConfig.type === InformationComponentType.RestClient) {
-		component = new InformationClient(instanceConfig.options);
-		instanceType = nameofKebabCase(InformationClient);
+		component = new InformationRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(InformationRestClient);
 	}
 
 	return {

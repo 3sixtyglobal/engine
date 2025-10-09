@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IAuditableItemStreamComponent } from "@twin.org/auditable-item-stream-models";
-import { AuditableItemStreamClient } from "@twin.org/auditable-item-stream-rest-client";
+import { AuditableItemStreamRestClient } from "@twin.org/auditable-item-stream-rest-client";
 import {
 	type AuditableItemStream,
 	type AuditableItemStreamEntry,
@@ -54,8 +54,8 @@ export async function initialiseAuditableItemStreamComponent(
 		});
 		instanceType = nameofKebabCase(AuditableItemStreamService);
 	} else if (instanceConfig.type === AuditableItemStreamComponentType.RestClient) {
-		component = new AuditableItemStreamClient(instanceConfig.options);
-		instanceType = nameofKebabCase(AuditableItemStreamClient);
+		component = new AuditableItemStreamRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(AuditableItemStreamRestClient);
 	}
 
 	return {

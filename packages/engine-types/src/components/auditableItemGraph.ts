@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IAuditableItemGraphComponent } from "@twin.org/auditable-item-graph-models";
-import { AuditableItemGraphClient } from "@twin.org/auditable-item-graph-rest-client";
+import { AuditableItemGraphRestClient } from "@twin.org/auditable-item-graph-rest-client";
 import {
 	type AuditableItemGraphChangeset,
 	AuditableItemGraphService,
@@ -54,8 +54,8 @@ export async function initialiseAuditableItemGraphComponent(
 		});
 		instanceType = nameofKebabCase(AuditableItemGraphService);
 	} else if (instanceConfig.type === AuditableItemGraphComponentType.RestClient) {
-		component = new AuditableItemGraphClient(instanceConfig.options);
-		instanceType = nameofKebabCase(AuditableItemGraphClient);
+		component = new AuditableItemGraphRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(AuditableItemGraphRestClient);
 	}
 
 	return {

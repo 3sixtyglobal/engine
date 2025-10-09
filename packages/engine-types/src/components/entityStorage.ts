@@ -25,7 +25,7 @@ import {
 	type IEntityStorageComponent,
 	type IEntityStorageConnector
 } from "@twin.org/entity-storage-models";
-import { EntityStorageClient } from "@twin.org/entity-storage-rest-client";
+import { EntityStorageRestClient } from "@twin.org/entity-storage-rest-client";
 import { EntityStorageService } from "@twin.org/entity-storage-service";
 import { nameofKebabCase } from "@twin.org/nameof";
 import type { EntityStorageComponentConfig } from "../models/config/entityStorageComponentConfig";
@@ -81,7 +81,7 @@ export function initialiseEntityStorageConnector(
 		let entityStorageConnector: IEntityStorageConnector;
 
 		engineCore.logInfo(
-			I18n.formatMessage("engineTypes.configuringEntityStorage", {
+			I18n.formatMessage("info.engineTypes.configuringEntityStorage", {
 				element: "Entity Storage",
 				storageName: instanceName,
 				storageType: type
@@ -248,11 +248,11 @@ export async function initialiseEntityStorageComponent(
 		instanceType = StringHelper.kebabCase(instanceConfig.options.entityStorageType);
 	} else if (instanceConfig.type === EntityStorageComponentType.RestClient) {
 		const kebabName = StringHelper.kebabCase(instanceConfig.options.entityStorageType);
-		component = new EntityStorageClient({
+		component = new EntityStorageRestClient({
 			pathPrefix: kebabName,
 			...instanceConfig.options
 		});
-		instanceType = `${nameofKebabCase(EntityStorageClient)}-${kebabName}`;
+		instanceType = `${nameofKebabCase(EntityStorageRestClient)}-${kebabName}`;
 	}
 
 	return {

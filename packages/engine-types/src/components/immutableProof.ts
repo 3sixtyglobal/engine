@@ -3,7 +3,7 @@
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import type { IImmutableProofComponent } from "@twin.org/immutable-proof-models";
-import { ImmutableProofClient } from "@twin.org/immutable-proof-rest-client";
+import { ImmutableProofRestClient } from "@twin.org/immutable-proof-rest-client";
 import {
 	type ImmutableProof,
 	ImmutableProofService,
@@ -53,8 +53,8 @@ export async function initialiseImmutableProofComponent(
 		});
 		instanceType = nameofKebabCase(ImmutableProofService);
 	} else if (instanceConfig.type === ImmutableProofComponentType.RestClient) {
-		component = new ImmutableProofClient(instanceConfig.options);
-		instanceType = nameofKebabCase(ImmutableProofClient);
+		component = new ImmutableProofRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(ImmutableProofRestClient);
 	}
 
 	return {

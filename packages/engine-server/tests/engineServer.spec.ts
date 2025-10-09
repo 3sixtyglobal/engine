@@ -3,7 +3,7 @@
 import path from "node:path";
 import { ComponentFactory, Factory, I18n, ObjectHelper } from "@twin.org/core";
 import { Engine } from "@twin.org/engine";
-import engineLocales from "@twin.org/engine-core/locales/en.json";
+import coreLocales from "@twin.org/engine-core/locales/en.json";
 import {
 	InformationComponentType,
 	RestRouteProcessorType,
@@ -93,7 +93,7 @@ export class TestEntity {
 
 describe("engine-server", () => {
 	beforeAll(async () => {
-		I18n.addDictionary("en", ObjectHelper.merge(engineLocales, packageLocales));
+		I18n.addDictionary("en", ObjectHelper.merge(coreLocales, packageLocales));
 	});
 
 	beforeEach(async () => {

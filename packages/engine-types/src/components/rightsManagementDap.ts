@@ -5,7 +5,7 @@ import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
 import { DataAccessPointService } from "@twin.org/rights-management-dap-service";
 import type { IDataAccessPointComponent } from "@twin.org/rights-management-models";
-import { DataAccessPointClient } from "@twin.org/rights-management-rest-client";
+import { DataAccessPointRestClient } from "@twin.org/rights-management-rest-client";
 import type { RightsManagementDapComponentConfig } from "../models/config/rightsManagementDapComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
 import { RightsManagementDapComponentType } from "../models/types/rightsManagementDapComponentType";
@@ -42,7 +42,7 @@ export async function initialiseRightsManagementDapComponent(
 		});
 		instanceType = nameofKebabCase(DataAccessPointService);
 	} else if (instanceConfig.type === RightsManagementDapComponentType.RestClient) {
-		component = new DataAccessPointClient({
+		component = new DataAccessPointRestClient({
 			...instanceConfig.options,
 			authenticationGeneratorType:
 				instanceConfig.options?.authenticationGeneratorType ??
@@ -50,7 +50,7 @@ export async function initialiseRightsManagementDapComponent(
 					"verifiable-credential"
 				])
 		});
-		instanceType = nameofKebabCase(DataAccessPointClient);
+		instanceType = nameofKebabCase(DataAccessPointRestClient);
 	}
 
 	return {

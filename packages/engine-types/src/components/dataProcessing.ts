@@ -13,7 +13,7 @@ import {
 	type IDataExtractorConnector,
 	type IDataProcessingComponent
 } from "@twin.org/data-processing-models";
-import { DataProcessingClient } from "@twin.org/data-processing-rest-client";
+import { DataProcessingRestClient } from "@twin.org/data-processing-rest-client";
 import {
 	DataProcessingService,
 	initSchema as initSchemaDataProcessing,
@@ -128,8 +128,8 @@ export async function initialiseDataProcessingComponent(
 		});
 		instanceType = nameofKebabCase(DataProcessingService);
 	} else if (instanceConfig.type === DataProcessingComponentType.RestClient) {
-		component = new DataProcessingClient(instanceConfig.options);
-		instanceType = nameofKebabCase(DataProcessingClient);
+		component = new DataProcessingRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(DataProcessingRestClient);
 	}
 
 	return {

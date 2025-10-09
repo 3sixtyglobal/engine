@@ -9,7 +9,7 @@ import {
 	PolicyNegotiationAdminPointService,
 	initSchema as initSchemaRightsManagementPnap
 } from "@twin.org/rights-management-pnp-service";
-import { PolicyNegotiationAdminPointClient } from "@twin.org/rights-management-rest-client";
+import { PolicyNegotiationAdminPointRestClient } from "@twin.org/rights-management-rest-client";
 import { initialiseEntityStorageConnector } from "./entityStorage";
 import type { RightsManagementPnapComponentConfig } from "../models/config/rightsManagementPnapComponentConfig";
 import type { IEngineConfig } from "../models/IEngineConfig";
@@ -54,8 +54,8 @@ export async function initialiseRightsManagementPnapComponent(
 		});
 		instanceType = nameofKebabCase(PolicyNegotiationAdminPointService);
 	} else if (instanceConfig.type === RightsManagementPnapComponentType.RestClient) {
-		component = new PolicyNegotiationAdminPointClient(instanceConfig.options);
-		instanceType = nameofKebabCase(PolicyNegotiationAdminPointClient);
+		component = new PolicyNegotiationAdminPointRestClient(instanceConfig.options);
+		instanceType = nameofKebabCase(PolicyNegotiationAdminPointRestClient);
 	}
 
 	return {
