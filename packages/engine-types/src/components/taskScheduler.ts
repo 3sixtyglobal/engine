@@ -5,9 +5,9 @@ import { TaskSchedulerService } from "@twin.org/background-task-scheduler";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
-import type { TaskSchedulerComponentConfig } from "../models/config/taskSchedulerComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { TaskSchedulerComponentType } from "../models/types/taskSchedulerComponentType";
+import type { TaskSchedulerComponentConfig } from "../models/config/taskSchedulerComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { TaskSchedulerComponentType } from "../models/types/taskSchedulerComponentType.js";
 
 /**
  * Initialise a task scheduler.

@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import {
@@ -34,18 +35,18 @@ import {
 	type TemplateEntry
 } from "@twin.org/messaging-service";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { MessagingAdminComponentConfig } from "../models/config/messagingAdminComponentConfig";
-import type { MessagingComponentConfig } from "../models/config/messagingComponentConfig";
-import type { MessagingEmailConnectorConfig } from "../models/config/messagingEmailConnectorConfig";
-import type { MessagingPushNotificationConnectorConfig } from "../models/config/messagingPushNotificationConnectorConfig";
-import type { MessagingSmsConnectorConfig } from "../models/config/messagingSmsConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { MessagingAdminComponentType } from "../models/types/messagingAdminComponentType";
-import { MessagingComponentType } from "../models/types/messagingComponentType";
-import { MessagingEmailConnectorType } from "../models/types/messagingEmailConnectorType";
-import { MessagingPushNotificationConnectorType } from "../models/types/messagingPushNotificationConnectorType";
-import { MessagingSmsConnectorType } from "../models/types/messagingSmsConnectorType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { MessagingAdminComponentConfig } from "../models/config/messagingAdminComponentConfig.js";
+import type { MessagingComponentConfig } from "../models/config/messagingComponentConfig.js";
+import type { MessagingEmailConnectorConfig } from "../models/config/messagingEmailConnectorConfig.js";
+import type { MessagingPushNotificationConnectorConfig } from "../models/config/messagingPushNotificationConnectorConfig.js";
+import type { MessagingSmsConnectorConfig } from "../models/config/messagingSmsConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { MessagingAdminComponentType } from "../models/types/messagingAdminComponentType.js";
+import { MessagingComponentType } from "../models/types/messagingComponentType.js";
+import { MessagingEmailConnectorType } from "../models/types/messagingEmailConnectorType.js";
+import { MessagingPushNotificationConnectorType } from "../models/types/messagingPushNotificationConnectorType.js";
+import { MessagingSmsConnectorType } from "../models/types/messagingSmsConnectorType.js";
 
 /**
  * Initialise a messaging email connector.
@@ -72,7 +73,11 @@ export async function initialiseMessagingEmailConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.messagingEmailEntryStorageConnectorType,
-			nameof<EmailEntry>()
+			nameof<EmailEntry>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 		component = new EntityStorageMessagingEmailConnector({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
@@ -119,7 +124,11 @@ export async function initialiseMessagingSmsConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.messagingSmsEntryStorageConnectorType,
-			nameof<SmsEntry>()
+			nameof<SmsEntry>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 		connector = new EntityStorageMessagingSmsConnector({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
@@ -166,13 +175,21 @@ export async function initialiseMessagingPushNotificationConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.messagingDeviceEntryStorageConnectorType,
-			nameof<PushNotificationDeviceEntry>()
+			nameof<PushNotificationDeviceEntry>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 		initialiseEntityStorageConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.messagingMessageEntryStorageConnectorType,
-			nameof<PushNotificationMessageEntry>()
+			nameof<PushNotificationMessageEntry>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 		component = new EntityStorageMessagingPushNotificationConnector({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
@@ -262,7 +279,11 @@ export async function initialiseMessagingAdminComponent(
 			engineCore,
 			context,
 			instanceConfig.options?.templateEntryStorageConnectorType,
-			nameof<TemplateEntry>()
+			nameof<TemplateEntry>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 
 		component = new MessagingAdminService({

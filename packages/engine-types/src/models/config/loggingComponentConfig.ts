@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { ILoggingServiceConstructorOptions } from "@twin.org/logging-service";
-import type { LoggingComponentType } from "../types/loggingComponentType";
+import type { LoggingComponentType } from "../types/loggingComponentType.js";
 
 /**
  * Logging component config types.

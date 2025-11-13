@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IEntityStorageVerifiableStorageConnectorConstructorOptions } from "@twin.org/verifiable-storage-connector-entity-storage";
 import type { IIotaVerifiableStorageConnectorConstructorOptions } from "@twin.org/verifiable-storage-connector-iota";
-import type { VerifiableStorageConnectorType } from "../types/verifiableStorageConnectorType";
+import type { VerifiableStorageConnectorType } from "../types/verifiableStorageConnectorType.js";
 
 /**
  * Verifiable storage connector config types.

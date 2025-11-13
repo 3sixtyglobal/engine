@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
@@ -16,15 +17,15 @@ import {
 } from "@twin.org/verifiable-storage-models";
 import { VerifiableStorageRestClient } from "@twin.org/verifiable-storage-rest-client";
 import { VerifiableStorageService } from "@twin.org/verifiable-storage-service";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { DltConfig } from "../models/config/dltConfig";
-import type { VerifiableStorageComponentConfig } from "../models/config/verifiableStorageComponentConfig";
-import type { VerifiableStorageConnectorConfig } from "../models/config/verifiableStorageConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { DltConfigType } from "../models/types/dltConfigType";
-import { VerifiableStorageComponentType } from "../models/types/verifiableStorageComponentType";
-import { VerifiableStorageConnectorType } from "../models/types/verifiableStorageConnectorType";
-import { EngineTypeHelper } from "../utils/engineTypeHelper";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { DltConfig } from "../models/config/dltConfig.js";
+import type { VerifiableStorageComponentConfig } from "../models/config/verifiableStorageComponentConfig.js";
+import type { VerifiableStorageConnectorConfig } from "../models/config/verifiableStorageConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { DltConfigType } from "../models/types/dltConfigType.js";
+import { VerifiableStorageComponentType } from "../models/types/verifiableStorageComponentType.js";
+import { VerifiableStorageConnectorType } from "../models/types/verifiableStorageConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the verifiable storage connector.
@@ -67,7 +68,11 @@ export async function initialiseVerifiableStorageConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.verifiableStorageEntityStorageType,
-			nameof<VerifiableItem>()
+			nameof<VerifiableItem>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 		component = new EntityStorageVerifiableStorageConnector(instanceConfig.options);
 		instanceType = EntityStorageVerifiableStorageConnector.NAMESPACE;

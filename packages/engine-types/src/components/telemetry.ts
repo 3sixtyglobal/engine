@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
@@ -16,12 +17,12 @@ import {
 } from "@twin.org/telemetry-models";
 import { TelemetryRestClient } from "@twin.org/telemetry-rest-client";
 import { TelemetryService } from "@twin.org/telemetry-service";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { TelemetryComponentConfig } from "../models/config/telemetryComponentConfig";
-import type { TelemetryConnectorConfig } from "../models/config/telemetryConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { TelemetryComponentType } from "../models/types/telemetryComponentType";
-import { TelemetryConnectorType } from "../models/types/telemetryConnectorType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { TelemetryComponentConfig } from "../models/config/telemetryComponentConfig.js";
+import type { TelemetryConnectorConfig } from "../models/config/telemetryConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { TelemetryComponentType } from "../models/types/telemetryComponentType.js";
+import { TelemetryConnectorType } from "../models/types/telemetryConnectorType.js";
 
 /**
  * Initialise a telemetry connector.
@@ -48,13 +49,21 @@ export async function initialiseTelemetryConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.telemetryMetricStorageConnectorType,
-			nameof<TelemetryMetric>()
+			nameof<TelemetryMetric>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 		initialiseEntityStorageConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.telemetryMetricValueStorageConnectorType,
-			nameof<TelemetryMetricValue>()
+			nameof<TelemetryMetricValue>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 		component = new EntityStorageTelemetryConnector({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),

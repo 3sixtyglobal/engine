@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { ConsoleLoggingConnector } from "@twin.org/logging-connector-console";
@@ -17,12 +18,12 @@ import {
 import { LoggingRestClient } from "@twin.org/logging-rest-client";
 import { LoggingService } from "@twin.org/logging-service";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { LoggingComponentConfig } from "../models/config/loggingComponentConfig";
-import type { LoggingConnectorConfig } from "../models/config/loggingConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { LoggingComponentType } from "../models/types/loggingComponentType";
-import { LoggingConnectorType } from "../models/types/loggingConnectorType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { LoggingComponentConfig } from "../models/config/loggingComponentConfig.js";
+import type { LoggingConnectorConfig } from "../models/config/loggingConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { LoggingComponentType } from "../models/types/loggingComponentType.js";
+import { LoggingConnectorType } from "../models/types/loggingConnectorType.js";
 
 /**
  * Initialise the logging connector.
@@ -52,7 +53,11 @@ export async function initialiseLoggingConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.logEntryStorageConnectorType,
-			nameof<LogEntry>()
+			nameof<LogEntry>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 		component = new EntityStorageLoggingConnector(instanceConfig.options);
 		instanceType = EntityStorageLoggingConnector.NAMESPACE;

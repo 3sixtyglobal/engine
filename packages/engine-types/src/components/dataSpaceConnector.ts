@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IDataSpaceConnector } from "@twin.org/data-space-connector-models";
 import { DataSpaceConnectorRestClient } from "@twin.org/data-space-connector-rest-client";
@@ -12,10 +13,10 @@ import {
 import { DataSpaceConnectorSocketClient } from "@twin.org/data-space-connector-socket-client";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { DataSpaceConnectorComponentConfig } from "../models/config/dataSpaceConnectorComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { DataSpaceConnectorComponentType } from "../models/types/dataSpaceConnectorComponentType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { DataSpaceConnectorComponentConfig } from "../models/config/dataSpaceConnectorComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { DataSpaceConnectorComponentType } from "../models/types/dataSpaceConnectorComponentType.js";
 
 /**
  * Initialise the data space connector component.
@@ -39,22 +40,33 @@ export async function initialiseDataSpaceConnectorComponent(
 	if (instanceConfig.type === DataSpaceConnectorComponentType.Service) {
 		initSchemaDataSpaceConnector();
 
+		const partitionContextIds = ContextIdHelper.pickKeysFromAvailable(
+			engineCore.getContextIdKeys(),
+			[ContextIdKeys.Node, ContextIdKeys.Tenant]
+		);
+
 		initialiseEntityStorageConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.activityLogEntityStorageType,
-			nameof<ActivityLogDetails>()
+			nameof<ActivityLogDetails>(),
+			partitionContextIds
 		);
 		initialiseEntityStorageConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.activityTaskEntityStorageType,
-			nameof<ActivityTask>()
+			nameof<ActivityTask>(),
+			partitionContextIds
 		);
 		component = new DataSpaceConnectorService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			backgroundTaskConnectorType: engineCore.getRegisteredInstanceType("backgroundTaskConnector"),
 			taskSchedulerComponentType: engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
+			federatedCatalogueComponentType: engineCore.getRegisteredInstanceType(
+				"federatedCatalogueComponent"
+			),
+			partitionContextIds,
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(DataSpaceConnectorService);

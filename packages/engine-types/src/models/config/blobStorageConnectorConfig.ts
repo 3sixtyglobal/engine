@@ -5,7 +5,7 @@ import type { IAzureBlobStorageConnectorConstructorOptions } from "@twin.org/blo
 import type { IFileBlobStorageConnectorConstructorOptions } from "@twin.org/blob-storage-connector-file";
 import type { IGcpBlobStorageConnectorConstructorOptions } from "@twin.org/blob-storage-connector-gcp";
 import type { IIpfsBlobStorageConnectorConstructorOptions } from "@twin.org/blob-storage-connector-ipfs";
-import type { BlobStorageConnectorType } from "../types/blobStorageConnectorType";
+import type { BlobStorageConnectorType } from "../types/blobStorageConnectorType.js";
 
 /**
  * Blob storage connector config types.

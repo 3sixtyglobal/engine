@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ContextIdKeys } from "@twin.org/context";
 import { Guards, Is, StringHelper } from "@twin.org/core";
 import { EntityStorageComponentType, type IEngineConfig } from "@twin.org/engine-types";
 import { EntitySchemaFactory, type IEntitySchema } from "@twin.org/entity";
@@ -20,25 +21,18 @@ export class EngineConfigHelper {
 	 * @param entityTypeName The entity type name.
 	 * @param entitySchema The entity schema.
 	 * @param restPath The rest path to serve the entity storage from, leave undefined for no endpoints.
-	 * @param options Additional options.
-	 * @param options.partitionPerUser Whether to partition the user identity in the data, defaults to false.
+	 * @param partitionContextIds The context ids to use for partitioning.
 	 */
 	public static addCustomEntityStorage<T>(
 		engineConfig: IEngineConfig,
 		entityTypeName: string,
 		entitySchema: IEntitySchema<T>,
 		restPath?: string,
-		options?: {
-			partitionPerUser?: boolean;
-		}
+		partitionContextIds?: string[]
 	): void {
 		Guards.object<IEngineConfig>(EngineConfigHelper.CLASS_NAME, nameof(engineConfig), engineConfig);
 		Guards.stringValue(EngineConfigHelper.CLASS_NAME, nameof(entityTypeName), entityTypeName);
-		Guards.object<IEntitySchema<unknown>>(
-			EngineConfigHelper.CLASS_NAME,
-			nameof(entitySchema),
-			entitySchema
-		);
+		Guards.object<IEntitySchema>(EngineConfigHelper.CLASS_NAME, nameof(entitySchema), entitySchema);
 
 		engineConfig.types.entityStorageComponent ??= [];
 
@@ -48,9 +42,7 @@ export class EngineConfigHelper {
 			type: EntityStorageComponentType.Service,
 			options: {
 				entityStorageType: entityTypeName,
-				config: {
-					partitionPerUser: options?.partitionPerUser
-				}
+				partitionContextIds: partitionContextIds ?? [ContextIdKeys.Node, ContextIdKeys.Tenant]
 			},
 			overrideInstanceType: StringHelper.kebabCase(entityTypeName),
 			restPath: Is.stringValue(restPath) ? restPath : undefined

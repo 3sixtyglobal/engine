@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { IIdentityResolverServiceConstructorOptions } from "@twin.org/identity-service";
-import type { IdentityResolverComponentType } from "../types/identityResolverComponentType";
+import type { IdentityResolverComponentType } from "../types/identityResolverComponentType.js";
 
 /**
  * Identity resolver component config types.

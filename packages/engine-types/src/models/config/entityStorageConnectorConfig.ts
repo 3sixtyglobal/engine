@@ -9,7 +9,7 @@ import type { IMySqlEntityStorageConnectorConstructorOptions } from "@twin.org/e
 import type { IPostgreSqlEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-postgresql";
 import type { IScyllaDBTableConnectorConstructorOptions } from "@twin.org/entity-storage-connector-scylladb";
 import type { ISynchronisedEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-synchronised";
-import type { EntityStorageConnectorType } from "../types/entityStorageConnectorType";
+import type { EntityStorageConnectorType } from "../types/entityStorageConnectorType.js";
 
 /**
  * Entity storage connector config types.

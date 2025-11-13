@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IEngineModuleConfig } from "@twin.org/engine-models";
 import type { IDataAccessRequestPointServiceConstructorOptions } from "@twin.org/rights-management-dap-service";
-import type { RightsManagementDarpComponentType } from "../types/rightsManagementDarpComponentType";
+import type { RightsManagementDarpComponentType } from "../types/rightsManagementDarpComponentType.js";
 
 /**
  * Rights management DARP component config types.

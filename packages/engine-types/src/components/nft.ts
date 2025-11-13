@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
@@ -12,15 +13,15 @@ import { IotaNftConnector } from "@twin.org/nft-connector-iota";
 import { NftConnectorFactory, type INftComponent, type INftConnector } from "@twin.org/nft-models";
 import { NftRestClient } from "@twin.org/nft-rest-client";
 import { NftService } from "@twin.org/nft-service";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { DltConfig } from "../models/config/dltConfig";
-import type { NftComponentConfig } from "../models/config/nftComponentConfig";
-import type { NftConnectorConfig } from "../models/config/nftConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { DltConfigType } from "../models/types/dltConfigType";
-import { NftComponentType } from "../models/types/nftComponentType";
-import { NftConnectorType } from "../models/types/nftConnectorType";
-import { EngineTypeHelper } from "../utils/engineTypeHelper";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { DltConfig } from "../models/config/dltConfig.js";
+import type { NftComponentConfig } from "../models/config/nftComponentConfig.js";
+import type { NftConnectorConfig } from "../models/config/nftConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { DltConfigType } from "../models/types/dltConfigType.js";
+import { NftComponentType } from "../models/types/nftComponentType.js";
+import { NftConnectorType } from "../models/types/nftConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the NFT connector.
@@ -47,7 +48,11 @@ export async function initialiseNftConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.nftEntityStorageType,
-			nameof<Nft>()
+			nameof<Nft>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 		component = new EntityStorageNftConnector(instanceConfig.options);
 		instanceType = EntityStorageNftConnector.NAMESPACE;

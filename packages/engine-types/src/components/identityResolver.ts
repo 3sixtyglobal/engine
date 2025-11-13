@@ -17,15 +17,15 @@ import {
 import { IdentityResolverRestClient } from "@twin.org/identity-rest-client";
 import { IdentityResolverService } from "@twin.org/identity-service";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { DltConfig } from "../models/config/dltConfig";
-import type { IdentityResolverComponentConfig } from "../models/config/identityResolverComponentConfig";
-import type { IdentityResolverConnectorConfig } from "../models/config/identityResolverConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { DltConfigType } from "../models/types/dltConfigType";
-import { IdentityResolverComponentType } from "../models/types/identityResolverComponentType";
-import { IdentityResolverConnectorType } from "../models/types/identityResolverConnectorType";
-import { EngineTypeHelper } from "../utils/engineTypeHelper";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { DltConfig } from "../models/config/dltConfig.js";
+import type { IdentityResolverComponentConfig } from "../models/config/identityResolverComponentConfig.js";
+import type { IdentityResolverConnectorConfig } from "../models/config/identityResolverConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { DltConfigType } from "../models/types/dltConfigType.js";
+import { IdentityResolverComponentType } from "../models/types/identityResolverComponentType.js";
+import { IdentityResolverConnectorType } from "../models/types/identityResolverConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the identity resolver connector.
@@ -66,7 +66,8 @@ export async function initialiseIdentityResolverConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.didDocumentEntityStorageType,
-			nameof<IdentityDocument>()
+			nameof<IdentityDocument>(),
+			[]
 		);
 		component = new EntityStorageIdentityResolverConnector({
 			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),

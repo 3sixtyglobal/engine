@@ -6,13 +6,14 @@ import {
 	initSchema as initSchemaAuthEntityStorage,
 	type AuthenticationUser
 } from "@twin.org/api-auth-entity-storage-service";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { initialiseEntityStorageConnector } from "@twin.org/engine-types";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import type { AuthenticationAdminComponentConfig } from "../models/config/authenticationAdminComponentConfig";
-import type { IEngineServerConfig } from "../models/IEngineServerConfig";
-import { AuthenticationAdminComponentType } from "../models/types/authenticationAdminComponentType";
+import type { AuthenticationAdminComponentConfig } from "../models/config/authenticationAdminComponentConfig.js";
+import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
+import { AuthenticationAdminComponentType } from "../models/types/authenticationAdminComponentType.js";
 
 /**
  * Initialise the authentication admin.
@@ -35,7 +36,11 @@ export async function initialiseAuthenticationAdminComponent(
 			engineCore,
 			context,
 			instanceConfig.options?.userEntityStorageType,
-			nameof<AuthenticationUser>()
+			nameof<AuthenticationUser>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 
 		component = new EntityStorageAuthenticationAdminService({

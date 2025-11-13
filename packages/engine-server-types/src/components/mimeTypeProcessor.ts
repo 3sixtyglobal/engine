@@ -5,9 +5,9 @@ import { JwtMimeTypeProcessor } from "@twin.org/api-processors";
 import type { IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
-import type { MimeTypeProcessorConfig } from "../models/config/mimeTypeProcessorConfig";
-import type { IEngineServerConfig } from "../models/IEngineServerConfig";
-import { MimeTypeProcessorType } from "../models/types/mimeTypeProcessorType";
+import type { MimeTypeProcessorConfig } from "../models/config/mimeTypeProcessorConfig.js";
+import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
+import { MimeTypeProcessorType } from "../models/types/mimeTypeProcessorType.js";
 
 /**
  * Initialise the mime type processor.

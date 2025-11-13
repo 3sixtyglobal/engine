@@ -9,9 +9,9 @@ import type {
 	IPolicyDecisionPointComponent
 } from "@twin.org/rights-management-models";
 import { PolicyDecisionPointService } from "@twin.org/rights-management-pdp-service";
-import type { RightsManagementPdpComponentConfig } from "../models/config/rightsManagementPdpComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { RightsManagementPdpComponentType } from "../models/types/rightsManagementPdpComponentType";
+import type { RightsManagementPdpComponentConfig } from "../models/config/rightsManagementPdpComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { RightsManagementPdpComponentType } from "../models/types/rightsManagementPdpComponentType.js";
 
 /**
  * Initialise the rights management PDP component.

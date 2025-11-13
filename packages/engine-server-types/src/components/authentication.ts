@@ -7,13 +7,14 @@ import {
 	initSchema as initSchemaAuthEntityStorage,
 	type AuthenticationUser
 } from "@twin.org/api-auth-entity-storage-service";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { initialiseEntityStorageConnector } from "@twin.org/engine-types";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import type { AuthenticationComponentConfig } from "../models/config/authenticationComponentConfig";
-import type { IEngineServerConfig } from "../models/IEngineServerConfig";
-import { AuthenticationComponentType } from "../models/types/authenticationComponentType";
+import type { AuthenticationComponentConfig } from "../models/config/authenticationComponentConfig.js";
+import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
+import { AuthenticationComponentType } from "../models/types/authenticationComponentType.js";
 
 /**
  * Initialise the authentication.
@@ -36,7 +37,11 @@ export async function initialiseAuthenticationComponent(
 			engineCore,
 			context,
 			instanceConfig.options?.userEntityStorageType,
-			nameof<AuthenticationUser>()
+			nameof<AuthenticationUser>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 
 		component = new EntityStorageAuthenticationService({

@@ -4,17 +4,24 @@ import { AuthHeaderProcessor } from "@twin.org/api-auth-entity-storage-service";
 import { SocketRouteProcessorFactory, type IBaseRouteProcessor } from "@twin.org/api-models";
 import {
 	LoggingProcessor,
-	NodeIdentityProcessor,
+	ContextIdProcessor,
 	SocketRouteProcessor,
-	StaticUserIdentityProcessor
+	StaticContextIdProcessor
 } from "@twin.org/api-processors";
+import {
+	initSchema as initSchemaTenantProcessor,
+	type Tenant,
+	TenantProcessor
+} from "@twin.org/api-tenant-processor";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import type { IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import { initialiseEntityStorageConnector } from "@twin.org/engine-types";
 import { VerifiableCredentialAuthenticationProcessor } from "@twin.org/identity-authentication";
-import { nameofKebabCase } from "@twin.org/nameof";
-import type { SocketRouteProcessorConfig } from "../models/config/socketRouteProcessorConfig";
-import type { IEngineServerConfig } from "../models/IEngineServerConfig";
-import { SocketRouteProcessorType } from "../models/types/socketRouteProcessorType";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
+import type { SocketRouteProcessorConfig } from "../models/config/socketRouteProcessorConfig.js";
+import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
+import { SocketRouteProcessorType } from "../models/types/socketRouteProcessorType.js";
 
 /**
  * Initialise the socket route processor.
@@ -60,15 +67,27 @@ export async function initialiseSocketRouteProcessorComponent(
 			}
 		});
 		instanceType = nameofKebabCase(LoggingProcessor);
-	} else if (instanceConfig.type === SocketRouteProcessorType.NodeIdentity) {
-		component = new NodeIdentityProcessor();
-		instanceType = nameofKebabCase(NodeIdentityProcessor);
-	} else if (instanceConfig.type === SocketRouteProcessorType.StaticUserIdentity) {
-		component = new StaticUserIdentityProcessor(instanceConfig.options);
-		instanceType = nameofKebabCase(StaticUserIdentityProcessor);
+	} else if (instanceConfig.type === SocketRouteProcessorType.ContextId) {
+		component = new ContextIdProcessor(instanceConfig.options);
+		instanceType = nameofKebabCase(ContextIdProcessor);
+	} else if (instanceConfig.type === SocketRouteProcessorType.StaticContextId) {
+		component = new StaticContextIdProcessor(instanceConfig.options);
+		instanceType = nameofKebabCase(StaticContextIdProcessor);
 	} else if (instanceConfig.type === SocketRouteProcessorType.SocketRoute) {
 		component = new SocketRouteProcessor(instanceConfig.options);
 		instanceType = nameofKebabCase(SocketRouteProcessor);
+	} else if (instanceConfig.type === SocketRouteProcessorType.Tenant) {
+		initSchemaTenantProcessor();
+		initialiseEntityStorageConnector(
+			engineCore,
+			context,
+			instanceConfig.options?.tenantEntityStorageType,
+			nameof<Tenant>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
+		);
+
+		component = new TenantProcessor(instanceConfig.options);
+		instanceType = nameofKebabCase(TenantProcessor);
 	}
 
 	return {

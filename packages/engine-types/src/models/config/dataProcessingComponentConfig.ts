@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { IDataProcessingServiceConstructorOptions } from "@twin.org/data-processing-service";
-import type { DataProcessingComponentType } from "../types/dataProcessingComponentType";
+import type { DataProcessingComponentType } from "../types/dataProcessingComponentType.js";
 
 /**
  * Data processing component config types.

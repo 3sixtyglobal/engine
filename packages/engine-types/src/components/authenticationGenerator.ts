@@ -8,9 +8,9 @@ import type { IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { VerifiableCredentialAuthenticationGenerator } from "@twin.org/identity-authentication";
 import { nameofKebabCase } from "@twin.org/nameof";
-import type { AuthenticationGeneratorComponentConfig } from "../models/config/authenticationGeneratorComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { AuthenticationGeneratorComponentType } from "../models/types/authenticationGeneratorComponentType";
+import type { AuthenticationGeneratorComponentConfig } from "../models/config/authenticationGeneratorComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { AuthenticationGeneratorComponentType } from "../models/types/authenticationGeneratorComponentType.js";
 
 /**
  * Initialise the authentication generator component.

@@ -7,6 +7,7 @@ import {
 	SocketRouteProcessorFactory
 } from "@twin.org/api-models";
 import { FastifyWebServer } from "@twin.org/api-server-fastify";
+import { ContextIdStore } from "@twin.org/context";
 import { Guards, Is, StringHelper } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreTypeConfig, IEngineServer } from "@twin.org/engine-models";
 import {
@@ -16,9 +17,9 @@ import {
 } from "@twin.org/engine-server-types";
 import { ModuleHelper } from "@twin.org/modules";
 import { nameof } from "@twin.org/nameof";
-import serverRestRouteGenerators from "./data/serverRestRouteGenerators.json";
-import serverSocketRouteGenerators from "./data/serverSocketRouteGenerators.json";
-import serverTypeInitialisers from "./data/serverTypeInitialisers.json";
+import serverRestRouteGenerators from "./data/serverRestRouteGenerators.json" with { type: "json" };
+import serverSocketRouteGenerators from "./data/serverSocketRouteGenerators.json" with { type: "json" };
+import serverTypeInitialisers from "./data/serverTypeInitialisers.json" with { type: "json" };
 
 /**
  * Server for the engine.
@@ -215,7 +216,9 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 		const canContinue = await this._engineCore.start();
 
 		if (canContinue) {
-			await this.startWebServer();
+			await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
+				await this.startWebServer();
+			});
 		}
 
 		return canContinue;
@@ -226,10 +229,12 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	 * @returns Nothing.
 	 */
 	public async stop(): Promise<void> {
-		if (this._webServer) {
-			await this._webServer.stop();
-			this._webServer = undefined;
-		}
+		await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
+			if (this._webServer) {
+				await this._webServer.stop();
+				this._webServer = undefined;
+			}
+		});
 
 		await this._engineCore.stop();
 	}

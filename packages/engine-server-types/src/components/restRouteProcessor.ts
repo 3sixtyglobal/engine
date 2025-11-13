@@ -4,17 +4,24 @@ import { AuthHeaderProcessor } from "@twin.org/api-auth-entity-storage-service";
 import { RestRouteProcessorFactory, type IBaseRouteProcessor } from "@twin.org/api-models";
 import {
 	LoggingProcessor,
-	NodeIdentityProcessor,
+	ContextIdProcessor,
 	RestRouteProcessor,
-	StaticUserIdentityProcessor
+	StaticContextIdProcessor
 } from "@twin.org/api-processors";
+import {
+	initSchema as initSchemaTenantProcessor,
+	type Tenant,
+	TenantProcessor
+} from "@twin.org/api-tenant-processor";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import type { IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import { initialiseEntityStorageConnector } from "@twin.org/engine-types";
 import { VerifiableCredentialAuthenticationProcessor } from "@twin.org/identity-authentication";
-import { nameofKebabCase } from "@twin.org/nameof";
-import type { RestRouteProcessorConfig } from "../models/config/restRouteProcessorConfig";
-import type { IEngineServerConfig } from "../models/IEngineServerConfig";
-import { RestRouteProcessorType } from "../models/types/restRouteProcessorType";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
+import type { RestRouteProcessorConfig } from "../models/config/restRouteProcessorConfig.js";
+import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
+import { RestRouteProcessorType } from "../models/types/restRouteProcessorType.js";
 
 /**
  * Initialise the rest route processor.
@@ -60,16 +67,32 @@ export async function initialiseRestRouteProcessorComponent(
 			}
 		});
 		instanceType = nameofKebabCase(LoggingProcessor);
-	} else if (instanceConfig.type === RestRouteProcessorType.NodeIdentity) {
-		component = new NodeIdentityProcessor();
-		instanceType = nameofKebabCase(NodeIdentityProcessor);
-	} else if (instanceConfig.type === RestRouteProcessorType.StaticUserIdentity) {
-		component = new StaticUserIdentityProcessor(instanceConfig.options);
-		instanceType = nameofKebabCase(StaticUserIdentityProcessor);
+	} else if (instanceConfig.type === RestRouteProcessorType.ContextId) {
+		component = new ContextIdProcessor(instanceConfig.options);
+		instanceType = nameofKebabCase(ContextIdProcessor);
+	} else if (instanceConfig.type === RestRouteProcessorType.StaticContextId) {
+		component = new StaticContextIdProcessor(instanceConfig.options);
+		instanceType = nameofKebabCase(StaticContextIdProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.RestRoute) {
 		component = new RestRouteProcessor(instanceConfig.options);
 		instanceType = nameofKebabCase(RestRouteProcessor);
+	} else if (instanceConfig.type === RestRouteProcessorType.Tenant) {
+		initSchemaTenantProcessor();
+		initialiseEntityStorageConnector(
+			engineCore,
+			context,
+			instanceConfig.options?.tenantEntityStorageType,
+			nameof<Tenant>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
+		);
+
+		component = new TenantProcessor(instanceConfig.options);
+		instanceType = nameofKebabCase(TenantProcessor);
 	}
+
 	return {
 		component,
 		instanceType,

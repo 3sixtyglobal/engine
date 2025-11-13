@@ -18,15 +18,16 @@ import {
 	initSchema as initSchemaBlobStorage,
 	type BlobStorageEntry
 } from "@twin.org/blob-storage-service";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { Is, type IComponent, ComponentFactory } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { BlobStorageComponentConfig } from "../models/config/blobStorageComponentConfig";
-import type { BlobStorageConnectorConfig } from "../models/config/blobStorageConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { BlobStorageComponentType } from "../models/types/blobStorageComponentType";
-import { BlobStorageConnectorType } from "../models/types/blobStorageConnectorType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { BlobStorageComponentConfig } from "../models/config/blobStorageComponentConfig.js";
+import type { BlobStorageConnectorConfig } from "../models/config/blobStorageConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { BlobStorageComponentType } from "../models/types/blobStorageComponentType.js";
+import { BlobStorageConnectorType } from "../models/types/blobStorageConnectorType.js";
 
 /**
  * Initialise the blob storage connector.
@@ -48,10 +49,20 @@ export async function initialiseBlobStorageConnector(
 	let instanceType: string | undefined;
 
 	if (instanceConfig.type === BlobStorageConnectorType.Ipfs) {
-		component = new IpfsBlobStorageConnector(instanceConfig.options);
+		component = new IpfsBlobStorageConnector({
+			partitionContextIds: ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			]),
+			...instanceConfig.options
+		});
 		instanceType = IpfsBlobStorageConnector.NAMESPACE;
 	} else if (instanceConfig.type === BlobStorageConnectorType.File) {
 		component = new FileBlobStorageConnector({
+			partitionContextIds: ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			]),
 			...instanceConfig.options,
 			config: {
 				...instanceConfig.options.config,
@@ -62,10 +73,19 @@ export async function initialiseBlobStorageConnector(
 		});
 		instanceType = FileBlobStorageConnector.NAMESPACE;
 	} else if (instanceConfig.type === BlobStorageConnectorType.Memory) {
-		component = new MemoryBlobStorageConnector();
+		component = new MemoryBlobStorageConnector({
+			partitionContextIds: ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
+		});
 		instanceType = MemoryBlobStorageConnector.NAMESPACE;
 	} else if (instanceConfig.type === BlobStorageConnectorType.AwsS3) {
 		component = new S3BlobStorageConnector({
+			partitionContextIds: ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			]),
 			...instanceConfig.options,
 			config: {
 				...instanceConfig.options.config,
@@ -75,6 +95,10 @@ export async function initialiseBlobStorageConnector(
 		instanceType = S3BlobStorageConnector.NAMESPACE;
 	} else if (instanceConfig.type === BlobStorageConnectorType.GcpStorage) {
 		component = new GcpBlobStorageConnector({
+			partitionContextIds: ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			]),
 			...instanceConfig.options,
 			config: {
 				...instanceConfig.options.config,
@@ -84,6 +108,10 @@ export async function initialiseBlobStorageConnector(
 		instanceType = GcpBlobStorageConnector.NAMESPACE;
 	} else if (instanceConfig.type === BlobStorageConnectorType.AzureStorage) {
 		component = new AzureBlobStorageConnector({
+			partitionContextIds: ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			]),
 			...instanceConfig.options,
 			config: {
 				...instanceConfig.options.config,
@@ -125,7 +153,11 @@ export async function initialiseBlobStorageComponent(
 			engineCore,
 			context,
 			instanceConfig.options?.entryEntityStorageType,
-			nameof<BlobStorageEntry>()
+			nameof<BlobStorageEntry>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 
 		component = new BlobStorageService({

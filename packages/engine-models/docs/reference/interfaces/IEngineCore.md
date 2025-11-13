@@ -68,6 +68,80 @@ The type config or undefined if not found.
 
 ***
 
+### addContextIdKey()
+
+> **addContextIdKey**(`key`): `void`
+
+Add a context ID key to the engine.
+
+#### Parameters
+
+##### key
+
+`string`
+
+The context ID key.
+
+#### Returns
+
+`void`
+
+***
+
+### getContextIdKeys()
+
+> **getContextIdKeys**(): `string`[]
+
+Get the context ID keys for the engine.
+
+#### Returns
+
+`string`[]
+
+The context IDs keys.
+
+***
+
+### addContextId()
+
+> **addContextId**(`key`, `value`): `void`
+
+Add a context ID to the engine.
+
+#### Parameters
+
+##### key
+
+`string`
+
+The context ID key.
+
+##### value
+
+`string`
+
+The context ID value.
+
+#### Returns
+
+`void`
+
+***
+
+### getContextIds()
+
+> **getContextIds**(): `undefined` \| `IContextIds`
+
+Get the context IDs for the engine.
+
+#### Returns
+
+`undefined` \| `IContextIds`
+
+The context IDs or undefined if none are set.
+
+***
+
 ### start()
 
 > **start**(): `Promise`\<`boolean`\>

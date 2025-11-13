@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { Factory } from "@twin.org/core";
-import type { IEngineServer } from "../models/IEngineServer";
+import type { IEngineServer } from "../models/IEngineServer.js";
 
 /**
  * Factory for creating engine servers.

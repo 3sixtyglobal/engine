@@ -8,13 +8,14 @@ import {
 	type AuditableItemGraphVertex,
 	initSchema as initSchemaAuditableItemGraph
 } from "@twin.org/auditable-item-graph-service";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { AuditableItemGraphComponentConfig } from "../models/config/auditableItemGraphComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { AuditableItemGraphComponentType } from "../models/types/auditableItemGraphComponentType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { AuditableItemGraphComponentConfig } from "../models/config/auditableItemGraphComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { AuditableItemGraphComponentType } from "../models/types/auditableItemGraphComponentType.js";
 
 /**
  * Initialise the auditable item graph component.
@@ -38,13 +39,21 @@ export async function initialiseAuditableItemGraphComponent(
 			engineCore,
 			context,
 			instanceConfig.options?.vertexEntityStorageType,
-			nameof<AuditableItemGraphVertex>()
+			nameof<AuditableItemGraphVertex>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 		initialiseEntityStorageConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.changesetEntityStorageType,
-			nameof<AuditableItemGraphChangeset>()
+			nameof<AuditableItemGraphChangeset>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 
 		component = new AuditableItemGraphService({

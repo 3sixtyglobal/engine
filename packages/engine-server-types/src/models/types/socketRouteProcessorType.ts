@@ -22,14 +22,19 @@ export const SocketRouteProcessorType = {
 	Logging: "logging",
 
 	/**
-	 * Node Identity.
+	 * Context ID.
 	 */
-	NodeIdentity: "node-identity",
+	ContextId: "context-id",
 
 	/**
-	 * Static User Identity.
+	 * Static Context ID.
 	 */
-	StaticUserIdentity: "static-user-identity",
+	StaticContextId: "static-context-id",
+
+	/**
+	 * Tenant.
+	 */
+	Tenant: "tenant",
 
 	/**
 	 * Socket Route.

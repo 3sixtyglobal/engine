@@ -1,6 +1,6 @@
 # Function: initialiseEntityStorageConnector()
 
-> **initialiseEntityStorageConnector**(`engineCore`, `context`, `typeCustom`, `schema`): `string`
+> **initialiseEntityStorageConnector**(`engineCore`, `context`, `typeCustom`, `schema`, `partitionContextIds`): `string`
 
 Initialise the entity storage connector.
 
@@ -29,6 +29,12 @@ Override the type of connector to use instead of default configuration.
 `string`
 
 The schema for the entity storage.
+
+### partitionContextIds
+
+`string`[]
+
+The context IDs to use for partitioning the data.
 
 ## Returns
 

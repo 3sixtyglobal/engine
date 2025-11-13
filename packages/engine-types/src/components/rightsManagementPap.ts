@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
@@ -10,10 +11,10 @@ import {
 	PolicyAdministrationPointService
 } from "@twin.org/rights-management-pap-service";
 import { PolicyAdministrationPointRestClient } from "@twin.org/rights-management-rest-client";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { RightsManagementPapComponentConfig } from "../models/config/rightsManagementPapComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { RightsManagementPapComponentType } from "../models/types/rightsManagementPapComponentType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { RightsManagementPapComponentConfig } from "../models/config/rightsManagementPapComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { RightsManagementPapComponentType } from "../models/types/rightsManagementPapComponentType.js";
 
 /**
  * Initialise the rights management PAP component.
@@ -41,7 +42,11 @@ export async function initialiseRightsManagementPapComponent(
 			engineCore,
 			context,
 			instanceConfig.options?.odrlPolicyEntityStorageType,
-			nameof<OdrlPolicy>()
+			nameof<OdrlPolicy>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 
 		component = new PolicyAdministrationPointService({

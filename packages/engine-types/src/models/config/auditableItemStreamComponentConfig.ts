@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { IAuditableItemStreamServiceConstructorOptions } from "@twin.org/auditable-item-stream-service";
-import type { AuditableItemStreamComponentType } from "../types/auditableItemStreamComponentType";
+import type { AuditableItemStreamComponentType } from "../types/auditableItemStreamComponentType.js";
 
 /**
  * Auditable item stream component config types.

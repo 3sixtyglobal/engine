@@ -5,9 +5,9 @@ import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
 import type { IPolicyManagementPointComponent } from "@twin.org/rights-management-models";
 import { PolicyManagementPointService } from "@twin.org/rights-management-pmp-service";
-import type { RightsManagementPmpComponentConfig } from "../models/config/rightsManagementPmpComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { RightsManagementPmpComponentType } from "../models/types/rightsManagementPmpComponentType";
+import type { RightsManagementPmpComponentConfig } from "../models/config/rightsManagementPmpComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { RightsManagementPmpComponentType } from "../models/types/rightsManagementPmpComponentType.js";
 
 /**
  * Initialise the rights management PMP component.

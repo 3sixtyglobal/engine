@@ -6,9 +6,9 @@ import { InformationService } from "@twin.org/api-service";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
-import type { InformationComponentConfig } from "../models/config/informationComponentConfig";
-import type { IEngineServerConfig } from "../models/IEngineServerConfig";
-import { InformationComponentType } from "../models/types/informationComponentType";
+import type { InformationComponentConfig } from "../models/config/informationComponentConfig.js";
+import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
+import { InformationComponentType } from "../models/types/informationComponentType.js";
 
 /**
  * Initialise the information component.

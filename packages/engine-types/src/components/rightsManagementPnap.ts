@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
@@ -10,10 +11,10 @@ import {
 	initSchema as initSchemaRightsManagementPnap
 } from "@twin.org/rights-management-pnp-service";
 import { PolicyNegotiationAdminPointRestClient } from "@twin.org/rights-management-rest-client";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { RightsManagementPnapComponentConfig } from "../models/config/rightsManagementPnapComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { RightsManagementPnapComponentType } from "../models/types/rightsManagementPnapComponentType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { RightsManagementPnapComponentConfig } from "../models/config/rightsManagementPnapComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { RightsManagementPnapComponentType } from "../models/types/rightsManagementPnapComponentType.js";
 
 /**
  * Initialise the rights management PNAP component.
@@ -37,11 +38,17 @@ export async function initialiseRightsManagementPnapComponent(
 	if (instanceConfig.type === RightsManagementPnapComponentType.Service) {
 		initSchemaRightsManagementPnap();
 
+		const partitionContextIds = ContextIdHelper.pickKeysFromAvailable(
+			engineCore.getContextIdKeys(),
+			[ContextIdKeys.Node, ContextIdKeys.Tenant]
+		);
+
 		initialiseEntityStorageConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.policyNegotiationEntityStorageType,
-			nameof<PolicyNegotiation>()
+			nameof<PolicyNegotiation>(),
+			partitionContextIds
 		);
 
 		component = new PolicyNegotiationAdminPointService({
@@ -50,6 +57,7 @@ export async function initialiseRightsManagementPnapComponent(
 			policyInformationPointComponentType: engineCore.getRegisteredInstanceType(
 				"rightsManagementPipComponent"
 			),
+			partitionContextIds,
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(PolicyNegotiationAdminPointService);

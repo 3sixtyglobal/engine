@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { IAuditableItemGraphServiceConstructorOptions } from "@twin.org/auditable-item-graph-service";
-import type { AuditableItemGraphComponentType } from "../types/auditableItemGraphComponentType";
+import type { AuditableItemGraphComponentType } from "../types/auditableItemGraphComponentType.js";
 
 /**
  * Auditable item graph component config types.

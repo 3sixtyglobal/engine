@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import type { IFederatedCatalogueComponent } from "@twin.org/federated-catalogue-models";
@@ -13,10 +14,10 @@ import {
 	type ServiceOfferingEntry
 } from "@twin.org/federated-catalogue-service";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { FederatedCatalogueComponentConfig } from "../models/config/federatedCatalogueComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { FederatedCatalogueComponentType } from "../models/types/federatedCatalogueComponentType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { FederatedCatalogueComponentConfig } from "../models/config/federatedCatalogueComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { FederatedCatalogueComponentType } from "../models/types/federatedCatalogueComponentType.js";
 
 /**
  * Initialise the federated catalogue component.
@@ -44,25 +45,29 @@ export async function initialiseFederatedCatalogueComponent(
 			engineCore,
 			context,
 			instanceConfig.options?.dataResourceEntityStorageType,
-			nameof<DataResourceEntry>()
+			nameof<DataResourceEntry>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
 		);
 		initialiseEntityStorageConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.participantEntityStorageType,
-			nameof<ParticipantEntry>()
+			nameof<ParticipantEntry>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
 		);
 		initialiseEntityStorageConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.serviceOfferingEntityStorageType,
-			nameof<ServiceOfferingEntry>()
+			nameof<ServiceOfferingEntry>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
 		);
 		initialiseEntityStorageConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.dataSpaceConnectorStorageType,
-			nameof<DataSpaceConnectorEntry>()
+			nameof<DataSpaceConnectorEntry>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
 		);
 
 		component = new FederatedCatalogueService({

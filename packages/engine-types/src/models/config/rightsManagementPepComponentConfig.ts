@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IEngineModuleConfig } from "@twin.org/engine-models";
 import type { IPolicyEnforcementPointServiceConstructorOptions } from "@twin.org/rights-management-pep-service";
-import type { RightsManagementPepComponentType } from "../types/rightsManagementPepComponentType";
+import type { RightsManagementPepComponentType } from "../types/rightsManagementPepComponentType.js";
 
 /**
  * Rights management PEP component config types.

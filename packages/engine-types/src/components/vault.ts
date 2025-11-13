@@ -11,10 +11,10 @@ import {
 } from "@twin.org/vault-connector-entity-storage";
 import { HashicorpVaultConnector } from "@twin.org/vault-connector-hashicorp";
 import { VaultConnectorFactory, type IVaultConnector } from "@twin.org/vault-models";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { VaultConnectorConfig } from "../models/config/vaultConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { VaultConnectorType } from "../models/types/vaultConnectorType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { VaultConnectorConfig } from "../models/config/vaultConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { VaultConnectorType } from "../models/types/vaultConnectorType.js";
 
 /**
  * Initialise the vault connector.
@@ -41,13 +41,15 @@ export async function initialiseVaultConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.vaultKeyEntityStorageType,
-			nameof<VaultKey>()
+			nameof<VaultKey>(),
+			[]
 		);
 		initialiseEntityStorageConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.vaultSecretEntityStorageType,
-			nameof<VaultSecret>()
+			nameof<VaultSecret>(),
+			[]
 		);
 		component = new EntityStorageVaultConnector(instanceConfig.options);
 		instanceType = EntityStorageVaultConnector.NAMESPACE;

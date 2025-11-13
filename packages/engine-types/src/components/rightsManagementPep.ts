@@ -9,9 +9,9 @@ import type {
 	IPolicyEnforcementProcessor
 } from "@twin.org/rights-management-models";
 import { PolicyEnforcementPointService } from "@twin.org/rights-management-pep-service";
-import type { RightsManagementPepComponentConfig } from "../models/config/rightsManagementPepComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { RightsManagementPepComponentType } from "../models/types/rightsManagementPepComponentType";
+import type { RightsManagementPepComponentConfig } from "../models/config/rightsManagementPepComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { RightsManagementPepComponentType } from "../models/types/rightsManagementPepComponentType.js";
 
 /**
  * Initialise the rights management PEP component.

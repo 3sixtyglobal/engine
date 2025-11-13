@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IEngineModuleConfig } from "@twin.org/engine-models";
 import type { IPolicyExecutionPointServiceConstructorOptions } from "@twin.org/rights-management-pxp-service";
-import type { RightsManagementPxpComponentType } from "../types/rightsManagementPxpComponentType";
+import type { RightsManagementPxpComponentType } from "../types/rightsManagementPxpComponentType.js";
 
 /**
  * Rights management PXP component config types.

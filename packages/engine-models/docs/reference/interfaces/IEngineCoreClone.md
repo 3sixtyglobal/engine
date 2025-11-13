@@ -59,3 +59,11 @@ The entity schemas for the engine.
 #### Index Signature
 
 \[`schema`: `string`\]: `IEntitySchema`\<`unknown`\>
+
+***
+
+### contextIdKeys
+
+> **contextIdKeys**: `string`[]
+
+The context ID keys.

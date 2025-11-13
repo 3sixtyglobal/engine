@@ -378,6 +378,12 @@ Federated catalogue options which can be overridden by individual components by 
 
 Data space connector options which can be overridden by individual components by specifying types other than default.
 
+#### tenantAdminComponent?
+
+> `optional` **tenantAdminComponent**: `IEngineCoreTypeConfig`\<[`TenantAdminComponentConfig`](../type-aliases/TenantAdminComponentConfig.md)\>[]
+
+Tenant admin component options which can be overridden by individual components by specifying types other than default.
+
 #### Overrides
 
 `IEngineCoreConfig.types`

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { INftServiceConstructorOptions } from "@twin.org/nft-service";
-import type { NftComponentType } from "../types/nftComponentType";
+import type { NftComponentType } from "../types/nftComponentType.js";
 
 /**
  * NFT component config types.

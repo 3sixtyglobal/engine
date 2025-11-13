@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { ITaskSchedulerConstructorOptions } from "@twin.org/background-task-scheduler";
-import type { TaskSchedulerComponentType } from "../types/taskSchedulerComponentType";
+import type { TaskSchedulerComponentType } from "../types/taskSchedulerComponentType.js";
 
 /**
  * Background task scheduled component config types.

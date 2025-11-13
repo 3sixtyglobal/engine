@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { DataExtractorConnectorType } from "../types/dataExtractorConnectorType";
+import type { DataExtractorConnectorType } from "../types/dataExtractorConnectorType.js";
 
 /**
  * Data extractor connector config types.

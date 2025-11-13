@@ -1,10 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import type { IContextIds } from "@twin.org/context";
 import type { IError } from "@twin.org/core";
-import type { IEngineCoreConfig } from "./config/IEngineCoreConfig";
-import type { IEngineCoreTypeConfig } from "./config/IEngineCoreTypeConfig";
-import type { IEngineCoreClone } from "./IEngineCoreClone";
-import type { IEngineState } from "./IEngineState";
+import type { IEngineCoreConfig } from "./config/IEngineCoreConfig.js";
+import type { IEngineCoreTypeConfig } from "./config/IEngineCoreTypeConfig.js";
+import type { IEngineCoreClone } from "./IEngineCoreClone.js";
+import type { IEngineState } from "./IEngineState.js";
 
 /**
  * Interface describing the engine core methods.
@@ -27,6 +28,31 @@ export interface IEngineCore<
 	 * @returns The type config or undefined if not found.
 	 */
 	getTypeConfig(type: string): IEngineCoreTypeConfig[] | undefined;
+
+	/**
+	 * Add a context ID key to the engine.
+	 * @param key The context ID key.
+	 */
+	addContextIdKey(key: string): void;
+
+	/**
+	 * Get the context ID keys for the engine.
+	 * @returns The context IDs keys.
+	 */
+	getContextIdKeys(): string[];
+
+	/**
+	 * Add a context ID to the engine.
+	 * @param key The context ID key.
+	 * @param value The context ID value.
+	 */
+	addContextId(key: string, value: string): void;
+
+	/**
+	 * Get the context IDs for the engine.
+	 * @returns The context IDs or undefined if none are set.
+	 */
+	getContextIds(): IContextIds | undefined;
 
 	/**
 	 * Start the engine core.

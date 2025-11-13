@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
@@ -10,10 +11,10 @@ import {
 	SynchronisedStorageService,
 	initSchema as initSchemaSynchronisedStorage
 } from "@twin.org/synchronised-storage-service";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { SynchronisedStorageComponentConfig } from "../models/config/synchronisedStorageComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { SynchronisedStorageComponentType } from "../models/types/synchronisedStorageComponentType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { SynchronisedStorageComponentConfig } from "../models/config/synchronisedStorageComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { SynchronisedStorageComponentType } from "../models/types/synchronisedStorageComponentType.js";
 
 /**
  * Initialise the synchronised storage component.
@@ -41,7 +42,8 @@ export async function initialiseSynchronisedStorageComponent(
 			engineCore,
 			context,
 			instanceConfig.options?.syncSnapshotStorageConnectorType,
-			nameof<SyncSnapshotEntry>()
+			nameof<SyncSnapshotEntry>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
 		);
 		component = new SynchronisedStorageService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
@@ -65,14 +67,7 @@ export async function initialiseSynchronisedStorageComponent(
 		});
 		instanceType = nameofKebabCase(SynchronisedStorageService);
 	} else if (instanceConfig.type === SynchronisedStorageComponentType.RestClient) {
-		component = new SynchronisedStorageRestClient({
-			...instanceConfig.options,
-			authenticationGeneratorType:
-				instanceConfig.options?.authenticationGeneratorType ??
-				engineCore.getRegisteredInstanceType("authenticationGeneratorComponent", [
-					"verifiable-credential"
-				])
-		});
+		component = new SynchronisedStorageRestClient(instanceConfig.options);
 		instanceType = nameofKebabCase(SynchronisedStorageRestClient);
 	}
 

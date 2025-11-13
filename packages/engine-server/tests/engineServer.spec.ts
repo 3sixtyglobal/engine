@@ -1,9 +1,10 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import path from "node:path";
-import { ComponentFactory, Factory, I18n, ObjectHelper } from "@twin.org/core";
+import { ContextIdKeys, ContextIdStore } from "@twin.org/context";
+import { ComponentFactory, Factory, I18n } from "@twin.org/core";
 import { Engine } from "@twin.org/engine";
-import coreLocales from "@twin.org/engine-core/locales/en.json";
+import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
 import {
 	InformationComponentType,
 	RestRouteProcessorType,
@@ -65,6 +66,7 @@ import {
 	VerifiableStorageConnectorType,
 	WalletConnectorType
 } from "@twin.org/engine-types";
+import engineTypesLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
@@ -72,9 +74,12 @@ import type {
 	IDataAccessPointComponent,
 	IPolicyNegotiationPointComponent
 } from "@twin.org/rights-management-models";
-import packageLocales from "../locales/en.json";
-import { EngineServer } from "../src/engineServer";
-import { addDefaultRestPaths, addDefaultSocketPaths } from "../src/utils/engineServerConfigHelper";
+import packageLocales from "../locales/en.json" with { type: "json" };
+import { EngineServer } from "../src/engineServer.js";
+import {
+	addDefaultRestPaths,
+	addDefaultSocketPaths
+} from "../src/utils/engineServerConfigHelper.js";
 
 const basePort = Math.floor(Math.random() * 1000);
 let port = 3000 + basePort;
@@ -93,7 +98,9 @@ export class TestEntity {
 
 describe("engine-server", () => {
 	beforeAll(async () => {
-		I18n.addDictionary("en", ObjectHelper.merge(coreLocales, packageLocales));
+		I18n.addDictionary("en", { ...coreLocales, ...engineTypesLocales, ...packageLocales });
+
+		ContextIdStore.getContextIds = vi.fn().mockImplementation(() => ({ node: "node" }));
 	});
 
 	beforeEach(async () => {
@@ -361,13 +368,13 @@ describe("engine-server", () => {
 			"/identity/:identity/verification-method/:verificationMethodId",
 			"/identity/:identity/service",
 			"/identity/:identity/service/:serviceId",
-			"/identity/:identity/verifiable-credential",
+			"/identity/:identity/verifiable-credential/:verificationMethodId",
 			"/identity/verifiable-credential/verify",
 			"/identity/:identity/verifiable-credential/revoke/:revocationIndex",
 			"/identity/:identity/verifiable-credential/unrevoke/:revocationIndex",
-			"/identity/:identity/verifiable-presentation",
+			"/identity/:identity/verifiable-presentation/:verificationMethodId",
 			"/identity/verifiable-presentation/verify",
-			"/identity/:identity/proof",
+			"/identity/:identity/proof/:verificationMethodId",
 			"/identity/proof/verify",
 			"/identity/:identity",
 			"/identity/profile",
@@ -458,7 +465,9 @@ describe("engine-server", () => {
 			"/federated-catalogue/data-space-connectors",
 			"/federated-catalogue/data-space-connectors/:id",
 			"/data-space-connector/notify",
-			"/data-space-connector/activity-logs/:id"
+			"/data-space-connector/activity-logs/:id",
+			"/data-space-connector/entities",
+			"/data-space-connector/entities/query"
 		]);
 
 		const buildSocketRoutes = engineServer.getSocketRoutes();
@@ -541,7 +550,8 @@ describe("engine-server", () => {
 						{
 							type: EntityStorageComponentType.Service,
 							options: {
-								entityStorageType: nameof<TestEntity>()
+								entityStorageType: nameof<TestEntity>(),
+								partitionContextIds: [ContextIdKeys.Node]
 							},
 							restPath: "foo"
 						}

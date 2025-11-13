@@ -4,7 +4,7 @@ import { EngineCore, type IEngineCoreOptions } from "@twin.org/engine-core";
 import type { IEngineState } from "@twin.org/engine-models";
 import type { IEngineConfig } from "@twin.org/engine-types";
 import { nameof } from "@twin.org/nameof";
-import coreTypeInitialisers from "./data/coreTypeInitialisers.json";
+import coreTypeInitialisers from "./data/coreTypeInitialisers.json" with { type: "json" };
 
 /**
  * The engine with built in types.

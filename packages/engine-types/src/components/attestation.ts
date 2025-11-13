@@ -11,11 +11,11 @@ import { AttestationService } from "@twin.org/attestation-service";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
-import type { AttestationComponentConfig } from "../models/config/attestationComponentConfig";
-import type { AttestationConnectorConfig } from "../models/config/attestationConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { AttestationComponentType } from "../models/types/attestationComponentType";
-import { AttestationConnectorType } from "../models/types/attestationConnectorType";
+import type { AttestationComponentConfig } from "../models/config/attestationComponentConfig.js";
+import type { AttestationConnectorConfig } from "../models/config/attestationConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { AttestationComponentType } from "../models/types/attestationComponentType.js";
+import { AttestationConnectorType } from "../models/types/attestationConnectorType.js";
 
 /**
  * Initialise the attestation connector.

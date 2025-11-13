@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IEngineCoreTypeConfig } from "./IEngineCoreTypeConfig";
+import type { IEngineCoreTypeConfig } from "./IEngineCoreTypeConfig.js";
 
 /**
  * Configuration for the engine core.

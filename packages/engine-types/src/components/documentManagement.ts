@@ -6,9 +6,9 @@ import { DocumentManagementRestClient } from "@twin.org/document-management-rest
 import { DocumentManagementService } from "@twin.org/document-management-service";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
-import type { DocumentManagementComponentConfig } from "../models/config/documentManagementComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { DocumentManagementComponentType } from "../models/types/documentManagementComponentType";
+import type { DocumentManagementComponentConfig } from "../models/config/documentManagementComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { DocumentManagementComponentType } from "../models/types/documentManagementComponentType.js";
 
 /**
  * Initialise the document management component.

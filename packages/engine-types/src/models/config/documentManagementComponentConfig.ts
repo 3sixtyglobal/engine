@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { IDocumentManagementServiceConstructorOptions } from "@twin.org/document-management-service";
-import type { DocumentManagementComponentType } from "../types/documentManagementComponentType";
+import type { DocumentManagementComponentType } from "../types/documentManagementComponentType.js";
 
 /**
  * Document management component config types.

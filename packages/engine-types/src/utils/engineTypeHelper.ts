@@ -3,7 +3,7 @@
 import { Is } from "@twin.org/core";
 import type { IEngineCoreTypeBaseConfig, IEngineCoreTypeConfig } from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
-import type { IEngineConfig } from "../models/IEngineConfig";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
 
 /**
  * Helper methods for engine config types.

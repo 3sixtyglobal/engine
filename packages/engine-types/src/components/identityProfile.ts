@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import {
@@ -15,12 +16,12 @@ import {
 import { IdentityProfileRestClient } from "@twin.org/identity-rest-client";
 import { IdentityProfileService } from "@twin.org/identity-service";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { IdentityProfileComponentConfig } from "../models/config/identityProfileComponentConfig";
-import type { IdentityProfileConnectorConfig } from "../models/config/identityProfileConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { IdentityProfileComponentType } from "../models/types/identityProfileComponentType";
-import { IdentityProfileConnectorType } from "../models/types/identityProfileConnectorType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { IdentityProfileComponentConfig } from "../models/config/identityProfileComponentConfig.js";
+import type { IdentityProfileConnectorConfig } from "../models/config/identityProfileConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { IdentityProfileComponentType } from "../models/types/identityProfileComponentType.js";
+import { IdentityProfileConnectorType } from "../models/types/identityProfileConnectorType.js";
 
 /**
  * Initialise the identity profile connector.
@@ -47,7 +48,11 @@ export async function initialiseIdentityProfileConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.profileEntityStorageType,
-			nameof<IdentityProfile>()
+			nameof<IdentityProfile>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 		connector = new EntityStorageIdentityProfileConnector(instanceConfig.options);
 		instanceType = EntityStorageIdentityProfileConnector.NAMESPACE;

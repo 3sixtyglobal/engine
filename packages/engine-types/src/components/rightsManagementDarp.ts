@@ -5,9 +5,9 @@ import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
 import { DataAccessRequestPointService } from "@twin.org/rights-management-dap-service";
 import type { IDataAccessRequestPointComponent } from "@twin.org/rights-management-models";
-import type { RightsManagementDarpComponentConfig } from "../models/config/rightsManagementDarpComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { RightsManagementDarpComponentType } from "../models/types/rightsManagementDarpComponentType";
+import type { RightsManagementDarpComponentConfig } from "../models/config/rightsManagementDarpComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { RightsManagementDarpComponentType } from "../models/types/rightsManagementDarpComponentType.js";
 
 /**
  * Initialise the rights management DARP component.

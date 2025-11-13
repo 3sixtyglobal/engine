@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { IImmutableProofServiceConstructorOptions } from "@twin.org/immutable-proof-service";
-import type { ImmutableProofComponentType } from "../types/immutableProofComponentType";
+import type { ImmutableProofComponentType } from "../types/immutableProofComponentType.js";
 
 /**
  * Immutable proof component config types.

@@ -3,7 +3,7 @@
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { IEngineModuleConfig } from "@twin.org/engine-models";
 import type { IPolicyNegotiationPointServiceConstructorOptions } from "@twin.org/rights-management-pnp-service";
-import type { RightsManagementPnpComponentType } from "../types/rightsManagementPnpComponentType";
+import type { RightsManagementPnpComponentType } from "../types/rightsManagementPnpComponentType.js";
 
 /**
  * Rights management PNP component config types.

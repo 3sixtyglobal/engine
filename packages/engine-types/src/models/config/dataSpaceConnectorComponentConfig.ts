@@ -3,7 +3,7 @@
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { IDataSpaceConnectorServiceConstructorOptions } from "@twin.org/data-space-connector-service";
 import type { IDataSpaceConnectorSocketClientConstructorOptions } from "@twin.org/data-space-connector-socket-client";
-import type { DataSpaceConnectorComponentType } from "../types/dataSpaceConnectorComponentType";
+import type { DataSpaceConnectorComponentType } from "../types/dataSpaceConnectorComponentType.js";
 
 /**
  * Data space connector component config types.

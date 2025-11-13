@@ -3,7 +3,7 @@
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { IEngineModuleConfig } from "@twin.org/engine-models";
 import type { IDataAccessPointServiceConstructorOptions } from "@twin.org/rights-management-dap-service";
-import type { RightsManagementDapComponentType } from "../types/rightsManagementDapComponentType";
+import type { RightsManagementDapComponentType } from "../types/rightsManagementDapComponentType.js";
 
 /**
  * Rights management DAP component config types.

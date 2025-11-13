@@ -11,11 +11,11 @@ import {
 import { EventBusService } from "@twin.org/event-bus-service";
 import { EventBusSocketClient } from "@twin.org/event-bus-socket-client";
 import { nameofKebabCase } from "@twin.org/nameof";
-import type { EventBusComponentConfig } from "../models/config/eventBusComponentConfig";
-import type { EventBusConnectorConfig } from "../models/config/eventBusConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { EventBusComponentType } from "../models/types/eventBusComponentType";
-import { EventBusConnectorType } from "../models/types/eventBusConnectorType";
+import type { EventBusComponentConfig } from "../models/config/eventBusComponentConfig.js";
+import type { EventBusConnectorConfig } from "../models/config/eventBusConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { EventBusComponentType } from "../models/types/eventBusComponentType.js";
+import { EventBusConnectorType } from "../models/types/eventBusConnectorType.js";
 
 /**
  * Initialise a event bus connector.

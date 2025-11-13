@@ -28,10 +28,10 @@ import {
 import { EntityStorageRestClient } from "@twin.org/entity-storage-rest-client";
 import { EntityStorageService } from "@twin.org/entity-storage-service";
 import { nameofKebabCase } from "@twin.org/nameof";
-import type { EntityStorageComponentConfig } from "../models/config/entityStorageComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { EntityStorageComponentType } from "../models/types/entityStorageComponentType";
-import { EntityStorageConnectorType } from "../models/types/entityStorageConnectorType";
+import type { EntityStorageComponentConfig } from "../models/config/entityStorageComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { EntityStorageComponentType } from "../models/types/entityStorageComponentType.js";
+import { EntityStorageConnectorType } from "../models/types/entityStorageConnectorType.js";
 
 /**
  * Initialise the entity storage connector.
@@ -39,6 +39,7 @@ import { EntityStorageConnectorType } from "../models/types/entityStorageConnect
  * @param context The context for the engine.
  * @param typeCustom Override the type of connector to use instead of default configuration.
  * @param schema The schema for the entity storage.
+ * @param partitionContextIds The context IDs to use for partitioning the data.
  * @returns The name of the instance type that was created.
  * @throws GeneralError when the configuration is invalid.
  */
@@ -46,7 +47,8 @@ export function initialiseEntityStorageConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	typeCustom: string | undefined,
-	schema: string
+	schema: string,
+	partitionContextIds: string[]
 ): string {
 	const instanceName = StringHelper.kebabCase(schema);
 
@@ -90,11 +92,13 @@ export function initialiseEntityStorageConnector(
 
 		if (type === EntityStorageConnectorType.Memory) {
 			entityStorageConnector = new MemoryEntityStorageConnector({
-				entitySchema: schema
+				entitySchema: schema,
+				partitionContextIds
 			});
 		} else if (type === EntityStorageConnectorType.File) {
 			entityStorageConnector = new FileEntityStorageConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -107,6 +111,7 @@ export function initialiseEntityStorageConnector(
 		} else if (type === EntityStorageConnectorType.AwsDynamoDb) {
 			entityStorageConnector = new DynamoDbEntityStorageConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -116,6 +121,7 @@ export function initialiseEntityStorageConnector(
 		} else if (type === EntityStorageConnectorType.AzureCosmosDb) {
 			entityStorageConnector = new CosmosDbEntityStorageConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -125,6 +131,7 @@ export function initialiseEntityStorageConnector(
 		} else if (type === EntityStorageConnectorType.GcpFirestoreDb) {
 			entityStorageConnector = new FirestoreEntityStorageConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -134,6 +141,7 @@ export function initialiseEntityStorageConnector(
 		} else if (type === EntityStorageConnectorType.ScyllaDb) {
 			entityStorageConnector = new ScyllaDBTableConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -143,6 +151,7 @@ export function initialiseEntityStorageConnector(
 		} else if (type === EntityStorageConnectorType.MySqlDb) {
 			entityStorageConnector = new MySqlEntityStorageConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -152,6 +161,7 @@ export function initialiseEntityStorageConnector(
 		} else if (type === EntityStorageConnectorType.MongoDb) {
 			entityStorageConnector = new MongoDbEntityStorageConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -161,6 +171,7 @@ export function initialiseEntityStorageConnector(
 		} else if (type === EntityStorageConnectorType.PostgreSql) {
 			entityStorageConnector = new PostgreSqlEntityStorageConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -175,7 +186,8 @@ export function initialiseEntityStorageConnector(
 				engineCore,
 				context,
 				undefined,
-				schema
+				schema,
+				partitionContextIds
 			);
 
 			// Use the wrapped instance name as the entity storage connector type
@@ -237,7 +249,8 @@ export async function initialiseEntityStorageComponent(
 			engineCore,
 			context,
 			hasCustom ? kebabName : undefined,
-			instanceConfig.options.entityStorageType
+			instanceConfig.options.entityStorageType,
+			instanceConfig.options.partitionContextIds
 		);
 		component = new EntityStorageService({
 			entityStorageType: kebabName,

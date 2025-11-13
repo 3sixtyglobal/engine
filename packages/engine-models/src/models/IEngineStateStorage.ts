@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IEngineCore } from "./IEngineCore";
-import type { IEngineState } from "./IEngineState";
+import type { IEngineCore } from "./IEngineCore.js";
+import type { IEngineState } from "./IEngineState.js";
 
 /**
  * Definition of state storage for engine.

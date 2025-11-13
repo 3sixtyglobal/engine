@@ -2,9 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { mkdir, rm } from "node:fs/promises";
 import { AuthenticationGeneratorFactory } from "@twin.org/api-models";
+import { ContextIdKeys, ContextIdStore } from "@twin.org/context";
 import { ComponentFactory, Factory, I18n } from "@twin.org/core";
 import { MemoryStateStorage } from "@twin.org/engine-core";
-import coreLocales from "@twin.org/engine-core/locales/en.json";
+import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
 import {
 	AttestationComponentType,
 	AttestationConnectorType,
@@ -61,7 +62,7 @@ import {
 	VerifiableStorageConnectorType,
 	WalletConnectorType
 } from "@twin.org/engine-types";
-import typeLocales from "@twin.org/engine-types/locales/en.json";
+import typeLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
@@ -71,7 +72,7 @@ import type {
 	IPolicyInformationPointComponent,
 	IPolicyNegotiationPointComponent
 } from "@twin.org/rights-management-models";
-import { Engine } from "../src/engine";
+import { Engine } from "../src/engine.js";
 
 /**
  * Class representing information for a test entity.
@@ -88,6 +89,8 @@ export class TestEntity {
 describe("engine", () => {
 	beforeAll(async () => {
 		I18n.addDictionary("en", { ...coreLocales, ...typeLocales });
+
+		ContextIdStore.getContextIds = vi.fn().mockImplementation(() => ({ node: "node" }));
 	});
 
 	beforeEach(async () => {
@@ -422,7 +425,10 @@ describe("engine", () => {
 					entityStorageComponent: [
 						{
 							type: EntityStorageComponentType.Service,
-							options: { entityStorageType: nameof<TestEntity>() }
+							options: {
+								entityStorageType: nameof<TestEntity>(),
+								partitionContextIds: [ContextIdKeys.Node]
+							}
 						}
 					]
 				}
@@ -462,7 +468,8 @@ describe("engine", () => {
 						{
 							type: EntityStorageComponentType.Service,
 							options: {
-								entityStorageType: nameof<TestEntity>()
+								entityStorageType: nameof<TestEntity>(),
+								partitionContextIds: [ContextIdKeys.Node]
 							}
 						}
 					]

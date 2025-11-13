@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { Is } from "@twin.org/core";
 import type { IEngineServerConfig } from "@twin.org/engine-server-types";
-import serverRestRouteGenerators from "../data/serverRestRouteGenerators.json";
-import serverSocketRouteGenerators from "../data/serverSocketRouteGenerators.json";
+import serverRestRouteGenerators from "../data/serverRestRouteGenerators.json" with { type: "json" };
+import serverSocketRouteGenerators from "../data/serverSocketRouteGenerators.json" with { type: "json" };
 
 /**
  * Adds the rest paths to the server config if not already set.

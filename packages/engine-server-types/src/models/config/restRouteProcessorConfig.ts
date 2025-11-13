@@ -2,12 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IAuthHeaderProcessorConstructorOptions } from "@twin.org/api-auth-entity-storage-service";
 import type {
+	IContextIdProcessorConstructorOptions,
 	ILoggingProcessorConstructorOptions,
 	IRestRouteProcessorConstructorOptions,
-	IStaticUserIdentityProcessorConstructorOptions
+	IStaticContextIdProcessorConstructorOptions
 } from "@twin.org/api-processors";
+import type { ITenantProcessorConstructorOptions } from "@twin.org/api-tenant-processor";
 import type { IVerifiableCredentialAuthenticationProcessorConstructorOptions } from "@twin.org/identity-authentication";
-import type { RestRouteProcessorType } from "../types/restRouteProcessorType";
+import type { RestRouteProcessorType } from "../types/restRouteProcessorType.js";
 
 /**
  * REST route processor config types.
@@ -26,12 +28,16 @@ export type RestRouteProcessorConfig =
 			options?: ILoggingProcessorConstructorOptions;
 	  }
 	| {
-			type: typeof RestRouteProcessorType.NodeIdentity;
-			options?: never;
+			type: typeof RestRouteProcessorType.ContextId;
+			options: IContextIdProcessorConstructorOptions;
 	  }
 	| {
-			type: typeof RestRouteProcessorType.StaticUserIdentity;
-			options: IStaticUserIdentityProcessorConstructorOptions;
+			type: typeof RestRouteProcessorType.StaticContextId;
+			options: IStaticContextIdProcessorConstructorOptions;
+	  }
+	| {
+			type: typeof RestRouteProcessorType.Tenant;
+			options?: ITenantProcessorConstructorOptions;
 	  }
 	| {
 			type: typeof RestRouteProcessorType.RestRoute;

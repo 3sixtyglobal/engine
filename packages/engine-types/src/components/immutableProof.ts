@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import type { IImmutableProofComponent } from "@twin.org/immutable-proof-models";
@@ -10,10 +11,10 @@ import {
 	initSchema as initSchemaImmutableProof
 } from "@twin.org/immutable-proof-service";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { ImmutableProofComponentConfig } from "../models/config/immutableProofComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { ImmutableProofComponentType } from "../models/types/immutableProofComponentType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { ImmutableProofComponentConfig } from "../models/config/immutableProofComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { ImmutableProofComponentType } from "../models/types/immutableProofComponentType.js";
 
 /**
  * Initialise the immutable proof component.
@@ -41,7 +42,11 @@ export async function initialiseImmutableProofComponent(
 			engineCore,
 			context,
 			instanceConfig.options?.immutableProofEntityStorageType,
-			nameof<ImmutableProof>()
+			nameof<ImmutableProof>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 
 		component = new ImmutableProofService({

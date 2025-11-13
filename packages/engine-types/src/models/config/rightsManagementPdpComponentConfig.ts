@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IEngineModuleConfig } from "@twin.org/engine-models";
 import type { IPolicyDecisionPointServiceConstructorOptions } from "@twin.org/rights-management-pdp-service";
-import type { RightsManagementPdpComponentType } from "../types/rightsManagementPdpComponentType";
+import type { RightsManagementPdpComponentType } from "../types/rightsManagementPdpComponentType.js";
 
 /**
  * Rights management PDP component config types.

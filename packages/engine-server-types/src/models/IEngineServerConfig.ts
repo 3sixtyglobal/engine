@@ -3,12 +3,12 @@
 import type { IWebServerOptions } from "@twin.org/api-models";
 import type { IEngineCoreTypeConfig } from "@twin.org/engine-models";
 import type { IEngineConfig } from "@twin.org/engine-types";
-import type { AuthenticationAdminComponentConfig } from "./config/authenticationAdminComponentConfig";
-import type { AuthenticationComponentConfig } from "./config/authenticationComponentConfig";
-import type { InformationComponentConfig } from "./config/informationComponentConfig";
-import type { MimeTypeProcessorConfig } from "./config/mimeTypeProcessorConfig";
-import type { RestRouteProcessorConfig } from "./config/restRouteProcessorConfig";
-import type { SocketRouteProcessorConfig } from "./config/socketRouteProcessorConfig";
+import type { AuthenticationAdminComponentConfig } from "./config/authenticationAdminComponentConfig.js";
+import type { AuthenticationComponentConfig } from "./config/authenticationComponentConfig.js";
+import type { InformationComponentConfig } from "./config/informationComponentConfig.js";
+import type { MimeTypeProcessorConfig } from "./config/mimeTypeProcessorConfig.js";
+import type { RestRouteProcessorConfig } from "./config/restRouteProcessorConfig.js";
+import type { SocketRouteProcessorConfig } from "./config/socketRouteProcessorConfig.js";
 
 /**
  * Extended engine server config with known types.

@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import {
 	JsonConverterConnector,
@@ -21,14 +22,14 @@ import {
 } from "@twin.org/data-processing-service";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { DataConverterConnectorConfig } from "../models/config/dataConverterConnectorConfig";
-import type { DataExtractorConnectorConfig } from "../models/config/dataExtractorConnectorConfig";
-import type { DataProcessingComponentConfig } from "../models/config/dataProcessingComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { DataConverterConnectorType } from "../models/types/dataConverterConnectorType";
-import { DataExtractorConnectorType } from "../models/types/dataExtractorConnectorType";
-import { DataProcessingComponentType } from "../models/types/dataProcessingComponentType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { DataConverterConnectorConfig } from "../models/config/dataConverterConnectorConfig.js";
+import type { DataExtractorConnectorConfig } from "../models/config/dataExtractorConnectorConfig.js";
+import type { DataProcessingComponentConfig } from "../models/config/dataProcessingComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { DataConverterConnectorType } from "../models/types/dataConverterConnectorType.js";
+import { DataExtractorConnectorType } from "../models/types/dataExtractorConnectorType.js";
+import { DataProcessingComponentType } from "../models/types/dataProcessingComponentType.js";
 
 /**
  * Initialise the data converter connector.
@@ -120,7 +121,11 @@ export async function initialiseDataProcessingComponent(
 			engineCore,
 			context,
 			instanceConfig.options?.extractionRuleGroupStorageConnectorType,
-			nameof<ExtractionRuleGroup>()
+			nameof<ExtractionRuleGroup>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 
 		component = new DataProcessingService({

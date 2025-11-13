@@ -1,60 +1,61 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IEngineCoreConfig, IEngineCoreTypeConfig } from "@twin.org/engine-models";
-import type { AttestationComponentConfig } from "./config/attestationComponentConfig";
-import type { AttestationConnectorConfig } from "./config/attestationConnectorConfig";
-import type { AuditableItemGraphComponentConfig } from "./config/auditableItemGraphComponentConfig";
-import type { AuditableItemStreamComponentConfig } from "./config/auditableItemStreamComponentConfig";
-import type { AuthenticationGeneratorComponentConfig } from "./config/authenticationGeneratorComponentConfig";
-import type { BackgroundTaskConnectorConfig } from "./config/backgroundTaskConnectorConfig";
-import type { BlobStorageComponentConfig } from "./config/blobStorageComponentConfig";
-import type { BlobStorageConnectorConfig } from "./config/blobStorageConnectorConfig";
-import type { DataConverterConnectorConfig } from "./config/dataConverterConnectorConfig";
-import type { DataExtractorConnectorConfig } from "./config/dataExtractorConnectorConfig";
-import type { DataProcessingComponentConfig } from "./config/dataProcessingComponentConfig";
-import type { DataSpaceConnectorComponentConfig } from "./config/dataSpaceConnectorComponentConfig";
-import type { DltConfig } from "./config/dltConfig";
-import type { DocumentManagementComponentConfig } from "./config/documentManagementComponentConfig";
-import type { EntityStorageComponentConfig } from "./config/entityStorageComponentConfig";
-import type { EntityStorageConnectorConfig } from "./config/entityStorageConnectorConfig";
-import type { EventBusComponentConfig } from "./config/eventBusComponentConfig";
-import type { EventBusConnectorConfig } from "./config/eventBusConnectorConfig";
-import type { FaucetConnectorConfig } from "./config/faucetConnectorConfig";
-import type { FederatedCatalogueComponentConfig } from "./config/federatedCatalogueComponentConfig";
-import type { IdentityComponentConfig } from "./config/identityComponentConfig";
-import type { IdentityConnectorConfig } from "./config/identityConnectorConfig";
-import type { IdentityProfileComponentConfig } from "./config/identityProfileComponentConfig";
-import type { IdentityProfileConnectorConfig } from "./config/identityProfileConnectorConfig";
-import type { IdentityResolverComponentConfig } from "./config/identityResolverComponentConfig";
-import type { IdentityResolverConnectorConfig } from "./config/identityResolverConnectorConfig";
-import type { ImmutableProofComponentConfig } from "./config/immutableProofComponentConfig";
-import type { LoggingComponentConfig } from "./config/loggingComponentConfig";
-import type { LoggingConnectorConfig } from "./config/loggingConnectorConfig";
-import type { MessagingAdminComponentConfig } from "./config/messagingAdminComponentConfig";
-import type { MessagingComponentConfig } from "./config/messagingComponentConfig";
-import type { MessagingEmailConnectorConfig } from "./config/messagingEmailConnectorConfig";
-import type { MessagingPushNotificationConnectorConfig } from "./config/messagingPushNotificationConnectorConfig";
-import type { MessagingSmsConnectorConfig } from "./config/messagingSmsConnectorConfig";
-import type { NftComponentConfig } from "./config/nftComponentConfig";
-import type { NftConnectorConfig } from "./config/nftConnectorConfig";
-import type { RightsManagementDapComponentConfig } from "./config/rightsManagementDapComponentConfig";
-import type { RightsManagementDarpComponentConfig } from "./config/rightsManagementDarpComponentConfig";
-import type { RightsManagementPapComponentConfig } from "./config/rightsManagementPapComponentConfig";
-import type { RightsManagementPdpComponentConfig } from "./config/rightsManagementPdpComponentConfig";
-import type { RightsManagementPepComponentConfig } from "./config/rightsManagementPepComponentConfig";
-import type { RightsManagementPipComponentConfig } from "./config/rightsManagementPipComponentConfig";
-import type { RightsManagementPmpComponentConfig } from "./config/rightsManagementPmpComponentConfig";
-import type { RightsManagementPnapComponentConfig } from "./config/rightsManagementPnapComponentConfig";
-import type { RightsManagementPnpComponentConfig } from "./config/rightsManagementPnpComponentConfig";
-import type { RightsManagementPxpComponentConfig } from "./config/rightsManagementPxpComponentConfig";
-import type { SynchronisedStorageComponentConfig } from "./config/synchronisedStorageComponentConfig";
-import type { TaskSchedulerComponentConfig } from "./config/taskSchedulerComponentConfig";
-import type { TelemetryComponentConfig } from "./config/telemetryComponentConfig";
-import type { TelemetryConnectorConfig } from "./config/telemetryConnectorConfig";
-import type { VaultConnectorConfig } from "./config/vaultConnectorConfig";
-import type { VerifiableStorageComponentConfig } from "./config/verifiableStorageComponentConfig";
-import type { VerifiableStorageConnectorConfig } from "./config/verifiableStorageConnectorConfig";
-import type { WalletConnectorConfig } from "./config/walletConnectorConfig";
+import type { AttestationComponentConfig } from "./config/attestationComponentConfig.js";
+import type { AttestationConnectorConfig } from "./config/attestationConnectorConfig.js";
+import type { AuditableItemGraphComponentConfig } from "./config/auditableItemGraphComponentConfig.js";
+import type { AuditableItemStreamComponentConfig } from "./config/auditableItemStreamComponentConfig.js";
+import type { AuthenticationGeneratorComponentConfig } from "./config/authenticationGeneratorComponentConfig.js";
+import type { BackgroundTaskConnectorConfig } from "./config/backgroundTaskConnectorConfig.js";
+import type { BlobStorageComponentConfig } from "./config/blobStorageComponentConfig.js";
+import type { BlobStorageConnectorConfig } from "./config/blobStorageConnectorConfig.js";
+import type { DataConverterConnectorConfig } from "./config/dataConverterConnectorConfig.js";
+import type { DataExtractorConnectorConfig } from "./config/dataExtractorConnectorConfig.js";
+import type { DataProcessingComponentConfig } from "./config/dataProcessingComponentConfig.js";
+import type { DataSpaceConnectorComponentConfig } from "./config/dataSpaceConnectorComponentConfig.js";
+import type { DltConfig } from "./config/dltConfig.js";
+import type { DocumentManagementComponentConfig } from "./config/documentManagementComponentConfig.js";
+import type { EntityStorageComponentConfig } from "./config/entityStorageComponentConfig.js";
+import type { EntityStorageConnectorConfig } from "./config/entityStorageConnectorConfig.js";
+import type { EventBusComponentConfig } from "./config/eventBusComponentConfig.js";
+import type { EventBusConnectorConfig } from "./config/eventBusConnectorConfig.js";
+import type { FaucetConnectorConfig } from "./config/faucetConnectorConfig.js";
+import type { FederatedCatalogueComponentConfig } from "./config/federatedCatalogueComponentConfig.js";
+import type { IdentityComponentConfig } from "./config/identityComponentConfig.js";
+import type { IdentityConnectorConfig } from "./config/identityConnectorConfig.js";
+import type { IdentityProfileComponentConfig } from "./config/identityProfileComponentConfig.js";
+import type { IdentityProfileConnectorConfig } from "./config/identityProfileConnectorConfig.js";
+import type { IdentityResolverComponentConfig } from "./config/identityResolverComponentConfig.js";
+import type { IdentityResolverConnectorConfig } from "./config/identityResolverConnectorConfig.js";
+import type { ImmutableProofComponentConfig } from "./config/immutableProofComponentConfig.js";
+import type { LoggingComponentConfig } from "./config/loggingComponentConfig.js";
+import type { LoggingConnectorConfig } from "./config/loggingConnectorConfig.js";
+import type { MessagingAdminComponentConfig } from "./config/messagingAdminComponentConfig.js";
+import type { MessagingComponentConfig } from "./config/messagingComponentConfig.js";
+import type { MessagingEmailConnectorConfig } from "./config/messagingEmailConnectorConfig.js";
+import type { MessagingPushNotificationConnectorConfig } from "./config/messagingPushNotificationConnectorConfig.js";
+import type { MessagingSmsConnectorConfig } from "./config/messagingSmsConnectorConfig.js";
+import type { NftComponentConfig } from "./config/nftComponentConfig.js";
+import type { NftConnectorConfig } from "./config/nftConnectorConfig.js";
+import type { RightsManagementDapComponentConfig } from "./config/rightsManagementDapComponentConfig.js";
+import type { RightsManagementDarpComponentConfig } from "./config/rightsManagementDarpComponentConfig.js";
+import type { RightsManagementPapComponentConfig } from "./config/rightsManagementPapComponentConfig.js";
+import type { RightsManagementPdpComponentConfig } from "./config/rightsManagementPdpComponentConfig.js";
+import type { RightsManagementPepComponentConfig } from "./config/rightsManagementPepComponentConfig.js";
+import type { RightsManagementPipComponentConfig } from "./config/rightsManagementPipComponentConfig.js";
+import type { RightsManagementPmpComponentConfig } from "./config/rightsManagementPmpComponentConfig.js";
+import type { RightsManagementPnapComponentConfig } from "./config/rightsManagementPnapComponentConfig.js";
+import type { RightsManagementPnpComponentConfig } from "./config/rightsManagementPnpComponentConfig.js";
+import type { RightsManagementPxpComponentConfig } from "./config/rightsManagementPxpComponentConfig.js";
+import type { SynchronisedStorageComponentConfig } from "./config/synchronisedStorageComponentConfig.js";
+import type { TaskSchedulerComponentConfig } from "./config/taskSchedulerComponentConfig.js";
+import type { TelemetryComponentConfig } from "./config/telemetryComponentConfig.js";
+import type { TelemetryConnectorConfig } from "./config/telemetryConnectorConfig.js";
+import type { TenantAdminComponentConfig } from "./config/tenantAdminComponentConfig.js";
+import type { VaultConnectorConfig } from "./config/vaultConnectorConfig.js";
+import type { VerifiableStorageComponentConfig } from "./config/verifiableStorageComponentConfig.js";
+import type { VerifiableStorageConnectorConfig } from "./config/verifiableStorageConnectorConfig.js";
+import type { WalletConnectorConfig } from "./config/walletConnectorConfig.js";
 
 /**
  * Extended engine core config with known types.
@@ -335,5 +336,10 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Data space connector options which can be overridden by individual components by specifying types other than default.
 		 */
 		dataSpaceConnectorComponent?: IEngineCoreTypeConfig<DataSpaceConnectorComponentConfig>[];
+
+		/**
+		 * Tenant admin component options which can be overridden by individual components by specifying types other than default.
+		 */
+		tenantAdminComponent?: IEngineCoreTypeConfig<TenantAdminComponentConfig>[];
 	};
 }

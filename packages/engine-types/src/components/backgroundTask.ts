@@ -9,13 +9,14 @@ import {
 	BackgroundTaskConnectorFactory,
 	type IBackgroundTaskConnector
 } from "@twin.org/background-task-models";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import type { IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { BackgroundTaskConnectorConfig } from "../models/config/backgroundTaskConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { BackgroundTaskConnectorType } from "../models/types/backgroundTaskConnectorType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { BackgroundTaskConnectorConfig } from "../models/config/backgroundTaskConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { BackgroundTaskConnectorType } from "../models/types/backgroundTaskConnectorType.js";
 
 /**
  * Initialise a background task connector.
@@ -42,7 +43,8 @@ export async function initialiseBackgroundTaskConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.backgroundTaskEntityStorageType,
-			nameof<BackgroundTask>()
+			nameof<BackgroundTask>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
 		);
 		component = new EntityStorageBackgroundTaskConnector({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),

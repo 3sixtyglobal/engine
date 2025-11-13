@@ -88,6 +88,30 @@ The core context.
 
 `EngineCore._context`
 
+***
+
+### \_contextIdKeys
+
+> `protected` `readonly` **\_contextIdKeys**: `string`[]
+
+The context ID keys.
+
+#### Inherited from
+
+`EngineCore._contextIdKeys`
+
+***
+
+### \_contextIds?
+
+> `protected` `optional` **\_contextIds**: `IContextIds`
+
+The context IDs.
+
+#### Inherited from
+
+`EngineCore._contextIds`
+
 ## Methods
 
 ### addTypeInitialiser()
@@ -149,6 +173,96 @@ The type config or undefined if not found.
 #### Inherited from
 
 `EngineCore.getTypeConfig`
+
+***
+
+### addContextIdKey()
+
+> **addContextIdKey**(`key`): `void`
+
+Add a context ID key to the engine.
+
+#### Parameters
+
+##### key
+
+`string`
+
+The context ID key.
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+`EngineCore.addContextIdKey`
+
+***
+
+### getContextIdKeys()
+
+> **getContextIdKeys**(): `string`[]
+
+Get the context ID keys for the engine.
+
+#### Returns
+
+`string`[]
+
+The context IDs keys.
+
+#### Inherited from
+
+`EngineCore.getContextIdKeys`
+
+***
+
+### addContextId()
+
+> **addContextId**(`key`, `value`): `void`
+
+Add a context ID to the engine.
+
+#### Parameters
+
+##### key
+
+`string`
+
+The context ID key.
+
+##### value
+
+`string`
+
+The context ID value.
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+`EngineCore.addContextId`
+
+***
+
+### getContextIds()
+
+> **getContextIds**(): `undefined` \| `IContextIds`
+
+Get the context IDs for the engine.
+
+#### Returns
+
+`undefined` \| `IContextIds`
+
+The context IDs or undefined if none are set.
+
+#### Inherited from
+
+`EngineCore.getContextIds`
 
 ***
 
@@ -244,7 +358,7 @@ True if the engine instance is a clone.
 
 ### logInfo()
 
-> **logInfo**(`message`): `void`
+> **logInfo**(`message`): `Promise`\<`void`\>
 
 Log info.
 
@@ -258,7 +372,7 @@ The message to log.
 
 #### Returns
 
-`void`
+`Promise`\<`void`\>
 
 #### Inherited from
 
@@ -268,7 +382,7 @@ The message to log.
 
 ### logError()
 
-> **logError**(`error`): `void`
+> **logError**(`error`): `Promise`\<`void`\>
 
 Log error.
 
@@ -282,7 +396,7 @@ The error to log.
 
 #### Returns
 
-`void`
+`Promise`\<`void`\>
 
 #### Inherited from
 

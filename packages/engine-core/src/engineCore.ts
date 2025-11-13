@@ -1,6 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { isMainThread } from "node:worker_threads";
+import { ContextIdStore, type IContextIds } from "@twin.org/context";
 import {
 	BaseError,
 	ComponentFactory,
@@ -31,8 +32,8 @@ import {
 import { LoggingService } from "@twin.org/logging-service";
 import { ModuleHelper } from "@twin.org/modules";
 import { nameof, nameofCamelCase } from "@twin.org/nameof";
-import type { IEngineCoreOptions } from "./models/IEngineCoreOptions";
-import { MemoryStateStorage } from "./storage/memoryStateStorage";
+import type { IEngineCoreOptions } from "./models/IEngineCoreOptions.js";
+import { MemoryStateStorage } from "./storage/memoryStateStorage.js";
 
 /**
  * Core for the engine.
@@ -61,6 +62,16 @@ export class EngineCore<
 	 * The core context.
 	 */
 	protected _context: IEngineCoreContext<C, S>;
+
+	/**
+	 * The context ID keys.
+	 */
+	protected readonly _contextIdKeys: string[];
+
+	/**
+	 * The context IDs.
+	 */
+	protected _contextIds?: IContextIds;
 
 	/**
 	 * The state storage interface.
@@ -135,6 +146,7 @@ export class EngineCore<
 		this._populateTypeInitialisers = options.populateTypeInitialisers;
 		this._customBootstrap = options.customBootstrap;
 		this._typeInitialisers = [];
+		this._contextIdKeys = [];
 
 		this._context = {
 			config: options.config,
@@ -187,6 +199,42 @@ export class EngineCore<
 	}
 
 	/**
+	 * Add a context ID key to the engine.
+	 * @param key The context ID key.
+	 */
+	public addContextIdKey(key: string): void {
+		if (!this._contextIdKeys.includes(key)) {
+			this._contextIdKeys.push(key);
+		}
+	}
+
+	/**
+	 * Get the context ID keys for the engine.
+	 * @returns The context IDs keys.
+	 */
+	public getContextIdKeys(): string[] {
+		return this._contextIdKeys;
+	}
+
+	/**
+	 * Add a context ID to the engine.
+	 * @param key The context ID key.
+	 * @param value The context ID value.
+	 */
+	public addContextId(key: string, value: string): void {
+		this._contextIds ??= {};
+		this._contextIds[key] = value;
+	}
+
+	/**
+	 * Get the context IDs for the engine.
+	 * @returns The context IDs or undefined if none are set.
+	 */
+	public getContextIds(): IContextIds | undefined {
+		return this._contextIds;
+	}
+
+	/**
 	 * Start the engine core.
 	 * @returns True if the start was successful.
 	 */
@@ -196,10 +244,10 @@ export class EngineCore<
 		}
 
 		this.setupEngineLogger();
-		this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.starting`));
+		await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.starting`));
 
 		if (this._context.config.debug) {
-			this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.debuggingEnabled`));
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.debuggingEnabled`));
 		}
 
 		let canContinue;
@@ -213,31 +261,52 @@ export class EngineCore<
 
 				await this.bootstrap();
 
-				this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStarting`));
+				await this.logInfo(
+					I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStarting`)
+				);
 
-				for (const instance of this._context.componentInstances) {
-					if (Is.function(instance.component.start)) {
-						this.logInfo(
-							I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStarting`, {
-								element: instance.instanceType
-							})
-						);
+				await ContextIdStore.run(this._contextIds ?? {}, async () => {
+					for (const instance of this._context.componentInstances) {
+						const startMethod = instance.component.start?.bind(instance.component);
+						if (Is.function(startMethod)) {
+							await this.logInfo(
+								I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStarting`, {
+									className: instance.component.className(),
+									instanceType: instance.instanceType
+								})
+							);
 
-						await instance.component.start(
-							this._context.state.nodeIdentity,
-							EngineCore.LOGGING_COMPONENT_TYPE_NAME
-						);
+							try {
+								await startMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
+							} catch (err) {
+								await this.logError(
+									new GeneralError(
+										EngineCore.CLASS_NAME,
+										"componentStartFailed",
+										{
+											className: instance.component.className(),
+											instanceType: instance.instanceType
+										},
+										BaseError.fromError(err)
+									)
+								);
+
+								throw err;
+							}
+						}
 					}
-				}
+				});
 
-				this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsComplete`));
+				await this.logInfo(
+					I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsComplete`)
+				);
 			}
 
-			this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.started`));
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.started`));
 			this._isStarted = true;
 		} catch (err) {
 			canContinue = false;
-			this.logError(BaseError.fromError(err));
+			await this.logError(BaseError.fromError(err));
 		} finally {
 			if (!(await this.stateSave())) {
 				canContinue = false;
@@ -252,41 +321,43 @@ export class EngineCore<
 	 * @returns Nothing.
 	 */
 	public async stop(): Promise<void> {
-		this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopping`));
-		this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopping`));
+		await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopping`));
+		await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopping`));
 
-		for (const instance of this._context.componentInstances) {
-			if (Is.function(instance.component.stop)) {
-				this.logInfo(
-					I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStopping`, {
-						element: instance.instanceType
-					})
-				);
+		await ContextIdStore.run(this._contextIds ?? {}, async () => {
+			for (const instance of this._context.componentInstances) {
+				const stopMethod = instance.component.stop?.bind(instance.component);
+				if (Is.function(stopMethod)) {
+					await this.logInfo(
+						I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStopping`, {
+							className: instance.component.className(),
+							instanceType: instance.instanceType
+						})
+					);
 
-				try {
-					await instance.component.stop(
-						this._context.state.nodeIdentity,
-						EngineCore.LOGGING_COMPONENT_TYPE_NAME
-					);
-				} catch (err) {
-					this.logError(
-						new GeneralError(
-							EngineCore.CLASS_NAME,
-							"componentStopFailed",
-							{
-								component: instance.instanceType
-							},
-							BaseError.fromError(err)
-						)
-					);
+					try {
+						await stopMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
+					} catch (err) {
+						await this.logError(
+							new GeneralError(
+								EngineCore.CLASS_NAME,
+								"componentStopFailed",
+								{
+									className: instance.component.className(),
+									instanceType: instance.instanceType
+								},
+								BaseError.fromError(err)
+							)
+						);
+					}
 				}
 			}
-		}
+		});
 
 		await this.stateSave();
 
-		this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopped`));
-		this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopped`));
+		await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopped`));
+		await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopped`));
 	}
 
 	/**
@@ -317,8 +388,8 @@ export class EngineCore<
 	 * Log info.
 	 * @param message The message to log.
 	 */
-	public logInfo(message: string): void {
-		this._engineLoggingComponent?.log({
+	public async logInfo(message: string): Promise<void> {
+		await this._engineLoggingComponent?.log({
 			source: EngineCore.CLASS_NAME,
 			level: "info",
 			message
@@ -329,7 +400,7 @@ export class EngineCore<
 	 * Log error.
 	 * @param error The error to log.
 	 */
-	public logError(error: IError): void {
+	public async logError(error: IError): Promise<void> {
 		const formattedErrors = ErrorHelper.localizeErrors(error);
 		for (const formattedError of formattedErrors) {
 			let message = Is.stringValue(formattedError.source)
@@ -338,7 +409,7 @@ export class EngineCore<
 			if (this._context.config.debug && Is.stringValue(formattedError.stack)) {
 				message += `\n${formattedError.stack}`;
 			}
-			this._engineLoggingComponent?.log({
+			await this._engineLoggingComponent?.log({
 				source: EngineCore.CLASS_NAME,
 				level: "error",
 				message
@@ -452,7 +523,8 @@ export class EngineCore<
 			config: this._context.config,
 			state: this._context.state,
 			typeInitialisers: this._typeInitialisers,
-			entitySchemas
+			entitySchemas,
+			contextIdKeys: this._contextIdKeys
 		};
 
 		return cloneData;
@@ -489,6 +561,7 @@ export class EngineCore<
 		};
 
 		this._typeInitialisers = cloneData.typeInitialisers;
+		this._contextIdKeys.push(...cloneData.contextIdKeys);
 
 		for (const schemaName of Object.keys(cloneData.entitySchemas)) {
 			EntitySchemaFactory.register(schemaName, () => cloneData.entitySchemas[schemaName]);
@@ -518,9 +591,10 @@ export class EngineCore<
 			);
 
 			for (let i = 0; i < typeConfig.length; i++) {
-				this.logInfo(
+				await this.logInfo(
 					I18n.formatMessage("engineCore.configuring", {
-						element: `${typeKey}: ${typeConfig[i].type}`
+						componentType: typeKey,
+						configType: typeConfig[i].type
 					})
 				);
 				const result = await instanceMethod(this, this._context, typeConfig[i]);
@@ -608,7 +682,7 @@ export class EngineCore<
 
 				return true;
 			} catch (err) {
-				this.logError(BaseError.fromError(err));
+				await this.logError(BaseError.fromError(err));
 				return false;
 			}
 		}
@@ -627,7 +701,7 @@ export class EngineCore<
 				this._context.stateDirty = false;
 				return true;
 			} catch (err) {
-				this.logError(BaseError.fromError(err));
+				await this.logError(BaseError.fromError(err));
 			}
 			return false;
 		}
@@ -640,35 +714,37 @@ export class EngineCore<
 	 */
 	private async bootstrap(): Promise<void> {
 		if (!this._skipBootstrap) {
-			this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapStarted`));
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapStarted`));
 
 			// First bootstrap the components.
 			for (const instance of this._context.componentInstances) {
-				if (Is.function(instance.component.bootstrap)) {
-					this.logInfo(
+				const bootstrapMethod = instance.component.bootstrap?.bind(instance.component);
+				if (Is.function(bootstrapMethod)) {
+					await this.logInfo(
 						I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapping`, {
-							element: instance.instanceType
+							className: instance.component.className(),
+							instanceType: instance.instanceType
 						})
 					);
 
-					const bootstrapSuccess = await instance.component.bootstrap(
-						EngineCore.LOGGING_COMPONENT_TYPE_NAME
-					);
+					const bootstrapSuccess = await bootstrapMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
 
 					// If the bootstrap method failed then throw an error
 					if (!bootstrapSuccess) {
 						throw new GeneralError(EngineCore.CLASS_NAME, "bootstrapFailed", {
-							component: instance.instanceType
+							className: instance.component.className(),
+							instanceType: instance.instanceType
 						});
 					}
 				}
 			}
 			// Now perform any custom bootstrap operations
-			if (Is.function(this._customBootstrap)) {
-				await this._customBootstrap(this, this._context);
+			const customBootstrap = this._customBootstrap;
+			if (Is.function(customBootstrap)) {
+				await customBootstrap.call(this, this, this._context);
 			}
 
-			this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapComplete`));
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapComplete`));
 		}
 	}
 }

@@ -1,8 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IEntitySchema } from "@twin.org/entity";
-import type { IEngineCoreConfig } from "./config/IEngineCoreConfig";
-import type { IEngineState } from "./IEngineState";
+import type { IEngineCoreConfig } from "./config/IEngineCoreConfig.js";
+import type { IEngineState } from "./IEngineState.js";
 
 /**
  * Interface describing the data required to clone an engine.
@@ -34,4 +34,9 @@ export interface IEngineCoreClone<
 	 * The entity schemas for the engine.
 	 */
 	entitySchemas: { [schema: string]: IEntitySchema };
+
+	/**
+	 * The context ID keys.
+	 */
+	contextIdKeys: string[];
 }

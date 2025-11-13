@@ -1,4 +1,4 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-export * from "./engine";
-export * from "./utils/engineConfigHelper";
+export * from "./engine.js";
+export * from "./utils/engineConfigHelper.js";

@@ -2,8 +2,9 @@
 	"error": {
 		"engineCore": {
 			"componentUnknownType": "Unknown component type \"{type}\" specified for \"{componentType}\"",
-			"bootstrapFailed": "Bootstrap failed for component \"{component}\", please check the logs for more information",
-			"componentStopFailed": "Failed to stop component \"{component}\"",
+			"bootstrapFailed": "Failed to bootstrap component type \"{className}\" with instance type \"{instanceType}\"",
+			"componentStartFailed": "Failed to start component type \"{className}\" with instance type \"{instanceType}\"",
+			"componentStopFailed": "Failed to stop component type \"{className}\" with instance type \"{instanceType}\"",
 			"instanceTypeNotFound": "Instance type not found for \"{type}\" with features \"{features}\""
 		},
 		"fileStateStorage": {
@@ -20,16 +21,16 @@
 		"started": "Engine has started",
 		"stopping": "Engine is stopping",
 		"stopped": "Engine has stopped",
-		"configuring": "Configuring {element}",
+		"configuring": "Configuring component type \"{componentType}\" with configuration type \"{configType}\"",
 		"bootstrapStarted": "Bootstrap started",
 		"bootstrapComplete": "Bootstrap complete",
-		"bootstrapping": "Bootstrap {element}",
+		"bootstrapping": "Bootstrapping component type \"{className}\" with instance type \"{instanceType}\"",
 		"componentsStarting": "Components are starting",
 		"componentsComplete": "Components have started",
 		"componentsStopping": "Components are stopping",
 		"componentsStopped": "Components have stopped",
-		"componentStarting": "Starting {element}",
-		"componentStopping": "Stopping {element}"
+		"componentStarting": "Starting component type \"{className}\" with instance type \"{instanceType}\"",
+		"componentStopping": "Stopping component type \"{className}\" with instance type \"{instanceType}\""
 	},
 	"fileStateStorage": {
 		"loading": "Loading state from file storage with filename \"{filename}\"",

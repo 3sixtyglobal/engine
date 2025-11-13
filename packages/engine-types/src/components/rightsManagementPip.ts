@@ -9,9 +9,9 @@ import type {
 	IPolicyInformationSource
 } from "@twin.org/rights-management-models";
 import { PolicyInformationPointService } from "@twin.org/rights-management-pip-service";
-import type { RightsManagementPipComponentConfig } from "../models/config/rightsManagementPipComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { RightsManagementPipComponentType } from "../models/types/rightsManagementPipComponentType";
+import type { RightsManagementPipComponentConfig } from "../models/config/rightsManagementPipComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { RightsManagementPipComponentType } from "../models/types/rightsManagementPipComponentType.js";
 
 /**
  * Initialise the rights management PIP component.

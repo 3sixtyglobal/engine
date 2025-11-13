@@ -4,9 +4,5 @@
 /**
  * The state of the engine.
  */
-export interface IEngineState {
-	/**
-	 * The identity for the node.
-	 */
-	nodeIdentity?: string;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface IEngineState {}

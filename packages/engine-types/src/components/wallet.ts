@@ -10,13 +10,13 @@ import {
 } from "@twin.org/wallet-connector-entity-storage";
 import { IotaWalletConnector } from "@twin.org/wallet-connector-iota";
 import { WalletConnectorFactory, type IWalletConnector } from "@twin.org/wallet-models";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { DltConfig } from "../models/config/dltConfig";
-import type { WalletConnectorConfig } from "../models/config/walletConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { DltConfigType } from "../models/types/dltConfigType";
-import { WalletConnectorType } from "../models/types/walletConnectorType";
-import { EngineTypeHelper } from "../utils/engineTypeHelper";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { DltConfig } from "../models/config/dltConfig.js";
+import type { WalletConnectorConfig } from "../models/config/walletConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { DltConfigType } from "../models/types/dltConfigType.js";
+import { WalletConnectorType } from "../models/types/walletConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise a wallet connector.
@@ -59,7 +59,8 @@ export async function initialiseWalletConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.walletAddressEntityStorageType,
-			nameof<WalletAddress>()
+			nameof<WalletAddress>(),
+			[]
 		);
 
 		component = new EntityStorageWalletConnector({

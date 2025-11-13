@@ -10,13 +10,13 @@ import {
 } from "@twin.org/wallet-connector-entity-storage";
 import { IotaFaucetConnector } from "@twin.org/wallet-connector-iota";
 import { FaucetConnectorFactory, type IFaucetConnector } from "@twin.org/wallet-models";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { DltConfig } from "../models/config/dltConfig";
-import type { FaucetConnectorConfig } from "../models/config/faucetConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { DltConfigType } from "../models/types/dltConfigType";
-import { FaucetConnectorType } from "../models/types/faucetConnectorType";
-import { EngineTypeHelper } from "../utils/engineTypeHelper";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { DltConfig } from "../models/config/dltConfig.js";
+import type { FaucetConnectorConfig } from "../models/config/faucetConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { DltConfigType } from "../models/types/dltConfigType.js";
+import { FaucetConnectorType } from "../models/types/faucetConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise a faucet connector.
@@ -57,7 +57,8 @@ export async function initialiseFaucetConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.walletAddressEntityStorageType,
-			nameof<WalletAddress>()
+			nameof<WalletAddress>(),
+			[]
 		);
 
 		component = new EntityStorageFaucetConnector(instanceConfig.options);

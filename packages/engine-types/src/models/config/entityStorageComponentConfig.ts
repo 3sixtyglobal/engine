@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { IEntityStorageServiceConstructorOptions } from "@twin.org/entity-storage-service";
-import type { EntityStorageComponentType } from "../types/entityStorageComponentType";
+import type { EntityStorageComponentType } from "../types/entityStorageComponentType.js";
 
 /**
  * Entity storage component config types.
@@ -10,7 +10,9 @@ import type { EntityStorageComponentType } from "../types/entityStorageComponent
 export type EntityStorageComponentConfig =
 	| {
 			type: typeof EntityStorageComponentType.Service;
-			options: IEntityStorageServiceConstructorOptions;
+			options: IEntityStorageServiceConstructorOptions & {
+				partitionContextIds: string[];
+			};
 	  }
 	| {
 			type: typeof EntityStorageComponentType.RestClient;

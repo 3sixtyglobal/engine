@@ -16,15 +16,15 @@ import {
 import { IdentityRestClient } from "@twin.org/identity-rest-client";
 import { IdentityService } from "@twin.org/identity-service";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { DltConfig } from "../models/config/dltConfig";
-import type { IdentityComponentConfig } from "../models/config/identityComponentConfig";
-import type { IdentityConnectorConfig } from "../models/config/identityConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { DltConfigType } from "../models/types/dltConfigType";
-import { IdentityComponentType } from "../models/types/identityComponentType";
-import { IdentityConnectorType } from "../models/types/identityConnectorType";
-import { EngineTypeHelper } from "../utils/engineTypeHelper";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { DltConfig } from "../models/config/dltConfig.js";
+import type { IdentityComponentConfig } from "../models/config/identityComponentConfig.js";
+import type { IdentityConnectorConfig } from "../models/config/identityConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { DltConfigType } from "../models/types/dltConfigType.js";
+import { IdentityComponentType } from "../models/types/identityComponentType.js";
+import { IdentityConnectorType } from "../models/types/identityConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the identity connector.
@@ -66,7 +66,8 @@ export async function initialiseIdentityConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.didDocumentEntityStorageType,
-			nameof<IdentityDocument>()
+			nameof<IdentityDocument>(),
+			[]
 		);
 		component = new EntityStorageIdentityConnector({
 			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),

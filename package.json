@@ -13,10 +13,12 @@
 		"node": ">=20.0.0"
 	},
 	"scripts": {
+		"build": "node ./scripts/workspaces.mjs build",
 		"dist": "node ./scripts/workspaces.mjs dist",
+		"dist:no-test": "node ./scripts/workspaces.mjs dist:no-test",
 		"format": "prettier --config .prettierrc --write .",
 		"lint:format": "prettier --config .prettierrc --check .",
-		"lint:code": "eslint .",
+		"lint:code": "eslint . --cache --cache-location .eslintcache",
 		"lint:markdown": "markdownlint **/*.md --ignore **/node_modules/** --ignore **/docs/reference/**  --ignore **/changelog.md",
 		"lint:spell": "cspell ** --no-progress",
 		"lint": "npm run lint:format && npm run lint:code && npm run lint:markdown && npm run lint:spell",

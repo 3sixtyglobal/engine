@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { IBlobStorageServiceConstructorOptions } from "@twin.org/blob-storage-service";
-import type { BlobStorageComponentType } from "../types/blobStorageComponentType";
+import type { BlobStorageComponentType } from "../types/blobStorageComponentType.js";
 
 /**
  * Blob storage component config types.

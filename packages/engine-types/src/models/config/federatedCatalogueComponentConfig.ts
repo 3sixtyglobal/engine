@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { IFederatedCatalogueServiceConstructorOptions } from "@twin.org/federated-catalogue-service";
-import type { FederatedCatalogueComponentType } from "../types/federatedCatalogueComponentType";
+import type { FederatedCatalogueComponentType } from "../types/federatedCatalogueComponentType.js";
 
 /**
  * Federated catalog component config types.

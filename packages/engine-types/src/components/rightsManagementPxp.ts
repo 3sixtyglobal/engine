@@ -9,9 +9,9 @@ import type {
 	IPolicyExecutionPointComponent
 } from "@twin.org/rights-management-models";
 import { PolicyExecutionPointService } from "@twin.org/rights-management-pxp-service";
-import type { RightsManagementPxpComponentConfig } from "../models/config/rightsManagementPxpComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { RightsManagementPxpComponentType } from "../models/types/rightsManagementPxpComponentType";
+import type { RightsManagementPxpComponentConfig } from "../models/config/rightsManagementPxpComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { RightsManagementPxpComponentType } from "../models/types/rightsManagementPxpComponentType.js";
 
 /**
  * Initialise the rights management PXP component.

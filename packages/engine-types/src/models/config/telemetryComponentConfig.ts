@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { ITelemetryServiceConstructorOptions } from "@twin.org/telemetry-service";
-import type { TelemetryComponentType } from "../types/telemetryComponentType";
+import type { TelemetryComponentType } from "../types/telemetryComponentType.js";
 
 /**
  * Telemetry component config types.

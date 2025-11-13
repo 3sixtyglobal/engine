@@ -258,5 +258,10 @@
 		"type": "dataSpaceConnectorComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseDataSpaceConnectorComponent"
+	},
+	{
+		"type": "tenantAdminComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseTenantAdminComponent"
 	}
 ]

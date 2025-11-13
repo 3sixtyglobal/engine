@@ -8,13 +8,14 @@ import {
 	AuditableItemStreamService,
 	initSchema as initSchemaAuditableItemStream
 } from "@twin.org/auditable-item-stream-service";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { AuditableItemStreamComponentConfig } from "../models/config/auditableItemStreamComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { AuditableItemStreamComponentType } from "../models/types/auditableItemStreamComponentType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { AuditableItemStreamComponentConfig } from "../models/config/auditableItemStreamComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { AuditableItemStreamComponentType } from "../models/types/auditableItemStreamComponentType.js";
 
 /**
  * Initialise the auditable item stream component.
@@ -38,13 +39,21 @@ export async function initialiseAuditableItemStreamComponent(
 			engineCore,
 			context,
 			instanceConfig.options?.streamEntityStorageType,
-			nameof<AuditableItemStream>()
+			nameof<AuditableItemStream>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 		initialiseEntityStorageConnector(
 			engineCore,
 			context,
 			instanceConfig.options?.streamEntryEntityStorageType,
-			nameof<AuditableItemStreamEntry>()
+			nameof<AuditableItemStreamEntry>(),
+			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+				ContextIdKeys.Node,
+				ContextIdKeys.Tenant
+			])
 		);
 
 		component = new AuditableItemStreamService({
