@@ -1,5 +1,19 @@
 # @twin.org/engine-core - Changelog
 
+## [0.0.3-next.2](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.1...engine-core-v0.0.3-next.2) (2025-11-13)
+
+
+### Features
+
+* close already started components on startup error ([a55a117](https://github.com/twinfoundation/engine/commit/a55a117a508998288c8ae804e732fc6085cb22fa))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.1 to 0.0.3-next.2
+
 ## [0.0.3-next.1](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.0...engine-core-v0.0.3-next.1) (2025-11-13)
 
 

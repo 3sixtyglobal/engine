@@ -1,5 +1,12 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.3-next.2](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.3-next.1...engine-models-v0.0.3-next.2) (2025-11-13)
+
+
+### Features
+
+* close already started components on startup error ([a55a117](https://github.com/twinfoundation/engine/commit/a55a117a508998288c8ae804e732fc6085cb22fa))
+
 ## [0.0.3-next.1](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.3-next.0...engine-models-v0.0.3-next.1) (2025-11-13)
 
 

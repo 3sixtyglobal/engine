@@ -1,5 +1,25 @@
 # @twin.org/engine-types - Changelog
 
+## [0.0.3-next.2](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.1...engine-types-v0.0.3-next.2) (2025-11-13)
+
+
+### Features
+
+* close already started components on startup error ([a55a117](https://github.com/twinfoundation/engine/commit/a55a117a508998288c8ae804e732fc6085cb22fa))
+
+
+### Bug Fixes
+
+* missing dependency ([e8147fb](https://github.com/twinfoundation/engine/commit/e8147fbd66248efd86877ece23022f2dd58c950a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.1 to 0.0.3-next.2
+    * @twin.org/engine-models bumped from 0.0.3-next.1 to 0.0.3-next.2
+
 ## [0.0.3-next.1](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.0...engine-types-v0.0.3-next.1) (2025-11-13)
 
 
