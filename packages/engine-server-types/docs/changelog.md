@@ -1,5 +1,42 @@
 # @twin.org/engine-server-types - Changelog
 
+## [0.0.3-next.1](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.3-next.0...engine-server-types-v0.0.3-next.1) (2025-11-13)
+
+
+### Features
+
+* add auth admin component ([201cd06](https://github.com/twinfoundation/engine/commit/201cd061be83afccb5a6b06856ffe7cf8db7d6b3))
+* add context id features ([#51](https://github.com/twinfoundation/engine/issues/51)) ([eaef180](https://github.com/twinfoundation/engine/commit/eaef1807397a907bc7655ef1545a151a710ca2f1))
+* add data space connector ([a824d99](https://github.com/twinfoundation/engine/commit/a824d9931faeaa8115e01f8e7545b802d0e7ac70))
+* add default logging component for web server ([8ad94f0](https://github.com/twinfoundation/engine/commit/8ad94f0d2d9a5241a8854b1e59fb9a55ce310142))
+* add federated catalogue ([1b15dd0](https://github.com/twinfoundation/engine/commit/1b15dd059a11446457651c411a73145fab37f025))
+* add latest rights management components ([2d305c8](https://github.com/twinfoundation/engine/commit/2d305c8c85c77bb4f5694c76422db4a11efc1a40))
+* add mimeTypeProcessors and disableNodeIdentity ([bb7e81e](https://github.com/twinfoundation/engine/commit/bb7e81e2036fe042068a5645ec59b22e20d33aad))
+* add rest clients as components ([c6f956a](https://github.com/twinfoundation/engine/commit/c6f956afe4fc22cd552174539c92a109448dc242))
+* add rights management modules ([e02cadc](https://github.com/twinfoundation/engine/commit/e02cadc840d242fe16a73ab41ba61376c7467e50))
+* add rights management negotiation ([84ef46b](https://github.com/twinfoundation/engine/commit/84ef46bff110611a19512793425c8c873ee2a590))
+* add synchronised storage support ([5142e34](https://github.com/twinfoundation/engine/commit/5142e3488f09195cf9f48a9c6c6d1014231a4c2c))
+* add task scheduler ([0951107](https://github.com/twinfoundation/engine/commit/09511073ad042194a45206303f0ef31d8d6af5db))
+* add validate-locales ([b92ea09](https://github.com/twinfoundation/engine/commit/b92ea09dbcfe35225271a51f24d231f59e2d363e))
+* eslint migration to flat config ([6b978da](https://github.com/twinfoundation/engine/commit/6b978daf777a615d7758b63c3df57d5a376f6dfb))
+* modifying the engine to run the new services ([#10](https://github.com/twinfoundation/engine/issues/10)) ([6f7141f](https://github.com/twinfoundation/engine/commit/6f7141fe0a6d05c725066b274bcc18b5490e580b))
+* simplify config building ([732c871](https://github.com/twinfoundation/engine/commit/732c871c5aca236759168f4bc15aeffd98a330a8))
+* standardised engine logging naming ([0dbf857](https://github.com/twinfoundation/engine/commit/0dbf857587641f86ddf010143519d0e8333489ff))
+* switch to devDeps ([32832ac](https://github.com/twinfoundation/engine/commit/32832acd934e1e5569474281a527c9b118d30732))
+* update dependencies ([97c9f64](https://github.com/twinfoundation/engine/commit/97c9f64b6ef096963bcc5de338a2a9e99bdc1a11))
+* update framework core ([acc0f8d](https://github.com/twinfoundation/engine/commit/acc0f8d455a4b8ec47f1da643139fa0f07775fa6))
+* update rights management and add authentication generators ([f728a1e](https://github.com/twinfoundation/engine/commit/f728a1efea15ada8d10cfbe17cafe7e2b252f527))
+* upgrade framework components ([efd52e8](https://github.com/twinfoundation/engine/commit/efd52e80564fff29c3897bfa09b6305b3a322812))
+* use shared store mechanism ([#2](https://github.com/twinfoundation/engine/issues/2)) ([9eed8d7](https://github.com/twinfoundation/engine/commit/9eed8d7766388479b42f03e2542fe761f2156408))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.0 to 0.0.3-next.1
+    * @twin.org/engine-types bumped from 0.0.3-next.0 to 0.0.3-next.1
+
 ## [0.0.2-next.26](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.2-next.25...engine-server-types-v0.0.2-next.26) (2025-10-09)
 
 
