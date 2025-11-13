@@ -37,5 +37,5 @@ export interface IEngineCoreContext<
 	/**
 	 * The components.
 	 */
-	componentInstances: { instanceType: string; component: IComponent }[];
+	componentInstances: { instanceType: string; component: IComponent; started: boolean }[];
 }

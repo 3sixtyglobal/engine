@@ -267,31 +267,35 @@ export class EngineCore<
 
 				await ContextIdStore.run(this._contextIds ?? {}, async () => {
 					for (const instance of this._context.componentInstances) {
-						const startMethod = instance.component.start?.bind(instance.component);
-						if (Is.function(startMethod)) {
-							await this.logInfo(
-								I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStarting`, {
-									className: instance.component.className(),
-									instanceType: instance.instanceType
-								})
-							);
-
-							try {
-								await startMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
-							} catch (err) {
-								await this.logError(
-									new GeneralError(
-										EngineCore.CLASS_NAME,
-										"componentStartFailed",
-										{
-											className: instance.component.className(),
-											instanceType: instance.instanceType
-										},
-										BaseError.fromError(err)
-									)
+						if (!instance.started) {
+							const startMethod = instance.component.start?.bind(instance.component);
+							if (Is.function(startMethod)) {
+								await this.logInfo(
+									I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStarting`, {
+										className: instance.component.className(),
+										instanceType: instance.instanceType
+									})
 								);
 
-								throw err;
+								try {
+									await startMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
+
+									instance.started = true;
+								} catch (err) {
+									await this.logError(
+										new GeneralError(
+											EngineCore.CLASS_NAME,
+											"componentStartFailed",
+											{
+												className: instance.component.className(),
+												instanceType: instance.instanceType
+											},
+											BaseError.fromError(err)
+										)
+									);
+
+									throw err;
+								}
 							}
 						}
 					}
@@ -313,6 +317,10 @@ export class EngineCore<
 			}
 		}
 
+		if (!canContinue) {
+			await this.stop();
+		}
+
 		return canContinue;
 	}
 
@@ -326,29 +334,32 @@ export class EngineCore<
 
 		await ContextIdStore.run(this._contextIds ?? {}, async () => {
 			for (const instance of this._context.componentInstances) {
-				const stopMethod = instance.component.stop?.bind(instance.component);
-				if (Is.function(stopMethod)) {
-					await this.logInfo(
-						I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStopping`, {
-							className: instance.component.className(),
-							instanceType: instance.instanceType
-						})
-					);
-
-					try {
-						await stopMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
-					} catch (err) {
-						await this.logError(
-							new GeneralError(
-								EngineCore.CLASS_NAME,
-								"componentStopFailed",
-								{
-									className: instance.component.className(),
-									instanceType: instance.instanceType
-								},
-								BaseError.fromError(err)
-							)
+				if (instance.started) {
+					instance.started = false;
+					const stopMethod = instance.component.stop?.bind(instance.component);
+					if (Is.function(stopMethod)) {
+						await this.logInfo(
+							I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStopping`, {
+								className: instance.component.className(),
+								instanceType: instance.instanceType
+							})
 						);
+
+						try {
+							await stopMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
+						} catch (err) {
+							await this.logError(
+								new GeneralError(
+									EngineCore.CLASS_NAME,
+									"componentStopFailed",
+									{
+										className: instance.component.className(),
+										instanceType: instance.instanceType
+									},
+									BaseError.fromError(err)
+								)
+							);
+						}
 					}
 				}
 			}
@@ -603,7 +614,8 @@ export class EngineCore<
 					const finalInstanceType = typeConfig[i].overrideInstanceType ?? result.instanceType;
 					this._context.componentInstances.push({
 						instanceType: finalInstanceType,
-						component: result.component
+						component: result.component,
+						started: false
 					});
 
 					result.factory?.register(finalInstanceType, () => result.component);
@@ -642,7 +654,8 @@ export class EngineCore<
 
 		this._context.componentInstances.push({
 			instanceType: EngineCore.LOGGING_CONNECTOR_TYPE_NAME,
-			component: engineLoggerConnector
+			component: engineLoggerConnector,
+			started: false
 		});
 
 		LoggingConnectorFactory.register(

@@ -64,3 +64,7 @@ The components.
 #### component
 
 > **component**: `IComponent`
+
+#### started
+
+> **started**: `boolean`
