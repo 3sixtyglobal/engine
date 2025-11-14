@@ -1,5 +1,12 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.3-next.3](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.3-next.2...engine-models-v0.0.3-next.3) (2025-11-14)
+
+
+### Bug Fixes
+
+* make sure stop is called even if start is not implemented ([ece2b9d](https://github.com/twinfoundation/engine/commit/ece2b9de5c6dff2b5ccf2a3115c1a7328a330125))
+
 ## [0.0.3-next.2](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.3-next.1...engine-models-v0.0.3-next.2) (2025-11-13)
 
 
