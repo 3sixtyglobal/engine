@@ -211,7 +211,7 @@ export function initialiseEntityStorageConnector(
 		context.componentInstances.push({
 			instanceType: instanceName,
 			component: entityStorageConnector,
-			started: false
+			initialised: false
 		});
 		EntityStorageConnectorFactory.register(instanceName, () => entityStorageConnector);
 	}

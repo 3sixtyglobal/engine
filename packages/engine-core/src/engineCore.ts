@@ -267,7 +267,9 @@ export class EngineCore<
 
 				await ContextIdStore.run(this._contextIds ?? {}, async () => {
 					for (const instance of this._context.componentInstances) {
-						if (!instance.started) {
+						if (!instance.initialised) {
+							instance.initialised = true;
+
 							const startMethod = instance.component.start?.bind(instance.component);
 							if (Is.function(startMethod)) {
 								await this.logInfo(
@@ -279,8 +281,6 @@ export class EngineCore<
 
 								try {
 									await startMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
-
-									instance.started = true;
 								} catch (err) {
 									await this.logError(
 										new GeneralError(
@@ -334,8 +334,8 @@ export class EngineCore<
 
 		await ContextIdStore.run(this._contextIds ?? {}, async () => {
 			for (const instance of this._context.componentInstances) {
-				if (instance.started) {
-					instance.started = false;
+				if (instance.initialised) {
+					instance.initialised = false;
 					const stopMethod = instance.component.stop?.bind(instance.component);
 					if (Is.function(stopMethod)) {
 						await this.logInfo(
@@ -615,7 +615,7 @@ export class EngineCore<
 					this._context.componentInstances.push({
 						instanceType: finalInstanceType,
 						component: result.component,
-						started: false
+						initialised: false
 					});
 
 					result.factory?.register(finalInstanceType, () => result.component);
@@ -655,7 +655,7 @@ export class EngineCore<
 		this._context.componentInstances.push({
 			instanceType: EngineCore.LOGGING_CONNECTOR_TYPE_NAME,
 			component: engineLoggerConnector,
-			started: false
+			initialised: false
 		});
 
 		LoggingConnectorFactory.register(
