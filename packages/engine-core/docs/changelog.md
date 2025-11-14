@@ -1,5 +1,19 @@
 # @twin.org/engine-core - Changelog
 
+## [0.0.3-next.3](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.2...engine-core-v0.0.3-next.3) (2025-11-14)
+
+
+### Bug Fixes
+
+* make sure stop is called even if start is not implemented ([ece2b9d](https://github.com/twinfoundation/engine/commit/ece2b9de5c6dff2b5ccf2a3115c1a7328a330125))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.2 to 0.0.3-next.3
+
 ## [0.0.3-next.2](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.1...engine-core-v0.0.3-next.2) (2025-11-13)
 
 
