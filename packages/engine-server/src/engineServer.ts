@@ -231,8 +231,9 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	public async stop(): Promise<void> {
 		await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
 			if (this._webServer) {
-				await this._webServer.stop();
+				const webServer = this._webServer;
 				this._webServer = undefined;
+				await webServer.stop();
 			}
 		});
 

@@ -329,46 +329,50 @@ export class EngineCore<
 	 * @returns Nothing.
 	 */
 	public async stop(): Promise<void> {
-		await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopping`));
-		await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopping`));
+		if (this._isStarted) {
+			this._isStarted = false;
 
-		await ContextIdStore.run(this._contextIds ?? {}, async () => {
-			for (const instance of this._context.componentInstances) {
-				if (instance.initialised) {
-					instance.initialised = false;
-					const stopMethod = instance.component.stop?.bind(instance.component);
-					if (Is.function(stopMethod)) {
-						await this.logInfo(
-							I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStopping`, {
-								className: instance.component.className(),
-								instanceType: instance.instanceType
-							})
-						);
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopping`));
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopping`));
 
-						try {
-							await stopMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
-						} catch (err) {
-							await this.logError(
-								new GeneralError(
-									EngineCore.CLASS_NAME,
-									"componentStopFailed",
-									{
-										className: instance.component.className(),
-										instanceType: instance.instanceType
-									},
-									BaseError.fromError(err)
-								)
+			await ContextIdStore.run(this._contextIds ?? {}, async () => {
+				for (const instance of this._context.componentInstances) {
+					if (instance.initialised) {
+						instance.initialised = false;
+						const stopMethod = instance.component.stop?.bind(instance.component);
+						if (Is.function(stopMethod)) {
+							await this.logInfo(
+								I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStopping`, {
+									className: instance.component.className(),
+									instanceType: instance.instanceType
+								})
 							);
+
+							try {
+								await stopMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
+							} catch (err) {
+								await this.logError(
+									new GeneralError(
+										EngineCore.CLASS_NAME,
+										"componentStopFailed",
+										{
+											className: instance.component.className(),
+											instanceType: instance.instanceType
+										},
+										BaseError.fromError(err)
+									)
+								);
+							}
 						}
 					}
 				}
-			}
-		});
+			});
 
-		await this.stateSave();
+			await this.stateSave();
 
-		await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopped`));
-		await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopped`));
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopped`));
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopped`));
+		}
 	}
 
 	/**
