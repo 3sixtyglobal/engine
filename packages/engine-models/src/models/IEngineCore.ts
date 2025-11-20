@@ -32,8 +32,9 @@ export interface IEngineCore<
 	/**
 	 * Add a context ID key to the engine.
 	 * @param key The context ID key.
+	 * @param componentFeatures The component features for the context ID handler.
 	 */
-	addContextIdKey(key: string): void;
+	addContextIdKey(key: string, componentFeatures: string[]): void;
 
 	/**
 	 * Get the context ID keys for the engine.

@@ -9,6 +9,7 @@ import type { AuthenticationGeneratorComponentConfig } from "./config/authentica
 import type { BackgroundTaskConnectorConfig } from "./config/backgroundTaskConnectorConfig.js";
 import type { BlobStorageComponentConfig } from "./config/blobStorageComponentConfig.js";
 import type { BlobStorageConnectorConfig } from "./config/blobStorageConnectorConfig.js";
+import type { ContextIdHandlerComponentConfig } from "./config/contextIdHandlerComponentConfig.js";
 import type { DataConverterConnectorConfig } from "./config/dataConverterConnectorConfig.js";
 import type { DataExtractorConnectorConfig } from "./config/dataExtractorConnectorConfig.js";
 import type { DataProcessingComponentConfig } from "./config/dataProcessingComponentConfig.js";
@@ -341,5 +342,10 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Tenant admin component options which can be overridden by individual components by specifying types other than default.
 		 */
 		tenantAdminComponent?: IEngineCoreTypeConfig<TenantAdminComponentConfig>[];
+
+		/**
+		 * Context Id Handler component options which can be overridden by individual components by specifying types other than default.
+		 */
+		contextIdHandlerComponent?: IEngineCoreTypeConfig<ContextIdHandlerComponentConfig>[];
 	};
 }

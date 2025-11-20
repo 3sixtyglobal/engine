@@ -24,7 +24,6 @@ describe("engine-core", () => {
 		const engine = new EngineCore({
 			config: {
 				debug: true,
-				availableContextIds: [],
 				types: {}
 			},
 			stateStorage: new MemoryStateStorage(),

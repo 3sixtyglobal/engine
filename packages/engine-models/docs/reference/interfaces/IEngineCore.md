@@ -70,7 +70,7 @@ The type config or undefined if not found.
 
 ### addContextIdKey()
 
-> **addContextIdKey**(`key`): `void`
+> **addContextIdKey**(`key`, `componentFeatures`): `void`
 
 Add a context ID key to the engine.
 
@@ -81,6 +81,12 @@ Add a context ID key to the engine.
 `string`
 
 The context ID key.
+
+##### componentFeatures
+
+`string`[]
+
+The component features for the context ID handler.
 
 #### Returns
 

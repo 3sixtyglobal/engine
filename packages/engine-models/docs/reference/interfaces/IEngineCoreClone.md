@@ -64,6 +64,14 @@ The entity schemas for the engine.
 
 ### contextIdKeys
 
-> **contextIdKeys**: `string`[]
+> **contextIdKeys**: `object`[]
 
 The context ID keys.
+
+#### key
+
+> **key**: `string`
+
+#### componentFeatures
+
+> **componentFeatures**: `string`[]

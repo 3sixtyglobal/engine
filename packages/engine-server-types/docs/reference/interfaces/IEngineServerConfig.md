@@ -390,6 +390,12 @@ Data space connector options which can be overridden by individual components by
 
 Tenant admin component options which can be overridden by individual components by specifying types other than default.
 
+##### contextIdHandlerComponent?
+
+> `optional` **contextIdHandlerComponent**: `IEngineCoreTypeConfig`\<`ContextIdHandlerComponentConfig`\>[]
+
+Context Id Handler component options which can be overridden by individual components by specifying types other than default.
+
 #### Type Declaration
 
 ##### informationComponent?

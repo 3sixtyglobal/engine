@@ -38,5 +38,5 @@ export interface IEngineCoreClone<
 	/**
 	 * The context ID keys.
 	 */
-	contextIdKeys: string[];
+	contextIdKeys: { key: string; componentFeatures: string[] }[];
 }

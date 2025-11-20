@@ -92,9 +92,17 @@ The core context.
 
 ### \_contextIdKeys
 
-> `protected` `readonly` **\_contextIdKeys**: `string`[]
+> `protected` `readonly` **\_contextIdKeys**: `object`[]
 
 The context ID keys.
+
+#### key
+
+> **key**: `string`
+
+#### componentFeatures
+
+> **componentFeatures**: `string`[]
 
 #### Inherited from
 
@@ -178,7 +186,7 @@ The type config or undefined if not found.
 
 ### addContextIdKey()
 
-> **addContextIdKey**(`key`): `void`
+> **addContextIdKey**(`key`, `componentFeatures`): `void`
 
 Add a context ID key to the engine.
 
@@ -189,6 +197,12 @@ Add a context ID key to the engine.
 `string`
 
 The context ID key.
+
+##### componentFeatures
+
+`string`[]
+
+The component features for the context ID handler.
 
 #### Returns
 

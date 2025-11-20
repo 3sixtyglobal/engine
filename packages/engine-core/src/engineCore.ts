@@ -1,7 +1,12 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { isMainThread } from "node:worker_threads";
-import { ContextIdStore, type IContextIds } from "@twin.org/context";
+import {
+	ContextIdHandlerFactory,
+	ContextIdStore,
+	type IContextIdHandler,
+	type IContextIds
+} from "@twin.org/context";
 import {
 	BaseError,
 	ComponentFactory,
@@ -66,7 +71,7 @@ export class EngineCore<
 	/**
 	 * The context ID keys.
 	 */
-	protected readonly _contextIdKeys: string[];
+	protected readonly _contextIdKeys: { key: string; componentFeatures: string[] }[];
 
 	/**
 	 * The context IDs.
@@ -201,10 +206,12 @@ export class EngineCore<
 	/**
 	 * Add a context ID key to the engine.
 	 * @param key The context ID key.
+	 * @param componentFeatures The component features for the context ID handler.
 	 */
-	public addContextIdKey(key: string): void {
-		if (!this._contextIdKeys.includes(key)) {
-			this._contextIdKeys.push(key);
+	public addContextIdKey(key: string, componentFeatures: string[]): void {
+		const exists = this._contextIdKeys.find(k => k.key === key);
+		if (Is.empty(exists)) {
+			this._contextIdKeys.push({ key, componentFeatures });
 		}
 	}
 
@@ -213,7 +220,7 @@ export class EngineCore<
 	 * @returns The context IDs keys.
 	 */
 	public getContextIdKeys(): string[] {
-		return this._contextIdKeys;
+		return this._contextIdKeys.map(k => k.key);
 	}
 
 	/**
@@ -264,6 +271,8 @@ export class EngineCore<
 				await this.logInfo(
 					I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStarting`)
 				);
+
+				this.initialiseContextIdHandlers();
 
 				await ContextIdStore.run(this._contextIds ?? {}, async () => {
 					for (const instance of this._context.componentInstances) {
@@ -762,6 +771,23 @@ export class EngineCore<
 			}
 
 			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapComplete`));
+		}
+	}
+
+	/**
+	 * Initialise the context ID handlers.
+	 * @internal
+	 */
+	private initialiseContextIdHandlers(): void {
+		for (const contextIdKey of this._contextIdKeys) {
+			const handlerType: string | undefined = this.getRegisteredInstanceTypeOptional(
+				"contextIdHandlerComponent",
+				contextIdKey.componentFeatures
+			);
+			if (Is.stringValue(handlerType)) {
+				const handler = ComponentFactory.get<IContextIdHandler>(handlerType);
+				ContextIdHandlerFactory.register(contextIdKey.key, () => handler);
+			}
 		}
 	}
 }

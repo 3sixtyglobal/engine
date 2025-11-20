@@ -263,5 +263,10 @@
 		"type": "tenantAdminComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseTenantAdminComponent"
+	},
+	{
+		"type": "contextIdHandlerComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseContextIdHandlerComponent"
 	}
 ]

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { mkdir, rm } from "node:fs/promises";
 import { AuthenticationGeneratorFactory } from "@twin.org/api-models";
-import { ContextIdKeys, ContextIdStore } from "@twin.org/context";
+import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@twin.org/context";
 import { ComponentFactory, Factory, I18n } from "@twin.org/core";
 import { MemoryStateStorage } from "@twin.org/engine-core";
 import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
@@ -15,6 +15,7 @@ import {
 	BackgroundTaskConnectorType,
 	BlobStorageComponentType,
 	BlobStorageConnectorType,
+	ContextIdHandlerComponentType,
 	DataConverterConnectorType,
 	DataExtractorConnectorType,
 	DataProcessingComponentType,
@@ -90,7 +91,7 @@ describe("engine", () => {
 	beforeAll(async () => {
 		I18n.addDictionary("en", { ...coreLocales, ...typeLocales });
 
-		ContextIdStore.getContextIds = vi.fn().mockImplementation(() => ({ node: "node" }));
+		ContextIdStore.getContextIds = vi.fn().mockImplementation(() => ({ node: "did:iota:0x123" }));
 	});
 
 	beforeEach(async () => {
@@ -628,11 +629,24 @@ describe("engine", () => {
 						{
 							type: DataSpaceConnectorComponentType.Service
 						}
+					],
+					contextIdHandlerComponent: [
+						{
+							type: ContextIdHandlerComponentType.Did,
+							features: ["did"]
+						},
+						{
+							type: ContextIdHandlerComponentType.Tenant,
+							features: ["tenant"]
+						}
 					]
 				}
 			},
 			stateStorage: new MemoryStateStorage()
 		});
+
+		engine.addContextIdKey(ContextIdKeys.Node, ["did"]);
+		engine.addContextIdKey(ContextIdKeys.Tenant, ["tenant"]);
 
 		const canContinue = await engine.start();
 		await engine.stop();
@@ -642,6 +656,7 @@ describe("engine", () => {
 		const cloneData = engine.getCloneData();
 		const clone = new Engine();
 		clone.populateClone(cloneData);
+
 		const canContinue2 = await clone.start();
 
 		expect(canContinue).toEqual(true);
@@ -649,6 +664,10 @@ describe("engine", () => {
 		expect(clone.getConfig()).toEqual(engine.getConfig());
 		expect(clone.getState()).toEqual(engine.getState());
 		expect(clone.getRegisteredInstances()).toEqual(engine.getRegisteredInstances());
+
+		expect(ContextIdHandlerFactory.names()).toEqual(["node", "tenant"]);
+		expect(ContextIdHandlerFactory.get("node").className()).toEqual("DidContextIdHandler");
+		expect(ContextIdHandlerFactory.get("tenant").className()).toEqual("TenantIdContextIdHandler");
 	});
 
 	test("Can clone the engine and silence it", async () => {
