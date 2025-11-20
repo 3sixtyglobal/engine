@@ -1,5 +1,12 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.3-next.4](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.3-next.3...engine-models-v0.0.3-next.4) (2025-11-20)
+
+
+### Features
+
+* context id handlers repopulated after engine clone ([9712e32](https://github.com/twinfoundation/engine/commit/9712e328f4607f5b2c82355c394c61bde0ee39bf))
+
 ## [0.0.3-next.3](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.3-next.2...engine-models-v0.0.3-next.3) (2025-11-14)
 
 

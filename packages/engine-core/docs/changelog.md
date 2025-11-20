@@ -1,5 +1,20 @@
 # @twin.org/engine-core - Changelog
 
+## [0.0.3-next.4](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.3...engine-core-v0.0.3-next.4) (2025-11-20)
+
+
+### Features
+
+* context id handlers repopulated after engine clone ([9712e32](https://github.com/twinfoundation/engine/commit/9712e328f4607f5b2c82355c394c61bde0ee39bf))
+* interlock stop method ([3806ba7](https://github.com/twinfoundation/engine/commit/3806ba7b44b3cb3ce130f4e3684a666533674663))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.3 to 0.0.3-next.4
+
 ## [0.0.3-next.3](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.2...engine-core-v0.0.3-next.3) (2025-11-14)
 
 
