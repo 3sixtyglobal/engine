@@ -266,13 +266,13 @@ export class EngineCore<
 					await this.initialiseTypeConfig(type, module, method);
 				}
 
+				this.initialiseContextIdHandlers();
+
 				await this.bootstrap();
 
 				await this.logInfo(
 					I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStarting`)
 				);
-
-				this.initialiseContextIdHandlers();
 
 				await ContextIdStore.run(this._contextIds ?? {}, async () => {
 					for (const instance of this._context.componentInstances) {
