@@ -1,5 +1,19 @@
 # @twin.org/engine-core - Changelog
 
+## [0.0.3-next.5](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.4...engine-core-v0.0.3-next.5) (2025-11-20)
+
+
+### Features
+
+* initialise context id handlers before bootstrap ([e94df44](https://github.com/twinfoundation/engine/commit/e94df440aa553350dba5da2ae93b5c34e0ac3692))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.4 to 0.0.3-next.5
+
 ## [0.0.3-next.4](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.3...engine-core-v0.0.3-next.4) (2025-11-20)
 
 

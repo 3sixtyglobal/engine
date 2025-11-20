@@ -1,5 +1,23 @@
 # @twin.org/engine-server - Changelog
 
+## [0.0.3-next.5](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.3-next.4...engine-server-v0.0.3-next.5) (2025-11-20)
+
+
+### Miscellaneous Chores
+
+* **engine-server:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.4 to 0.0.3-next.5
+    * @twin.org/engine-models bumped from 0.0.3-next.4 to 0.0.3-next.5
+    * @twin.org/engine-server-types bumped from 0.0.3-next.4 to 0.0.3-next.5
+  * devDependencies
+    * @twin.org/engine bumped from 0.0.3-next.4 to 0.0.3-next.5
+
 ## [0.0.3-next.4](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.3-next.3...engine-server-v0.0.3-next.4) (2025-11-20)
 
 
