@@ -10,9 +10,9 @@
 		"method": "initialiseLoggingComponent"
 	},
 	{
-		"type": "backgroundTaskConnector",
+		"type": "backgroundTaskComponent",
 		"module": "@twin.org/engine-types",
-		"method": "initialiseBackgroundTaskConnector"
+		"method": "initialiseBackgroundTaskComponent"
 	},
 	{
 		"type": "taskSchedulerComponent",
@@ -253,6 +253,11 @@
 		"type": "federatedCatalogueComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseFederatedCatalogueComponent"
+	},
+	{
+		"type": "federatedCatalogueFilterComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseFederatedCatalogueFilterComponent"
 	},
 	{
 		"type": "dataSpaceConnectorComponent",

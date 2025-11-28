@@ -6,7 +6,7 @@ import type { AttestationConnectorConfig } from "./config/attestationConnectorCo
 import type { AuditableItemGraphComponentConfig } from "./config/auditableItemGraphComponentConfig.js";
 import type { AuditableItemStreamComponentConfig } from "./config/auditableItemStreamComponentConfig.js";
 import type { AuthenticationGeneratorComponentConfig } from "./config/authenticationGeneratorComponentConfig.js";
-import type { BackgroundTaskConnectorConfig } from "./config/backgroundTaskConnectorConfig.js";
+import type { BackgroundTaskComponentConfig } from "./config/backgroundTaskComponentConfig.js";
 import type { BlobStorageComponentConfig } from "./config/blobStorageComponentConfig.js";
 import type { BlobStorageConnectorConfig } from "./config/blobStorageConnectorConfig.js";
 import type { ContextIdHandlerComponentConfig } from "./config/contextIdHandlerComponentConfig.js";
@@ -22,6 +22,7 @@ import type { EventBusComponentConfig } from "./config/eventBusComponentConfig.j
 import type { EventBusConnectorConfig } from "./config/eventBusConnectorConfig.js";
 import type { FaucetConnectorConfig } from "./config/faucetConnectorConfig.js";
 import type { FederatedCatalogueComponentConfig } from "./config/federatedCatalogueComponentConfig.js";
+import type { FederatedCatalogueFilterComponentConfig } from "./config/federatedCatalogueFilterComponentConfig.js";
 import type { IdentityComponentConfig } from "./config/identityComponentConfig.js";
 import type { IdentityConnectorConfig } from "./config/identityConnectorConfig.js";
 import type { IdentityProfileComponentConfig } from "./config/identityProfileComponentConfig.js";
@@ -134,9 +135,9 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		messagingComponent?: IEngineCoreTypeConfig<MessagingComponentConfig>[];
 
 		/**
-		 * Background task connector options which can be overridden by individual components by specifying types other than default.
+		 * Background task component options which can be overridden by individual components by specifying types other than default.
 		 */
-		backgroundTaskConnector?: IEngineCoreTypeConfig<BackgroundTaskConnectorConfig>[];
+		backgroundTaskComponent?: IEngineCoreTypeConfig<BackgroundTaskComponentConfig>[];
 
 		/**
 		 * Task scheduler component options which can be overridden by individual components by specifying types other than default.
@@ -332,6 +333,11 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Federated catalogue options which can be overridden by individual components by specifying types other than default.
 		 */
 		federatedCatalogueComponent?: IEngineCoreTypeConfig<FederatedCatalogueComponentConfig>[];
+
+		/**
+		 * Federated catalogue filter options which can be overridden by individual components by specifying types other than default.
+		 */
+		federatedCatalogueFilterComponent?: IEngineCoreTypeConfig<FederatedCatalogueFilterComponentConfig>[];
 
 		/**
 		 * Data space connector options which can be overridden by individual components by specifying types other than default.

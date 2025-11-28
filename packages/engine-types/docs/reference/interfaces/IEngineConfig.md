@@ -132,11 +132,11 @@ Messaging admin component options which can be overridden by individual componen
 
 Messaging component options which can be overridden by individual components by specifying types other than default.
 
-#### backgroundTaskConnector?
+#### backgroundTaskComponent?
 
-> `optional` **backgroundTaskConnector**: `IEngineCoreTypeConfig`\<[`BackgroundTaskConnectorConfig`](../type-aliases/BackgroundTaskConnectorConfig.md)\>[]
+> `optional` **backgroundTaskComponent**: `IEngineCoreTypeConfig`\<[`BackgroundTaskComponentConfig`](../type-aliases/BackgroundTaskComponentConfig.md)\>[]
 
-Background task connector options which can be overridden by individual components by specifying types other than default.
+Background task component options which can be overridden by individual components by specifying types other than default.
 
 #### taskSchedulerComponent?
 
@@ -371,6 +371,12 @@ Synchronised storage options which can be overridden by individual components by
 > `optional` **federatedCatalogueComponent**: `IEngineCoreTypeConfig`\<[`FederatedCatalogueComponentConfig`](../type-aliases/FederatedCatalogueComponentConfig.md)\>[]
 
 Federated catalogue options which can be overridden by individual components by specifying types other than default.
+
+#### federatedCatalogueFilterComponent?
+
+> `optional` **federatedCatalogueFilterComponent**: `IEngineCoreTypeConfig`\<[`FederatedCatalogueFilterComponentConfig`](../type-aliases/FederatedCatalogueFilterComponentConfig.md)\>[]
+
+Federated catalogue filter options which can be overridden by individual components by specifying types other than default.
 
 #### dataSpaceConnectorComponent?
 

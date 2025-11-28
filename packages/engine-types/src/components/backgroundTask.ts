@@ -1,43 +1,40 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import type { IBackgroundTaskComponent } from "@twin.org/background-task-models";
 import {
-	EntityStorageBackgroundTaskConnector,
+	BackgroundTaskService,
 	initSchema,
 	type BackgroundTask
-} from "@twin.org/background-task-connector-entity-storage";
-import {
-	BackgroundTaskConnectorFactory,
-	type IBackgroundTaskConnector
-} from "@twin.org/background-task-models";
+} from "@twin.org/background-task-service";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import type { IComponent } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
-import type { BackgroundTaskConnectorConfig } from "../models/config/backgroundTaskConnectorConfig.js";
+import type { BackgroundTaskComponentConfig } from "../models/config/backgroundTaskComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
-import { BackgroundTaskConnectorType } from "../models/types/backgroundTaskConnectorType.js";
+import { BackgroundTaskComponentType } from "../models/types/backgroundTaskComponentType.js";
 
 /**
- * Initialise a background task connector.
+ * Initialise a background task component.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseBackgroundTaskConnector(
+export async function initialiseBackgroundTaskComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: BackgroundTaskConnectorConfig
+	instanceConfig: BackgroundTaskComponentConfig
 ): Promise<{
 	instanceType?: string;
-	factory?: typeof BackgroundTaskConnectorFactory;
+	factory?: typeof ComponentFactory;
 	component?: IComponent;
 }> {
-	let component: IBackgroundTaskConnector | undefined;
+	let component: IBackgroundTaskComponent | undefined;
 	let instanceType: string | undefined;
 
-	if (instanceConfig.type === BackgroundTaskConnectorType.EntityStorage) {
+	if (instanceConfig.type === BackgroundTaskComponentType.Service) {
 		initSchema();
 		initialiseEntityStorageConnector(
 			engineCore,
@@ -46,16 +43,16 @@ export async function initialiseBackgroundTaskConnector(
 			nameof<BackgroundTask>(),
 			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
 		);
-		component = new EntityStorageBackgroundTaskConnector({
+		component = new BackgroundTaskService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
-		instanceType = EntityStorageBackgroundTaskConnector.NAMESPACE;
+		instanceType = nameofKebabCase(BackgroundTaskService);
 	}
 
 	return {
 		component,
 		instanceType,
-		factory: BackgroundTaskConnectorFactory
+		factory: ComponentFactory
 	};
 }

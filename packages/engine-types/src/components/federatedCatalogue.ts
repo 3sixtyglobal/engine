@@ -6,12 +6,9 @@ import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import type { IFederatedCatalogueComponent } from "@twin.org/federated-catalogue-models";
 import { FederatedCatalogueRestClient } from "@twin.org/federated-catalogue-rest-client";
 import {
-	type DataResourceEntry,
-	type DataSpaceConnectorEntry,
+	type Dataset,
 	FederatedCatalogueService,
-	initSchema as initSchemaFederatedCatalogue,
-	type ParticipantEntry,
-	type ServiceOfferingEntry
+	initSchema as initSchemaFederatedCatalogue
 } from "@twin.org/federated-catalogue-service";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
@@ -44,37 +41,13 @@ export async function initialiseFederatedCatalogueComponent(
 		initialiseEntityStorageConnector(
 			engineCore,
 			context,
-			instanceConfig.options?.dataResourceEntityStorageType,
-			nameof<DataResourceEntry>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
-		);
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.participantEntityStorageType,
-			nameof<ParticipantEntry>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
-		);
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.serviceOfferingEntityStorageType,
-			nameof<ServiceOfferingEntry>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
-		);
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.dataSpaceConnectorStorageType,
-			nameof<DataSpaceConnectorEntry>(),
+			instanceConfig.options?.datasetStorageConnectorType,
+			nameof<Dataset>(),
 			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
 		);
 
 		component = new FederatedCatalogueService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			identityResolverComponentType: engineCore.getRegisteredInstanceType(
-				"identityResolverComponent"
-			),
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(FederatedCatalogueService);
@@ -86,6 +59,7 @@ export async function initialiseFederatedCatalogueComponent(
 	return {
 		component,
 		instanceType,
+
 		factory: ComponentFactory
 	};
 }

@@ -12,7 +12,7 @@ import {
 	AuditableItemGraphComponentType,
 	AuditableItemStreamComponentType,
 	AuthenticationGeneratorComponentType,
-	BackgroundTaskConnectorType,
+	BackgroundTaskComponentType,
 	BlobStorageComponentType,
 	BlobStorageConnectorType,
 	ContextIdHandlerComponentType,
@@ -27,6 +27,7 @@ import {
 	EventBusConnectorType,
 	FaucetConnectorType,
 	FederatedCatalogueComponentType,
+	FederatedCatalogueFilterComponentType,
 	IdentityComponentType,
 	IdentityConnectorType,
 	IdentityProfileComponentType,
@@ -66,6 +67,7 @@ import {
 import typeLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
+import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
 import { nameof } from "@twin.org/nameof";
 import type {
 	IDataAccessPointComponent,
@@ -133,7 +135,7 @@ describe("engine", () => {
 					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
 					blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 					blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
-					backgroundTaskConnector: [{ type: BackgroundTaskConnectorType.EntityStorage }],
+					backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 					eventBusConnector: [{ type: EventBusConnectorType.Local }],
 					eventBusComponent: [{ type: EventBusComponentType.Service }],
 					telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
@@ -299,7 +301,13 @@ describe("engine", () => {
 					federatedCatalogueComponent: [
 						{
 							type: FederatedCatalogueComponentType.Service,
-							options: { config: { clearingHouseApproverList: [] } }
+							options: {}
+						}
+					],
+					federatedCatalogueFilterComponent: [
+						{
+							type: FederatedCatalogueFilterComponentType.FilterByExample,
+							options: {}
 						}
 					],
 					dataSpaceConnectorComponent: [
@@ -323,6 +331,7 @@ describe("engine", () => {
 		expect(ComponentFactory.names()).toEqual([
 			"engine-logging-service",
 			"logging-service",
+			"background-task-service",
 			"task-scheduler-service",
 			"event-bus-service",
 			"telemetry-service",
@@ -386,10 +395,7 @@ describe("engine", () => {
 			"OdrlPolicy",
 			"PolicyNegotiation",
 			"SyncSnapshotEntry",
-			"ParticipantEntry",
-			"DataResourceEntry",
-			"ServiceOfferingEntry",
-			"DataSpaceConnectorEntry",
+			"Dataset",
 			"ActivityLogDetails",
 			"ActivityTask"
 		]);
@@ -412,6 +418,8 @@ describe("engine", () => {
 		expect(AuthenticationGeneratorFactory.names()).toEqual([
 			"verifiable-credential-authentication-generator"
 		]);
+
+		expect(FederatedCatalogueFilterFactory.names()).toEqual(["FilterByExample"]);
 	});
 
 	test("Can start engine with custom entity storage", async () => {
@@ -501,7 +509,7 @@ describe("engine", () => {
 					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
 					blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 					blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
-					backgroundTaskConnector: [{ type: BackgroundTaskConnectorType.EntityStorage }],
+					backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 					eventBusConnector: [{ type: EventBusConnectorType.Local }],
 					eventBusComponent: [{ type: EventBusComponentType.Service }],
 					telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
@@ -622,9 +630,16 @@ describe("engine", () => {
 					federatedCatalogueComponent: [
 						{
 							type: FederatedCatalogueComponentType.Service,
-							options: { config: { clearingHouseApproverList: [] } }
+							options: {}
 						}
 					],
+					federatedCatalogueFilterComponent: [
+						{
+							type: FederatedCatalogueFilterComponentType.FilterByExample,
+							options: {}
+						}
+					],
+
 					dataSpaceConnectorComponent: [
 						{
 							type: DataSpaceConnectorComponentType.Service
@@ -680,7 +695,7 @@ describe("engine", () => {
 				entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
 				blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 				blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
-				backgroundTaskConnector: [{ type: BackgroundTaskConnectorType.EntityStorage }],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 				eventBusConnector: [{ type: EventBusConnectorType.Local }],
 				eventBusComponent: [{ type: EventBusComponentType.Service }],
 				telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
@@ -800,9 +815,16 @@ describe("engine", () => {
 				federatedCatalogueComponent: [
 					{
 						type: FederatedCatalogueComponentType.Service,
-						options: { config: { clearingHouseApproverList: [] } }
+						options: {}
 					}
 				],
+				federatedCatalogueFilterComponent: [
+					{
+						type: FederatedCatalogueFilterComponentType.FilterByExample,
+						options: {}
+					}
+				],
+
 				dataSpaceConnectorComponent: [
 					{
 						type: DataSpaceConnectorComponentType.Service
@@ -854,7 +876,7 @@ describe("engine", () => {
 							options: { endpoint: "http://localhost:3000" }
 						}
 					],
-					backgroundTaskConnector: [{ type: BackgroundTaskConnectorType.EntityStorage }],
+					backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 					eventBusConnector: [{ type: EventBusConnectorType.Local }],
 					eventBusComponent: [
 						{
@@ -1061,6 +1083,7 @@ describe("engine", () => {
 		expect(ComponentFactory.names()).toEqual([
 			"engine-logging-service",
 			"logging-rest-client",
+			"background-task-service",
 			"task-scheduler-service",
 			"event-bus-socket-client",
 			"telemetry-rest-client",

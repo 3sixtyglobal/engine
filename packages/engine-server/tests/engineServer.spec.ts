@@ -17,7 +17,7 @@ import {
 	AuditableItemGraphComponentType,
 	AuditableItemStreamComponentType,
 	AuthenticationGeneratorComponentType,
-	BackgroundTaskConnectorType,
+	BackgroundTaskComponentType,
 	BlobStorageComponentType,
 	BlobStorageConnectorType,
 	DataConverterConnectorType,
@@ -168,7 +168,7 @@ describe("engine-server", () => {
 				entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
 				blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 				blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
-				backgroundTaskConnector: [{ type: BackgroundTaskConnectorType.EntityStorage }],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 				eventBusConnector: [{ type: EventBusConnectorType.Local }],
 				eventBusComponent: [{ type: EventBusComponentType.Service }],
 				telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
@@ -288,7 +288,7 @@ describe("engine-server", () => {
 				federatedCatalogueComponent: [
 					{
 						type: FederatedCatalogueComponentType.Service,
-						options: { config: { clearingHouseApproverList: [] } }
+						options: {}
 					}
 				],
 				dataSpaceConnectorComponent: [
@@ -452,18 +452,8 @@ describe("engine-server", () => {
 			"/rights-management/data/:assetType/query",
 			"/synchronised-storage/sync-changeset",
 			"/synchronised-storage/decryption-key",
-			"/federated-catalogue/participant-credentials",
-			"/federated-catalogue/service-offering-credentials",
-			"/federated-catalogue/data-resource-credentials",
-			"/federated-catalogue/data-space-connector-credentials",
-			"/federated-catalogue/participants",
-			"/federated-catalogue/participants/:id",
-			"/federated-catalogue/service-offerings",
-			"/federated-catalogue/service-offerings/:id",
-			"/federated-catalogue/data-resources",
-			"/federated-catalogue/data-resources/:id",
-			"/federated-catalogue/data-space-connectors",
-			"/federated-catalogue/data-space-connectors/:id",
+			"/federated-catalogue/request",
+			"/federated-catalogue/datasets/:datasetId",
 			"/data-space-connector/notify",
 			"/data-space-connector/activity-logs/:id",
 			"/data-space-connector/entities",
