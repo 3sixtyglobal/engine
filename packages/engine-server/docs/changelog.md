@@ -1,5 +1,23 @@
 # @twin.org/engine-server - Changelog
 
+## [0.0.3-next.6](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.3-next.5...engine-server-v0.0.3-next.6) (2025-11-28)
+
+
+### Features
+
+* add fed cat filters ([a52cbf1](https://github.com/twinfoundation/engine/commit/a52cbf1eaf85e6cad61de9ea9448932fb5ae0f43))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.5 to 0.0.3-next.6
+    * @twin.org/engine-models bumped from 0.0.3-next.5 to 0.0.3-next.6
+    * @twin.org/engine-server-types bumped from 0.0.3-next.5 to 0.0.3-next.6
+  * devDependencies
+    * @twin.org/engine bumped from 0.0.3-next.5 to 0.0.3-next.6
+
 ## [0.0.3-next.5](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.3-next.4...engine-server-v0.0.3-next.5) (2025-11-20)
 
 
