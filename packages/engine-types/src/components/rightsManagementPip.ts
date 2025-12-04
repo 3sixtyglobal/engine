@@ -1,13 +1,9 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, Is, type IComponent } from "@twin.org/core";
-import { EngineModuleHelper } from "@twin.org/engine-core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
-import type {
-	IPolicyInformationPointComponent,
-	IPolicyInformationSource
-} from "@twin.org/rights-management-models";
+import type { IPolicyInformationPointComponent } from "@twin.org/rights-management-models";
 import { PolicyInformationPointService } from "@twin.org/rights-management-pip-service";
 import type { RightsManagementPipComponentConfig } from "../models/config/rightsManagementPipComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
@@ -33,23 +29,9 @@ export async function initialiseRightsManagementPipComponent(
 	let instanceType: string | undefined;
 
 	if (instanceConfig.type === RightsManagementPipComponentType.Service) {
-		const informationSourceModules: { sourceId: string; source: IPolicyInformationSource }[] = [];
-		if (Is.arrayValue(instanceConfig.options?.informationModulesConfig)) {
-			for (const moduleConfig of instanceConfig.options.informationModulesConfig) {
-				informationSourceModules.push({
-					sourceId: moduleConfig.id,
-					source: await EngineModuleHelper.loadComponent(engineCore, moduleConfig)
-				});
-			}
-		}
-
 		component = new PolicyInformationPointService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			...instanceConfig.options,
-			config: {
-				...instanceConfig.options?.config,
-				sources: instanceConfig.options?.config?.sources ?? informationSourceModules
-			}
+			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(PolicyInformationPointService);
 	}

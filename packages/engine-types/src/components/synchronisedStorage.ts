@@ -53,9 +53,6 @@ export async function initialiseSynchronisedStorageComponent(
 				"verifiableStorageConnector"
 			),
 			taskSchedulerComponentType: engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
-			policyEnforcementPointComponentType: engineCore.getRegisteredInstanceTypeOptional(
-				"rightsManagementPepComponent"
-			),
 			trustedSynchronisedStorageComponentType: engineCore.getRegisteredInstanceTypeOptional(
 				"synchronisedStorageComponent",
 				["trusted"]
@@ -63,6 +60,7 @@ export async function initialiseSynchronisedStorageComponent(
 			blobStorageConnectorType: engineCore.getRegisteredInstanceType("blobStorageConnector", [
 				"public"
 			]),
+			trustComponentType: engineCore.getRegisteredInstanceType("trustComponent"),
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(SynchronisedStorageService);

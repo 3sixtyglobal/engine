@@ -31,6 +31,7 @@ export async function initialiseRightsManagementDarpComponent(
 	if (instanceConfig.type === RightsManagementDarpComponentType.Service) {
 		component = new DataAccessRequestPointService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+			trustComponentType: engineCore.getRegisteredInstanceType("trustComponent"),
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(DataAccessRequestPointService);

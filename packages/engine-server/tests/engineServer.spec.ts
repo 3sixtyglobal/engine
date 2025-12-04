@@ -49,6 +49,7 @@ import {
 	NftConnectorType,
 	RightsManagementDapComponentType,
 	RightsManagementDarpComponentType,
+	RightsManagementDataAccessHandlerComponentType,
 	RightsManagementPapComponentType,
 	RightsManagementPdpComponentType,
 	RightsManagementPepComponentType,
@@ -56,11 +57,20 @@ import {
 	RightsManagementPmpComponentType,
 	RightsManagementPnapComponentType,
 	RightsManagementPnpComponentType,
+	RightsManagementPolicyArbiterComponentType,
+	RightsManagementPolicyEnforcementProcessorComponentType,
+	RightsManagementPolicyExecutionActionComponentType,
+	RightsManagementPolicyInformationSourceComponentType,
+	RightsManagementPolicyNegotiatorComponentType,
+	RightsManagementPolicyRequesterComponentType,
 	RightsManagementPxpComponentType,
 	SynchronisedStorageComponentType,
 	TaskSchedulerComponentType,
 	TelemetryComponentType,
 	TelemetryConnectorType,
+	TrustComponentType,
+	TrustGeneratorComponentType,
+	TrustVerifierComponentType,
 	VaultConnectorType,
 	VerifiableStorageComponentType,
 	VerifiableStorageConnectorType,
@@ -212,6 +222,22 @@ describe("engine-server", () => {
 						features: ["verifiable-credential"]
 					}
 				],
+				trustComponent: [
+					{
+						type: TrustComponentType.Service
+					}
+				],
+				trustGeneratorComponent: [
+					{
+						type: TrustGeneratorComponentType.JwtVerifiableCredential,
+						options: { config: { verificationMethodId: "foo" } }
+					}
+				],
+				trustVerifierComponent: [
+					{
+						type: TrustVerifierComponentType.JwtVerifiableCredential
+					}
+				],
 				rightsManagementPapComponent: [
 					{
 						type: RightsManagementPapComponentType.Service
@@ -247,7 +273,7 @@ describe("engine-server", () => {
 						type: RightsManagementPnpComponentType.Service,
 						options: {
 							config: {
-								baseCallbackUrl: `http://localhost:${port}`,
+								baseCallbackUrl: "http://localhost:3000",
 								negotiationComponentCreator: async () =>
 									({}) as unknown as IPolicyNegotiationPointComponent
 							}
@@ -272,6 +298,44 @@ describe("engine-server", () => {
 								dataAccessComponentCreator: async () => ({}) as unknown as IDataAccessPointComponent
 							}
 						}
+					}
+				],
+				rightsManagementDataAccessHandlerComponent: [
+					{
+						type: RightsManagementDataAccessHandlerComponentType.Example
+					}
+				],
+				rightsManagementPolicyArbiterComponent: [
+					{
+						type: RightsManagementPolicyArbiterComponentType.Example
+					}
+				],
+				rightsManagementPolicyEnforcementProcessorComponent: [
+					{
+						type: RightsManagementPolicyEnforcementProcessorComponentType.Example
+					}
+				],
+				rightsManagementPolicyExecutionActionComponent: [
+					{
+						type: RightsManagementPolicyExecutionActionComponentType.Logging
+					}
+				],
+				rightsManagementPolicyInformationSourceComponent: [
+					{
+						type: RightsManagementPolicyInformationSourceComponentType.Identity
+					},
+					{
+						type: RightsManagementPolicyInformationSourceComponentType.Static
+					}
+				],
+				rightsManagementPolicyNegotiatorComponent: [
+					{
+						type: RightsManagementPolicyNegotiatorComponentType.Example
+					}
+				],
+				rightsManagementPolicyRequesterComponent: [
+					{
+						type: RightsManagementPolicyRequesterComponentType.Example
 					}
 				],
 				taskSchedulerComponent: [

@@ -1,7 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IBaseRestClientConfig } from "@twin.org/api-models";
-import type { IEngineModuleConfig } from "@twin.org/engine-models";
 import type { IPolicyNegotiationPointServiceConstructorOptions } from "@twin.org/rights-management-pnp-service";
 import type { RightsManagementPnpComponentType } from "../types/rightsManagementPnpComponentType.js";
 
@@ -11,10 +10,7 @@ import type { RightsManagementPnpComponentType } from "../types/rightsManagement
 export type RightsManagementPnpComponentConfig =
 	| {
 			type: typeof RightsManagementPnpComponentType.Service;
-			options: IPolicyNegotiationPointServiceConstructorOptions & {
-				negotiatorModulesConfig?: IEngineModuleConfig[];
-				requesterModulesConfig?: IEngineModuleConfig[];
-			};
+			options: IPolicyNegotiationPointServiceConstructorOptions;
 	  }
 	| {
 			type: typeof RightsManagementPnpComponentType.RestClient;

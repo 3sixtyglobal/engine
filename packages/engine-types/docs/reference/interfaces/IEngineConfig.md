@@ -300,6 +300,24 @@ Document management options which can be overridden by individual components by 
 
 Authentication generator options which can be overridden by individual components by specifying types other than default.
 
+#### trustComponent?
+
+> `optional` **trustComponent**: `IEngineCoreTypeConfig`\<[`TrustComponentConfig`](../type-aliases/TrustComponentConfig.md)\>[]
+
+Trust component options which can be overridden by individual components by specifying types other than default.
+
+#### trustGeneratorComponent?
+
+> `optional` **trustGeneratorComponent**: `IEngineCoreTypeConfig`\<[`TrustGeneratorComponentConfig`](../type-aliases/TrustGeneratorComponentConfig.md)\>[]
+
+Trust generator component options which can be overridden by individual components by specifying types other than default.
+
+#### trustVerifierComponent?
+
+> `optional` **trustVerifierComponent**: `IEngineCoreTypeConfig`\<[`TrustVerifierComponentConfig`](../type-aliases/TrustVerifierComponentConfig.md)\>[]
+
+Trust verifier component options which can be overridden by individual components by specifying types other than default.
+
 #### rightsManagementPapComponent?
 
 > `optional` **rightsManagementPapComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPapComponentConfig`](../type-aliases/RightsManagementPapComponentConfig.md)\>[]
@@ -359,6 +377,48 @@ Rights management DAP options which can be overridden by individual components b
 > `optional` **rightsManagementDarpComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementDarpComponentConfig`](../type-aliases/RightsManagementDarpComponentConfig.md)\>[]
 
 Rights management DARP options which can be overridden by individual components by specifying types other than default.
+
+#### rightsManagementDataAccessHandlerComponent?
+
+> `optional` **rightsManagementDataAccessHandlerComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementDataAccessHandlerComponentConfig`](../type-aliases/RightsManagementDataAccessHandlerComponentConfig.md)\>[]
+
+Rights management data access handler options which can be overridden by individual components by specifying types other than default.
+
+#### rightsManagementPolicyArbiterComponent?
+
+> `optional` **rightsManagementPolicyArbiterComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPolicyArbiterComponentConfig`](../type-aliases/RightsManagementPolicyArbiterComponentConfig.md)\>[]
+
+Rights management policy arbiter options which can be overridden by individual components by specifying types other than default.
+
+#### rightsManagementPolicyEnforcementProcessorComponent?
+
+> `optional` **rightsManagementPolicyEnforcementProcessorComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPolicyEnforcementProcessorComponentConfig`](../type-aliases/RightsManagementPolicyEnforcementProcessorComponentConfig.md)\>[]
+
+Rights management policy enforcement processor options which can be overridden by individual components by specifying types other than default.
+
+#### rightsManagementPolicyExecutionActionComponent?
+
+> `optional` **rightsManagementPolicyExecutionActionComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPolicyExecutionActionComponentConfig`](../type-aliases/RightsManagementPolicyExecutionActionComponentConfig.md)\>[]
+
+Rights management policy execution action options which can be overridden by individual components by specifying types other than default.
+
+#### rightsManagementPolicyInformationSourceComponent?
+
+> `optional` **rightsManagementPolicyInformationSourceComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPolicyInformationSourceComponentConfig`](../type-aliases/RightsManagementPolicyInformationSourceComponentConfig.md)\>[]
+
+Rights management policy information source options which can be overridden by individual components by specifying types other than default.
+
+#### rightsManagementPolicyNegotiatorComponent?
+
+> `optional` **rightsManagementPolicyNegotiatorComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPolicyNegotiatorComponentConfig`](../type-aliases/RightsManagementPolicyNegotiatorComponentConfig.md)\>[]
+
+Rights management policy negotiator options which can be overridden by individual components by specifying types other than default.
+
+#### rightsManagementPolicyRequesterComponent?
+
+> `optional` **rightsManagementPolicyRequesterComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPolicyRequesterComponentConfig`](../type-aliases/RightsManagementPolicyRequesterComponentConfig.md)\>[]
+
+Rights management policy requester options which can be overridden by individual components by specifying types other than default.
 
 #### synchronisedStorageComponent?
 

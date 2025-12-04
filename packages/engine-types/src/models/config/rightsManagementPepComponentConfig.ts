@@ -1,6 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IEngineModuleConfig } from "@twin.org/engine-models";
 import type { IPolicyEnforcementPointServiceConstructorOptions } from "@twin.org/rights-management-pep-service";
 import type { RightsManagementPepComponentType } from "../types/rightsManagementPepComponentType.js";
 
@@ -10,7 +9,5 @@ import type { RightsManagementPepComponentType } from "../types/rightsManagement
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type RightsManagementPepComponentConfig = {
 	type: typeof RightsManagementPepComponentType.Service;
-	options?: IPolicyEnforcementPointServiceConstructorOptions & {
-		processorModulesConfig?: IEngineModuleConfig[];
-	};
+	options?: IPolicyEnforcementPointServiceConstructorOptions;
 };

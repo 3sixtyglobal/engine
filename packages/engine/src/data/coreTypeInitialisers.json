@@ -195,6 +195,21 @@
 		"method": "initialiseAuthenticationGeneratorComponent"
 	},
 	{
+		"type": "trustComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseTrustComponent"
+	},
+	{
+		"type": "trustGeneratorComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseTrustGeneratorComponent"
+	},
+	{
+		"type": "trustVerifierComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseTrustVerifierComponent"
+	},
+	{
 		"type": "rightsManagementPapComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseRightsManagementPapComponent"
@@ -243,6 +258,41 @@
 		"type": "rightsManagementDarpComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseRightsManagementDarpComponent"
+	},
+	{
+		"type": "rightsManagementDataAccessHandlerComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseRightsManagementDataAccessHandlerComponent"
+	},
+	{
+		"type": "rightsManagementPolicyArbiterComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseRightsManagementPolicyArbiterComponent"
+	},
+	{
+		"type": "rightsManagementPolicyEnforcementProcessorComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseRightsManagementPolicyEnforcementProcessorComponent"
+	},
+	{
+		"type": "rightsManagementPolicyExecutionActionComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseRightsManagementPolicyExecutionActionComponent"
+	},
+	{
+		"type": "rightsManagementPolicyInformationSourceComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseRightsManagementPolicyInformationSourceComponent"
+	},
+	{
+		"type": "rightsManagementPolicyNegotiatorComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseRightsManagementPolicyNegotiatorComponent"
+	},
+	{
+		"type": "rightsManagementPolicyRequesterComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseRightsManagementPolicyRequesterComponent"
 	},
 	{
 		"type": "synchronisedStorageComponent",

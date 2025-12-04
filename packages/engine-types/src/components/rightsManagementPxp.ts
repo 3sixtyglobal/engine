@@ -1,13 +1,9 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, Is, type IComponent } from "@twin.org/core";
-import { EngineModuleHelper } from "@twin.org/engine-core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
-import type {
-	IPolicyExecutionAction,
-	IPolicyExecutionPointComponent
-} from "@twin.org/rights-management-models";
+import type { IPolicyExecutionPointComponent } from "@twin.org/rights-management-models";
 import { PolicyExecutionPointService } from "@twin.org/rights-management-pxp-service";
 import type { RightsManagementPxpComponentConfig } from "../models/config/rightsManagementPxpComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
@@ -33,23 +29,9 @@ export async function initialiseRightsManagementPxpComponent(
 	let instanceType: string | undefined;
 
 	if (instanceConfig.type === RightsManagementPxpComponentType.Service) {
-		const modules: { actionId: string; action: IPolicyExecutionAction }[] = [];
-		if (Is.arrayValue(instanceConfig.options?.actionModulesConfig)) {
-			for (const moduleConfig of instanceConfig.options.actionModulesConfig) {
-				modules.push({
-					actionId: moduleConfig.id,
-					action: await EngineModuleHelper.loadComponent(engineCore, moduleConfig)
-				});
-			}
-		}
-
 		component = new PolicyExecutionPointService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			...instanceConfig.options,
-			config: {
-				...instanceConfig.options?.config,
-				actions: instanceConfig.options?.config?.actions ?? modules
-			}
+			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(PolicyExecutionPointService);
 	}

@@ -41,6 +41,7 @@ import type { NftComponentConfig } from "./config/nftComponentConfig.js";
 import type { NftConnectorConfig } from "./config/nftConnectorConfig.js";
 import type { RightsManagementDapComponentConfig } from "./config/rightsManagementDapComponentConfig.js";
 import type { RightsManagementDarpComponentConfig } from "./config/rightsManagementDarpComponentConfig.js";
+import type { RightsManagementDataAccessHandlerComponentConfig } from "./config/rightsManagementDataAccessHandlerComponentConfig.js";
 import type { RightsManagementPapComponentConfig } from "./config/rightsManagementPapComponentConfig.js";
 import type { RightsManagementPdpComponentConfig } from "./config/rightsManagementPdpComponentConfig.js";
 import type { RightsManagementPepComponentConfig } from "./config/rightsManagementPepComponentConfig.js";
@@ -48,12 +49,21 @@ import type { RightsManagementPipComponentConfig } from "./config/rightsManageme
 import type { RightsManagementPmpComponentConfig } from "./config/rightsManagementPmpComponentConfig.js";
 import type { RightsManagementPnapComponentConfig } from "./config/rightsManagementPnapComponentConfig.js";
 import type { RightsManagementPnpComponentConfig } from "./config/rightsManagementPnpComponentConfig.js";
+import type { RightsManagementPolicyArbiterComponentConfig } from "./config/rightsManagementPolicyArbiterComponentConfig.js";
+import type { RightsManagementPolicyEnforcementProcessorComponentConfig } from "./config/rightsManagementPolicyEnforcementProcessorComponentConfig.js";
+import type { RightsManagementPolicyExecutionActionComponentConfig } from "./config/rightsManagementPolicyExecutionActionComponentConfig.js";
+import type { RightsManagementPolicyInformationSourceComponentConfig } from "./config/rightsManagementPolicyInformationSourceComponentConfig.js";
+import type { RightsManagementPolicyNegotiatorComponentConfig } from "./config/rightsManagementPolicyNegotiatorComponentConfig.js";
+import type { RightsManagementPolicyRequesterComponentConfig } from "./config/rightsManagementPolicyRequesterComponentConfig.js";
 import type { RightsManagementPxpComponentConfig } from "./config/rightsManagementPxpComponentConfig.js";
 import type { SynchronisedStorageComponentConfig } from "./config/synchronisedStorageComponentConfig.js";
 import type { TaskSchedulerComponentConfig } from "./config/taskSchedulerComponentConfig.js";
 import type { TelemetryComponentConfig } from "./config/telemetryComponentConfig.js";
 import type { TelemetryConnectorConfig } from "./config/telemetryConnectorConfig.js";
 import type { TenantAdminComponentConfig } from "./config/tenantAdminComponentConfig.js";
+import type { TrustComponentConfig } from "./config/trustComponentConfig.js";
+import type { TrustGeneratorComponentConfig } from "./config/trustGeneratorComponentConfig.js";
+import type { TrustVerifierComponentConfig } from "./config/trustVerifierComponentConfig.js";
 import type { VaultConnectorConfig } from "./config/vaultConnectorConfig.js";
 import type { VerifiableStorageComponentConfig } from "./config/verifiableStorageComponentConfig.js";
 import type { VerifiableStorageConnectorConfig } from "./config/verifiableStorageConnectorConfig.js";
@@ -275,6 +285,21 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		authenticationGeneratorComponent?: IEngineCoreTypeConfig<AuthenticationGeneratorComponentConfig>[];
 
 		/**
+		 * Trust component options which can be overridden by individual components by specifying types other than default.
+		 */
+		trustComponent?: IEngineCoreTypeConfig<TrustComponentConfig>[];
+
+		/**
+		 * Trust generator component options which can be overridden by individual components by specifying types other than default.
+		 */
+		trustGeneratorComponent?: IEngineCoreTypeConfig<TrustGeneratorComponentConfig>[];
+
+		/**
+		 * Trust verifier component options which can be overridden by individual components by specifying types other than default.
+		 */
+		trustVerifierComponent?: IEngineCoreTypeConfig<TrustVerifierComponentConfig>[];
+
+		/**
 		 * Rights management PAP options which can be overridden by individual components by specifying types other than default.
 		 */
 		rightsManagementPapComponent?: IEngineCoreTypeConfig<RightsManagementPapComponentConfig>[];
@@ -323,6 +348,47 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Rights management DARP options which can be overridden by individual components by specifying types other than default.
 		 */
 		rightsManagementDarpComponent?: IEngineCoreTypeConfig<RightsManagementDarpComponentConfig>[];
+
+		/**
+		 * Rights management data access handler options which can be overridden by individual components by specifying types other than default.
+		 */
+		// eslint-disable-next-line max-len
+		rightsManagementDataAccessHandlerComponent?: IEngineCoreTypeConfig<RightsManagementDataAccessHandlerComponentConfig>[];
+
+		/**
+		 * Rights management policy arbiter options which can be overridden by individual components by specifying types other than default.
+		 */
+		rightsManagementPolicyArbiterComponent?: IEngineCoreTypeConfig<RightsManagementPolicyArbiterComponentConfig>[];
+
+		/**
+		 * Rights management policy enforcement processor options which can be overridden by individual components by specifying types other than default.
+		 */
+		// eslint-disable-next-line max-len
+		rightsManagementPolicyEnforcementProcessorComponent?: IEngineCoreTypeConfig<RightsManagementPolicyEnforcementProcessorComponentConfig>[];
+
+		/**
+		 * Rights management policy execution action options which can be overridden by individual components by specifying types other than default.
+		 */
+		// eslint-disable-next-line max-len
+		rightsManagementPolicyExecutionActionComponent?: IEngineCoreTypeConfig<RightsManagementPolicyExecutionActionComponentConfig>[];
+
+		/**
+		 * Rights management policy information source options which can be overridden by individual components by specifying types other than default.
+		 */
+		// eslint-disable-next-line max-len
+		rightsManagementPolicyInformationSourceComponent?: IEngineCoreTypeConfig<RightsManagementPolicyInformationSourceComponentConfig>[];
+
+		/**
+		 * Rights management policy negotiator options which can be overridden by individual components by specifying types other than default.
+		 */
+		// eslint-disable-next-line max-len
+		rightsManagementPolicyNegotiatorComponent?: IEngineCoreTypeConfig<RightsManagementPolicyNegotiatorComponentConfig>[];
+
+		/**
+		 * Rights management policy requester options which can be overridden by individual components by specifying types other than default.
+		 */
+		// eslint-disable-next-line max-len
+		rightsManagementPolicyRequesterComponent?: IEngineCoreTypeConfig<RightsManagementPolicyRequesterComponentConfig>[];
 
 		/**
 		 * Synchronised storage options which can be overridden by individual components by specifying types other than default.

@@ -306,6 +306,24 @@ Document management options which can be overridden by individual components by 
 
 Authentication generator options which can be overridden by individual components by specifying types other than default.
 
+##### trustComponent?
+
+> `optional` **trustComponent**: `IEngineCoreTypeConfig`\<`TrustComponentConfig`\>[]
+
+Trust component options which can be overridden by individual components by specifying types other than default.
+
+##### trustGeneratorComponent?
+
+> `optional` **trustGeneratorComponent**: `IEngineCoreTypeConfig`\<`TrustGeneratorComponentConfig`\>[]
+
+Trust generator component options which can be overridden by individual components by specifying types other than default.
+
+##### trustVerifierComponent?
+
+> `optional` **trustVerifierComponent**: `IEngineCoreTypeConfig`\<`TrustVerifierComponentConfig`\>[]
+
+Trust verifier component options which can be overridden by individual components by specifying types other than default.
+
 ##### rightsManagementPapComponent?
 
 > `optional` **rightsManagementPapComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPapComponentConfig`\>[]
@@ -365,6 +383,48 @@ Rights management DAP options which can be overridden by individual components b
 > `optional` **rightsManagementDarpComponent**: `IEngineCoreTypeConfig`\<`RightsManagementDarpComponentConfig`\>[]
 
 Rights management DARP options which can be overridden by individual components by specifying types other than default.
+
+##### rightsManagementDataAccessHandlerComponent?
+
+> `optional` **rightsManagementDataAccessHandlerComponent**: `IEngineCoreTypeConfig`\<`RightsManagementDataAccessHandlerComponentConfig`\>[]
+
+Rights management data access handler options which can be overridden by individual components by specifying types other than default.
+
+##### rightsManagementPolicyArbiterComponent?
+
+> `optional` **rightsManagementPolicyArbiterComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyArbiterComponentConfig`\>[]
+
+Rights management policy arbiter options which can be overridden by individual components by specifying types other than default.
+
+##### rightsManagementPolicyEnforcementProcessorComponent?
+
+> `optional` **rightsManagementPolicyEnforcementProcessorComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyEnforcementProcessorComponentConfig`\>[]
+
+Rights management policy enforcement processor options which can be overridden by individual components by specifying types other than default.
+
+##### rightsManagementPolicyExecutionActionComponent?
+
+> `optional` **rightsManagementPolicyExecutionActionComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyExecutionActionComponentConfig`\>[]
+
+Rights management policy execution action options which can be overridden by individual components by specifying types other than default.
+
+##### rightsManagementPolicyInformationSourceComponent?
+
+> `optional` **rightsManagementPolicyInformationSourceComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyInformationSourceComponentConfig`\>[]
+
+Rights management policy information source options which can be overridden by individual components by specifying types other than default.
+
+##### rightsManagementPolicyNegotiatorComponent?
+
+> `optional` **rightsManagementPolicyNegotiatorComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyNegotiatorComponentConfig`\>[]
+
+Rights management policy negotiator options which can be overridden by individual components by specifying types other than default.
+
+##### rightsManagementPolicyRequesterComponent?
+
+> `optional` **rightsManagementPolicyRequesterComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyRequesterComponentConfig`\>[]
+
+Rights management policy requester options which can be overridden by individual components by specifying types other than default.
 
 ##### synchronisedStorageComponent?
 

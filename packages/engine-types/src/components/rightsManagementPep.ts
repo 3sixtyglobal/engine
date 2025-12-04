@@ -1,13 +1,9 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, Is, type IComponent } from "@twin.org/core";
-import { EngineModuleHelper } from "@twin.org/engine-core";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
-import type {
-	IPolicyEnforcementPointComponent,
-	IPolicyEnforcementProcessor
-} from "@twin.org/rights-management-models";
+import type { IPolicyEnforcementPointComponent } from "@twin.org/rights-management-models";
 import { PolicyEnforcementPointService } from "@twin.org/rights-management-pep-service";
 import type { RightsManagementPepComponentConfig } from "../models/config/rightsManagementPepComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
@@ -33,26 +29,12 @@ export async function initialiseRightsManagementPepComponent(
 	let instanceType: string | undefined;
 
 	if (instanceConfig.type === RightsManagementPepComponentType.Service) {
-		const processorModules: { processorId: string; processor: IPolicyEnforcementProcessor }[] = [];
-		if (Is.arrayValue(instanceConfig.options?.processorModulesConfig)) {
-			for (const moduleConfig of instanceConfig.options.processorModulesConfig) {
-				processorModules.push({
-					processorId: moduleConfig.id,
-					processor: await EngineModuleHelper.loadComponent(engineCore, moduleConfig)
-				});
-			}
-		}
-
 		component = new PolicyEnforcementPointService({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			policyDecisionPointComponentType: engineCore.getRegisteredInstanceType(
 				"rightsManagementPdpComponent"
 			),
-			...instanceConfig.options,
-			config: {
-				...instanceConfig.options?.config,
-				processors: instanceConfig.options?.config?.processors ?? processorModules
-			}
+			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(PolicyEnforcementPointService);
 	}

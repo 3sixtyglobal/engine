@@ -47,6 +47,7 @@ import {
 	NftConnectorType,
 	RightsManagementDapComponentType,
 	RightsManagementDarpComponentType,
+	RightsManagementDataAccessHandlerComponentType,
 	RightsManagementPapComponentType,
 	RightsManagementPdpComponentType,
 	RightsManagementPepComponentType,
@@ -54,11 +55,20 @@ import {
 	RightsManagementPmpComponentType,
 	RightsManagementPnapComponentType,
 	RightsManagementPnpComponentType,
+	RightsManagementPolicyArbiterComponentType,
+	RightsManagementPolicyEnforcementProcessorComponentType,
+	RightsManagementPolicyExecutionActionComponentType,
+	RightsManagementPolicyInformationSourceComponentType,
+	RightsManagementPolicyNegotiatorComponentType,
+	RightsManagementPolicyRequesterComponentType,
 	RightsManagementPxpComponentType,
 	SynchronisedStorageComponentType,
 	TaskSchedulerComponentType,
 	TelemetryComponentType,
 	TelemetryConnectorType,
+	TrustComponentType,
+	TrustGeneratorComponentType,
+	TrustVerifierComponentType,
 	VaultConnectorType,
 	VerifiableStorageComponentType,
 	VerifiableStorageConnectorType,
@@ -69,12 +79,18 @@ import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
 import { nameof } from "@twin.org/nameof";
-import type {
-	IDataAccessPointComponent,
-	IPolicyExecutionPointComponent,
-	IPolicyInformationPointComponent,
-	IPolicyNegotiationPointComponent
+import {
+	DataAccessHandlerFactory,
+	type IDataAccessPointComponent,
+	type IPolicyNegotiationPointComponent,
+	PolicyArbiterFactory,
+	PolicyEnforcementProcessorFactory,
+	PolicyExecutionActionFactory,
+	PolicyInformationSourceFactory,
+	PolicyNegotiatorFactory,
+	PolicyRequesterFactory
 } from "@twin.org/rights-management-models";
+import { TrustGeneratorFactory, TrustVerifierFactory } from "@twin.org/trust-models";
 import { Engine } from "../src/engine.js";
 
 /**
@@ -179,6 +195,22 @@ describe("engine", () => {
 							features: ["verifiable-credential"]
 						}
 					],
+					trustComponent: [
+						{
+							type: TrustComponentType.Service
+						}
+					],
+					trustGeneratorComponent: [
+						{
+							type: TrustGeneratorComponentType.JwtVerifiableCredential,
+							options: { config: { verificationMethodId: "foo" } }
+						}
+					],
+					trustVerifierComponent: [
+						{
+							type: TrustVerifierComponentType.JwtVerifiableCredential
+						}
+					],
 					rightsManagementPapComponent: [
 						{
 							type: RightsManagementPapComponentType.Service
@@ -196,57 +228,12 @@ describe("engine", () => {
 					],
 					rightsManagementPipComponent: [
 						{
-							type: RightsManagementPipComponentType.Service,
-							options: {
-								informationModulesConfig: [
-									{
-										id: "static",
-										moduleName: "@twin.org/rights-management-pip-service",
-										className: "StaticPolicyInformationSource",
-										dependencies: [
-											{
-												propertyName: "loggingComponentType",
-												componentName: "loggingComponent"
-											}
-										]
-									},
-									{
-										id: "identity",
-										moduleName: "@twin.org/rights-management-pip-service",
-										className: "IdentityPolicyInformationSource",
-										dependencies: [
-											{
-												propertyName: "loggingComponentType",
-												componentName: "loggingComponent"
-											},
-											{
-												propertyName: "identityResolverComponentType",
-												componentName: "identityResolverComponent"
-											}
-										]
-									}
-								]
-							}
+							type: RightsManagementPipComponentType.Service
 						}
 					],
 					rightsManagementPxpComponent: [
 						{
-							type: RightsManagementPxpComponentType.Service,
-							options: {
-								actionModulesConfig: [
-									{
-										id: "logging",
-										moduleName: "@twin.org/rights-management-pxp-service",
-										className: "LoggingPolicyExecutionAction",
-										dependencies: [
-											{
-												propertyName: "loggingComponentType",
-												componentName: "loggingComponent"
-											}
-										]
-									}
-								]
-							}
+							type: RightsManagementPxpComponentType.Service
 						}
 					],
 					rightsManagementPmpComponent: [
@@ -285,6 +272,44 @@ describe("engine", () => {
 										({}) as unknown as IDataAccessPointComponent
 								}
 							}
+						}
+					],
+					rightsManagementDataAccessHandlerComponent: [
+						{
+							type: RightsManagementDataAccessHandlerComponentType.Example
+						}
+					],
+					rightsManagementPolicyArbiterComponent: [
+						{
+							type: RightsManagementPolicyArbiterComponentType.Example
+						}
+					],
+					rightsManagementPolicyEnforcementProcessorComponent: [
+						{
+							type: RightsManagementPolicyEnforcementProcessorComponentType.Example
+						}
+					],
+					rightsManagementPolicyExecutionActionComponent: [
+						{
+							type: RightsManagementPolicyExecutionActionComponentType.Logging
+						}
+					],
+					rightsManagementPolicyInformationSourceComponent: [
+						{
+							type: RightsManagementPolicyInformationSourceComponentType.Identity
+						},
+						{
+							type: RightsManagementPolicyInformationSourceComponentType.Static
+						}
+					],
+					rightsManagementPolicyNegotiatorComponent: [
+						{
+							type: RightsManagementPolicyNegotiatorComponentType.Example
+						}
+					],
+					rightsManagementPolicyRequesterComponent: [
+						{
+							type: RightsManagementPolicyRequesterComponentType.Example
 						}
 					],
 					taskSchedulerComponent: [
@@ -349,6 +374,7 @@ describe("engine", () => {
 			"auditable-item-stream-service",
 			"data-processing-service",
 			"document-management-service",
+			"trust-service",
 			"policy-administration-point-service",
 			"policy-management-point-service",
 			"policy-execution-point-service",
@@ -403,23 +429,27 @@ describe("engine", () => {
 		expect(engine).toBeDefined();
 		expect(calledCustomBootstrap).toBeDefined();
 
-		const pip = ComponentFactory.get<IPolicyInformationPointComponent>(
-			"policy-information-point-service"
-		);
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		expect((pip as any)._sources.length).toEqual(2);
-
-		const pxp = ComponentFactory.get<IPolicyExecutionPointComponent>(
-			"policy-execution-point-service"
-		);
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		expect((pxp as any)._executionActions.before.length).toEqual(1);
-
 		expect(AuthenticationGeneratorFactory.names()).toEqual([
 			"verifiable-credential-authentication-generator"
 		]);
 
 		expect(FederatedCatalogueFilterFactory.names()).toEqual(["FilterByExample"]);
+
+		expect(DataAccessHandlerFactory.names()).toEqual(["example-data-access-handler"]);
+		expect(PolicyArbiterFactory.names()).toEqual(["example-policy-arbiter"]);
+		expect(PolicyEnforcementProcessorFactory.names()).toEqual([
+			"example-policy-enforcement-processor"
+		]);
+		expect(PolicyExecutionActionFactory.names()).toEqual(["logging-policy-execution-action"]);
+		expect(PolicyInformationSourceFactory.names()).toEqual([
+			"identity-policy-information-source",
+			"static-policy-information-source"
+		]);
+		expect(PolicyNegotiatorFactory.names()).toEqual(["example-policy-negotiator"]);
+		expect(PolicyRequesterFactory.names()).toEqual(["example-policy-requester"]);
+
+		expect(TrustGeneratorFactory.names()).toEqual(["jwt-verifiable-credential-generator"]);
+		expect(TrustVerifierFactory.names()).toEqual(["jwt-verifiable-credential-verifier"]);
 	});
 
 	test("Can start engine with custom entity storage", async () => {
@@ -553,6 +583,11 @@ describe("engine", () => {
 							features: ["verifiable-credential"]
 						}
 					],
+					trustComponent: [
+						{
+							type: TrustComponentType.Service
+						}
+					],
 					rightsManagementPapComponent: [
 						{
 							type: RightsManagementPapComponentType.Service
@@ -614,6 +649,44 @@ describe("engine", () => {
 										({}) as unknown as IDataAccessPointComponent
 								}
 							}
+						}
+					],
+					rightsManagementDataAccessHandlerComponent: [
+						{
+							type: RightsManagementDataAccessHandlerComponentType.Example
+						}
+					],
+					rightsManagementPolicyArbiterComponent: [
+						{
+							type: RightsManagementPolicyArbiterComponentType.Example
+						}
+					],
+					rightsManagementPolicyEnforcementProcessorComponent: [
+						{
+							type: RightsManagementPolicyEnforcementProcessorComponentType.Example
+						}
+					],
+					rightsManagementPolicyExecutionActionComponent: [
+						{
+							type: RightsManagementPolicyExecutionActionComponentType.Logging
+						}
+					],
+					rightsManagementPolicyInformationSourceComponent: [
+						{
+							type: RightsManagementPolicyInformationSourceComponentType.Identity
+						},
+						{
+							type: RightsManagementPolicyInformationSourceComponentType.Static
+						}
+					],
+					rightsManagementPolicyNegotiatorComponent: [
+						{
+							type: RightsManagementPolicyNegotiatorComponentType.Example
+						}
+					],
+					rightsManagementPolicyRequesterComponent: [
+						{
+							type: RightsManagementPolicyRequesterComponentType.Example
 						}
 					],
 					taskSchedulerComponent: [
@@ -739,6 +812,11 @@ describe("engine", () => {
 						features: ["verifiable-credential"]
 					}
 				],
+				trustComponent: [
+					{
+						type: TrustComponentType.Service
+					}
+				],
 				rightsManagementPapComponent: [
 					{
 						type: RightsManagementPapComponentType.Service
@@ -799,6 +877,44 @@ describe("engine", () => {
 								dataAccessComponentCreator: async () => ({}) as unknown as IDataAccessPointComponent
 							}
 						}
+					}
+				],
+				rightsManagementDataAccessHandlerComponent: [
+					{
+						type: RightsManagementDataAccessHandlerComponentType.Example
+					}
+				],
+				rightsManagementPolicyArbiterComponent: [
+					{
+						type: RightsManagementPolicyArbiterComponentType.Example
+					}
+				],
+				rightsManagementPolicyEnforcementProcessorComponent: [
+					{
+						type: RightsManagementPolicyEnforcementProcessorComponentType.Example
+					}
+				],
+				rightsManagementPolicyExecutionActionComponent: [
+					{
+						type: RightsManagementPolicyExecutionActionComponentType.Logging
+					}
+				],
+				rightsManagementPolicyInformationSourceComponent: [
+					{
+						type: RightsManagementPolicyInformationSourceComponentType.Identity
+					},
+					{
+						type: RightsManagementPolicyInformationSourceComponentType.Static
+					}
+				],
+				rightsManagementPolicyNegotiatorComponent: [
+					{
+						type: RightsManagementPolicyNegotiatorComponentType.Example
+					}
+				],
+				rightsManagementPolicyRequesterComponent: [
+					{
+						type: RightsManagementPolicyRequesterComponentType.Example
 					}
 				],
 				taskSchedulerComponent: [
@@ -982,6 +1098,11 @@ describe("engine", () => {
 							features: ["verifiable-credential"]
 						}
 					],
+					trustComponent: [
+						{
+							type: TrustComponentType.Service
+						}
+					],
 					rightsManagementPapComponent: [
 						{
 							type: RightsManagementPapComponentType.RestClient,
@@ -1040,6 +1161,44 @@ describe("engine", () => {
 										({}) as unknown as IDataAccessPointComponent
 								}
 							}
+						}
+					],
+					rightsManagementDataAccessHandlerComponent: [
+						{
+							type: RightsManagementDataAccessHandlerComponentType.Example
+						}
+					],
+					rightsManagementPolicyArbiterComponent: [
+						{
+							type: RightsManagementPolicyArbiterComponentType.Example
+						}
+					],
+					rightsManagementPolicyEnforcementProcessorComponent: [
+						{
+							type: RightsManagementPolicyEnforcementProcessorComponentType.Example
+						}
+					],
+					rightsManagementPolicyExecutionActionComponent: [
+						{
+							type: RightsManagementPolicyExecutionActionComponentType.Logging
+						}
+					],
+					rightsManagementPolicyInformationSourceComponent: [
+						{
+							type: RightsManagementPolicyInformationSourceComponentType.Identity
+						},
+						{
+							type: RightsManagementPolicyInformationSourceComponentType.Static
+						}
+					],
+					rightsManagementPolicyNegotiatorComponent: [
+						{
+							type: RightsManagementPolicyNegotiatorComponentType.Example
+						}
+					],
+					rightsManagementPolicyRequesterComponent: [
+						{
+							type: RightsManagementPolicyRequesterComponentType.Example
 						}
 					],
 					taskSchedulerComponent: [
@@ -1101,6 +1260,7 @@ describe("engine", () => {
 			"auditable-item-stream-rest-client",
 			"data-processing-rest-client",
 			"document-management-rest-client",
+			"trust-service",
 			"policy-administration-point-rest-client",
 			"policy-management-point-service",
 			"policy-execution-point-service",

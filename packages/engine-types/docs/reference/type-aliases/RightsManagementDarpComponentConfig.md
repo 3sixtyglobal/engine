@@ -14,10 +14,4 @@ Rights management DARP component config types.
 
 ### options
 
-> **options**: `IDataAccessRequestPointServiceConstructorOptions` & `object`
-
-#### Type Declaration
-
-##### negotiatorModulesConfig?
-
-> `optional` **negotiatorModulesConfig**: `IEngineModuleConfig`[]
+> **options**: `IDataAccessRequestPointServiceConstructorOptions`

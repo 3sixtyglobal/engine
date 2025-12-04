@@ -14,10 +14,4 @@ Rights management PIP component config types.
 
 ### options?
 
-> `optional` **options**: `IPolicyInformationPointServiceConstructorOptions` & `object`
-
-#### Type Declaration
-
-##### informationModulesConfig?
-
-> `optional` **informationModulesConfig**: `IEngineModuleConfig`[]
+> `optional` **options**: `IPolicyInformationPointServiceConstructorOptions`

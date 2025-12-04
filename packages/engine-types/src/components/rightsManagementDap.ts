@@ -35,10 +35,8 @@ export async function initialiseRightsManagementDapComponent(
 			policyEnforcementPointComponentType: engineCore.getRegisteredInstanceType(
 				"rightsManagementPepComponent"
 			),
-			...instanceConfig.options,
-			config: {
-				...instanceConfig.options?.config
-			}
+			trustComponentType: engineCore.getRegisteredInstanceType("trustComponent"),
+			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(DataAccessPointService);
 	} else if (instanceConfig.type === RightsManagementDapComponentType.RestClient) {
