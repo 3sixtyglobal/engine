@@ -1,5 +1,20 @@
 # @twin.org/engine-types - Changelog
 
+## [0.0.3-next.7](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.6...engine-types-v0.0.3-next.7) (2025-12-04)
+
+
+### Features
+
+* add trust and rights management plugins ([eea0807](https://github.com/twinfoundation/engine/commit/eea0807601833220bd9fd8605b5e4383fbc0ebae))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.6 to 0.0.3-next.7
+    * @twin.org/engine-models bumped from 0.0.3-next.6 to 0.0.3-next.7
+
 ## [0.0.3-next.6](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.5...engine-types-v0.0.3-next.6) (2025-11-28)
 
 
