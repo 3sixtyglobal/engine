@@ -1,5 +1,23 @@
 # @twin.org/engine-server - Changelog
 
+## [0.0.3-next.8](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.3-next.7...engine-server-v0.0.3-next.8) (2026-01-06)
+
+
+### Features
+
+* update dependencies ([034adac](https://github.com/twinfoundation/engine/commit/034adac97b177d8df9775da92f0cc0dbdfc8ab55))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.7 to 0.0.3-next.8
+    * @twin.org/engine-models bumped from 0.0.3-next.7 to 0.0.3-next.8
+    * @twin.org/engine-server-types bumped from 0.0.3-next.7 to 0.0.3-next.8
+  * devDependencies
+    * @twin.org/engine bumped from 0.0.3-next.7 to 0.0.3-next.8
+
 ## [0.0.3-next.7](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.3-next.6...engine-server-v0.0.3-next.7) (2025-12-04)
 
 

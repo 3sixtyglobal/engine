@@ -1,5 +1,21 @@
 # @twin.org/engine - Changelog
 
+## [0.0.3-next.8](https://github.com/twinfoundation/engine/compare/engine-v0.0.3-next.7...engine-v0.0.3-next.8) (2026-01-06)
+
+
+### Miscellaneous Chores
+
+* **engine:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.7 to 0.0.3-next.8
+    * @twin.org/engine-models bumped from 0.0.3-next.7 to 0.0.3-next.8
+    * @twin.org/engine-types bumped from 0.0.3-next.7 to 0.0.3-next.8
+
 ## [0.0.3-next.7](https://github.com/twinfoundation/engine/compare/engine-v0.0.3-next.6...engine-v0.0.3-next.7) (2025-12-04)
 
 
