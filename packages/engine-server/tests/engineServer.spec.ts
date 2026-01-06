@@ -409,6 +409,7 @@ describe("engine-server", () => {
 			"/",
 			"/favicon.ico",
 			"/info",
+			"/livez",
 			"/health",
 			"/spec",
 			"/logging",
