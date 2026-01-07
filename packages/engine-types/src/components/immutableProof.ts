@@ -52,6 +52,7 @@ export async function initialiseImmutableProofComponent(
 		component = new ImmutableProofService({
 			verifiableStorageType: engineCore.getRegisteredInstanceType("verifiableStorageConnector"),
 			identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
+			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			backgroundTaskComponentType: engineCore.getRegisteredInstanceType("backgroundTaskComponent"),
 			eventBusComponentType: engineCore.getRegisteredInstanceTypeOptional("eventBusComponent"),
 			...instanceConfig.options
