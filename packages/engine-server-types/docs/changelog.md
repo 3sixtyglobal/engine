@@ -1,5 +1,20 @@
 # @twin.org/engine-server-types - Changelog
 
+## [0.0.3-next.10](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.3-next.9...engine-server-types-v0.0.3-next.10) (2026-01-13)
+
+
+### Miscellaneous Chores
+
+* **engine-server-types:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.9 to 0.0.3-next.10
+    * @twin.org/engine-types bumped from 0.0.3-next.9 to 0.0.3-next.10
+
 ## [0.0.3-next.9](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.3-next.8...engine-server-types-v0.0.3-next.9) (2026-01-07)
 
 

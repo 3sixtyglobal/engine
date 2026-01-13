@@ -1,5 +1,19 @@
 # @twin.org/engine-core - Changelog
 
+## [0.0.3-next.10](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.9...engine-core-v0.0.3-next.10) (2026-01-13)
+
+
+### Features
+
+* add skipComponentStart flag ([#62](https://github.com/twinfoundation/engine/issues/62)) ([07e90af](https://github.com/twinfoundation/engine/commit/07e90afa4ba1baaa79c0c6f0f45200d781801534))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.9 to 0.0.3-next.10
+
 ## [0.0.3-next.9](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.8...engine-core-v0.0.3-next.9) (2026-01-07)
 
 

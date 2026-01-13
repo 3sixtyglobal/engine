@@ -1,5 +1,12 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.3-next.10](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.3-next.9...engine-models-v0.0.3-next.10) (2026-01-13)
+
+
+### Features
+
+* add skipComponentStart flag ([#62](https://github.com/twinfoundation/engine/issues/62)) ([07e90af](https://github.com/twinfoundation/engine/commit/07e90afa4ba1baaa79c0c6f0f45200d781801534))
+
 ## [0.0.3-next.9](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.3-next.8...engine-models-v0.0.3-next.9) (2026-01-07)
 
 
