@@ -57,9 +57,10 @@ export interface IEngineCore<
 
 	/**
 	 * Start the engine core.
+	 * @param skipComponentStart Should the component start be skipped.
 	 * @returns True if the start was successful.
 	 */
-	start(): Promise<boolean>;
+	start(skipComponentStart?: boolean): Promise<boolean>;
 
 	/**
 	 * Stop the engine core.
@@ -108,6 +109,11 @@ export interface IEngineCore<
 	 * @returns The state of the engine.
 	 */
 	getState(): S;
+
+	/**
+	 * Set the state to dirty so it gets saved.
+	 */
+	setStateDirty(): void;
 
 	/**
 	 * Get all the registered instances.

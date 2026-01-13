@@ -243,9 +243,10 @@ export class EngineCore<
 
 	/**
 	 * Start the engine core.
+	 * @param skipComponentStart Should the component start be skipped.
 	 * @returns True if the start was successful.
 	 */
-	public async start(): Promise<boolean> {
+	public async start(skipComponentStart?: boolean): Promise<boolean> {
 		if (this._isStarted) {
 			return false;
 		}
@@ -257,6 +258,7 @@ export class EngineCore<
 			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.debuggingEnabled`));
 		}
 
+		const skipComponent = skipComponentStart ?? false;
 		let canContinue;
 		try {
 			canContinue = await this.stateLoad();
@@ -270,49 +272,51 @@ export class EngineCore<
 
 				await this.bootstrap();
 
-				await this.logInfo(
-					I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStarting`)
-				);
+				if (!skipComponent) {
+					await this.logInfo(
+						I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStarting`)
+					);
 
-				await ContextIdStore.run(this._contextIds ?? {}, async () => {
-					for (const instance of this._context.componentInstances) {
-						if (!instance.initialised) {
-							instance.initialised = true;
+					await ContextIdStore.run(this._contextIds ?? {}, async () => {
+						for (const instance of this._context.componentInstances) {
+							if (!instance.initialised) {
+								instance.initialised = true;
 
-							const startMethod = instance.component.start?.bind(instance.component);
-							if (Is.function(startMethod)) {
-								await this.logInfo(
-									I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStarting`, {
-										className: instance.component.className(),
-										instanceType: instance.instanceType
-									})
-								);
-
-								try {
-									await startMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
-								} catch (err) {
-									await this.logError(
-										new GeneralError(
-											EngineCore.CLASS_NAME,
-											"componentStartFailed",
-											{
-												className: instance.component.className(),
-												instanceType: instance.instanceType
-											},
-											BaseError.fromError(err)
-										)
+								const startMethod = instance.component.start?.bind(instance.component);
+								if (Is.function(startMethod)) {
+									await this.logInfo(
+										I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStarting`, {
+											className: instance.component.className(),
+											instanceType: instance.instanceType
+										})
 									);
 
-									throw err;
+									try {
+										await startMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
+									} catch (err) {
+										await this.logError(
+											new GeneralError(
+												EngineCore.CLASS_NAME,
+												"componentStartFailed",
+												{
+													className: instance.component.className(),
+													instanceType: instance.instanceType
+												},
+												BaseError.fromError(err)
+											)
+										);
+
+										throw err;
+									}
 								}
 							}
 						}
-					}
-				});
+					});
 
-				await this.logInfo(
-					I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsComplete`)
-				);
+					await this.logInfo(
+						I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsComplete`)
+					);
+				}
 			}
 
 			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.started`));
@@ -455,6 +459,13 @@ export class EngineCore<
 	 */
 	public getState(): S {
 		return this._context.state;
+	}
+
+	/**
+	 * Set the state to dirty so it gets saved.
+	 */
+	public setStateDirty(): void {
+		this._context.stateDirty = true;
 	}
 
 	/**

@@ -150,9 +150,17 @@ The context IDs or undefined if none are set.
 
 ### start()
 
-> **start**(): `Promise`\<`boolean`\>
+> **start**(`skipComponentStart?`): `Promise`\<`boolean`\>
 
 Start the engine core.
+
+#### Parameters
+
+##### skipComponentStart?
+
+`boolean`
+
+Should the component start be skipped.
 
 #### Returns
 
@@ -283,6 +291,18 @@ Get the state of the engine.
 `S`
 
 The state of the engine.
+
+***
+
+### setStateDirty()
+
+> **setStateDirty**(): `void`
+
+Set the state to dirty so it gets saved.
+
+#### Returns
+
+`void`
 
 ***
 
