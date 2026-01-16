@@ -1,5 +1,19 @@
 # @twin.org/engine-core - Changelog
 
+## [0.0.3-next.11](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.10...engine-core-v0.0.3-next.11) (2026-01-16)
+
+
+### Bug Fixes
+
+* save state if dirty even if not started ([1abe4b9](https://github.com/twinfoundation/engine/commit/1abe4b97e6d27364dd673f62f83034b88b7fae0c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.10 to 0.0.3-next.11
+
 ## [0.0.3-next.10](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.9...engine-core-v0.0.3-next.10) (2026-01-13)
 
 
