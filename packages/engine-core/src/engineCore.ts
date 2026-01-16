@@ -381,11 +381,11 @@ export class EngineCore<
 				}
 			});
 
-			await this.stateSave();
-
 			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopped`));
 			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopped`));
 		}
+
+		await this.stateSave();
 	}
 
 	/**
