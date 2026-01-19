@@ -1,5 +1,20 @@
 # @twin.org/engine-server-types - Changelog
 
+## [0.0.3-next.13](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.3-next.12...engine-server-types-v0.0.3-next.13) (2026-01-19)
+
+
+### Features
+
+* remove authentication generator components ([#67](https://github.com/twinfoundation/engine/issues/67)) ([62f7984](https://github.com/twinfoundation/engine/commit/62f798468f567fdbf648401aa0dc51cda871c913))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.12 to 0.0.3-next.13
+    * @twin.org/engine-types bumped from 0.0.3-next.12 to 0.0.3-next.13
+
 ## [0.0.3-next.12](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.3-next.11...engine-server-types-v0.0.3-next.12) (2026-01-19)
 
 
