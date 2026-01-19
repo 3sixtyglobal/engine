@@ -1,5 +1,51 @@
 # @twin.org/engine-core - Changelog
 
+## [0.0.3-next.14](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.13...engine-core-v0.0.3-next.14) (2026-01-19)
+
+
+### Features
+
+* add auth admin component ([201cd06](https://github.com/twinfoundation/engine/commit/201cd061be83afccb5a6b06856ffe7cf8db7d6b3))
+* add context id features ([#51](https://github.com/twinfoundation/engine/issues/51)) ([eaef180](https://github.com/twinfoundation/engine/commit/eaef1807397a907bc7655ef1545a151a710ca2f1))
+* add default logging component for web server ([8ad94f0](https://github.com/twinfoundation/engine/commit/8ad94f0d2d9a5241a8854b1e59fb9a55ce310142))
+* add isPrimary and isClone methods ([a7c63e9](https://github.com/twinfoundation/engine/commit/a7c63e97f54c95b104cc81e66d3fa42c6607bdc1))
+* add mimeTypeProcessors and disableNodeIdentity ([bb7e81e](https://github.com/twinfoundation/engine/commit/bb7e81e2036fe042068a5645ec59b22e20d33aad))
+* add rights management negotiation ([84ef46b](https://github.com/twinfoundation/engine/commit/84ef46bff110611a19512793425c8c873ee2a590))
+* add skipComponentStart flag ([#62](https://github.com/twinfoundation/engine/issues/62)) ([07e90af](https://github.com/twinfoundation/engine/commit/07e90afa4ba1baaa79c0c6f0f45200d781801534))
+* add synchronised storage support ([5142e34](https://github.com/twinfoundation/engine/commit/5142e3488f09195cf9f48a9c6c6d1014231a4c2c))
+* add validate-locales ([b92ea09](https://github.com/twinfoundation/engine/commit/b92ea09dbcfe35225271a51f24d231f59e2d363e))
+* close already started components on startup error ([a55a117](https://github.com/twinfoundation/engine/commit/a55a117a508998288c8ae804e732fc6085cb22fa))
+* context id handlers repopulated after engine clone ([9712e32](https://github.com/twinfoundation/engine/commit/9712e328f4607f5b2c82355c394c61bde0ee39bf))
+* eslint migration to flat config ([6b978da](https://github.com/twinfoundation/engine/commit/6b978daf777a615d7758b63c3df57d5a376f6dfb))
+* improve startup error handling ([#65](https://github.com/twinfoundation/engine/issues/65)) ([5b2d1c5](https://github.com/twinfoundation/engine/commit/5b2d1c539cf5484afa85e294d6d6c18f24ef8274))
+* initialise context id handlers before bootstrap ([e94df44](https://github.com/twinfoundation/engine/commit/e94df440aa553350dba5da2ae93b5c34e0ac3692))
+* interlock stop method ([3806ba7](https://github.com/twinfoundation/engine/commit/3806ba7b44b3cb3ce130f4e3684a666533674663))
+* maintain isDefault flag for registered instances ([2ac5bee](https://github.com/twinfoundation/engine/commit/2ac5bee094bef42b396cc82b0d18bb6aebe27352))
+* override type initialisers with new registrations ([5b4ff56](https://github.com/twinfoundation/engine/commit/5b4ff561d06b6513c870a72bb20ba23c0653cfe8))
+* remove bootstrapped components, component should manage their own state ([5c7e9e4](https://github.com/twinfoundation/engine/commit/5c7e9e419ef26933e49c9c5a21a20a8961244e7f))
+* remove unused component states ([d56d648](https://github.com/twinfoundation/engine/commit/d56d6486119ea8b8501a33f9e3a3101a08b826ed))
+* simplify config building ([732c871](https://github.com/twinfoundation/engine/commit/732c871c5aca236759168f4bc15aeffd98a330a8))
+* standardised engine logging naming ([0dbf857](https://github.com/twinfoundation/engine/commit/0dbf857587641f86ddf010143519d0e8333489ff))
+* update dependencies ([97c9f64](https://github.com/twinfoundation/engine/commit/97c9f64b6ef096963bcc5de338a2a9e99bdc1a11))
+* update framework core ([acc0f8d](https://github.com/twinfoundation/engine/commit/acc0f8d455a4b8ec47f1da643139fa0f07775fa6))
+* upgrade framework components ([efd52e8](https://github.com/twinfoundation/engine/commit/efd52e80564fff29c3897bfa09b6305b3a322812))
+* use peer dependencies ([69dd744](https://github.com/twinfoundation/engine/commit/69dd7449010b8e6f5f35e7fad201ad4c1cab400c))
+* use shared store mechanism ([#2](https://github.com/twinfoundation/engine/issues/2)) ([9eed8d7](https://github.com/twinfoundation/engine/commit/9eed8d7766388479b42f03e2542fe761f2156408))
+
+
+### Bug Fixes
+
+* make sure stop is called even if start is not implemented ([ece2b9d](https://github.com/twinfoundation/engine/commit/ece2b9de5c6dff2b5ccf2a3115c1a7328a330125))
+* save state if dirty even if not started ([1abe4b9](https://github.com/twinfoundation/engine/commit/1abe4b97e6d27364dd673f62f83034b88b7fae0c))
+* use correct instance type name ([6278486](https://github.com/twinfoundation/engine/commit/6278486d8f0f2d601d3cf521a647898cd7cc1f31))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.13 to 0.0.3-next.14
+
 ## [0.0.3-next.13](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.12...engine-core-v0.0.3-next.13) (2026-01-19)
 
 
