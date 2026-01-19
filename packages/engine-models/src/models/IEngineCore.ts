@@ -58,9 +58,9 @@ export interface IEngineCore<
 	/**
 	 * Start the engine core.
 	 * @param skipComponentStart Should the component start be skipped.
-	 * @returns True if the start was successful.
+	 * @returns Nothing.
 	 */
-	start(skipComponentStart?: boolean): Promise<boolean>;
+	start(skipComponentStart?: boolean): Promise<void>;
 
 	/**
 	 * Stop the engine core.

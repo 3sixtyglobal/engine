@@ -153,8 +153,7 @@ describe("engine-server", () => {
 		const engineServer = new EngineServer({
 			engineCore: engine
 		});
-		const canContinue = await engineServer.start();
-		expect(canContinue).toEqual(true);
+		await engineServer.start();
 
 		// Give the server a moment to start
 		await new Promise(resolve => setTimeout(resolve, 1000));
@@ -401,8 +400,7 @@ describe("engine-server", () => {
 
 		addDefaultRestPaths(config);
 		addDefaultSocketPaths(config);
-		const canContinue = await engineServer.start();
-		expect(canContinue).toEqual(true);
+		await engineServer.start();
 
 		const buildRestRoutes = engineServer.getRestRoutes();
 		expect(buildRestRoutes.map(r => r.path)).toEqual([
@@ -571,8 +569,7 @@ describe("engine-server", () => {
 			"generateRestRoutes"
 		);
 
-		const canContinue = await engineServer.start();
-		expect(canContinue).toEqual(true);
+		await engineServer.start();
 
 		// Give the server a moment to start
 		await new Promise(resolve => setTimeout(resolve, 1000));
@@ -620,8 +617,7 @@ describe("engine-server", () => {
 			engineCore: engine
 		});
 
-		const canContinue = await engineServer.start();
-		expect(canContinue).toEqual(true);
+		await engineServer.start();
 
 		const service = ComponentFactory.get<IEntityStorageComponent<TestEntity>>("test-entity");
 		await service.set({ id: "test1234" });

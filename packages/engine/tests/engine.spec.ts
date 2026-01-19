@@ -123,20 +123,18 @@ describe("engine", () => {
 
 	test("Can start engine with no config", async () => {
 		const engine = new Engine();
-		const canContinue = await engine.start();
+		await engine.start();
 		await engine.stop();
 
-		expect(canContinue).toEqual(true);
 		expect(engine).toBeDefined();
 	});
 
 	test("Can start engine with empty config", async () => {
 		const engine = new Engine({ config: { types: {} } });
-		const canContinue = await engine.start();
+		await engine.start();
 		await engine.stop();
 
 		expect(engine).toBeDefined();
-		expect(canContinue).toEqual(true);
 	});
 
 	test("Can start engine with config", async () => {
@@ -348,9 +346,7 @@ describe("engine", () => {
 			}
 		});
 
-		const canContinue = await engine.start();
-		expect(canContinue).toEqual(true);
-
+		await engine.start();
 		await engine.stop();
 
 		expect(ComponentFactory.names()).toEqual([
@@ -474,10 +470,9 @@ describe("engine", () => {
 			}
 		});
 
-		const canContinue = await engine.start();
+		await engine.start();
 		await engine.stop();
 
-		expect(canContinue).toEqual(true);
 		expect(ComponentFactory.names()).toEqual(["engine-logging-service", "test-entity"]);
 		expect(EntitySchemaFactory.names()).toEqual(["TestEntity"]);
 	});
@@ -515,10 +510,9 @@ describe("engine", () => {
 				}
 			}
 		});
-		const canContinue = await engine.start();
+		await engine.start();
 		await engine.stop();
 
-		expect(canContinue).toEqual(true);
 		expect(ComponentFactory.names()).toEqual(["engine-logging-service", "test-entity"]);
 		expect(EntitySchemaFactory.names()).toEqual(["TestEntity"]);
 
@@ -736,7 +730,7 @@ describe("engine", () => {
 		engine.addContextIdKey(ContextIdKeys.Node, ["did"]);
 		engine.addContextIdKey(ContextIdKeys.Tenant, ["tenant"]);
 
-		const canContinue = await engine.start();
+		await engine.start();
 		await engine.stop();
 
 		Factory.clearFactories();
@@ -745,10 +739,8 @@ describe("engine", () => {
 		const clone = new Engine();
 		clone.populateClone(cloneData);
 
-		const canContinue2 = await clone.start();
+		await clone.start();
 
-		expect(canContinue).toEqual(true);
-		expect(canContinue2).toEqual(true);
 		expect(clone.getConfig()).toEqual(engine.getConfig());
 		expect(clone.getState()).toEqual(engine.getState());
 		expect(clone.getRegisteredInstances()).toEqual(engine.getRegisteredInstances());
@@ -953,7 +945,7 @@ describe("engine", () => {
 			stateStorage: new MemoryStateStorage()
 		});
 
-		const canContinue = await engine.start();
+		await engine.start();
 		await engine.stop();
 
 		Factory.clearFactories();
@@ -961,10 +953,8 @@ describe("engine", () => {
 		const cloneData = engine.getCloneData();
 		const clone = new Engine();
 		clone.populateClone(cloneData, true);
-		const canContinue2 = await clone.start();
+		await clone.start();
 
-		expect(canContinue).toEqual(true);
-		expect(canContinue2).toEqual(true);
 		expect(clone.getConfig()).toEqual(engine.getConfig());
 		expect(clone.getState()).toEqual(engine.getState());
 		expect(clone.getRegisteredInstances()).toEqual(engine.getRegisteredInstances());
@@ -1236,7 +1226,7 @@ describe("engine", () => {
 			}
 		});
 
-		const canContinue = await engine.start();
+		await engine.start();
 		await engine.stop();
 
 		expect(ComponentFactory.names()).toEqual([
@@ -1296,7 +1286,6 @@ describe("engine", () => {
 		]);
 
 		expect(engine).toBeDefined();
-		expect(canContinue).toEqual(true);
 		expect(calledCustomBootstrap).toBeDefined();
 	});
 });

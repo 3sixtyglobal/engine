@@ -210,18 +210,14 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 
 	/**
 	 * Start the engine server.
-	 * @returns True if the start was successful.
+	 * @returns Nothing.
 	 */
-	public async start(): Promise<boolean> {
-		const canContinue = await this._engineCore.start();
+	public async start(): Promise<void> {
+		await this._engineCore.start();
 
-		if (canContinue) {
-			await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
-				await this.startWebServer();
-			});
-		}
-
-		return canContinue;
+		await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
+			await this.startWebServer();
+		});
 	}
 
 	/**

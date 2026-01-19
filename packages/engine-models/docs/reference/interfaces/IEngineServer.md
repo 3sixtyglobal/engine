@@ -70,15 +70,15 @@ The method to call on the module.
 
 ### start()
 
-> **start**(): `Promise`\<`boolean`\>
+> **start**(): `Promise`\<`void`\>
 
 Start the engine server.
 
 #### Returns
 
-`Promise`\<`boolean`\>
+`Promise`\<`void`\>
 
-True if the start was successful.
+Nothing.
 
 ***
 

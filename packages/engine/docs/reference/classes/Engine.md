@@ -282,7 +282,7 @@ The context IDs or undefined if none are set.
 
 ### start()
 
-> **start**(`skipComponentStart?`): `Promise`\<`boolean`\>
+> **start**(`skipComponentStart?`): `Promise`\<`void`\>
 
 Start the engine core.
 
@@ -296,9 +296,9 @@ Should the component start be skipped.
 
 #### Returns
 
-`Promise`\<`boolean`\>
+`Promise`\<`void`\>
 
-True if the start was successful.
+Nothing.
 
 #### Inherited from
 

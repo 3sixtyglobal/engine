@@ -23,9 +23,9 @@ export interface IEngineServer {
 
 	/**
 	 * Start the engine server.
-	 * @returns True if the start was successful.
+	 * @returns Nothing.
 	 */
-	start(): Promise<boolean>;
+	start(): Promise<void>;
 
 	/**
 	 * Stop the engine server.

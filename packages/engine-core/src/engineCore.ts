@@ -244,26 +244,21 @@ export class EngineCore<
 	/**
 	 * Start the engine core.
 	 * @param skipComponentStart Should the component start be skipped.
-	 * @returns True if the start was successful.
+	 * @returns Nothing.
 	 */
-	public async start(skipComponentStart?: boolean): Promise<boolean> {
-		if (this._isStarted) {
-			return false;
-		}
+	public async start(skipComponentStart?: boolean): Promise<void> {
+		if (!this._isStarted) {
+			this.setupEngineLogger();
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.starting`));
 
-		this.setupEngineLogger();
-		await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.starting`));
+			if (this._context.config.debug) {
+				await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.debuggingEnabled`));
+			}
 
-		if (this._context.config.debug) {
-			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.debuggingEnabled`));
-		}
+			const skipComponent = skipComponentStart ?? false;
+			try {
+				await this.stateLoad();
 
-		const skipComponent = skipComponentStart ?? false;
-		let canContinue;
-		try {
-			canContinue = await this.stateLoad();
-
-			if (canContinue) {
 				for (const { type, module, method } of this._typeInitialisers) {
 					await this.initialiseTypeConfig(type, module, method);
 				}
@@ -271,6 +266,8 @@ export class EngineCore<
 				this.initialiseContextIdHandlers();
 
 				await this.bootstrap();
+
+				this._isStarted = true;
 
 				if (!skipComponent) {
 					await this.logInfo(
@@ -317,24 +314,16 @@ export class EngineCore<
 						I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsComplete`)
 					);
 				}
-			}
 
-			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.started`));
-			this._isStarted = true;
-		} catch (err) {
-			canContinue = false;
-			await this.logError(BaseError.fromError(err));
-		} finally {
-			if (!(await this.stateSave())) {
-				canContinue = false;
+				await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.started`));
+			} catch (err) {
+				await this.stop();
+				await this.logError(BaseError.fromError(err));
+				throw err;
+			} finally {
+				await this.stateSave();
 			}
 		}
-
-		if (!canContinue) {
-			await this.stop();
-		}
-
-		return canContinue;
 	}
 
 	/**
@@ -708,41 +697,34 @@ export class EngineCore<
 
 	/**
 	 * Load the state.
-	 * @returns True if the state was loaded and can continue.
 	 * @internal
 	 */
-	private async stateLoad(): Promise<boolean> {
+	private async stateLoad(): Promise<void> {
 		if (this._stateStorage) {
 			try {
 				this._context.state = ((await this._stateStorage.load(this)) ?? {}) as S;
 				this._context.stateDirty = false;
-
-				return true;
 			} catch (err) {
 				await this.logError(BaseError.fromError(err));
-				return false;
+				throw err;
 			}
 		}
-		return true;
 	}
 
 	/**
 	 * Save the state.
-	 * @returns True if the state was saved.
+	 * @returns Nothing.
 	 * @internal
 	 */
-	private async stateSave(): Promise<boolean> {
+	private async stateSave(): Promise<void> {
 		if (this._stateStorage && !Is.empty(this._context.state) && this._context.stateDirty) {
 			try {
 				await this._stateStorage.save(this, this._context.state);
 				this._context.stateDirty = false;
-				return true;
 			} catch (err) {
 				await this.logError(BaseError.fromError(err));
 			}
-			return false;
 		}
-		return true;
 	}
 
 	/**
