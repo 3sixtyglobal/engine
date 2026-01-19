@@ -17,7 +17,6 @@ import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import type { IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { initialiseEntityStorageConnector } from "@twin.org/engine-types";
-import { VerifiableCredentialAuthenticationProcessor } from "@twin.org/identity-authentication";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { RestRouteProcessorConfig } from "../models/config/restRouteProcessorConfig.js";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
@@ -50,15 +49,6 @@ export async function initialiseRestRouteProcessorComponent(
 			}
 		});
 		instanceType = nameofKebabCase(AuthHeaderProcessor);
-	} else if (instanceConfig.type === RestRouteProcessorType.AuthVerifiableCredential) {
-		component = new VerifiableCredentialAuthenticationProcessor({
-			identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
-			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			config: {
-				...instanceConfig.options?.config
-			}
-		});
-		instanceType = nameofKebabCase(VerifiableCredentialAuthenticationProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.Logging) {
 		component = new LoggingProcessor({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),

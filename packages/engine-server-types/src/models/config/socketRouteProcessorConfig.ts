@@ -8,7 +8,6 @@ import type {
 	IStaticContextIdProcessorConstructorOptions
 } from "@twin.org/api-processors";
 import type { ITenantProcessorConstructorOptions } from "@twin.org/api-tenant-processor";
-import type { IVerifiableCredentialAuthenticationProcessorConstructorOptions } from "@twin.org/identity-authentication";
 import type { SocketRouteProcessorType } from "../types/socketRouteProcessorType.js";
 
 /**
@@ -18,10 +17,6 @@ export type SocketRouteProcessorConfig =
 	| {
 			type: typeof SocketRouteProcessorType.AuthHeader;
 			options?: IAuthHeaderProcessorConstructorOptions;
-	  }
-	| {
-			type: typeof SocketRouteProcessorType.AuthVerifiableCredential;
-			options?: IVerifiableCredentialAuthenticationProcessorConstructorOptions;
 	  }
 	| {
 			type: typeof SocketRouteProcessorType.Logging;

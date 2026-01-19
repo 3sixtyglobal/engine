@@ -367,17 +367,11 @@ describe("engine-server", () => {
 				restRouteProcessor: [
 					{
 						type: RestRouteProcessorType.RestRoute
-					},
-					{
-						type: RestRouteProcessorType.AuthVerifiableCredential
 					}
 				],
 				socketRouteProcessor: [
 					{
 						type: SocketRouteProcessorType.SocketRoute
-					},
-					{
-						type: SocketRouteProcessorType.AuthVerifiableCredential
 					}
 				]
 			},

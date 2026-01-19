@@ -42,7 +42,6 @@
 		"@twin.org/engine-models": "0.0.3-next.13",
 		"@twin.org/engine-types": "0.0.3-next.13",
 		"@twin.org/entity": "next",
-		"@twin.org/identity-authentication": "next",
 		"@twin.org/nameof": "next"
 	},
 	"devDependencies": {
