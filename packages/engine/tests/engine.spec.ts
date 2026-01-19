@@ -1,7 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { mkdir, rm } from "node:fs/promises";
-import { AuthenticationGeneratorFactory } from "@twin.org/api-models";
 import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@twin.org/context";
 import { ComponentFactory, Factory, I18n } from "@twin.org/core";
 import { MemoryStateStorage } from "@twin.org/engine-core";
@@ -11,7 +10,6 @@ import {
 	AttestationConnectorType,
 	AuditableItemGraphComponentType,
 	AuditableItemStreamComponentType,
-	AuthenticationGeneratorComponentType,
 	BackgroundTaskComponentType,
 	BlobStorageComponentType,
 	BlobStorageConnectorType,
@@ -186,13 +184,6 @@ describe("engine", () => {
 					dataExtractorConnector: [{ type: DataExtractorConnectorType.JsonPath }],
 					dataProcessingComponent: [{ type: DataProcessingComponentType.Service }],
 					documentManagementComponent: [{ type: DocumentManagementComponentType.Service }],
-					authenticationGeneratorComponent: [
-						{
-							type: AuthenticationGeneratorComponentType.VerifiableCredential,
-							options: { config: { verificationMethodId: "my-key" } },
-							features: ["verifiable-credential"]
-						}
-					],
 					trustComponent: [
 						{
 							type: TrustComponentType.Service
@@ -425,10 +416,6 @@ describe("engine", () => {
 		expect(engine).toBeDefined();
 		expect(calledCustomBootstrap).toBeDefined();
 
-		expect(AuthenticationGeneratorFactory.names()).toEqual([
-			"verifiable-credential-authentication-generator"
-		]);
-
 		expect(FederatedCatalogueFilterFactory.names()).toEqual(["FilterByExample"]);
 
 		expect(DataAccessHandlerFactory.names()).toEqual(["example-data-access-handler"]);
@@ -570,13 +557,6 @@ describe("engine", () => {
 					dataExtractorConnector: [{ type: DataExtractorConnectorType.JsonPath }],
 					dataProcessingComponent: [{ type: DataProcessingComponentType.Service }],
 					documentManagementComponent: [{ type: DocumentManagementComponentType.Service }],
-					authenticationGeneratorComponent: [
-						{
-							type: AuthenticationGeneratorComponentType.VerifiableCredential,
-							options: { config: { verificationMethodId: "my-key" } },
-							features: ["verifiable-credential"]
-						}
-					],
 					trustComponent: [
 						{
 							type: TrustComponentType.Service
@@ -797,13 +777,6 @@ describe("engine", () => {
 				dataExtractorConnector: [{ type: DataExtractorConnectorType.JsonPath }],
 				dataProcessingComponent: [{ type: DataProcessingComponentType.Service }],
 				documentManagementComponent: [{ type: DocumentManagementComponentType.Service }],
-				authenticationGeneratorComponent: [
-					{
-						type: AuthenticationGeneratorComponentType.VerifiableCredential,
-						options: { config: { verificationMethodId: "my-key" } },
-						features: ["verifiable-credential"]
-					}
-				],
 				trustComponent: [
 					{
 						type: TrustComponentType.Service
@@ -1079,13 +1052,6 @@ describe("engine", () => {
 						{
 							type: DocumentManagementComponentType.RestClient,
 							options: { endpoint: "http://localhost:3000" }
-						}
-					],
-					authenticationGeneratorComponent: [
-						{
-							type: AuthenticationGeneratorComponentType.VerifiableCredential,
-							options: { config: { verificationMethodId: "my-key" } },
-							features: ["verifiable-credential"]
 						}
 					],
 					trustComponent: [

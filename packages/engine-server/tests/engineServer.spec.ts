@@ -16,7 +16,6 @@ import {
 	AttestationConnectorType,
 	AuditableItemGraphComponentType,
 	AuditableItemStreamComponentType,
-	AuthenticationGeneratorComponentType,
 	BackgroundTaskComponentType,
 	BlobStorageComponentType,
 	BlobStorageConnectorType,
@@ -214,13 +213,6 @@ describe("engine-server", () => {
 				dataExtractorConnector: [{ type: DataExtractorConnectorType.JsonPath }],
 				dataProcessingComponent: [{ type: DataProcessingComponentType.Service }],
 				documentManagementComponent: [{ type: DocumentManagementComponentType.Service }],
-				authenticationGeneratorComponent: [
-					{
-						type: AuthenticationGeneratorComponentType.VerifiableCredential,
-						options: { config: { verificationMethodId: "my-key" } },
-						features: ["verifiable-credential"]
-					}
-				],
 				trustComponent: [
 					{
 						type: TrustComponentType.Service
