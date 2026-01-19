@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/engine-server",
-	"version": "0.0.3-next.11",
+	"version": "0.0.3-next.12",
 	"description": "Engine implementation for a server.",
 	"repository": {
 		"type": "git",
@@ -32,14 +32,14 @@
 		"@twin.org/api-server-fastify": "next",
 		"@twin.org/context": "next",
 		"@twin.org/core": "next",
-		"@twin.org/engine-core": "0.0.3-next.11",
-		"@twin.org/engine-models": "0.0.3-next.11",
-		"@twin.org/engine-server-types": "0.0.3-next.11",
+		"@twin.org/engine-core": "0.0.3-next.12",
+		"@twin.org/engine-models": "0.0.3-next.12",
+		"@twin.org/engine-server-types": "0.0.3-next.12",
 		"@twin.org/modules": "next",
 		"@twin.org/nameof": "next"
 	},
 	"devDependencies": {
-		"@twin.org/engine": "0.0.3-next.11",
+		"@twin.org/engine": "0.0.3-next.12",
 		"@twin.org/nameof-transformer": "next",
 		"@twin.org/nameof-vitest-plugin": "next",
 		"@twin.org/validate-locales": "next",

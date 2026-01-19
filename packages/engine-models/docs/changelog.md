@@ -1,5 +1,12 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.3-next.12](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.3-next.11...engine-models-v0.0.3-next.12) (2026-01-19)
+
+
+### Features
+
+* improve startup error handling ([#65](https://github.com/twinfoundation/engine/issues/65)) ([5b2d1c5](https://github.com/twinfoundation/engine/commit/5b2d1c539cf5484afa85e294d6d6c18f24ef8274))
+
 ## [0.0.3-next.11](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.3-next.10...engine-models-v0.0.3-next.11) (2026-01-16)
 
 
