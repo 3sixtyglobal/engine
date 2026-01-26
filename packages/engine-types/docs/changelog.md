@@ -1,5 +1,20 @@
 # @twin.org/engine-types - Changelog
 
+## [0.0.3-next.15](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.14...engine-types-v0.0.3-next.15) (2026-01-26)
+
+
+### Features
+
+* add hosting component ([#70](https://github.com/twinfoundation/engine/issues/70)) ([2ab0dec](https://github.com/twinfoundation/engine/commit/2ab0dec8fdb979395c639b73f394a40a0dd7e55a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.14 to 0.0.3-next.15
+    * @twin.org/engine-models bumped from 0.0.3-next.14 to 0.0.3-next.15
+
 ## [0.0.3-next.14](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.13...engine-types-v0.0.3-next.14) (2026-01-19)
 
 
