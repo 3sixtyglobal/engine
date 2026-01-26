@@ -8,12 +8,14 @@
 
 - [AuthenticationAdminComponentConfig](type-aliases/AuthenticationAdminComponentConfig.md)
 - [AuthenticationComponentConfig](type-aliases/AuthenticationComponentConfig.md)
+- [HostingComponentConfig](type-aliases/HostingComponentConfig.md)
 - [InformationComponentConfig](type-aliases/InformationComponentConfig.md)
 - [MimeTypeProcessorConfig](type-aliases/MimeTypeProcessorConfig.md)
 - [RestRouteProcessorConfig](type-aliases/RestRouteProcessorConfig.md)
 - [SocketRouteProcessorConfig](type-aliases/SocketRouteProcessorConfig.md)
 - [AuthenticationAdminComponentType](type-aliases/AuthenticationAdminComponentType.md)
 - [AuthenticationComponentType](type-aliases/AuthenticationComponentType.md)
+- [HostingComponentType](type-aliases/HostingComponentType.md)
 - [InformationComponentType](type-aliases/InformationComponentType.md)
 - [MimeTypeProcessorType](type-aliases/MimeTypeProcessorType.md)
 - [RestRouteProcessorType](type-aliases/RestRouteProcessorType.md)
@@ -23,6 +25,7 @@
 
 - [AuthenticationAdminComponentType](variables/AuthenticationAdminComponentType.md)
 - [AuthenticationComponentType](variables/AuthenticationComponentType.md)
+- [HostingComponentType](variables/HostingComponentType.md)
 - [InformationComponentType](variables/InformationComponentType.md)
 - [MimeTypeProcessorType](variables/MimeTypeProcessorType.md)
 - [RestRouteProcessorType](variables/RestRouteProcessorType.md)
@@ -32,6 +35,7 @@
 
 - [initialiseAuthenticationComponent](functions/initialiseAuthenticationComponent.md)
 - [initialiseAuthenticationAdminComponent](functions/initialiseAuthenticationAdminComponent.md)
+- [initialiseHostingComponent](functions/initialiseHostingComponent.md)
 - [initialiseInformationComponent](functions/initialiseInformationComponent.md)
 - [initialiseMimeTypeProcessorComponent](functions/initialiseMimeTypeProcessorComponent.md)
 - [initialiseRestRouteProcessorComponent](functions/initialiseRestRouteProcessorComponent.md)

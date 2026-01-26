@@ -235,7 +235,7 @@ describe("engine", () => {
 							type: RightsManagementPnpComponentType.Service,
 							options: {
 								config: {
-									baseCallbackUrl: "http://localhost:3000",
+									callbackPath: "",
 									negotiationComponentCreator: async () =>
 										({}) as unknown as IPolicyNegotiationPointComponent
 								}
@@ -597,7 +597,7 @@ describe("engine", () => {
 							type: RightsManagementPnpComponentType.Service,
 							options: {
 								config: {
-									baseCallbackUrl: "http://localhost:3000",
+									callbackPath: "",
 									negotiationComponentCreator: async () =>
 										({}) as unknown as IPolicyNegotiationPointComponent
 								}
@@ -817,7 +817,7 @@ describe("engine", () => {
 						type: RightsManagementPnpComponentType.Service,
 						options: {
 							config: {
-								baseCallbackUrl: "http://localhost:3000",
+								callbackPath: "",
 								negotiationComponentCreator: async () =>
 									({}) as unknown as IPolicyNegotiationPointComponent
 							}

@@ -5,6 +5,7 @@ import type { IEngineCoreTypeConfig } from "@twin.org/engine-models";
 import type { IEngineConfig } from "@twin.org/engine-types";
 import type { AuthenticationAdminComponentConfig } from "./config/authenticationAdminComponentConfig.js";
 import type { AuthenticationComponentConfig } from "./config/authenticationComponentConfig.js";
+import type { HostingComponentConfig } from "./config/hostingComponentConfig.js";
 import type { InformationComponentConfig } from "./config/informationComponentConfig.js";
 import type { MimeTypeProcessorConfig } from "./config/mimeTypeProcessorConfig.js";
 import type { RestRouteProcessorConfig } from "./config/restRouteProcessorConfig.js";
@@ -26,32 +27,37 @@ export interface IEngineServerConfig extends IEngineConfig {
 		[type: string]: IEngineCoreTypeConfig[] | undefined;
 
 		/**
-		 * Information component options which can be overridden by individual components by specifying types other than default..
+		 * Information component options which can be overridden by individual components by specifying types other than default.
 		 */
 		informationComponent?: IEngineCoreTypeConfig<InformationComponentConfig>[];
 
 		/**
-		 * REST route processors options which can be overridden by individual components by specifying types other than default..
+		 * Hosting component options which can be overridden by individual components by specifying types other than default.
+		 */
+		hostingComponent?: IEngineCoreTypeConfig<HostingComponentConfig>[];
+
+		/**
+		 * REST route processors options which can be overridden by individual components by specifying types other than default.
 		 */
 		restRouteProcessor?: IEngineCoreTypeConfig<RestRouteProcessorConfig>[];
 
 		/**
-		 * Socket route processors options which can be overridden by individual components by specifying types other than default..
+		 * Socket route processors options which can be overridden by individual components by specifying types other than default.
 		 */
 		socketRouteProcessor?: IEngineCoreTypeConfig<SocketRouteProcessorConfig>[];
 
 		/**
-		 * Mime type processors options which can be overridden by individual components by specifying types other than default..
+		 * Mime type processors options which can be overridden by individual components by specifying types other than default.
 		 */
 		mimeTypeProcessor?: IEngineCoreTypeConfig<MimeTypeProcessorConfig>[];
 
 		/**
-		 * Authentication component options which can be overridden by individual components by specifying types other than default..
+		 * Authentication component options which can be overridden by individual components by specifying types other than default.
 		 */
 		authenticationComponent?: IEngineCoreTypeConfig<AuthenticationComponentConfig>[];
 
 		/**
-		 * Authentication admin component options which can be overridden by individual components by specifying types other than default..
+		 * Authentication admin component options which can be overridden by individual components by specifying types other than default.
 		 */
 		authenticationAdminComponent?: IEngineCoreTypeConfig<AuthenticationAdminComponentConfig>[];
 	};

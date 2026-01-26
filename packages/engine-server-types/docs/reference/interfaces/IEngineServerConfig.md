@@ -462,37 +462,43 @@ Context Id Handler component options which can be overridden by individual compo
 
 > `optional` **informationComponent**: `IEngineCoreTypeConfig`\<[`InformationComponentConfig`](../type-aliases/InformationComponentConfig.md)\>[]
 
-Information component options which can be overridden by individual components by specifying types other than default..
+Information component options which can be overridden by individual components by specifying types other than default.
+
+##### hostingComponent?
+
+> `optional` **hostingComponent**: `IEngineCoreTypeConfig`\<[`HostingComponentConfig`](../type-aliases/HostingComponentConfig.md)\>[]
+
+Hosting component options which can be overridden by individual components by specifying types other than default.
 
 ##### restRouteProcessor?
 
 > `optional` **restRouteProcessor**: `IEngineCoreTypeConfig`\<[`RestRouteProcessorConfig`](../type-aliases/RestRouteProcessorConfig.md)\>[]
 
-REST route processors options which can be overridden by individual components by specifying types other than default..
+REST route processors options which can be overridden by individual components by specifying types other than default.
 
 ##### socketRouteProcessor?
 
 > `optional` **socketRouteProcessor**: `IEngineCoreTypeConfig`\<[`SocketRouteProcessorConfig`](../type-aliases/SocketRouteProcessorConfig.md)\>[]
 
-Socket route processors options which can be overridden by individual components by specifying types other than default..
+Socket route processors options which can be overridden by individual components by specifying types other than default.
 
 ##### mimeTypeProcessor?
 
 > `optional` **mimeTypeProcessor**: `IEngineCoreTypeConfig`\<[`MimeTypeProcessorConfig`](../type-aliases/MimeTypeProcessorConfig.md)\>[]
 
-Mime type processors options which can be overridden by individual components by specifying types other than default..
+Mime type processors options which can be overridden by individual components by specifying types other than default.
 
 ##### authenticationComponent?
 
 > `optional` **authenticationComponent**: `IEngineCoreTypeConfig`\<[`AuthenticationComponentConfig`](../type-aliases/AuthenticationComponentConfig.md)\>[]
 
-Authentication component options which can be overridden by individual components by specifying types other than default..
+Authentication component options which can be overridden by individual components by specifying types other than default.
 
 ##### authenticationAdminComponent?
 
 > `optional` **authenticationAdminComponent**: `IEngineCoreTypeConfig`\<[`AuthenticationAdminComponentConfig`](../type-aliases/AuthenticationAdminComponentConfig.md)\>[]
 
-Authentication admin component options which can be overridden by individual components by specifying types other than default..
+Authentication admin component options which can be overridden by individual components by specifying types other than default.
 
 #### Overrides
 

@@ -257,9 +257,12 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 		const loggingComponentType = coreConfig.silent
 			? undefined
 			: this._engineCore.getRegisteredInstanceType("loggingComponent");
+		const hostingComponentType =
+			this._engineCore.getRegisteredInstanceTypeOptional("hostingComponent");
 
 		this._webServer = new FastifyWebServer({
 			loggingComponentType,
+			hostingComponentType,
 			mimeTypeProcessors
 		});
 

@@ -6,6 +6,7 @@ import { ComponentFactory, Factory, I18n } from "@twin.org/core";
 import { Engine } from "@twin.org/engine";
 import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
 import {
+	HostingComponentType,
 	InformationComponentType,
 	RestRouteProcessorType,
 	SocketRouteProcessorType,
@@ -264,7 +265,7 @@ describe("engine-server", () => {
 						type: RightsManagementPnpComponentType.Service,
 						options: {
 							config: {
-								baseCallbackUrl: "http://localhost:3000",
+								callbackPath: "",
 								negotiationComponentCreator: async () =>
 									({}) as unknown as IPolicyNegotiationPointComponent
 							}
@@ -360,6 +361,16 @@ describe("engine-server", () => {
 									name: "foo",
 									version: "1"
 								}
+							}
+						}
+					}
+				],
+				hostingComponent: [
+					{
+						type: HostingComponentType.Service,
+						options: {
+							config: {
+								localOrigin: `http://localhost:${port}`
 							}
 						}
 					}

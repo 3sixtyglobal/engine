@@ -16,6 +16,11 @@
 		"defaultRestPath": ""
 	},
 	{
+		"type": "hostingComponent",
+		"module": "@twin.org/engine-server-types",
+		"method": "initialiseHostingComponent"
+	},
+	{
 		"type": "restRouteProcessor",
 		"module": "@twin.org/engine-server-types",
 		"method": "initialiseRestRouteProcessorComponent"

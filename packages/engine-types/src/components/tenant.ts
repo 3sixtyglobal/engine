@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import type { ITenantAdminComponent } from "@twin.org/api-models";
 import {
-	type ITenantAdminComponent,
 	type Tenant,
 	TenantAdminService,
 	initSchema as initSchemaTenant
