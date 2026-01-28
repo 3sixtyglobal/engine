@@ -245,21 +245,6 @@
 		"method": "initialiseRightsManagementPnpComponent"
 	},
 	{
-		"type": "rightsManagementDapComponent",
-		"module": "@twin.org/engine-types",
-		"method": "initialiseRightsManagementDapComponent"
-	},
-	{
-		"type": "rightsManagementDarpComponent",
-		"module": "@twin.org/engine-types",
-		"method": "initialiseRightsManagementDarpComponent"
-	},
-	{
-		"type": "rightsManagementDataAccessHandlerComponent",
-		"module": "@twin.org/engine-types",
-		"method": "initialiseRightsManagementDataAccessHandlerComponent"
-	},
-	{
 		"type": "rightsManagementPolicyArbiterComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseRightsManagementPolicyArbiterComponent"

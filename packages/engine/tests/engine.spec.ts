@@ -43,9 +43,6 @@ import {
 	MessagingSmsConnectorType,
 	NftComponentType,
 	NftConnectorType,
-	RightsManagementDapComponentType,
-	RightsManagementDarpComponentType,
-	RightsManagementDataAccessHandlerComponentType,
 	RightsManagementPapComponentType,
 	RightsManagementPdpComponentType,
 	RightsManagementPepComponentType,
@@ -78,8 +75,6 @@ import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
 import { nameof } from "@twin.org/nameof";
 import {
-	DataAccessHandlerFactory,
-	type IDataAccessPointComponent,
 	type IPolicyNegotiationPointComponent,
 	PolicyArbiterFactory,
 	PolicyEnforcementProcessorFactory,
@@ -247,27 +242,6 @@ describe("engine", () => {
 							type: RightsManagementPnapComponentType.Service
 						}
 					],
-					rightsManagementDapComponent: [
-						{
-							type: RightsManagementDapComponentType.Service
-						}
-					],
-					rightsManagementDarpComponent: [
-						{
-							type: RightsManagementDarpComponentType.Service,
-							options: {
-								config: {
-									dataAccessComponentCreator: async () =>
-										({}) as unknown as IDataAccessPointComponent
-								}
-							}
-						}
-					],
-					rightsManagementDataAccessHandlerComponent: [
-						{
-							type: RightsManagementDataAccessHandlerComponentType.Example
-						}
-					],
 					rightsManagementPolicyArbiterComponent: [
 						{
 							type: RightsManagementPolicyArbiterComponentType.Example
@@ -370,8 +344,6 @@ describe("engine", () => {
 			"policy-enforcement-point-service",
 			"policy-negotiation-admin-point-service",
 			"policy-negotiation-point-service",
-			"data-access-point-service",
-			"data-access-request-point-service",
 			"synchronised-storage-service",
 			"federated-catalogue-service",
 			"data-space-connector-service"
@@ -418,7 +390,6 @@ describe("engine", () => {
 
 		expect(FederatedCatalogueFilterFactory.names()).toEqual(["FilterByExample"]);
 
-		expect(DataAccessHandlerFactory.names()).toEqual(["example-data-access-handler"]);
 		expect(PolicyArbiterFactory.names()).toEqual(["example-policy-arbiter"]);
 		expect(PolicyEnforcementProcessorFactory.names()).toEqual([
 			"example-policy-enforcement-processor"
@@ -607,27 +578,6 @@ describe("engine", () => {
 					rightsManagementPnapComponent: [
 						{
 							type: RightsManagementPnapComponentType.Service
-						}
-					],
-					rightsManagementDapComponent: [
-						{
-							type: RightsManagementDapComponentType.Service
-						}
-					],
-					rightsManagementDarpComponent: [
-						{
-							type: RightsManagementDarpComponentType.Service,
-							options: {
-								config: {
-									dataAccessComponentCreator: async () =>
-										({}) as unknown as IDataAccessPointComponent
-								}
-							}
-						}
-					],
-					rightsManagementDataAccessHandlerComponent: [
-						{
-							type: RightsManagementDataAccessHandlerComponentType.Example
 						}
 					],
 					rightsManagementPolicyArbiterComponent: [
@@ -827,26 +777,6 @@ describe("engine", () => {
 				rightsManagementPnapComponent: [
 					{
 						type: RightsManagementPnapComponentType.Service
-					}
-				],
-				rightsManagementDapComponent: [
-					{
-						type: RightsManagementDapComponentType.Service
-					}
-				],
-				rightsManagementDarpComponent: [
-					{
-						type: RightsManagementDarpComponentType.Service,
-						options: {
-							config: {
-								dataAccessComponentCreator: async () => ({}) as unknown as IDataAccessPointComponent
-							}
-						}
-					}
-				],
-				rightsManagementDataAccessHandlerComponent: [
-					{
-						type: RightsManagementDataAccessHandlerComponentType.Example
 					}
 				],
 				rightsManagementPolicyArbiterComponent: [
@@ -1102,28 +1032,6 @@ describe("engine", () => {
 							options: { endpoint: "http://localhost:3000" }
 						}
 					],
-					rightsManagementDapComponent: [
-						{
-							type: RightsManagementDapComponentType.RestClient,
-							options: { endpoint: "http://localhost:3000" }
-						}
-					],
-					rightsManagementDarpComponent: [
-						{
-							type: RightsManagementDarpComponentType.Service,
-							options: {
-								config: {
-									dataAccessComponentCreator: async () =>
-										({}) as unknown as IDataAccessPointComponent
-								}
-							}
-						}
-					],
-					rightsManagementDataAccessHandlerComponent: [
-						{
-							type: RightsManagementDataAccessHandlerComponentType.Example
-						}
-					],
 					rightsManagementPolicyArbiterComponent: [
 						{
 							type: RightsManagementPolicyArbiterComponentType.Example
@@ -1225,8 +1133,6 @@ describe("engine", () => {
 			"policy-enforcement-point-service",
 			"policy-negotiation-admin-point-rest-client",
 			"policy-negotiation-point-rest-client",
-			"data-access-point-rest-client",
-			"data-access-request-point-service",
 			"synchronised-storage-rest-client",
 			"federated-catalogue-rest-client",
 			"data-space-connector-rest-client",

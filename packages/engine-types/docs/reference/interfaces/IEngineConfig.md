@@ -360,24 +360,6 @@ Rights management PNP options which can be overridden by individual components b
 
 Rights management PNAP options which can be overridden by individual components by specifying types other than default.
 
-#### rightsManagementDapComponent?
-
-> `optional` **rightsManagementDapComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementDapComponentConfig`](../type-aliases/RightsManagementDapComponentConfig.md)\>[]
-
-Rights management DAP options which can be overridden by individual components by specifying types other than default.
-
-#### rightsManagementDarpComponent?
-
-> `optional` **rightsManagementDarpComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementDarpComponentConfig`](../type-aliases/RightsManagementDarpComponentConfig.md)\>[]
-
-Rights management DARP options which can be overridden by individual components by specifying types other than default.
-
-#### rightsManagementDataAccessHandlerComponent?
-
-> `optional` **rightsManagementDataAccessHandlerComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementDataAccessHandlerComponentConfig`](../type-aliases/RightsManagementDataAccessHandlerComponentConfig.md)\>[]
-
-Rights management data access handler options which can be overridden by individual components by specifying types other than default.
-
 #### rightsManagementPolicyArbiterComponent?
 
 > `optional` **rightsManagementPolicyArbiterComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPolicyArbiterComponentConfig`](../type-aliases/RightsManagementPolicyArbiterComponentConfig.md)\>[]

@@ -47,9 +47,6 @@ import {
 	MessagingSmsConnectorType,
 	NftComponentType,
 	NftConnectorType,
-	RightsManagementDapComponentType,
-	RightsManagementDarpComponentType,
-	RightsManagementDataAccessHandlerComponentType,
 	RightsManagementPapComponentType,
 	RightsManagementPdpComponentType,
 	RightsManagementPepComponentType,
@@ -80,10 +77,7 @@ import engineTypesLocales from "@twin.org/engine-types/locales/en.json" with { t
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
-import type {
-	IDataAccessPointComponent,
-	IPolicyNegotiationPointComponent
-} from "@twin.org/rights-management-models";
+import type { IPolicyNegotiationPointComponent } from "@twin.org/rights-management-models";
 import packageLocales from "../locales/en.json" with { type: "json" };
 import { EngineServer } from "../src/engineServer.js";
 import {
@@ -275,26 +269,6 @@ describe("engine-server", () => {
 				rightsManagementPnapComponent: [
 					{
 						type: RightsManagementPnapComponentType.Service
-					}
-				],
-				rightsManagementDapComponent: [
-					{
-						type: RightsManagementDapComponentType.Service
-					}
-				],
-				rightsManagementDarpComponent: [
-					{
-						type: RightsManagementDarpComponentType.Service,
-						options: {
-							config: {
-								dataAccessComponentCreator: async () => ({}) as unknown as IDataAccessPointComponent
-							}
-						}
-					}
-				],
-				rightsManagementDataAccessHandlerComponent: [
-					{
-						type: RightsManagementDataAccessHandlerComponentType.Example
 					}
 				],
 				rightsManagementPolicyArbiterComponent: [
@@ -505,11 +479,6 @@ describe("engine-server", () => {
 			"/rights-management/negotiations/admin/:policyId",
 			"/rights-management/negotiations/admin/:policyId",
 			"/rights-management/negotiations/admin",
-			"/rights-management/data/:assetType",
-			"/rights-management/data/:assetType/:id",
-			"/rights-management/data/:assetType/:id",
-			"/rights-management/data/:assetType/:id",
-			"/rights-management/data/:assetType/query",
 			"/synchronised-storage/sync-changeset",
 			"/synchronised-storage/decryption-key",
 			"/federated-catalogue/request",

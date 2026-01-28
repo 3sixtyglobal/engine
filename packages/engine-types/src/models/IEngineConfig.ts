@@ -38,9 +38,6 @@ import type { MessagingPushNotificationConnectorConfig } from "./config/messagin
 import type { MessagingSmsConnectorConfig } from "./config/messagingSmsConnectorConfig.js";
 import type { NftComponentConfig } from "./config/nftComponentConfig.js";
 import type { NftConnectorConfig } from "./config/nftConnectorConfig.js";
-import type { RightsManagementDapComponentConfig } from "./config/rightsManagementDapComponentConfig.js";
-import type { RightsManagementDarpComponentConfig } from "./config/rightsManagementDarpComponentConfig.js";
-import type { RightsManagementDataAccessHandlerComponentConfig } from "./config/rightsManagementDataAccessHandlerComponentConfig.js";
 import type { RightsManagementPapComponentConfig } from "./config/rightsManagementPapComponentConfig.js";
 import type { RightsManagementPdpComponentConfig } from "./config/rightsManagementPdpComponentConfig.js";
 import type { RightsManagementPepComponentConfig } from "./config/rightsManagementPepComponentConfig.js";
@@ -332,22 +329,6 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Rights management PNAP options which can be overridden by individual components by specifying types other than default.
 		 */
 		rightsManagementPnapComponent?: IEngineCoreTypeConfig<RightsManagementPnapComponentConfig>[];
-
-		/**
-		 * Rights management DAP options which can be overridden by individual components by specifying types other than default.
-		 */
-		rightsManagementDapComponent?: IEngineCoreTypeConfig<RightsManagementDapComponentConfig>[];
-
-		/**
-		 * Rights management DARP options which can be overridden by individual components by specifying types other than default.
-		 */
-		rightsManagementDarpComponent?: IEngineCoreTypeConfig<RightsManagementDarpComponentConfig>[];
-
-		/**
-		 * Rights management data access handler options which can be overridden by individual components by specifying types other than default.
-		 */
-		// eslint-disable-next-line max-len
-		rightsManagementDataAccessHandlerComponent?: IEngineCoreTypeConfig<RightsManagementDataAccessHandlerComponentConfig>[];
 
 		/**
 		 * Rights management policy arbiter options which can be overridden by individual components by specifying types other than default.

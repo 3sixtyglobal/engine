@@ -119,12 +119,6 @@
 		"defaultPath": "/rights-management"
 	},
 	{
-		"type": "rightsManagementDapComponent",
-		"module": "@twin.org/rights-management-service",
-		"method": "generateRestRoutesDataAccessPoint",
-		"defaultPath": "/rights-management"
-	},
-	{
 		"type": "synchronisedStorageComponent",
 		"module": "@twin.org/synchronised-storage-service",
 		"method": "generateRestRoutesSynchronisedStorage",
