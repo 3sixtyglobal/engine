@@ -1,5 +1,20 @@
 # @twin.org/engine-server-types - Changelog
 
+## [0.0.3-next.16](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.3-next.15...engine-server-types-v0.0.3-next.16) (2026-01-28)
+
+
+### Features
+
+* remove dap and darp ([d568c4f](https://github.com/twinfoundation/engine/commit/d568c4fc58a3159378e1d65f93228ae84f34a31d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.15 to 0.0.3-next.16
+    * @twin.org/engine-types bumped from 0.0.3-next.15 to 0.0.3-next.16
+
 ## [0.0.3-next.15](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.3-next.14...engine-server-types-v0.0.3-next.15) (2026-01-26)
 
 
