@@ -8,10 +8,10 @@ Rights management policy enforcement processor component config types.
 
 ### type
 
-> **type**: *typeof* [`Example`](../variables/RightsManagementPolicyEnforcementProcessorComponentType.md#example)
+> **type**: *typeof* [`PassThrough`](../variables/RightsManagementPolicyEnforcementProcessorComponentType.md#passthrough)
 
 ***
 
 ### options?
 
-> `optional` **options**: `IExamplePolicyEnforcementProcessorConstructorOptions`
+> `optional` **options**: `IPassThroughPolicyEnforcementProcessorConstructorOptions`

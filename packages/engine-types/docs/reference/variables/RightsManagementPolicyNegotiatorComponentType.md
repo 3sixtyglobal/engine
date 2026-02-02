@@ -6,8 +6,8 @@ Rights management Policy Negotiator component types.
 
 ## Type Declaration
 
-### Example
+### PassThrough
 
-> `readonly` **Example**: `"example"` = `"example"`
+> `readonly` **PassThrough**: `"pass-through"` = `"pass-through"`
 
-Example.
+Pass Through.

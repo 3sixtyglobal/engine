@@ -4,7 +4,7 @@ import type { IComponent } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
 import { type IPolicyArbiter, PolicyArbiterFactory } from "@twin.org/rights-management-models";
-import { ExamplePolicyArbiter } from "@twin.org/rights-management-plugins";
+import { PassThroughPolicyArbiter } from "@twin.org/rights-management-plugins";
 import type { RightsManagementPolicyArbiterComponentConfig } from "../models/config/rightsManagementPolicyArbiterComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { RightsManagementPolicyArbiterComponentType } from "../models/types/rightsManagementPolicyArbiterComponentType.js";
@@ -28,12 +28,12 @@ export async function initialiseRightsManagementPolicyArbiterComponent(
 	let component: IPolicyArbiter | undefined;
 	let instanceType: string | undefined;
 
-	if (instanceConfig.type === RightsManagementPolicyArbiterComponentType.Example) {
-		component = new ExamplePolicyArbiter({
+	if (instanceConfig.type === RightsManagementPolicyArbiterComponentType.PassThrough) {
+		component = new PassThroughPolicyArbiter({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
-		instanceType = nameofKebabCase(ExamplePolicyArbiter);
+		instanceType = nameofKebabCase(PassThroughPolicyArbiter);
 	}
 
 	return {

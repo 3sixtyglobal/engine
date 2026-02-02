@@ -7,9 +7,9 @@
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const RightsManagementPolicyRequesterComponentType = {
 	/**
-	 * Example.
+	 * PassThrough.
 	 */
-	Example: "example"
+	PassThrough: "pass-through"
 } as const;
 
 /**

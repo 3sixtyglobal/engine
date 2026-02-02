@@ -8,10 +8,10 @@ Rights management policy requester component config types.
 
 ### type
 
-> **type**: *typeof* [`Example`](../variables/RightsManagementPolicyRequesterComponentType.md#example)
+> **type**: *typeof* [`PassThrough`](../variables/RightsManagementPolicyRequesterComponentType.md#passthrough)
 
 ***
 
 ### options?
 
-> `optional` **options**: `IExamplePolicyRequesterConstructorOptions`
+> `optional` **options**: `IPassThroughPolicyRequesterConstructorOptions`

@@ -273,12 +273,12 @@ describe("engine-server", () => {
 				],
 				rightsManagementPolicyArbiterComponent: [
 					{
-						type: RightsManagementPolicyArbiterComponentType.Example
+						type: RightsManagementPolicyArbiterComponentType.PassThrough
 					}
 				],
 				rightsManagementPolicyEnforcementProcessorComponent: [
 					{
-						type: RightsManagementPolicyEnforcementProcessorComponentType.Example
+						type: RightsManagementPolicyEnforcementProcessorComponentType.PassThrough
 					}
 				],
 				rightsManagementPolicyExecutionActionComponent: [
@@ -296,12 +296,12 @@ describe("engine-server", () => {
 				],
 				rightsManagementPolicyNegotiatorComponent: [
 					{
-						type: RightsManagementPolicyNegotiatorComponentType.Example
+						type: RightsManagementPolicyNegotiatorComponentType.PassThrough
 					}
 				],
 				rightsManagementPolicyRequesterComponent: [
 					{
-						type: RightsManagementPolicyRequesterComponentType.Example
+						type: RightsManagementPolicyRequesterComponentType.PassThrough
 					}
 				],
 				taskSchedulerComponent: [
@@ -464,6 +464,9 @@ describe("engine-server", () => {
 			"/rights-management/policy/admin",
 			"/rights-management/policy/admin/:id",
 			"/rights-management/policy/admin/:id",
+			"/rights-management/policy/admin/agreement/:id",
+			"/rights-management/policy/admin/offer/:id",
+			"/rights-management/policy/admin/set/:id",
 			"/rights-management/policy/admin/:id",
 			"/rights-management/policy/admin",
 			"/rights-management/negotiations/:id",

@@ -8,10 +8,10 @@ Rights management policy arbiter component config types.
 
 ### type
 
-> **type**: *typeof* [`Example`](../variables/RightsManagementPolicyArbiterComponentType.md#example)
+> **type**: *typeof* [`PassThrough`](../variables/RightsManagementPolicyArbiterComponentType.md#passthrough)
 
 ***
 
 ### options?
 
-> `optional` **options**: `IExamplePolicyArbiterConstructorOptions`
+> `optional` **options**: `IPassThroughPolicyArbiterConstructorOptions`

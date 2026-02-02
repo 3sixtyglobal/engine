@@ -7,7 +7,7 @@ import {
 	type IPolicyEnforcementProcessor,
 	PolicyEnforcementProcessorFactory
 } from "@twin.org/rights-management-models";
-import { ExamplePolicyEnforcementProcessor } from "@twin.org/rights-management-plugins";
+import { PassThroughPolicyEnforcementProcessor } from "@twin.org/rights-management-plugins";
 import type { RightsManagementPolicyEnforcementProcessorComponentConfig } from "../models/config/rightsManagementPolicyEnforcementProcessorComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { RightsManagementPolicyEnforcementProcessorComponentType } from "../models/types/rightsManagementPolicyEnforcementProcessorComponentType.js";
@@ -31,12 +31,12 @@ export async function initialiseRightsManagementPolicyEnforcementProcessorCompon
 	let component: IPolicyEnforcementProcessor | undefined;
 	let instanceType: string | undefined;
 
-	if (instanceConfig.type === RightsManagementPolicyEnforcementProcessorComponentType.Example) {
-		component = new ExamplePolicyEnforcementProcessor({
+	if (instanceConfig.type === RightsManagementPolicyEnforcementProcessorComponentType.PassThrough) {
+		component = new PassThroughPolicyEnforcementProcessor({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
-		instanceType = nameofKebabCase(ExamplePolicyEnforcementProcessor);
+		instanceType = nameofKebabCase(PassThroughPolicyEnforcementProcessor);
 	}
 
 	return {

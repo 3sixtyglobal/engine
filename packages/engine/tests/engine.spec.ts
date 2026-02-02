@@ -244,12 +244,12 @@ describe("engine", () => {
 					],
 					rightsManagementPolicyArbiterComponent: [
 						{
-							type: RightsManagementPolicyArbiterComponentType.Example
+							type: RightsManagementPolicyArbiterComponentType.PassThrough
 						}
 					],
 					rightsManagementPolicyEnforcementProcessorComponent: [
 						{
-							type: RightsManagementPolicyEnforcementProcessorComponentType.Example
+							type: RightsManagementPolicyEnforcementProcessorComponentType.PassThrough
 						}
 					],
 					rightsManagementPolicyExecutionActionComponent: [
@@ -267,12 +267,12 @@ describe("engine", () => {
 					],
 					rightsManagementPolicyNegotiatorComponent: [
 						{
-							type: RightsManagementPolicyNegotiatorComponentType.Example
+							type: RightsManagementPolicyNegotiatorComponentType.PassThrough
 						}
 					],
 					rightsManagementPolicyRequesterComponent: [
 						{
-							type: RightsManagementPolicyRequesterComponentType.Example
+							type: RightsManagementPolicyRequesterComponentType.PassThrough
 						}
 					],
 					taskSchedulerComponent: [
@@ -390,17 +390,17 @@ describe("engine", () => {
 
 		expect(FederatedCatalogueFilterFactory.names()).toEqual(["FilterByExample"]);
 
-		expect(PolicyArbiterFactory.names()).toEqual(["example-policy-arbiter"]);
+		expect(PolicyArbiterFactory.names()).toEqual(["pass-through-policy-arbiter"]);
 		expect(PolicyEnforcementProcessorFactory.names()).toEqual([
-			"example-policy-enforcement-processor"
+			"pass-through-policy-enforcement-processor"
 		]);
 		expect(PolicyExecutionActionFactory.names()).toEqual(["logging-policy-execution-action"]);
 		expect(PolicyInformationSourceFactory.names()).toEqual([
 			"identity-policy-information-source",
 			"static-policy-information-source"
 		]);
-		expect(PolicyNegotiatorFactory.names()).toEqual(["example-policy-negotiator"]);
-		expect(PolicyRequesterFactory.names()).toEqual(["example-policy-requester"]);
+		expect(PolicyNegotiatorFactory.names()).toEqual(["pass-through-policy-negotiator"]);
+		expect(PolicyRequesterFactory.names()).toEqual(["pass-through-policy-requester"]);
 
 		expect(TrustGeneratorFactory.names()).toEqual(["jwt-verifiable-credential-generator"]);
 		expect(TrustVerifierFactory.names()).toEqual(["jwt-verifiable-credential-verifier"]);
@@ -582,12 +582,12 @@ describe("engine", () => {
 					],
 					rightsManagementPolicyArbiterComponent: [
 						{
-							type: RightsManagementPolicyArbiterComponentType.Example
+							type: RightsManagementPolicyArbiterComponentType.PassThrough
 						}
 					],
 					rightsManagementPolicyEnforcementProcessorComponent: [
 						{
-							type: RightsManagementPolicyEnforcementProcessorComponentType.Example
+							type: RightsManagementPolicyEnforcementProcessorComponentType.PassThrough
 						}
 					],
 					rightsManagementPolicyExecutionActionComponent: [
@@ -605,12 +605,12 @@ describe("engine", () => {
 					],
 					rightsManagementPolicyNegotiatorComponent: [
 						{
-							type: RightsManagementPolicyNegotiatorComponentType.Example
+							type: RightsManagementPolicyNegotiatorComponentType.PassThrough
 						}
 					],
 					rightsManagementPolicyRequesterComponent: [
 						{
-							type: RightsManagementPolicyRequesterComponentType.Example
+							type: RightsManagementPolicyRequesterComponentType.PassThrough
 						}
 					],
 					taskSchedulerComponent: [
@@ -781,12 +781,12 @@ describe("engine", () => {
 				],
 				rightsManagementPolicyArbiterComponent: [
 					{
-						type: RightsManagementPolicyArbiterComponentType.Example
+						type: RightsManagementPolicyArbiterComponentType.PassThrough
 					}
 				],
 				rightsManagementPolicyEnforcementProcessorComponent: [
 					{
-						type: RightsManagementPolicyEnforcementProcessorComponentType.Example
+						type: RightsManagementPolicyEnforcementProcessorComponentType.PassThrough
 					}
 				],
 				rightsManagementPolicyExecutionActionComponent: [
@@ -804,12 +804,12 @@ describe("engine", () => {
 				],
 				rightsManagementPolicyNegotiatorComponent: [
 					{
-						type: RightsManagementPolicyNegotiatorComponentType.Example
+						type: RightsManagementPolicyNegotiatorComponentType.PassThrough
 					}
 				],
 				rightsManagementPolicyRequesterComponent: [
 					{
-						type: RightsManagementPolicyRequesterComponentType.Example
+						type: RightsManagementPolicyRequesterComponentType.PassThrough
 					}
 				],
 				taskSchedulerComponent: [
@@ -1034,12 +1034,12 @@ describe("engine", () => {
 					],
 					rightsManagementPolicyArbiterComponent: [
 						{
-							type: RightsManagementPolicyArbiterComponentType.Example
+							type: RightsManagementPolicyArbiterComponentType.PassThrough
 						}
 					],
 					rightsManagementPolicyEnforcementProcessorComponent: [
 						{
-							type: RightsManagementPolicyEnforcementProcessorComponentType.Example
+							type: RightsManagementPolicyEnforcementProcessorComponentType.PassThrough
 						}
 					],
 					rightsManagementPolicyExecutionActionComponent: [
@@ -1057,12 +1057,12 @@ describe("engine", () => {
 					],
 					rightsManagementPolicyNegotiatorComponent: [
 						{
-							type: RightsManagementPolicyNegotiatorComponentType.Example
+							type: RightsManagementPolicyNegotiatorComponentType.PassThrough
 						}
 					],
 					rightsManagementPolicyRequesterComponent: [
 						{
-							type: RightsManagementPolicyRequesterComponentType.Example
+							type: RightsManagementPolicyRequesterComponentType.PassThrough
 						}
 					],
 					taskSchedulerComponent: [

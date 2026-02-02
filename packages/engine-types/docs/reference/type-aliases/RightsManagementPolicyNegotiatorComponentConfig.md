@@ -8,10 +8,10 @@ Rights management policy negotiator component config types.
 
 ### type
 
-> **type**: *typeof* [`Example`](../variables/RightsManagementPolicyNegotiatorComponentType.md#example)
+> **type**: *typeof* [`PassThrough`](../variables/RightsManagementPolicyNegotiatorComponentType.md#passthrough)
 
 ***
 
 ### options?
 
-> `optional` **options**: `IExamplePolicyNegotiatorConstructorOptions`
+> `optional` **options**: `IPassThroughPolicyNegotiatorConstructorOptions`

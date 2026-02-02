@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IExamplePolicyArbiterConstructorOptions } from "@twin.org/rights-management-plugins";
+import type { IPassThroughPolicyArbiterConstructorOptions } from "@twin.org/rights-management-plugins";
 import type { RightsManagementPolicyArbiterComponentType } from "../types/rightsManagementPolicyArbiterComponentType.js";
 
 /**
@@ -8,6 +8,6 @@ import type { RightsManagementPolicyArbiterComponentType } from "../types/rights
  */
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type RightsManagementPolicyArbiterComponentConfig = {
-	type: typeof RightsManagementPolicyArbiterComponentType.Example;
-	options?: IExamplePolicyArbiterConstructorOptions;
+	type: typeof RightsManagementPolicyArbiterComponentType.PassThrough;
+	options?: IPassThroughPolicyArbiterConstructorOptions;
 };

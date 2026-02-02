@@ -34,6 +34,12 @@ export async function initialiseRightsManagementPepComponent(
 			policyDecisionPointComponentType: engineCore.getRegisteredInstanceType(
 				"rightsManagementPdpComponent"
 			),
+			policyAdministrationPointComponentType: engineCore.getRegisteredInstanceType(
+				"rightsManagementPapComponent"
+			),
+			policyManagementPointComponentType: engineCore.getRegisteredInstanceType(
+				"rightsManagementPmpComponent"
+			),
 			...instanceConfig.options
 		});
 		instanceType = nameofKebabCase(PolicyEnforcementPointService);

@@ -7,7 +7,7 @@ import {
 	type IPolicyNegotiator,
 	PolicyNegotiatorFactory
 } from "@twin.org/rights-management-models";
-import { ExamplePolicyNegotiator } from "@twin.org/rights-management-plugins";
+import { PassThroughPolicyNegotiator } from "@twin.org/rights-management-plugins";
 import type { RightsManagementPolicyNegotiatorComponentConfig } from "../models/config/rightsManagementPolicyNegotiatorComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { RightsManagementPolicyNegotiatorComponentType } from "../models/types/rightsManagementPolicyNegotiatorComponentType.js";
@@ -31,12 +31,12 @@ export async function initialiseRightsManagementPolicyNegotiatorComponent(
 	let component: IPolicyNegotiator | undefined;
 	let instanceType: string | undefined;
 
-	if (instanceConfig.type === RightsManagementPolicyNegotiatorComponentType.Example) {
-		component = new ExamplePolicyNegotiator({
+	if (instanceConfig.type === RightsManagementPolicyNegotiatorComponentType.PassThrough) {
+		component = new PassThroughPolicyNegotiator({
 			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 			...instanceConfig.options
 		});
-		instanceType = nameofKebabCase(ExamplePolicyNegotiator);
+		instanceType = nameofKebabCase(PassThroughPolicyNegotiator);
 	}
 
 	return {

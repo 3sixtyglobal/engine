@@ -6,8 +6,8 @@ Rights management Policy Arbiter component types.
 
 ## Type Declaration
 
-### Example
+### PassThrough
 
-> `readonly` **Example**: `"example"` = `"example"`
+> `readonly` **PassThrough**: `"pass-through"` = `"pass-through"`
 
-Example.
+PassThrough.
