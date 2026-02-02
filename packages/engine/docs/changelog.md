@@ -1,5 +1,21 @@
 # @twin.org/engine - Changelog
 
+## [0.0.3-next.17](https://github.com/twinfoundation/engine/compare/engine-v0.0.3-next.16...engine-v0.0.3-next.17) (2026-02-02)
+
+
+### Features
+
+* update rights management components ([#74](https://github.com/twinfoundation/engine/issues/74)) ([be94ba8](https://github.com/twinfoundation/engine/commit/be94ba837999c586266a7c73228689566ec9876b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.16 to 0.0.3-next.17
+    * @twin.org/engine-models bumped from 0.0.3-next.16 to 0.0.3-next.17
+    * @twin.org/engine-types bumped from 0.0.3-next.16 to 0.0.3-next.17
+
 ## [0.0.3-next.16](https://github.com/twinfoundation/engine/compare/engine-v0.0.3-next.15...engine-v0.0.3-next.16) (2026-01-28)
 
 
