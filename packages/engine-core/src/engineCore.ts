@@ -313,6 +313,14 @@ export class EngineCore<
 					await this.logInfo(
 						I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsComplete`)
 					);
+				} else {
+					// If we are skipping component start then just mark them as initialised
+					// we still need to be able to call stop on them to clean up
+					for (const instance of this._context.componentInstances) {
+						if (!instance.initialised) {
+							instance.initialised = true;
+						}
+					}
 				}
 
 				await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.started`));

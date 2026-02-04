@@ -18,6 +18,12 @@
 		"defaultPath": "/logging"
 	},
 	{
+		"type": "tenantAdminComponent",
+		"module": "@twin.org/api-tenant-processor",
+		"method": "generateRestRoutesTenants",
+		"defaultPath": "/tenants"
+	},
+	{
 		"type": "telemetryComponent",
 		"module": "@twin.org/telemetry-service",
 		"method": "generateRestRoutesTelemetry",
