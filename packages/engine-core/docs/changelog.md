@@ -1,5 +1,19 @@
 # @twin.org/engine-core - Changelog
 
+## [0.0.3-next.18](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.17...engine-core-v0.0.3-next.18) (2026-02-04)
+
+
+### Features
+
+* add tenant admin routes ([#76](https://github.com/twinfoundation/engine/issues/76)) ([3c0af90](https://github.com/twinfoundation/engine/commit/3c0af90a572fcda08d8720bdcee9b9f1cd02b872))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.17 to 0.0.3-next.18
+
 ## [0.0.3-next.17](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.16...engine-core-v0.0.3-next.17) (2026-02-02)
 
 
