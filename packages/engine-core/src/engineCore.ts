@@ -317,9 +317,7 @@ export class EngineCore<
 					// If we are skipping component start then just mark them as initialised
 					// we still need to be able to call stop on them to clean up
 					for (const instance of this._context.componentInstances) {
-						if (!instance.initialised) {
-							instance.initialised = true;
-						}
+						instance.initialised = true;
 					}
 				}
 
