@@ -1,5 +1,24 @@
 # @twin.org/engine-core - Changelog
 
+## [0.0.3-next.19](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.18...engine-core-v0.0.3-next.19) (2026-02-05)
+
+
+### Features
+
+* set initialised flag when skipping start ([039b4df](https://github.com/twinfoundation/engine/commit/039b4dff22c90d0ba3703372a11213709d26aa52))
+
+
+### Bug Fixes
+
+* pass contextIds to populateClone ([#79](https://github.com/twinfoundation/engine/issues/79)) ([b22f1bb](https://github.com/twinfoundation/engine/commit/b22f1bbf0319069914e316d27de4c2a8623421cf))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.18 to 0.0.3-next.19
+
 ## [0.0.3-next.18](https://github.com/twinfoundation/engine/compare/engine-core-v0.0.3-next.17...engine-core-v0.0.3-next.18) (2026-02-04)
 
 
