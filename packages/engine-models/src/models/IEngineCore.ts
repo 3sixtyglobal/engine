@@ -155,7 +155,12 @@ export interface IEngineCore<
 	/**
 	 * Populate the engine from the clone data.
 	 * @param cloneData The clone data to populate from.
+	 * @param contextIds The context IDs to use for the clone.
 	 * @param silent Should the clone be silent.
 	 */
-	populateClone(cloneData: IEngineCoreClone<C, S>, silent?: boolean): void;
+	populateClone(
+		cloneData: IEngineCoreClone<C, S>,
+		contextIds?: IContextIds,
+		silent?: boolean
+	): void;
 }

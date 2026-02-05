@@ -563,9 +563,14 @@ export class EngineCore<
 	/**
 	 * Populate the engine from the clone data.
 	 * @param cloneData The clone data to populate from.
+	 * @param contextIds The context IDs to use for the clone.
 	 * @param silent Should the clone be silent.
 	 */
-	public populateClone(cloneData: IEngineCoreClone<C, S>, silent?: boolean): void {
+	public populateClone(
+		cloneData: IEngineCoreClone<C, S>,
+		contextIds?: IContextIds,
+		silent?: boolean
+	): void {
 		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData), cloneData);
 		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData.config), cloneData.config);
 		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData.state), cloneData.state);
@@ -592,6 +597,7 @@ export class EngineCore<
 
 		this._typeInitialisers = cloneData.typeInitialisers;
 		this._contextIdKeys.push(...cloneData.contextIdKeys);
+		this._contextIds = contextIds;
 
 		for (const schemaName of Object.keys(cloneData.entitySchemas)) {
 			EntitySchemaFactory.register(schemaName, () => cloneData.entitySchemas[schemaName]);

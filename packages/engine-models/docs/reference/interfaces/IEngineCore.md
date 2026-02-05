@@ -396,7 +396,7 @@ The clone data.
 
 ### populateClone()
 
-> **populateClone**(`cloneData`, `silent?`): `void`
+> **populateClone**(`cloneData`, `contextIds?`, `silent?`): `void`
 
 Populate the engine from the clone data.
 
@@ -407,6 +407,12 @@ Populate the engine from the clone data.
 [`IEngineCoreClone`](IEngineCoreClone.md)\<`C`, `S`\>
 
 The clone data to populate from.
+
+##### contextIds?
+
+`IContextIds`
+
+The context IDs to use for the clone.
 
 ##### silent?
 

@@ -855,7 +855,7 @@ describe("engine", () => {
 
 		const cloneData = engine.getCloneData();
 		const clone = new Engine();
-		clone.populateClone(cloneData, true);
+		clone.populateClone(cloneData, {}, true);
 		await clone.start();
 
 		expect(clone.getConfig()).toEqual(engine.getConfig());
