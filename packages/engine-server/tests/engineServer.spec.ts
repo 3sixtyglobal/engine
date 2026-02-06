@@ -6,6 +6,8 @@ import { ComponentFactory, Factory, I18n } from "@twin.org/core";
 import { Engine } from "@twin.org/engine";
 import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
 import {
+	AuthenticationAdminComponentType,
+	AuthenticationComponentType,
 	HostingComponentType,
 	InformationComponentType,
 	RestRouteProcessorType,
@@ -360,6 +362,16 @@ describe("engine-server", () => {
 					{
 						type: SocketRouteProcessorType.SocketRoute
 					}
+				],
+				authenticationComponent: [
+					{
+						type: AuthenticationComponentType.EntityStorage
+					}
+				],
+				authenticationAdminComponent: [
+					{
+						type: AuthenticationAdminComponentType.EntityStorage
+					}
 				]
 			},
 			web: { port }
@@ -383,6 +395,16 @@ describe("engine-server", () => {
 			"/livez",
 			"/health",
 			"/spec",
+			"/authentication/login",
+			"/authentication/logout",
+			"/authentication/refresh",
+			"/authentication/password",
+			"/authentication/admin/users",
+			"/authentication/admin/users/:email",
+			"/authentication/admin/users/:email/password",
+			"/authentication/admin/users/:email",
+			"/authentication/admin/users/identity/:identity",
+			"/authentication/admin/users/:email",
 			"/logging",
 			"/logging",
 			"/tenants",
