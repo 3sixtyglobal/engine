@@ -1,5 +1,23 @@
 # @twin.org/engine-server - Changelog
 
+## [0.0.3-next.20](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.3-next.19...engine-server-v0.0.3-next.20) (2026-02-06)
+
+
+### Features
+
+* add authentication admin routes ([c912019](https://github.com/twinfoundation/engine/commit/c9120198cd5c86e20bab588f2a9f20415baf56ca))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.19 to 0.0.3-next.20
+    * @twin.org/engine-models bumped from 0.0.3-next.19 to 0.0.3-next.20
+    * @twin.org/engine-server-types bumped from 0.0.3-next.19 to 0.0.3-next.20
+  * devDependencies
+    * @twin.org/engine bumped from 0.0.3-next.19 to 0.0.3-next.20
+
 ## [0.0.3-next.19](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.3-next.18...engine-server-v0.0.3-next.19) (2026-02-05)
 
 
