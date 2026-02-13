@@ -9,10 +9,7 @@ import {
 import { JsonPathExtractorConnector } from "@twin.org/data-processing-extractors";
 import {
 	DataConverterConnectorFactory,
-	DataExtractorConnectorFactory,
-	type IDataConverterConnector,
-	type IDataExtractorConnector,
-	type IDataProcessingComponent
+	DataExtractorConnectorFactory
 } from "@twin.org/data-processing-models";
 import { DataProcessingRestClient } from "@twin.org/data-processing-rest-client";
 import {
@@ -20,7 +17,11 @@ import {
 	initSchema as initSchemaDataProcessing,
 	type ExtractionRuleGroup
 } from "@twin.org/data-processing-service";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { DataConverterConnectorConfig } from "../models/config/dataConverterConnectorConfig.js";
@@ -30,6 +31,7 @@ import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { DataConverterConnectorType } from "../models/types/dataConverterConnectorType.js";
 import { DataExtractorConnectorType } from "../models/types/dataExtractorConnectorType.js";
 import { DataProcessingComponentType } from "../models/types/dataProcessingComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the data converter connector.
@@ -38,29 +40,25 @@ import { DataProcessingComponentType } from "../models/types/dataProcessingCompo
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseDataConverterConnector(
+export function initialiseDataConverterConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: DataConverterConnectorConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof DataConverterConnectorFactory;
-	component?: IComponent;
-}> {
-	let component: IDataConverterConnector | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<DataConverterConnectorConfig, typeof DataConverterConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === DataConverterConnectorType.Json) {
-		component = new JsonConverterConnector();
-		instanceType = JsonConverterConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) => new JsonConverterConnector();
+		instanceTypeName = JsonConverterConnector.NAMESPACE;
 	} else if (instanceConfig.type === DataConverterConnectorType.Xml) {
-		component = new XmlConverterConnector();
-		instanceType = XmlConverterConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) => new XmlConverterConnector();
+		instanceTypeName = XmlConverterConnector.NAMESPACE;
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: DataConverterConnectorFactory
 	};
 }
@@ -72,26 +70,22 @@ export async function initialiseDataConverterConnector(
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseDataExtractorConnector(
+export function initialiseDataExtractorConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: DataExtractorConnectorConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof DataExtractorConnectorFactory;
-	component?: IComponent;
-}> {
-	let component: IDataExtractorConnector | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<DataExtractorConnectorConfig, typeof DataExtractorConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === DataExtractorConnectorType.JsonPath) {
-		component = new JsonPathExtractorConnector();
-		instanceType = JsonPathExtractorConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) => new JsonPathExtractorConnector();
+		instanceTypeName = JsonPathExtractorConnector.NAMESPACE;
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: DataExtractorConnectorFactory
 	};
 }
@@ -103,43 +97,43 @@ export async function initialiseDataExtractorConnector(
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseDataProcessingComponent(
+export function initialiseDataProcessingComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: DataProcessingComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof ComponentFactory;
-	component?: IComponent;
-}> {
-	let component: IDataProcessingComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<DataProcessingComponentConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === DataProcessingComponentType.Service) {
-		initSchemaDataProcessing();
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.extractionRuleGroupStorageConnectorType,
-			nameof<ExtractionRuleGroup>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-				ContextIdKeys.Node,
-				ContextIdKeys.Tenant
-			])
-		);
-
-		component = new DataProcessingService({
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(DataProcessingService);
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaDataProcessing();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.extractionRuleGroupStorageConnectorType,
+				nameof<ExtractionRuleGroup>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			return new DataProcessingService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = nameofKebabCase(DataProcessingService);
 	} else if (instanceConfig.type === DataProcessingComponentType.RestClient) {
-		component = new DataProcessingRestClient(instanceConfig.options);
-		instanceType = nameofKebabCase(DataProcessingRestClient);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new DataProcessingRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(DataProcessingRestClient);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

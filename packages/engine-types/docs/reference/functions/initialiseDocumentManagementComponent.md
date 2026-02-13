@@ -1,6 +1,6 @@
 # Function: initialiseDocumentManagementComponent()
 
-> **initialiseDocumentManagementComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseDocumentManagementComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`DocumentManagementComponentConfig`](../type-aliases/DocumentManagementComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the document management component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`DocumentManagementComponentConfig`](../type-aliases/DocumentManagementComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

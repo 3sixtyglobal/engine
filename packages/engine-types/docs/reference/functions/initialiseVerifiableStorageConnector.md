@@ -1,6 +1,6 @@
 # Function: initialiseVerifiableStorageConnector()
 
-> **initialiseVerifiableStorageConnector**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IVerifiableStorageConnector`\>; `component?`: `IComponent`; \}\>
+> **initialiseVerifiableStorageConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`VerifiableStorageConnectorConfig`](../type-aliases/VerifiableStorageConnectorConfig.md), `Factory`\<`IVerifiableStorageConnector`\>\>
 
 Initialise the verifiable storage connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IVerifiableStorageConnector`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`VerifiableStorageConnectorConfig`](../type-aliases/VerifiableStorageConnectorConfig.md), `Factory`\<`IVerifiableStorageConnector`\>\>
 
 The instance created and the factory for it.

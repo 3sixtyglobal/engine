@@ -1,6 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IBackgroundTaskComponent } from "@twin.org/background-task-models";
 import {
 	BackgroundTaskService,
 	initSchema,
@@ -8,12 +7,17 @@ import {
 } from "@twin.org/background-task-service";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { BackgroundTaskComponentConfig } from "../models/config/backgroundTaskComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { BackgroundTaskComponentType } from "../models/types/backgroundTaskComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise a background task component.
@@ -22,37 +26,37 @@ import { BackgroundTaskComponentType } from "../models/types/backgroundTaskCompo
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseBackgroundTaskComponent(
+export function initialiseBackgroundTaskComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: BackgroundTaskComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof ComponentFactory;
-	component?: IComponent;
-}> {
-	let component: IBackgroundTaskComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === BackgroundTaskComponentType.Service) {
-		initSchema();
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.backgroundTaskEntityStorageType,
-			nameof<BackgroundTask>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
-		);
-		component = new BackgroundTaskService({
-			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(BackgroundTaskService);
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchema();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.backgroundTaskEntityStorageType,
+				nameof<BackgroundTask>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
+			);
+			return new BackgroundTaskService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = nameofKebabCase(BackgroundTaskService);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

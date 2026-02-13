@@ -1,6 +1,6 @@
 # Function: initialiseDataSpaceConnectorComponent()
 
-> **initialiseDataSpaceConnectorComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseDataSpaceConnectorComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`DataSpaceConnectorComponentConfig`](../type-aliases/DataSpaceConnectorComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the data space connector component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`DataSpaceConnectorComponentConfig`](../type-aliases/DataSpaceConnectorComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

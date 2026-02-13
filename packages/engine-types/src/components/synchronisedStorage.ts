@@ -2,9 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import type { ISynchronisedStorageComponent } from "@twin.org/synchronised-storage-models";
 import { SynchronisedStorageRestClient } from "@twin.org/synchronised-storage-rest-client";
 import {
 	type SyncSnapshotEntry,
@@ -15,6 +18,7 @@ import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { SynchronisedStorageComponentConfig } from "../models/config/synchronisedStorageComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { SynchronisedStorageComponentType } from "../models/types/synchronisedStorageComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the synchronised storage component.
@@ -23,55 +27,61 @@ import { SynchronisedStorageComponentType } from "../models/types/synchronisedSt
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseSynchronisedStorageComponent(
+export function initialiseSynchronisedStorageComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: SynchronisedStorageComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof ComponentFactory;
-	component?: IComponent;
-}> {
-	let component: ISynchronisedStorageComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === SynchronisedStorageComponentType.Service) {
-		initSchemaSynchronisedStorage();
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaSynchronisedStorage();
 
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.syncSnapshotStorageConnectorType,
-			nameof<SyncSnapshotEntry>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
-		);
-		component = new SynchronisedStorageService({
-			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			eventBusComponentType: engineCore.getRegisteredInstanceType("eventBusComponent"),
-			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-			verifiableStorageConnectorType: engineCore.getRegisteredInstanceType(
-				"verifiableStorageConnector"
-			),
-			taskSchedulerComponentType: engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
-			trustedSynchronisedStorageComponentType: engineCore.getRegisteredInstanceTypeOptional(
-				"synchronisedStorageComponent",
-				["trusted"]
-			),
-			blobStorageConnectorType: engineCore.getRegisteredInstanceType("blobStorageConnector", [
-				"public"
-			]),
-			trustComponentType: engineCore.getRegisteredInstanceType("trustComponent"),
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(SynchronisedStorageService);
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.syncSnapshotStorageConnectorType,
+				nameof<SyncSnapshotEntry>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
+			);
+			return new SynchronisedStorageService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+						eventBusComponentType: engineCore.getRegisteredInstanceType("eventBusComponent"),
+						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+						verifiableStorageConnectorType: engineCore.getRegisteredInstanceType(
+							"verifiableStorageConnector"
+						),
+						taskSchedulerComponentType:
+							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
+						trustedSynchronisedStorageComponentType: engineCore.getRegisteredInstanceTypeOptional(
+							"synchronisedStorageComponent",
+							["trusted"]
+						),
+						blobStorageConnectorType: engineCore.getRegisteredInstanceType("blobStorageConnector", [
+							"public"
+						]),
+						trustComponentType: engineCore.getRegisteredInstanceType("trustComponent")
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = nameofKebabCase(SynchronisedStorageService);
 	} else if (instanceConfig.type === SynchronisedStorageComponentType.RestClient) {
-		component = new SynchronisedStorageRestClient(instanceConfig.options);
-		instanceType = nameofKebabCase(SynchronisedStorageRestClient);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new SynchronisedStorageRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(SynchronisedStorageRestClient);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

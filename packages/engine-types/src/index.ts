@@ -33,6 +33,7 @@ export * from "./components/rightsManagementPolicyEnforcementProcessor.js";
 export * from "./components/rightsManagementPolicyExecutionAction.js";
 export * from "./components/rightsManagementPolicyInformationSource.js";
 export * from "./components/rightsManagementPolicyNegotiator.js";
+export * from "./components/rightsManagementPolicyObligationEnforcer.js";
 export * from "./components/rightsManagementPolicyRequester.js";
 export * from "./components/rightsManagementPxp.js";
 export * from "./components/synchronisedStorage.js";
@@ -94,6 +95,7 @@ export * from "./models/config/rightsManagementPolicyEnforcementProcessorCompone
 export * from "./models/config/rightsManagementPolicyExecutionActionComponentConfig.js";
 export * from "./models/config/rightsManagementPolicyInformationSourceComponentConfig.js";
 export * from "./models/config/rightsManagementPolicyNegotiatorComponentConfig.js";
+export * from "./models/config/rightsManagementPolicyObligationEnforcerComponentConfig.js";
 export * from "./models/config/rightsManagementPolicyRequesterComponentConfig.js";
 export * from "./models/config/rightsManagementPxpComponentConfig.js";
 export * from "./models/config/synchronisedStorageComponentConfig.js";
@@ -158,6 +160,7 @@ export * from "./models/types/rightsManagementPolicyEnforcementProcessorComponen
 export * from "./models/types/rightsManagementPolicyExecutionActionComponentType.js";
 export * from "./models/types/rightsManagementPolicyInformationSourceComponentType.js";
 export * from "./models/types/rightsManagementPolicyNegotiatorComponentType.js";
+export * from "./models/types/rightsManagementPolicyObligationEnforcerComponentType.js";
 export * from "./models/types/rightsManagementPolicyRequesterComponentType.js";
 export * from "./models/types/rightsManagementPxpComponentType.js";
 export * from "./models/types/synchronisedStorageComponentType.js";

@@ -1,10 +1,14 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory, type IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import { ComponentFactory } from "@twin.org/core";
+import type { IComponent } from "@twin.org/core";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import type { IPolicyNegotiationAdminPointComponent } from "@twin.org/rights-management-models";
 import {
 	type PolicyNegotiation,
 	PolicyNegotiationAdminPointService,
@@ -15,6 +19,7 @@ import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { RightsManagementPnapComponentConfig } from "../models/config/rightsManagementPnapComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { RightsManagementPnapComponentType } from "../models/types/rightsManagementPnapComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the rights management PNAP component.
@@ -23,52 +28,58 @@ import { RightsManagementPnapComponentType } from "../models/types/rightsManagem
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseRightsManagementPnapComponent(
+export function initialiseRightsManagementPnapComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: RightsManagementPnapComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof ComponentFactory;
-	component?: IComponent;
-}> {
-	let component: IPolicyNegotiationAdminPointComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === RightsManagementPnapComponentType.Service) {
-		initSchemaRightsManagementPnap();
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaRightsManagementPnap();
 
-		const partitionContextIds = ContextIdHelper.pickKeysFromAvailable(
-			engineCore.getContextIdKeys(),
-			[ContextIdKeys.Node, ContextIdKeys.Tenant]
-		);
+			const partitionContextIds = ContextIdHelper.pickKeysFromAvailable(
+				engineCore.getContextIdKeys(),
+				[ContextIdKeys.Node, ContextIdKeys.Tenant]
+			);
 
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.policyNegotiationEntityStorageType,
-			nameof<PolicyNegotiation>(),
-			partitionContextIds
-		);
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.policyNegotiationEntityStorageType,
+				nameof<PolicyNegotiation>(),
+				partitionContextIds
+			);
 
-		component = new PolicyNegotiationAdminPointService({
-			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			taskSchedulerComponentType: engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
-			policyInformationPointComponentType: engineCore.getRegisteredInstanceType(
-				"rightsManagementPipComponent"
-			),
-			partitionContextIds,
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(PolicyNegotiationAdminPointService);
+			return new PolicyNegotiationAdminPointService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+						taskSchedulerComponentType:
+							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
+						policyInformationPointComponentType: engineCore.getRegisteredInstanceType(
+							"rightsManagementPipComponent"
+						),
+						partitionContextIds
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = nameofKebabCase(PolicyNegotiationAdminPointService);
 	} else if (instanceConfig.type === RightsManagementPnapComponentType.RestClient) {
-		component = new PolicyNegotiationAdminPointRestClient(instanceConfig.options);
-		instanceType = nameofKebabCase(PolicyNegotiationAdminPointRestClient);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new PolicyNegotiationAdminPointRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(PolicyNegotiationAdminPointRestClient);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

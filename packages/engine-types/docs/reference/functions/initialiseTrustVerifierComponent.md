@@ -1,6 +1,6 @@
 # Function: initialiseTrustVerifierComponent()
 
-> **initialiseTrustVerifierComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`ITrustVerifier`\>; `component?`: `IComponent`; \}\>
+> **initialiseTrustVerifierComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`TrustVerifierComponentConfig`](../type-aliases/TrustVerifierComponentConfig.md), `Factory`\<`ITrustVerifier`\>\>
 
 Initialise the trust verifier component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`ITrustVerifier`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`TrustVerifierComponentConfig`](../type-aliases/TrustVerifierComponentConfig.md), `Factory`\<`ITrustVerifier`\>\>
 
 The instance created and the factory for it.

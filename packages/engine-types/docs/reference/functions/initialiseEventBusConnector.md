@@ -1,6 +1,6 @@
 # Function: initialiseEventBusConnector()
 
-> **initialiseEventBusConnector**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IEventBusConnector`\>; `component?`: `IComponent`; \}\>
+> **initialiseEventBusConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`EventBusConnectorConfig`](../type-aliases/EventBusConnectorConfig.md), `Factory`\<`IEventBusConnector`\>\>
 
 Initialise a event bus connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IEventBusConnector`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`EventBusConnectorConfig`](../type-aliases/EventBusConnectorConfig.md), `Factory`\<`IEventBusConnector`\>\>
 
 The instance created and the factory for it.

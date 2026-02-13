@@ -2,12 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import type { IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { FilterByExample } from "@twin.org/federated-catalogue-filters";
-import {
-	FederatedCatalogueFilterFactory,
-	type IFederatedCatalogueFilter
-} from "@twin.org/federated-catalogue-models";
+import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
 import {
 	type Dataset,
 	initSchema as initSchemaFederatedCatalogue
@@ -17,6 +18,7 @@ import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { FederatedCatalogueFilterComponentConfig } from "../models/config/federatedCatalogueFilterComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { FederatedCatalogueFilterComponentType } from "../models/types/federatedCatalogueFilterComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the federated catalogue filter component.
@@ -25,36 +27,35 @@ import { FederatedCatalogueFilterComponentType } from "../models/types/federated
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseFederatedCatalogueFilterComponent(
+export function initialiseFederatedCatalogueFilterComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: FederatedCatalogueFilterComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof FederatedCatalogueFilterFactory;
-	component?: IComponent;
-}> {
-	let component: IFederatedCatalogueFilter | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof FederatedCatalogueFilterFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === FederatedCatalogueFilterComponentType.FilterByExample) {
-		initSchemaFederatedCatalogue();
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaFederatedCatalogue();
 
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.datasetStorageConnectorType,
-			nameof<Dataset>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
-		);
-
-		component = new FilterByExample(instanceConfig.options);
-		instanceType = nameof(FilterByExample);
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.datasetStorageConnectorType,
+				nameof<Dataset>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
+			);
+			return new FilterByExample(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = nameof(FilterByExample);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: FederatedCatalogueFilterFactory
 	};
 }

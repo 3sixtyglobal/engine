@@ -1,6 +1,6 @@
 # Function: initialiseMessagingSmsConnector()
 
-> **initialiseMessagingSmsConnector**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IMessagingSmsConnector`\>; `component?`: `IComponent`; \}\>
+> **initialiseMessagingSmsConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`MessagingSmsConnectorConfig`](../type-aliases/MessagingSmsConnectorConfig.md), `Factory`\<`IMessagingSmsConnector`\>\>
 
 Initialise a messaging sms connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IMessagingSmsConnector`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`MessagingSmsConnectorConfig`](../type-aliases/MessagingSmsConnectorConfig.md), `Factory`\<`IMessagingSmsConnector`\>\>
 
 The instance created and the factory for it.

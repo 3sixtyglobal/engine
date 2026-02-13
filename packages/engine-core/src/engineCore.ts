@@ -494,9 +494,14 @@ export class EngineCore<
 		const registeredType = this.getRegisteredInstanceTypeOptional(componentConnectorType, features);
 
 		if (!Is.stringValue(registeredType)) {
+			if (Is.arrayValue(features)) {
+				throw new GeneralError(EngineCore.CLASS_NAME, "instanceTypeNotFoundWithFeatures", {
+					type: componentConnectorType,
+					features: features.join(",")
+				});
+			}
 			throw new GeneralError(EngineCore.CLASS_NAME, "instanceTypeNotFound", {
-				type: componentConnectorType,
-				features: (features ?? ["default"]).join(",")
+				type: componentConnectorType
 			});
 		}
 
@@ -633,20 +638,38 @@ export class EngineCore<
 						configType: typeConfig[i].type
 					})
 				);
-				const result = await instanceMethod(this, this._context, typeConfig[i]);
 
-				if (Is.stringValue(result.instanceType) && Is.object(result.component)) {
-					const finalInstanceType = typeConfig[i].overrideInstanceType ?? result.instanceType;
-					this._context.componentInstances.push({
-						instanceType: finalInstanceType,
-						component: result.component,
-						initialised: false
-					});
+				const result = instanceMethod(this, this._context, typeConfig[i]);
+				const componentCreateMethod = result.createComponent;
 
-					result.factory?.register(finalInstanceType, () => result.component);
+				if (Is.stringValue(result.instanceTypeName) && Is.function(componentCreateMethod)) {
+					const finalInstanceType = typeConfig[i].overrideInstanceType ?? result.instanceTypeName;
+
+					// If this is a multi instance component we need to make sure we
+					// generate a unique instance for every factory call
+					// this is often used for REST clients where each instance might
+					// use a different endpoint url
+					// They are generated using the create method of factory
+					// passing custom options, instead of the regular get method
+					// which doesn't allow for custom options
+					if (typeConfig[i].isMultiInstance ?? false) {
+						result.factory?.register(finalInstanceType, params =>
+							componentCreateMethod({
+								type: typeConfig[i].type,
+								options: params
+							})
+						);
+					} else {
+						const component = componentCreateMethod(typeConfig[i]);
+						this._context.componentInstances.push({
+							instanceType: finalInstanceType,
+							component,
+							initialised: false
+						});
+						result.factory?.register(finalInstanceType, () => component);
+					}
 
 					this._context.registeredInstances[typeKey] ??= [];
-
 					this._context.registeredInstances[typeKey].push({
 						type: finalInstanceType,
 						isDefault: typeConfig[i].isDefault,

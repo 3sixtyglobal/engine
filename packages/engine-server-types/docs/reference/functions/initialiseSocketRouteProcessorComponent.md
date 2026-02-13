@@ -1,6 +1,6 @@
 # Function: initialiseSocketRouteProcessorComponent()
 
-> **initialiseSocketRouteProcessorComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`ISocketRouteProcessor`\>; `component?`: `IComponent`; \}\>
+> **initialiseSocketRouteProcessorComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`SocketRouteProcessorConfig`](../type-aliases/SocketRouteProcessorConfig.md), `Factory`\<`ISocketRouteProcessor`\>\>
 
 Initialise the socket route processor.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`ISocketRouteProcessor`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`SocketRouteProcessorConfig`](../type-aliases/SocketRouteProcessorConfig.md), `Factory`\<`ISocketRouteProcessor`\>\>
 
 The instance created and the factory for it.

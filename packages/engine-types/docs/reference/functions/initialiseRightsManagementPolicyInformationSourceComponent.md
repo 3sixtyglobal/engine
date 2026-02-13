@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPolicyInformationSourceComponent()
 
-> **initialiseRightsManagementPolicyInformationSourceComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IPolicyInformationSource`\>; `component?`: `IComponent`; \}\>
+> **initialiseRightsManagementPolicyInformationSourceComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPolicyInformationSourceComponentConfig`](../type-aliases/RightsManagementPolicyInformationSourceComponentConfig.md), `Factory`\<`IPolicyInformationSource`\>\>
 
 Initialise the rights management policy information source component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IPolicyInformationSource`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`RightsManagementPolicyInformationSourceComponentConfig`](../type-aliases/RightsManagementPolicyInformationSourceComponentConfig.md), `Factory`\<`IPolicyInformationSource`\>\>
 
 The instance created and the factory for it.

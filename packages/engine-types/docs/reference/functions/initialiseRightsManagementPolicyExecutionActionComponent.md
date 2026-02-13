@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPolicyExecutionActionComponent()
 
-> **initialiseRightsManagementPolicyExecutionActionComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IPolicyExecutionAction`\>; `component?`: `IComponent`; \}\>
+> **initialiseRightsManagementPolicyExecutionActionComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPolicyExecutionActionComponentConfig`](../type-aliases/RightsManagementPolicyExecutionActionComponentConfig.md), `Factory`\<`IPolicyExecutionAction`\>\>
 
 Initialise the rights management policy execution action component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IPolicyExecutionAction`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`RightsManagementPolicyExecutionActionComponentConfig`](../type-aliases/RightsManagementPolicyExecutionActionComponentConfig.md), `Factory`\<`IPolicyExecutionAction`\>\>
 
 The instance created and the factory for it.

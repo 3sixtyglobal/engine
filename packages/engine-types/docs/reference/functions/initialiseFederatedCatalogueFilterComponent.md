@@ -1,6 +1,6 @@
 # Function: initialiseFederatedCatalogueFilterComponent()
 
-> **initialiseFederatedCatalogueFilterComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IFederatedCatalogueFilter`\>; `component?`: `IComponent`; \}\>
+> **initialiseFederatedCatalogueFilterComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`FederatedCatalogueFilterComponentConfig`](../type-aliases/FederatedCatalogueFilterComponentConfig.md), `Factory`\<`IFederatedCatalogueFilter`\>\>
 
 Initialise the federated catalogue filter component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IFederatedCatalogueFilter`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`FederatedCatalogueFilterComponentConfig`](../type-aliases/FederatedCatalogueFilterComponentConfig.md), `Factory`\<`IFederatedCatalogueFilter`\>\>
 
 The instance created and the factory for it.

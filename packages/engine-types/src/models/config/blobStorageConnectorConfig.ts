@@ -5,6 +5,7 @@ import type { IAzureBlobStorageConnectorConstructorOptions } from "@twin.org/blo
 import type { IFileBlobStorageConnectorConstructorOptions } from "@twin.org/blob-storage-connector-file";
 import type { IGcpBlobStorageConnectorConstructorOptions } from "@twin.org/blob-storage-connector-gcp";
 import type { IIpfsBlobStorageConnectorConstructorOptions } from "@twin.org/blob-storage-connector-ipfs";
+import type { IMemoryStorageConnectorConstructorOptions } from "@twin.org/blob-storage-connector-memory";
 import type { BlobStorageConnectorType } from "../types/blobStorageConnectorType.js";
 
 /**
@@ -19,7 +20,7 @@ export type BlobStorageConnectorConfig =
 	  }
 	| {
 			type: typeof BlobStorageConnectorType.Memory;
-			options?: never;
+			options?: IMemoryStorageConnectorConstructorOptions & { config: never };
 	  }
 	| {
 			type: typeof BlobStorageConnectorType.AwsS3;

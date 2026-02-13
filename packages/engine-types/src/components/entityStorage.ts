@@ -5,11 +5,15 @@ import {
 	ComponentFactory,
 	GeneralError,
 	I18n,
+	type IComponent,
 	Is,
-	StringHelper,
-	type IComponent
+	StringHelper
 } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { CosmosDbEntityStorageConnector } from "@twin.org/entity-storage-connector-cosmosdb";
 import { DynamoDbEntityStorageConnector } from "@twin.org/entity-storage-connector-dynamodb";
 import { FileEntityStorageConnector } from "@twin.org/entity-storage-connector-file";
@@ -22,7 +26,6 @@ import { ScyllaDBTableConnector } from "@twin.org/entity-storage-connector-scyll
 import { SynchronisedEntityStorageConnector } from "@twin.org/entity-storage-connector-synchronised";
 import {
 	EntityStorageConnectorFactory,
-	type IEntityStorageComponent,
 	type IEntityStorageConnector
 } from "@twin.org/entity-storage-models";
 import { EntityStorageRestClient } from "@twin.org/entity-storage-rest-client";
@@ -32,6 +35,7 @@ import type { EntityStorageComponentConfig } from "../models/config/entityStorag
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { EntityStorageComponentType } from "../models/types/entityStorageComponentType.js";
 import { EntityStorageConnectorType } from "../models/types/entityStorageConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the entity storage connector.
@@ -226,52 +230,51 @@ export function initialiseEntityStorageConnector(
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseEntityStorageComponent(
+export function initialiseEntityStorageComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: EntityStorageComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof ComponentFactory;
-	component?: IComponent;
-}> {
-	let component: IEntityStorageComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<EntityStorageComponentConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === EntityStorageComponentType.Service) {
 		const kebabName = StringHelper.kebabCase(instanceConfig.options.entityStorageType);
+		createComponent = (createConfig: typeof instanceConfig) => {
+			// See if there is a custom entity storage for this type, otherwise just use the default one.
+			const hasCustom = context.config.types.entityStorageConnector?.some(
+				c => c.type === kebabName || c.overrideInstanceType === kebabName
+			);
 
-		// See if there is a custom entity storage for this type, otherwise just use the default one.
-		const hasCustom = context.config.types.entityStorageConnector?.some(
-			c => c.type === kebabName || c.overrideInstanceType === kebabName
-		);
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				hasCustom ? kebabName : undefined,
+				createConfig.options.entityStorageType,
+				createConfig.options.partitionContextIds
+			);
 
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			hasCustom ? kebabName : undefined,
-			instanceConfig.options.entityStorageType,
-			instanceConfig.options.partitionContextIds
-		);
-		component = new EntityStorageService({
-			entityStorageType: kebabName,
-			config: {
-				...instanceConfig.options.config
-			}
-		});
-		instanceType = StringHelper.kebabCase(instanceConfig.options.entityStorageType);
+			return new EntityStorageService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options, {
+					entityStorageType: kebabName
+				})
+			);
+		};
+		instanceTypeName = kebabName;
 	} else if (instanceConfig.type === EntityStorageComponentType.RestClient) {
 		const kebabName = StringHelper.kebabCase(instanceConfig.options.entityStorageType);
-		component = new EntityStorageRestClient({
-			pathPrefix: kebabName,
-			...instanceConfig.options
-		});
-		instanceType = `${nameofKebabCase(EntityStorageRestClient)}-${kebabName}`;
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new EntityStorageRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options, {
+					pathPrefix: kebabName
+				})
+			);
+		instanceTypeName = `${nameofKebabCase(EntityStorageRestClient)}-${kebabName}`;
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

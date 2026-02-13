@@ -1,6 +1,6 @@
 # Function: initialiseIdentityComponent()
 
-> **initialiseIdentityComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseIdentityComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`IdentityComponentConfig`](../type-aliases/IdentityComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the identity component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`IdentityComponentConfig`](../type-aliases/IdentityComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

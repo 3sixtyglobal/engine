@@ -1,6 +1,6 @@
 # Function: initialiseBlobStorageConnector()
 
-> **initialiseBlobStorageConnector**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IBlobStorageConnector`\>; `component?`: `IComponent`; \}\>
+> **initialiseBlobStorageConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`BlobStorageConnectorConfig`](../type-aliases/BlobStorageConnectorConfig.md), `Factory`\<`IBlobStorageConnector`\>\>
 
 Initialise the blob storage connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IBlobStorageConnector`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`BlobStorageConnectorConfig`](../type-aliases/BlobStorageConnectorConfig.md), `Factory`\<`IBlobStorageConnector`\>\>
 
 The instance created and the factory for it.

@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPdpComponent()
 
-> **initialiseRightsManagementPdpComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseRightsManagementPdpComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPdpComponentConfig`](../type-aliases/RightsManagementPdpComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the rights management PDP component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`RightsManagementPdpComponentConfig`](../type-aliases/RightsManagementPdpComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

@@ -1,12 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
-import {
-	type IPolicyInformationSource,
-	PolicyInformationSourceFactory
-} from "@twin.org/rights-management-models";
+import { PolicyInformationSourceFactory } from "@twin.org/rights-management-models";
 import {
 	IdentityPolicyInformationSource,
 	StaticPolicyInformationSource
@@ -14,6 +15,7 @@ import {
 import type { RightsManagementPolicyInformationSourceComponentConfig } from "../models/config/rightsManagementPolicyInformationSourceComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { RightsManagementPolicyInformationSourceComponentType } from "../models/types/rightsManagementPolicyInformationSourceComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the rights management policy information source component.
@@ -22,38 +24,44 @@ import { RightsManagementPolicyInformationSourceComponentType } from "../models/
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseRightsManagementPolicyInformationSourceComponent(
+export function initialiseRightsManagementPolicyInformationSourceComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: RightsManagementPolicyInformationSourceComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof PolicyInformationSourceFactory;
-	component?: IComponent;
-}> {
-	let component: IPolicyInformationSource | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof PolicyInformationSourceFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === RightsManagementPolicyInformationSourceComponentType.Identity) {
-		component = new IdentityPolicyInformationSource({
-			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			identityResolverComponentType: engineCore.getRegisteredInstanceType(
-				"identityResolverComponent"
-			),
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(IdentityPolicyInformationSource);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new IdentityPolicyInformationSource(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+						identityResolverComponentType: engineCore.getRegisteredInstanceType(
+							"identityResolverComponent"
+						)
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(IdentityPolicyInformationSource);
 	} else if (instanceConfig.type === RightsManagementPolicyInformationSourceComponentType.Static) {
-		component = new StaticPolicyInformationSource({
-			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(StaticPolicyInformationSource);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new StaticPolicyInformationSource(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent")
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(StaticPolicyInformationSource);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: PolicyInformationSourceFactory
 	};
 }

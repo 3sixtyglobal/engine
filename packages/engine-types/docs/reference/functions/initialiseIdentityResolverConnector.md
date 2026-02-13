@@ -1,6 +1,6 @@
 # Function: initialiseIdentityResolverConnector()
 
-> **initialiseIdentityResolverConnector**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IIdentityResolverConnector`\>; `component?`: `IComponent`; \}\>
+> **initialiseIdentityResolverConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`IdentityResolverConnectorConfig`](../type-aliases/IdentityResolverConnectorConfig.md), `Factory`\<`IIdentityResolverConnector`\>\>
 
 Initialise the identity resolver connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IIdentityResolverConnector`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`IdentityResolverConnectorConfig`](../type-aliases/IdentityResolverConnectorConfig.md), `Factory`\<`IIdentityResolverConnector`\>\>
 
 The instance created and the factory for it.

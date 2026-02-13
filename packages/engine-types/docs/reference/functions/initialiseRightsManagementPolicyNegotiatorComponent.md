@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPolicyNegotiatorComponent()
 
-> **initialiseRightsManagementPolicyNegotiatorComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IPolicyNegotiator`\>; `component?`: `IComponent`; \}\>
+> **initialiseRightsManagementPolicyNegotiatorComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPolicyNegotiatorComponentConfig`](../type-aliases/RightsManagementPolicyNegotiatorComponentConfig.md), `Factory`\<`IPolicyNegotiator`\>\>
 
 Initialise the rights management policy negotiator component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IPolicyNegotiator`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`RightsManagementPolicyNegotiatorComponentConfig`](../type-aliases/RightsManagementPolicyNegotiatorComponentConfig.md), `Factory`\<`IPolicyNegotiator`\>\>
 
 The instance created and the factory for it.

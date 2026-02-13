@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPapComponent()
 
-> **initialiseRightsManagementPapComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseRightsManagementPapComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPapComponentConfig`](../type-aliases/RightsManagementPapComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the rights management PAP component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`RightsManagementPapComponentConfig`](../type-aliases/RightsManagementPapComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

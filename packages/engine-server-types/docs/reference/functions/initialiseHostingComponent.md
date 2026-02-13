@@ -1,6 +1,6 @@
 # Function: initialiseHostingComponent()
 
-> **initialiseHostingComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseHostingComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`HostingComponentConfig`](../type-aliases/HostingComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the hosting component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`HostingComponentConfig`](../type-aliases/HostingComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

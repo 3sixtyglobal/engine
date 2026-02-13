@@ -11,3 +11,9 @@ Rights management Policy Arbiter component types.
 > `readonly` **PassThrough**: `"pass-through"` = `"pass-through"`
 
 PassThrough.
+
+### Default
+
+> `readonly` **Default**: `"default"` = `"default"`
+
+Default.

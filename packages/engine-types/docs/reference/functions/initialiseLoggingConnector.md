@@ -1,6 +1,6 @@
 # Function: initialiseLoggingConnector()
 
-> **initialiseLoggingConnector**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`ILoggingConnector`\>; `component?`: `IComponent`; \}\>
+> **initialiseLoggingConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`LoggingConnectorConfig`](../type-aliases/LoggingConnectorConfig.md), `Factory`\<`ILoggingConnector`\>\>
 
 Initialise the logging connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`ILoggingConnector`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`LoggingConnectorConfig`](../type-aliases/LoggingConnectorConfig.md), `Factory`\<`ILoggingConnector`\>\>
 
 The instance created and the factory for it.

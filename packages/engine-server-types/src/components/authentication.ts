@@ -1,6 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IAuthenticationComponent } from "@twin.org/api-auth-entity-storage-models";
 import { EntityStorageAuthenticationRestClient } from "@twin.org/api-auth-entity-storage-rest-client";
 import {
 	EntityStorageAuthenticationService,
@@ -9,8 +8,12 @@ import {
 } from "@twin.org/api-auth-entity-storage-service";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { initialiseEntityStorageConnector } from "@twin.org/engine-types";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
+import { EngineTypeHelper, initialiseEntityStorageConnector } from "@twin.org/engine-types";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { AuthenticationComponentConfig } from "../models/config/authenticationComponentConfig.js";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
@@ -23,43 +26,51 @@ import { AuthenticationComponentType } from "../models/types/authenticationCompo
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseAuthenticationComponent(
+export function initialiseAuthenticationComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: AuthenticationComponentConfig
-): Promise<{ instanceType?: string; factory?: typeof ComponentFactory; component?: IComponent }> {
-	let component: IAuthenticationComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<AuthenticationComponentConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === AuthenticationComponentType.EntityStorage) {
-		initSchemaAuthEntityStorage();
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.userEntityStorageType,
-			nameof<AuthenticationUser>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-				ContextIdKeys.Node,
-				ContextIdKeys.Tenant
-			])
-		);
-
-		component = new EntityStorageAuthenticationService({
-			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-			authenticationAdminServiceType: engineCore.getRegisteredInstanceType(
-				"authenticationAdminComponent"
-			),
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(EntityStorageAuthenticationService);
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaAuthEntityStorage();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.userEntityStorageType,
+				nameof<AuthenticationUser>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			return new EntityStorageAuthenticationService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+						authenticationAdminServiceType: engineCore.getRegisteredInstanceType(
+							"authenticationAdminComponent"
+						)
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = nameofKebabCase(EntityStorageAuthenticationService);
 	} else if (instanceConfig.type === AuthenticationComponentType.RestClient) {
-		component = new EntityStorageAuthenticationRestClient(instanceConfig.options);
-		instanceType = nameofKebabCase(EntityStorageAuthenticationRestClient);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new EntityStorageAuthenticationRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(EntityStorageAuthenticationRestClient);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

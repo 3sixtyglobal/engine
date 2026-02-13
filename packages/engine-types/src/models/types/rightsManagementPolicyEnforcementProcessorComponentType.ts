@@ -9,7 +9,12 @@ export const RightsManagementPolicyEnforcementProcessorComponentType = {
 	/**
 	 * Pass Through.
 	 */
-	PassThrough: "pass-through"
+	PassThrough: "pass-through",
+
+	/**
+	 * Default.
+	 */
+	Default: "default"
 } as const;
 
 /**

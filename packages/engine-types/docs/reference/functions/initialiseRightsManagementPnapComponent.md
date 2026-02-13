@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPnapComponent()
 
-> **initialiseRightsManagementPnapComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseRightsManagementPnapComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPnapComponentConfig`](../type-aliases/RightsManagementPnapComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the rights management PNAP component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`RightsManagementPnapComponentConfig`](../type-aliases/RightsManagementPnapComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

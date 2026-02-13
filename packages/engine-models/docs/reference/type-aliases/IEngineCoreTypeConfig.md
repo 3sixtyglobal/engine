@@ -18,6 +18,12 @@ The instance type to override with.
 
 Whether this is the default instance.
 
+### isMultiInstance?
+
+> `optional` **isMultiInstance**: `boolean`
+
+Whether this is a multi-instance component.
+
 ### features?
 
 > `optional` **features**: `string`[]

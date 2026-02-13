@@ -1,6 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IAuditableItemStreamComponent } from "@twin.org/auditable-item-stream-models";
 import { AuditableItemStreamRestClient } from "@twin.org/auditable-item-stream-rest-client";
 import {
 	type AuditableItemStream,
@@ -10,12 +9,17 @@ import {
 } from "@twin.org/auditable-item-stream-service";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { AuditableItemStreamComponentConfig } from "../models/config/auditableItemStreamComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { AuditableItemStreamComponentType } from "../models/types/auditableItemStreamComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the auditable item stream component.
@@ -24,52 +28,62 @@ import { AuditableItemStreamComponentType } from "../models/types/auditableItemS
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseAuditableItemStreamComponent(
+export function initialiseAuditableItemStreamComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: AuditableItemStreamComponentConfig
-): Promise<{ instanceType?: string; factory?: typeof ComponentFactory; component?: IComponent }> {
-	let component: IAuditableItemStreamComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === AuditableItemStreamComponentType.Service) {
-		initSchemaAuditableItemStream();
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaAuditableItemStream();
 
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.streamEntityStorageType,
-			nameof<AuditableItemStream>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-				ContextIdKeys.Node,
-				ContextIdKeys.Tenant
-			])
-		);
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.streamEntryEntityStorageType,
-			nameof<AuditableItemStreamEntry>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-				ContextIdKeys.Node,
-				ContextIdKeys.Tenant
-			])
-		);
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.streamEntityStorageType,
+				nameof<AuditableItemStream>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.streamEntryEntityStorageType,
+				nameof<AuditableItemStreamEntry>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
 
-		component = new AuditableItemStreamService({
-			immutableProofComponentType: engineCore.getRegisteredInstanceType("immutableProofComponent"),
-			eventBusComponentType: engineCore.getRegisteredInstanceTypeOptional("eventBusComponent"),
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(AuditableItemStreamService);
+			return new AuditableItemStreamService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						immutableProofComponentType:
+							engineCore.getRegisteredInstanceType("immutableProofComponent"),
+						eventBusComponentType: engineCore.getRegisteredInstanceTypeOptional("eventBusComponent")
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = nameofKebabCase(AuditableItemStreamService);
 	} else if (instanceConfig.type === AuditableItemStreamComponentType.RestClient) {
-		component = new AuditableItemStreamRestClient(instanceConfig.options);
-		instanceType = nameofKebabCase(AuditableItemStreamRestClient);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new AuditableItemStreamRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(AuditableItemStreamRestClient);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

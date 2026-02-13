@@ -29,8 +29,8 @@ export class TestComponent {
  */
 export function testTypeInitialiser(core, context, instanceConfig) {
 	return {
-		component: new TestComponent(instanceConfig.options ?? { value: 4567 }),
-		instanceType: 'test-component',
+		createComponent: config => new TestComponent(config.options ?? { value: 4567 }),
+		instanceTypeName: 'test-component',
 		factory: ComponentFactory
 	};
 }

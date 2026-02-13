@@ -1,6 +1,6 @@
 # Function: initialiseNftConnector()
 
-> **initialiseNftConnector**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`INftConnector`\>; `component?`: `IComponent`; \}\>
+> **initialiseNftConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`NftConnectorConfig`](../type-aliases/NftConnectorConfig.md), `Factory`\<`INftConnector`\>\>
 
 Initialise the NFT connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`INftConnector`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`NftConnectorConfig`](../type-aliases/NftConnectorConfig.md), `Factory`\<`INftConnector`\>\>
 
 The instance created and the factory for it.

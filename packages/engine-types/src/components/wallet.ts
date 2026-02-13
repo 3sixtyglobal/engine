@@ -1,7 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
 import {
 	EntityStorageWalletConnector,
@@ -9,7 +13,7 @@ import {
 	type WalletAddress
 } from "@twin.org/wallet-connector-entity-storage";
 import { IotaWalletConnector } from "@twin.org/wallet-connector-iota";
-import { WalletConnectorFactory, type IWalletConnector } from "@twin.org/wallet-models";
+import { WalletConnectorFactory } from "@twin.org/wallet-models";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { DltConfig } from "../models/config/dltConfig.js";
 import type { WalletConnectorConfig } from "../models/config/walletConnectorConfig.js";
@@ -25,55 +29,59 @@ import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseWalletConnector(
+export function initialiseWalletConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: WalletConnectorConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof WalletConnectorFactory;
-	component?: IComponent;
-}> {
-	let component: IWalletConnector | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof WalletConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === WalletConnectorType.Iota) {
-		const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
-			engineCore.getConfig(),
-			"dltConfig",
-			DltConfigType.Iota
-		);
-		component = new IotaWalletConnector({
-			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-			faucetConnectorType: engineCore.getRegisteredInstanceType("faucetConnector"),
-			...instanceConfig.options,
-			config: {
-				...dltConfig?.options?.config,
-				...instanceConfig.options.config
-			}
-		});
-		instanceType = IotaWalletConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) => {
+			const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
+				engineCore.getConfig(),
+				"dltConfig",
+				DltConfigType.Iota
+			);
+			return new IotaWalletConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+						faucetConnectorType: engineCore.getRegisteredInstanceType("faucetConnector"),
+						config: dltConfig?.options?.config
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = IotaWalletConnector.NAMESPACE;
 	} else if (instanceConfig.type === WalletConnectorType.EntityStorage) {
-		initSchemaWallet();
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.walletAddressEntityStorageType,
-			nameof<WalletAddress>(),
-			[]
-		);
-
-		component = new EntityStorageWalletConnector({
-			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-			faucetConnectorType: engineCore.getRegisteredInstanceType("faucetConnector"),
-			...instanceConfig.options
-		});
-		instanceType = EntityStorageWalletConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaWallet();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.walletAddressEntityStorageType,
+				nameof<WalletAddress>(),
+				[]
+			);
+			return new EntityStorageWalletConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+						faucetConnectorType: engineCore.getRegisteredInstanceType("faucetConnector")
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = EntityStorageWalletConnector.NAMESPACE;
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: WalletConnectorFactory
 	};
 }

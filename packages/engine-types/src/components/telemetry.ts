@@ -2,7 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import {
 	EntityStorageTelemetryConnector,
@@ -10,11 +14,7 @@ import {
 	type TelemetryMetric,
 	type TelemetryMetricValue
 } from "@twin.org/telemetry-connector-entity-storage";
-import {
-	TelemetryConnectorFactory,
-	type ITelemetryComponent,
-	type ITelemetryConnector
-} from "@twin.org/telemetry-models";
+import { TelemetryConnectorFactory } from "@twin.org/telemetry-models";
 import { TelemetryRestClient } from "@twin.org/telemetry-rest-client";
 import { TelemetryService } from "@twin.org/telemetry-service";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
@@ -23,6 +23,7 @@ import type { TelemetryConnectorConfig } from "../models/config/telemetryConnect
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { TelemetryComponentType } from "../models/types/telemetryComponentType.js";
 import { TelemetryConnectorType } from "../models/types/telemetryConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise a telemetry connector.
@@ -31,51 +32,51 @@ import { TelemetryConnectorType } from "../models/types/telemetryConnectorType.j
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseTelemetryConnector(
+export function initialiseTelemetryConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: TelemetryConnectorConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof TelemetryConnectorFactory;
-	component?: IComponent;
-}> {
-	let component: ITelemetryConnector | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof TelemetryConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === TelemetryConnectorType.EntityStorage) {
-		initSchema();
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.telemetryMetricStorageConnectorType,
-			nameof<TelemetryMetric>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-				ContextIdKeys.Node,
-				ContextIdKeys.Tenant
-			])
-		);
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.telemetryMetricValueStorageConnectorType,
-			nameof<TelemetryMetricValue>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-				ContextIdKeys.Node,
-				ContextIdKeys.Tenant
-			])
-		);
-		component = new EntityStorageTelemetryConnector({
-			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			...instanceConfig.options
-		});
-		instanceType = EntityStorageTelemetryConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchema();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.telemetryMetricStorageConnectorType,
+				nameof<TelemetryMetric>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.telemetryMetricValueStorageConnectorType,
+				nameof<TelemetryMetricValue>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			return new EntityStorageTelemetryConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = EntityStorageTelemetryConnector.NAMESPACE;
 	}
 
 	return {
-		instanceType,
-		factory: TelemetryConnectorFactory,
-		component
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
+		factory: TelemetryConnectorFactory
 	};
 }
 
@@ -86,32 +87,34 @@ export async function initialiseTelemetryConnector(
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseTelemetryComponent(
+export function initialiseTelemetryComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: TelemetryComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof ComponentFactory;
-	component?: IComponent;
-}> {
-	let component: ITelemetryComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === TelemetryComponentType.Service) {
-		component = new TelemetryService({
-			telemetryConnectorType: engineCore.getRegisteredInstanceType("telemetryConnector"),
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(TelemetryService);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new TelemetryService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{ telemetryConnectorType: engineCore.getRegisteredInstanceType("telemetryConnector") },
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(TelemetryService);
 	} else if (instanceConfig.type === TelemetryComponentType.RestClient) {
-		component = new TelemetryRestClient(instanceConfig.options);
-		instanceType = nameofKebabCase(TelemetryRestClient);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new TelemetryRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(TelemetryRestClient);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

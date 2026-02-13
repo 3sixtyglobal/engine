@@ -1,9 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory, type IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import type { IFederatedCatalogueComponent } from "@twin.org/federated-catalogue-models";
+import { ComponentFactory } from "@twin.org/core";
+import type { IComponent } from "@twin.org/core";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { FederatedCatalogueRestClient } from "@twin.org/federated-catalogue-rest-client";
 import {
 	type Dataset,
@@ -15,6 +19,7 @@ import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { FederatedCatalogueComponentConfig } from "../models/config/federatedCatalogueComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { FederatedCatalogueComponentType } from "../models/types/federatedCatalogueComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the federated catalogue component.
@@ -23,42 +28,43 @@ import { FederatedCatalogueComponentType } from "../models/types/federatedCatalo
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseFederatedCatalogueComponent(
+export function initialiseFederatedCatalogueComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: FederatedCatalogueComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof ComponentFactory;
-	component?: IComponent;
-}> {
-	let component: IFederatedCatalogueComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === FederatedCatalogueComponentType.Service) {
-		initSchemaFederatedCatalogue();
-
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.datasetStorageConnectorType,
-			nameof<Dataset>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
-		);
-
-		component = new FederatedCatalogueService({
-			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(FederatedCatalogueService);
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaFederatedCatalogue();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.datasetStorageConnectorType,
+				nameof<Dataset>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
+			);
+			return new FederatedCatalogueService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = nameofKebabCase(FederatedCatalogueService);
 	} else if (instanceConfig.type === FederatedCatalogueComponentType.RestClient) {
-		component = new FederatedCatalogueRestClient(instanceConfig.options);
-		instanceType = nameofKebabCase(FederatedCatalogueRestClient);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new FederatedCatalogueRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(FederatedCatalogueRestClient);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 
 		factory: ComponentFactory
 	};

@@ -1,6 +1,6 @@
 # Function: initialiseIdentityResolverComponent()
 
-> **initialiseIdentityResolverComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseIdentityResolverComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`IdentityResolverComponentConfig`](../type-aliases/IdentityResolverComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the identity resolver component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`IdentityResolverComponentConfig`](../type-aliases/IdentityResolverComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

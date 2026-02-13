@@ -1,6 +1,6 @@
 # Function: initialiseMessagingEmailConnector()
 
-> **initialiseMessagingEmailConnector**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IMessagingEmailConnector`\>; `component?`: `IComponent`; \}\>
+> **initialiseMessagingEmailConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`MessagingEmailConnectorConfig`](../type-aliases/MessagingEmailConnectorConfig.md), `Factory`\<`IMessagingEmailConnector`\>\>
 
 Initialise a messaging email connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IMessagingEmailConnector`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`MessagingEmailConnectorConfig`](../type-aliases/MessagingEmailConnectorConfig.md), `Factory`\<`IMessagingEmailConnector`\>\>
 
 The instance created and the factory for it.

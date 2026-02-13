@@ -1,6 +1,6 @@
 # Function: initialiseEventBusComponent()
 
-> **initialiseEventBusComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseEventBusComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`EventBusComponentConfig`](../type-aliases/EventBusComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the event bus component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`EventBusComponentConfig`](../type-aliases/EventBusComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

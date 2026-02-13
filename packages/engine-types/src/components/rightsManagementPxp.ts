@@ -1,13 +1,17 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { ComponentFactory, type IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
-import type { IPolicyExecutionPointComponent } from "@twin.org/rights-management-models";
 import { PolicyExecutionPointService } from "@twin.org/rights-management-pxp-service";
 import type { RightsManagementPxpComponentConfig } from "../models/config/rightsManagementPxpComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { RightsManagementPxpComponentType } from "../models/types/rightsManagementPxpComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the rights management PXP component.
@@ -16,29 +20,28 @@ import { RightsManagementPxpComponentType } from "../models/types/rightsManageme
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseRightsManagementPxpComponent(
+export function initialiseRightsManagementPxpComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: RightsManagementPxpComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof ComponentFactory;
-	component?: IComponent;
-}> {
-	let component: IPolicyExecutionPointComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === RightsManagementPxpComponentType.Service) {
-		component = new PolicyExecutionPointService({
-			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(PolicyExecutionPointService);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new PolicyExecutionPointService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(PolicyExecutionPointService);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

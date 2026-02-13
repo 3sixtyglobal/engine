@@ -1,6 +1,6 @@
 # Function: initialiseEntityStorageComponent()
 
-> **initialiseEntityStorageComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseEntityStorageComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`EntityStorageComponentConfig`](../type-aliases/EntityStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the entity storage connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`EntityStorageComponentConfig`](../type-aliases/EntityStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

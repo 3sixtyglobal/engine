@@ -1,6 +1,6 @@
 # Function: initialiseIdentityConnector()
 
-> **initialiseIdentityConnector**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IIdentityConnector`\>; `component?`: `IComponent`; \}\>
+> **initialiseIdentityConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`IdentityConnectorConfig`](../type-aliases/IdentityConnectorConfig.md), `Factory`\<`IIdentityConnector`\>\>
 
 Initialise the identity connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IIdentityConnector`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`IdentityConnectorConfig`](../type-aliases/IdentityConnectorConfig.md), `Factory`\<`IIdentityConnector`\>\>
 
 The instance created and the factory for it.

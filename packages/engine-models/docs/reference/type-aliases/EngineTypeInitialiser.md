@@ -1,6 +1,6 @@
-# Type Alias: EngineTypeInitialiser()\<T\>
+# Type Alias: EngineTypeInitialiser()\<T, F\>
 
-> **EngineTypeInitialiser**\<`T`\> = (`engineCore`, `context`, `instanceConfig`) => `Promise`\<[`EngineTypeInitialiserReturn`](../interfaces/EngineTypeInitialiserReturn.md)\>
+> **EngineTypeInitialiser**\<`T`, `F`\> = (`engineCore`, `context`, `instanceConfig`) => [`EngineTypeInitialiserReturn`](../interfaces/EngineTypeInitialiserReturn.md)\<`T`, `F`\>
 
 Method definition for the engine type initialiser.
 
@@ -9,6 +9,10 @@ Method definition for the engine type initialiser.
 ### T
 
 `T` *extends* [`IEngineCoreTypeBaseConfig`](../interfaces/IEngineCoreTypeBaseConfig.md) = [`IEngineCoreTypeBaseConfig`](../interfaces/IEngineCoreTypeBaseConfig.md)
+
+### F
+
+`F` = `Factory`\<`unknown`\>
 
 ## Parameters
 
@@ -26,4 +30,4 @@ Method definition for the engine type initialiser.
 
 ## Returns
 
-`Promise`\<[`EngineTypeInitialiserReturn`](../interfaces/EngineTypeInitialiserReturn.md)\>
+[`EngineTypeInitialiserReturn`](../interfaces/EngineTypeInitialiserReturn.md)\<`T`, `F`\>

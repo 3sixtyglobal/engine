@@ -1,9 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { MimeTypeProcessorFactory, type IMimeTypeProcessor } from "@twin.org/api-models";
+import { MimeTypeProcessorFactory } from "@twin.org/api-models";
 import { JwtMimeTypeProcessor } from "@twin.org/api-processors";
 import type { IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
 import type { MimeTypeProcessorConfig } from "../models/config/mimeTypeProcessorConfig.js";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
@@ -16,26 +20,22 @@ import { MimeTypeProcessorType } from "../models/types/mimeTypeProcessorType.js"
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseMimeTypeProcessorComponent(
+export function initialiseMimeTypeProcessorComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: MimeTypeProcessorConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof MimeTypeProcessorFactory;
-	component?: IComponent;
-}> {
-	let component: IMimeTypeProcessor | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<MimeTypeProcessorConfig, typeof MimeTypeProcessorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === MimeTypeProcessorType.Jwt) {
-		component = new JwtMimeTypeProcessor();
-		instanceType = nameofKebabCase(JwtMimeTypeProcessor);
+		createComponent = (createConfig: typeof instanceConfig) => new JwtMimeTypeProcessor();
+		instanceTypeName = nameofKebabCase(JwtMimeTypeProcessor);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: MimeTypeProcessorFactory
 	};
 }

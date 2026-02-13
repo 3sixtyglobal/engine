@@ -55,6 +55,7 @@ import {
 	RightsManagementPolicyExecutionActionComponentType,
 	RightsManagementPolicyInformationSourceComponentType,
 	RightsManagementPolicyNegotiatorComponentType,
+	RightsManagementPolicyObligationEnforcerComponentType,
 	RightsManagementPolicyRequesterComponentType,
 	RightsManagementPxpComponentType,
 	SynchronisedStorageComponentType,
@@ -75,7 +76,6 @@ import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
 import { nameof } from "@twin.org/nameof";
 import {
-	type IPolicyNegotiationPointComponent,
 	PolicyArbiterFactory,
 	PolicyEnforcementProcessorFactory,
 	PolicyExecutionActionFactory,
@@ -227,12 +227,17 @@ describe("engine", () => {
 					],
 					rightsManagementPnpComponent: [
 						{
+							type: RightsManagementPnpComponentType.RestClient,
+							options: {
+								endpoint: "http://localhost"
+							},
+							features: ["remote"]
+						},
+						{
 							type: RightsManagementPnpComponentType.Service,
 							options: {
 								config: {
-									callbackPath: "",
-									negotiationComponentCreator: async () =>
-										({}) as unknown as IPolicyNegotiationPointComponent
+									callbackPath: ""
 								}
 							}
 						}
@@ -245,6 +250,11 @@ describe("engine", () => {
 					rightsManagementPolicyArbiterComponent: [
 						{
 							type: RightsManagementPolicyArbiterComponentType.PassThrough
+						}
+					],
+					rightsManagementPolicyObligationEnforcerComponent: [
+						{
+							type: RightsManagementPolicyObligationEnforcerComponentType.PassThrough
 						}
 					],
 					rightsManagementPolicyEnforcementProcessorComponent: [
@@ -343,6 +353,7 @@ describe("engine", () => {
 			"policy-decision-point-service",
 			"policy-enforcement-point-service",
 			"policy-negotiation-admin-point-service",
+			"policy-negotiation-point-rest-client",
 			"policy-negotiation-point-service",
 			"synchronised-storage-service",
 			"federated-catalogue-service",
@@ -565,12 +576,17 @@ describe("engine", () => {
 					],
 					rightsManagementPnpComponent: [
 						{
+							type: RightsManagementPnpComponentType.RestClient,
+							options: {
+								endpoint: "http://localhost"
+							},
+							features: ["remote"]
+						},
+						{
 							type: RightsManagementPnpComponentType.Service,
 							options: {
 								config: {
-									callbackPath: "",
-									negotiationComponentCreator: async () =>
-										({}) as unknown as IPolicyNegotiationPointComponent
+									callbackPath: ""
 								}
 							}
 						}
@@ -583,6 +599,11 @@ describe("engine", () => {
 					rightsManagementPolicyArbiterComponent: [
 						{
 							type: RightsManagementPolicyArbiterComponentType.PassThrough
+						}
+					],
+					rightsManagementPolicyObligationEnforcerComponent: [
+						{
+							type: RightsManagementPolicyObligationEnforcerComponentType.PassThrough
 						}
 					],
 					rightsManagementPolicyEnforcementProcessorComponent: [
@@ -764,12 +785,17 @@ describe("engine", () => {
 				],
 				rightsManagementPnpComponent: [
 					{
+						type: RightsManagementPnpComponentType.RestClient,
+						options: {
+							endpoint: "http://localhost"
+						},
+						features: ["remote"]
+					},
+					{
 						type: RightsManagementPnpComponentType.Service,
 						options: {
 							config: {
-								callbackPath: "",
-								negotiationComponentCreator: async () =>
-									({}) as unknown as IPolicyNegotiationPointComponent
+								callbackPath: ""
 							}
 						}
 					}
@@ -782,6 +808,11 @@ describe("engine", () => {
 				rightsManagementPolicyArbiterComponent: [
 					{
 						type: RightsManagementPolicyArbiterComponentType.PassThrough
+					}
+				],
+				rightsManagementPolicyObligationEnforcerComponent: [
+					{
+						type: RightsManagementPolicyObligationEnforcerComponentType.PassThrough
 					}
 				],
 				rightsManagementPolicyEnforcementProcessorComponent: [
@@ -1035,6 +1066,11 @@ describe("engine", () => {
 					rightsManagementPolicyArbiterComponent: [
 						{
 							type: RightsManagementPolicyArbiterComponentType.PassThrough
+						}
+					],
+					rightsManagementPolicyObligationEnforcerComponent: [
+						{
+							type: RightsManagementPolicyObligationEnforcerComponentType.PassThrough
 						}
 					],
 					rightsManagementPolicyEnforcementProcessorComponent: [

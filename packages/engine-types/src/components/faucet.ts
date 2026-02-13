@@ -1,15 +1,22 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
 import {
 	EntityStorageFaucetConnector,
 	initSchema as initSchemaWallet,
 	type WalletAddress
 } from "@twin.org/wallet-connector-entity-storage";
-import { IotaFaucetConnector } from "@twin.org/wallet-connector-iota";
-import { FaucetConnectorFactory, type IFaucetConnector } from "@twin.org/wallet-models";
+import {
+	type IIotaFaucetConnectorConfig,
+	IotaFaucetConnector
+} from "@twin.org/wallet-connector-iota";
+import { FaucetConnectorFactory } from "@twin.org/wallet-models";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { DltConfig } from "../models/config/dltConfig.js";
 import type { FaucetConnectorConfig } from "../models/config/faucetConnectorConfig.js";
@@ -25,49 +32,51 @@ import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseFaucetConnector(
+export function initialiseFaucetConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: FaucetConnectorConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof FaucetConnectorFactory;
-	component?: IComponent;
-}> {
-	let component: IFaucetConnector | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof FaucetConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === FaucetConnectorType.Iota) {
-		const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
-			engineCore.getConfig(),
-			"dltConfig",
-			DltConfigType.Iota
-		);
-		component = new IotaFaucetConnector({
-			...instanceConfig.options,
-			config: {
-				...dltConfig?.options?.config,
-				...instanceConfig.options.config
-			}
-		});
-		instanceType = IotaFaucetConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) => {
+			const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
+				engineCore.getConfig(),
+				"dltConfig",
+				DltConfigType.Iota
+			);
+			return new IotaFaucetConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						config: dltConfig?.options?.config as IIotaFaucetConnectorConfig
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = IotaFaucetConnector.NAMESPACE;
 	} else if (instanceConfig.type === FaucetConnectorType.EntityStorage) {
-		initSchemaWallet();
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.walletAddressEntityStorageType,
-			nameof<WalletAddress>(),
-			[]
-		);
-
-		component = new EntityStorageFaucetConnector(instanceConfig.options);
-		instanceType = EntityStorageFaucetConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaWallet();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.walletAddressEntityStorageType,
+				nameof<WalletAddress>(),
+				[]
+			);
+			return new EntityStorageFaucetConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = EntityStorageFaucetConnector.NAMESPACE;
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: FaucetConnectorFactory
 	};
 }

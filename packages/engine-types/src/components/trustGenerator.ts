@@ -1,13 +1,18 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
 import { JwtVerifiableCredentialGenerator } from "@twin.org/trust-generators";
-import { type ITrustGenerator, TrustGeneratorFactory } from "@twin.org/trust-models";
+import { TrustGeneratorFactory } from "@twin.org/trust-models";
 import type { TrustGeneratorComponentConfig } from "../models/config/trustGeneratorComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { TrustGeneratorComponentType } from "../models/types/trustGeneratorComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the trust generator component.
@@ -16,30 +21,31 @@ import { TrustGeneratorComponentType } from "../models/types/trustGeneratorCompo
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseTrustGeneratorComponent(
+export function initialiseTrustGeneratorComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: TrustGeneratorComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof TrustGeneratorFactory;
-	component?: IComponent;
-}> {
-	let component: ITrustGenerator | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof TrustGeneratorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === TrustGeneratorComponentType.JwtVerifiableCredential) {
-		component = new JwtVerifiableCredentialGenerator({
-			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			identityComponentType: engineCore.getRegisteredInstanceType("identityComponent"),
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(JwtVerifiableCredentialGenerator);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new JwtVerifiableCredentialGenerator(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+						identityComponentType: engineCore.getRegisteredInstanceType("identityComponent")
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(JwtVerifiableCredentialGenerator);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: TrustGeneratorFactory
 	};
 }

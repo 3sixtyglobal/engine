@@ -1,6 +1,6 @@
 # Function: initialiseDataExtractorConnector()
 
-> **initialiseDataExtractorConnector**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IDataExtractorConnector`\>; `component?`: `IComponent`; \}\>
+> **initialiseDataExtractorConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`DataExtractorConnectorConfig`](../type-aliases/DataExtractorConnectorConfig.md), `Factory`\<`IDataExtractorConnector`\>\>
 
 Initialise the data extractor connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IDataExtractorConnector`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`DataExtractorConnectorConfig`](../type-aliases/DataExtractorConnectorConfig.md), `Factory`\<`IDataExtractorConnector`\>\>
 
 The instance created and the factory for it.

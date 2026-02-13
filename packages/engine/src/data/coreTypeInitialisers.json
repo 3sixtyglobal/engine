@@ -250,6 +250,11 @@
 		"method": "initialiseRightsManagementPolicyArbiterComponent"
 	},
 	{
+		"type": "rightsManagementPolicyObligationEnforcerComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseRightsManagementPolicyObligationEnforcerComponent"
+	},
+	{
 		"type": "rightsManagementPolicyEnforcementProcessorComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseRightsManagementPolicyEnforcementProcessorComponent"

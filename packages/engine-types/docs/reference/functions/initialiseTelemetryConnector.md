@@ -1,6 +1,6 @@
 # Function: initialiseTelemetryConnector()
 
-> **initialiseTelemetryConnector**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`ITelemetryConnector`\>; `component?`: `IComponent`; \}\>
+> **initialiseTelemetryConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`TelemetryConnectorConfig`](../type-aliases/TelemetryConnectorConfig.md), `Factory`\<`ITelemetryConnector`\>\>
 
 Initialise a telemetry connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`ITelemetryConnector`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`TelemetryConnectorConfig`](../type-aliases/TelemetryConnectorConfig.md), `Factory`\<`ITelemetryConnector`\>\>
 
 The instance created and the factory for it.

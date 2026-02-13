@@ -1,6 +1,6 @@
 # Function: initialiseDataProcessingComponent()
 
-> **initialiseDataProcessingComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseDataProcessingComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`DataProcessingComponentConfig`](../type-aliases/DataProcessingComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the data processing component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`DataProcessingComponentConfig`](../type-aliases/DataProcessingComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

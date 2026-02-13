@@ -1,13 +1,18 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, type IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import { ComponentFactory } from "@twin.org/core";
+import type { IComponent } from "@twin.org/core";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
-import type { IPolicyDecisionPointComponent } from "@twin.org/rights-management-models";
 import { PolicyDecisionPointService } from "@twin.org/rights-management-pdp-service";
 import type { RightsManagementPdpComponentConfig } from "../models/config/rightsManagementPdpComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { RightsManagementPdpComponentType } from "../models/types/rightsManagementPdpComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the rights management PDP component.
@@ -16,38 +21,39 @@ import { RightsManagementPdpComponentType } from "../models/types/rightsManageme
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseRightsManagementPdpComponent(
+export function initialiseRightsManagementPdpComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: RightsManagementPdpComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof ComponentFactory;
-	component?: IComponent;
-}> {
-	let component: IPolicyDecisionPointComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === RightsManagementPdpComponentType.Service) {
-		component = new PolicyDecisionPointService({
-			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			policyInformationPointComponentType: engineCore.getRegisteredInstanceType(
-				"rightsManagementPipComponent"
-			),
-			policyManagementPointComponentType: engineCore.getRegisteredInstanceType(
-				"rightsManagementPmpComponent"
-			),
-			policyExecutionPointComponentType: engineCore.getRegisteredInstanceType(
-				"rightsManagementPxpComponent"
-			),
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(PolicyDecisionPointService);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new PolicyDecisionPointService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+						policyInformationPointComponentType: engineCore.getRegisteredInstanceType(
+							"rightsManagementPipComponent"
+						),
+						policyManagementPointComponentType: engineCore.getRegisteredInstanceType(
+							"rightsManagementPmpComponent"
+						),
+						policyExecutionPointComponentType: engineCore.getRegisteredInstanceType(
+							"rightsManagementPxpComponent"
+						)
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(PolicyDecisionPointService);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

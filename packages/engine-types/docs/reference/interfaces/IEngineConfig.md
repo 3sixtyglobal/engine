@@ -366,6 +366,12 @@ Rights management PNAP options which can be overridden by individual components 
 
 Rights management policy arbiter options which can be overridden by individual components by specifying types other than default.
 
+#### rightsManagementPolicyObligationEnforcerComponent?
+
+> `optional` **rightsManagementPolicyObligationEnforcerComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPolicyObligationEnforcerComponentConfig`](../type-aliases/RightsManagementPolicyObligationEnforcerComponentConfig.md)\>[]
+
+Rights management policy obligation enforcer options which can be overridden by individual components by specifying types other than default.
+
 #### rightsManagementPolicyEnforcementProcessorComponent?
 
 > `optional` **rightsManagementPolicyEnforcementProcessorComponent**: `IEngineCoreTypeConfig`\<[`RightsManagementPolicyEnforcementProcessorComponentConfig`](../type-aliases/RightsManagementPolicyEnforcementProcessorComponentConfig.md)\>[]

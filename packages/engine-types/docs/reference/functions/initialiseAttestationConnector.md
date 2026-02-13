@@ -1,6 +1,6 @@
 # Function: initialiseAttestationConnector()
 
-> **initialiseAttestationConnector**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IAttestationConnector`\>; `component?`: `IComponent`; \}\>
+> **initialiseAttestationConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AttestationConnectorConfig`](../type-aliases/AttestationConnectorConfig.md), `Factory`\<`IAttestationConnector`\>\>
 
 Initialise the attestation connector.
 
@@ -22,10 +22,10 @@ The context for the engine.
 
 [`AttestationConnectorConfig`](../type-aliases/AttestationConnectorConfig.md)
 
-The instance config.
+The instance config type.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IAttestationConnector`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`AttestationConnectorConfig`](../type-aliases/AttestationConnectorConfig.md), `Factory`\<`IAttestationConnector`\>\>
 
 The instance created and the factory for it.

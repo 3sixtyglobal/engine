@@ -1,6 +1,6 @@
 # Function: initialiseNftComponent()
 
-> **initialiseNftComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseNftComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`NftComponentConfig`](../type-aliases/NftComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the NFT component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`NftComponentConfig`](../type-aliases/NftComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

@@ -1,6 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { ITenantAdminComponent } from "@twin.org/api-models";
 import {
 	type Tenant,
 	TenantAdminService,
@@ -8,12 +7,17 @@ import {
 } from "@twin.org/api-tenant-processor";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { TenantAdminComponentConfig } from "../models/config/tenantAdminComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { TenantAdminComponentType } from "../models/types/tenantAdminComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the tenant admin component.
@@ -22,38 +26,35 @@ import { TenantAdminComponentType } from "../models/types/tenantAdminComponentTy
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseTenantAdminComponent(
+export function initialiseTenantAdminComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: TenantAdminComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof ComponentFactory;
-	component?: IComponent;
-}> {
-	let component: ITenantAdminComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === TenantAdminComponentType.Service) {
-		initSchemaTenant();
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaTenant();
 
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.tenantEntityStorageType,
-			nameof<Tenant>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
-		);
-
-		component = new TenantAdminService({
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(TenantAdminService);
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.tenantEntityStorageType,
+				nameof<Tenant>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
+			);
+			return new TenantAdminService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = nameofKebabCase(TenantAdminService);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

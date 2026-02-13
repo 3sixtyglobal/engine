@@ -1,13 +1,18 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
-import { type IPolicyRequester, PolicyRequesterFactory } from "@twin.org/rights-management-models";
+import { PolicyRequesterFactory } from "@twin.org/rights-management-models";
 import { PassThroughPolicyRequester } from "@twin.org/rights-management-plugins";
 import type { RightsManagementPolicyRequesterComponentConfig } from "../models/config/rightsManagementPolicyRequesterComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { RightsManagementPolicyRequesterComponentType } from "../models/types/rightsManagementPolicyRequesterComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the rights management policy requester component.
@@ -16,29 +21,28 @@ import { RightsManagementPolicyRequesterComponentType } from "../models/types/ri
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseRightsManagementPolicyRequesterComponent(
+export function initialiseRightsManagementPolicyRequesterComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: RightsManagementPolicyRequesterComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof PolicyRequesterFactory;
-	component?: IComponent;
-}> {
-	let component: IPolicyRequester | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof PolicyRequesterFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === RightsManagementPolicyRequesterComponentType.PassThrough) {
-		component = new PassThroughPolicyRequester({
-			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(PassThroughPolicyRequester);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new PassThroughPolicyRequester(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(PassThroughPolicyRequester);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: PolicyRequesterFactory
 	};
 }

@@ -1,6 +1,6 @@
 # Function: initialiseInformationComponent()
 
-> **initialiseInformationComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseInformationComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`InformationComponentConfig`](../type-aliases/InformationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the information component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`InformationComponentConfig`](../type-aliases/InformationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

@@ -1,6 +1,6 @@
 # Function: initialiseWalletConnector()
 
-> **initialiseWalletConnector**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IWalletConnector`\>; `component?`: `IComponent`; \}\>
+> **initialiseWalletConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`WalletConnectorConfig`](../type-aliases/WalletConnectorConfig.md), `Factory`\<`IWalletConnector`\>\>
 
 Initialise a wallet connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IWalletConnector`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`WalletConnectorConfig`](../type-aliases/WalletConnectorConfig.md), `Factory`\<`IWalletConnector`\>\>
 
 The instance created and the factory for it.

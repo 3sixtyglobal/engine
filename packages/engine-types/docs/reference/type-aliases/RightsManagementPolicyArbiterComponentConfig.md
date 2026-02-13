@@ -1,17 +1,5 @@
 # Type Alias: RightsManagementPolicyArbiterComponentConfig
 
-> **RightsManagementPolicyArbiterComponentConfig** = `object`
+> **RightsManagementPolicyArbiterComponentConfig** = \{ `type`: *typeof* [`PassThrough`](../variables/RightsManagementPolicyArbiterComponentType.md#passthrough); `options?`: `IPassThroughPolicyArbiterConstructorOptions`; \} \| \{ `type`: *typeof* [`Default`](../variables/RightsManagementPolicyArbiterComponentType.md#default); `options?`: `IDefaultPolicyArbiterConstructorOptions`; \}
 
 Rights management policy arbiter component config types.
-
-## Properties
-
-### type
-
-> **type**: *typeof* [`PassThrough`](../variables/RightsManagementPolicyArbiterComponentType.md#passthrough)
-
-***
-
-### options?
-
-> `optional` **options**: `IPassThroughPolicyArbiterConstructorOptions`

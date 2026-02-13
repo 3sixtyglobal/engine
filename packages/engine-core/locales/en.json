@@ -5,7 +5,8 @@
 			"bootstrapFailed": "Failed to bootstrap component type \"{className}\" with instance type \"{instanceType}\"",
 			"componentStartFailed": "Failed to start component type \"{className}\" with instance type \"{instanceType}\"",
 			"componentStopFailed": "Failed to stop component type \"{className}\" with instance type \"{instanceType}\"",
-			"instanceTypeNotFound": "Instance type not found for \"{type}\" with features \"{features}\""
+			"instanceTypeNotFound": "Instance type not found for \"{type}\"",
+			"instanceTypeNotFoundWithFeatures": "Instance type not found for \"{type}\" with features \"{features}\""
 		},
 		"fileStateStorage": {
 			"failedLoading": "Failed to load file state storage from \"{filename}\"",

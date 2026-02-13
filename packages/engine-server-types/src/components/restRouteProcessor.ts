@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { AuthHeaderProcessor } from "@twin.org/api-auth-entity-storage-service";
-import { RestRouteProcessorFactory, type IBaseRouteProcessor } from "@twin.org/api-models";
+import { RestRouteProcessorFactory } from "@twin.org/api-models";
 import {
 	LoggingProcessor,
 	ContextIdProcessor,
@@ -15,8 +15,12 @@ import {
 } from "@twin.org/api-tenant-processor";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import type { IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { initialiseEntityStorageConnector } from "@twin.org/engine-types";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
+import { EngineTypeHelper, initialiseEntityStorageConnector } from "@twin.org/engine-types";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { RestRouteProcessorConfig } from "../models/config/restRouteProcessorConfig.js";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
@@ -29,63 +33,77 @@ import { RestRouteProcessorType } from "../models/types/restRouteProcessorType.j
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseRestRouteProcessorComponent(
+export function initialiseRestRouteProcessorComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: RestRouteProcessorConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof RestRouteProcessorFactory;
-	component?: IComponent;
-}> {
-	let component: IBaseRouteProcessor | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<RestRouteProcessorConfig, typeof RestRouteProcessorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === RestRouteProcessorType.AuthHeader) {
-		component = new AuthHeaderProcessor({
-			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-			config: {
-				...instanceConfig.options?.config
-			}
-		});
-		instanceType = nameofKebabCase(AuthHeaderProcessor);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new AuthHeaderProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector")
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(AuthHeaderProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.Logging) {
-		component = new LoggingProcessor({
-			loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
-			config: {
-				...instanceConfig.options?.config
-			}
-		});
-		instanceType = nameofKebabCase(LoggingProcessor);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new LoggingProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent")
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(LoggingProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.ContextId) {
-		component = new ContextIdProcessor(instanceConfig.options);
-		instanceType = nameofKebabCase(ContextIdProcessor);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new ContextIdProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(ContextIdProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.StaticContextId) {
-		component = new StaticContextIdProcessor(instanceConfig.options);
-		instanceType = nameofKebabCase(StaticContextIdProcessor);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new StaticContextIdProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(StaticContextIdProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.RestRoute) {
-		component = new RestRouteProcessor(instanceConfig.options);
-		instanceType = nameofKebabCase(RestRouteProcessor);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new RestRouteProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(RestRouteProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.Tenant) {
-		initSchemaTenantProcessor();
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.tenantEntityStorageType,
-			nameof<Tenant>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-				ContextIdKeys.Node,
-				ContextIdKeys.Tenant
-			])
-		);
-
-		component = new TenantProcessor(instanceConfig.options);
-		instanceType = nameofKebabCase(TenantProcessor);
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaTenantProcessor();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.tenantEntityStorageType,
+				nameof<Tenant>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			return new TenantProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = nameofKebabCase(TenantProcessor);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: RestRouteProcessorFactory
 	};
 }

@@ -1,6 +1,6 @@
 # Function: initialiseIdentityProfileComponent()
 
-> **initialiseIdentityProfileComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseIdentityProfileComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`IdentityProfileComponentConfig`](../type-aliases/IdentityProfileComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the identity profile component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`IdentityProfileComponentConfig`](../type-aliases/IdentityProfileComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

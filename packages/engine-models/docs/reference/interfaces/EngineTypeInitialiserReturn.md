@@ -1,12 +1,22 @@
-# Interface: EngineTypeInitialiserReturn
+# Interface: EngineTypeInitialiserReturn\<T, F\>
 
 Engine type initialiser return type.
 
+## Type Parameters
+
+### T
+
+`T` *extends* [`IEngineCoreTypeBaseConfig`](IEngineCoreTypeBaseConfig.md) = [`IEngineCoreTypeBaseConfig`](IEngineCoreTypeBaseConfig.md)
+
+### F
+
+`F` = `Factory`\<`unknown`\>
+
 ## Properties
 
-### instanceType?
+### instanceTypeName?
 
-> `optional` **instanceType**: `string`
+> `optional` **instanceTypeName**: `string`
 
 The instance type created.
 
@@ -14,14 +24,24 @@ The instance type created.
 
 ### factory?
 
-> `optional` **factory**: `Factory`\<`unknown`\>
+> `optional` **factory**: `F`
 
 The factory to store the instance in.
 
 ***
 
-### component?
+### createComponent()?
 
-> `optional` **component**: `IComponent`
+> `optional` **createComponent**: (`additionalConfig`) => `IComponent`
 
-The component created.
+Create a new component.
+
+#### Parameters
+
+##### additionalConfig
+
+`T`
+
+#### Returns
+
+`IComponent`

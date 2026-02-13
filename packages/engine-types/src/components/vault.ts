@@ -1,7 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameof } from "@twin.org/nameof";
 import {
 	EntityStorageVaultConnector,
@@ -10,11 +14,12 @@ import {
 	type VaultSecret
 } from "@twin.org/vault-connector-entity-storage";
 import { HashicorpVaultConnector } from "@twin.org/vault-connector-hashicorp";
-import { VaultConnectorFactory, type IVaultConnector } from "@twin.org/vault-models";
+import { VaultConnectorFactory } from "@twin.org/vault-models";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { VaultConnectorConfig } from "../models/config/vaultConnectorConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { VaultConnectorType } from "../models/types/vaultConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the vault connector.
@@ -23,44 +28,47 @@ import { VaultConnectorType } from "../models/types/vaultConnectorType.js";
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseVaultConnector(
+export function initialiseVaultConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: VaultConnectorConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof VaultConnectorFactory;
-	component?: IComponent;
-}> {
-	let component: IVaultConnector | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof VaultConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === VaultConnectorType.EntityStorage) {
-		initSchema();
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.vaultKeyEntityStorageType,
-			nameof<VaultKey>(),
-			[]
-		);
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.vaultSecretEntityStorageType,
-			nameof<VaultSecret>(),
-			[]
-		);
-		component = new EntityStorageVaultConnector(instanceConfig.options);
-		instanceType = EntityStorageVaultConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchema();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.vaultKeyEntityStorageType,
+				nameof<VaultKey>(),
+				[]
+			);
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.vaultSecretEntityStorageType,
+				nameof<VaultSecret>(),
+				[]
+			);
+			return new EntityStorageVaultConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = EntityStorageVaultConnector.NAMESPACE;
 	} else if (instanceConfig.type === VaultConnectorType.Hashicorp) {
-		component = new HashicorpVaultConnector(instanceConfig.options);
-		instanceType = HashicorpVaultConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new HashicorpVaultConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = HashicorpVaultConnector.NAMESPACE;
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: VaultConnectorFactory
 	};
 }

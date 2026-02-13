@@ -1,6 +1,6 @@
 # Function: initialiseMessagingAdminComponent()
 
-> **initialiseMessagingAdminComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseMessagingAdminComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`MessagingAdminComponentConfig`](../type-aliases/MessagingAdminComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the messaging admin component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`MessagingAdminComponentConfig`](../type-aliases/MessagingAdminComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

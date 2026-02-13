@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPolicyArbiterComponent()
 
-> **initialiseRightsManagementPolicyArbiterComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IPolicyArbiter`\>; `component?`: `IComponent`; \}\>
+> **initialiseRightsManagementPolicyArbiterComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPolicyArbiterComponentConfig`](../type-aliases/RightsManagementPolicyArbiterComponentConfig.md), `Factory`\<`IPolicyArbiter`\>\>
 
 Initialise the rights management policy arbiter component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IPolicyArbiter`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`RightsManagementPolicyArbiterComponentConfig`](../type-aliases/RightsManagementPolicyArbiterComponentConfig.md), `Factory`\<`IPolicyArbiter`\>\>
 
 The instance created and the factory for it.

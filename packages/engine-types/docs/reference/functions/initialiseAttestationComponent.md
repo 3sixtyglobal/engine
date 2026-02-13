@@ -1,6 +1,6 @@
 # Function: initialiseAttestationComponent()
 
-> **initialiseAttestationComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseAttestationComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AttestationComponentConfig`](../type-aliases/AttestationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the attestation component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`AttestationComponentConfig`](../type-aliases/AttestationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

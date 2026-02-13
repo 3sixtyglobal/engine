@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPepComponent()
 
-> **initialiseRightsManagementPepComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseRightsManagementPepComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPepComponentConfig`](../type-aliases/RightsManagementPepComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the rights management PEP component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`RightsManagementPepComponentConfig`](../type-aliases/RightsManagementPepComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

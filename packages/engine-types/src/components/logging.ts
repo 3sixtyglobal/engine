@@ -2,19 +2,18 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { ConsoleLoggingConnector } from "@twin.org/logging-connector-console";
 import {
 	EntityStorageLoggingConnector,
 	initSchema as initSchemaLogging,
 	type LogEntry
 } from "@twin.org/logging-connector-entity-storage";
-import {
-	LoggingConnectorFactory,
-	MultiLoggingConnector,
-	type ILoggingComponent,
-	type ILoggingConnector
-} from "@twin.org/logging-models";
+import { LoggingConnectorFactory, MultiLoggingConnector } from "@twin.org/logging-models";
 import { LoggingRestClient } from "@twin.org/logging-rest-client";
 import { LoggingService } from "@twin.org/logging-service";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
@@ -24,6 +23,7 @@ import type { LoggingConnectorConfig } from "../models/config/loggingConnectorCo
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { LoggingComponentType } from "../models/types/loggingComponentType.js";
 import { LoggingConnectorType } from "../models/types/loggingConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the logging connector.
@@ -32,43 +32,49 @@ import { LoggingConnectorType } from "../models/types/loggingConnectorType.js";
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseLoggingConnector(
+export function initialiseLoggingConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: LoggingConnectorConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof LoggingConnectorFactory;
-	component?: IComponent;
-}> {
-	let component: ILoggingConnector | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof LoggingConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === LoggingConnectorType.Console) {
-		component = new ConsoleLoggingConnector(instanceConfig.options);
-		instanceType = ConsoleLoggingConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new ConsoleLoggingConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = ConsoleLoggingConnector.NAMESPACE;
 	} else if (instanceConfig.type === LoggingConnectorType.EntityStorage) {
-		initSchemaLogging();
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.logEntryStorageConnectorType,
-			nameof<LogEntry>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-				ContextIdKeys.Node,
-				ContextIdKeys.Tenant
-			])
-		);
-		component = new EntityStorageLoggingConnector(instanceConfig.options);
-		instanceType = EntityStorageLoggingConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaLogging();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.logEntryStorageConnectorType,
+				nameof<LogEntry>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			return new EntityStorageLoggingConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = EntityStorageLoggingConnector.NAMESPACE;
 	} else if (instanceConfig.type === LoggingConnectorType.Multi) {
-		component = new MultiLoggingConnector(instanceConfig.options);
-		instanceType = MultiLoggingConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new MultiLoggingConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = MultiLoggingConnector.NAMESPACE;
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: LoggingConnectorFactory
 	};
 }
@@ -80,32 +86,34 @@ export async function initialiseLoggingConnector(
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseLoggingComponent(
+export function initialiseLoggingComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: LoggingComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof ComponentFactory;
-	component?: IComponent;
-}> {
-	let component: ILoggingComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === LoggingComponentType.Service) {
-		component = new LoggingService({
-			loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector"),
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(LoggingService);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new LoggingService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{ loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector") },
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(LoggingService);
 	} else if (instanceConfig.type === LoggingComponentType.RestClient) {
-		component = new LoggingRestClient(instanceConfig.options);
-		instanceType = nameofKebabCase(LoggingRestClient);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new LoggingRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(LoggingRestClient);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

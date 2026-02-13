@@ -11,3 +11,9 @@ Rights management Policy Enforcement Processor component types.
 > `readonly` **PassThrough**: `"pass-through"` = `"pass-through"`
 
 Pass Through.
+
+### Default
+
+> `readonly` **Default**: `"default"` = `"default"`
+
+Default.

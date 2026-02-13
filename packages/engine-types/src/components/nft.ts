@@ -1,8 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory, type IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import { ComponentFactory } from "@twin.org/core";
+import type { IComponent } from "@twin.org/core";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import {
 	EntityStorageNftConnector,
@@ -10,7 +15,7 @@ import {
 	type Nft
 } from "@twin.org/nft-connector-entity-storage";
 import { IotaNftConnector } from "@twin.org/nft-connector-iota";
-import { NftConnectorFactory, type INftComponent, type INftConnector } from "@twin.org/nft-models";
+import { NftConnectorFactory } from "@twin.org/nft-models";
 import { NftRestClient } from "@twin.org/nft-rest-client";
 import { NftService } from "@twin.org/nft-service";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
@@ -30,54 +35,58 @@ import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseNftConnector(
+export function initialiseNftConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: NftConnectorConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof NftConnectorFactory;
-	component?: IComponent;
-}> {
-	let component: INftConnector | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof NftConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === NftConnectorType.EntityStorage) {
-		initSchema();
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.nftEntityStorageType,
-			nameof<Nft>(),
-			ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-				ContextIdKeys.Node,
-				ContextIdKeys.Tenant
-			])
-		);
-		component = new EntityStorageNftConnector(instanceConfig.options);
-		instanceType = EntityStorageNftConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchema();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.nftEntityStorageType,
+				nameof<Nft>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+
+			return new EntityStorageNftConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = EntityStorageNftConnector.NAMESPACE;
 	} else if (instanceConfig.type === NftConnectorType.Iota) {
-		const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
-			engineCore.getConfig(),
-			"dltConfig",
-			DltConfigType.Iota
-		);
-		component = new IotaNftConnector({
-			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-			walletConnectorType: engineCore.getRegisteredInstanceType("walletConnector"),
-			loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
-			...instanceConfig.options,
-			config: {
-				...dltConfig?.options?.config,
-				...instanceConfig.options.config
-			}
-		});
-		instanceType = IotaNftConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) => {
+			const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
+				engineCore.getConfig(),
+				"dltConfig",
+				DltConfigType.Iota
+			);
+			return new IotaNftConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+						walletConnectorType: engineCore.getRegisteredInstanceType("walletConnector"),
+						loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
+						config: dltConfig?.options?.config
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = IotaNftConnector.NAMESPACE;
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: NftConnectorFactory
 	};
 }
@@ -89,29 +98,31 @@ export async function initialiseNftConnector(
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseNftComponent(
+export function initialiseNftComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: NftComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof ComponentFactory;
-	component?: IComponent;
-}> {
-	let component: INftComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === NftComponentType.Service) {
-		component = new NftService(instanceConfig.options);
-		instanceType = nameofKebabCase(NftService);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new NftService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(NftService);
 	} else if (instanceConfig.type === NftComponentType.RestClient) {
-		component = new NftRestClient(instanceConfig.options);
-		instanceType = nameofKebabCase(NftRestClient);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new NftRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(NftRestClient);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

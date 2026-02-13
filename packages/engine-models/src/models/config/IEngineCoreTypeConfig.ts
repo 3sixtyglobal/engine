@@ -18,6 +18,11 @@ export type IEngineCoreTypeConfig<T extends IEngineCoreTypeBaseConfig = IEngineC
 		isDefault?: boolean;
 
 		/**
+		 * Whether this is a multi-instance component.
+		 */
+		isMultiInstance?: boolean;
+
+		/**
 		 * The features supported by this instance.
 		 */
 		features?: string[];

@@ -9,7 +9,12 @@ export const RightsManagementPolicyArbiterComponentType = {
 	/**
 	 * PassThrough.
 	 */
-	PassThrough: "pass-through"
+	PassThrough: "pass-through",
+
+	/**
+	 * Default.
+	 */
+	Default: "default"
 } as const;
 
 /**

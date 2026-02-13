@@ -1,7 +1,12 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, type IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import { ComponentFactory } from "@twin.org/core";
+import type { IComponent } from "@twin.org/core";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import {
 	EntityStorageIdentityResolverConnector,
 	initSchema as initSchemaIdentityStorage,
@@ -9,11 +14,7 @@ import {
 } from "@twin.org/identity-connector-entity-storage";
 import { IotaIdentityResolverConnector } from "@twin.org/identity-connector-iota";
 import { UniversalResolverConnector } from "@twin.org/identity-connector-universal";
-import {
-	IdentityResolverConnectorFactory,
-	type IIdentityResolverComponent,
-	type IIdentityResolverConnector
-} from "@twin.org/identity-models";
+import { IdentityResolverConnectorFactory } from "@twin.org/identity-models";
 import { IdentityResolverRestClient } from "@twin.org/identity-rest-client";
 import { IdentityResolverService } from "@twin.org/identity-service";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
@@ -34,56 +35,60 @@ import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseIdentityResolverConnector(
+export function initialiseIdentityResolverConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: IdentityResolverConnectorConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof IdentityResolverConnectorFactory;
-	component?: IComponent;
-}> {
-	let component: IIdentityResolverConnector | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof IdentityResolverConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === IdentityResolverConnectorType.Iota) {
-		const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
-			engineCore.getConfig(),
-			"dltConfig",
-			DltConfigType.Iota
-		);
-		component = new IotaIdentityResolverConnector({
-			...instanceConfig.options,
-			config: {
-				...dltConfig?.options?.config,
-				...instanceConfig.options.config
-			}
-		});
-		instanceType = IotaIdentityResolverConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) => {
+			const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
+				engineCore.getConfig(),
+				"dltConfig",
+				DltConfigType.Iota
+			);
+			return new IotaIdentityResolverConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						config: dltConfig?.options?.config
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = IotaIdentityResolverConnector.NAMESPACE;
 	} else if (instanceConfig.type === IdentityResolverConnectorType.EntityStorage) {
-		initSchemaIdentityStorage({ includeProfile: false });
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.didDocumentEntityStorageType,
-			nameof<IdentityDocument>(),
-			[]
-		);
-		component = new EntityStorageIdentityResolverConnector({
-			vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-			...instanceConfig.options
-		});
-		instanceType = EntityStorageIdentityResolverConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaIdentityStorage({ includeProfile: false });
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.didDocumentEntityStorageType,
+				nameof<IdentityDocument>(),
+				[]
+			);
+			return new EntityStorageIdentityResolverConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{ vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector") },
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = EntityStorageIdentityResolverConnector.NAMESPACE;
 	} else if (instanceConfig.type === IdentityResolverConnectorType.Universal) {
-		component = new UniversalResolverConnector({
-			...instanceConfig.options
-		});
-		instanceType = UniversalResolverConnector.NAMESPACE;
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new UniversalResolverConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = UniversalResolverConnector.NAMESPACE;
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: IdentityResolverConnectorFactory
 	};
 }
@@ -95,39 +100,44 @@ export async function initialiseIdentityResolverConnector(
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseIdentityResolverComponent(
+export function initialiseIdentityResolverComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: IdentityResolverComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof ComponentFactory;
-	component?: IComponent;
-}> {
-	let component: IIdentityResolverComponent | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === IdentityResolverComponentType.Service) {
-		const defaultIdentityResolverType = engineCore.getRegisteredInstanceType(
-			"identityResolverConnector"
-		);
+		createComponent = (createConfig: typeof instanceConfig) => {
+			const defaultIdentityResolverType = engineCore.getRegisteredInstanceType(
+				"identityResolverConnector"
+			);
 
-		component = new IdentityResolverService({
-			fallbackResolverConnectorType:
-				defaultIdentityResolverType !== IdentityResolverConnectorType.Universal
-					? IdentityResolverConnectorType.Universal
-					: undefined,
-			...instanceConfig.options
-		});
-		instanceType = nameofKebabCase(IdentityResolverService);
+			return new IdentityResolverService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						fallbackResolverConnectorType:
+							defaultIdentityResolverType !== IdentityResolverConnectorType.Universal
+								? IdentityResolverConnectorType.Universal
+								: undefined
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = nameofKebabCase(IdentityResolverService);
 	} else if (instanceConfig.type === IdentityResolverComponentType.RestClient) {
-		component = new IdentityResolverRestClient(instanceConfig.options);
-		instanceType = nameofKebabCase(IdentityResolverRestClient);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new IdentityResolverRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(IdentityResolverRestClient);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

@@ -1,6 +1,6 @@
 # Function: initialiseImmutableProofComponent()
 
-> **initialiseImmutableProofComponent**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+> **initialiseImmutableProofComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`ImmutableProofComponentConfig`](../type-aliases/ImmutableProofComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the immutable proof component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IComponent`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`ImmutableProofComponentConfig`](../type-aliases/ImmutableProofComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

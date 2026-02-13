@@ -59,3 +59,56 @@ The type name.
 `undefined` \| `IEngineCoreTypeConfig`\<`T`\>
 
 The config for the specified component and type or undefined if it does not exist.
+
+***
+
+### mergeConfig()
+
+> `static` **mergeConfig**\<`T`\>(`config1?`, `config2?`, `config3?`, `config4?`, `config5?`): `T`
+
+Merge multiple config objects into one.
+Each config parameter can be a different partial type, and they are merged together.
+
+#### Type Parameters
+
+##### T
+
+`T` *extends* `unknown`
+
+#### Parameters
+
+##### config1?
+
+`Partial`\<`T`\>
+
+The first config object.
+
+##### config2?
+
+`Partial`\<`T`\>
+
+Optional additional config object to merge.
+
+##### config3?
+
+`Partial`\<`T`\>
+
+Optional additional config object to merge.
+
+##### config4?
+
+`Partial`\<`T`\>
+
+Optional additional config object to merge.
+
+##### config5?
+
+`Partial`\<`T`\>
+
+Optional additional config object to merge.
+
+#### Returns
+
+`T`
+
+The merged config object combining all input types.

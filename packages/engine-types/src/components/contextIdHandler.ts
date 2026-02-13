@@ -1,9 +1,12 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { TenantIdContextIdHandler } from "@twin.org/api-tenant-processor";
-import type { IContextIdHandler } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { DidContextIdHandler } from "@twin.org/identity-models";
 import { nameofKebabCase } from "@twin.org/nameof";
 import type { ContextIdHandlerComponentConfig } from "../models/config/contextIdHandlerComponentConfig.js";
@@ -17,29 +20,25 @@ import { ContextIdHandlerComponentType } from "../models/types/contextIdHandlerC
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export async function initialiseContextIdHandlerComponent(
+export function initialiseContextIdHandlerComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: ContextIdHandlerComponentConfig
-): Promise<{
-	instanceType?: string;
-	factory?: typeof ComponentFactory;
-	component?: IComponent;
-}> {
-	let component: IContextIdHandler | undefined;
-	let instanceType: string | undefined;
+): EngineTypeInitialiserReturn<ContextIdHandlerComponentConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
 	if (instanceConfig.type === ContextIdHandlerComponentType.Did) {
-		component = new DidContextIdHandler();
-		instanceType = nameofKebabCase(DidContextIdHandler);
+		createComponent = (createConfig: typeof instanceConfig) => new DidContextIdHandler();
+		instanceTypeName = nameofKebabCase(DidContextIdHandler);
 	} else if (instanceConfig.type === ContextIdHandlerComponentType.Tenant) {
-		component = new TenantIdContextIdHandler();
-		instanceType = nameofKebabCase(TenantIdContextIdHandler);
+		createComponent = (createConfig: typeof instanceConfig) => new TenantIdContextIdHandler();
+		instanceTypeName = nameofKebabCase(TenantIdContextIdHandler);
 	}
 
 	return {
-		component,
-		instanceType,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }

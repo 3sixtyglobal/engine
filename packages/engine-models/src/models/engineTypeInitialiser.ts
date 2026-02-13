@@ -8,29 +8,34 @@ import type { IEngineCoreContext } from "./IEngineCoreContext.js";
 /**
  * Method definition for the engine type initialiser.
  */
-export type EngineTypeInitialiser<T extends IEngineCoreTypeBaseConfig = IEngineCoreTypeBaseConfig> =
-	(
-		engineCore: IEngineCore,
-		context: IEngineCoreContext,
-		instanceConfig: T
-	) => Promise<EngineTypeInitialiserReturn>;
+export type EngineTypeInitialiser<
+	T extends IEngineCoreTypeBaseConfig = IEngineCoreTypeBaseConfig,
+	F = Factory<unknown>
+> = (
+	engineCore: IEngineCore,
+	context: IEngineCoreContext,
+	instanceConfig: T
+) => EngineTypeInitialiserReturn<T, F>;
 
 /**
  * Engine type initialiser return type.
  */
-export interface EngineTypeInitialiserReturn {
+export interface EngineTypeInitialiserReturn<
+	T extends IEngineCoreTypeBaseConfig = IEngineCoreTypeBaseConfig,
+	F = Factory<unknown>
+> {
 	/**
 	 * The instance type created.
 	 */
-	instanceType?: string;
+	instanceTypeName?: string;
 
 	/**
 	 * The factory to store the instance in.
 	 */
-	factory?: Factory<unknown>;
+	factory?: F;
 
 	/**
-	 * The component created.
+	 * Create a new component.
 	 */
-	component?: IComponent;
+	createComponent?: (additionalConfig: T) => IComponent;
 }

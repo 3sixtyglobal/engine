@@ -50,6 +50,7 @@ import type { RightsManagementPolicyEnforcementProcessorComponentConfig } from "
 import type { RightsManagementPolicyExecutionActionComponentConfig } from "./config/rightsManagementPolicyExecutionActionComponentConfig.js";
 import type { RightsManagementPolicyInformationSourceComponentConfig } from "./config/rightsManagementPolicyInformationSourceComponentConfig.js";
 import type { RightsManagementPolicyNegotiatorComponentConfig } from "./config/rightsManagementPolicyNegotiatorComponentConfig.js";
+import type { RightsManagementPolicyObligationEnforcerComponentConfig } from "./config/rightsManagementPolicyObligationEnforcerComponentConfig.js";
 import type { RightsManagementPolicyRequesterComponentConfig } from "./config/rightsManagementPolicyRequesterComponentConfig.js";
 import type { RightsManagementPxpComponentConfig } from "./config/rightsManagementPxpComponentConfig.js";
 import type { SynchronisedStorageComponentConfig } from "./config/synchronisedStorageComponentConfig.js";
@@ -334,6 +335,12 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Rights management policy arbiter options which can be overridden by individual components by specifying types other than default.
 		 */
 		rightsManagementPolicyArbiterComponent?: IEngineCoreTypeConfig<RightsManagementPolicyArbiterComponentConfig>[];
+
+		/**
+		 * Rights management policy obligation enforcer options which can be overridden by individual components by specifying types other than default.
+		 */
+		// eslint-disable-next-line max-len
+		rightsManagementPolicyObligationEnforcerComponent?: IEngineCoreTypeConfig<RightsManagementPolicyObligationEnforcerComponentConfig>[];
 
 		/**
 		 * Rights management policy enforcement processor options which can be overridden by individual components by specifying types other than default.

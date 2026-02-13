@@ -1,6 +1,6 @@
 # Function: initialiseVaultConnector()
 
-> **initialiseVaultConnector**(`engineCore`, `context`, `instanceConfig`): `Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IVaultConnector`\>; `component?`: `IComponent`; \}\>
+> **initialiseVaultConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`VaultConnectorConfig`](../type-aliases/VaultConnectorConfig.md), `Factory`\<`IVaultConnector`\>\>
 
 Initialise the vault connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`Promise`\<\{ `instanceType?`: `string`; `factory?`: `Factory`\<`IVaultConnector`\>; `component?`: `IComponent`; \}\>
+`EngineTypeInitialiserReturn`\<[`VaultConnectorConfig`](../type-aliases/VaultConnectorConfig.md), `Factory`\<`IVaultConnector`\>\>
 
 The instance created and the factory for it.
