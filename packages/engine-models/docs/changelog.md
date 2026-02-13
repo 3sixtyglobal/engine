@@ -1,5 +1,12 @@
 # @twin.org/engine-models - Changelog
 
+## [0.0.3-next.21](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.3-next.20...engine-models-v0.0.3-next.21) (2026-02-13)
+
+
+### Features
+
+* multi instance component support ([#83](https://github.com/twinfoundation/engine/issues/83)) ([6012b50](https://github.com/twinfoundation/engine/commit/6012b50959df5af893f05516d42eea2e0800b31a))
+
 ## [0.0.3-next.20](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.3-next.19...engine-models-v0.0.3-next.20) (2026-02-06)
 
 
