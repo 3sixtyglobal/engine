@@ -1,5 +1,21 @@
 # @twin.org/engine - Changelog
 
+## [0.0.3-next.22](https://github.com/twinfoundation/engine/compare/engine-v0.0.3-next.21...engine-v0.0.3-next.22) (2026-02-23)
+
+
+### Features
+
+* add sorting to factories so default entries are at start ([1a69356](https://github.com/twinfoundation/engine/commit/1a693567befcf27e6edc9880746ee82cfb9538e5))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.21 to 0.0.3-next.22
+    * @twin.org/engine-models bumped from 0.0.3-next.21 to 0.0.3-next.22
+    * @twin.org/engine-types bumped from 0.0.3-next.21 to 0.0.3-next.22
+
 ## [0.0.3-next.21](https://github.com/twinfoundation/engine/compare/engine-v0.0.3-next.20...engine-v0.0.3-next.21) (2026-02-13)
 
 
