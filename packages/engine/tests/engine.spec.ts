@@ -362,6 +362,7 @@ describe("engine", () => {
 
 		expect(EntitySchemaFactory.names()).toEqual([
 			"BackgroundTask",
+			"ScheduledTask",
 			"TelemetryMetric",
 			"TelemetryMetricValue",
 			"EmailEntry",
@@ -1177,6 +1178,7 @@ describe("engine", () => {
 
 		expect(EntitySchemaFactory.names()).toEqual([
 			"BackgroundTask",
+			"ScheduledTask",
 			"TelemetryMetric",
 			"TelemetryMetricValue",
 			"EmailEntry",
