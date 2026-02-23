@@ -631,6 +631,13 @@ export class EngineCore<
 				method
 			);
 
+			const factoryRegistrations: {
+				typeKey: string;
+				isDefault: boolean;
+				noFeatures: boolean;
+				register: () => void;
+			}[] = [];
+
 			for (let i = 0; i < typeConfig.length; i++) {
 				await this.logInfo(
 					I18n.formatMessage("engineCore.configuring", {
@@ -641,6 +648,8 @@ export class EngineCore<
 
 				const result = instanceMethod(this, this._context, typeConfig[i]);
 				const componentCreateMethod = result.createComponent;
+				const isDefault = typeConfig[i].isDefault ?? false;
+				const noFeatures = (typeConfig[i].features?.length ?? 0) === 0;
 
 				if (Is.stringValue(result.instanceTypeName) && Is.function(componentCreateMethod)) {
 					const finalInstanceType = typeConfig[i].overrideInstanceType ?? result.instanceTypeName;
@@ -653,12 +662,18 @@ export class EngineCore<
 					// passing custom options, instead of the regular get method
 					// which doesn't allow for custom options
 					if (typeConfig[i].isMultiInstance ?? false) {
-						result.factory?.register(finalInstanceType, params =>
-							componentCreateMethod({
-								type: typeConfig[i].type,
-								options: params
-							})
-						);
+						factoryRegistrations.push({
+							typeKey,
+							isDefault,
+							noFeatures,
+							register: () =>
+								result.factory?.register(finalInstanceType, params =>
+									componentCreateMethod({
+										type: typeConfig[i].type,
+										options: params
+									})
+								)
+						});
 					} else {
 						const component = componentCreateMethod(typeConfig[i]);
 						this._context.componentInstances.push({
@@ -666,13 +681,18 @@ export class EngineCore<
 							component,
 							initialised: false
 						});
-						result.factory?.register(finalInstanceType, () => component);
+						factoryRegistrations.push({
+							typeKey,
+							isDefault,
+							noFeatures,
+							register: () => result.factory?.register(finalInstanceType, () => component)
+						});
 					}
 
 					this._context.registeredInstances[typeKey] ??= [];
 					this._context.registeredInstances[typeKey].push({
 						type: finalInstanceType,
-						isDefault: typeConfig[i].isDefault,
+						isDefault,
 						features: typeConfig[i].features
 					});
 				} else {
@@ -681,6 +701,19 @@ export class EngineCore<
 						componentType: typeKey
 					});
 				}
+			}
+
+			// We need to sort the registrations so that the default and no features entries are registered first
+			// this ensures they are used when no features or default is specified when retrieving the instance type
+			factoryRegistrations.sort((a, b) => {
+				const aPriority = a.isDefault || a.noFeatures ? 0 : 1;
+				const bPriority = b.isDefault || b.noFeatures ? 0 : 1;
+
+				return aPriority - bPriority;
+			});
+
+			for (const registration of factoryRegistrations) {
+				registration.register();
 			}
 		}
 	}
