@@ -353,8 +353,8 @@ describe("engine", () => {
 			"policy-decision-point-service",
 			"policy-enforcement-point-service",
 			"policy-negotiation-admin-point-service",
-			"policy-negotiation-point-service",
 			"policy-negotiation-point-rest-client",
+			"policy-negotiation-point-service",
 			"synchronised-storage-service",
 			"federated-catalogue-service",
 			"data-space-connector-service"
