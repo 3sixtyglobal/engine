@@ -1,5 +1,23 @@
 # @twin.org/engine-server - Changelog
 
+## [0.0.3-next.25](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.3-next.24...engine-server-v0.0.3-next.25) (2026-03-02)
+
+
+### Features
+
+* replace unified data space connector with control plane and data plane components ([#78](https://github.com/twinfoundation/engine/issues/78)) ([a6ebace](https://github.com/twinfoundation/engine/commit/a6ebace389dafe754a3ca0827999966b5a101a59))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.24 to 0.0.3-next.25
+    * @twin.org/engine-models bumped from 0.0.3-next.24 to 0.0.3-next.25
+    * @twin.org/engine-server-types bumped from 0.0.3-next.24 to 0.0.3-next.25
+  * devDependencies
+    * @twin.org/engine bumped from 0.0.3-next.24 to 0.0.3-next.25
+
 ## [0.0.3-next.24](https://github.com/twinfoundation/engine/compare/engine-server-v0.0.3-next.23...engine-server-v0.0.3-next.24) (2026-02-26)
 
 
