@@ -1,0 +1,5 @@
+# Type Alias: SocketRouteProcessorConfig
+
+> **SocketRouteProcessorConfig** = \{ `type`: *typeof* [`AuthHeader`](../variables/SocketRouteProcessorType.md#authheader); `options?`: `IAuthHeaderProcessorConstructorOptions`; \} \| \{ `type`: *typeof* [`Logging`](../variables/SocketRouteProcessorType.md#logging); `options?`: `ILoggingProcessorConstructorOptions`; \} \| \{ `type`: *typeof* [`ContextId`](../variables/SocketRouteProcessorType.md#contextid); `options`: `IContextIdProcessorConstructorOptions`; \} \| \{ `type`: *typeof* [`StaticContextId`](../variables/SocketRouteProcessorType.md#staticcontextid); `options`: `IStaticContextIdProcessorConstructorOptions`; \} \| \{ `type`: *typeof* [`Tenant`](../variables/SocketRouteProcessorType.md#tenant); `options?`: `ITenantProcessorConstructorOptions`; \} \| \{ `type`: *typeof* [`SocketRoute`](../variables/SocketRouteProcessorType.md#socketroute); `options?`: `ISocketRouteProcessorConstructorOptions`; \}
+
+Socket route processor config types.
