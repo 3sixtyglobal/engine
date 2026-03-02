@@ -1,8 +1,8 @@
-# Variable: DataSpaceConnectorComponentType
+# Variable: DataspaceDataPlaneComponentType
 
-> `const` **DataSpaceConnectorComponentType**: `object`
+> `const` **DataspaceDataPlaneComponentType**: `object`
 
-Data space connector component types.
+Dataspace data plane component types.
 
 ## Type Declaration
 

@@ -12,7 +12,8 @@ import type { ContextIdHandlerComponentConfig } from "./config/contextIdHandlerC
 import type { DataConverterConnectorConfig } from "./config/dataConverterConnectorConfig.js";
 import type { DataExtractorConnectorConfig } from "./config/dataExtractorConnectorConfig.js";
 import type { DataProcessingComponentConfig } from "./config/dataProcessingComponentConfig.js";
-import type { DataSpaceConnectorComponentConfig } from "./config/dataSpaceConnectorComponentConfig.js";
+import type { DataspaceControlPlaneComponentConfig } from "./config/dataspaceControlPlaneComponentConfig.js";
+import type { DataspaceDataPlaneComponentConfig } from "./config/dataspaceDataPlaneComponentConfig.js";
 import type { DltConfig } from "./config/dltConfig.js";
 import type { DocumentManagementComponentConfig } from "./config/documentManagementComponentConfig.js";
 import type { EntityStorageComponentConfig } from "./config/entityStorageComponentConfig.js";
@@ -388,9 +389,14 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		federatedCatalogueFilterComponent?: IEngineCoreTypeConfig<FederatedCatalogueFilterComponentConfig>[];
 
 		/**
-		 * Data space connector options which can be overridden by individual components by specifying types other than default.
+		 * Dataspace control plane component options which can be overridden by individual components by specifying types other than default.
 		 */
-		dataSpaceConnectorComponent?: IEngineCoreTypeConfig<DataSpaceConnectorComponentConfig>[];
+		dataspaceControlPlaneComponent?: IEngineCoreTypeConfig<DataspaceControlPlaneComponentConfig>[];
+
+		/**
+		 * Dataspace data plane component options which can be overridden by individual components by specifying types other than default.
+		 */
+		dataspaceDataPlaneComponent?: IEngineCoreTypeConfig<DataspaceDataPlaneComponentConfig>[];
 
 		/**
 		 * Tenant admin component options which can be overridden by individual components by specifying types other than default.

@@ -143,9 +143,15 @@
 		"defaultPath": "/federated-catalogue"
 	},
 	{
-		"type": "dataSpaceConnectorComponent",
-		"module": "@twin.org/data-space-connector-service",
-		"method": "generateRestRoutesDataSpaceConnector",
-		"defaultPath": "/data-space-connector"
+		"type": "dataspaceControlPlaneComponent",
+		"module": "@twin.org/dataspace-control-plane-service",
+		"method": "generateRestRoutesDataspaceControlPlane",
+		"defaultPath": "/dataspace"
+	},
+	{
+		"type": "dataspaceDataPlaneComponent",
+		"module": "@twin.org/dataspace-data-plane-service",
+		"method": "generateRestRoutesDataspaceDataPlane",
+		"defaultPath": "/dataspace"
 	}
 ]

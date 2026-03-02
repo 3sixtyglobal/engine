@@ -6,9 +6,9 @@
 		"defaultPath": "event-bus"
 	},
 	{
-		"type": "dataSpaceConnectorComponent",
-		"module": "@twin.org/data-space-connector-service",
-		"method": "generateSocketRoutesDataSpaceConnector",
-		"defaultPath": "data-space-connector"
+		"type": "dataspaceDataPlaneComponent",
+		"module": "@twin.org/dataspace-data-plane-service",
+		"method": "generateSocketRoutesDataspaceDataPlane",
+		"defaultPath": "dataspace"
 	}
 ]

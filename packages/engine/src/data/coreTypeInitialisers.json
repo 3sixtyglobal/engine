@@ -275,6 +275,11 @@
 		"method": "initialiseRightsManagementPolicyNegotiatorComponent"
 	},
 	{
+		"type": "rightsManagementPolicyObligationEnforcerComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseRightsManagementPolicyObligationEnforcerComponent"
+	},
+	{
 		"type": "rightsManagementPolicyRequesterComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseRightsManagementPolicyRequesterComponent"
@@ -295,9 +300,14 @@
 		"method": "initialiseFederatedCatalogueFilterComponent"
 	},
 	{
-		"type": "dataSpaceConnectorComponent",
+		"type": "dataspaceControlPlaneComponent",
 		"module": "@twin.org/engine-types",
-		"method": "initialiseDataSpaceConnectorComponent"
+		"method": "initialiseDataspaceControlPlaneComponent"
+	},
+	{
+		"type": "dataspaceDataPlaneComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseDataspaceDataPlaneComponent"
 	},
 	{
 		"type": "tenantAdminComponent",

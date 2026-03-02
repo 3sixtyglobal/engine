@@ -25,7 +25,8 @@ import {
 	DataConverterConnectorType,
 	DataExtractorConnectorType,
 	DataProcessingComponentType,
-	DataSpaceConnectorComponentType,
+	DataspaceControlPlaneComponentType,
+	DataspaceDataPlaneComponentType,
 	DocumentManagementComponentType,
 	EntityStorageComponentType,
 	EntityStorageConnectorType,
@@ -335,9 +336,14 @@ describe("engine-server", () => {
 						options: {}
 					}
 				],
-				dataSpaceConnectorComponent: [
+				dataspaceControlPlaneComponent: [
 					{
-						type: DataSpaceConnectorComponentType.Service
+						type: DataspaceControlPlaneComponentType.Service
+					}
+				],
+				dataspaceDataPlaneComponent: [
+					{
+						type: DataspaceDataPlaneComponentType.Service
 					}
 				],
 				informationComponent: [
@@ -532,17 +538,26 @@ describe("engine-server", () => {
 			"POST     /synchronised-storage/decryption-key",
 			"POST     /federated-catalogue/request",
 			"GET      /federated-catalogue/datasets/:datasetId",
-			"POST     /data-space-connector/notify",
-			"GET      /data-space-connector/activity-logs/:id",
-			"GET      /data-space-connector/entities",
-			"POST     /data-space-connector/entities/query"
+			// Dataspace Control Plane routes
+			"POST     /dataspace/transfers/request",
+			"GET      /dataspace/transfers/:pid",
+			"POST     /dataspace/transfers/:pid/start",
+			"POST     /dataspace/transfers/:pid/complete",
+			"POST     /dataspace/transfers/:pid/suspend",
+			"POST     /dataspace/transfers/:pid/terminate",
+			// Dataspace Data Plane routes
+			"POST     /dataspace/notify",
+			"GET      /dataspace/activity-logs/:id",
+			"GET      /dataspace/entities",
+			"POST     /dataspace/entities/query"
 		]);
 
 		const buildSocketRoutes = engineServer.getSocketRoutes();
 		expect(buildSocketRoutes.map(r => r.path)).toEqual([
 			"event-bus/subscribe",
 			"event-bus/unsubscribe",
-			"data-space-connector/activity-logs/status"
+			// Dataspace Data Plane socket routes
+			"dataspace/activity-logs/status"
 		]);
 
 		// Give the server a moment to start

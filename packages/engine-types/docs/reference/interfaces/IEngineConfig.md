@@ -420,11 +420,17 @@ Federated catalogue options which can be overridden by individual components by 
 
 Federated catalogue filter options which can be overridden by individual components by specifying types other than default.
 
-#### dataSpaceConnectorComponent?
+#### dataspaceControlPlaneComponent?
 
-> `optional` **dataSpaceConnectorComponent**: `IEngineCoreTypeConfig`\<[`DataSpaceConnectorComponentConfig`](../type-aliases/DataSpaceConnectorComponentConfig.md)\>[]
+> `optional` **dataspaceControlPlaneComponent**: `IEngineCoreTypeConfig`\<[`DataspaceControlPlaneComponentConfig`](../type-aliases/DataspaceControlPlaneComponentConfig.md)\>[]
 
-Data space connector options which can be overridden by individual components by specifying types other than default.
+Dataspace control plane component options which can be overridden by individual components by specifying types other than default.
+
+#### dataspaceDataPlaneComponent?
+
+> `optional` **dataspaceDataPlaneComponent**: `IEngineCoreTypeConfig`\<[`DataspaceDataPlaneComponentConfig`](../type-aliases/DataspaceDataPlaneComponentConfig.md)\>[]
+
+Dataspace data plane component options which can be overridden by individual components by specifying types other than default.
 
 #### tenantAdminComponent?
 

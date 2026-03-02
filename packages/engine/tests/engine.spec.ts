@@ -17,7 +17,8 @@ import {
 	DataConverterConnectorType,
 	DataExtractorConnectorType,
 	DataProcessingComponentType,
-	DataSpaceConnectorComponentType,
+	DataspaceControlPlaneComponentType,
+	DataspaceDataPlaneComponentType,
 	DocumentManagementComponentType,
 	EntityStorageComponentType,
 	EntityStorageConnectorType,
@@ -308,9 +309,14 @@ describe("engine", () => {
 							options: {}
 						}
 					],
-					dataSpaceConnectorComponent: [
+					dataspaceControlPlaneComponent: [
 						{
-							type: DataSpaceConnectorComponentType.Service
+							type: DataspaceControlPlaneComponentType.Service
+						}
+					],
+					dataspaceDataPlaneComponent: [
+						{
+							type: DataspaceDataPlaneComponentType.Service
 						}
 					]
 				}
@@ -357,7 +363,8 @@ describe("engine", () => {
 			"policy-negotiation-point-service",
 			"synchronised-storage-service",
 			"federated-catalogue-service",
-			"data-space-connector-service"
+			"dataspace-control-plane-service",
+			"dataspace-data-plane-service"
 		]);
 
 		expect(EntitySchemaFactory.names()).toEqual([
@@ -393,6 +400,7 @@ describe("engine", () => {
 			"PolicyNegotiation",
 			"SyncSnapshotEntry",
 			"Dataset",
+			"TransferProcess",
 			"ActivityLogDetails",
 			"ActivityTask"
 		]);
@@ -412,7 +420,10 @@ describe("engine", () => {
 			"static-policy-information-source"
 		]);
 		expect(PolicyNegotiatorFactory.names()).toEqual(["pass-through-policy-negotiator"]);
-		expect(PolicyRequesterFactory.names()).toEqual(["pass-through-policy-requester"]);
+		expect(PolicyRequesterFactory.names()).toEqual([
+			"pass-through-policy-requester",
+			"dataspace-control-plane-requester"
+		]);
 
 		expect(TrustGeneratorFactory.names()).toEqual(["jwt-verifiable-credential-generator"]);
 		expect(TrustVerifierFactory.names()).toEqual(["jwt-verifiable-credential-verifier"]);
@@ -659,9 +670,14 @@ describe("engine", () => {
 						}
 					],
 
-					dataSpaceConnectorComponent: [
+					dataspaceControlPlaneComponent: [
 						{
-							type: DataSpaceConnectorComponentType.Service
+							type: DataspaceControlPlaneComponentType.Service
+						}
+					],
+					dataspaceDataPlaneComponent: [
+						{
+							type: DataspaceDataPlaneComponentType.Service
 						}
 					],
 					contextIdHandlerComponent: [
@@ -868,9 +884,14 @@ describe("engine", () => {
 					}
 				],
 
-				dataSpaceConnectorComponent: [
+				dataspaceControlPlaneComponent: [
 					{
-						type: DataSpaceConnectorComponentType.Service
+						type: DataspaceControlPlaneComponentType.Service
+					}
+				],
+				dataspaceDataPlaneComponent: [
+					{
+						type: DataspaceDataPlaneComponentType.Service
 					}
 				]
 			}
@@ -1119,13 +1140,19 @@ describe("engine", () => {
 							options: { endpoint: "http://localhost:3000" }
 						}
 					],
-					dataSpaceConnectorComponent: [
+					dataspaceControlPlaneComponent: [
 						{
-							type: DataSpaceConnectorComponentType.RestClient,
+							type: DataspaceControlPlaneComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
+						}
+					],
+					dataspaceDataPlaneComponent: [
+						{
+							type: DataspaceDataPlaneComponentType.RestClient,
 							options: { endpoint: "http://localhost:3000" }
 						},
 						{
-							type: DataSpaceConnectorComponentType.SocketClient,
+							type: DataspaceDataPlaneComponentType.SocketClient,
 							options: { config: { endpoint: "http://localhost:3000" } }
 						}
 					]
@@ -1172,8 +1199,9 @@ describe("engine", () => {
 			"policy-negotiation-point-rest-client",
 			"synchronised-storage-rest-client",
 			"federated-catalogue-rest-client",
-			"data-space-connector-rest-client",
-			"data-space-connector-socket-client"
+			"dataspace-control-plane-rest-client",
+			"dataspace-data-plane-rest-client",
+			"dataspace-data-plane-socket-client"
 		]);
 
 		expect(EntitySchemaFactory.names()).toEqual([
