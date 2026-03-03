@@ -22,7 +22,7 @@ The context for the engine.
 
 Override the type of connector to use instead of default configuration.
 
-`undefined` | `string`
+`string` | `undefined`
 
 ### schema
 

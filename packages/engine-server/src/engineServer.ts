@@ -24,9 +24,9 @@ import serverTypeInitialisers from "./data/serverTypeInitialisers.json" with { t
 /**
  * Server for the engine.
  */
-export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
-	implements IEngineServer
-{
+export class EngineServer<
+	T extends IEngineServerConfig = IEngineServerConfig
+> implements IEngineServer {
 	/**
 	 * Runtime name for the class.
 	 */

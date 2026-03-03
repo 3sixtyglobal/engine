@@ -12,7 +12,7 @@ Definition of state storage for engine.
 
 ### load()
 
-> **load**(`engineCore`): `Promise`\<`undefined` \| `S`\>
+> **load**(`engineCore`): `Promise`\<`S` \| `undefined`\>
 
 Method for loading the state.
 
@@ -26,7 +26,7 @@ The engine core to load the state for.
 
 #### Returns
 
-`Promise`\<`undefined` \| `S`\>
+`Promise`\<`S` \| `undefined`\>
 
 The state of the engine or undefined if it doesn't exist.
 

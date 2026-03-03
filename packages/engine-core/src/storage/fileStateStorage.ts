@@ -9,9 +9,9 @@ import { nameof, nameofCamelCase } from "@twin.org/nameof";
 /**
  * Store state in a file.
  */
-export class FileStateStorage<S extends IEngineState = IEngineState>
-	implements IEngineStateStorage<S>
-{
+export class FileStateStorage<
+	S extends IEngineState = IEngineState
+> implements IEngineStateStorage<S> {
 	/**
 	 * Runtime name for the class.
 	 */

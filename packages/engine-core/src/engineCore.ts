@@ -46,8 +46,7 @@ import { MemoryStateStorage } from "./storage/memoryStateStorage.js";
 export class EngineCore<
 	C extends IEngineCoreConfig = IEngineCoreConfig,
 	S extends IEngineState = IEngineState
-> implements IEngineCore<C, S>
-{
+> implements IEngineCore<C, S> {
 	/**
 	 * Name for the engine logger component, used for direct console logging.
 	 */

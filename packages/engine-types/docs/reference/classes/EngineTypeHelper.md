@@ -24,7 +24,7 @@ Runtime name for the class.
 
 ### getConfigOfType()
 
-> `static` **getConfigOfType**\<`T`\>(`engineConfig`, `component`, `type`): `undefined` \| `IEngineCoreTypeConfig`\<`T`\>
+> `static` **getConfigOfType**\<`T`\>(`engineConfig`, `component`, `type`): `IEngineCoreTypeConfig`\<`T`\> \| `undefined`
 
 Get the config for the specified component and type.
 
@@ -56,7 +56,7 @@ The type name.
 
 #### Returns
 
-`undefined` \| `IEngineCoreTypeConfig`\<`T`\>
+`IEngineCoreTypeConfig`\<`T`\> \| `undefined`
 
 The config for the specified component and type or undefined if it does not exist.
 

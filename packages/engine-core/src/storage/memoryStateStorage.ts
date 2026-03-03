@@ -7,9 +7,9 @@ import { nameof, nameofCamelCase } from "@twin.org/nameof";
 /**
  * Store state in memory.
  */
-export class MemoryStateStorage<S extends IEngineState = IEngineState>
-	implements IEngineStateStorage<S>
-{
+export class MemoryStateStorage<
+	S extends IEngineState = IEngineState
+> implements IEngineStateStorage<S> {
 	/**
 	 * Runtime name for the class.
 	 */

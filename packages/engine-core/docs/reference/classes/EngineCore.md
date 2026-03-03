@@ -132,7 +132,7 @@ The name of the method to call.
 
 ### getTypeConfig()
 
-> **getTypeConfig**(`type`): `undefined` \| `IEngineCoreTypeConfig`[]
+> **getTypeConfig**(`type`): `IEngineCoreTypeConfig`[] \| `undefined`
 
 Get the type config for a specific type.
 
@@ -146,7 +146,7 @@ The type to get the config for.
 
 #### Returns
 
-`undefined` \| `IEngineCoreTypeConfig`[]
+`IEngineCoreTypeConfig`[] \| `undefined`
 
 The type config or undefined if not found.
 
@@ -236,13 +236,13 @@ The context ID value.
 
 ### getContextIds()
 
-> **getContextIds**(): `undefined` \| `IContextIds`
+> **getContextIds**(): `IContextIds` \| `undefined`
 
 Get the context IDs for the engine.
 
 #### Returns
 
-`undefined` \| `IContextIds`
+`IContextIds` \| `undefined`
 
 The context IDs or undefined if none are set.
 
@@ -506,7 +506,7 @@ If a matching instance was not found.
 
 ### getRegisteredInstanceTypeOptional()
 
-> **getRegisteredInstanceTypeOptional**(`componentConnectorType`, `features?`): `undefined` \| `string`
+> **getRegisteredInstanceTypeOptional**(`componentConnectorType`, `features?`): `string` \| `undefined`
 
 Get the registered instance type for the component/connector if it exists.
 
@@ -526,7 +526,7 @@ The requested features of the component, if not specified the default entry will
 
 #### Returns
 
-`undefined` \| `string`
+`string` \| `undefined`
 
 The instance type matching the criteria if one is registered.
 

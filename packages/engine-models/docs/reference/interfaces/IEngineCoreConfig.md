@@ -40,4 +40,4 @@ The types to initialise in the engine.
 
 #### Index Signature
 
-\[`type`: `string`\]: `undefined` \| [`IEngineCoreTypeConfig`](../type-aliases/IEngineCoreTypeConfig.md)[]
+\[`type`: `string`\]: [`IEngineCoreTypeConfig`](../type-aliases/IEngineCoreTypeConfig.md)[] \| `undefined`

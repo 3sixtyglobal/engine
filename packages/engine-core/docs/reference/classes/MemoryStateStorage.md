@@ -16,13 +16,13 @@ Store state in memory.
 
 ### Constructor
 
-> **new MemoryStateStorage**\<`S`\>(`readonlyMode`, `state?`): `MemoryStateStorage`\<`S`\>
+> **new MemoryStateStorage**\<`S`\>(`readonlyMode?`, `state?`): `MemoryStateStorage`\<`S`\>
 
 Create a new instance of MemoryStateStorage.
 
 #### Parameters
 
-##### readonlyMode
+##### readonlyMode?
 
 `boolean` = `false`
 
@@ -50,7 +50,7 @@ Runtime name for the class.
 
 ### load()
 
-> **load**(`engineCore`): `Promise`\<`undefined` \| `S`\>
+> **load**(`engineCore`): `Promise`\<`S` \| `undefined`\>
 
 Method for loading the state.
 
@@ -64,7 +64,7 @@ The engine core to load the state for.
 
 #### Returns
 
-`Promise`\<`undefined` \| `S`\>
+`Promise`\<`S` \| `undefined`\>
 
 The state of the engine or undefined if it doesn't exist.
 
