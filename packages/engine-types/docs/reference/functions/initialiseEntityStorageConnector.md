@@ -1,6 +1,6 @@
 # Function: initialiseEntityStorageConnector()
 
-> **initialiseEntityStorageConnector**(`engineCore`, `context`, `typeCustom`, `schema`, `partitionContextIds`): `string`
+> **initialiseEntityStorageConnector**(`engineCore`, `context`, `typeCustom`, `schema`, `partitionContextIds`): `void`
 
 Initialise the entity storage connector.
 
@@ -38,9 +38,7 @@ The context IDs to use for partitioning the data.
 
 ## Returns
 
-`string`
-
-The name of the instance type that was created.
+`void`
 
 ## Throws
 
