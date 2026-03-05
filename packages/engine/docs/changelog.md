@@ -1,5 +1,21 @@
 # @twin.org/engine - Changelog
 
+## [0.0.3-next.26](https://github.com/twinfoundation/engine/compare/engine-v0.0.3-next.25...engine-v0.0.3-next.26) (2026-03-05)
+
+
+### Bug Fixes
+
+* use custom instance type for entity storage registration ([#90](https://github.com/twinfoundation/engine/issues/90)) ([2c23995](https://github.com/twinfoundation/engine/commit/2c239953dab4510a4cf97063ee90d048210bf4a6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.25 to 0.0.3-next.26
+    * @twin.org/engine-models bumped from 0.0.3-next.25 to 0.0.3-next.26
+    * @twin.org/engine-types bumped from 0.0.3-next.25 to 0.0.3-next.26
+
 ## [0.0.3-next.25](https://github.com/twinfoundation/engine/compare/engine-v0.0.3-next.24...engine-v0.0.3-next.25) (2026-03-02)
 
 
