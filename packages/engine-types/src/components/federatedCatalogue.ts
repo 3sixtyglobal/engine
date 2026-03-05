@@ -42,7 +42,7 @@ export function initialiseFederatedCatalogueComponent(
 			initialiseEntityStorageConnector(
 				engineCore,
 				context,
-				createConfig.options?.datasetStorageConnectorType,
+				createConfig.options?.datasetEntityStorageType,
 				nameof<Dataset>(),
 				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
 			);

@@ -44,7 +44,6 @@ import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
  * @param typeCustom Override the type of connector to use instead of default configuration.
  * @param schema The schema for the entity storage.
  * @param partitionContextIds The context IDs to use for partitioning the data.
- * @returns The name of the instance type that was created.
  * @throws GeneralError when the configuration is invalid.
  */
 export function initialiseEntityStorageConnector(
@@ -53,36 +52,41 @@ export function initialiseEntityStorageConnector(
 	typeCustom: string | undefined,
 	schema: string,
 	partitionContextIds: string[]
-): string {
-	const instanceName = StringHelper.kebabCase(schema);
+): void {
+	const kebabName = StringHelper.kebabCase(schema);
+	let instanceName = kebabName;
 
-	if (!EntityStorageConnectorFactory.hasName(instanceName)) {
-		let entityStorageConfig;
+	let entityStorageConfig;
 
-		if (Is.stringValue(typeCustom)) {
-			// A custom type has been specified, so look it up
-			entityStorageConfig = context.config.types.entityStorageConnector?.find(
-				c => c.type === typeCustom || c.overrideInstanceType === typeCustom
-			);
-			if (Is.empty(entityStorageConfig)) {
-				throw new GeneralError("engineTypes", "entityStorageCustomMissing", {
-					typeCustom,
-					storageName: instanceName
-				});
-			}
-		} else {
-			// The default entity storage method is either the one with the isDefault flag set
-			// or pick the first one if no default is set.
-			entityStorageConfig =
-				context.config.types.entityStorageConnector?.find(c => c.isDefault ?? false) ??
-				context.config.types.entityStorageConnector?.[0];
-			if (Is.empty(entityStorageConfig)) {
-				throw new GeneralError("engineTypes", "entityStorageMissing", {
-					storageName: instanceName
-				});
-			}
+	if (Is.stringValue(typeCustom)) {
+		// A custom type has been specified, so look it up
+		entityStorageConfig = context.config.types.entityStorageConnector?.find(
+			c => c.type === typeCustom || c.overrideInstanceType === typeCustom
+		);
+		if (Is.empty(entityStorageConfig)) {
+			throw new GeneralError("engineTypes", "entityStorageCustomMissing", {
+				typeCustom,
+				storageName: instanceName
+			});
 		}
 
+		// Since we have a custom type we need to use that as the instance name for the
+		// connector so that it can be looked up by other components
+		instanceName = typeCustom;
+	} else {
+		// The default entity storage method is either the one with the isDefault flag set
+		// or pick the first one if no default is set.
+		entityStorageConfig =
+			context.config.types.entityStorageConnector?.find(c => c.isDefault ?? false) ??
+			context.config.types.entityStorageConnector?.[0];
+		if (Is.empty(entityStorageConfig)) {
+			throw new GeneralError("engineTypes", "entityStorageMissing", {
+				storageName: instanceName
+			});
+		}
+	}
+
+	if (!EntityStorageConnectorFactory.hasName(instanceName)) {
 		const type = entityStorageConfig.type;
 		let entityStorageConnector: IEntityStorageConnector;
 
@@ -186,20 +190,14 @@ export function initialiseEntityStorageConnector(
 			// Create the entity storage that is wrapped by the synchronised connector
 			// by removing the custom type it will default to the standard storage
 			// mechanism for entity storage
-			const wrappedInstanceName = initialiseEntityStorageConnector(
-				engineCore,
-				context,
-				undefined,
-				schema,
-				partitionContextIds
-			);
+			initialiseEntityStorageConnector(engineCore, context, undefined, schema, partitionContextIds);
 
 			// Use the wrapped instance name as the entity storage connector type
 			// for the synchronised connector
 			entityStorageConnector = new SynchronisedEntityStorageConnector({
 				entitySchema: schema,
 				...entityStorageConfig.options,
-				entityStorageConnectorType: wrappedInstanceName,
+				entityStorageConnectorType: kebabName,
 				eventBusComponentType: engineCore.getRegisteredInstanceType("eventBusComponent"),
 				config: {
 					...entityStorageConfig.options.config
@@ -219,8 +217,6 @@ export function initialiseEntityStorageConnector(
 		});
 		EntityStorageConnectorFactory.register(instanceName, () => entityStorageConnector);
 	}
-
-	return instanceName;
 }
 
 /**

@@ -73,7 +73,10 @@ import {
 } from "@twin.org/engine-types";
 import typeLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
-import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
+import {
+	type IEntityStorageComponent,
+	EntityStorageConnectorFactory
+} from "@twin.org/entity-storage-models";
 import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
 import { nameof } from "@twin.org/nameof";
 import {
@@ -1225,5 +1228,82 @@ describe("engine", () => {
 
 		expect(engine).toBeDefined();
 		expect(calledCustomBootstrap).toBeDefined();
+	});
+
+	test("Can use a custom entity storage connector type", async () => {
+		const engine = new Engine({
+			config: {
+				types: {
+					eventBusConnector: [{ type: EventBusConnectorType.Local }],
+					eventBusComponent: [{ type: EventBusComponentType.Service }],
+					entityStorageConnector: [
+						{ type: EntityStorageConnectorType.Memory },
+						{
+							type: EntityStorageConnectorType.Synchronised,
+							options: {
+								entityStorageConnectorType: "memory"
+							}
+						}
+					],
+					federatedCatalogueComponent: [
+						{
+							type: FederatedCatalogueComponentType.Service,
+							options: {
+								datasetEntityStorageType: "synchronised"
+							}
+						}
+					]
+				}
+			}
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		expect(EntityStorageConnectorFactory.get("synchronised").constructor.name).toEqual(
+			"SynchronisedEntityStorageConnector"
+		);
+
+		const federatedCatalogueService = ComponentFactory.get("federated-catalogue-service");
+		expect(federatedCatalogueService).toBeDefined();
+	});
+
+	test("Can override and use a custom entity storage connector type", async () => {
+		const engine = new Engine({
+			config: {
+				types: {
+					eventBusConnector: [{ type: EventBusConnectorType.Local }],
+					eventBusComponent: [{ type: EventBusComponentType.Service }],
+					entityStorageConnector: [
+						{ type: EntityStorageConnectorType.Memory },
+						{
+							type: EntityStorageConnectorType.Synchronised,
+							overrideInstanceType: "custom-dataset-storage",
+							options: {
+								entityStorageConnectorType: "memory"
+							}
+						}
+					],
+					federatedCatalogueComponent: [
+						{
+							type: FederatedCatalogueComponentType.Service,
+							options: {
+								datasetEntityStorageType: "custom-dataset-storage"
+							}
+						}
+					]
+				}
+			}
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		expect(EntityStorageConnectorFactory.get("custom-dataset-storage").constructor.name).toEqual(
+			"SynchronisedEntityStorageConnector"
+		);
+
+		const federatedCatalogueService = ComponentFactory.get("federated-catalogue-service");
+		expect(federatedCatalogueService).toBeDefined();
 	});
 });
