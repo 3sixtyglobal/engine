@@ -1,7 +1,7 @@
 {
 	"name": "@twin.org/engine",
 	"version": "0.0.3-next.26",
-	"description": "Engine implementation.",
+	"description": "Ready-to-use engine runtime that preloads built-in type initialisers.",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/twinfoundation/engine.git",

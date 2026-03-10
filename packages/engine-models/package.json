@@ -1,7 +1,7 @@
 {
 	"name": "@twin.org/engine-models",
 	"version": "0.0.3-next.26",
-	"description": "Models which define the structure of the engine.",
+	"description": "Shared contracts and factory interfaces for composing engine core and server implementations.",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/twinfoundation/engine.git",

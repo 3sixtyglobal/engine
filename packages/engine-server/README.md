@@ -1,6 +1,6 @@
 # TWIN Engine Server
 
-Engine implementation for a server.
+Engine Server exposes runtime capabilities through REST and socket routes and integrates hosting concerns with engine orchestration. It is intended for service deployments that need structured API entry points backed by shared runtime conventions.
 
 ## Installation
 

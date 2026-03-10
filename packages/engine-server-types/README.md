@@ -1,6 +1,6 @@
 # TWIN Engine Server Types
 
-The data types to use in an engine server.
+Engine Server Types defines server-focused component and processor types for hosting and API route handling. It provides the configuration model for building predictable REST and socket integration behaviour.
 
 ## Installation
 

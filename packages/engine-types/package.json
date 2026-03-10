@@ -1,7 +1,7 @@
 {
 	"name": "@twin.org/engine-types",
 	"version": "0.0.3-next.26",
-	"description": "Types to use in an engine.",
+	"description": "Component and connector type definitions with configuration helpers for engine composition.",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/twinfoundation/engine.git",

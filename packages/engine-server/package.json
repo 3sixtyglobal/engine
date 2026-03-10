@@ -1,7 +1,7 @@
 {
 	"name": "@twin.org/engine-server",
 	"version": "0.0.3-next.26",
-	"description": "Engine implementation for a server.",
+	"description": "Server runtime that exposes engine components through REST and socket routes.",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/twinfoundation/engine.git",

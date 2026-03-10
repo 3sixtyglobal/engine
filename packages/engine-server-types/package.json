@@ -1,7 +1,7 @@
 {
 	"name": "@twin.org/engine-server-types",
 	"version": "0.0.3-next.26",
-	"description": "Server types to use in an engine server.",
+	"description": "Server-focused component types and configuration models for API routing and hosting.",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/twinfoundation/engine.git",
