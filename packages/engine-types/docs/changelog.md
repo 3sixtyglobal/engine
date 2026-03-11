@@ -1,4 +1,4 @@
-# @twin.org/engine-types - Changelog
+# Changelog
 
 ## [0.0.3-next.26](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.25...engine-types-v0.0.3-next.26) (2026-03-05)
 
