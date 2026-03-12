@@ -14,7 +14,7 @@ Interface describing the data required to clone an engine.
 
 ## Properties
 
-### config
+### config {#config}
 
 > **config**: `C`
 
@@ -22,7 +22,7 @@ The config for the engine.
 
 ***
 
-### state
+### state {#state}
 
 > **state**: `S`
 
@@ -30,7 +30,7 @@ The state of the engine.
 
 ***
 
-### typeInitialisers
+### typeInitialisers {#typeinitialisers}
 
 > **typeInitialisers**: `object`[]
 
@@ -50,7 +50,7 @@ The type initialisers for the engine.
 
 ***
 
-### entitySchemas
+### entitySchemas {#entityschemas}
 
 > **entitySchemas**: `object`
 
@@ -62,7 +62,7 @@ The entity schemas for the engine.
 
 ***
 
-### contextIdKeys
+### contextIdKeys {#contextidkeys}
 
 > **contextIdKeys**: `object`[]
 

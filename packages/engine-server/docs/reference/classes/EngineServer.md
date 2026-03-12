@@ -38,7 +38,7 @@ The engine core to serve from.
 
 ## Properties
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
 > `readonly` `static` **CLASS\_NAME**: `string`
 
@@ -46,7 +46,7 @@ Runtime name for the class.
 
 ## Methods
 
-### addRestRouteGenerator()
+### addRestRouteGenerator() {#addrestroutegenerator}
 
 > **addRestRouteGenerator**(`type`, `module`, `method`): `void`
 
@@ -82,7 +82,7 @@ The method to call on the module.
 
 ***
 
-### addSocketRouteGenerator()
+### addSocketRouteGenerator() {#addsocketroutegenerator}
 
 > **addSocketRouteGenerator**(`type`, `module`, `method`): `void`
 
@@ -118,7 +118,7 @@ The method to call on the module.
 
 ***
 
-### getRestRoutes()
+### getRestRoutes() {#getrestroutes}
 
 > **getRestRoutes**(): `IRestRoute`\<`any`, `any`\>[]
 
@@ -132,7 +132,7 @@ The REST routes.
 
 ***
 
-### getSocketRoutes()
+### getSocketRoutes() {#getsocketroutes}
 
 > **getSocketRoutes**(): `ISocketRoute`\<`any`, `any`\>[]
 
@@ -146,7 +146,7 @@ The socket routes.
 
 ***
 
-### start()
+### start() {#start}
 
 > **start**(): `Promise`\<`void`\>
 
@@ -164,7 +164,7 @@ Nothing.
 
 ***
 
-### stop()
+### stop() {#stop}
 
 > **stop**(): `Promise`\<`void`\>
 

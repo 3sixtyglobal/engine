@@ -6,13 +6,13 @@ Event bus component types.
 
 ## Type Declaration
 
-### Service
+### Service {#service}
 
 > `readonly` **Service**: `"service"` = `"service"`
 
 Service.
 
-### SocketClient
+### SocketClient {#socketclient}
 
 > `readonly` **SocketClient**: `"socket-client"` = `"socket-client"`
 

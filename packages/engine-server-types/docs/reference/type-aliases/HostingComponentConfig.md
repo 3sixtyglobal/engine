@@ -6,12 +6,12 @@ Hosting component config types.
 
 ## Properties
 
-### type
+### type {#type}
 
 > **type**: *typeof* [`Service`](../variables/HostingComponentType.md#service)
 
 ***
 
-### options
+### options {#options}
 
 > **options**: `IHostingServiceConstructorOptions`

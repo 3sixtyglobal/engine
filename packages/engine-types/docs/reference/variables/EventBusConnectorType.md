@@ -6,7 +6,7 @@ Event bus connector types.
 
 ## Type Declaration
 
-### Local
+### Local {#local}
 
 > `readonly` **Local**: `"local"` = `"local"`
 

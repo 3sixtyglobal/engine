@@ -6,12 +6,12 @@ Trust Generator component config types.
 
 ## Properties
 
-### type
+### type {#type}
 
 > **type**: *typeof* [`JwtVerifiableCredential`](../variables/TrustGeneratorComponentType.md#jwtverifiablecredential)
 
 ***
 
-### options
+### options {#options}
 
 > **options**: `IJwtVerifiableCredentialGeneratorConstructorOptions`

@@ -14,7 +14,7 @@ Helper class for engine modules.
 
 ## Properties
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
 > `readonly` `static` **CLASS\_NAME**: `string`
 
@@ -22,7 +22,7 @@ Runtime name for the class.
 
 ## Methods
 
-### loadComponent()
+### loadComponent() {#loadcomponent}
 
 > `static` **loadComponent**\<`T`\>(`engineCore`, `engineModuleConfig`): `Promise`\<`T`\>
 

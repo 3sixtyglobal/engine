@@ -6,13 +6,13 @@ Authentication component types.
 
 ## Type Declaration
 
-### EntityStorage
+### EntityStorage {#entitystorage}
 
 > `readonly` **EntityStorage**: `"entity-storage"` = `"entity-storage"`
 
 Entity storage.
 
-### RestClient
+### RestClient {#restclient}
 
 > `readonly` **RestClient**: `"rest-client"` = `"rest-client"`
 

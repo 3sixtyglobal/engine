@@ -6,12 +6,12 @@ Trust verifier component config types.
 
 ## Properties
 
-### type
+### type {#type}
 
 > **type**: *typeof* [`JwtVerifiableCredential`](../variables/TrustVerifierComponentType.md#jwtverifiablecredential)
 
 ***
 
-### options?
+### options? {#options}
 
 > `optional` **options**: `IJwtVerifiableCredentialVerifierConstructorOptions`

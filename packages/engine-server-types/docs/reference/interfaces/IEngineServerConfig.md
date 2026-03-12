@@ -8,17 +8,11 @@ Extended engine server config with known types.
 
 ## Properties
 
-### debug?
+### debug? {#debug}
 
 > `optional` **debug**: `boolean`
 
 Start the engine in debug mode.
-
-#### Default
-
-```ts
-false
-```
 
 #### Inherited from
 
@@ -26,17 +20,11 @@ false
 
 ***
 
-### silent?
+### silent? {#silent}
 
 > `optional` **silent**: `boolean`
 
 Disable output to the console.
-
-#### Default
-
-```ts
-false
-```
 
 #### Inherited from
 
@@ -44,7 +32,7 @@ false
 
 ***
 
-### web?
+### web? {#web}
 
 > `optional` **web**: `IWebServerOptions`
 
@@ -52,7 +40,7 @@ Configuration for the web server.
 
 ***
 
-### types
+### types {#types}
 
 > **types**: `object` & `object`
 

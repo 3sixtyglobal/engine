@@ -10,7 +10,7 @@ Definition of state storage for engine.
 
 ## Methods
 
-### load()
+### load() {#load}
 
 > **load**(`engineCore`): `Promise`\<`S` \| `undefined`\>
 
@@ -32,7 +32,7 @@ The state of the engine or undefined if it doesn't exist.
 
 ***
 
-### save()
+### save() {#save}
 
 > **save**(`engineCore`, `state`): `Promise`\<`void`\>
 

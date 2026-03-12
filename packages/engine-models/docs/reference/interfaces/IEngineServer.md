@@ -4,7 +4,7 @@ Interface describing the engine server methods.
 
 ## Methods
 
-### addRestRouteGenerator()
+### addRestRouteGenerator() {#addrestroutegenerator}
 
 > **addRestRouteGenerator**(`type`, `module`, `method`): `void`
 
@@ -36,7 +36,7 @@ The method to call on the module.
 
 ***
 
-### addSocketRouteGenerator()
+### addSocketRouteGenerator() {#addsocketroutegenerator}
 
 > **addSocketRouteGenerator**(`type`, `module`, `method`): `void`
 
@@ -68,7 +68,7 @@ The method to call on the module.
 
 ***
 
-### start()
+### start() {#start}
 
 > **start**(): `Promise`\<`void`\>
 
@@ -82,7 +82,7 @@ Nothing.
 
 ***
 
-### stop()
+### stop() {#stop}
 
 > **stop**(): `Promise`\<`void`\>
 

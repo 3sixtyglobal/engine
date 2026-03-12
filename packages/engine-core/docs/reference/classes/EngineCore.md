@@ -38,7 +38,7 @@ The options for the engine.
 
 ## Properties
 
-### LOGGING\_COMPONENT\_TYPE\_NAME
+### LOGGING\_COMPONENT\_TYPE\_NAME {#logging_component_type_name}
 
 > `readonly` `static` **LOGGING\_COMPONENT\_TYPE\_NAME**: `string` = `"engine-logging-service"`
 
@@ -46,7 +46,7 @@ Name for the engine logger component, used for direct console logging.
 
 ***
 
-### LOGGING\_CONNECTOR\_TYPE\_NAME
+### LOGGING\_CONNECTOR\_TYPE\_NAME {#logging_connector_type_name}
 
 > `readonly` `static` **LOGGING\_CONNECTOR\_TYPE\_NAME**: `string` = `"engine-logging-connector"`
 
@@ -54,7 +54,7 @@ Name for the engine logger connector, used for direct console logging.
 
 ***
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
 > `readonly` `static` **CLASS\_NAME**: `string`
 
@@ -62,7 +62,7 @@ Runtime name for the class.
 
 ***
 
-### \_context
+### \_context {#_context}
 
 > `protected` **\_context**: `IEngineCoreContext`\<`C`, `S`\>
 
@@ -70,7 +70,7 @@ The core context.
 
 ***
 
-### \_contextIdKeys
+### \_contextIdKeys {#_contextidkeys}
 
 > `protected` `readonly` **\_contextIdKeys**: `object`[]
 
@@ -86,7 +86,7 @@ The context ID keys.
 
 ***
 
-### \_contextIds?
+### \_contextIds? {#_contextids}
 
 > `protected` `optional` **\_contextIds**: `IContextIds`
 
@@ -94,7 +94,7 @@ The context IDs.
 
 ## Methods
 
-### addTypeInitialiser()
+### addTypeInitialiser() {#addtypeinitialiser}
 
 > **addTypeInitialiser**(`type`, `module`, `method`): `void`
 
@@ -130,7 +130,7 @@ The name of the method to call.
 
 ***
 
-### getTypeConfig()
+### getTypeConfig() {#gettypeconfig}
 
 > **getTypeConfig**(`type`): `IEngineCoreTypeConfig`[] \| `undefined`
 
@@ -156,7 +156,7 @@ The type config or undefined if not found.
 
 ***
 
-### addContextIdKey()
+### addContextIdKey() {#addcontextidkey}
 
 > **addContextIdKey**(`key`, `componentFeatures`): `void`
 
@@ -186,7 +186,7 @@ The component features for the context ID handler.
 
 ***
 
-### getContextIdKeys()
+### getContextIdKeys() {#getcontextidkeys}
 
 > **getContextIdKeys**(): `string`[]
 
@@ -204,7 +204,7 @@ The context IDs keys.
 
 ***
 
-### addContextId()
+### addContextId() {#addcontextid}
 
 > **addContextId**(`key`, `value`): `void`
 
@@ -234,7 +234,7 @@ The context ID value.
 
 ***
 
-### getContextIds()
+### getContextIds() {#getcontextids}
 
 > **getContextIds**(): `IContextIds` \| `undefined`
 
@@ -252,7 +252,7 @@ The context IDs or undefined if none are set.
 
 ***
 
-### start()
+### start() {#start}
 
 > **start**(`skipComponentStart?`): `Promise`\<`void`\>
 
@@ -278,7 +278,7 @@ Nothing.
 
 ***
 
-### stop()
+### stop() {#stop}
 
 > **stop**(): `Promise`\<`void`\>
 
@@ -296,7 +296,7 @@ Nothing.
 
 ***
 
-### isStarted()
+### isStarted() {#isstarted}
 
 > **isStarted**(): `boolean`
 
@@ -314,7 +314,7 @@ True if the engine is started.
 
 ***
 
-### isPrimary()
+### isPrimary() {#isprimary}
 
 > **isPrimary**(): `boolean`
 
@@ -332,7 +332,7 @@ True if the engine is the primary instance.
 
 ***
 
-### isClone()
+### isClone() {#isclone}
 
 > **isClone**(): `boolean`
 
@@ -350,7 +350,7 @@ True if the engine instance is a clone.
 
 ***
 
-### logInfo()
+### logInfo() {#loginfo}
 
 > **logInfo**(`message`): `Promise`\<`void`\>
 
@@ -374,7 +374,7 @@ The message to log.
 
 ***
 
-### logError()
+### logError() {#logerror}
 
 > **logError**(`error`): `Promise`\<`void`\>
 
@@ -398,7 +398,7 @@ The error to log.
 
 ***
 
-### getConfig()
+### getConfig() {#getconfig}
 
 > **getConfig**(): `C`
 
@@ -416,7 +416,7 @@ The config for the engine.
 
 ***
 
-### getState()
+### getState() {#getstate}
 
 > **getState**(): `S`
 
@@ -434,7 +434,7 @@ The state of the engine.
 
 ***
 
-### setStateDirty()
+### setStateDirty() {#setstatedirty}
 
 > **setStateDirty**(): `void`
 
@@ -450,7 +450,7 @@ Set the state to dirty so it gets saved.
 
 ***
 
-### getRegisteredInstances()
+### getRegisteredInstances() {#getregisteredinstances}
 
 > **getRegisteredInstances**(): `object`
 
@@ -468,7 +468,7 @@ The registered instances.
 
 ***
 
-### getRegisteredInstanceType()
+### getRegisteredInstanceType() {#getregisteredinstancetype}
 
 > **getRegisteredInstanceType**(`componentConnectorType`, `features?`): `string`
 
@@ -504,7 +504,7 @@ If a matching instance was not found.
 
 ***
 
-### getRegisteredInstanceTypeOptional()
+### getRegisteredInstanceTypeOptional() {#getregisteredinstancetypeoptional}
 
 > **getRegisteredInstanceTypeOptional**(`componentConnectorType`, `features?`): `string` \| `undefined`
 
@@ -536,7 +536,7 @@ The instance type matching the criteria if one is registered.
 
 ***
 
-### getCloneData()
+### getCloneData() {#getclonedata}
 
 > **getCloneData**(): `IEngineCoreClone`\<`C`, `S`\>
 
@@ -554,7 +554,7 @@ The clone data.
 
 ***
 
-### populateClone()
+### populateClone() {#populateclone}
 
 > **populateClone**(`cloneData`, `contextIds?`, `silent?`): `void`
 

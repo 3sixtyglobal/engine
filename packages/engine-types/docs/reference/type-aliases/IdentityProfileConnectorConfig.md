@@ -6,12 +6,12 @@ Identity profile connector config types.
 
 ## Properties
 
-### type
+### type {#type}
 
 > **type**: *typeof* [`EntityStorage`](../variables/IdentityProfileConnectorType.md#entitystorage)
 
 ***
 
-### options?
+### options? {#options}
 
 > `optional` **options**: `IEntityStorageIdentityProfileConnectorConstructorOptions`

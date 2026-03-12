@@ -6,19 +6,19 @@ Dataspace data plane component types.
 
 ## Type Declaration
 
-### Service
+### Service {#service}
 
 > `readonly` **Service**: `"service"` = `"service"`
 
 Service.
 
-### RestClient
+### RestClient {#restclient}
 
 > `readonly` **RestClient**: `"rest-client"` = `"rest-client"`
 
 REST client.
 
-### SocketClient
+### SocketClient {#socketclient}
 
 > `readonly` **SocketClient**: `"socket-client"` = `"socket-client"`
 

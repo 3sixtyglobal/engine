@@ -6,13 +6,13 @@ Verifiable storage connector types.
 
 ## Type Declaration
 
-### EntityStorage
+### EntityStorage {#entitystorage}
 
 > `readonly` **EntityStorage**: `"entity-storage"` = `"entity-storage"`
 
 Entity storage.
 
-### Iota
+### Iota {#iota}
 
 > `readonly` **Iota**: `"iota"` = `"iota"`
 

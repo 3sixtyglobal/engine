@@ -6,7 +6,7 @@ Identity profile connector types.
 
 ## Type Declaration
 
-### EntityStorage
+### EntityStorage {#entitystorage}
 
 > `readonly` **EntityStorage**: `"entity-storage"` = `"entity-storage"`
 

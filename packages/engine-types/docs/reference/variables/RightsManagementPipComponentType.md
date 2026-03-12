@@ -6,7 +6,7 @@ Rights management PIP component types.
 
 ## Type Declaration
 
-### Service
+### Service {#service}
 
 > `readonly` **Service**: `"service"` = `"service"`
 

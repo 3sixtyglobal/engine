@@ -6,12 +6,12 @@ Telemetry connector config types.
 
 ## Properties
 
-### type
+### type {#type}
 
 > **type**: *typeof* [`EntityStorage`](../variables/TelemetryConnectorType.md#entitystorage)
 
 ***
 
-### options?
+### options? {#options}
 
 > `optional` **options**: `IEntityStorageTelemetryConnectorConstructorOptions`

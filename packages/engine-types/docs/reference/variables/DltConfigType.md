@@ -6,7 +6,7 @@ DLT config types.
 
 ## Type Declaration
 
-### Iota
+### Iota {#iota}
 
 > `readonly` **Iota**: `"iota"` = `"iota"`
 

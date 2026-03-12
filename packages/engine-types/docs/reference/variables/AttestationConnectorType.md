@@ -6,7 +6,7 @@ Attestation connector types.
 
 ## Type Declaration
 
-### Nft
+### Nft {#nft}
 
 > `readonly` **Nft**: `"nft"` = `"nft"`
 

@@ -4,7 +4,7 @@ Configuration for an engine module.
 
 ## Properties
 
-### id
+### id {#id}
 
 > **id**: `string`
 
@@ -12,7 +12,7 @@ The unique identifier for the module.
 
 ***
 
-### moduleName
+### moduleName {#modulename}
 
 > **moduleName**: `string`
 
@@ -20,7 +20,7 @@ The module that implements the additional component.
 
 ***
 
-### className
+### className {#classname}
 
 > **className**: `string`
 
@@ -28,7 +28,7 @@ The class name of the additional component.
 
 ***
 
-### dependencies?
+### dependencies? {#dependencies}
 
 > `optional` **dependencies**: `object`[]
 
@@ -52,7 +52,7 @@ Additional dependencies required by the component.
 
 ***
 
-### config?
+### config? {#config}
 
 > `optional` **config**: `unknown`
 

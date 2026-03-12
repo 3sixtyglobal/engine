@@ -6,7 +6,7 @@ Rights management Policy Execution Action component types.
 
 ## Type Declaration
 
-### Logging
+### Logging {#logging}
 
 > `readonly` **Logging**: `"logging"` = `"logging"`
 

@@ -6,12 +6,12 @@ Messaging component config types.
 
 ## Properties
 
-### type
+### type {#type}
 
 > **type**: *typeof* [`Service`](../variables/MessagingComponentType.md#service)
 
 ***
 
-### options?
+### options? {#options}
 
 > `optional` **options**: `IMessagingServiceConstructorOptions`

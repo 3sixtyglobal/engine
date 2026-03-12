@@ -14,7 +14,7 @@ Helper methods for engine config.
 
 ## Properties
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
 > `readonly` `static` **CLASS\_NAME**: `string`
 
@@ -22,7 +22,7 @@ Runtime name for the class.
 
 ## Methods
 
-### addCustomEntityStorage()
+### addCustomEntityStorage() {#addcustomentitystorage}
 
 > `static` **addCustomEntityStorage**\<`T`\>(`engineConfig`, `entityTypeName`, `entitySchema`, `restPath?`, `partitionContextIds?`): `void`
 

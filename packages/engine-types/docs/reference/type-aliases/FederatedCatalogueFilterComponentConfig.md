@@ -6,12 +6,12 @@ Federated catalog filter component config types.
 
 ## Properties
 
-### type
+### type {#type}
 
 > **type**: *typeof* [`FilterByExample`](../variables/FederatedCatalogueFilterComponentType.md#filterbyexample)
 
 ***
 
-### options
+### options {#options}
 
 > **options**: `IFilterByExampleConstructorOptions`

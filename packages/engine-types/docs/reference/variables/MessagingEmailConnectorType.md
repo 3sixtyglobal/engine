@@ -6,13 +6,13 @@ Messaging email connector types.
 
 ## Type Declaration
 
-### EntityStorage
+### EntityStorage {#entitystorage}
 
 > `readonly` **EntityStorage**: `"entity-storage"` = `"entity-storage"`
 
 Entity storage.
 
-### Aws
+### Aws {#aws}
 
 > `readonly` **Aws**: `"aws"` = `"aws"`
 

@@ -6,7 +6,7 @@ Rights management Policy Requester component types.
 
 ## Type Declaration
 
-### PassThrough
+### PassThrough {#passthrough}
 
 > `readonly` **PassThrough**: `"pass-through"` = `"pass-through"`
 

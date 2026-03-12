@@ -6,7 +6,7 @@ Trust generator component types.
 
 ## Type Declaration
 
-### JwtVerifiableCredential
+### JwtVerifiableCredential {#jwtverifiablecredential}
 
 > `readonly` **JwtVerifiableCredential**: `"jwt-verifiable-credential"` = `"jwt-verifiable-credential"`
 

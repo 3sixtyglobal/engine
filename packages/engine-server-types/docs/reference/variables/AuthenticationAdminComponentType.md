@@ -6,7 +6,7 @@ Authentication admin component types.
 
 ## Type Declaration
 
-### EntityStorage
+### EntityStorage {#entitystorage}
 
 > `readonly` **EntityStorage**: `"entity-storage"` = `"entity-storage"`
 

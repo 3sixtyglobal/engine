@@ -6,13 +6,13 @@ Rights management Policy Arbiter component types.
 
 ## Type Declaration
 
-### PassThrough
+### PassThrough {#passthrough}
 
 > `readonly` **PassThrough**: `"pass-through"` = `"pass-through"`
 
 PassThrough.
 
-### Default
+### Default {#default}
 
 > `readonly` **Default**: `"default"` = `"default"`
 

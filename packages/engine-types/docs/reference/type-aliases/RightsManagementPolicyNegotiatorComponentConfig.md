@@ -6,12 +6,12 @@ Rights management policy negotiator component config types.
 
 ## Properties
 
-### type
+### type {#type}
 
 > **type**: *typeof* [`PassThrough`](../variables/RightsManagementPolicyNegotiatorComponentType.md#passthrough)
 
 ***
 
-### options?
+### options? {#options}
 
 > `optional` **options**: `IPassThroughPolicyNegotiatorConstructorOptions`

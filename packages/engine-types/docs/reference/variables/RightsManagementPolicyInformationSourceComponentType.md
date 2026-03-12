@@ -6,13 +6,13 @@ Rights management Policy Information Source component types.
 
 ## Type Declaration
 
-### Identity
+### Identity {#identity}
 
 > `readonly` **Identity**: `"identity"` = `"identity"`
 
 Identity.
 
-### Static
+### Static {#static}
 
 > `readonly` **Static**: `"static"` = `"static"`
 

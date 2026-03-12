@@ -6,12 +6,12 @@ Trust component config types.
 
 ## Properties
 
-### type
+### type {#type}
 
 > **type**: *typeof* [`Service`](../variables/TrustComponentType.md#service)
 
 ***
 
-### options?
+### options? {#options}
 
 > `optional` **options**: `ITrustServiceConstructorOptions`

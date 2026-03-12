@@ -40,7 +40,7 @@ Whether the file is in read-only mode.
 
 ## Properties
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
 > `readonly` `static` **CLASS\_NAME**: `string`
 
@@ -48,7 +48,7 @@ Runtime name for the class.
 
 ## Methods
 
-### load()
+### load() {#load}
 
 > **load**(`engineCore`): `Promise`\<`S` \| `undefined`\>
 
@@ -74,7 +74,7 @@ The state of the engine or undefined if it doesn't exist.
 
 ***
 
-### save()
+### save() {#save}
 
 > **save**(`engineCore`, `state`): `Promise`\<`void`\>
 

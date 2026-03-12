@@ -6,12 +6,12 @@ Background task component config types.
 
 ## Properties
 
-### type
+### type {#type}
 
 > **type**: *typeof* [`Service`](../variables/BackgroundTaskComponentType.md#service)
 
 ***
 
-### options?
+### options? {#options}
 
 > `optional` **options**: `IBackgroundTaskServiceConstructorOptions`

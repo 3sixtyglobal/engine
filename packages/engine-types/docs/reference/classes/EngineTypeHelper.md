@@ -14,7 +14,7 @@ Helper methods for engine config types.
 
 ## Properties
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
 > `readonly` `static` **CLASS\_NAME**: `string`
 
@@ -22,7 +22,7 @@ Runtime name for the class.
 
 ## Methods
 
-### getConfigOfType()
+### getConfigOfType() {#getconfigoftype}
 
 > `static` **getConfigOfType**\<`T`\>(`engineConfig`, `component`, `type`): `IEngineCoreTypeConfig`\<`T`\> \| `undefined`
 
@@ -62,7 +62,7 @@ The config for the specified component and type or undefined if it does not exis
 
 ***
 
-### mergeConfig()
+### mergeConfig() {#mergeconfig}
 
 > `static` **mergeConfig**\<`T`\>(`config1?`, `config2?`, `config3?`, `config4?`, `config5?`): `T`
 

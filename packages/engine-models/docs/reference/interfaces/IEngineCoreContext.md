@@ -14,7 +14,7 @@ The context for the engine core.
 
 ## Properties
 
-### config
+### config {#config}
 
 > **config**: `C`
 
@@ -22,7 +22,7 @@ The engine core config.
 
 ***
 
-### state
+### state {#state}
 
 > **state**: `S`
 
@@ -30,7 +30,7 @@ The engine core state.
 
 ***
 
-### stateDirty
+### stateDirty {#statedirty}
 
 > **stateDirty**: `boolean`
 
@@ -38,7 +38,7 @@ The state dirty flag, which flags that the state needs saving.
 
 ***
 
-### registeredInstances
+### registeredInstances {#registeredinstances}
 
 > **registeredInstances**: `object`
 
@@ -51,7 +51,7 @@ The default entry will be the first in the list.
 
 ***
 
-### componentInstances
+### componentInstances {#componentinstances}
 
 > **componentInstances**: `object`[]
 
