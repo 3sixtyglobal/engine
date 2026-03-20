@@ -16,7 +16,7 @@ Engine type initialiser return type.
 
 ### instanceTypeName? {#instancetypename}
 
-> `optional` **instanceTypeName**: `string`
+> `optional` **instanceTypeName?**: `string`
 
 The instance type created.
 
@@ -24,15 +24,15 @@ The instance type created.
 
 ### factory? {#factory}
 
-> `optional` **factory**: `F`
+> `optional` **factory?**: `F`
 
 The factory to store the instance in.
 
 ***
 
-### createComponent()? {#createcomponent}
+### createComponent? {#createcomponent}
 
-> `optional` **createComponent**: (`additionalConfig`) => `IComponent`
+> `optional` **createComponent?**: (`additionalConfig`) => `IComponent`
 
 Create a new component.
 

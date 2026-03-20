@@ -14,4 +14,4 @@ Attestation config connector types.
 
 ### options? {#options}
 
-> `optional` **options**: `INftAttestationConnectorConstructorOptions`
+> `optional` **options?**: `INftAttestationConnectorConstructorOptions`

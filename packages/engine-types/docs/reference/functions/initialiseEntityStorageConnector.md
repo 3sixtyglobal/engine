@@ -20,9 +20,9 @@ The context for the engine.
 
 ### typeCustom
 
-Override the type of connector to use instead of default configuration.
+`string` \| `undefined`
 
-`string` | `undefined`
+Override the type of connector to use instead of default configuration.
 
 ### schema
 

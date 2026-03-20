@@ -14,4 +14,4 @@ Messaging admin component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `IMessagingAdminServiceConstructorOptions`
+> `optional` **options?**: `IMessagingAdminServiceConstructorOptions`

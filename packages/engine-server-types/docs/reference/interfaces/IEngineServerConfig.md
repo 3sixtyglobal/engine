@@ -10,9 +10,15 @@ Extended engine server config with known types.
 
 ### debug? {#debug}
 
-> `optional` **debug**: `boolean`
+> `optional` **debug?**: `boolean`
 
 Start the engine in debug mode.
+
+#### Default
+
+```ts
+false
+```
 
 #### Inherited from
 
@@ -22,9 +28,15 @@ Start the engine in debug mode.
 
 ### silent? {#silent}
 
-> `optional` **silent**: `boolean`
+> `optional` **silent?**: `boolean`
 
 Disable output to the console.
+
+#### Default
+
+```ts
+false
+```
 
 #### Inherited from
 
@@ -34,7 +46,7 @@ Disable output to the console.
 
 ### web? {#web}
 
-> `optional` **web**: `IWebServerOptions`
+> `optional` **web?**: `IWebServerOptions`
 
 Configuration for the web server.
 
@@ -50,391 +62,391 @@ The types to initialise in the engine.
 
 ##### loggingConnector?
 
-> `optional` **loggingConnector**: `IEngineCoreTypeConfig`\<`LoggingConnectorConfig`\>[]
+> `optional` **loggingConnector?**: `IEngineCoreTypeConfig`\<`LoggingConnectorConfig`\>[]
 
 Logging connector options which can be overridden by individual components by specifying types other than default.
 
 ##### loggingComponent?
 
-> `optional` **loggingComponent**: `IEngineCoreTypeConfig`\<`LoggingComponentConfig`\>[]
+> `optional` **loggingComponent?**: `IEngineCoreTypeConfig`\<`LoggingComponentConfig`\>[]
 
 Logging component options which can be overridden by individual components by specifying types other than default.
 
 ##### entityStorageConnector?
 
-> `optional` **entityStorageConnector**: `IEngineCoreTypeConfig`\<`EntityStorageConnectorConfig`\>[]
+> `optional` **entityStorageConnector?**: `IEngineCoreTypeConfig`\<`EntityStorageConnectorConfig`\>[]
 
 Entity storage connector options which can be overridden by individual components by specifying types other than default.
 
 ##### entityStorageComponent?
 
-> `optional` **entityStorageComponent**: `IEngineCoreTypeConfig`\<`EntityStorageComponentConfig`\>[]
+> `optional` **entityStorageComponent?**: `IEngineCoreTypeConfig`\<`EntityStorageComponentConfig`\>[]
 
 Entity storage component options which can be overridden by individual components by specifying types other than default.
 
 ##### blobStorageConnector?
 
-> `optional` **blobStorageConnector**: `IEngineCoreTypeConfig`\<`BlobStorageConnectorConfig`\>[]
+> `optional` **blobStorageConnector?**: `IEngineCoreTypeConfig`\<`BlobStorageConnectorConfig`\>[]
 
 Blob storage connector options which can be overridden by individual components by specifying types other than default.
 
 ##### blobStorageComponent?
 
-> `optional` **blobStorageComponent**: `IEngineCoreTypeConfig`\<`BlobStorageComponentConfig`\>[]
+> `optional` **blobStorageComponent?**: `IEngineCoreTypeConfig`\<`BlobStorageComponentConfig`\>[]
 
 Blob storage component options which can be overridden by individual components by specifying types other than default.
 
 ##### telemetryConnector?
 
-> `optional` **telemetryConnector**: `IEngineCoreTypeConfig`\<`TelemetryConnectorConfig`\>[]
+> `optional` **telemetryConnector?**: `IEngineCoreTypeConfig`\<`TelemetryConnectorConfig`\>[]
 
 Telemetry connector options which can be overridden by individual components by specifying types other than default.
 
 ##### telemetryComponent?
 
-> `optional` **telemetryComponent**: `IEngineCoreTypeConfig`\<`TelemetryComponentConfig`\>[]
+> `optional` **telemetryComponent?**: `IEngineCoreTypeConfig`\<`TelemetryComponentConfig`\>[]
 
 Telemetry component options which can be overridden by individual components by specifying types other than default.
 
 ##### messagingEmailConnector?
 
-> `optional` **messagingEmailConnector**: `IEngineCoreTypeConfig`\<`MessagingEmailConnectorConfig`\>[]
+> `optional` **messagingEmailConnector?**: `IEngineCoreTypeConfig`\<`MessagingEmailConnectorConfig`\>[]
 
 Messaging email connector options which can be overridden by individual components by specifying types other than default.
 
 ##### messagingSmsConnector?
 
-> `optional` **messagingSmsConnector**: `IEngineCoreTypeConfig`\<`MessagingSmsConnectorConfig`\>[]
+> `optional` **messagingSmsConnector?**: `IEngineCoreTypeConfig`\<`MessagingSmsConnectorConfig`\>[]
 
 Messaging SMS connector options which can be overridden by individual components by specifying types other than default.
 
 ##### messagingPushNotificationConnector?
 
-> `optional` **messagingPushNotificationConnector**: `IEngineCoreTypeConfig`\<`MessagingPushNotificationConnectorConfig`\>[]
+> `optional` **messagingPushNotificationConnector?**: `IEngineCoreTypeConfig`\<`MessagingPushNotificationConnectorConfig`\>[]
 
 Messaging push notification connector options which can be overridden by individual components by specifying types other than default.
 
 ##### messagingAdminComponent?
 
-> `optional` **messagingAdminComponent**: `IEngineCoreTypeConfig`\<`MessagingAdminComponentConfig`\>[]
+> `optional` **messagingAdminComponent?**: `IEngineCoreTypeConfig`\<`MessagingAdminComponentConfig`\>[]
 
 Messaging admin component options which can be overridden by individual components by specifying types other than default.
 
 ##### messagingComponent?
 
-> `optional` **messagingComponent**: `IEngineCoreTypeConfig`\<`MessagingComponentConfig`\>[]
+> `optional` **messagingComponent?**: `IEngineCoreTypeConfig`\<`MessagingComponentConfig`\>[]
 
 Messaging component options which can be overridden by individual components by specifying types other than default.
 
 ##### backgroundTaskComponent?
 
-> `optional` **backgroundTaskComponent**: `IEngineCoreTypeConfig`\<`BackgroundTaskComponentConfig`\>[]
+> `optional` **backgroundTaskComponent?**: `IEngineCoreTypeConfig`\<`BackgroundTaskComponentConfig`\>[]
 
 Background task component options which can be overridden by individual components by specifying types other than default.
 
 ##### taskSchedulerComponent?
 
-> `optional` **taskSchedulerComponent**: `IEngineCoreTypeConfig`\<`TaskSchedulerComponentConfig`\>[]
+> `optional` **taskSchedulerComponent?**: `IEngineCoreTypeConfig`\<`TaskSchedulerComponentConfig`\>[]
 
 Task scheduler component options which can be overridden by individual components by specifying types other than default.
 
 ##### eventBusConnector?
 
-> `optional` **eventBusConnector**: `IEngineCoreTypeConfig`\<`EventBusConnectorConfig`\>[]
+> `optional` **eventBusConnector?**: `IEngineCoreTypeConfig`\<`EventBusConnectorConfig`\>[]
 
 Event bus connector options which can be overridden by individual components by specifying types other than default.
 
 ##### eventBusComponent?
 
-> `optional` **eventBusComponent**: `IEngineCoreTypeConfig`\<`EventBusComponentConfig`\>[]
+> `optional` **eventBusComponent?**: `IEngineCoreTypeConfig`\<`EventBusComponentConfig`\>[]
 
 Event bus component options which can be overridden by individual components by specifying types other than default.
 
 ##### vaultConnector?
 
-> `optional` **vaultConnector**: `IEngineCoreTypeConfig`\<`VaultConnectorConfig`\>[]
+> `optional` **vaultConnector?**: `IEngineCoreTypeConfig`\<`VaultConnectorConfig`\>[]
 
 Vault connector options which can be overridden by individual components by specifying types other than default.
 
 ##### dltConfig?
 
-> `optional` **dltConfig**: `IEngineCoreTypeConfig`\<`DltConfig`\>[]
+> `optional` **dltConfig?**: `IEngineCoreTypeConfig`\<`DltConfig`\>[]
 
 DLT options which can be overridden by individual components by specifying types other than default.
 
 ##### walletConnector?
 
-> `optional` **walletConnector**: `IEngineCoreTypeConfig`\<`WalletConnectorConfig`\>[]
+> `optional` **walletConnector?**: `IEngineCoreTypeConfig`\<`WalletConnectorConfig`\>[]
 
 Wallet connector options which can be overridden by individual components by specifying types other than default.
 
 ##### verifiableStorageConnector?
 
-> `optional` **verifiableStorageConnector**: `IEngineCoreTypeConfig`\<`VerifiableStorageConnectorConfig`\>[]
+> `optional` **verifiableStorageConnector?**: `IEngineCoreTypeConfig`\<`VerifiableStorageConnectorConfig`\>[]
 
 Verifiable storage connector options which can be overridden by individual components by specifying types other than default.
 
 ##### verifiableStorageComponent?
 
-> `optional` **verifiableStorageComponent**: `IEngineCoreTypeConfig`\<`VerifiableStorageComponentConfig`\>[]
+> `optional` **verifiableStorageComponent?**: `IEngineCoreTypeConfig`\<`VerifiableStorageComponentConfig`\>[]
 
 Verifiable storage component options which can be overridden by individual components by specifying types other than default.
 
 ##### immutableProofComponent?
 
-> `optional` **immutableProofComponent**: `IEngineCoreTypeConfig`\<`ImmutableProofComponentConfig`\>[]
+> `optional` **immutableProofComponent?**: `IEngineCoreTypeConfig`\<`ImmutableProofComponentConfig`\>[]
 
 Immutable proof component options which can be overridden by individual components by specifying types other than default.
 
 ##### faucetConnector?
 
-> `optional` **faucetConnector**: `IEngineCoreTypeConfig`\<`FaucetConnectorConfig`\>[]
+> `optional` **faucetConnector?**: `IEngineCoreTypeConfig`\<`FaucetConnectorConfig`\>[]
 
 Faucet connector options which can be overridden by individual components by specifying types other than default.
 
 ##### identityConnector?
 
-> `optional` **identityConnector**: `IEngineCoreTypeConfig`\<`IdentityConnectorConfig`\>[]
+> `optional` **identityConnector?**: `IEngineCoreTypeConfig`\<`IdentityConnectorConfig`\>[]
 
 Identity connector options which can be overridden by individual components by specifying types other than default.
 
 ##### identityComponent?
 
-> `optional` **identityComponent**: `IEngineCoreTypeConfig`\<`IdentityComponentConfig`\>[]
+> `optional` **identityComponent?**: `IEngineCoreTypeConfig`\<`IdentityComponentConfig`\>[]
 
 Identity component options which can be overridden by individual components by specifying types other than default.
 
 ##### identityResolverConnector?
 
-> `optional` **identityResolverConnector**: `IEngineCoreTypeConfig`\<`IdentityResolverConnectorConfig`\>[]
+> `optional` **identityResolverConnector?**: `IEngineCoreTypeConfig`\<`IdentityResolverConnectorConfig`\>[]
 
 Identity resolver connector options which can be overridden by individual components by specifying types other than default.
 
 ##### identityResolverComponent?
 
-> `optional` **identityResolverComponent**: `IEngineCoreTypeConfig`\<`IdentityResolverComponentConfig`\>[]
+> `optional` **identityResolverComponent?**: `IEngineCoreTypeConfig`\<`IdentityResolverComponentConfig`\>[]
 
 Identity resolver component options which can be overridden by individual components by specifying types other than default.
 
 ##### identityProfileConnector?
 
-> `optional` **identityProfileConnector**: `IEngineCoreTypeConfig`\<`IdentityProfileConnectorConfig`\>[]
+> `optional` **identityProfileConnector?**: `IEngineCoreTypeConfig`\<`IdentityProfileConnectorConfig`\>[]
 
 Identity profile connector options which can be overridden by individual components by specifying types other than default.
 
 ##### identityProfileComponent?
 
-> `optional` **identityProfileComponent**: `IEngineCoreTypeConfig`\<`IdentityProfileComponentConfig`\>[]
+> `optional` **identityProfileComponent?**: `IEngineCoreTypeConfig`\<`IdentityProfileComponentConfig`\>[]
 
 Identity profile component options which can be overridden by individual components by specifying types other than default.
 
 ##### nftConnector?
 
-> `optional` **nftConnector**: `IEngineCoreTypeConfig`\<`NftConnectorConfig`\>[]
+> `optional` **nftConnector?**: `IEngineCoreTypeConfig`\<`NftConnectorConfig`\>[]
 
 NFT connector options which can be overridden by individual components by specifying types other than default.
 
 ##### nftComponent?
 
-> `optional` **nftComponent**: `IEngineCoreTypeConfig`\<`NftComponentConfig`\>[]
+> `optional` **nftComponent?**: `IEngineCoreTypeConfig`\<`NftComponentConfig`\>[]
 
 NFT component options which can be overridden by individual components by specifying types other than default.
 
 ##### attestationConnector?
 
-> `optional` **attestationConnector**: `IEngineCoreTypeConfig`\<`AttestationConnectorConfig`\>[]
+> `optional` **attestationConnector?**: `IEngineCoreTypeConfig`\<`AttestationConnectorConfig`\>[]
 
 Attestation connector options which can be overridden by individual components by specifying types other than default.
 
 ##### attestationComponent?
 
-> `optional` **attestationComponent**: `IEngineCoreTypeConfig`\<`AttestationComponentConfig`\>[]
+> `optional` **attestationComponent?**: `IEngineCoreTypeConfig`\<`AttestationComponentConfig`\>[]
 
 Attestation component options which can be overridden by individual components by specifying types other than default.
 
 ##### auditableItemGraphComponent?
 
-> `optional` **auditableItemGraphComponent**: `IEngineCoreTypeConfig`\<`AuditableItemGraphComponentConfig`\>[]
+> `optional` **auditableItemGraphComponent?**: `IEngineCoreTypeConfig`\<`AuditableItemGraphComponentConfig`\>[]
 
 Auditable item graph component options which can be overridden by individual components by specifying types other than default.
 
 ##### auditableItemStreamComponent?
 
-> `optional` **auditableItemStreamComponent**: `IEngineCoreTypeConfig`\<`AuditableItemStreamComponentConfig`\>[]
+> `optional` **auditableItemStreamComponent?**: `IEngineCoreTypeConfig`\<`AuditableItemStreamComponentConfig`\>[]
 
 Auditable item stream component  options which can be overridden by individual components by specifying types other than default.
 
 ##### dataConverterConnector?
 
-> `optional` **dataConverterConnector**: `IEngineCoreTypeConfig`\<`DataConverterConnectorConfig`\>[]
+> `optional` **dataConverterConnector?**: `IEngineCoreTypeConfig`\<`DataConverterConnectorConfig`\>[]
 
 Data converter connector options which can be overridden by individual components by specifying types other than default.
 
 ##### dataExtractorConnector?
 
-> `optional` **dataExtractorConnector**: `IEngineCoreTypeConfig`\<`DataExtractorConnectorConfig`\>[]
+> `optional` **dataExtractorConnector?**: `IEngineCoreTypeConfig`\<`DataExtractorConnectorConfig`\>[]
 
 Data extractor connector options which can be overridden by individual components by specifying types other than default.
 
 ##### dataProcessingComponent?
 
-> `optional` **dataProcessingComponent**: `IEngineCoreTypeConfig`\<`DataProcessingComponentConfig`\>[]
+> `optional` **dataProcessingComponent?**: `IEngineCoreTypeConfig`\<`DataProcessingComponentConfig`\>[]
 
 Date processing options which can be overridden by individual components by specifying types other than default.
 
 ##### documentManagementComponent?
 
-> `optional` **documentManagementComponent**: `IEngineCoreTypeConfig`\<`DocumentManagementComponentConfig`\>[]
+> `optional` **documentManagementComponent?**: `IEngineCoreTypeConfig`\<`DocumentManagementComponentConfig`\>[]
 
 Document management options which can be overridden by individual components by specifying types other than default.
 
 ##### trustComponent?
 
-> `optional` **trustComponent**: `IEngineCoreTypeConfig`\<`TrustComponentConfig`\>[]
+> `optional` **trustComponent?**: `IEngineCoreTypeConfig`\<`TrustComponentConfig`\>[]
 
 Trust component options which can be overridden by individual components by specifying types other than default.
 
 ##### trustGeneratorComponent?
 
-> `optional` **trustGeneratorComponent**: `IEngineCoreTypeConfig`\<`TrustGeneratorComponentConfig`\>[]
+> `optional` **trustGeneratorComponent?**: `IEngineCoreTypeConfig`\<`TrustGeneratorComponentConfig`\>[]
 
 Trust generator component options which can be overridden by individual components by specifying types other than default.
 
 ##### trustVerifierComponent?
 
-> `optional` **trustVerifierComponent**: `IEngineCoreTypeConfig`\<`TrustVerifierComponentConfig`\>[]
+> `optional` **trustVerifierComponent?**: `IEngineCoreTypeConfig`\<`TrustVerifierComponentConfig`\>[]
 
 Trust verifier component options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPapComponent?
 
-> `optional` **rightsManagementPapComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPapComponentConfig`\>[]
+> `optional` **rightsManagementPapComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPapComponentConfig`\>[]
 
 Rights management PAP options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPdpComponent?
 
-> `optional` **rightsManagementPdpComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPdpComponentConfig`\>[]
+> `optional` **rightsManagementPdpComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPdpComponentConfig`\>[]
 
 Rights management PDP options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPepComponent?
 
-> `optional` **rightsManagementPepComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPepComponentConfig`\>[]
+> `optional` **rightsManagementPepComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPepComponentConfig`\>[]
 
 Rights management PEP options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPipComponent?
 
-> `optional` **rightsManagementPipComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPipComponentConfig`\>[]
+> `optional` **rightsManagementPipComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPipComponentConfig`\>[]
 
 Rights management PIP options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPmpComponent?
 
-> `optional` **rightsManagementPmpComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPmpComponentConfig`\>[]
+> `optional` **rightsManagementPmpComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPmpComponentConfig`\>[]
 
 Rights management PMP options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPxpComponent?
 
-> `optional` **rightsManagementPxpComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPxpComponentConfig`\>[]
+> `optional` **rightsManagementPxpComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPxpComponentConfig`\>[]
 
 Rights management PXP options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPnpComponent?
 
-> `optional` **rightsManagementPnpComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPnpComponentConfig`\>[]
+> `optional` **rightsManagementPnpComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPnpComponentConfig`\>[]
 
 Rights management PNP options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPnapComponent?
 
-> `optional` **rightsManagementPnapComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPnapComponentConfig`\>[]
+> `optional` **rightsManagementPnapComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPnapComponentConfig`\>[]
 
 Rights management PNAP options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPolicyArbiterComponent?
 
-> `optional` **rightsManagementPolicyArbiterComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyArbiterComponentConfig`\>[]
+> `optional` **rightsManagementPolicyArbiterComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyArbiterComponentConfig`\>[]
 
 Rights management policy arbiter options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPolicyObligationEnforcerComponent?
 
-> `optional` **rightsManagementPolicyObligationEnforcerComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyObligationEnforcerComponentConfig`\>[]
+> `optional` **rightsManagementPolicyObligationEnforcerComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyObligationEnforcerComponentConfig`\>[]
 
 Rights management policy obligation enforcer options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPolicyEnforcementProcessorComponent?
 
-> `optional` **rightsManagementPolicyEnforcementProcessorComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyEnforcementProcessorComponentConfig`\>[]
+> `optional` **rightsManagementPolicyEnforcementProcessorComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyEnforcementProcessorComponentConfig`\>[]
 
 Rights management policy enforcement processor options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPolicyExecutionActionComponent?
 
-> `optional` **rightsManagementPolicyExecutionActionComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyExecutionActionComponentConfig`\>[]
+> `optional` **rightsManagementPolicyExecutionActionComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyExecutionActionComponentConfig`\>[]
 
 Rights management policy execution action options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPolicyInformationSourceComponent?
 
-> `optional` **rightsManagementPolicyInformationSourceComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyInformationSourceComponentConfig`\>[]
+> `optional` **rightsManagementPolicyInformationSourceComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyInformationSourceComponentConfig`\>[]
 
 Rights management policy information source options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPolicyNegotiatorComponent?
 
-> `optional` **rightsManagementPolicyNegotiatorComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyNegotiatorComponentConfig`\>[]
+> `optional` **rightsManagementPolicyNegotiatorComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyNegotiatorComponentConfig`\>[]
 
 Rights management policy negotiator options which can be overridden by individual components by specifying types other than default.
 
 ##### rightsManagementPolicyRequesterComponent?
 
-> `optional` **rightsManagementPolicyRequesterComponent**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyRequesterComponentConfig`\>[]
+> `optional` **rightsManagementPolicyRequesterComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyRequesterComponentConfig`\>[]
 
 Rights management policy requester options which can be overridden by individual components by specifying types other than default.
 
 ##### synchronisedStorageComponent?
 
-> `optional` **synchronisedStorageComponent**: `IEngineCoreTypeConfig`\<`SynchronisedStorageComponentConfig`\>[]
+> `optional` **synchronisedStorageComponent?**: `IEngineCoreTypeConfig`\<`SynchronisedStorageComponentConfig`\>[]
 
 Synchronised storage options which can be overridden by individual components by specifying types other than default.
 
 ##### federatedCatalogueComponent?
 
-> `optional` **federatedCatalogueComponent**: `IEngineCoreTypeConfig`\<`FederatedCatalogueComponentConfig`\>[]
+> `optional` **federatedCatalogueComponent?**: `IEngineCoreTypeConfig`\<`FederatedCatalogueComponentConfig`\>[]
 
 Federated catalogue options which can be overridden by individual components by specifying types other than default.
 
 ##### federatedCatalogueFilterComponent?
 
-> `optional` **federatedCatalogueFilterComponent**: `IEngineCoreTypeConfig`\<`FederatedCatalogueFilterComponentConfig`\>[]
+> `optional` **federatedCatalogueFilterComponent?**: `IEngineCoreTypeConfig`\<`FederatedCatalogueFilterComponentConfig`\>[]
 
 Federated catalogue filter options which can be overridden by individual components by specifying types other than default.
 
 ##### dataspaceControlPlaneComponent?
 
-> `optional` **dataspaceControlPlaneComponent**: `IEngineCoreTypeConfig`\<`DataspaceControlPlaneComponentConfig`\>[]
+> `optional` **dataspaceControlPlaneComponent?**: `IEngineCoreTypeConfig`\<`DataspaceControlPlaneComponentConfig`\>[]
 
 Dataspace control plane component options which can be overridden by individual components by specifying types other than default.
 
 ##### dataspaceDataPlaneComponent?
 
-> `optional` **dataspaceDataPlaneComponent**: `IEngineCoreTypeConfig`\<`DataspaceDataPlaneComponentConfig`\>[]
+> `optional` **dataspaceDataPlaneComponent?**: `IEngineCoreTypeConfig`\<`DataspaceDataPlaneComponentConfig`\>[]
 
 Dataspace data plane component options which can be overridden by individual components by specifying types other than default.
 
 ##### tenantAdminComponent?
 
-> `optional` **tenantAdminComponent**: `IEngineCoreTypeConfig`\<`TenantAdminComponentConfig`\>[]
+> `optional` **tenantAdminComponent?**: `IEngineCoreTypeConfig`\<`TenantAdminComponentConfig`\>[]
 
 Tenant admin component options which can be overridden by individual components by specifying types other than default.
 
 ##### contextIdHandlerComponent?
 
-> `optional` **contextIdHandlerComponent**: `IEngineCoreTypeConfig`\<`ContextIdHandlerComponentConfig`\>[]
+> `optional` **contextIdHandlerComponent?**: `IEngineCoreTypeConfig`\<`ContextIdHandlerComponentConfig`\>[]
 
 Context Id Handler component options which can be overridden by individual components by specifying types other than default.
 
@@ -442,43 +454,43 @@ Context Id Handler component options which can be overridden by individual compo
 
 ##### informationComponent?
 
-> `optional` **informationComponent**: `IEngineCoreTypeConfig`\<[`InformationComponentConfig`](../type-aliases/InformationComponentConfig.md)\>[]
+> `optional` **informationComponent?**: `IEngineCoreTypeConfig`\<[`InformationComponentConfig`](../type-aliases/InformationComponentConfig.md)\>[]
 
 Information component options which can be overridden by individual components by specifying types other than default.
 
 ##### hostingComponent?
 
-> `optional` **hostingComponent**: `IEngineCoreTypeConfig`\<[`HostingComponentConfig`](../type-aliases/HostingComponentConfig.md)\>[]
+> `optional` **hostingComponent?**: `IEngineCoreTypeConfig`\<[`HostingComponentConfig`](../type-aliases/HostingComponentConfig.md)\>[]
 
 Hosting component options which can be overridden by individual components by specifying types other than default.
 
 ##### restRouteProcessor?
 
-> `optional` **restRouteProcessor**: `IEngineCoreTypeConfig`\<[`RestRouteProcessorConfig`](../type-aliases/RestRouteProcessorConfig.md)\>[]
+> `optional` **restRouteProcessor?**: `IEngineCoreTypeConfig`\<[`RestRouteProcessorConfig`](../type-aliases/RestRouteProcessorConfig.md)\>[]
 
 REST route processors options which can be overridden by individual components by specifying types other than default.
 
 ##### socketRouteProcessor?
 
-> `optional` **socketRouteProcessor**: `IEngineCoreTypeConfig`\<[`SocketRouteProcessorConfig`](../type-aliases/SocketRouteProcessorConfig.md)\>[]
+> `optional` **socketRouteProcessor?**: `IEngineCoreTypeConfig`\<[`SocketRouteProcessorConfig`](../type-aliases/SocketRouteProcessorConfig.md)\>[]
 
 Socket route processors options which can be overridden by individual components by specifying types other than default.
 
 ##### mimeTypeProcessor?
 
-> `optional` **mimeTypeProcessor**: `IEngineCoreTypeConfig`\<[`MimeTypeProcessorConfig`](../type-aliases/MimeTypeProcessorConfig.md)\>[]
+> `optional` **mimeTypeProcessor?**: `IEngineCoreTypeConfig`\<[`MimeTypeProcessorConfig`](../type-aliases/MimeTypeProcessorConfig.md)\>[]
 
 Mime type processors options which can be overridden by individual components by specifying types other than default.
 
 ##### authenticationComponent?
 
-> `optional` **authenticationComponent**: `IEngineCoreTypeConfig`\<[`AuthenticationComponentConfig`](../type-aliases/AuthenticationComponentConfig.md)\>[]
+> `optional` **authenticationComponent?**: `IEngineCoreTypeConfig`\<[`AuthenticationComponentConfig`](../type-aliases/AuthenticationComponentConfig.md)\>[]
 
 Authentication component options which can be overridden by individual components by specifying types other than default.
 
 ##### authenticationAdminComponent?
 
-> `optional` **authenticationAdminComponent**: `IEngineCoreTypeConfig`\<[`AuthenticationAdminComponentConfig`](../type-aliases/AuthenticationAdminComponentConfig.md)\>[]
+> `optional` **authenticationAdminComponent?**: `IEngineCoreTypeConfig`\<[`AuthenticationAdminComponentConfig`](../type-aliases/AuthenticationAdminComponentConfig.md)\>[]
 
 Authentication admin component options which can be overridden by individual components by specifying types other than default.
 

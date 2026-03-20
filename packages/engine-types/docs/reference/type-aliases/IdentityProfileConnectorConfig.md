@@ -14,4 +14,4 @@ Identity profile connector config types.
 
 ### options? {#options}
 
-> `optional` **options**: `IEntityStorageIdentityProfileConnectorConstructorOptions`
+> `optional` **options?**: `IEntityStorageIdentityProfileConnectorConstructorOptions`

@@ -14,4 +14,4 @@ Rights management PDP component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `IPolicyDecisionPointServiceConstructorOptions`
+> `optional` **options?**: `IPolicyDecisionPointServiceConstructorOptions`

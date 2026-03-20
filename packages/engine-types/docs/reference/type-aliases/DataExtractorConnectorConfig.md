@@ -14,4 +14,4 @@ Data extractor connector config types.
 
 ### options? {#options}
 
-> `optional` **options**: `never`
+> `optional` **options?**: `never`

@@ -14,4 +14,4 @@ Trust verifier component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `IJwtVerifiableCredentialVerifierConstructorOptions`
+> `optional` **options?**: `IJwtVerifiableCredentialVerifierConstructorOptions`

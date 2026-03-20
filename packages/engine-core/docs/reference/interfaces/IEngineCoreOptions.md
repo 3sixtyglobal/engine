@@ -16,7 +16,7 @@ The options for creating engine core.
 
 ### config? {#config}
 
-> `optional` **config**: `C`
+> `optional` **config?**: `C`
 
 The engine core config.
 
@@ -24,7 +24,7 @@ The engine core config.
 
 ### stateStorage? {#statestorage}
 
-> `optional` **stateStorage**: `IEngineStateStorage`\<`S`\>
+> `optional` **stateStorage?**: `IEngineStateStorage`\<`S`\>
 
 The state storage component.
 
@@ -32,15 +32,15 @@ The state storage component.
 
 ### skipBootstrap? {#skipbootstrap}
 
-> `optional` **skipBootstrap**: `boolean`
+> `optional` **skipBootstrap?**: `boolean`
 
 Skip the bootstrap process, useful for additional engine instances.
 
 ***
 
-### populateTypeInitialisers()? {#populatetypeinitialisers}
+### populateTypeInitialisers? {#populatetypeinitialisers}
 
-> `optional` **populateTypeInitialisers**: (`engineCore`, `context`) => `void`
+> `optional` **populateTypeInitialisers?**: (`engineCore`, `context`) => `void`
 
 Populate the type initialisers for the engine.
 
@@ -60,9 +60,9 @@ Populate the type initialisers for the engine.
 
 ***
 
-### customBootstrap()? {#custombootstrap}
+### customBootstrap? {#custombootstrap}
 
-> `optional` **customBootstrap**: (`engineCore`, `context`) => `Promise`\<`void`\>
+> `optional` **customBootstrap?**: (`engineCore`, `context`) => `Promise`\<`void`\>
 
 Custom bootstrap method for the engine.
 

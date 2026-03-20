@@ -30,7 +30,7 @@ The class name of the additional component.
 
 ### dependencies? {#dependencies}
 
-> `optional` **dependencies**: `object`[]
+> `optional` **dependencies?**: `object`[]
 
 Additional dependencies required by the component.
 
@@ -44,16 +44,16 @@ Additional dependencies required by the component.
 
 #### features?
 
-> `optional` **features**: `string`[]
+> `optional` **features?**: `string`[]
 
 #### isOptional?
 
-> `optional` **isOptional**: `boolean`
+> `optional` **isOptional?**: `boolean`
 
 ***
 
 ### config? {#config}
 
-> `optional` **config**: `unknown`
+> `optional` **config?**: `unknown`
 
 Additional configuration for the component.

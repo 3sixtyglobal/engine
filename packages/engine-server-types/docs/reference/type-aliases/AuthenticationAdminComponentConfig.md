@@ -14,4 +14,4 @@ Authentication admin component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `IEntityStorageAuthenticationAdminServiceConstructorOptions`
+> `optional` **options?**: `IEntityStorageAuthenticationAdminServiceConstructorOptions`

@@ -14,4 +14,4 @@ Rights management PEP component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `IPolicyEnforcementPointServiceConstructorOptions`
+> `optional` **options?**: `IPolicyEnforcementPointServiceConstructorOptions`

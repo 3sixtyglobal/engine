@@ -14,4 +14,4 @@ Telemetry connector config types.
 
 ### options? {#options}
 
-> `optional` **options**: `IEntityStorageTelemetryConnectorConstructorOptions`
+> `optional` **options?**: `IEntityStorageTelemetryConnectorConstructorOptions`

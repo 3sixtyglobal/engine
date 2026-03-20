@@ -20,6 +20,6 @@ The type of the instance.
 
 ### options? {#options}
 
-> `optional` **options**: `T`
+> `optional` **options?**: `T`
 
 The options for the instance.

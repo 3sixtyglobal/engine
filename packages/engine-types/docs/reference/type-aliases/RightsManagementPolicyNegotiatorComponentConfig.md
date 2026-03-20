@@ -14,4 +14,4 @@ Rights management policy negotiator component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `IPassThroughPolicyNegotiatorConstructorOptions`
+> `optional` **options?**: `IPassThroughPolicyNegotiatorConstructorOptions`

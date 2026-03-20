@@ -14,4 +14,4 @@ Background task component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `IBackgroundTaskServiceConstructorOptions`
+> `optional` **options?**: `IBackgroundTaskServiceConstructorOptions`

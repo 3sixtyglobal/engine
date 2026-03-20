@@ -1,4 +1,4 @@
-# Type Alias: EngineTypeInitialiser()\<T, F\>
+# Type Alias: EngineTypeInitialiser\<T, F\>
 
 > **EngineTypeInitialiser**\<`T`, `F`\> = (`engineCore`, `context`, `instanceConfig`) => [`EngineTypeInitialiserReturn`](../interfaces/EngineTypeInitialiserReturn.md)\<`T`, `F`\>
 

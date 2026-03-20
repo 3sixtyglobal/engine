@@ -14,4 +14,4 @@ Messaging component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `IMessagingServiceConstructorOptions`
+> `optional` **options?**: `IMessagingServiceConstructorOptions`

@@ -14,4 +14,4 @@ Background task scheduled component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `ITaskSchedulerConstructorOptions`
+> `optional` **options?**: `ITaskSchedulerConstructorOptions`

@@ -14,4 +14,4 @@ Rights management policy execution action component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `ILoggingPolicyExecutionActionConstructorOptions`
+> `optional` **options?**: `ILoggingPolicyExecutionActionConstructorOptions`

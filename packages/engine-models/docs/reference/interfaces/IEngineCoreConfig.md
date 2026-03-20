@@ -6,17 +6,29 @@ Configuration for the engine core.
 
 ### debug? {#debug}
 
-> `optional` **debug**: `boolean`
+> `optional` **debug?**: `boolean`
 
 Start the engine in debug mode.
+
+#### Default
+
+```ts
+false
+```
 
 ***
 
 ### silent? {#silent}
 
-> `optional` **silent**: `boolean`
+> `optional` **silent?**: `boolean`
 
 Disable output to the console.
+
+#### Default
+
+```ts
+false
+```
 
 ***
 

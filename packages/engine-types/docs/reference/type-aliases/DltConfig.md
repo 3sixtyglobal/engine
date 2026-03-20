@@ -14,8 +14,8 @@ DLT config types.
 
 ### options? {#options}
 
-> `optional` **options**: `object`
+> `optional` **options?**: `object`
 
 #### config?
 
-> `optional` **config**: `IIotaConfig`
+> `optional` **config?**: `IIotaConfig`

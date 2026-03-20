@@ -14,4 +14,4 @@ Rights management policy requester component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `IPassThroughPolicyRequesterConstructorOptions`
+> `optional` **options?**: `IPassThroughPolicyRequesterConstructorOptions`

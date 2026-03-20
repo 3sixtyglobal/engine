@@ -14,4 +14,4 @@ Event bus connector config types.
 
 ### options? {#options}
 
-> `optional` **options**: `ILocalEventBusConnectorConstructorOptions`
+> `optional` **options?**: `ILocalEventBusConnectorConstructorOptions`

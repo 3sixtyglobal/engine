@@ -14,4 +14,4 @@ Trust component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `ITrustServiceConstructorOptions`
+> `optional` **options?**: `ITrustServiceConstructorOptions`

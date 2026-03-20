@@ -14,4 +14,4 @@ Rights management PMP component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `IPolicyManagementPointServiceConstructorOptions`
+> `optional` **options?**: `IPolicyManagementPointServiceConstructorOptions`

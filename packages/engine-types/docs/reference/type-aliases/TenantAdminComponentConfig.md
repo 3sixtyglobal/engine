@@ -14,4 +14,4 @@ Tenant admin component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `ITenantAdminServiceConstructorOptions`
+> `optional` **options?**: `ITenantAdminServiceConstructorOptions`

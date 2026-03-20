@@ -14,4 +14,4 @@ Rights management policy obligation enforcer component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `IPassThroughPolicyObligationEnforcerConstructorOptions`
+> `optional` **options?**: `IPassThroughPolicyObligationEnforcerConstructorOptions`

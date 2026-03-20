@@ -14,4 +14,4 @@ Rights management PXP component config types.
 
 ### options? {#options}
 
-> `optional` **options**: `IPolicyExecutionPointServiceConstructorOptions`
+> `optional` **options?**: `IPolicyExecutionPointServiceConstructorOptions`

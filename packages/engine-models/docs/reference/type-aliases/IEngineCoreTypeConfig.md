@@ -8,49 +8,49 @@ Configuration for the engine core type.
 
 ### overrideInstanceType?
 
-> `optional` **overrideInstanceType**: `string`
+> `optional` **overrideInstanceType?**: `string`
 
 The instance type to override with.
 
 ### isDefault?
 
-> `optional` **isDefault**: `boolean`
+> `optional` **isDefault?**: `boolean`
 
 Whether this is the default instance.
 
 ### isMultiInstance?
 
-> `optional` **isMultiInstance**: `boolean`
+> `optional` **isMultiInstance?**: `boolean`
 
 Whether this is a multi-instance component.
 
 ### features?
 
-> `optional` **features**: `string`[]
+> `optional` **features?**: `string`[]
 
 The features supported by this instance.
 
 ### restPath?
 
-> `optional` **restPath**: `string`
+> `optional` **restPath?**: `string`
 
 The path for the REST API.
 
 ### restOptions?
 
-> `optional` **restOptions**: `unknown`
+> `optional` **restOptions?**: `unknown`
 
 The options for the REST API route generation.
 
 ### socketPath?
 
-> `optional` **socketPath**: `string`
+> `optional` **socketPath?**: `string`
 
 The path for the socket API.
 
 ### socketOptions?
 
-> `optional` **socketOptions**: `unknown`
+> `optional` **socketOptions?**: `unknown`
 
 The options for the socket API route generation.
 
