@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.27](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.3-next.26...engine-models-v0.0.3-next.27) (2026-03-20)
+
+
+### Features
+
+* update dependencies ([e6ebe42](https://github.com/twinfoundation/engine/commit/e6ebe42b9d61066227ad8b45dae14c8f8615b760))
+
 ## [0.0.3-next.26](https://github.com/twinfoundation/engine/compare/engine-models-v0.0.3-next.25...engine-models-v0.0.3-next.26) (2026-03-05)
 
 
