@@ -84,6 +84,7 @@ export function initialiseDataspaceDataPlaneComponent(
 						pepComponentType: engineCore.getRegisteredInstanceTypeOptional(
 							"rightsManagementPepComponent"
 						),
+						tenantAdminType: engineCore.getRegisteredInstanceTypeOptional("tenantAdminComponent"),
 						partitionContextIds
 					},
 					createConfig.options

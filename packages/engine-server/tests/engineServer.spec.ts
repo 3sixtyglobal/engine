@@ -519,6 +519,7 @@ describe("engine-server", () => {
 			"GET      /rights-management/policy/admin/agreement/:id",
 			"GET      /rights-management/policy/admin/offer/:id",
 			"GET      /rights-management/policy/admin/set/:id",
+			"GET      /rights-management/policy/admin/ecosystem-policy/:id",
 			"DELETE   /rights-management/policy/admin/:id",
 			"GET      /rights-management/policy/admin",
 			"GET      /rights-management/negotiations/:id",
