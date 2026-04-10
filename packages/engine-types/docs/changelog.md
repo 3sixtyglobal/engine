@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.28](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.27...engine-types-v0.0.3-next.28) (2026-04-10)
+
+
+### Features
+
+* use tenant admin service instead of custom tenant tracking ([72553d2](https://github.com/twinfoundation/engine/commit/72553d2c3e3b46fec77d3049bd0271bfec69ffc6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.27 to 0.0.3-next.28
+    * @twin.org/engine-models bumped from 0.0.3-next.27 to 0.0.3-next.28
+
 ## [0.0.3-next.27](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.26...engine-types-v0.0.3-next.27) (2026-03-20)
 
 
