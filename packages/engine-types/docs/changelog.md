@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.29](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.28...engine-types-v0.0.3-next.29) (2026-04-14)
+
+
+### Miscellaneous Chores
+
+* **engine-types:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.28 to 0.0.3-next.29
+    * @twin.org/engine-models bumped from 0.0.3-next.28 to 0.0.3-next.29
+
 ## [0.0.3-next.28](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.27...engine-types-v0.0.3-next.28) (2026-04-10)
 
 

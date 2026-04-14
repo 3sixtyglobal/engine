@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.29](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.3-next.28...engine-server-types-v0.0.3-next.29) (2026-04-14)
+
+
+### Features
+
+* add authentication rate and audit services ([#95](https://github.com/twinfoundation/engine/issues/95)) ([55e2b08](https://github.com/twinfoundation/engine/commit/55e2b089661529e0556115817cc435cc6e4292cc))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.28 to 0.0.3-next.29
+    * @twin.org/engine-types bumped from 0.0.3-next.28 to 0.0.3-next.29
+
 ## [0.0.3-next.28](https://github.com/twinfoundation/engine/compare/engine-server-types-v0.0.3-next.27...engine-server-types-v0.0.3-next.28) (2026-04-10)
 
 
