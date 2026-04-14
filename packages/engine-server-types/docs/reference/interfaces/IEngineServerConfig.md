@@ -482,6 +482,18 @@ Socket route processors options which can be overridden by individual components
 
 Mime type processors options which can be overridden by individual components by specifying types other than default.
 
+##### authenticationAuditComponent?
+
+> `optional` **authenticationAuditComponent?**: `IEngineCoreTypeConfig`\<[`AuthenticationAuditComponentConfig`](../type-aliases/AuthenticationAuditComponentConfig.md)\>[]
+
+Authentication audit component options which can be overridden by individual components by specifying types other than default.
+
+##### authenticationRateComponent?
+
+> `optional` **authenticationRateComponent?**: `IEngineCoreTypeConfig`\<[`AuthenticationRateComponentConfig`](../type-aliases/AuthenticationRateComponentConfig.md)\>[]
+
+Authentication rate component options which can be overridden by individual components by specifying types other than default.
+
 ##### authenticationComponent?
 
 > `optional` **authenticationComponent?**: `IEngineCoreTypeConfig`\<[`AuthenticationComponentConfig`](../type-aliases/AuthenticationComponentConfig.md)\>[]
