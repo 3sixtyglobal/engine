@@ -1,6 +1,10 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { AuthHeaderProcessor } from "@twin.org/api-auth-entity-storage-service";
+import {
+	AuthHeaderProcessor,
+	initSchema as initSchemaAuthEntityStorage,
+	type AuthenticationUser
+} from "@twin.org/api-auth-entity-storage-service";
 import { SocketRouteProcessorFactory } from "@twin.org/api-models";
 import {
 	LoggingProcessor,
@@ -42,8 +46,20 @@ export function initialiseSocketRouteProcessorComponent(
 	let instanceTypeName;
 
 	if (instanceConfig.type === SocketRouteProcessorType.AuthHeader) {
-		createComponent = (createConfig: typeof instanceConfig) =>
-			new AuthHeaderProcessor(
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaAuthEntityStorage();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.userEntityStorageType,
+				nameof<AuthenticationUser>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+
+			return new AuthHeaderProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector")
@@ -51,6 +67,7 @@ export function initialiseSocketRouteProcessorComponent(
 					createConfig.options
 				)
 			);
+		};
 		instanceTypeName = nameofKebabCase(AuthHeaderProcessor);
 	} else if (instanceConfig.type === SocketRouteProcessorType.Logging) {
 		createComponent = (createConfig: typeof instanceConfig) =>

@@ -4,7 +4,9 @@ import type { IWebServerOptions } from "@twin.org/api-models";
 import type { IEngineCoreTypeConfig } from "@twin.org/engine-models";
 import type { IEngineConfig } from "@twin.org/engine-types";
 import type { AuthenticationAdminComponentConfig } from "./config/authenticationAdminComponentConfig.js";
+import type { AuthenticationAuditComponentConfig } from "./config/authenticationAuditComponentConfig.js";
 import type { AuthenticationComponentConfig } from "./config/authenticationComponentConfig.js";
+import type { AuthenticationRateComponentConfig } from "./config/authenticationRateComponentConfig.js";
 import type { HostingComponentConfig } from "./config/hostingComponentConfig.js";
 import type { InformationComponentConfig } from "./config/informationComponentConfig.js";
 import type { MimeTypeProcessorConfig } from "./config/mimeTypeProcessorConfig.js";
@@ -50,6 +52,16 @@ export interface IEngineServerConfig extends IEngineConfig {
 		 * Mime type processors options which can be overridden by individual components by specifying types other than default.
 		 */
 		mimeTypeProcessor?: IEngineCoreTypeConfig<MimeTypeProcessorConfig>[];
+
+		/**
+		 * Authentication audit component options which can be overridden by individual components by specifying types other than default.
+		 */
+		authenticationAuditComponent?: IEngineCoreTypeConfig<AuthenticationAuditComponentConfig>[];
+
+		/**
+		 * Authentication rate component options which can be overridden by individual components by specifying types other than default.
+		 */
+		authenticationRateComponent?: IEngineCoreTypeConfig<AuthenticationRateComponentConfig>[];
 
 		/**
 		 * Authentication component options which can be overridden by individual components by specifying types other than default.

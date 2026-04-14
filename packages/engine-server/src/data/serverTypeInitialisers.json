@@ -1,5 +1,15 @@
 [
 	{
+		"type": "authenticationAuditComponent",
+		"module": "@twin.org/engine-server-types",
+		"method": "initialiseAuthenticationAuditComponent"
+	},
+	{
+		"type": "authenticationRateComponent",
+		"module": "@twin.org/engine-server-types",
+		"method": "initialiseAuthenticationRateComponent"
+	},
+	{
 		"type": "authenticationAdminComponent",
 		"module": "@twin.org/engine-server-types",
 		"method": "initialiseAuthenticationAdminComponent"

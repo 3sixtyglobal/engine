@@ -1,9 +1,9 @@
-// Copyright 2024 IOTA Stiftung.
+// Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import {
-	EntityStorageAuthenticationAdminService,
+	EntityStorageAuthenticationAuditService,
 	initSchema as initSchemaAuthEntityStorage,
-	type AuthenticationUser
+	type AuthenticationAuditEntry
 } from "@twin.org/api-auth-entity-storage-service";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory, type IComponent } from "@twin.org/core";
@@ -14,50 +14,43 @@ import type {
 } from "@twin.org/engine-models";
 import { EngineTypeHelper, initialiseEntityStorageConnector } from "@twin.org/engine-types";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import type { AuthenticationAdminComponentConfig } from "../models/config/authenticationAdminComponentConfig.js";
+import type { AuthenticationAuditComponentConfig } from "../models/config/authenticationAuditComponentConfig.js";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
-import { AuthenticationAdminComponentType } from "../models/types/authenticationAdminComponentType.js";
+import { AuthenticationAuditComponentType } from "../models/types/authenticationAuditComponentType.js";
 
 /**
- * Initialise the authentication admin.
+ * Initialise the authentication audit.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
-export function initialiseAuthenticationAdminComponent(
+export function initialiseAuthenticationAuditComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
-	instanceConfig: AuthenticationAdminComponentConfig
-): EngineTypeInitialiserReturn<AuthenticationAdminComponentConfig, typeof ComponentFactory> {
+	instanceConfig: AuthenticationAuditComponentConfig
+): EngineTypeInitialiserReturn<AuthenticationAuditComponentConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 
-	if (instanceConfig.type === AuthenticationAdminComponentType.EntityStorage) {
+	if (instanceConfig.type === AuthenticationAuditComponentType.EntityStorage) {
 		createComponent = (createConfig: typeof instanceConfig) => {
 			initSchemaAuthEntityStorage();
 			initialiseEntityStorageConnector(
 				engineCore,
 				context,
-				createConfig.options?.userEntityStorageType,
-				nameof<AuthenticationUser>(),
+				createConfig.options?.authenticationAuditEntryStorageType,
+				nameof<AuthenticationAuditEntry>(),
 				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
 					ContextIdKeys.Node,
 					ContextIdKeys.Tenant
 				])
 			);
-			return new EntityStorageAuthenticationAdminService(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{
-						authenticationAuditServiceType: engineCore.getRegisteredInstanceTypeOptional(
-							"authenticationAuditComponent"
-						)
-					},
-					createConfig.options
-				)
+			return new EntityStorageAuthenticationAuditService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
 			);
 		};
-		instanceTypeName = nameofKebabCase(EntityStorageAuthenticationAdminService);
+		instanceTypeName = nameofKebabCase(EntityStorageAuthenticationAuditService);
 	}
 
 	return {

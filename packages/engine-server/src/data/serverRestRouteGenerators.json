@@ -18,6 +18,12 @@
 		"defaultPath": "/authentication/admin"
 	},
 	{
+		"type": "authenticationAuditComponent",
+		"module": "@twin.org/api-auth-entity-storage-service",
+		"method": "generateRestRoutesAuthenticationAudit",
+		"defaultPath": "/authentication/audit"
+	},
+	{
 		"type": "loggingComponent",
 		"module": "@twin.org/logging-service",
 		"method": "generateRestRoutesLogging",

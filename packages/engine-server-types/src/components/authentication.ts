@@ -51,8 +51,11 @@ export function initialiseAuthenticationComponent(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-						authenticationAdminServiceType: engineCore.getRegisteredInstanceType(
-							"authenticationAdminComponent"
+						authenticationAuditServiceType: engineCore.getRegisteredInstanceTypeOptional(
+							"authenticationAuditComponent"
+						),
+						authenticationRateServiceType: engineCore.getRegisteredInstanceType(
+							"authenticationRateComponent"
 						)
 					},
 					createConfig.options

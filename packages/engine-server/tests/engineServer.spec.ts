@@ -7,7 +7,9 @@ import { Engine } from "@twin.org/engine";
 import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
 import {
 	AuthenticationAdminComponentType,
+	AuthenticationAuditComponentType,
 	AuthenticationComponentType,
+	AuthenticationRateComponentType,
 	HostingComponentType,
 	InformationComponentType,
 	RestRouteProcessorType,
@@ -379,6 +381,16 @@ describe("engine-server", () => {
 						type: SocketRouteProcessorType.SocketRoute
 					}
 				],
+				authenticationAuditComponent: [
+					{
+						type: AuthenticationAuditComponentType.EntityStorage
+					}
+				],
+				authenticationRateComponent: [
+					{
+						type: AuthenticationRateComponentType.EntityStorage
+					}
+				],
 				authenticationComponent: [
 					{
 						type: AuthenticationComponentType.EntityStorage
@@ -421,6 +433,8 @@ describe("engine-server", () => {
 			"GET      /authentication/admin/users/:email",
 			"GET      /authentication/admin/users/identity/:identity",
 			"DELETE   /authentication/admin/users/:email",
+			"POST     /authentication/audit",
+			"GET      /authentication/audit",
 			"POST     /logging",
 			"GET      /logging",
 			"GET      /tenants",
