@@ -252,6 +252,18 @@ NFT connector options which can be overridden by individual components by specif
 
 NFT component options which can be overridden by individual components by specifying types other than default.
 
+##### notarizationConnector?
+
+> `optional` **notarizationConnector?**: `IEngineCoreTypeConfig`\<`NotarizationConnectorConfig`\>[]
+
+Notarization connector options which can be overridden by individual components by specifying types other than default.
+
+##### notarizationComponent?
+
+> `optional` **notarizationComponent?**: `IEngineCoreTypeConfig`\<`NotarizationComponentConfig`\>[]
+
+Notarization component options which can be overridden by individual components by specifying types other than default.
+
 ##### attestationConnector?
 
 > `optional` **attestationConnector?**: `IEngineCoreTypeConfig`\<`AttestationConnectorConfig`\>[]
