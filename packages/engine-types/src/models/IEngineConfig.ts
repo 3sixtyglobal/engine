@@ -39,6 +39,8 @@ import type { MessagingPushNotificationConnectorConfig } from "./config/messagin
 import type { MessagingSmsConnectorConfig } from "./config/messagingSmsConnectorConfig.js";
 import type { NftComponentConfig } from "./config/nftComponentConfig.js";
 import type { NftConnectorConfig } from "./config/nftConnectorConfig.js";
+import type { NotarizationComponentConfig } from "./config/notarizationComponentConfig.js";
+import type { NotarizationConnectorConfig } from "./config/notarizationConnectorConfig.js";
 import type { RightsManagementPapComponentConfig } from "./config/rightsManagementPapComponentConfig.js";
 import type { RightsManagementPdpComponentConfig } from "./config/rightsManagementPdpComponentConfig.js";
 import type { RightsManagementPepComponentConfig } from "./config/rightsManagementPepComponentConfig.js";
@@ -236,6 +238,16 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * NFT component options which can be overridden by individual components by specifying types other than default.
 		 */
 		nftComponent?: IEngineCoreTypeConfig<NftComponentConfig>[];
+
+		/**
+		 * Notarization connector options which can be overridden by individual components by specifying types other than default.
+		 */
+		notarizationConnector?: IEngineCoreTypeConfig<NotarizationConnectorConfig>[];
+
+		/**
+		 * Notarization component options which can be overridden by individual components by specifying types other than default.
+		 */
+		notarizationComponent?: IEngineCoreTypeConfig<NotarizationComponentConfig>[];
 
 		/**
 		 * Attestation connector options which can be overridden by individual components by specifying types other than default.

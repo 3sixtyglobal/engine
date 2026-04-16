@@ -72,6 +72,12 @@
 		"defaultPath": "/nft"
 	},
 	{
+		"type": "notarizationComponent",
+		"module": "@twin.org/notarization-service",
+		"method": "generateRestRoutesNotarization",
+		"defaultPath": "/notarization"
+	},
+	{
 		"type": "verifiableStorageComponent",
 		"module": "@twin.org/verifiable-storage-service",
 		"method": "generateRestRoutesVerifiableStorage",

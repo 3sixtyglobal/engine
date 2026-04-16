@@ -145,6 +145,16 @@
 		"method": "initialiseNftComponent"
 	},
 	{
+		"type": "notarizationConnector",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseNotarizationConnector"
+	},
+	{
+		"type": "notarizationComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseNotarizationComponent"
+	},
+	{
 		"type": "immutableProofComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseImmutableProofComponent"
