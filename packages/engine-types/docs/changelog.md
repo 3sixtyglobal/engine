@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.30](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.29...engine-types-v0.0.3-next.30) (2026-04-16)
+
+
+### Features
+
+* add notarization ([#98](https://github.com/twinfoundation/engine/issues/98)) ([f560e2a](https://github.com/twinfoundation/engine/commit/f560e2a12a5fba01c95e47518ebdc4220801f8b8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.29 to 0.0.3-next.30
+    * @twin.org/engine-models bumped from 0.0.3-next.29 to 0.0.3-next.30
+
 ## [0.0.3-next.29](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.28...engine-types-v0.0.3-next.29) (2026-04-14)
 
 
