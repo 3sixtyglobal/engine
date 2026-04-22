@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.31](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.30...engine-types-v0.0.3-next.31) (2026-04-22)
+
+
+### Bug Fixes
+
+* align Control Plane TransferProcess partition with Data Plane ([#102](https://github.com/twinfoundation/engine/issues/102)) ([b651361](https://github.com/twinfoundation/engine/commit/b651361ffd648bdeea10a049414b878272c9ae4d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.30 to 0.0.3-next.31
+    * @twin.org/engine-models bumped from 0.0.3-next.30 to 0.0.3-next.31
+
 ## [0.0.3-next.30](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.29...engine-types-v0.0.3-next.30) (2026-04-16)
 
 
