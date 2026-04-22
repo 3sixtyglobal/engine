@@ -39,12 +39,15 @@ export function initialiseDataspaceControlPlaneComponent(
 		createComponent = (createConfig: typeof instanceConfig) => {
 			initSchemaDataspaceControlPlane();
 
-			// Initialize entity storage for TransferProcessEntity
-			// This storage is shared with Data Plane service
-			// Partition by Node only - transfers are cross-tenant operations
+			// Initialize entity storage for TransferProcessEntity.
+			// This storage is shared with Data Plane service. Both planes must
+			// register the same connector name with the same partition keys,
+			// otherwise initialiseEntityStorageConnector silently drops the
+			// second registration and the two layers disagree on where records
+			// live.
 			const partitionContextIds = ContextIdHelper.pickKeysFromAvailable(
 				engineCore.getContextIdKeys(),
-				[ContextIdKeys.Node]
+				[ContextIdKeys.Node, ContextIdKeys.Tenant]
 			);
 
 			initialiseEntityStorageConnector(
