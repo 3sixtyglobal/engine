@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.32](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.31...engine-types-v0.0.3-next.32) (2026-04-24)
+
+
+### Features
+
+* add automation components ([671dc5b](https://github.com/twinfoundation/engine/commit/671dc5b8687b9f76b7d7fdd7c833be1ae3c93992))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.31 to 0.0.3-next.32
+    * @twin.org/engine-models bumped from 0.0.3-next.31 to 0.0.3-next.32
+
 ## [0.0.3-next.31](https://github.com/twinfoundation/engine/compare/engine-types-v0.0.3-next.30...engine-types-v0.0.3-next.31) (2026-04-22)
 
 
