@@ -162,6 +162,18 @@ Event bus connector options which can be overridden by individual components by 
 
 Event bus component options which can be overridden by individual components by specifying types other than default.
 
+##### automationComponent?
+
+> `optional` **automationComponent?**: `IEngineCoreTypeConfig`\<`AutomationComponentConfig`\>[]
+
+Automation component options which can be overridden by individual components by specifying types other than default.
+
+##### automationAction?
+
+> `optional` **automationAction?**: `IEngineCoreTypeConfig`\<`AutomationActionConfig`\>[]
+
+Automation action options which can be overridden by individual components by specifying types other than default.
+
 ##### vaultConnector?
 
 > `optional` **vaultConnector?**: `IEngineCoreTypeConfig`\<`VaultConnectorConfig`\>[]
