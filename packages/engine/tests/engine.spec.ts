@@ -1,6 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { mkdir, rm } from "node:fs/promises";
+import { AutomationActionFactory } from "@twin.org/automation-models";
 import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@twin.org/context";
 import { ComponentFactory, Factory, I18n } from "@twin.org/core";
 import { MemoryStateStorage } from "@twin.org/engine-core";
@@ -10,6 +11,8 @@ import {
 	AttestationConnectorType,
 	AuditableItemGraphComponentType,
 	AuditableItemStreamComponentType,
+	AutomationActionType,
+	AutomationComponentType,
 	BackgroundTaskComponentType,
 	BlobStorageComponentType,
 	BlobStorageConnectorType,
@@ -76,8 +79,8 @@ import {
 import typeLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
 import {
-	type IEntityStorageComponent,
-	EntityStorageConnectorFactory
+	EntityStorageConnectorFactory,
+	type IEntityStorageComponent
 } from "@twin.org/entity-storage-models";
 import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
 import { nameof } from "@twin.org/nameof";
@@ -153,6 +156,10 @@ describe("engine", () => {
 					eventBusComponent: [{ type: EventBusComponentType.Service }],
 					telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
 					telemetryComponent: [{ type: TelemetryComponentType.Service }],
+					automationComponent: [{ type: AutomationComponentType.Service }],
+					automationAction: [
+						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
+					],
 					messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
 					messagingSmsConnector: [{ type: MessagingSmsConnectorType.EntityStorage }],
 					messagingPushNotificationConnector: [
@@ -344,6 +351,7 @@ describe("engine", () => {
 			"task-scheduler-service",
 			"event-bus-service",
 			"telemetry-service",
+			"automation-service",
 			"messaging-admin-service",
 			"messaging-service",
 			"blob-storage-service",
@@ -380,6 +388,7 @@ describe("engine", () => {
 			"ScheduledTask",
 			"TelemetryMetric",
 			"TelemetryMetricValue",
+			"AutomationActionEntry",
 			"EmailEntry",
 			"SmsEntry",
 			"PushNotificationDeviceEntry",
@@ -436,6 +445,8 @@ describe("engine", () => {
 
 		expect(TrustGeneratorFactory.names()).toEqual(["jwt-verifiable-credential-generator"]);
 		expect(TrustVerifierFactory.names()).toEqual(["jwt-verifiable-credential-verifier"]);
+
+		expect(AutomationActionFactory.names()).toEqual(["fetch-action"]);
 	});
 
 	test("Can start engine with custom entity storage", async () => {
@@ -528,6 +539,10 @@ describe("engine", () => {
 					eventBusComponent: [{ type: EventBusComponentType.Service }],
 					telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
 					telemetryComponent: [{ type: TelemetryComponentType.Service }],
+					automationComponent: [{ type: AutomationComponentType.Service }],
+					automationAction: [
+						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
+					],
 					messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
 					messagingSmsConnector: [{ type: MessagingSmsConnectorType.EntityStorage }],
 					messagingPushNotificationConnector: [
@@ -744,6 +759,10 @@ describe("engine", () => {
 				eventBusComponent: [{ type: EventBusComponentType.Service }],
 				telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
 				telemetryComponent: [{ type: TelemetryComponentType.Service }],
+				automationComponent: [{ type: AutomationComponentType.Service }],
+				automationAction: [
+					{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
+				],
 				messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
 				messagingSmsConnector: [{ type: MessagingSmsConnectorType.EntityStorage }],
 				messagingPushNotificationConnector: [
@@ -952,6 +971,10 @@ describe("engine", () => {
 						}
 					],
 					backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
+					automationComponent: [{ type: AutomationComponentType.Service }],
+					automationAction: [
+						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
+					],
 					eventBusConnector: [{ type: EventBusConnectorType.Local }],
 					eventBusComponent: [
 						{
@@ -1187,6 +1210,7 @@ describe("engine", () => {
 			"task-scheduler-service",
 			"event-bus-socket-client",
 			"telemetry-rest-client",
+			"automation-service",
 			"messaging-admin-service",
 			"messaging-service",
 			"blob-storage-rest-client",
@@ -1222,6 +1246,7 @@ describe("engine", () => {
 			"ScheduledTask",
 			"TelemetryMetric",
 			"TelemetryMetricValue",
+			"AutomationActionEntry",
 			"EmailEntry",
 			"SmsEntry",
 			"PushNotificationDeviceEntry",

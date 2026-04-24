@@ -5,6 +5,8 @@ import type { AttestationComponentConfig } from "./config/attestationComponentCo
 import type { AttestationConnectorConfig } from "./config/attestationConnectorConfig.js";
 import type { AuditableItemGraphComponentConfig } from "./config/auditableItemGraphComponentConfig.js";
 import type { AuditableItemStreamComponentConfig } from "./config/auditableItemStreamComponentConfig.js";
+import type { AutomationActionConfig } from "./config/automationActionConfig.js";
+import type { AutomationComponentConfig } from "./config/automationComponentConfig.js";
 import type { BackgroundTaskComponentConfig } from "./config/backgroundTaskComponentConfig.js";
 import type { BlobStorageComponentConfig } from "./config/blobStorageComponentConfig.js";
 import type { BlobStorageConnectorConfig } from "./config/blobStorageConnectorConfig.js";
@@ -163,6 +165,16 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Event bus component options which can be overridden by individual components by specifying types other than default.
 		 */
 		eventBusComponent?: IEngineCoreTypeConfig<EventBusComponentConfig>[];
+
+		/**
+		 * Automation component options which can be overridden by individual components by specifying types other than default.
+		 */
+		automationComponent?: IEngineCoreTypeConfig<AutomationComponentConfig>[];
+
+		/**
+		 * Automation action options which can be overridden by individual components by specifying types other than default.
+		 */
+		automationAction?: IEngineCoreTypeConfig<AutomationActionConfig>[];
 
 		/**
 		 * Vault connector options which can be overridden by individual components by specifying types other than default.

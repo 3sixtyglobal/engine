@@ -42,6 +42,12 @@
 		"defaultPath": "/telemetry"
 	},
 	{
+		"type": "automationComponent",
+		"module": "@twin.org/automation-service",
+		"method": "generateRestRoutesAutomation",
+		"defaultPath": "/automation"
+	},
+	{
 		"type": "blobStorageComponent",
 		"module": "@twin.org/blob-storage-service",
 		"method": "generateRestRoutesBlobStorage",

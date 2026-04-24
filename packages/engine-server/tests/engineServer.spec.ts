@@ -21,6 +21,8 @@ import {
 	AttestationConnectorType,
 	AuditableItemGraphComponentType,
 	AuditableItemStreamComponentType,
+	AutomationActionType,
+	AutomationComponentType,
 	BackgroundTaskComponentType,
 	BlobStorageComponentType,
 	BlobStorageConnectorType,
@@ -94,7 +96,7 @@ import {
 } from "../src/utils/engineServerConfigHelper.js";
 
 const basePort = Math.floor(Math.random() * 1000);
-let port = 3000 + basePort;
+let port = 13000 + basePort;
 
 /**
  * Class representing information for a test entity.
@@ -181,6 +183,10 @@ describe("engine-server", () => {
 				blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 				blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
 				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
+				automationComponent: [{ type: AutomationComponentType.Service }],
+				automationAction: [
+					{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
+				],
 				eventBusConnector: [{ type: EventBusConnectorType.Local }],
 				eventBusComponent: [{ type: EventBusComponentType.Service }],
 				telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
@@ -455,6 +461,11 @@ describe("engine-server", () => {
 			"DELETE   /telemetry/metric/:id",
 			"GET      /telemetry/metric",
 			"GET      /telemetry/metric/:id/value",
+			"POST     /automation/trigger/:trigger",
+			"POST     /automation",
+			"DELETE   /automation/:actionId",
+			"GET      /automation/:actionId",
+			"GET      /automation",
 			"POST     /blob",
 			"GET      /blob/:id",
 			"GET      /blob/:id/content",

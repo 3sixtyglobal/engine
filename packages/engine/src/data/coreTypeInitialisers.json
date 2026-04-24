@@ -40,6 +40,16 @@
 		"method": "initialiseTelemetryComponent"
 	},
 	{
+		"type": "automationComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseAutomationComponent"
+	},
+	{
+		"type": "automationAction",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseAutomationAction"
+	},
+	{
 		"type": "messagingEmailConnector",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseMessagingEmailConnector"
