@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.34](https://github.com/twinfoundation/twin-engine/compare/engine-core-v0.0.3-next.33...engine-core-v0.0.3-next.34) (2026-05-05)
+
+
+### Miscellaneous Chores
+
+* **engine-core:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.33 to 0.0.3-next.34
+
 ## [0.0.3-next.33](https://github.com/twinfoundation/twin-engine/compare/engine-core-v0.0.3-next.32...engine-core-v0.0.3-next.33) (2026-05-05)
 
 

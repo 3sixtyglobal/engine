@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.0.3-next.34](https://github.com/twinfoundation/twin-engine/compare/engine-server-v0.0.3-next.33...engine-server-v0.0.3-next.34) (2026-05-05)
+
+
+### Features
+
+* add health and url transformer components ([#111](https://github.com/twinfoundation/twin-engine/issues/111)) ([5f00d4d](https://github.com/twinfoundation/twin-engine/commit/5f00d4db9a2fc35c5595abb59527aeaaa2e6066d))
+
+
+### Bug Fixes
+
+* test REST route paths ([22ec1bc](https://github.com/twinfoundation/twin-engine/commit/22ec1bc59a0d173de3cd5d3cb184909b3779f5a3))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.33 to 0.0.3-next.34
+    * @twin.org/engine-models bumped from 0.0.3-next.33 to 0.0.3-next.34
+    * @twin.org/engine-server-types bumped from 0.0.3-next.33 to 0.0.3-next.34
+  * devDependencies
+    * @twin.org/engine bumped from 0.0.3-next.33 to 0.0.3-next.34
+
 ## [0.0.3-next.33](https://github.com/twinfoundation/twin-engine/compare/engine-server-v0.0.3-next.32...engine-server-v0.0.3-next.33) (2026-05-05)
 
 
