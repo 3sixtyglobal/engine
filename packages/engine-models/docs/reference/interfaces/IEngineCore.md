@@ -380,6 +380,48 @@ The instance type matching the criteria if one is registered.
 
 ***
 
+### getRegisteredComponents() {#getregisteredcomponents}
+
+> **getRegisteredComponents**(): `Promise`\<`object`[]\>
+
+Get the registered components.
+
+#### Returns
+
+`Promise`\<`object`[]\>
+
+The registered components.
+
+***
+
+### addRegisteredComponent() {#addregisteredcomponent}
+
+> **addRegisteredComponent**(`instanceType`, `component`): `Promise`\<`void`\>
+
+Add a registered component to the engine.
+
+#### Parameters
+
+##### instanceType
+
+`string`
+
+The instance type to register the component under.
+
+##### component
+
+`IComponent`
+
+The component to register.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+Nothing.
+
+***
+
 ### getCloneData() {#getclonedata}
 
 > **getCloneData**(): [`IEngineCoreClone`](IEngineCoreClone.md)\<`C`, `S`\>
