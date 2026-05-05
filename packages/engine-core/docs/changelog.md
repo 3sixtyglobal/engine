@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.33](https://github.com/twinfoundation/twin-engine/compare/engine-core-v0.0.3-next.32...engine-core-v0.0.3-next.33) (2026-05-05)
+
+
+### Features
+
+* add registered component methods ([a9a2899](https://github.com/twinfoundation/twin-engine/commit/a9a2899f266baa48e63bfbda958877a4f941602d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.32 to 0.0.3-next.33
+
 ## [0.0.3-next.32](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.0.3-next.31...engine-core-v0.0.3-next.32) (2026-04-24)
 
 
