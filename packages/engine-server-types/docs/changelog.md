@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.35](https://github.com/twinfoundation/twin-engine/compare/engine-server-types-v0.0.3-next.34...engine-server-types-v0.0.3-next.35) (2026-05-05)
+
+
+### Bug Fixes
+
+* constructing TenantProcessor ([4dad604](https://github.com/twinfoundation/twin-engine/commit/4dad604c0e424a3ffa65f3d6cef173058b21ec76))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.34 to 0.0.3-next.35
+    * @twin.org/engine-types bumped from 0.0.3-next.34 to 0.0.3-next.35
+
 ## [0.0.3-next.34](https://github.com/twinfoundation/twin-engine/compare/engine-server-types-v0.0.3-next.33...engine-server-types-v0.0.3-next.34) (2026-05-05)
 
 
