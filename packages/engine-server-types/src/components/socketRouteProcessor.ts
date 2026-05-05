@@ -109,7 +109,13 @@ export function initialiseSocketRouteProcessorComponent(
 				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
 			);
 			return new TenantProcessor(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						urlTransformerComponentType:
+							engineCore.getRegisteredInstanceType("urlTransformerComponent")
+					},
+					createConfig.options
+				)
 			);
 		};
 		instanceTypeName = nameofKebabCase(TenantProcessor);
