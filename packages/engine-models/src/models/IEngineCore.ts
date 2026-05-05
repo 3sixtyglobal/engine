@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IContextIds } from "@twin.org/context";
-import type { IError } from "@twin.org/core";
+import type { IComponent, IError } from "@twin.org/core";
 import type { IEngineCoreConfig } from "./config/IEngineCoreConfig.js";
 import type { IEngineCoreTypeConfig } from "./config/IEngineCoreTypeConfig.js";
 import type { IEngineCoreClone } from "./IEngineCoreClone.js";
@@ -145,6 +145,26 @@ export interface IEngineCore<
 		componentConnectorType: string,
 		features?: string[]
 	): string | undefined;
+
+	/**
+	 * Get the registered components.
+	 * @returns The registered components.
+	 */
+	getRegisteredComponents(): Promise<
+		{
+			instanceType: string;
+			component: IComponent;
+			initialised: boolean;
+		}[]
+	>;
+
+	/**
+	 * Add a registered component to the engine.
+	 * @param instanceType The instance type to register the component under.
+	 * @param component The component to register.
+	 * @returns Nothing.
+	 */
+	addRegisteredComponent(instanceType: string, component: IComponent): Promise<void>;
 
 	/**
 	 * Get the data required to create a clone of the engine.

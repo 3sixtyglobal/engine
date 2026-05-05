@@ -14,6 +14,7 @@ import {
 	GeneralError,
 	Guards,
 	I18n,
+	type IComponent,
 	type IError,
 	Is
 } from "@twin.org/core";
@@ -537,6 +538,30 @@ export class EngineCore<
 		}
 
 		return registeredType;
+	}
+
+	/**
+	 * Get the registered components.
+	 * @returns The registered components.
+	 */
+	public async getRegisteredComponents(): Promise<
+		{
+			instanceType: string;
+			component: IComponent;
+			initialised: boolean;
+		}[]
+	> {
+		return this._context.componentInstances;
+	}
+
+	/**
+	 * Add a registered component to the engine.
+	 * @param instanceType The instance type to register the component under.
+	 * @param component The component to register.
+	 * @returns Nothing.
+	 */
+	public async addRegisteredComponent(instanceType: string, component: IComponent): Promise<void> {
+		this._context.componentInstances.push({ instanceType, component, initialised: true });
 	}
 
 	/**
