@@ -168,6 +168,18 @@ Automation component options which can be overridden by individual components by
 
 Automation action options which can be overridden by individual components by specifying types other than default.
 
+#### healthComponent?
+
+> `optional` **healthComponent?**: `IEngineCoreTypeConfig`\<[`HealthComponentConfig`](../type-aliases/HealthComponentConfig.md)\>[]
+
+Health component options which can be overridden by individual components by specifying types other than default.
+
+#### urlTransformerComponent?
+
+> `optional` **urlTransformerComponent?**: `IEngineCoreTypeConfig`\<[`UrlTransformerComponentConfig`](../type-aliases/UrlTransformerComponentConfig.md)\>[]
+
+URL transformer component options which can be overridden by individual components by specifying types other than default.
+
 #### vaultConnector?
 
 > `optional` **vaultConnector?**: `IEngineCoreTypeConfig`\<[`VaultConnectorConfig`](../type-aliases/VaultConnectorConfig.md)\>[]
