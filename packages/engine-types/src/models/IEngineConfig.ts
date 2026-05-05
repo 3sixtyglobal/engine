@@ -25,6 +25,7 @@ import type { EventBusConnectorConfig } from "./config/eventBusConnectorConfig.j
 import type { FaucetConnectorConfig } from "./config/faucetConnectorConfig.js";
 import type { FederatedCatalogueComponentConfig } from "./config/federatedCatalogueComponentConfig.js";
 import type { FederatedCatalogueFilterComponentConfig } from "./config/federatedCatalogueFilterComponentConfig.js";
+import type { HealthComponentConfig } from "./config/healthComponentConfig.js";
 import type { IdentityComponentConfig } from "./config/identityComponentConfig.js";
 import type { IdentityConnectorConfig } from "./config/identityConnectorConfig.js";
 import type { IdentityProfileComponentConfig } from "./config/identityProfileComponentConfig.js";
@@ -66,6 +67,7 @@ import type { TenantAdminComponentConfig } from "./config/tenantAdminComponentCo
 import type { TrustComponentConfig } from "./config/trustComponentConfig.js";
 import type { TrustGeneratorComponentConfig } from "./config/trustGeneratorComponentConfig.js";
 import type { TrustVerifierComponentConfig } from "./config/trustVerifierComponentConfig.js";
+import type { UrlTransformerComponentConfig } from "./config/urlTransformerComponentConfig.js";
 import type { VaultConnectorConfig } from "./config/vaultConnectorConfig.js";
 import type { VerifiableStorageComponentConfig } from "./config/verifiableStorageComponentConfig.js";
 import type { VerifiableStorageConnectorConfig } from "./config/verifiableStorageConnectorConfig.js";
@@ -175,6 +177,16 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Automation action options which can be overridden by individual components by specifying types other than default.
 		 */
 		automationAction?: IEngineCoreTypeConfig<AutomationActionConfig>[];
+
+		/**
+		 * Health component options which can be overridden by individual components by specifying types other than default.
+		 */
+		healthComponent?: IEngineCoreTypeConfig<HealthComponentConfig>[];
+
+		/**
+		 * URL transformer component options which can be overridden by individual components by specifying types other than default.
+		 */
+		urlTransformerComponent?: IEngineCoreTypeConfig<UrlTransformerComponentConfig>[];
 
 		/**
 		 * Vault connector options which can be overridden by individual components by specifying types other than default.

@@ -205,6 +205,16 @@
 		"method": "initialiseDataProcessingComponent"
 	},
 	{
+		"type": "healthComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseHealthComponent"
+	},
+	{
+		"type": "urlTransformerComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseUrlTransformerComponent"
+	},
+	{
 		"type": "documentManagementComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseDocumentManagementComponent"

@@ -48,7 +48,9 @@ export function initialiseRightsManagementPnpComponent(
 						policyNegotiationPointRemoteComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPnpComponent",
 							["remote"]
-						)
+						),
+						urlTransformerComponentType:
+							engineCore.getRegisteredInstanceType("urlTransformerComponent")
 					},
 					createConfig.options
 				)

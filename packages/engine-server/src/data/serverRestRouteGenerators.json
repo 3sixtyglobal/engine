@@ -6,6 +6,12 @@
 		"defaultPath": ""
 	},
 	{
+		"type": "healthComponent",
+		"module": "@twin.org/api-service",
+		"method": "generateRestRoutesHealth",
+		"defaultPath": "/health"
+	},
+	{
 		"type": "authenticationComponent",
 		"module": "@twin.org/api-auth-entity-storage-service",
 		"method": "generateRestRoutesAuthentication",

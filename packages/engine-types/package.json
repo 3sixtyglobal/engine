@@ -29,6 +29,8 @@
 	},
 	"dependencies": {
 		"@twin.org/api-models": "next",
+		"@twin.org/api-rest-client": "next",
+		"@twin.org/api-service": "next",
 		"@twin.org/api-tenant-processor": "next",
 		"@twin.org/attestation-models": "next",
 		"@twin.org/attestation-rest-client": "next",

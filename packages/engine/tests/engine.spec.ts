@@ -30,6 +30,7 @@ import {
 	FaucetConnectorType,
 	FederatedCatalogueComponentType,
 	FederatedCatalogueFilterComponentType,
+	HealthComponentType,
 	IdentityComponentType,
 	IdentityConnectorType,
 	IdentityProfileComponentType,
@@ -71,6 +72,7 @@ import {
 	TrustComponentType,
 	TrustGeneratorComponentType,
 	TrustVerifierComponentType,
+	UrlTransformerComponentType,
 	VaultConnectorType,
 	VerifiableStorageComponentType,
 	VerifiableStorageConnectorType,
@@ -160,6 +162,8 @@ describe("engine", () => {
 					automationAction: [
 						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
 					],
+					healthComponent: [{ type: HealthComponentType.Service }],
+					urlTransformerComponent: [{ type: UrlTransformerComponentType.Service }],
 					messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
 					messagingSmsConnector: [{ type: MessagingSmsConnectorType.EntityStorage }],
 					messagingPushNotificationConnector: [
@@ -366,6 +370,8 @@ describe("engine", () => {
 			"auditable-item-graph-service",
 			"auditable-item-stream-service",
 			"data-processing-service",
+			"health-service",
+			"url-transformer-service",
 			"document-management-service",
 			"trust-service",
 			"policy-administration-point-service",
@@ -543,6 +549,8 @@ describe("engine", () => {
 					automationAction: [
 						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
 					],
+					healthComponent: [{ type: HealthComponentType.Service }],
+					urlTransformerComponent: [{ type: UrlTransformerComponentType.Service }],
 					messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
 					messagingSmsConnector: [{ type: MessagingSmsConnectorType.EntityStorage }],
 					messagingPushNotificationConnector: [
@@ -763,6 +771,8 @@ describe("engine", () => {
 				automationAction: [
 					{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
 				],
+				healthComponent: [{ type: HealthComponentType.Service }],
+				urlTransformerComponent: [{ type: UrlTransformerComponentType.Service }],
 				messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
 				messagingSmsConnector: [{ type: MessagingSmsConnectorType.EntityStorage }],
 				messagingPushNotificationConnector: [
@@ -975,6 +985,8 @@ describe("engine", () => {
 					automationAction: [
 						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
 					],
+					healthComponent: [{ type: HealthComponentType.Service }],
+					urlTransformerComponent: [{ type: UrlTransformerComponentType.Service }],
 					eventBusConnector: [{ type: EventBusConnectorType.Local }],
 					eventBusComponent: [
 						{
@@ -1224,6 +1236,8 @@ describe("engine", () => {
 			"auditable-item-graph-rest-client",
 			"auditable-item-stream-rest-client",
 			"data-processing-rest-client",
+			"health-service",
+			"url-transformer-service",
 			"document-management-rest-client",
 			"trust-service",
 			"policy-administration-point-rest-client",

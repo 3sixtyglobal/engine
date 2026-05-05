@@ -38,6 +38,8 @@ import {
 	EventBusConnectorType,
 	FaucetConnectorType,
 	FederatedCatalogueComponentType,
+	HealthComponentType,
+	UrlTransformerComponentType,
 	IdentityComponentType,
 	IdentityConnectorType,
 	IdentityProfileComponentType,
@@ -358,6 +360,16 @@ describe("engine-server", () => {
 						type: DataspaceDataPlaneComponentType.Service
 					}
 				],
+				healthComponent: [
+					{
+						type: HealthComponentType.Service
+					}
+				],
+				urlTransformerComponent: [
+					{
+						type: UrlTransformerComponentType.Service
+					}
+				],
 				informationComponent: [
 					{
 						type: InformationComponentType.Service,
@@ -431,8 +443,9 @@ describe("engine-server", () => {
 			"GET      /favicon.ico",
 			"GET      /info",
 			"GET      /livez",
-			"GET      /health",
+			"GET      /readyz",
 			"GET      /spec",
+			"GET      /health",
 			"POST     /authentication/login",
 			"POST     /authentication/logout",
 			"POST     /authentication/refresh",

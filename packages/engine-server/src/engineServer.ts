@@ -1,10 +1,12 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IRestRoute, ISocketRoute, IWebServer } from "@twin.org/api-models";
 import {
 	MimeTypeProcessorFactory,
 	RestRouteProcessorFactory,
-	SocketRouteProcessorFactory
+	SocketRouteProcessorFactory,
+	type IRestRoute,
+	type ISocketRoute,
+	type IWebServer
 } from "@twin.org/api-models";
 import { FastifyWebServer } from "@twin.org/api-server-fastify";
 import { ContextIdStore } from "@twin.org/context";
@@ -265,6 +267,8 @@ export class EngineServer<
 			hostingComponentType,
 			mimeTypeProcessors
 		});
+
+		await this._engineCore.addRegisteredComponent("webServer", this._webServer);
 
 		await this._webServer.build(
 			restRouteProcessors,
