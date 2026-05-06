@@ -4,7 +4,7 @@
 	"description": "Engine",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/twinfoundation/engine.git"
+		"url": "git+https://github.com/iotaledger/engine.git"
 	},
 	"author": "martyn.janes@iota.org",
 	"license": "Apache-2.0",
@@ -63,7 +63,7 @@
 	],
 	"type": "module",
 	"bugs": {
-		"url": "git+https://github.com/twinfoundation/engine/issues"
+		"url": "git+https://github.com/iotaledger/engine/issues"
 	},
 	"homepage": "https://twindev.org"
 }

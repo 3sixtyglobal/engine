@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.0.3-next.35](https://github.com/twinfoundation/twin-engine/compare/engine-core-v0.0.3-next.34...engine-core-v0.0.3-next.35) (2026-05-05)
+## [0.0.3-next.35](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.0.3-next.34...engine-core-v0.0.3-next.35) (2026-05-05)
 
 
 ### Miscellaneous Chores
@@ -14,7 +14,7 @@
   * dependencies
     * @twin.org/engine-models bumped from 0.0.3-next.34 to 0.0.3-next.35
 
-## [0.0.3-next.34](https://github.com/twinfoundation/twin-engine/compare/engine-core-v0.0.3-next.33...engine-core-v0.0.3-next.34) (2026-05-05)
+## [0.0.3-next.34](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.0.3-next.33...engine-core-v0.0.3-next.34) (2026-05-05)
 
 
 ### Miscellaneous Chores
@@ -28,12 +28,12 @@
   * dependencies
     * @twin.org/engine-models bumped from 0.0.3-next.33 to 0.0.3-next.34
 
-## [0.0.3-next.33](https://github.com/twinfoundation/twin-engine/compare/engine-core-v0.0.3-next.32...engine-core-v0.0.3-next.33) (2026-05-05)
+## [0.0.3-next.33](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.0.3-next.32...engine-core-v0.0.3-next.33) (2026-05-05)
 
 
 ### Features
 
-* add registered component methods ([a9a2899](https://github.com/twinfoundation/twin-engine/commit/a9a2899f266baa48e63bfbda958877a4f941602d))
+* add registered component methods ([a9a2899](https://github.com/iotaledger/twin-engine/commit/a9a2899f266baa48e63bfbda958877a4f941602d))
 
 
 ### Dependencies

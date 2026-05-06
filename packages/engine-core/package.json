@@ -4,7 +4,7 @@
 	"description": "Core runtime lifecycle and state orchestration for engine instances.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/twinfoundation/engine.git",
+		"url": "git+https://github.com/iotaledger/engine.git",
 		"directory": "packages/engine-core"
 	},
 	"author": "martyn.janes@iota.org",
@@ -84,7 +84,7 @@
 		"utilities"
 	],
 	"bugs": {
-		"url": "git+https://github.com/twinfoundation/engine/issues"
+		"url": "git+https://github.com/iotaledger/engine/issues"
 	},
 	"homepage": "https://twindev.org"
 }

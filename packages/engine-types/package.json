@@ -4,7 +4,7 @@
 	"description": "Component and connector type definitions with configuration helpers for engine composition.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/twinfoundation/engine.git",
+		"url": "git+https://github.com/iotaledger/engine.git",
 		"directory": "packages/engine-types"
 	},
 	"author": "martyn.janes@iota.org",
@@ -205,7 +205,7 @@
 		"engine"
 	],
 	"bugs": {
-		"url": "git+https://github.com/twinfoundation/engine/issues"
+		"url": "git+https://github.com/iotaledger/engine/issues"
 	},
 	"homepage": "https://twindev.org"
 }
