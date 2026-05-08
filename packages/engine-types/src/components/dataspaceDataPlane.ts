@@ -10,7 +10,7 @@ import {
 	initSchema as initSchemaDataspaceDataPlane
 } from "@twin.org/dataspace-data-plane-service";
 import { DataspaceDataPlaneSocketClient } from "@twin.org/dataspace-data-plane-socket-client";
-import type { TransferProcess } from "@twin.org/dataspace-models";
+import type { DataspaceAppDataset, TransferProcess } from "@twin.org/dataspace-models";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
@@ -70,6 +70,17 @@ export function initialiseDataspaceDataPlaneComponent(
 				instanceConfig.options?.transferProcessEntityStorageType,
 				nameof<TransferProcess>(),
 				partitionContextIds
+			);
+
+			// DataspaceAppDataset storage is also shared with the Control Plane —
+			// register here too in case the DP component initialises before
+			// the CP one in the engine startup order. Read-only on this side.
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				instanceConfig.options?.dataspaceAppDatasetEntityStorageType,
+				nameof<DataspaceAppDataset>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
 			);
 
 			return new DataspaceDataPlaneService(

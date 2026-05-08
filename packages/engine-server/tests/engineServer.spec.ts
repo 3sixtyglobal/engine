@@ -429,6 +429,7 @@ describe("engine-server", () => {
 		const engine = new Engine({
 			config
 		});
+		engine.addContextId(ContextIdKeys.Node, "did:iota:0x123");
 		const engineServer = new EngineServer({
 			engineCore: engine
 		});
@@ -484,6 +485,7 @@ describe("engine-server", () => {
 			"GET      /blob/:id/content",
 			"PUT      /blob/:id",
 			"DELETE   /blob/:id",
+			"DELETE   /blob",
 			"GET      /blob",
 			"POST     /identity",
 			"DELETE   /identity/:identity",
@@ -596,6 +598,11 @@ describe("engine-server", () => {
 			"POST     /dataspace/transfers/:pid/complete",
 			"POST     /dataspace/transfers/:pid/suspend",
 			"POST     /dataspace/transfers/:pid/terminate",
+			"POST     /dataspace/app-datasets",
+			"GET      /dataspace/app-datasets",
+			"GET      /dataspace/app-datasets/:id",
+			"PUT      /dataspace/app-datasets/:id",
+			"DELETE   /dataspace/app-datasets/:id",
 			// Dataspace Data Plane routes
 			"POST     /dataspace/notify",
 			"GET      /dataspace/activity-logs/:id",

@@ -10,7 +10,7 @@ import type { RightsManagementPnpComponentType } from "../types/rightsManagement
 export type RightsManagementPnpComponentConfig =
 	| {
 			type: typeof RightsManagementPnpComponentType.Service;
-			options: IPolicyNegotiationPointServiceConstructorOptions;
+			options?: IPolicyNegotiationPointServiceConstructorOptions;
 	  }
 	| {
 			type: typeof RightsManagementPnpComponentType.RestClient;

@@ -345,6 +345,8 @@ describe("engine", () => {
 			}
 		});
 
+		engine.addContextId(ContextIdKeys.Node, "did:iota:0x123");
+
 		await engine.start();
 		await engine.stop();
 
@@ -425,6 +427,7 @@ describe("engine", () => {
 			"SyncSnapshotEntry",
 			"Dataset",
 			"TransferProcess",
+			"DataspaceAppDataset",
 			"ActivityLogDetails",
 			"ActivityTask"
 		]);
@@ -731,6 +734,7 @@ describe("engine", () => {
 
 		engine.addContextIdKey(ContextIdKeys.Node, ["did"]);
 		engine.addContextIdKey(ContextIdKeys.Tenant, ["tenant"]);
+		engine.addContextId(ContextIdKeys.Node, "did:iota:0x123");
 
 		await engine.start();
 		await engine.stop();
@@ -739,7 +743,7 @@ describe("engine", () => {
 
 		const cloneData = engine.getCloneData();
 		const clone = new Engine();
-		clone.populateClone(cloneData);
+		clone.populateClone(cloneData, { [ContextIdKeys.Node]: "did:iota:0x123" });
 
 		await clone.start();
 
@@ -943,6 +947,8 @@ describe("engine", () => {
 			stateStorage: new MemoryStateStorage()
 		});
 
+		engine.addContextId(ContextIdKeys.Node, "did:iota:0x123");
+
 		await engine.start();
 		await engine.stop();
 
@@ -950,7 +956,7 @@ describe("engine", () => {
 
 		const cloneData = engine.getCloneData();
 		const clone = new Engine();
-		clone.populateClone(cloneData, {}, true);
+		clone.populateClone(cloneData, { [ContextIdKeys.Node]: "did:iota:0x123" }, true);
 		await clone.start();
 
 		expect(clone.getConfig()).toEqual(engine.getConfig());
@@ -1212,6 +1218,8 @@ describe("engine", () => {
 			}
 		});
 
+		engine.addContextId(ContextIdKeys.Node, "did:iota:0x123");
+
 		await engine.start();
 		await engine.stop();
 
@@ -1294,6 +1302,8 @@ describe("engine", () => {
 							}
 						}
 					],
+					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
+					urlTransformerComponent: [{ type: UrlTransformerComponentType.Service }],
 					federatedCatalogueComponent: [
 						{
 							type: FederatedCatalogueComponentType.Service,
@@ -1305,6 +1315,8 @@ describe("engine", () => {
 				}
 			}
 		});
+
+		engine.addContextId(ContextIdKeys.Node, "did:iota:0x123");
 
 		await engine.start();
 		await engine.stop();
@@ -1333,6 +1345,8 @@ describe("engine", () => {
 							}
 						}
 					],
+					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
+					urlTransformerComponent: [{ type: UrlTransformerComponentType.Service }],
 					federatedCatalogueComponent: [
 						{
 							type: FederatedCatalogueComponentType.Service,
@@ -1344,6 +1358,8 @@ describe("engine", () => {
 				}
 			}
 		});
+
+		engine.addContextId(ContextIdKeys.Node, "did:iota:0x123");
 
 		await engine.start();
 		await engine.stop();

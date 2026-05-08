@@ -48,7 +48,11 @@ export function initialiseFederatedCatalogueComponent(
 			);
 			return new FederatedCatalogueService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+						urlTransformerComponentType:
+							engineCore.getRegisteredInstanceType("urlTransformerComponent")
+					},
 					createConfig.options
 				)
 			);

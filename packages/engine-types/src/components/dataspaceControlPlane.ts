@@ -7,7 +7,7 @@ import {
 	DataspaceControlPlaneService,
 	initSchema as initSchemaDataspaceControlPlane
 } from "@twin.org/dataspace-control-plane-service";
-import type { TransferProcess } from "@twin.org/dataspace-models";
+import type { DataspaceAppDataset, TransferProcess } from "@twin.org/dataspace-models";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
@@ -58,6 +58,15 @@ export function initialiseDataspaceControlPlaneComponent(
 				partitionContextIds
 			);
 
+			// Tenant-supplied partial datasets are stored [Node]-only
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				instanceConfig.options?.dataspaceAppDatasetEntityStorageType,
+				nameof<DataspaceAppDataset>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
+			);
+
 			return new DataspaceControlPlaneService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
@@ -78,7 +87,9 @@ export function initialiseDataspaceControlPlaneComponent(
 							"identityAuthenticationComponent"
 						),
 						taskSchedulerComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("taskSchedulerComponent")
+							engineCore.getRegisteredInstanceTypeOptional("taskSchedulerComponent"),
+						urlTransformerComponentType:
+							engineCore.getRegisteredInstanceType("urlTransformerComponent")
 					},
 					createConfig.options
 				)
