@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/engine-server-types",
-	"version": "0.0.3-next.35",
+	"version": "0.0.3-next.36",
 	"description": "Server-focused component types and configuration models for API routing and hosting.",
 	"repository": {
 		"type": "git",
@@ -39,8 +39,8 @@
 		"@twin.org/api-tenant-processor": "next",
 		"@twin.org/context": "next",
 		"@twin.org/core": "next",
-		"@twin.org/engine-models": "0.0.3-next.35",
-		"@twin.org/engine-types": "0.0.3-next.35",
+		"@twin.org/engine-models": "0.0.3-next.36",
+		"@twin.org/engine-types": "0.0.3-next.36",
 		"@twin.org/entity": "next",
 		"@twin.org/nameof": "next"
 	},

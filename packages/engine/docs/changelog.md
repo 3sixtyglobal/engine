@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.0.3-next.36](https://github.com/iotaledger/twin-engine/compare/engine-v0.0.3-next.35...engine-v0.0.3-next.36) (2026-05-08)
+
+
+### Features
+
+* inject vaultConnectorType into DSP/PNP/Tenant/catalogue factories ([#107](https://github.com/iotaledger/twin-engine/issues/107)) ([043abbb](https://github.com/iotaledger/twin-engine/commit/043abbb9d9d7fd7f120519cb0b44ad38b4bfcbc1))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.35 to 0.0.3-next.36
+    * @twin.org/engine-models bumped from 0.0.3-next.35 to 0.0.3-next.36
+    * @twin.org/engine-types bumped from 0.0.3-next.35 to 0.0.3-next.36
+
 ## [0.0.3-next.35](https://github.com/iotaledger/twin-engine/compare/engine-v0.0.3-next.34...engine-v0.0.3-next.35) (2026-05-05)
 
 
