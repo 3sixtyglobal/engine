@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.37](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.0.3-next.36...engine-models-v0.0.3-next.37) (2026-05-12)
+
+
+### Features
+
+* typescript 6 update ([b227f52](https://github.com/iotaledger/twin-engine/commit/b227f5271b18ac627b932ea8e59d2879ff01ebd7))
+
 ## [0.0.3-next.36](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.0.3-next.35...engine-models-v0.0.3-next.36) (2026-05-08)
 
 
