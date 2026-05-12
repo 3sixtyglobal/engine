@@ -11,3 +11,9 @@ Telemetry connector types.
 > `readonly` **EntityStorage**: `"entity-storage"` = `"entity-storage"`
 
 Entity storage.
+
+### OpenTelemetry {#opentelemetry}
+
+> `readonly` **OpenTelemetry**: `"open-telemetry"` = `"open-telemetry"`
+
+OpenTelemetry.
