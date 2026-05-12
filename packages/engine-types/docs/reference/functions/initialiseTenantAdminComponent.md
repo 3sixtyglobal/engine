@@ -16,7 +16,7 @@ The engine core.
 
 `IEngineCoreContext`\<[`IEngineConfig`](../interfaces/IEngineConfig.md)\>
 
-The context for the engine.s
+The context for the engine.
 
 ### instanceConfig
 
