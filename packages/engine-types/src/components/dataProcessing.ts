@@ -84,7 +84,7 @@ export function initialiseDataExtractorConnector(
 	}
 
 	return {
-		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		createComponent,
 		instanceTypeName,
 		factory: DataExtractorConnectorFactory
 	};

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { MimeTypeProcessorFactory } from "@twin.org/api-models";
 import { JwtMimeTypeProcessor } from "@twin.org/api-processors";
-import type { IComponent } from "@twin.org/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
@@ -34,7 +33,7 @@ export function initialiseMimeTypeProcessorComponent(
 	}
 
 	return {
-		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		createComponent,
 		instanceTypeName,
 		factory: MimeTypeProcessorFactory
 	};

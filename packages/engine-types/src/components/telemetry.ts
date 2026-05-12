@@ -14,6 +14,7 @@ import {
 	type TelemetryMetric,
 	type TelemetryMetricValue
 } from "@twin.org/telemetry-connector-entity-storage";
+import { OpenTelemetryTelemetryConnector } from "@twin.org/telemetry-connector-opentelemetry";
 import { TelemetryConnectorFactory } from "@twin.org/telemetry-models";
 import { TelemetryRestClient } from "@twin.org/telemetry-rest-client";
 import { TelemetryService } from "@twin.org/telemetry-service";
@@ -71,6 +72,38 @@ export function initialiseTelemetryConnector(
 			);
 		};
 		instanceTypeName = EntityStorageTelemetryConnector.NAMESPACE;
+	} else if (instanceConfig.type === TelemetryConnectorType.OpenTelemetry) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchema();
+			// OpenTelemetry connector uses the entity storage internally so we need to initialise it here as well
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.telemetryMetricStorageConnectorType,
+				nameof<TelemetryMetric>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.telemetryMetricValueStorageConnectorType,
+				nameof<TelemetryMetricValue>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			return new OpenTelemetryTelemetryConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = OpenTelemetryTelemetryConnector.NAMESPACE;
 	}
 
 	return {

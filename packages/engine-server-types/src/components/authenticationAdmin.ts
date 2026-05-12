@@ -6,7 +6,7 @@ import {
 	type AuthenticationUser
 } from "@twin.org/api-auth-entity-storage-service";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory, type IComponent } from "@twin.org/core";
+import { ComponentFactory } from "@twin.org/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
@@ -61,7 +61,7 @@ export function initialiseAuthenticationAdminComponent(
 	}
 
 	return {
-		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		createComponent,
 		instanceTypeName,
 		factory: ComponentFactory
 	};

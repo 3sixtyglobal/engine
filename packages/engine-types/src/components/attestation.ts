@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { NftAttestationConnector } from "@twin.org/attestation-connector-nft";
 import type { INftAttestationConnectorConstructorOptions } from "@twin.org/attestation-connector-nft";
+import { NftAttestationConnector } from "@twin.org/attestation-connector-nft";
 import { AttestationConnectorFactory } from "@twin.org/attestation-models";
 import { AttestationRestClient } from "@twin.org/attestation-rest-client";
 import { AttestationService } from "@twin.org/attestation-service";
@@ -49,7 +49,7 @@ export function initialiseAttestationConnector(
 	}
 
 	return {
-		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		createComponent,
 		instanceTypeName,
 		factory: AttestationConnectorFactory
 	};

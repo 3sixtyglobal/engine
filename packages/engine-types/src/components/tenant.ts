@@ -6,7 +6,7 @@ import {
 	initSchema as initSchemaTenant
 } from "@twin.org/api-tenant-processor";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory, type IComponent } from "@twin.org/core";
+import { ComponentFactory } from "@twin.org/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
@@ -22,7 +22,7 @@ import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 /**
  * Initialise the tenant admin component.
  * @param engineCore The engine core.
- * @param context The context for the engine.
+ * @param context The context for the engine.s
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */
@@ -53,7 +53,7 @@ export function initialiseTenantAdminComponent(
 	}
 
 	return {
-		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		createComponent,
 		instanceTypeName,
 		factory: ComponentFactory
 	};

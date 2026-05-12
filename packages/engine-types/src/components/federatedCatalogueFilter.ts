@@ -1,7 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import type { IComponent } from "@twin.org/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
@@ -54,7 +53,7 @@ export function initialiseFederatedCatalogueFilterComponent(
 	}
 
 	return {
-		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		createComponent,
 		instanceTypeName,
 		factory: FederatedCatalogueFilterFactory
 	};

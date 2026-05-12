@@ -45,7 +45,7 @@ export function initialiseEventBusConnector(
 	}
 
 	return {
-		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		createComponent,
 		instanceTypeName,
 		factory: EventBusConnectorFactory
 	};

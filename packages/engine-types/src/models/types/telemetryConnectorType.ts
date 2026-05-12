@@ -9,7 +9,12 @@ export const TelemetryConnectorType = {
 	/**
 	 * Entity storage.
 	 */
-	EntityStorage: "entity-storage"
+	EntityStorage: "entity-storage",
+
+	/**
+	 * OpenTelemetry.
+	 */
+	OpenTelemetry: "open-telemetry"
 } as const;
 
 /**

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { FetchAction } from "@twin.org/automation-actions";
 import { AutomationActionFactory } from "@twin.org/automation-models";
-import type { IComponent } from "@twin.org/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
@@ -38,7 +37,7 @@ export function initialiseAutomationAction(
 	}
 
 	return {
-		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		createComponent,
 		instanceTypeName,
 		factory: AutomationActionFactory
 	};

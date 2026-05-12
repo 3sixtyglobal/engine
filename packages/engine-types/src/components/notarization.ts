@@ -73,7 +73,6 @@ export function initialiseNotarizationConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-						walletConnectorType: engineCore.getRegisteredInstanceType("walletConnector"),
 						loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
 						config: dltConfig?.options?.config
 					},
