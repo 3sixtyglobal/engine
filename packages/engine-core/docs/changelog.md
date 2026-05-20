@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.0.3-next.38](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.0.3-next.37...engine-core-v0.0.3-next.38) (2026-05-20)
+
+
+### Features
+
+* add metrics producer type initialisers to engine ([#122](https://github.com/iotaledger/twin-engine/issues/122)) ([45f52d7](https://github.com/iotaledger/twin-engine/commit/45f52d7ad9c94bda0d2671756049bb5973b64b10))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.37 to 0.0.3-next.38
+
 ## [0.0.3-next.37](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.0.3-next.36...engine-core-v0.0.3-next.37) (2026-05-12)
 
 
