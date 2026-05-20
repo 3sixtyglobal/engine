@@ -37,9 +37,6 @@ export function initialiseRightsManagementPdpComponent(
 						policyInformationPointComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPipComponent"
 						),
-						policyManagementPointComponentType: engineCore.getRegisteredInstanceType(
-							"rightsManagementPmpComponent"
-						),
 						policyExecutionPointComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPxpComponent"
 						)

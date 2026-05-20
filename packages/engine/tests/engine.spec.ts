@@ -46,6 +46,8 @@ import {
 	MessagingEmailConnectorType,
 	MessagingPushNotificationConnectorType,
 	MessagingSmsConnectorType,
+	MetricsCollectorComponentType,
+	MetricsProducerComponentType,
 	NftComponentType,
 	NftConnectorType,
 	NotarizationComponentType,
@@ -94,6 +96,7 @@ import {
 	PolicyNegotiatorFactory,
 	PolicyRequesterFactory
 } from "@twin.org/rights-management-models";
+import { MetricsProducerFactory } from "@twin.org/telemetry-models";
 import { TrustGeneratorFactory, TrustVerifierFactory } from "@twin.org/trust-models";
 import { Engine } from "../src/engine.js";
 
@@ -113,7 +116,10 @@ describe("engine", () => {
 	beforeAll(async () => {
 		I18n.addDictionary("en", { ...coreLocales, ...typeLocales });
 
-		ContextIdStore.getContextIds = vi.fn().mockImplementation(() => ({ node: "did:iota:0x123" }));
+		ContextIdStore.getContextIds = vi.fn().mockImplementation(() => ({
+			node: "did:iota:0x123",
+			tenant: "00000000000000000000000000000123"
+		}));
 	});
 
 	beforeEach(async () => {
@@ -158,6 +164,8 @@ describe("engine", () => {
 					eventBusComponent: [{ type: EventBusComponentType.Service }],
 					telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
 					telemetryComponent: [{ type: TelemetryComponentType.Service }],
+					metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
+					metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
 					automationComponent: [{ type: AutomationComponentType.Service }],
 					automationAction: [
 						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
@@ -357,6 +365,7 @@ describe("engine", () => {
 			"task-scheduler-service",
 			"event-bus-service",
 			"telemetry-service",
+			"metrics-collector-service",
 			"automation-service",
 			"messaging-admin-service",
 			"messaging-service",
@@ -456,6 +465,8 @@ describe("engine", () => {
 		expect(TrustVerifierFactory.names()).toEqual(["jwt-verifiable-credential-verifier"]);
 
 		expect(AutomationActionFactory.names()).toEqual(["fetch-action"]);
+
+		expect(MetricsProducerFactory.names()).toEqual(["system-metrics-producer"]);
 	});
 
 	test("Can start engine with custom entity storage", async () => {
@@ -548,6 +559,8 @@ describe("engine", () => {
 					eventBusComponent: [{ type: EventBusComponentType.Service }],
 					telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
 					telemetryComponent: [{ type: TelemetryComponentType.Service }],
+					metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
+					metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
 					automationComponent: [{ type: AutomationComponentType.Service }],
 					automationAction: [
 						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
@@ -706,7 +719,6 @@ describe("engine", () => {
 							options: {}
 						}
 					],
-
 					dataspaceControlPlaneComponent: [
 						{
 							type: DataspaceControlPlaneComponentType.Service
@@ -735,6 +747,7 @@ describe("engine", () => {
 		engine.addContextIdKey(ContextIdKeys.Node, ["did"]);
 		engine.addContextIdKey(ContextIdKeys.Tenant, ["tenant"]);
 		engine.addContextId(ContextIdKeys.Node, "did:iota:0x123");
+		engine.addContextId(ContextIdKeys.Tenant, "00000000000000000000000000000123");
 
 		await engine.start();
 		await engine.stop();
@@ -743,7 +756,10 @@ describe("engine", () => {
 
 		const cloneData = engine.getCloneData();
 		const clone = new Engine();
-		clone.populateClone(cloneData, { [ContextIdKeys.Node]: "did:iota:0x123" });
+		clone.populateClone(cloneData, {
+			[ContextIdKeys.Node]: "did:iota:0x123",
+			[ContextIdKeys.Tenant]: "00000000000000000000000000000123"
+		});
 
 		await clone.start();
 
@@ -771,6 +787,8 @@ describe("engine", () => {
 				eventBusComponent: [{ type: EventBusComponentType.Service }],
 				telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
 				telemetryComponent: [{ type: TelemetryComponentType.Service }],
+				metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
+				metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
 				automationComponent: [{ type: AutomationComponentType.Service }],
 				automationAction: [
 					{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
@@ -1007,6 +1025,8 @@ describe("engine", () => {
 							options: { endpoint: "http://localhost:3000" }
 						}
 					],
+					metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
+					metricsProducerComponent: [], // No REST client available for metrics producer
 					messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
 					messagingSmsConnector: [{ type: MessagingSmsConnectorType.EntityStorage }],
 					messagingPushNotificationConnector: [
@@ -1230,6 +1250,7 @@ describe("engine", () => {
 			"task-scheduler-service",
 			"event-bus-socket-client",
 			"telemetry-rest-client",
+			"metrics-collector-service",
 			"automation-service",
 			"messaging-admin-service",
 			"messaging-service",

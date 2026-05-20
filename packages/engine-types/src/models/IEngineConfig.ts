@@ -40,6 +40,8 @@ import type { MessagingComponentConfig } from "./config/messagingComponentConfig
 import type { MessagingEmailConnectorConfig } from "./config/messagingEmailConnectorConfig.js";
 import type { MessagingPushNotificationConnectorConfig } from "./config/messagingPushNotificationConnectorConfig.js";
 import type { MessagingSmsConnectorConfig } from "./config/messagingSmsConnectorConfig.js";
+import type { MetricsCollectorComponentConfig } from "./config/metricsCollectorComponentConfig.js";
+import type { MetricsProducerComponentConfig } from "./config/metricsProducerComponentConfig.js";
 import type { NftComponentConfig } from "./config/nftComponentConfig.js";
 import type { NftConnectorConfig } from "./config/nftConnectorConfig.js";
 import type { NotarizationComponentConfig } from "./config/notarizationComponentConfig.js";
@@ -122,6 +124,16 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Telemetry component options which can be overridden by individual components by specifying types other than default.
 		 */
 		telemetryComponent?: IEngineCoreTypeConfig<TelemetryComponentConfig>[];
+
+		/**
+		 * Metrics producer component options. Creates the `MetricsProducerService` that orchestrates polling.
+		 */
+		metricsProducerComponent?: IEngineCoreTypeConfig<MetricsProducerComponentConfig>[];
+
+		/**
+		 * Metrics collector options. Each entry registers a collector in `MetricsCollectorFactory`.
+		 */
+		metricsCollectorComponent?: IEngineCoreTypeConfig<MetricsCollectorComponentConfig>[];
 
 		/**
 		 * Messaging email connector options which can be overridden by individual components by specifying types other than default.

@@ -40,6 +40,16 @@
 		"method": "initialiseTelemetryComponent"
 	},
 	{
+		"type": "metricsProducerComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseMetricsProducerComponent"
+	},
+	{
+		"type": "metricsCollectorComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseMetricsCollectorComponent"
+	},
+	{
 		"type": "automationComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseAutomationComponent"

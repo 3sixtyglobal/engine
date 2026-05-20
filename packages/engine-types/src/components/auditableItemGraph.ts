@@ -66,7 +66,10 @@ export function initialiseAuditableItemGraphComponent(
 					{
 						immutableProofComponentType:
 							engineCore.getRegisteredInstanceType("immutableProofComponent"),
-						eventBusComponentType: engineCore.getRegisteredInstanceTypeOptional("eventBusComponent")
+						eventBusComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("eventBusComponent"),
+						telemetryComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
 					},
 					createConfig.options
 				)
