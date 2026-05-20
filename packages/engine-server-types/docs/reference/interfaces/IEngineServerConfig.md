@@ -108,6 +108,18 @@ Telemetry connector options which can be overridden by individual components by 
 
 Telemetry component options which can be overridden by individual components by specifying types other than default.
 
+##### metricsProducerComponent?
+
+> `optional` **metricsProducerComponent?**: `IEngineCoreTypeConfig`\<`MetricsProducerComponentConfig`\>[]
+
+Metrics producer component options. Creates the `MetricsProducerService` that orchestrates polling.
+
+##### metricsCollectorComponent?
+
+> `optional` **metricsCollectorComponent?**: `IEngineCoreTypeConfig`\<`MetricsCollectorComponentConfig`\>[]
+
+Metrics collector options. Each entry registers a collector in `MetricsCollectorFactory`.
+
 ##### messagingEmailConnector?
 
 > `optional` **messagingEmailConnector?**: `IEngineCoreTypeConfig`\<`MessagingEmailConnectorConfig`\>[]
