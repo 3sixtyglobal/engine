@@ -105,7 +105,13 @@ export function initialiseIdentityComponent(
 	if (instanceConfig.type === IdentityComponentType.Service) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new IdentityService(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						telemetryComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+					},
+					createConfig.options
+				)
 			);
 		instanceTypeName = nameofKebabCase(IdentityService);
 	} else if (instanceConfig.type === IdentityComponentType.RestClient) {
