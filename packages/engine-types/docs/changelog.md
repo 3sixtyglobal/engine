@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.39](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.38...engine-types-v0.0.3-next.39) (2026-05-21)
+
+
+### Features
+
+* add telemetry to identity construction ([f7def7e](https://github.com/iotaledger/twin-engine/commit/f7def7e8ea32d340f5176a6cef665af2873eca1b))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.38 to 0.0.3-next.39
+    * @twin.org/engine-models bumped from 0.0.3-next.38 to 0.0.3-next.39
+
 ## [0.0.3-next.38](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.37...engine-types-v0.0.3-next.38) (2026-05-20)
 
 

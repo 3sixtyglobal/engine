@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/engine",
-	"version": "0.0.3-next.38",
+	"version": "0.0.3-next.39",
 	"description": "Ready-to-use engine runtime that preloads built-in type initialisers.",
 	"repository": {
 		"type": "git",
@@ -30,9 +30,9 @@
 	"dependencies": {
 		"@twin.org/context": "next",
 		"@twin.org/core": "next",
-		"@twin.org/engine-core": "0.0.3-next.38",
-		"@twin.org/engine-models": "0.0.3-next.38",
-		"@twin.org/engine-types": "0.0.3-next.38",
+		"@twin.org/engine-core": "0.0.3-next.39",
+		"@twin.org/engine-models": "0.0.3-next.39",
+		"@twin.org/engine-types": "0.0.3-next.39",
 		"@twin.org/entity": "next",
 		"@twin.org/nameof": "next"
 	},
