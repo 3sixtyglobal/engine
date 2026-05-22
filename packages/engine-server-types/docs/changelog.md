@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.40](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.0.3-next.39...engine-server-types-v0.0.3-next.40) (2026-05-22)
+
+
+### Miscellaneous Chores
+
+* **engine-server-types:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.39 to 0.0.3-next.40
+    * @twin.org/engine-types bumped from 0.0.3-next.39 to 0.0.3-next.40
+
 ## [0.0.3-next.39](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.0.3-next.38...engine-server-types-v0.0.3-next.39) (2026-05-21)
 
 

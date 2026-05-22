@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.40](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.39...engine-types-v0.0.3-next.40) (2026-05-22)
+
+
+### Features
+
+* connect telemetry with ais and document management ([52ca7e1](https://github.com/iotaledger/twin-engine/commit/52ca7e1954e4cd70c2698805ebc48a77e9ed8407))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.39 to 0.0.3-next.40
+    * @twin.org/engine-models bumped from 0.0.3-next.39 to 0.0.3-next.40
+
 ## [0.0.3-next.39](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.38...engine-types-v0.0.3-next.39) (2026-05-21)
 
 

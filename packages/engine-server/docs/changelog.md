@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.0.3-next.40](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.0.3-next.39...engine-server-v0.0.3-next.40) (2026-05-22)
+
+
+### Bug Fixes
+
+* aig endpoints ([4b6099e](https://github.com/iotaledger/twin-engine/commit/4b6099e4367eabe7912215df2d0848b2d33edfec))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.39 to 0.0.3-next.40
+    * @twin.org/engine-models bumped from 0.0.3-next.39 to 0.0.3-next.40
+    * @twin.org/engine-server-types bumped from 0.0.3-next.39 to 0.0.3-next.40
+  * devDependencies
+    * @twin.org/engine bumped from 0.0.3-next.39 to 0.0.3-next.40
+
 ## [0.0.3-next.39](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.0.3-next.38...engine-server-v0.0.3-next.39) (2026-05-21)
 
 
