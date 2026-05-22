@@ -40,7 +40,9 @@ export function initialiseDocumentManagementComponent(
 						blobStorageComponentType: engineCore.getRegisteredInstanceType("blobStorageComponent"),
 						attestationComponentType: engineCore.getRegisteredInstanceType("attestationComponent"),
 						dataProcessingComponentType:
-							engineCore.getRegisteredInstanceType("dataProcessingComponent")
+							engineCore.getRegisteredInstanceType("dataProcessingComponent"),
+						telemetryComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
 					},
 					createConfig.options
 				)
