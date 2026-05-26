@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.0.3-next.41](https://github.com/iotaledger/twin-engine/compare/engine-v0.0.3-next.40...engine-v0.0.3-next.41) (2026-05-26)
+
+
+### Features
+
+* wire DSP push-transfer mode in engine ([#121](https://github.com/iotaledger/twin-engine/issues/121)) ([3456cdb](https://github.com/iotaledger/twin-engine/commit/3456cdb34c3b721b6aba1fb49133a2d8048958aa))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.40 to 0.0.3-next.41
+    * @twin.org/engine-models bumped from 0.0.3-next.40 to 0.0.3-next.41
+    * @twin.org/engine-types bumped from 0.0.3-next.40 to 0.0.3-next.41
+
 ## [0.0.3-next.40](https://github.com/iotaledger/twin-engine/compare/engine-v0.0.3-next.39...engine-v0.0.3-next.40) (2026-05-22)
 
 
