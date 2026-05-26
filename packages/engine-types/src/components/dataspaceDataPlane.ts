@@ -7,6 +7,7 @@ import {
 	type ActivityLogDetails,
 	type ActivityTask,
 	DataspaceDataPlaneService,
+	type PushSubscription,
 	initSchema as initSchemaDataspaceDataPlane
 } from "@twin.org/dataspace-data-plane-service";
 import { DataspaceDataPlaneSocketClient } from "@twin.org/dataspace-data-plane-socket-client";
@@ -81,6 +82,17 @@ export function initialiseDataspaceDataPlaneComponent(
 				instanceConfig.options?.dataspaceAppDatasetEntityStorageType,
 				nameof<DataspaceAppDataset>(),
 				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
+			);
+
+			// PushSubscription storage backs the push-mode transfer lifecycle on the data plane.
+			// Pull-only deployments still register the storage so the optional push path is usable
+			// without engine-config changes if/when a consumer requests it.
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				instanceConfig.options?.pushSubscriptionEntityStorageType,
+				nameof<PushSubscription>(),
+				partitionContextIds
 			);
 
 			return new DataspaceDataPlaneService(

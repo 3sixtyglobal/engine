@@ -89,7 +89,10 @@ export function initialiseDataspaceControlPlaneComponent(
 						taskSchedulerComponentType:
 							engineCore.getRegisteredInstanceTypeOptional("taskSchedulerComponent"),
 						urlTransformerComponentType:
-							engineCore.getRegisteredInstanceType("urlTransformerComponent")
+							engineCore.getRegisteredInstanceType("urlTransformerComponent"),
+						dataPlaneComponentType: engineCore.getRegisteredInstanceTypeOptional(
+							"dataspaceDataPlaneComponent"
+						)
 					},
 					createConfig.options
 				)

@@ -610,7 +610,7 @@ describe("engine-server", () => {
 			"PUT      /dataspace/app-datasets/:id",
 			"DELETE   /dataspace/app-datasets/:id",
 			// Dataspace Data Plane routes
-			"POST     /dataspace/notify",
+			"POST     /dataspace/inbox",
 			"GET      /dataspace/activity-logs/:id",
 			"GET      /dataspace/entities",
 			"POST     /dataspace/entities/query"

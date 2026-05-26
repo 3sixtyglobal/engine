@@ -438,7 +438,8 @@ describe("engine", () => {
 			"TransferProcess",
 			"DataspaceAppDataset",
 			"ActivityLogDetails",
-			"ActivityTask"
+			"ActivityTask",
+			"PushSubscription"
 		]);
 
 		expect(engine).toBeDefined();
