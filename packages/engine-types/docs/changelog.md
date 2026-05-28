@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.42](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.41...engine-types-v0.0.3-next.42) (2026-05-28)
+
+
+### Features
+
+* wire notarization connector to immutable proof service ([#128](https://github.com/iotaledger/twin-engine/issues/128)) ([f866100](https://github.com/iotaledger/twin-engine/commit/f86610058c8de6a981c08b688b56b94f6e1f9fd7))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.41 to 0.0.3-next.42
+    * @twin.org/engine-models bumped from 0.0.3-next.41 to 0.0.3-next.42
+
 ## [0.0.3-next.41](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.40...engine-types-v0.0.3-next.41) (2026-05-26)
 
 
