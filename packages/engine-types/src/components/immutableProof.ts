@@ -53,9 +53,8 @@ export function initialiseImmutableProofComponent(
 			return new ImmutableProofService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						verifiableStorageType: engineCore.getRegisteredInstanceType(
-							"verifiableStorageConnector"
-						),
+						notarizationConnectorType:
+							engineCore.getRegisteredInstanceType("notarizationConnector"),
 						identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
 						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 						backgroundTaskComponentType:
