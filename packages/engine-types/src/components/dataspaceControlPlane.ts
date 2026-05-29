@@ -78,6 +78,9 @@ export function initialiseDataspaceControlPlaneComponent(
 						policyNegotiationPointComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPnpComponent"
 						),
+						policyNegotiationAdminPointComponentType: engineCore.getRegisteredInstanceType(
+							"rightsManagementPnapComponent"
+						),
 						federatedCatalogueComponentType: engineCore.getRegisteredInstanceType(
 							"federatedCatalogueComponent"
 						),
