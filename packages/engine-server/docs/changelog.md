@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.0.3-next.43](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.0.3-next.42...engine-server-v0.0.3-next.43) (2026-05-29)
+
+
+### Features
+
+* add pnap to dataspace connector ([#131](https://github.com/iotaledger/twin-engine/issues/131)) ([cfa0ed4](https://github.com/iotaledger/twin-engine/commit/cfa0ed4ffaab88fcbf35730961dacab9a22cb707))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.42 to 0.0.3-next.43
+    * @twin.org/engine-models bumped from 0.0.3-next.42 to 0.0.3-next.43
+    * @twin.org/engine-server-types bumped from 0.0.3-next.42 to 0.0.3-next.43
+  * devDependencies
+    * @twin.org/engine bumped from 0.0.3-next.42 to 0.0.3-next.43
+
 ## [0.0.3-next.42](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.0.3-next.41...engine-server-v0.0.3-next.42) (2026-05-28)
 
 
