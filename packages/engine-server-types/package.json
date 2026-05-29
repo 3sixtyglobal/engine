@@ -4,7 +4,7 @@
 	"description": "Server-focused component types and configuration models for API routing and hosting.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/iotaledger/engine.git",
+		"url": "git+https://github.com/iotaledger/twin-engine.git",
 		"directory": "packages/engine-server-types"
 	},
 	"author": "martyn.janes@iota.org",
@@ -84,7 +84,7 @@
 		"engine"
 	],
 	"bugs": {
-		"url": "git+https://github.com/iotaledger/engine/issues"
+		"url": "git+https://github.com/iotaledger/twin-engine/issues"
 	},
 	"homepage": "https://twindev.org"
 }

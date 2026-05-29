@@ -4,7 +4,7 @@
 	"description": "Shared contracts and factory interfaces for composing engine core and server implementations.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/iotaledger/engine.git",
+		"url": "git+https://github.com/iotaledger/twin-engine.git",
 		"directory": "packages/engine-models"
 	},
 	"author": "martyn.janes@iota.org",
@@ -74,7 +74,7 @@
 		"schemas"
 	],
 	"bugs": {
-		"url": "git+https://github.com/iotaledger/engine/issues"
+		"url": "git+https://github.com/iotaledger/twin-engine/issues"
 	},
 	"homepage": "https://twindev.org"
 }
