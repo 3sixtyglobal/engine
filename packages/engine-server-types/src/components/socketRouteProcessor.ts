@@ -62,7 +62,11 @@ export function initialiseSocketRouteProcessorComponent(
 			return new AuthHeaderProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector")
+						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+						urlTransformerComponentType:
+							engineCore.getRegisteredInstanceType("urlTransformerComponent"),
+						tenantAdminComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("tenantAdminComponent")
 					},
 					createConfig.options
 				)
