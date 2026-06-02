@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.44](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.0.3-next.43...engine-server-types-v0.0.3-next.44) (2026-06-02)
+
+
+### Features
+
+* additional component wiring ([#133](https://github.com/iotaledger/twin-engine/issues/133)) ([a32bce1](https://github.com/iotaledger/twin-engine/commit/a32bce169ab3a47fd566eb089c6b01ba147ea1da))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.43 to 0.0.3-next.44
+    * @twin.org/engine-types bumped from 0.0.3-next.43 to 0.0.3-next.44
+
 ## [0.0.3-next.43](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.0.3-next.42...engine-server-types-v0.0.3-next.43) (2026-05-29)
 
 

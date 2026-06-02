@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.44](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.0.3-next.43...engine-models-v0.0.3-next.44) (2026-06-02)
+
+
+### Miscellaneous Chores
+
+* **engine-models:** Synchronize repo versions
+
 ## [0.0.3-next.43](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.0.3-next.42...engine-models-v0.0.3-next.43) (2026-05-29)
 
 
