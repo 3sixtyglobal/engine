@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.46](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.45...engine-types-v0.0.3-next.46) (2026-06-04)
+
+
+### Features
+
+* add tenant component ([#138](https://github.com/iotaledger/twin-engine/issues/138)) ([ebbcb8f](https://github.com/iotaledger/twin-engine/commit/ebbcb8fa3fee05048ddad2891c6ada66bd29e7bd))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.45 to 0.0.3-next.46
+    * @twin.org/engine-models bumped from 0.0.3-next.45 to 0.0.3-next.46
+
 ## [0.0.3-next.45](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.44...engine-types-v0.0.3-next.45) (2026-06-02)
 
 
