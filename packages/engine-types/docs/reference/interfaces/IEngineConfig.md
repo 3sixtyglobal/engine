@@ -480,6 +480,12 @@ Dataspace control plane component options which can be overridden by individual 
 
 Dataspace data plane component options which can be overridden by individual components by specifying types other than default.
 
+#### tenantComponent?
+
+> `optional` **tenantComponent?**: `IEngineCoreTypeConfig`\<[`TenantComponentConfig`](../type-aliases/TenantComponentConfig.md)\>[]
+
+Tenant component options which can be overridden by individual components by specifying types other than default.
+
 #### tenantAdminComponent?
 
 > `optional` **tenantAdminComponent?**: `IEngineCoreTypeConfig`\<[`TenantAdminComponentConfig`](../type-aliases/TenantAdminComponentConfig.md)\>[]
