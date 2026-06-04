@@ -132,7 +132,10 @@ export function initialiseTelemetryComponent(
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new TelemetryService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ telemetryConnectorType: engineCore.getRegisteredInstanceType("telemetryConnector") },
+					{
+						telemetryConnectorType: engineCore.getRegisteredInstanceType("telemetryConnector"),
+						tenantComponentType: engineCore.getRegisteredInstanceTypeOptional("tenantComponent")
+					},
 					createConfig.options
 				)
 			);

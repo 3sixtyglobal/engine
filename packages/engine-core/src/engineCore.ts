@@ -639,7 +639,8 @@ export class EngineCore<
 	/**
 	 * Initialise the types from connector.
 	 * @param typeKey The key for the default types.
-	 * @param instanceMethod The function to initialise the instance.
+	 * @param module The module containing the initialiser.
+	 * @param method The method to initialise the instance.
 	 * @internal
 	 */
 	private async initialiseTypeConfig(

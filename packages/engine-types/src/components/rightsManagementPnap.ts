@@ -62,7 +62,7 @@ export function initialiseRightsManagementPnapComponent(
 						policyInformationPointComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPipComponent"
 						),
-						tenantAdminType: engineCore.getRegisteredInstanceTypeOptional("tenantAdminComponent"),
+						tenantComponentType: engineCore.getRegisteredInstanceTypeOptional("tenantComponent"),
 						partitionContextIds
 					},
 					createConfig.options

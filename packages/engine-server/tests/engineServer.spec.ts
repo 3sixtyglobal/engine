@@ -79,6 +79,7 @@ import {
 	TelemetryComponentType,
 	TelemetryConnectorType,
 	TenantAdminComponentType,
+	TenantComponentType,
 	TrustComponentType,
 	TrustGeneratorComponentType,
 	TrustVerifierComponentType,
@@ -426,6 +427,11 @@ describe("engine-server", () => {
 					{
 						type: AuthenticationAdminComponentType.EntityStorage
 					}
+				],
+				tenantComponent: [
+					{
+						type: TenantComponentType.Service
+					}
 				]
 			},
 			web: { port }
@@ -570,7 +576,7 @@ describe("engine-server", () => {
 			"POST     /data-processing/convert",
 			"GET      /data-processing/rule-group",
 			"POST     /documents",
-			"PUT      /documents/:auditableItemGraphDocumentId",
+			"PATCH    /documents/:auditableItemGraphDocumentId",
 			"GET      /documents/:auditableItemGraphDocumentId",
 			"GET      /documents/:auditableItemGraphDocumentId/:revision",
 			"DELETE   /documents/:auditableItemGraphDocumentId/:revision",

@@ -31,7 +31,12 @@ export function initialiseMetricsCollectorComponent(
 	if (instanceConfig.type === MetricsCollectorComponentType.Service) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new MetricsCollectorService(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						tenantComponentType: engineCore.getRegisteredInstanceTypeOptional("tenantComponent")
+					},
+					createConfig.options
+				)
 			);
 		instanceTypeName = nameofKebabCase(MetricsCollectorService);
 	}

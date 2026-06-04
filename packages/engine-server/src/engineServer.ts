@@ -314,7 +314,8 @@ export class EngineServer<
 	 * Initialise the rest routes from connector.
 	 * @param routes The routes to add to.
 	 * @param typeKey The key for the default types.
-	 * @param generateRoutes The function to generate the routes.
+	 * @param module The module containing the route generator.
+	 * @param method The method to generate the routes.
 	 * @internal
 	 */
 	private async initialiseRestTypeRoute(

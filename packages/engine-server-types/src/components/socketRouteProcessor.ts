@@ -110,7 +110,10 @@ export function initialiseSocketRouteProcessorComponent(
 				context,
 				createConfig.options?.tenantEntityStorageType,
 				nameof<Tenant>(),
-				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
 			);
 			return new TenantProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(

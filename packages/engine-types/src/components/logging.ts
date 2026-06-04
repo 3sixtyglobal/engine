@@ -60,7 +60,12 @@ export function initialiseLoggingConnector(
 				])
 			);
 			return new EntityStorageLoggingConnector(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						tenantComponentType: engineCore.getRegisteredInstanceTypeOptional("tenantComponent")
+					},
+					createConfig.options
+				)
 			);
 		};
 		instanceTypeName = EntityStorageLoggingConnector.NAMESPACE;
@@ -98,7 +103,9 @@ export function initialiseLoggingComponent(
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new LoggingService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector") },
+					{
+						loggingConnectorType: engineCore.getRegisteredInstanceType("loggingConnector")
+					},
 					createConfig.options
 				)
 			);

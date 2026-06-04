@@ -66,6 +66,7 @@ import type { TaskSchedulerComponentConfig } from "./config/taskSchedulerCompone
 import type { TelemetryComponentConfig } from "./config/telemetryComponentConfig.js";
 import type { TelemetryConnectorConfig } from "./config/telemetryConnectorConfig.js";
 import type { TenantAdminComponentConfig } from "./config/tenantAdminComponentConfig.js";
+import type { TenantComponentConfig } from "./config/tenantComponentConfig.js";
 import type { TrustComponentConfig } from "./config/trustComponentConfig.js";
 import type { TrustGeneratorComponentConfig } from "./config/trustGeneratorComponentConfig.js";
 import type { TrustVerifierComponentConfig } from "./config/trustVerifierComponentConfig.js";
@@ -445,6 +446,11 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Dataspace data plane component options which can be overridden by individual components by specifying types other than default.
 		 */
 		dataspaceDataPlaneComponent?: IEngineCoreTypeConfig<DataspaceDataPlaneComponentConfig>[];
+
+		/**
+		 * Tenant component options which can be overridden by individual components by specifying types other than default.
+		 */
+		tenantComponent?: IEngineCoreTypeConfig<TenantComponentConfig>[];
 
 		/**
 		 * Tenant admin component options which can be overridden by individual components by specifying types other than default.

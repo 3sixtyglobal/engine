@@ -71,6 +71,8 @@ import {
 	TaskSchedulerComponentType,
 	TelemetryComponentType,
 	TelemetryConnectorType,
+	TenantAdminComponentType,
+	TenantComponentType,
 	TrustComponentType,
 	TrustGeneratorComponentType,
 	TrustVerifierComponentType,
@@ -728,6 +730,16 @@ describe("engine", () => {
 					dataspaceDataPlaneComponent: [
 						{
 							type: DataspaceDataPlaneComponentType.Service
+						}
+					],
+					tenantComponent: [
+						{
+							type: TenantComponentType.Service
+						}
+					],
+					tenantAdminComponent: [
+						{
+							type: TenantAdminComponentType.Service
 						}
 					],
 					contextIdHandlerComponent: [
