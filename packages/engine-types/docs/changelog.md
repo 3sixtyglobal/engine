@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.48](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.47...engine-types-v0.0.3-next.48) (2026-06-08)
+
+
+### Features
+
+* wire SchemaVersionService as first component for boot-time sche… ([#144](https://github.com/iotaledger/twin-engine/issues/144)) ([29ff3fa](https://github.com/iotaledger/twin-engine/commit/29ff3fac86ee1221e0e1601a5f712fe9fd984a0a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.47 to 0.0.3-next.48
+    * @twin.org/engine-models bumped from 0.0.3-next.47 to 0.0.3-next.48
+
 ## [0.0.3-next.47](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.46...engine-types-v0.0.3-next.47) (2026-06-08)
 
 
