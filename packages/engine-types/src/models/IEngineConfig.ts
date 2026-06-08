@@ -61,6 +61,7 @@ import type { RightsManagementPolicyNegotiatorComponentConfig } from "./config/r
 import type { RightsManagementPolicyObligationEnforcerComponentConfig } from "./config/rightsManagementPolicyObligationEnforcerComponentConfig.js";
 import type { RightsManagementPolicyRequesterComponentConfig } from "./config/rightsManagementPolicyRequesterComponentConfig.js";
 import type { RightsManagementPxpComponentConfig } from "./config/rightsManagementPxpComponentConfig.js";
+import type { SchemaVersionMigrationComponentConfig } from "./config/schemaVersionMigrationComponentConfig.js";
 import type { TaskSchedulerComponentConfig } from "./config/taskSchedulerComponentConfig.js";
 import type { TelemetryComponentConfig } from "./config/telemetryComponentConfig.js";
 import type { TelemetryConnectorConfig } from "./config/telemetryConnectorConfig.js";
@@ -157,6 +158,11 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Messaging component options which can be overridden by individual components by specifying types other than default.
 		 */
 		messagingComponent?: IEngineCoreTypeConfig<MessagingComponentConfig>[];
+
+		/**
+		 * Schema version migration component options which can be overridden by individual components by specifying types other than default.
+		 */
+		schemaVersionMigrationComponent?: IEngineCoreTypeConfig<SchemaVersionMigrationComponentConfig>[];
 
 		/**
 		 * Background task component options which can be overridden by individual components by specifying types other than default.

@@ -67,6 +67,7 @@ import {
 	RightsManagementPolicyObligationEnforcerComponentType,
 	RightsManagementPolicyRequesterComponentType,
 	RightsManagementPxpComponentType,
+	SchemaVersionMigrationComponentType,
 	TaskSchedulerComponentType,
 	TelemetryComponentType,
 	TelemetryConnectorType,
@@ -81,9 +82,13 @@ import {
 } from "@twin.org/engine-types";
 import typeLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
-import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
+import { EntityStorageConnectorFactory, SchemaVersion } from "@twin.org/entity-storage-models";
+import type {
+	IEntityStorageComponent,
+	IEntityStorageConnector
+} from "@twin.org/entity-storage-models";
 import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import {
 	PolicyArbiterFactory,
 	PolicyEnforcementProcessorFactory,
@@ -155,6 +160,7 @@ describe("engine", () => {
 					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
 					blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 					blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
+					schemaVersionMigrationComponent: [{ type: SchemaVersionMigrationComponentType.Service }],
 					backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 					eventBusConnector: [{ type: EventBusConnectorType.Local }],
 					eventBusComponent: [{ type: EventBusComponentType.Service }],
@@ -348,6 +354,7 @@ describe("engine", () => {
 
 		expect(ComponentFactory.names()).toEqual([
 			"engine-logging-service",
+			"schema-version-service",
 			"logging-service",
 			"background-task-service",
 			"task-scheduler-service",
@@ -387,6 +394,7 @@ describe("engine", () => {
 		]);
 
 		expect(EntitySchemaFactory.names()).toEqual([
+			"SchemaVersion",
 			"BackgroundTask",
 			"ScheduledTask",
 			"TelemetryMetric",
@@ -539,6 +547,7 @@ describe("engine", () => {
 					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
 					blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 					blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
+					schemaVersionMigrationComponent: [{ type: SchemaVersionMigrationComponentType.Service }],
 					backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 					eventBusConnector: [{ type: EventBusConnectorType.Local }],
 					eventBusComponent: [{ type: EventBusComponentType.Service }],
@@ -769,6 +778,7 @@ describe("engine", () => {
 				entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
 				blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 				blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
+				schemaVersionMigrationComponent: [{ type: SchemaVersionMigrationComponentType.Service }],
 				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 				eventBusConnector: [{ type: EventBusConnectorType.Local }],
 				eventBusComponent: [{ type: EventBusComponentType.Service }],
@@ -983,6 +993,7 @@ describe("engine", () => {
 							options: { endpoint: "http://localhost:3000" }
 						}
 					],
+					schemaVersionMigrationComponent: [{ type: SchemaVersionMigrationComponentType.Service }],
 					backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 					automationComponent: [{ type: AutomationComponentType.Service }],
 					automationAction: [
@@ -1211,6 +1222,7 @@ describe("engine", () => {
 
 		expect(ComponentFactory.names()).toEqual([
 			"engine-logging-service",
+			"schema-version-service",
 			"logging-rest-client",
 			"background-task-service",
 			"task-scheduler-service",
@@ -1249,6 +1261,7 @@ describe("engine", () => {
 		]);
 
 		expect(EntitySchemaFactory.names()).toEqual([
+			"SchemaVersion",
 			"BackgroundTask",
 			"ScheduledTask",
 			"TelemetryMetric",
@@ -1269,5 +1282,30 @@ describe("engine", () => {
 
 		expect(engine).toBeDefined();
 		expect(calledCustomBootstrap).toBeDefined();
+	});
+
+	test("SchemaVersionService writes version records for all registered schemas on first start", async () => {
+		const engine = new Engine({
+			config: {
+				types: {
+					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
+					schemaVersionMigrationComponent: [{ type: SchemaVersionMigrationComponentType.Service }],
+					backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }]
+				}
+			}
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		const versionConnector = EntityStorageConnectorFactory.get<
+			IEntityStorageConnector<SchemaVersion>
+		>(nameofKebabCase(SchemaVersion));
+		const { entities } = await versionConnector.query();
+		const rows = (entities ?? []) as SchemaVersion[];
+
+		expect(rows.some(r => r.schemaName === nameof<SchemaVersion>())).toBe(true);
+		expect(rows.some(r => r.schemaName === "BackgroundTask")).toBe(true);
+		expect(rows.every(r => r.version === 0)).toBe(true);
 	});
 });
