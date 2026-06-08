@@ -11,3 +11,9 @@ Trust verifier component types.
 > `readonly` **JwtVerifiableCredential**: `"jwt-verifiable-credential"` = `"jwt-verifiable-credential"`
 
 JWT Verifiable Credential.
+
+### IdentityAllowDeny {#identityallowdeny}
+
+> `readonly` **IdentityAllowDeny**: `"identity-allow-deny"` = `"identity-allow-deny"`
+
+Identity Allow/Deny Verifier.

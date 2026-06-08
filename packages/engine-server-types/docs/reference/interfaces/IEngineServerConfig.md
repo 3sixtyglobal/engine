@@ -216,18 +216,6 @@ DLT options which can be overridden by individual components by specifying types
 
 Wallet connector options which can be overridden by individual components by specifying types other than default.
 
-##### verifiableStorageConnector?
-
-> `optional` **verifiableStorageConnector?**: `IEngineCoreTypeConfig`\<`VerifiableStorageConnectorConfig`\>[]
-
-Verifiable storage connector options which can be overridden by individual components by specifying types other than default.
-
-##### verifiableStorageComponent?
-
-> `optional` **verifiableStorageComponent?**: `IEngineCoreTypeConfig`\<`VerifiableStorageComponentConfig`\>[]
-
-Verifiable storage component options which can be overridden by individual components by specifying types other than default.
-
 ##### immutableProofComponent?
 
 > `optional` **immutableProofComponent?**: `IEngineCoreTypeConfig`\<`ImmutableProofComponentConfig`\>[]
@@ -455,12 +443,6 @@ Rights management policy negotiator options which can be overridden by individua
 > `optional` **rightsManagementPolicyRequesterComponent?**: `IEngineCoreTypeConfig`\<`RightsManagementPolicyRequesterComponentConfig`\>[]
 
 Rights management policy requester options which can be overridden by individual components by specifying types other than default.
-
-##### synchronisedStorageComponent?
-
-> `optional` **synchronisedStorageComponent?**: `IEngineCoreTypeConfig`\<`SynchronisedStorageComponentConfig`\>[]
-
-Synchronised storage options which can be overridden by individual components by specifying types other than default.
 
 ##### federatedCatalogueComponent?
 
