@@ -61,7 +61,6 @@ import type { RightsManagementPolicyNegotiatorComponentConfig } from "./config/r
 import type { RightsManagementPolicyObligationEnforcerComponentConfig } from "./config/rightsManagementPolicyObligationEnforcerComponentConfig.js";
 import type { RightsManagementPolicyRequesterComponentConfig } from "./config/rightsManagementPolicyRequesterComponentConfig.js";
 import type { RightsManagementPxpComponentConfig } from "./config/rightsManagementPxpComponentConfig.js";
-import type { SynchronisedStorageComponentConfig } from "./config/synchronisedStorageComponentConfig.js";
 import type { TaskSchedulerComponentConfig } from "./config/taskSchedulerComponentConfig.js";
 import type { TelemetryComponentConfig } from "./config/telemetryComponentConfig.js";
 import type { TelemetryConnectorConfig } from "./config/telemetryConnectorConfig.js";
@@ -72,8 +71,6 @@ import type { TrustGeneratorComponentConfig } from "./config/trustGeneratorCompo
 import type { TrustVerifierComponentConfig } from "./config/trustVerifierComponentConfig.js";
 import type { UrlTransformerComponentConfig } from "./config/urlTransformerComponentConfig.js";
 import type { VaultConnectorConfig } from "./config/vaultConnectorConfig.js";
-import type { VerifiableStorageComponentConfig } from "./config/verifiableStorageComponentConfig.js";
-import type { VerifiableStorageConnectorConfig } from "./config/verifiableStorageConnectorConfig.js";
 import type { WalletConnectorConfig } from "./config/walletConnectorConfig.js";
 
 /**
@@ -215,16 +212,6 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Wallet connector options which can be overridden by individual components by specifying types other than default.
 		 */
 		walletConnector?: IEngineCoreTypeConfig<WalletConnectorConfig>[];
-
-		/**
-		 * Verifiable storage connector options which can be overridden by individual components by specifying types other than default.
-		 */
-		verifiableStorageConnector?: IEngineCoreTypeConfig<VerifiableStorageConnectorConfig>[];
-
-		/**
-		 * Verifiable storage component options which can be overridden by individual components by specifying types other than default.
-		 */
-		verifiableStorageComponent?: IEngineCoreTypeConfig<VerifiableStorageComponentConfig>[];
 
 		/**
 		 * Immutable proof component options which can be overridden by individual components by specifying types other than default.
@@ -421,11 +408,6 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 */
 		// eslint-disable-next-line max-len
 		rightsManagementPolicyRequesterComponent?: IEngineCoreTypeConfig<RightsManagementPolicyRequesterComponentConfig>[];
-
-		/**
-		 * Synchronised storage options which can be overridden by individual components by specifying types other than default.
-		 */
-		synchronisedStorageComponent?: IEngineCoreTypeConfig<SynchronisedStorageComponentConfig>[];
 
 		/**
 		 * Federated catalogue options which can be overridden by individual components by specifying types other than default.

@@ -9,7 +9,12 @@ export const TrustVerifierComponentType = {
 	/**
 	 * JWT Verifiable Credential.
 	 */
-	JwtVerifiableCredential: "jwt-verifiable-credential"
+	JwtVerifiableCredential: "jwt-verifiable-credential",
+
+	/**
+	 * Identity Allow/Deny Verifier.
+	 */
+	IdentityAllowDeny: "identity-allow-deny"
 } as const;
 
 /**

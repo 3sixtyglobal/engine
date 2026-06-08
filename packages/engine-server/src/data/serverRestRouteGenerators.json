@@ -90,12 +90,6 @@
 		"defaultPath": "/notarization"
 	},
 	{
-		"type": "verifiableStorageComponent",
-		"module": "@twin.org/verifiable-storage-service",
-		"method": "generateRestRoutesVerifiableStorage",
-		"defaultPath": "/verifiable"
-	},
-	{
 		"type": "immutableProofComponent",
 		"module": "@twin.org/immutable-proof-service",
 		"method": "generateRestRoutesImmutableProof",
@@ -153,12 +147,6 @@
 		"module": "@twin.org/rights-management-service",
 		"method": "generateRestRoutesPolicyNegotiationAdminPoint",
 		"defaultPath": "/rights-management"
-	},
-	{
-		"type": "synchronisedStorageComponent",
-		"module": "@twin.org/synchronised-storage-service",
-		"method": "generateRestRoutesSynchronisedStorage",
-		"defaultPath": "/synchronised-storage"
 	},
 	{
 		"type": "federatedCatalogueComponent",

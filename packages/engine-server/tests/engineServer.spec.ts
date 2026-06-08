@@ -74,7 +74,6 @@ import {
 	RightsManagementPolicyObligationEnforcerComponentType,
 	RightsManagementPolicyRequesterComponentType,
 	RightsManagementPxpComponentType,
-	SynchronisedStorageComponentType,
 	TaskSchedulerComponentType,
 	TelemetryComponentType,
 	TelemetryConnectorType,
@@ -85,8 +84,6 @@ import {
 	TrustVerifierComponentType,
 	UrlTransformerComponentType,
 	VaultConnectorType,
-	VerifiableStorageComponentType,
-	VerifiableStorageConnectorType,
 	WalletConnectorType
 } from "@twin.org/engine-types";
 import engineTypesLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
@@ -206,8 +203,6 @@ describe("engine-server", () => {
 				messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 				messagingComponent: [{ type: MessagingComponentType.Service }],
 				vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
-				verifiableStorageConnector: [{ type: VerifiableStorageConnectorType.EntityStorage }],
-				verifiableStorageComponent: [{ type: VerifiableStorageComponentType.Service }],
 				immutableProofComponent: [{ type: ImmutableProofComponentType.Service }],
 				walletConnector: [{ type: WalletConnectorType.EntityStorage }],
 				faucetConnector: [{ type: FaucetConnectorType.EntityStorage }],
@@ -341,12 +336,6 @@ describe("engine-server", () => {
 				taskSchedulerComponent: [
 					{
 						type: TaskSchedulerComponentType.Service
-					}
-				],
-				synchronisedStorageComponent: [
-					{
-						type: SynchronisedStorageComponentType.Service,
-						options: { config: { verifiableStorageKeyId: "testnet" } }
 					}
 				],
 				federatedCatalogueComponent: [
@@ -532,10 +521,6 @@ describe("engine-server", () => {
 			"DELETE   /notarization/:id",
 			"PUT      /notarization/:id",
 			"POST     /notarization/:id/transfer",
-			"POST     /verifiable",
-			"PUT      /verifiable/:id",
-			"GET      /verifiable/:id",
-			"DELETE   /verifiable/:id",
 			"POST     /immutable-proof",
 			"GET      /immutable-proof/:id",
 			"GET      /immutable-proof/:id/verify",
@@ -602,10 +587,10 @@ describe("engine-server", () => {
 			"PUT      /rights-management/negotiations/admin/:policyId",
 			"DELETE   /rights-management/negotiations/admin/:policyId",
 			"GET      /rights-management/negotiations/admin",
-			"POST     /synchronised-storage/sync-changeset",
-			"POST     /synchronised-storage/decryption-key",
 			"POST     /federated-catalogue/request",
 			"GET      /federated-catalogue/datasets/:datasetId",
+			"POST     /federated-catalogue/datasets",
+			"DELETE   /federated-catalogue/datasets/:datasetId",
 			// Dataspace Control Plane routes
 			"POST     /dataspace/transfers/request",
 			"GET      /dataspace/transfers/:pid",

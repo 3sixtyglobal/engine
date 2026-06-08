@@ -67,7 +67,6 @@ import {
 	RightsManagementPolicyObligationEnforcerComponentType,
 	RightsManagementPolicyRequesterComponentType,
 	RightsManagementPxpComponentType,
-	SynchronisedStorageComponentType,
 	TaskSchedulerComponentType,
 	TelemetryComponentType,
 	TelemetryConnectorType,
@@ -78,16 +77,11 @@ import {
 	TrustVerifierComponentType,
 	UrlTransformerComponentType,
 	VaultConnectorType,
-	VerifiableStorageComponentType,
-	VerifiableStorageConnectorType,
 	WalletConnectorType
 } from "@twin.org/engine-types";
 import typeLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
-import {
-	EntityStorageConnectorFactory,
-	type IEntityStorageComponent
-} from "@twin.org/entity-storage-models";
+import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
 import { nameof } from "@twin.org/nameof";
 import {
@@ -182,8 +176,6 @@ describe("engine", () => {
 					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 					messagingComponent: [{ type: MessagingComponentType.Service }],
 					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
-					verifiableStorageConnector: [{ type: VerifiableStorageConnectorType.EntityStorage }],
-					verifiableStorageComponent: [{ type: VerifiableStorageComponentType.Service }],
 					immutableProofComponent: [{ type: ImmutableProofComponentType.Service }],
 					walletConnector: [{ type: WalletConnectorType.EntityStorage }],
 					faucetConnector: [{ type: FaucetConnectorType.EntityStorage }],
@@ -319,12 +311,6 @@ describe("engine", () => {
 							type: TaskSchedulerComponentType.Service
 						}
 					],
-					synchronisedStorageComponent: [
-						{
-							type: SynchronisedStorageComponentType.Service,
-							options: { config: { verifiableStorageKeyId: "testnet" } }
-						}
-					],
 					federatedCatalogueComponent: [
 						{
 							type: FederatedCatalogueComponentType.Service,
@@ -372,7 +358,6 @@ describe("engine", () => {
 			"messaging-admin-service",
 			"messaging-service",
 			"blob-storage-service",
-			"verifiable-storage-service",
 			"identity-service",
 			"identity-resolver-service",
 			"identity-profile-service",
@@ -396,7 +381,6 @@ describe("engine", () => {
 			"policy-negotiation-admin-point-service",
 			"policy-negotiation-point-rest-client",
 			"policy-negotiation-point-service",
-			"synchronised-storage-service",
 			"federated-catalogue-service",
 			"dataspace-control-plane-service",
 			"dataspace-data-plane-service"
@@ -416,7 +400,6 @@ describe("engine", () => {
 			"VaultKey",
 			"VaultSecret",
 			"BlobStorageEntry",
-			"VerifiableItem",
 			"WalletAddress",
 			"IdentityDocument",
 			"IdentityProfile",
@@ -435,7 +418,6 @@ describe("engine", () => {
 			"ExtractionRule",
 			"OdrlPolicy",
 			"PolicyNegotiation",
-			"SyncSnapshotEntry",
 			"Dataset",
 			"TransferProcess",
 			"DataspaceAppDataset",
@@ -578,8 +560,6 @@ describe("engine", () => {
 					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 					messagingComponent: [{ type: MessagingComponentType.Service }],
 					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
-					verifiableStorageConnector: [{ type: VerifiableStorageConnectorType.EntityStorage }],
-					verifiableStorageComponent: [{ type: VerifiableStorageComponentType.Service }],
 					immutableProofComponent: [{ type: ImmutableProofComponentType.Service }],
 					walletConnector: [{ type: WalletConnectorType.EntityStorage }],
 					faucetConnector: [{ type: FaucetConnectorType.EntityStorage }],
@@ -704,12 +684,6 @@ describe("engine", () => {
 							type: TaskSchedulerComponentType.Service
 						}
 					],
-					synchronisedStorageComponent: [
-						{
-							type: SynchronisedStorageComponentType.Service,
-							options: { config: { verifiableStorageKeyId: "testnet" } }
-						}
-					],
 					federatedCatalogueComponent: [
 						{
 							type: FederatedCatalogueComponentType.Service,
@@ -816,8 +790,6 @@ describe("engine", () => {
 				messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 				messagingComponent: [{ type: MessagingComponentType.Service }],
 				vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
-				verifiableStorageConnector: [{ type: VerifiableStorageConnectorType.EntityStorage }],
-				verifiableStorageComponent: [{ type: VerifiableStorageComponentType.Service }],
 				immutableProofComponent: [{ type: ImmutableProofComponentType.Service }],
 				walletConnector: [{ type: WalletConnectorType.EntityStorage }],
 				faucetConnector: [{ type: FaucetConnectorType.EntityStorage }],
@@ -942,12 +914,6 @@ describe("engine", () => {
 						type: TaskSchedulerComponentType.Service
 					}
 				],
-				synchronisedStorageComponent: [
-					{
-						type: SynchronisedStorageComponentType.Service,
-						options: { config: { verifiableStorageKeyId: "testnet" } }
-					}
-				],
 				federatedCatalogueComponent: [
 					{
 						type: FederatedCatalogueComponentType.Service,
@@ -1048,13 +1014,6 @@ describe("engine", () => {
 					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 					messagingComponent: [{ type: MessagingComponentType.Service }],
 					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
-					verifiableStorageConnector: [{ type: VerifiableStorageConnectorType.EntityStorage }],
-					verifiableStorageComponent: [
-						{
-							type: VerifiableStorageComponentType.RestClient,
-							options: { endpoint: "http://localhost:3000" }
-						}
-					],
 					immutableProofComponent: [
 						{
 							type: ImmutableProofComponentType.RestClient,
@@ -1215,12 +1174,6 @@ describe("engine", () => {
 							type: TaskSchedulerComponentType.Service
 						}
 					],
-					synchronisedStorageComponent: [
-						{
-							type: SynchronisedStorageComponentType.RestClient,
-							options: { endpoint: "http://localhost:3000" }
-						}
-					],
 					federatedCatalogueComponent: [
 						{
 							type: FederatedCatalogueComponentType.RestClient,
@@ -1268,7 +1221,6 @@ describe("engine", () => {
 			"messaging-admin-service",
 			"messaging-service",
 			"blob-storage-rest-client",
-			"verifiable-storage-rest-client",
 			"identity-rest-client",
 			"identity-resolver-rest-client",
 			"identity-profile-rest-client",
@@ -1290,7 +1242,6 @@ describe("engine", () => {
 			"policy-enforcement-point-service",
 			"policy-negotiation-admin-point-rest-client",
 			"policy-negotiation-point-rest-client",
-			"synchronised-storage-rest-client",
 			"federated-catalogue-rest-client",
 			"dataspace-control-plane-rest-client",
 			"dataspace-data-plane-rest-client",
@@ -1310,7 +1261,6 @@ describe("engine", () => {
 			"TemplateEntry",
 			"VaultKey",
 			"VaultSecret",
-			"VerifiableItem",
 			"WalletAddress",
 			"IdentityDocument",
 			"IdentityProfile",
@@ -1319,90 +1269,5 @@ describe("engine", () => {
 
 		expect(engine).toBeDefined();
 		expect(calledCustomBootstrap).toBeDefined();
-	});
-
-	test("Can use a custom entity storage connector type", async () => {
-		const engine = new Engine({
-			config: {
-				types: {
-					eventBusConnector: [{ type: EventBusConnectorType.Local }],
-					eventBusComponent: [{ type: EventBusComponentType.Service }],
-					entityStorageConnector: [
-						{ type: EntityStorageConnectorType.Memory },
-						{
-							type: EntityStorageConnectorType.Synchronised,
-							options: {
-								entityStorageConnectorType: "memory"
-							}
-						}
-					],
-					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
-					urlTransformerComponent: [{ type: UrlTransformerComponentType.Service }],
-					federatedCatalogueComponent: [
-						{
-							type: FederatedCatalogueComponentType.Service,
-							options: {
-								datasetEntityStorageType: "synchronised"
-							}
-						}
-					]
-				}
-			}
-		});
-
-		engine.addContextId(ContextIdKeys.Node, "did:iota:0x123");
-
-		await engine.start();
-		await engine.stop();
-
-		expect(EntityStorageConnectorFactory.get("synchronised").constructor.name).toEqual(
-			"SynchronisedEntityStorageConnector"
-		);
-
-		const federatedCatalogueService = ComponentFactory.get("federated-catalogue-service");
-		expect(federatedCatalogueService).toBeDefined();
-	});
-
-	test("Can override and use a custom entity storage connector type", async () => {
-		const engine = new Engine({
-			config: {
-				types: {
-					eventBusConnector: [{ type: EventBusConnectorType.Local }],
-					eventBusComponent: [{ type: EventBusComponentType.Service }],
-					entityStorageConnector: [
-						{ type: EntityStorageConnectorType.Memory },
-						{
-							type: EntityStorageConnectorType.Synchronised,
-							overrideInstanceType: "custom-dataset-storage",
-							options: {
-								entityStorageConnectorType: "memory"
-							}
-						}
-					],
-					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
-					urlTransformerComponent: [{ type: UrlTransformerComponentType.Service }],
-					federatedCatalogueComponent: [
-						{
-							type: FederatedCatalogueComponentType.Service,
-							options: {
-								datasetEntityStorageType: "custom-dataset-storage"
-							}
-						}
-					]
-				}
-			}
-		});
-
-		engine.addContextId(ContextIdKeys.Node, "did:iota:0x123");
-
-		await engine.start();
-		await engine.stop();
-
-		expect(EntityStorageConnectorFactory.get("custom-dataset-storage").constructor.name).toEqual(
-			"SynchronisedEntityStorageConnector"
-		);
-
-		const federatedCatalogueService = ComponentFactory.get("federated-catalogue-service");
-		expect(federatedCatalogueService).toBeDefined();
 	});
 });

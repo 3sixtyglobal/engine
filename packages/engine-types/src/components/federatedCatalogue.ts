@@ -51,7 +51,8 @@ export function initialiseFederatedCatalogueComponent(
 					{
 						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 						urlTransformerComponentType:
-							engineCore.getRegisteredInstanceType("urlTransformerComponent")
+							engineCore.getRegisteredInstanceType("urlTransformerComponent"),
+						trustComponentType: engineCore.getRegisteredInstanceType("trustComponent")
 					},
 					createConfig.options
 				)

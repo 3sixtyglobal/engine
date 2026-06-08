@@ -110,16 +110,6 @@
 		"method": "initialiseBlobStorageComponent"
 	},
 	{
-		"type": "verifiableStorageConnector",
-		"module": "@twin.org/engine-types",
-		"method": "initialiseVerifiableStorageConnector"
-	},
-	{
-		"type": "verifiableStorageComponent",
-		"module": "@twin.org/engine-types",
-		"method": "initialiseVerifiableStorageComponent"
-	},
-	{
 		"type": "faucetConnector",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseFaucetConnector"
@@ -328,11 +318,6 @@
 		"type": "rightsManagementPolicyRequesterComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseRightsManagementPolicyRequesterComponent"
-	},
-	{
-		"type": "synchronisedStorageComponent",
-		"module": "@twin.org/engine-types",
-		"method": "initialiseSynchronisedStorageComponent"
 	},
 	{
 		"type": "federatedCatalogueComponent",

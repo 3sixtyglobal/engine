@@ -6,8 +6,11 @@ import type {
 	IEngineCoreContext
 } from "@twin.org/engine-models";
 import { nameofKebabCase } from "@twin.org/nameof";
-import { TrustVerifierFactory } from "@twin.org/trust-models";
-import { JwtVerifiableCredentialVerifier } from "@twin.org/trust-verifiers";
+import { type ITrustVerifier, TrustVerifierFactory } from "@twin.org/trust-models";
+import {
+	IdentityAllowDenyVerifier,
+	JwtVerifiableCredentialVerifier
+} from "@twin.org/trust-verifiers";
 import type { TrustVerifierComponentConfig } from "../models/config/trustVerifierComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { TrustVerifierComponentType } from "../models/types/trustVerifierComponentType.js";
@@ -33,17 +36,22 @@ export function initialiseTrustVerifierComponent(
 			new JwtVerifiableCredentialVerifier(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
 						identityComponentType: engineCore.getRegisteredInstanceType("identityComponent")
 					},
 					createConfig.options
 				)
 			);
 		instanceTypeName = nameofKebabCase(JwtVerifiableCredentialVerifier);
+	} else if (instanceConfig.type === TrustVerifierComponentType.IdentityAllowDeny) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new IdentityAllowDenyVerifier(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(IdentityAllowDenyVerifier);
 	}
 
 	return {
-		createComponent,
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => ITrustVerifier,
 		instanceTypeName,
 		factory: TrustVerifierFactory
 	};
