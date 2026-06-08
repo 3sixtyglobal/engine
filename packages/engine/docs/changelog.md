@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.0.3-next.47](https://github.com/iotaledger/twin-engine/compare/engine-v0.0.3-next.46...engine-v0.0.3-next.47) (2026-06-08)
+
+
+### Features
+
+* update federated catalogue to trust mode ([#141](https://github.com/iotaledger/twin-engine/issues/141)) ([95a7d28](https://github.com/iotaledger/twin-engine/commit/95a7d283373a398edace9e5331fe428cccb2a9a2))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.46 to 0.0.3-next.47
+    * @twin.org/engine-models bumped from 0.0.3-next.46 to 0.0.3-next.47
+    * @twin.org/engine-types bumped from 0.0.3-next.46 to 0.0.3-next.47
+
 ## [0.0.3-next.46](https://github.com/iotaledger/twin-engine/compare/engine-v0.0.3-next.45...engine-v0.0.3-next.46) (2026-06-04)
 
 
