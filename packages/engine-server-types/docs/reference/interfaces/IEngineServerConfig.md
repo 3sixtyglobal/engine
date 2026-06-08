@@ -150,6 +150,12 @@ Messaging admin component options which can be overridden by individual componen
 
 Messaging component options which can be overridden by individual components by specifying types other than default.
 
+##### schemaVersionMigrationComponent?
+
+> `optional` **schemaVersionMigrationComponent?**: `IEngineCoreTypeConfig`\<`SchemaVersionMigrationComponentConfig`\>[]
+
+Schema version migration component options which can be overridden by individual components by specifying types other than default.
+
 ##### backgroundTaskComponent?
 
 > `optional` **backgroundTaskComponent?**: `IEngineCoreTypeConfig`\<`BackgroundTaskComponentConfig`\>[]
