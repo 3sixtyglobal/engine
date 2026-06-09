@@ -82,11 +82,15 @@ import {
 } from "@twin.org/engine-types";
 import typeLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
-import { EntityStorageConnectorFactory, SchemaVersion } from "@twin.org/entity-storage-models";
+import {
+	EntityStorageConnectorFactory,
+	SchemaMigrationFactory
+} from "@twin.org/entity-storage-models";
 import type {
 	IEntityStorageComponent,
 	IEntityStorageConnector
 } from "@twin.org/entity-storage-models";
+import { SchemaVersion } from "@twin.org/entity-storage-service";
 import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import {
@@ -111,6 +115,54 @@ export class TestEntity {
 	 */
 	@property({ type: "string", isPrimary: true })
 	public id!: string;
+}
+
+/**
+ * Class representing v0 of a versioned test entity, used to test schema migration.
+ */
+@entity({ version: 0 })
+export class TestMigrationEntityV0 {
+	/**
+	 * The id for the entity.
+	 */
+	@property({ type: "string", isPrimary: true })
+	public id!: string;
+
+	/**
+	 * A field present in v0 that is renamed to newField during migration to v1.
+	 */
+	@property({ type: "string" })
+	public legacyField!: string;
+
+	/**
+	 * A numeric field in v0 that is transformed into an array of tag strings during migration to v1.
+	 */
+	@property({ type: "integer" })
+	public score!: number;
+}
+
+/**
+ * Class representing the current (v1) schema of a versioned test entity, used to test schema migration.
+ */
+@entity({ version: 1 })
+export class TestMigrationEntity {
+	/**
+	 * The id for the entity.
+	 */
+	@property({ type: "string", isPrimary: true })
+	public id!: string;
+
+	/**
+	 * The renamed field (was legacyField in v0).
+	 */
+	@property({ type: "string" })
+	public newField!: string;
+
+	/**
+	 * Tag strings produced by transformEntityProperty from the v0 score integer.
+	 */
+	@property({ type: "array", itemType: "string", optional: true })
+	public tags?: string[];
 }
 
 describe("engine", () => {
@@ -1302,10 +1354,147 @@ describe("engine", () => {
 			IEntityStorageConnector<SchemaVersion>
 		>(nameofKebabCase(SchemaVersion));
 		const { entities } = await versionConnector.query();
-		const rows = (entities ?? []) as SchemaVersion[];
+		const rows = entities ?? [];
 
 		expect(rows.some(r => r.schemaName === nameof<SchemaVersion>())).toBe(true);
 		expect(rows.some(r => r.schemaName === "BackgroundTask")).toBe(true);
 		expect(rows.every(r => r.version === 0)).toBe(true);
+	});
+
+	test("Can migrate a custom entity storage type from v0 to v1", async () => {
+		// Register the v0 historical schema and the current v1 schema.
+		EntitySchemaFactory.register(nameof<TestMigrationEntityV0>(), () =>
+			EntitySchemaHelper.getSchema(TestMigrationEntityV0)
+		);
+		EntitySchemaFactory.register(nameof<TestMigrationEntity>(), () =>
+			EntitySchemaHelper.getSchema(TestMigrationEntity)
+		);
+
+		// Register the migration override: rename legacyField → newField (string coercion),
+		// rename score → tags (integer → array) and convert via transformEntityProperty.
+		const migrationKey = `${nameof<TestMigrationEntity>()}_0_1`;
+		SchemaMigrationFactory.register(migrationKey, () => ({
+			renames: [
+				{ from: "legacyField", to: "newField" },
+				{ from: "score", to: "tags" }
+			],
+			transformEntityProperty: (from, to, value) => [`item:${value as number}`]
+		}));
+
+		// Capture console.info to verify migration log messages are emitted.
+		// ConsoleLoggingConnector routes all ILogEntry objects through console[level],
+		// so SchemaVersionService and MigrationHelper migration events appear here.
+		const consoleSpy = vi.spyOn(console, "info").mockImplementation(() => {});
+
+		try {
+			const engine = new Engine({
+				config: {
+					types: {
+						entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
+						entityStorageComponent: [
+							{
+								type: EntityStorageComponentType.Service,
+								options: {
+									entityStorageType: nameof<TestMigrationEntity>(),
+									partitionContextIds: []
+								}
+							}
+						],
+						schemaVersionMigrationComponent: [
+							{ type: SchemaVersionMigrationComponentType.Service }
+						],
+						backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }]
+					}
+				},
+				customBootstrap: async () => {
+					// Push three v0-shaped records directly into the internal store to bypass
+					// schema validation (the v1 connector would reject missing newField/tags).
+					const connector = EntityStorageConnectorFactory.get(nameofKebabCase(TestMigrationEntity));
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					const raw = connector as any;
+					raw._store.push(
+						{ id: "entity-1", legacyField: "old-value-1", score: 1 },
+						{ id: "entity-2", legacyField: "old-value-2", score: 2 },
+						{ id: "entity-3", legacyField: "old-value-3", score: 3 }
+					);
+				}
+			});
+
+			await engine.start();
+			await engine.stop();
+
+			// SchemaVersion record must show the migration reached version 1.
+			const versionConnector = EntityStorageConnectorFactory.get<
+				IEntityStorageConnector<SchemaVersion>
+			>(nameofKebabCase(SchemaVersion));
+			const { entities: versionRecords } = await versionConnector.query();
+			const migrationRecord = (versionRecords ?? []).find(
+				r => r.schemaName === nameof<TestMigrationEntity>()
+			);
+			expect(migrationRecord?.version).toBe(1);
+
+			// All three entities must be migrated: legacyField renamed to newField,
+			// score transformed into a tags array via transformEntityProperty.
+			const entityConnector = EntityStorageConnectorFactory.get(
+				nameofKebabCase(TestMigrationEntity)
+			);
+			const { entities } = await entityConnector.query();
+			expect(entities).toHaveLength(3);
+			const sorted = (
+				[...(entities ?? [])] as (TestMigrationEntity & TestMigrationEntityV0)[]
+			).sort((a, b) => a.id.localeCompare(b.id));
+			for (const [i, item] of sorted.entries()) {
+				const n = i + 1;
+				expect(item.id).toBe(`entity-${n}`);
+				expect(item.newField).toBe(`old-value-${n}`);
+				expect(item.tags).toEqual([`item:${n}`]);
+				expect(item.legacyField).toBeUndefined();
+				expect(item.score).toBeUndefined();
+			}
+
+			// Console log entries from SchemaVersionService and MigrationHelper confirm the
+			// migration lifecycle was logged.  Messages are not I18n-translated here because
+			// entity-storage-service locales are not loaded in this test, so the raw keys appear.
+			const allLogArgs = consoleSpy.mock.calls.flat().map(String);
+			// SchemaVersionService: migration decision
+			expect(allLogArgs.some(a => a.includes("migrationRequired"))).toBe(true);
+			// MigrationHelper chain lifecycle
+			expect(allLogArgs.some(a => a.includes("migrateSchemaStarting"))).toBe(true);
+			// SchemaVersionService onProgress: partition-level events
+			expect(allLogArgs.some(a => a.includes("partitionStart"))).toBe(true);
+			expect(allLogArgs.some(a => a.includes("partitionProgress"))).toBe(true);
+			// SchemaVersionService onProgress: item-level events
+			expect(allLogArgs.some(a => a.includes("partitionItemsStart"))).toBe(true);
+			expect(allLogArgs.some(a => a.includes("partitionItemsProgress"))).toBe(true);
+			expect(allLogArgs.some(a => a.includes("partitionItemsEnd"))).toBe(true);
+			expect(allLogArgs.some(a => a.includes("partitionEnd"))).toBe(true);
+			// ConsoleLoggingConnector serialises ILogEntry.data as JSON; verify that the
+			// item-level progress events report the correct entity count (3).
+			// partitionItemsProgress fires with (itemTotal=3, itemIndex=3) after the single batch,
+			// partitionItemsEnd fires with (itemTotal=3, itemIndex=3) after the loop.
+			const ENTITY_COUNT = 3;
+			const itemsEndCall = consoleSpy.mock.calls.find(args =>
+				args.some(a => String(a).includes("partitionItemsEnd"))
+			);
+			expect(itemsEndCall).toBeDefined();
+			expect(itemsEndCall?.some(a => String(a).includes(`"itemTotal":${ENTITY_COUNT}`))).toBe(true);
+			const itemsProgressCall = consoleSpy.mock.calls.find(args =>
+				args.some(a => String(a).includes("partitionItemsProgress"))
+			);
+			expect(itemsProgressCall).toBeDefined();
+			expect(itemsProgressCall?.some(a => String(a).includes(`"itemIndex":${ENTITY_COUNT}`))).toBe(
+				true
+			);
+			// MigrationHelper finalizing and completion
+			expect(allLogArgs.some(a => a.includes("migrateSchemaFinalizing"))).toBe(true);
+			expect(allLogArgs.some(a => a.includes("migrateSchemaComplete"))).toBe(true);
+		} finally {
+			consoleSpy.mockRestore();
+			try {
+				SchemaMigrationFactory.unregister(migrationKey);
+			} catch {
+				// Ignore if already removed.
+			}
+		}
 	});
 });

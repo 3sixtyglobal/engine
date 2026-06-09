@@ -1,22 +1,22 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, type IComponent } from "@twin.org/core";
+import { ComponentFactory } from "@twin.org/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
 import {
-	EntityStorageConnectorFactory,
-	type IEntityStorageConnector,
-	SchemaVersion,
+	type SchemaVersion,
 	SchemaVersionService,
 	initSchema
-} from "@twin.org/entity-storage-models";
+} from "@twin.org/entity-storage-service";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { SchemaVersionMigrationComponentConfig } from "../models/config/schemaVersionMigrationComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { SchemaVersionMigrationComponentType } from "../models/types/schemaVersionMigrationComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the schema version migration component.
@@ -30,21 +30,33 @@ export function initialiseSchemaVersionMigrationComponent(
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: SchemaVersionMigrationComponentConfig
 ): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
-	const createComponent = (): IComponent => {
-		initSchema();
-		// No partition keys ([] not [Node]) and no storage-type override: schema versions track
-		// entity type structure globally — there is no per-context versioning and no scenario
-		// where migrations should read from a different connector than the rest of entity storage.
-		initialiseEntityStorageConnector(engineCore, context, undefined, nameof<SchemaVersion>(), []);
-		const versionConnector = EntityStorageConnectorFactory.get<
-			IEntityStorageConnector<SchemaVersion>
-		>(nameofKebabCase(SchemaVersion));
-		return new SchemaVersionService(versionConnector);
-	};
+	let createComponent;
+	let instanceTypeName;
+
+	if (instanceConfig.type === SchemaVersionMigrationComponentType.Service) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchema();
+
+			// No partition keys ([] not [Node]) schema versions track
+			// entity type structure globally — there is no per-context versioning and no scenario
+			// where migrations should read from a different connector than the rest of entity storage.
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.schemaVersionStorageType,
+				nameof<SchemaVersion>(),
+				[]
+			);
+			return new SchemaVersionService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = nameofKebabCase(SchemaVersionService);
+	}
 
 	return {
 		createComponent,
-		instanceTypeName: nameofKebabCase(SchemaVersionService),
+		instanceTypeName,
 		factory: ComponentFactory
 	};
 }
