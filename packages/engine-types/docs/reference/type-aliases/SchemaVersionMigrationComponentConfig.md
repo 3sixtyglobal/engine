@@ -9,3 +9,9 @@ Schema version migration component config types.
 ### type {#type}
 
 > **type**: *typeof* [`Service`](../variables/SchemaVersionMigrationComponentType.md#service)
+
+***
+
+### options? {#options}
+
+> `optional` **options?**: `ISchemaVersionServiceConstructorOptions`
