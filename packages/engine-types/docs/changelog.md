@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.49](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.48...engine-types-v0.0.3-next.49) (2026-06-09)
+
+
+### Features
+
+* schema migration ([#147](https://github.com/iotaledger/twin-engine/issues/147)) ([2026f19](https://github.com/iotaledger/twin-engine/commit/2026f195e7a8d930d20cd43c7ff8ac4d003e454d))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.48 to 0.0.3-next.49
+    * @twin.org/engine-models bumped from 0.0.3-next.48 to 0.0.3-next.49
+
 ## [0.0.3-next.48](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.47...engine-types-v0.0.3-next.48) (2026-06-08)
 
 
