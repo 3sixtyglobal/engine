@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3-next.50](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.0.3-next.49...engine-models-v0.0.3-next.50) (2026-06-11)
+
+
+### Features
+
+* organization identifiers ([#152](https://github.com/iotaledger/twin-engine/issues/152)) ([d8e6d51](https://github.com/iotaledger/twin-engine/commit/d8e6d5147f402f0fe17b445efd8ae97db0c36adb))
+
 ## [0.0.3-next.49](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.0.3-next.48...engine-models-v0.0.3-next.49) (2026-06-09)
 
 
