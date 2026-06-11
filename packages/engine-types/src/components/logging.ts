@@ -62,7 +62,7 @@ export function initialiseLoggingConnector(
 			return new EntityStorageLoggingConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						tenantComponentType: engineCore.getRegisteredInstanceTypeOptional("tenantComponent")
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
 					},
 					createConfig.options
 				)

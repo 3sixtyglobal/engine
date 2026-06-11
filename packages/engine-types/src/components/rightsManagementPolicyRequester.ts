@@ -5,7 +5,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { PolicyRequesterFactory } from "@twin.org/rights-management-models";
 import { PassThroughPolicyRequester } from "@twin.org/rights-management-plugins";
 import type { RightsManagementPolicyRequesterComponentConfig } from "../models/config/rightsManagementPolicyRequesterComponentConfig.js";
@@ -32,7 +32,11 @@ export function initialiseRightsManagementPolicyRequesterComponent(
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new PassThroughPolicyRequester(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(PassThroughPolicyRequester)
+						)
+					},
 					createConfig.options
 				)
 			);

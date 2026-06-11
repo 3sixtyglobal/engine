@@ -46,6 +46,7 @@ import type { NftComponentConfig } from "./config/nftComponentConfig.js";
 import type { NftConnectorConfig } from "./config/nftConnectorConfig.js";
 import type { NotarizationComponentConfig } from "./config/notarizationComponentConfig.js";
 import type { NotarizationConnectorConfig } from "./config/notarizationConnectorConfig.js";
+import type { PlatformComponentConfig } from "./config/platformComponentConfig.js";
 import type { RightsManagementPapComponentConfig } from "./config/rightsManagementPapComponentConfig.js";
 import type { RightsManagementPdpComponentConfig } from "./config/rightsManagementPdpComponentConfig.js";
 import type { RightsManagementPepComponentConfig } from "./config/rightsManagementPepComponentConfig.js";
@@ -66,11 +67,9 @@ import type { TaskSchedulerComponentConfig } from "./config/taskSchedulerCompone
 import type { TelemetryComponentConfig } from "./config/telemetryComponentConfig.js";
 import type { TelemetryConnectorConfig } from "./config/telemetryConnectorConfig.js";
 import type { TenantAdminComponentConfig } from "./config/tenantAdminComponentConfig.js";
-import type { TenantComponentConfig } from "./config/tenantComponentConfig.js";
 import type { TrustComponentConfig } from "./config/trustComponentConfig.js";
 import type { TrustGeneratorComponentConfig } from "./config/trustGeneratorComponentConfig.js";
 import type { TrustVerifierComponentConfig } from "./config/trustVerifierComponentConfig.js";
-import type { UrlTransformerComponentConfig } from "./config/urlTransformerComponentConfig.js";
 import type { VaultConnectorConfig } from "./config/vaultConnectorConfig.js";
 import type { WalletConnectorConfig } from "./config/walletConnectorConfig.js";
 
@@ -198,11 +197,6 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Health component options which can be overridden by individual components by specifying types other than default.
 		 */
 		healthComponent?: IEngineCoreTypeConfig<HealthComponentConfig>[];
-
-		/**
-		 * URL transformer component options which can be overridden by individual components by specifying types other than default.
-		 */
-		urlTransformerComponent?: IEngineCoreTypeConfig<UrlTransformerComponentConfig>[];
 
 		/**
 		 * Vault connector options which can be overridden by individual components by specifying types other than default.
@@ -436,9 +430,9 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		dataspaceDataPlaneComponent?: IEngineCoreTypeConfig<DataspaceDataPlaneComponentConfig>[];
 
 		/**
-		 * Tenant component options which can be overridden by individual components by specifying types other than default.
+		 * Platform component options which can be overridden by individual components by specifying types other than default.
 		 */
-		tenantComponent?: IEngineCoreTypeConfig<TenantComponentConfig>[];
+		platformComponent?: IEngineCoreTypeConfig<PlatformComponentConfig>[];
 
 		/**
 		 * Tenant admin component options which can be overridden by individual components by specifying types other than default.

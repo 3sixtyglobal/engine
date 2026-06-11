@@ -7,9 +7,9 @@
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const FederatedCatalogueFilterComponentType = {
 	/**
-	 * Filter By Example.
+	 * Filter By Metadata.
 	 */
-	FilterByExample: "filter-by-example"
+	FilterByMetadata: "filter-by-metadata"
 } as const;
 
 /**

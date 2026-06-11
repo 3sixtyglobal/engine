@@ -6,7 +6,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { PolicyDecisionPointService } from "@twin.org/rights-management-pdp-service";
 import type { RightsManagementPdpComponentConfig } from "../models/config/rightsManagementPdpComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
@@ -33,7 +33,9 @@ export function initialiseRightsManagementPdpComponent(
 			new PolicyDecisionPointService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(PolicyDecisionPointService)
+						),
 						policyInformationPointComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPipComponent"
 						),

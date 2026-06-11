@@ -6,7 +6,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { PolicyArbiterFactory } from "@twin.org/rights-management-models";
 import {
 	DefaultPolicyArbiter,
@@ -36,7 +36,11 @@ export function initialiseRightsManagementPolicyArbiterComponent(
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new PassThroughPolicyArbiter(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(PassThroughPolicyArbiter)
+						)
+					},
 					createConfig.options
 				)
 			);
@@ -46,7 +50,7 @@ export function initialiseRightsManagementPolicyArbiterComponent(
 			new DefaultPolicyArbiter(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(DefaultPolicyArbiter)),
 						policyAdministrationPointComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPapComponent"
 						)

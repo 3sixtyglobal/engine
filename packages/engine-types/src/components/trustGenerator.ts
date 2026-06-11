@@ -5,7 +5,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { JwtVerifiableCredentialGenerator } from "@twin.org/trust-generators";
 import { TrustGeneratorFactory } from "@twin.org/trust-models";
 import type { TrustGeneratorComponentConfig } from "../models/config/trustGeneratorComponentConfig.js";
@@ -33,7 +33,9 @@ export function initialiseTrustGeneratorComponent(
 			new JwtVerifiableCredentialGenerator(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(JwtVerifiableCredentialGenerator)
+						),
 						identityComponentType: engineCore.getRegisteredInstanceType("identityComponent")
 					},
 					createConfig.options

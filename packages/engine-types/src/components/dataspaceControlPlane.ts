@@ -64,7 +64,7 @@ export function initialiseDataspaceControlPlaneComponent(
 				context,
 				instanceConfig.options?.dataspaceAppDatasetEntityStorageType,
 				nameof<DataspaceAppDataset>(),
-				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
+				partitionContextIds
 			);
 
 			return new DataspaceControlPlaneService(
@@ -91,11 +91,10 @@ export function initialiseDataspaceControlPlaneComponent(
 						),
 						taskSchedulerComponentType:
 							engineCore.getRegisteredInstanceTypeOptional("taskSchedulerComponent"),
-						urlTransformerComponentType:
-							engineCore.getRegisteredInstanceType("urlTransformerComponent"),
 						dataPlaneComponentType: engineCore.getRegisteredInstanceTypeOptional(
 							"dataspaceDataPlaneComponent"
-						)
+						),
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
 					},
 					createConfig.options
 				)

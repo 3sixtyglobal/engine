@@ -79,7 +79,11 @@ export function initialiseMessagingEmailConnector(
 			);
 			return new EntityStorageMessagingEmailConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(EntityStorageMessagingEmailConnector)
+						)
+					},
 					createConfig.options
 				)
 			);
@@ -89,7 +93,11 @@ export function initialiseMessagingEmailConnector(
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new AwsMessagingEmailConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(AwsMessagingEmailConnector)
+						)
+					},
 					createConfig.options
 				)
 			);
@@ -133,7 +141,11 @@ export function initialiseMessagingSmsConnector(
 			);
 			return new EntityStorageMessagingSmsConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(EntityStorageMessagingSmsConnector)
+						)
+					},
 					createConfig.options
 				)
 			);
@@ -143,7 +155,11 @@ export function initialiseMessagingSmsConnector(
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new AwsMessagingSmsConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(AwsMessagingSmsConnector)
+						)
+					},
 					createConfig.options
 				)
 			);
@@ -200,7 +216,11 @@ export function initialiseMessagingPushNotificationConnector(
 			);
 			return new EntityStorageMessagingPushNotificationConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(EntityStorageMessagingPushNotificationConnector)
+						)
+					},
 					createConfig.options
 				)
 			);
@@ -210,7 +230,11 @@ export function initialiseMessagingPushNotificationConnector(
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new AwsMessagingPushNotificationConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(AwsMessagingPushNotificationConnector)
+						)
+					},
 					createConfig.options
 				)
 			);

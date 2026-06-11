@@ -10,7 +10,7 @@ import { LocalEventBusConnector } from "@twin.org/event-bus-connector-local";
 import { EventBusConnectorFactory } from "@twin.org/event-bus-models";
 import { EventBusService } from "@twin.org/event-bus-service";
 import { EventBusSocketClient } from "@twin.org/event-bus-socket-client";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { EventBusComponentConfig } from "../models/config/eventBusComponentConfig.js";
 import type { EventBusConnectorConfig } from "../models/config/eventBusConnectorConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
@@ -37,7 +37,9 @@ export function initialiseEventBusConnector(
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new LocalEventBusConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(LocalEventBusConnector))
+					},
 					createConfig.options
 				)
 			);
@@ -79,7 +81,9 @@ export function initialiseEventBusComponent(
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new EventBusSocketClient(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(EventBusSocketClient))
+					},
 					createConfig.options
 				)
 			);

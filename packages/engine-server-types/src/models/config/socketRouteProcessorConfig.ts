@@ -7,7 +7,10 @@ import type {
 	ISocketRouteProcessorConstructorOptions,
 	IStaticContextIdProcessorConstructorOptions
 } from "@twin.org/api-processors";
-import type { ITenantProcessorConstructorOptions } from "@twin.org/api-tenant-processor";
+import type {
+	ISingleTenantProcessorConstructorOptions,
+	ITenantProcessorConstructorOptions
+} from "@twin.org/api-tenant-processor";
 import type { SocketRouteProcessorType } from "../types/socketRouteProcessorType.js";
 
 /**
@@ -33,6 +36,10 @@ export type SocketRouteProcessorConfig =
 	| {
 			type: typeof SocketRouteProcessorType.Tenant;
 			options?: ITenantProcessorConstructorOptions;
+	  }
+	| {
+			type: typeof SocketRouteProcessorType.SingleTenant;
+			options?: ISingleTenantProcessorConstructorOptions;
 	  }
 	| {
 			type: typeof SocketRouteProcessorType.SocketRoute;

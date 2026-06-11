@@ -1,8 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory } from "@twin.org/core";
 import type { IComponent } from "@twin.org/core";
+import { ComponentFactory } from "@twin.org/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
@@ -56,14 +56,15 @@ export function initialiseRightsManagementPnapComponent(
 			return new PolicyNegotiationAdminPointService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(PolicyNegotiationAdminPointService)
+						),
 						taskSchedulerComponentType:
 							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
 						policyInformationPointComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPipComponent"
 						),
-						tenantComponentType: engineCore.getRegisteredInstanceTypeOptional("tenantComponent"),
-						partitionContextIds
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
 					},
 					createConfig.options
 				)

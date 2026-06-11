@@ -6,7 +6,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { PolicyNegotiationPointService } from "@twin.org/rights-management-pnp-service";
 import { PolicyNegotiationPointRestClient } from "@twin.org/rights-management-rest-client";
 import type { RightsManagementPnpComponentConfig } from "../models/config/rightsManagementPnpComponentConfig.js";
@@ -34,7 +34,9 @@ export function initialiseRightsManagementPnpComponent(
 			new PolicyNegotiationPointService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(PolicyNegotiationPointService)
+						),
 						policyNegotiationAdministrationPointComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPnapComponent"
 						),
@@ -48,9 +50,7 @@ export function initialiseRightsManagementPnpComponent(
 						policyNegotiationPointRemoteComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPnpComponent",
 							["remote"]
-						),
-						urlTransformerComponentType:
-							engineCore.getRegisteredInstanceType("urlTransformerComponent")
+						)
 					},
 					createConfig.options
 				)

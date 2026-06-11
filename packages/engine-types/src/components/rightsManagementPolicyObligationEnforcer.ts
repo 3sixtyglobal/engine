@@ -5,7 +5,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { PolicyObligationEnforcerFactory } from "@twin.org/rights-management-models";
 import { PassThroughPolicyObligationEnforcer } from "@twin.org/rights-management-plugins";
 import type { RightsManagementPolicyObligationEnforcerComponentConfig } from "../models/config/rightsManagementPolicyObligationEnforcerComponentConfig.js";
@@ -33,7 +33,9 @@ export function initialiseRightsManagementPolicyObligationEnforcerComponent(
 			new PassThroughPolicyObligationEnforcer(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent")
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(PassThroughPolicyObligationEnforcer)
+						)
 					},
 					createConfig.options
 				)

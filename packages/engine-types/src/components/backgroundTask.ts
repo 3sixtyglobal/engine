@@ -46,7 +46,9 @@ export function initialiseBackgroundTaskComponent(
 			);
 			return new BackgroundTaskService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(BackgroundTaskService))
+					},
 					createConfig.options
 				)
 			);

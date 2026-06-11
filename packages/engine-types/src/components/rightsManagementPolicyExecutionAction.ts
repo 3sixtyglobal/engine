@@ -5,7 +5,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { PolicyExecutionActionFactory } from "@twin.org/rights-management-models";
 import { LoggingPolicyExecutionAction } from "@twin.org/rights-management-plugins";
 import type { RightsManagementPolicyExecutionActionComponentConfig } from "../models/config/rightsManagementPolicyExecutionActionComponentConfig.js";
@@ -32,7 +32,11 @@ export function initialiseRightsManagementPolicyExecutionActionComponent(
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new LoggingPolicyExecutionAction(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(LoggingPolicyExecutionAction)
+						)
+					},
 					createConfig.options
 				)
 			);

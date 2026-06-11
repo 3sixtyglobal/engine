@@ -19,6 +19,11 @@ export interface IEngineCoreConfig {
 	silent?: boolean;
 
 	/**
+	 * The loggers to disable output for.
+	 */
+	silentLoggers?: string[];
+
+	/**
 	 * The types to initialise in the engine.
 	 */
 	types: {

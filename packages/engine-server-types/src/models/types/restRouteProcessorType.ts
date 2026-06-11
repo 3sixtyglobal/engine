@@ -37,6 +37,11 @@ export const RestRouteProcessorType = {
 	Tenant: "tenant",
 
 	/**
+	 * Single Tenant.
+	 */
+	SingleTenant: "single-tenant",
+
+	/**
 	 * REST Route.
 	 */
 	RestRoute: "rest-route"

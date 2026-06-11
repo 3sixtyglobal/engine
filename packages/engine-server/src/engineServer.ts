@@ -258,7 +258,7 @@ export class EngineServer<
 		const coreConfig = this._engineCore.getConfig();
 		const loggingComponentType = coreConfig.silent
 			? undefined
-			: this._engineCore.getRegisteredInstanceType("loggingComponent");
+			: this._engineCore.getRegisteredLoggerType(nameof(FastifyWebServer));
 		const hostingComponentType =
 			this._engineCore.getRegisteredInstanceTypeOptional("hostingComponent");
 

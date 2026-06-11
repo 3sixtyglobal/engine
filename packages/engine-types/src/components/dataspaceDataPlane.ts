@@ -56,6 +56,7 @@ export function initialiseDataspaceDataPlaneComponent(
 				nameof<ActivityLogDetails>(),
 				partitionContextIds
 			);
+
 			initialiseEntityStorageConnector(
 				engineCore,
 				context,
@@ -81,7 +82,7 @@ export function initialiseDataspaceDataPlaneComponent(
 				context,
 				instanceConfig.options?.dataspaceAppDatasetEntityStorageType,
 				nameof<DataspaceAppDataset>(),
-				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
+				partitionContextIds
 			);
 
 			// PushSubscription storage backs the push-mode transfer lifecycle on the data plane.
@@ -107,10 +108,7 @@ export function initialiseDataspaceDataPlaneComponent(
 						pepComponentType: engineCore.getRegisteredInstanceTypeOptional(
 							"rightsManagementPepComponent"
 						),
-						tenantComponentType: engineCore.getRegisteredInstanceTypeOptional("tenantComponent"),
-						urlTransformerComponentType:
-							engineCore.getRegisteredInstanceType("urlTransformerComponent"),
-						partitionContextIds
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
 					},
 					createConfig.options
 				)

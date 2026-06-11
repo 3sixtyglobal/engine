@@ -7,7 +7,10 @@ import type {
 	IRestRouteProcessorConstructorOptions,
 	IStaticContextIdProcessorConstructorOptions
 } from "@twin.org/api-processors";
-import type { ITenantProcessorConstructorOptions } from "@twin.org/api-tenant-processor";
+import type {
+	ISingleTenantProcessorConstructorOptions,
+	ITenantProcessorConstructorOptions
+} from "@twin.org/api-tenant-processor";
 import type { RestRouteProcessorType } from "../types/restRouteProcessorType.js";
 
 /**
@@ -33,6 +36,10 @@ export type RestRouteProcessorConfig =
 	| {
 			type: typeof RestRouteProcessorType.Tenant;
 			options?: ITenantProcessorConstructorOptions;
+	  }
+	| {
+			type: typeof RestRouteProcessorType.SingleTenant;
+			options?: ISingleTenantProcessorConstructorOptions;
 	  }
 	| {
 			type: typeof RestRouteProcessorType.RestRoute;

@@ -6,7 +6,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { PolicyEnforcementProcessorFactory } from "@twin.org/rights-management-models";
 import {
 	DefaultPolicyEnforcementProcessor,
@@ -37,7 +37,9 @@ export function initialiseRightsManagementPolicyEnforcementProcessorComponent(
 			new PassThroughPolicyEnforcementProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent")
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(PassThroughPolicyEnforcementProcessor)
+						)
 					},
 					createConfig.options
 				)
@@ -50,7 +52,9 @@ export function initialiseRightsManagementPolicyEnforcementProcessorComponent(
 			new DefaultPolicyEnforcementProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent")
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(DefaultPolicyEnforcementProcessor)
+						)
 					},
 					createConfig.options
 				)

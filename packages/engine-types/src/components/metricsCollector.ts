@@ -33,7 +33,7 @@ export function initialiseMetricsCollectorComponent(
 			new MetricsCollectorService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						tenantComponentType: engineCore.getRegisteredInstanceTypeOptional("tenantComponent")
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
 					},
 					createConfig.options
 				)

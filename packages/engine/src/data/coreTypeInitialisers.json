@@ -5,9 +5,9 @@
 		"method": "initialiseSchemaVersionMigrationComponent"
 	},
 	{
-		"type": "tenantComponent",
+		"type": "platformComponent",
 		"module": "@twin.org/engine-types",
-		"method": "initialiseTenantComponent"
+		"method": "initialisePlatformComponent"
 	},
 	{
 		"type": "loggingConnector",
@@ -218,11 +218,6 @@
 		"type": "healthComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseHealthComponent"
-	},
-	{
-		"type": "urlTransformerComponent",
-		"module": "@twin.org/engine-types",
-		"method": "initialiseUrlTransformerComponent"
 	},
 	{
 		"type": "documentManagementComponent",

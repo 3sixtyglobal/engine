@@ -6,7 +6,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { FilterByExample } from "@twin.org/federated-catalogue-filters";
+import { FilterByMetadata } from "@twin.org/federated-catalogue-filters";
 import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
 import {
 	type Dataset,
@@ -34,7 +34,7 @@ export function initialiseFederatedCatalogueFilterComponent(
 	let createComponent;
 	let instanceTypeName;
 
-	if (instanceConfig.type === FederatedCatalogueFilterComponentType.FilterByExample) {
+	if (instanceConfig.type === FederatedCatalogueFilterComponentType.FilterByMetadata) {
 		createComponent = (createConfig: typeof instanceConfig) => {
 			initSchemaFederatedCatalogue();
 
@@ -45,11 +45,11 @@ export function initialiseFederatedCatalogueFilterComponent(
 				nameof<Dataset>(),
 				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
 			);
-			return new FilterByExample(
+			return new FilterByMetadata(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
 			);
 		};
-		instanceTypeName = nameof(FilterByExample);
+		instanceTypeName = nameof(FilterByMetadata);
 	}
 
 	return {

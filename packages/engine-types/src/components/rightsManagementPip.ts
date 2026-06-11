@@ -6,7 +6,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { PolicyInformationPointService } from "@twin.org/rights-management-pip-service";
 import type { RightsManagementPipComponentConfig } from "../models/config/rightsManagementPipComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
@@ -32,7 +32,11 @@ export function initialiseRightsManagementPipComponent(
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new PolicyInformationPointService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(PolicyInformationPointService)
+						)
+					},
 					createConfig.options
 				)
 			);

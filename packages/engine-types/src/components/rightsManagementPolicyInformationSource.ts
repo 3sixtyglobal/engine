@@ -6,7 +6,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { PolicyInformationSourceFactory } from "@twin.org/rights-management-models";
 import {
 	IdentityPolicyInformationSource,
@@ -37,7 +37,9 @@ export function initialiseRightsManagementPolicyInformationSourceComponent(
 			new IdentityPolicyInformationSource(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(IdentityPolicyInformationSource)
+						),
 						identityResolverComponentType: engineCore.getRegisteredInstanceType(
 							"identityResolverComponent"
 						)
@@ -51,7 +53,9 @@ export function initialiseRightsManagementPolicyInformationSourceComponent(
 			new StaticPolicyInformationSource(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent")
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(StaticPolicyInformationSource)
+						)
 					},
 					createConfig.options
 				)

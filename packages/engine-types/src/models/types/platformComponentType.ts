@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0.
 
 /**
- * Tenant component types.
+ * Platform component types.
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const TenantComponentType = {
+export const PlatformComponentType = {
 	/**
 	 * Service.
 	 */
@@ -13,6 +13,7 @@ export const TenantComponentType = {
 } as const;
 
 /**
- * Tenant component types.
+ * Platform component types.
  */
-export type TenantComponentType = (typeof TenantComponentType)[keyof typeof TenantComponentType];
+export type PlatformComponentType =
+	(typeof PlatformComponentType)[keyof typeof PlatformComponentType];

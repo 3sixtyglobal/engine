@@ -6,7 +6,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { TrustService } from "@twin.org/trust-service";
 import type { TrustComponentConfig } from "../models/config/trustComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
@@ -32,7 +32,9 @@ export function initialiseTrustComponent(
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new TrustService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(TrustService))
+					},
 					createConfig.options
 				)
 			);

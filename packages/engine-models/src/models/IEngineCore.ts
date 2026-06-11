@@ -147,6 +147,13 @@ export interface IEngineCore<
 	): string | undefined;
 
 	/**
+	 * Get the registered logger for the component/connector.
+	 * @param componentName The name of the component to get the logger for.
+	 * @returns The logger type name if one is registered and not silenced.
+	 */
+	getRegisteredLoggerType(componentName: string): string | undefined;
+
+	/**
 	 * Get the registered components.
 	 * @returns The registered components.
 	 */

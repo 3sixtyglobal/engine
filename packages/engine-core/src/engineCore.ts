@@ -412,11 +412,13 @@ export class EngineCore<
 	 * @param message The message to log.
 	 */
 	public async logInfo(message: string): Promise<void> {
-		await this._engineLoggingComponent?.log({
-			source: EngineCore.CLASS_NAME,
-			level: "info",
-			message
-		});
+		if (!this._context.config.silentLoggers?.includes(EngineCore.CLASS_NAME)) {
+			await this._engineLoggingComponent?.log({
+				source: EngineCore.CLASS_NAME,
+				level: "info",
+				message
+			});
+		}
 	}
 
 	/**
@@ -538,6 +540,18 @@ export class EngineCore<
 		}
 
 		return registeredType;
+	}
+
+	/**
+	 * Get the registered logger for the component/connector.
+	 * @param componentName The name of the component to get the logger for.
+	 * @returns The logger type name if one is registered and not silenced.
+	 */
+	public getRegisteredLoggerType(componentName: string): string | undefined {
+		if (this._context.config.silentLoggers?.includes(componentName)) {
+			return undefined;
+		}
+		return this.getRegisteredInstanceTypeOptional("loggingComponent");
 	}
 
 	/**

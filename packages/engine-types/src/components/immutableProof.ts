@@ -56,7 +56,7 @@ export function initialiseImmutableProofComponent(
 						notarizationConnectorType:
 							engineCore.getRegisteredInstanceType("notarizationConnector"),
 						identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
-						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent"),
+						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(ImmutableProofService)),
 						backgroundTaskComponentType:
 							engineCore.getRegisteredInstanceType("backgroundTaskComponent"),
 						eventBusComponentType: engineCore.getRegisteredInstanceTypeOptional("eventBusComponent")

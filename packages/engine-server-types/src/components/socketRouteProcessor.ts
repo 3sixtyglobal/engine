@@ -15,6 +15,7 @@ import {
 import {
 	initSchema as initSchemaTenantProcessor,
 	type Tenant,
+	SingleTenantProcessor,
 	TenantProcessor
 } from "@twin.org/api-tenant-processor";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
@@ -63,8 +64,6 @@ export function initialiseSocketRouteProcessorComponent(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-						urlTransformerComponentType:
-							engineCore.getRegisteredInstanceType("urlTransformerComponent"),
 						tenantAdminComponentType:
 							engineCore.getRegisteredInstanceTypeOptional("tenantAdminComponent")
 					},
@@ -78,7 +77,7 @@ export function initialiseSocketRouteProcessorComponent(
 			new LoggingProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent")
+						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(LoggingProcessor))
 					},
 					createConfig.options
 				)
@@ -116,16 +115,16 @@ export function initialiseSocketRouteProcessorComponent(
 				])
 			);
 			return new TenantProcessor(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{
-						urlTransformerComponentType:
-							engineCore.getRegisteredInstanceType("urlTransformerComponent")
-					},
-					createConfig.options
-				)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
 			);
 		};
 		instanceTypeName = nameofKebabCase(TenantProcessor);
+	} else if (instanceConfig.type === SocketRouteProcessorType.SingleTenant) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new SingleTenantProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(SingleTenantProcessor);
 	}
 
 	return {

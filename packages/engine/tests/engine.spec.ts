@@ -52,6 +52,7 @@ import {
 	NftConnectorType,
 	NotarizationComponentType,
 	NotarizationConnectorType,
+	PlatformComponentType,
 	RightsManagementPapComponentType,
 	RightsManagementPdpComponentType,
 	RightsManagementPepComponentType,
@@ -72,23 +73,21 @@ import {
 	TelemetryComponentType,
 	TelemetryConnectorType,
 	TenantAdminComponentType,
-	TenantComponentType,
 	TrustComponentType,
 	TrustGeneratorComponentType,
 	TrustVerifierComponentType,
-	UrlTransformerComponentType,
 	VaultConnectorType,
 	WalletConnectorType
 } from "@twin.org/engine-types";
 import typeLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
-import {
-	EntityStorageConnectorFactory,
-	SchemaMigrationFactory
-} from "@twin.org/entity-storage-models";
 import type {
 	IEntityStorageComponent,
 	IEntityStorageConnector
+} from "@twin.org/entity-storage-models";
+import {
+	EntityStorageConnectorFactory,
+	SchemaMigrationFactory
 } from "@twin.org/entity-storage-models";
 import { SchemaVersion } from "@twin.org/entity-storage-service";
 import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
@@ -207,6 +206,7 @@ describe("engine", () => {
 			config: {
 				debug: true,
 				types: {
+					platformComponent: [{ type: PlatformComponentType.Service }],
 					loggingConnector: [{ type: LoggingConnectorType.Console }],
 					loggingComponent: [{ type: LoggingComponentType.Service }],
 					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
@@ -225,7 +225,6 @@ describe("engine", () => {
 						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
 					],
 					healthComponent: [{ type: HealthComponentType.Service }],
-					urlTransformerComponent: [{ type: UrlTransformerComponentType.Service }],
 					messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
 					messagingSmsConnector: [{ type: MessagingSmsConnectorType.EntityStorage }],
 					messagingPushNotificationConnector: [
@@ -377,7 +376,7 @@ describe("engine", () => {
 					],
 					federatedCatalogueFilterComponent: [
 						{
-							type: FederatedCatalogueFilterComponentType.FilterByExample,
+							type: FederatedCatalogueFilterComponentType.FilterByMetadata,
 							options: {}
 						}
 					],
@@ -407,6 +406,7 @@ describe("engine", () => {
 		expect(ComponentFactory.names()).toEqual([
 			"engine-logging-service",
 			"schema-version-service",
+			"platform-service",
 			"logging-service",
 			"background-task-service",
 			"task-scheduler-service",
@@ -428,7 +428,6 @@ describe("engine", () => {
 			"auditable-item-stream-service",
 			"data-processing-service",
 			"health-service",
-			"url-transformer-service",
 			"document-management-service",
 			"trust-service",
 			"policy-administration-point-service",
@@ -445,8 +444,9 @@ describe("engine", () => {
 			"dataspace-data-plane-service"
 		]);
 
-		expect(EntitySchemaFactory.names()).toEqual([
+		expect(EntitySchemaFactory.names().filter(n => !/V(\d)+$/.test(n))).toEqual([
 			"SchemaVersion",
+			"Tenant",
 			"BackgroundTask",
 			"ScheduledTask",
 			"TelemetryMetric",
@@ -489,7 +489,7 @@ describe("engine", () => {
 		expect(engine).toBeDefined();
 		expect(calledCustomBootstrap).toBeDefined();
 
-		expect(FederatedCatalogueFilterFactory.names()).toEqual(["FilterByExample"]);
+		expect(FederatedCatalogueFilterFactory.names()).toEqual(["FilterByMetadata"]);
 
 		expect(PolicyArbiterFactory.names()).toEqual(["pass-through-policy-arbiter"]);
 		expect(PolicyEnforcementProcessorFactory.names()).toEqual([
@@ -596,6 +596,7 @@ describe("engine", () => {
 				types: {
 					loggingConnector: [{ type: LoggingConnectorType.Console }],
 					loggingComponent: [{ type: LoggingComponentType.Service }],
+					platformComponent: [{ type: PlatformComponentType.Service }],
 					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
 					blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 					blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
@@ -612,7 +613,6 @@ describe("engine", () => {
 						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
 					],
 					healthComponent: [{ type: HealthComponentType.Service }],
-					urlTransformerComponent: [{ type: UrlTransformerComponentType.Service }],
 					messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
 					messagingSmsConnector: [{ type: MessagingSmsConnectorType.EntityStorage }],
 					messagingPushNotificationConnector: [
@@ -753,7 +753,7 @@ describe("engine", () => {
 					],
 					federatedCatalogueFilterComponent: [
 						{
-							type: FederatedCatalogueFilterComponentType.FilterByExample,
+							type: FederatedCatalogueFilterComponentType.FilterByMetadata,
 							options: {}
 						}
 					],
@@ -765,11 +765,6 @@ describe("engine", () => {
 					dataspaceDataPlaneComponent: [
 						{
 							type: DataspaceDataPlaneComponentType.Service
-						}
-					],
-					tenantComponent: [
-						{
-							type: TenantComponentType.Service
 						}
 					],
 					tenantAdminComponent: [
@@ -825,6 +820,7 @@ describe("engine", () => {
 			debug: true,
 			silent: false,
 			types: {
+				platformComponent: [{ type: PlatformComponentType.Service }],
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
 				entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
@@ -843,7 +839,6 @@ describe("engine", () => {
 					{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
 				],
 				healthComponent: [{ type: HealthComponentType.Service }],
-				urlTransformerComponent: [{ type: UrlTransformerComponentType.Service }],
 				messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
 				messagingSmsConnector: [{ type: MessagingSmsConnectorType.EntityStorage }],
 				messagingPushNotificationConnector: [
@@ -984,7 +979,7 @@ describe("engine", () => {
 				],
 				federatedCatalogueFilterComponent: [
 					{
-						type: FederatedCatalogueFilterComponentType.FilterByExample,
+						type: FederatedCatalogueFilterComponentType.FilterByMetadata,
 						options: {}
 					}
 				],
@@ -1030,6 +1025,7 @@ describe("engine", () => {
 			config: {
 				debug: true,
 				types: {
+					platformComponent: [{ type: PlatformComponentType.Service }],
 					loggingConnector: [{ type: LoggingConnectorType.Console }],
 					loggingComponent: [
 						{
@@ -1052,7 +1048,6 @@ describe("engine", () => {
 						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
 					],
 					healthComponent: [{ type: HealthComponentType.Service }],
-					urlTransformerComponent: [{ type: UrlTransformerComponentType.Service }],
 					eventBusConnector: [{ type: EventBusConnectorType.Local }],
 					eventBusComponent: [
 						{
@@ -1275,6 +1270,7 @@ describe("engine", () => {
 		expect(ComponentFactory.names()).toEqual([
 			"engine-logging-service",
 			"schema-version-service",
+			"platform-service",
 			"logging-rest-client",
 			"background-task-service",
 			"task-scheduler-service",
@@ -1295,7 +1291,6 @@ describe("engine", () => {
 			"auditable-item-stream-rest-client",
 			"data-processing-rest-client",
 			"health-service",
-			"url-transformer-service",
 			"document-management-rest-client",
 			"trust-service",
 			"policy-administration-point-rest-client",
@@ -1312,8 +1307,9 @@ describe("engine", () => {
 			"dataspace-data-plane-socket-client"
 		]);
 
-		expect(EntitySchemaFactory.names()).toEqual([
+		expect(EntitySchemaFactory.names().filter(n => !/V(\d)+$/.test(n))).toEqual([
 			"SchemaVersion",
+			"Tenant",
 			"BackgroundTask",
 			"ScheduledTask",
 			"TelemetryMetric",

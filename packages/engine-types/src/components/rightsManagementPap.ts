@@ -52,7 +52,11 @@ export function initialiseRightsManagementPapComponent(
 			);
 			return new PolicyAdministrationPointService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent") },
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(PolicyAdministrationPointService)
+						)
+					},
 					createConfig.options
 				)
 			);

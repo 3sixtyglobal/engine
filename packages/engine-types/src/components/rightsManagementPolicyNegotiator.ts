@@ -5,7 +5,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { PolicyNegotiatorFactory } from "@twin.org/rights-management-models";
 import { PassThroughPolicyNegotiator } from "@twin.org/rights-management-plugins";
 import type { RightsManagementPolicyNegotiatorComponentConfig } from "../models/config/rightsManagementPolicyNegotiatorComponentConfig.js";
@@ -33,7 +33,9 @@ export function initialiseRightsManagementPolicyNegotiatorComponent(
 			new PassThroughPolicyNegotiator(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceType("loggingComponent")
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(PassThroughPolicyNegotiator)
+						)
 					},
 					createConfig.options
 				)

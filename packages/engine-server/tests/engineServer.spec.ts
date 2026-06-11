@@ -59,6 +59,7 @@ import {
 	NftConnectorType,
 	NotarizationComponentType,
 	NotarizationConnectorType,
+	PlatformComponentType,
 	RightsManagementPapComponentType,
 	RightsManagementPdpComponentType,
 	RightsManagementPepComponentType,
@@ -78,11 +79,9 @@ import {
 	TelemetryComponentType,
 	TelemetryConnectorType,
 	TenantAdminComponentType,
-	TenantComponentType,
 	TrustComponentType,
 	TrustGeneratorComponentType,
 	TrustVerifierComponentType,
-	UrlTransformerComponentType,
 	VaultConnectorType,
 	WalletConnectorType
 } from "@twin.org/engine-types";
@@ -359,11 +358,6 @@ describe("engine-server", () => {
 						type: HealthComponentType.Service
 					}
 				],
-				urlTransformerComponent: [
-					{
-						type: UrlTransformerComponentType.Service
-					}
-				],
 				informationComponent: [
 					{
 						type: InformationComponentType.Service,
@@ -417,9 +411,9 @@ describe("engine-server", () => {
 						type: AuthenticationAdminComponentType.EntityStorage
 					}
 				],
-				tenantComponent: [
+				platformComponent: [
 					{
-						type: TenantComponentType.Service
+						type: PlatformComponentType.Service
 					}
 				]
 			},
@@ -539,6 +533,7 @@ describe("engine-server", () => {
 			"PUT      /aig/:id",
 			"PATCH    /aig/:id",
 			"GET      /aig",
+			"DELETE   /aig/:id/proof",
 			"POST     /ais",
 			"GET      /ais/:id",
 			"PUT      /ais/:id",
@@ -554,6 +549,7 @@ describe("engine-server", () => {
 			"GET      /ais/entries",
 			"GET      /ais/:id/entries/objects",
 			"GET      /ais/entries/objects",
+			"DELETE   /ais/:id/proof",
 			"PUT      /data-processing/rule-group/:id",
 			"GET      /data-processing/rule-group/:id",
 			"DELETE   /data-processing/rule-group/:id",
