@@ -8,10 +8,10 @@ Federated catalog filter component config types.
 
 ### type {#type}
 
-> **type**: *typeof* [`FilterByExample`](../variables/FederatedCatalogueFilterComponentType.md#filterbyexample)
+> **type**: *typeof* [`FilterByMetadata`](../variables/FederatedCatalogueFilterComponentType.md#filterbymetadata)
 
 ***
 
 ### options {#options}
 
-> **options**: `IFilterByExampleConstructorOptions`
+> **options**: `IFilterByMetadataConstructorOptions`

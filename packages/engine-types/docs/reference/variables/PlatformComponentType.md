@@ -1,8 +1,8 @@
-# Variable: TenantComponentType
+# Variable: PlatformComponentType
 
-> `const` **TenantComponentType**: `object`
+> `const` **PlatformComponentType**: `object`
 
-Tenant component types.
+Platform component types.
 
 ## Type Declaration
 

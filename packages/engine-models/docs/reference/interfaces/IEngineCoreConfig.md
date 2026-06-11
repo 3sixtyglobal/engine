@@ -32,6 +32,14 @@ false
 
 ***
 
+### silentLoggers? {#silentloggers}
+
+> `optional` **silentLoggers?**: `string`[]
+
+The loggers to disable output for.
+
+***
+
 ### types {#types}
 
 > **types**: `object`

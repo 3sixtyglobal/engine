@@ -42,6 +42,12 @@ Static Context ID.
 
 Tenant.
 
+### SingleTenant {#singletenant}
+
+> `readonly` **SingleTenant**: `"single-tenant"` = `"single-tenant"`
+
+Single Tenant.
+
 ### RestRoute {#restroute}
 
 > `readonly` **RestRoute**: `"rest-route"` = `"rest-route"`

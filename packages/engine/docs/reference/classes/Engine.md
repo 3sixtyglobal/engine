@@ -564,6 +564,32 @@ The instance type matching the criteria if one is registered.
 
 ***
 
+### getRegisteredLoggerType() {#getregisteredloggertype}
+
+> **getRegisteredLoggerType**(`componentName`): `string` \| `undefined`
+
+Get the registered logger for the component/connector.
+
+#### Parameters
+
+##### componentName
+
+`string`
+
+The name of the component to get the logger for.
+
+#### Returns
+
+`string` \| `undefined`
+
+The logger type name if one is registered and not silenced.
+
+#### Inherited from
+
+`EngineCore.getRegisteredLoggerType`
+
+***
+
 ### getRegisteredComponents() {#getregisteredcomponents}
 
 > **getRegisteredComponents**(): `Promise`\<`object`[]\>

@@ -6,8 +6,8 @@ Federated catalogue filter component types.
 
 ## Type Declaration
 
-### FilterByExample {#filterbyexample}
+### FilterByMetadata {#filterbymetadata}
 
-> `readonly` **FilterByExample**: `"filter-by-example"` = `"filter-by-example"`
+> `readonly` **FilterByMetadata**: `"filter-by-metadata"` = `"filter-by-metadata"`
 
-Filter By Example.
+Filter By Metadata.

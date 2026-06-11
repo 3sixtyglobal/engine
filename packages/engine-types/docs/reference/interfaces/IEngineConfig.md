@@ -44,6 +44,18 @@ false
 
 ***
 
+### silentLoggers? {#silentloggers}
+
+> `optional` **silentLoggers?**: `string`[]
+
+The loggers to disable output for.
+
+#### Inherited from
+
+`IEngineCoreConfig.silentLoggers`
+
+***
+
 ### types {#types}
 
 > **types**: `object`
@@ -191,12 +203,6 @@ Automation action options which can be overridden by individual components by sp
 > `optional` **healthComponent?**: `IEngineCoreTypeConfig`\<[`HealthComponentConfig`](../type-aliases/HealthComponentConfig.md)\>[]
 
 Health component options which can be overridden by individual components by specifying types other than default.
-
-#### urlTransformerComponent?
-
-> `optional` **urlTransformerComponent?**: `IEngineCoreTypeConfig`\<[`UrlTransformerComponentConfig`](../type-aliases/UrlTransformerComponentConfig.md)\>[]
-
-URL transformer component options which can be overridden by individual components by specifying types other than default.
 
 #### vaultConnector?
 
@@ -468,11 +474,11 @@ Dataspace control plane component options which can be overridden by individual 
 
 Dataspace data plane component options which can be overridden by individual components by specifying types other than default.
 
-#### tenantComponent?
+#### platformComponent?
 
-> `optional` **tenantComponent?**: `IEngineCoreTypeConfig`\<[`TenantComponentConfig`](../type-aliases/TenantComponentConfig.md)\>[]
+> `optional` **platformComponent?**: `IEngineCoreTypeConfig`\<[`PlatformComponentConfig`](../type-aliases/PlatformComponentConfig.md)\>[]
 
-Tenant component options which can be overridden by individual components by specifying types other than default.
+Platform component options which can be overridden by individual components by specifying types other than default.
 
 #### tenantAdminComponent?
 
