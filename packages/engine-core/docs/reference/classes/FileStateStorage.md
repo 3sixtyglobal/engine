@@ -98,7 +98,7 @@ The state of the engine to save.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when the state has been written to disk.
 
 #### Implementation of
 

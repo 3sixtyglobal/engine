@@ -298,7 +298,7 @@ Should the component start be skipped.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when the engine and all components have started.
 
 #### Inherited from
 
@@ -316,7 +316,7 @@ Stop the engine core.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when all components have stopped and state has been saved.
 
 #### Inherited from
 
@@ -396,6 +396,8 @@ The message to log.
 
 `Promise`\<`void`\>
 
+A promise that resolves when the message has been logged.
+
 #### Inherited from
 
 `EngineCore.logInfo`
@@ -419,6 +421,8 @@ The error to log.
 #### Returns
 
 `Promise`\<`void`\>
+
+A promise that resolves when the error has been logged.
 
 #### Inherited from
 
@@ -632,7 +636,7 @@ The component to register.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when the component has been registered.
 
 #### Inherited from
 

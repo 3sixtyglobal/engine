@@ -340,7 +340,7 @@ Data extractor connector options which can be overridden by individual component
 
 > `optional` **dataProcessingComponent?**: `IEngineCoreTypeConfig`\<`DataProcessingComponentConfig`\>[]
 
-Date processing options which can be overridden by individual components by specifying types other than default.
+Data processing component options which can be overridden by individual components by specifying types other than default.
 
 ##### documentManagementComponent?
 

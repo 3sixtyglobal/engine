@@ -166,7 +166,7 @@ Should the component start be skipped.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when the engine and all components have started.
 
 ***
 
@@ -180,7 +180,7 @@ Stop the engine core.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when all components have stopped and state has been saved.
 
 ***
 
@@ -440,7 +440,7 @@ The component to register.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when the component has been registered.
 
 ***
 

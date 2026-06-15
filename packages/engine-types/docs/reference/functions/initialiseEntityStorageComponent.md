@@ -2,7 +2,7 @@
 
 > **initialiseEntityStorageComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`EntityStorageComponentConfig`](../type-aliases/EntityStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
 
-Initialise the entity storage connector.
+Initialise the entity storage component.
 
 ## Parameters
 

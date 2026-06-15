@@ -10,7 +10,7 @@ Entity storage connector types.
 
 > `readonly` **File**: `"file"` = `"file"`
 
-Use storage.
+File storage.
 
 ### Memory {#memory}
 

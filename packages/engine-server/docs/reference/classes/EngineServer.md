@@ -156,7 +156,7 @@ Start the engine server.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when the server has started and is ready to accept requests.
 
 #### Implementation of
 
@@ -174,7 +174,7 @@ Stop the engine server.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when the server has stopped and all connections are closed.
 
 #### Implementation of
 

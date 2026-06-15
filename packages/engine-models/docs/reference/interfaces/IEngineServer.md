@@ -78,7 +78,7 @@ Start the engine server.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when the server has started and is ready to accept requests.
 
 ***
 
@@ -92,4 +92,4 @@ Stop the engine server.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when the server has stopped and all connections are closed.
