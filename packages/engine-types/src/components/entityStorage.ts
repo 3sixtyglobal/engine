@@ -100,7 +100,12 @@ export function initialiseEntityStorageConnector(
 		if (type === EntityStorageConnectorType.Memory) {
 			entityStorageConnector = new MemoryEntityStorageConnector({
 				entitySchema: schema,
-				partitionContextIds
+				partitionContextIds,
+				...entityStorageConfig.options,
+				config: {
+					...entityStorageConfig.options.config,
+					storageKey: `${entityStorageConfig.options.storagePrefix ?? ""}${instanceName}`
+				}
 			});
 		} else if (type === EntityStorageConnectorType.File) {
 			entityStorageConnector = new FileEntityStorageConnector({

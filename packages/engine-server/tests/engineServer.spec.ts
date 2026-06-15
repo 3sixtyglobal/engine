@@ -180,7 +180,9 @@ describe("engine-server", () => {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
 				tenantAdminComponent: [{ type: TenantAdminComponentType.Service }],
-				entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
+				entityStorageConnector: [
+					{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+				],
 				blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 				blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
 				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
@@ -679,6 +681,7 @@ describe("engine-server", () => {
 					entityStorageConnector: [
 						{
 							type: EntityStorageConnectorType.Memory,
+							options: { storagePrefix: "test-" },
 							overrideInstanceType: "test-entity"
 						}
 					],

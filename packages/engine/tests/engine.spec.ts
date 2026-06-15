@@ -209,7 +209,12 @@ describe("engine", () => {
 					platformComponent: [{ type: PlatformComponentType.Service }],
 					loggingConnector: [{ type: LoggingConnectorType.Console }],
 					loggingComponent: [{ type: LoggingComponentType.Service }],
-					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
+					entityStorageConnector: [
+						{
+							type: EntityStorageConnectorType.Memory,
+							options: { storagePrefix: "test-" }
+						}
+					],
 					blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 					blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
 					schemaVersionMigrationComponent: [{ type: SchemaVersionMigrationComponentType.Service }],
@@ -522,7 +527,9 @@ describe("engine", () => {
 		const engine = new Engine({
 			config: {
 				types: {
-					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
+					entityStorageConnector: [
+						{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+					],
 					entityStorageComponent: [
 						{
 							type: EntityStorageComponentType.Service,
@@ -553,7 +560,7 @@ describe("engine", () => {
 				silent: true,
 				types: {
 					entityStorageConnector: [
-						{ type: EntityStorageConnectorType.Memory },
+						{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } },
 						{
 							type: EntityStorageConnectorType.File,
 							options: {
@@ -597,7 +604,9 @@ describe("engine", () => {
 					loggingConnector: [{ type: LoggingConnectorType.Console }],
 					loggingComponent: [{ type: LoggingComponentType.Service }],
 					platformComponent: [{ type: PlatformComponentType.Service }],
-					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
+					entityStorageConnector: [
+						{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+					],
 					blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 					blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
 					schemaVersionMigrationComponent: [{ type: SchemaVersionMigrationComponentType.Service }],
@@ -823,7 +832,9 @@ describe("engine", () => {
 				platformComponent: [{ type: PlatformComponentType.Service }],
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
-				entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
+				entityStorageConnector: [
+					{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+				],
 				blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 				blobStorageComponent: [{ type: BlobStorageComponentType.Service }],
 				schemaVersionMigrationComponent: [{ type: SchemaVersionMigrationComponentType.Service }],
@@ -1033,7 +1044,9 @@ describe("engine", () => {
 							options: { endpoint: "http://localhost:3000" }
 						}
 					],
-					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
+					entityStorageConnector: [
+						{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+					],
 					blobStorageConnector: [{ type: BlobStorageConnectorType.Memory, features: ["public"] }],
 					blobStorageComponent: [
 						{
@@ -1336,7 +1349,9 @@ describe("engine", () => {
 		const engine = new Engine({
 			config: {
 				types: {
-					entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
+					entityStorageConnector: [
+						{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "sv-check-" } }
+					],
 					schemaVersionMigrationComponent: [{ type: SchemaVersionMigrationComponentType.Service }],
 					backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }]
 				}
@@ -1386,7 +1401,12 @@ describe("engine", () => {
 			const engine = new Engine({
 				config: {
 					types: {
-						entityStorageConnector: [{ type: EntityStorageConnectorType.Memory }],
+						entityStorageConnector: [
+							{
+								type: EntityStorageConnectorType.Memory,
+								options: { storagePrefix: "test-" }
+							}
+						],
 						entityStorageComponent: [
 							{
 								type: EntityStorageComponentType.Service,
@@ -1403,16 +1423,19 @@ describe("engine", () => {
 					}
 				},
 				customBootstrap: async () => {
-					// Push three v0-shaped records directly into the internal store to bypass
+					// Push three v0-shaped records directly into the shared buffer to bypass
 					// schema validation (the v1 connector would reject missing newField/tags).
 					const connector = EntityStorageConnectorFactory.get(nameofKebabCase(TestMigrationEntity));
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					const raw = connector as any;
-					raw._store.push(
-						{ id: "entity-1", legacyField: "old-value-1", score: 1 },
-						{ id: "entity-2", legacyField: "old-value-2", score: 2 },
-						{ id: "entity-3", legacyField: "old-value-3", score: 3 }
-					);
+					await raw.withLock((entities: unknown[]) => {
+						entities.push(
+							{ id: "entity-1", legacyField: "old-value-1", score: 1 },
+							{ id: "entity-2", legacyField: "old-value-2", score: 2 },
+							{ id: "entity-3", legacyField: "old-value-3", score: 3 }
+						);
+						return { updated: entities };
+					});
 				}
 			});
 
