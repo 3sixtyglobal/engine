@@ -55,7 +55,7 @@ export class MemoryStateStorage<
 	 * Method for saving the state.
 	 * @param engineCore The engine core to save the state for.
 	 * @param state The state of the engine to save.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the state has been stored in memory.
 	 */
 	public async save(engineCore: IEngineCore, state: S): Promise<void> {
 		if (!this._readonlyMode) {

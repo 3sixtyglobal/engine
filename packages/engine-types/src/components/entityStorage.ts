@@ -202,7 +202,7 @@ export function initialiseEntityStorageConnector(
 }
 
 /**
- * Initialise the entity storage connector.
+ * Initialise the entity storage component.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.

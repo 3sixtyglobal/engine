@@ -212,7 +212,7 @@ export class EngineServer<
 
 	/**
 	 * Start the engine server.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the server has started and is ready to accept requests.
 	 */
 	public async start(): Promise<void> {
 		await this._engineCore.start();
@@ -224,7 +224,7 @@ export class EngineServer<
 
 	/**
 	 * Stop the engine server.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the server has stopped and all connections are closed.
 	 */
 	public async stop(): Promise<void> {
 		await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
@@ -240,6 +240,7 @@ export class EngineServer<
 
 	/**
 	 * Starts the web server.
+	 * @returns A promise that resolves when the web server is built and listening.
 	 * @internal
 	 */
 	private async startWebServer(): Promise<void> {
@@ -316,6 +317,7 @@ export class EngineServer<
 	 * @param typeKey The key for the default types.
 	 * @param module The module containing the route generator.
 	 * @param method The method to generate the routes.
+	 * @returns A promise that resolves when all REST routes for the type have been added.
 	 * @internal
 	 */
 	private async initialiseRestTypeRoute(
@@ -360,6 +362,7 @@ export class EngineServer<
 	 * @param typeKey The key for the default types.
 	 * @param module The module containing the generator.
 	 * @param method The method to call on the module.
+	 * @returns A promise that resolves when all socket routes for the type have been added.
 	 * @internal
 	 */
 	private async initialiseSocketTypeRoute(

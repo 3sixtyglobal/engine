@@ -25,7 +25,7 @@ import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 /**
  * Initialise a wallet connector.
  * @param engineCore The engine core.
- * @param context The context for the node.
+ * @param context The context for the engine.
  * @param instanceConfig The instance config.
  * @returns The instance created and the factory for it.
  */

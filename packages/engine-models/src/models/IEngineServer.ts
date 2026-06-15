@@ -23,13 +23,13 @@ export interface IEngineServer {
 
 	/**
 	 * Start the engine server.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the server has started and is ready to accept requests.
 	 */
 	start(): Promise<void>;
 
 	/**
 	 * Stop the engine server.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the server has stopped and all connections are closed.
 	 */
 	stop(): Promise<void>;
 }

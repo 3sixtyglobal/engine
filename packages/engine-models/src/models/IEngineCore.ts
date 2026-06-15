@@ -58,13 +58,13 @@ export interface IEngineCore<
 	/**
 	 * Start the engine core.
 	 * @param skipComponentStart Should the component start be skipped.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the engine and all components have started.
 	 */
 	start(skipComponentStart?: boolean): Promise<void>;
 
 	/**
 	 * Stop the engine core.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when all components have stopped and state has been saved.
 	 */
 	stop(): Promise<void>;
 
@@ -169,7 +169,7 @@ export interface IEngineCore<
 	 * Add a registered component to the engine.
 	 * @param instanceType The instance type to register the component under.
 	 * @param component The component to register.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the component has been registered.
 	 */
 	addRegisteredComponent(instanceType: string, component: IComponent): Promise<void>;
 

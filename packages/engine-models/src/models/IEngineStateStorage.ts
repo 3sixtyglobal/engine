@@ -18,7 +18,7 @@ export interface IEngineStateStorage<S extends IEngineState = IEngineState> {
 	 * Method for saving the state.
 	 * @param engineCore The engine core to save the state for.
 	 * @param state The state of the engine to save.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the state has been persisted.
 	 */
 	save(engineCore: IEngineCore, state: S): Promise<void>;
 }

@@ -244,7 +244,7 @@ export class EngineCore<
 	/**
 	 * Start the engine core.
 	 * @param skipComponentStart Should the component start be skipped.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the engine and all components have started.
 	 */
 	public async start(skipComponentStart?: boolean): Promise<void> {
 		if (!this._isStarted) {
@@ -334,7 +334,7 @@ export class EngineCore<
 
 	/**
 	 * Stop the engine core.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when all components have stopped and state has been saved.
 	 */
 	public async stop(): Promise<void> {
 		if (this._isStarted) {
@@ -410,6 +410,7 @@ export class EngineCore<
 	/**
 	 * Log info.
 	 * @param message The message to log.
+	 * @returns A promise that resolves when the message has been logged.
 	 */
 	public async logInfo(message: string): Promise<void> {
 		if (!this._context.config.silentLoggers?.includes(EngineCore.CLASS_NAME)) {
@@ -424,6 +425,7 @@ export class EngineCore<
 	/**
 	 * Log error.
 	 * @param error The error to log.
+	 * @returns A promise that resolves when the error has been logged.
 	 */
 	public async logError(error: IError): Promise<void> {
 		const formattedErrors = ErrorHelper.localizeErrors(error);
@@ -572,7 +574,7 @@ export class EngineCore<
 	 * Add a registered component to the engine.
 	 * @param instanceType The instance type to register the component under.
 	 * @param component The component to register.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the component has been registered.
 	 */
 	public async addRegisteredComponent(instanceType: string, component: IComponent): Promise<void> {
 		this._context.componentInstances.push({ instanceType, component, initialised: true });
@@ -655,6 +657,7 @@ export class EngineCore<
 	 * @param typeKey The key for the default types.
 	 * @param module The module containing the initialiser.
 	 * @param method The method to initialise the instance.
+	 * @returns A promise that resolves when the type configuration has been initialised.
 	 * @internal
 	 */
 	private async initialiseTypeConfig(
@@ -771,6 +774,7 @@ export class EngineCore<
 
 	/**
 	 * Load the state.
+	 * @returns A promise that resolves when the state has been loaded.
 	 * @internal
 	 */
 	private async stateLoad(): Promise<void> {
@@ -787,7 +791,7 @@ export class EngineCore<
 
 	/**
 	 * Save the state.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the state has been persisted.
 	 * @internal
 	 */
 	private async stateSave(): Promise<void> {
@@ -803,6 +807,7 @@ export class EngineCore<
 
 	/**
 	 * Bootstrap the engine.
+	 * @returns A promise that resolves when bootstrapping is complete.
 	 * @internal
 	 */
 	private async bootstrap(): Promise<void> {

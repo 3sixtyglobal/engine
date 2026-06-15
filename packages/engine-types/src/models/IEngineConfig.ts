@@ -304,7 +304,7 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		dataExtractorConnector?: IEngineCoreTypeConfig<DataExtractorConnectorConfig>[];
 
 		/**
-		 * Date processing options which can be overridden by individual components by specifying types other than default.
+		 * Data processing component options which can be overridden by individual components by specifying types other than default.
 		 */
 		dataProcessingComponent?: IEngineCoreTypeConfig<DataProcessingComponentConfig>[];
 
