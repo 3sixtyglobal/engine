@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.0.3-next.51](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.0.3-next.50...engine-server-v0.0.3-next.51) (2026-06-15)
+
+
+### Features
+
+* memory entity storage prefix ([e85dd71](https://github.com/iotaledger/twin-engine/commit/e85dd7113943dea92dce46963d054e265d3b481a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.50 to 0.0.3-next.51
+    * @twin.org/engine-models bumped from 0.0.3-next.50 to 0.0.3-next.51
+    * @twin.org/engine-server-types bumped from 0.0.3-next.50 to 0.0.3-next.51
+  * devDependencies
+    * @twin.org/engine bumped from 0.0.3-next.50 to 0.0.3-next.51
+
 ## [0.0.3-next.50](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.0.3-next.49...engine-server-v0.0.3-next.50) (2026-06-11)
 
 

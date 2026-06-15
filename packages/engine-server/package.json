@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/engine-server",
-	"version": "0.0.3-next.50",
+	"version": "0.0.3-next.51",
 	"description": "Server runtime that exposes engine components through REST and socket routes.",
 	"repository": {
 		"type": "git",
@@ -32,14 +32,14 @@
 		"@twin.org/api-server-fastify": "next",
 		"@twin.org/context": "next",
 		"@twin.org/core": "next",
-		"@twin.org/engine-core": "0.0.3-next.50",
-		"@twin.org/engine-models": "0.0.3-next.50",
-		"@twin.org/engine-server-types": "0.0.3-next.50",
+		"@twin.org/engine-core": "0.0.3-next.51",
+		"@twin.org/engine-models": "0.0.3-next.51",
+		"@twin.org/engine-server-types": "0.0.3-next.51",
 		"@twin.org/modules": "next",
 		"@twin.org/nameof": "next"
 	},
 	"devDependencies": {
-		"@twin.org/engine": "0.0.3-next.50",
+		"@twin.org/engine": "0.0.3-next.51",
 		"@twin.org/nameof-transformer": "next",
 		"@twin.org/nameof-vitest-plugin": "next",
 		"@twin.org/validate-locales": "next",
