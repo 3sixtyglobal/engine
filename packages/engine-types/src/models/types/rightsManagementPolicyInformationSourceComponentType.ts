@@ -12,6 +12,11 @@ export const RightsManagementPolicyInformationSourceComponentType = {
 	Identity: "identity",
 
 	/**
+	 * Identity Profile.
+	 */
+	IdentityProfile: "identity-profile",
+
+	/**
 	 * Static.
 	 */
 	Static: "static"

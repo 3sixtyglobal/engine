@@ -10,6 +10,7 @@ import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { PolicyInformationSourceFactory } from "@twin.org/rights-management-models";
 import {
 	IdentityPolicyInformationSource,
+	IdentityProfilePolicyInformationSource,
 	StaticPolicyInformationSource
 } from "@twin.org/rights-management-plugins";
 import type { RightsManagementPolicyInformationSourceComponentConfig } from "../models/config/rightsManagementPolicyInformationSourceComponentConfig.js";
@@ -48,6 +49,24 @@ export function initialiseRightsManagementPolicyInformationSourceComponent(
 				)
 			);
 		instanceTypeName = nameofKebabCase(IdentityPolicyInformationSource);
+	} else if (
+		instanceConfig.type === RightsManagementPolicyInformationSourceComponentType.IdentityProfile
+	) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new IdentityProfilePolicyInformationSource(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(IdentityProfilePolicyInformationSource)
+						),
+						identityProfileComponentType: engineCore.getRegisteredInstanceType(
+							"identityProfileComponent"
+						)
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(IdentityProfilePolicyInformationSource);
 	} else if (instanceConfig.type === RightsManagementPolicyInformationSourceComponentType.Static) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new StaticPolicyInformationSource(

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type {
 	IIdentityPolicyInformationSourceConstructorOptions,
+	IIdentityProfilePolicyInformationSourceConstructorOptions,
 	IStaticPolicyInformationSourceConstructorOptions
 } from "@twin.org/rights-management-plugins";
 import type { RightsManagementPolicyInformationSourceComponentType } from "../types/rightsManagementPolicyInformationSourceComponentType.js";
@@ -13,6 +14,10 @@ export type RightsManagementPolicyInformationSourceComponentConfig =
 	| {
 			type: typeof RightsManagementPolicyInformationSourceComponentType.Identity;
 			options?: IIdentityPolicyInformationSourceConstructorOptions;
+	  }
+	| {
+			type: typeof RightsManagementPolicyInformationSourceComponentType.IdentityProfile;
+			options?: IIdentityProfilePolicyInformationSourceConstructorOptions;
 	  }
 	| {
 			type: typeof RightsManagementPolicyInformationSourceComponentType.Static;
