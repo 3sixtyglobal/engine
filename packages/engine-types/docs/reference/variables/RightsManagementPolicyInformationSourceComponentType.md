@@ -12,6 +12,12 @@ Rights management Policy Information Source component types.
 
 Identity.
 
+### IdentityProfile {#identityprofile}
+
+> `readonly` **IdentityProfile**: `"identity-profile"` = `"identity-profile"`
+
+Identity Profile.
+
 ### Static {#static}
 
 > `readonly` **Static**: `"static"` = `"static"`
