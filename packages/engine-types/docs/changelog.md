@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.52](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.51...engine-types-v0.0.3-next.52) (2026-06-16)
+
+
+### Features
+
+* add identity profile information source ([e8e57ad](https://github.com/iotaledger/twin-engine/commit/e8e57ad414af50ea0464cf423dc915e83206bf3a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.51 to 0.0.3-next.52
+    * @twin.org/engine-models bumped from 0.0.3-next.51 to 0.0.3-next.52
+
 ## [0.0.3-next.51](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.50...engine-types-v0.0.3-next.51) (2026-06-15)
 
 

@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.0.3-next.52](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.0.3-next.51...engine-server-v0.0.3-next.52) (2026-06-16)
+
+
+### Bug Fixes
+
+* update test endpoints ([d7015fb](https://github.com/iotaledger/twin-engine/commit/d7015fb2cc90fc712fda75c04aaeff07836381fe))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.51 to 0.0.3-next.52
+    * @twin.org/engine-models bumped from 0.0.3-next.51 to 0.0.3-next.52
+    * @twin.org/engine-server-types bumped from 0.0.3-next.51 to 0.0.3-next.52
+  * devDependencies
+    * @twin.org/engine bumped from 0.0.3-next.51 to 0.0.3-next.52
+
 ## [0.0.3-next.51](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.0.3-next.50...engine-server-v0.0.3-next.51) (2026-06-15)
 
 

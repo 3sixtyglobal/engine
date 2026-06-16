@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.0.3-next.52](https://github.com/iotaledger/twin-engine/compare/engine-v0.0.3-next.51...engine-v0.0.3-next.52) (2026-06-16)
+
+
+### Miscellaneous Chores
+
+* **engine:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.51 to 0.0.3-next.52
+    * @twin.org/engine-models bumped from 0.0.3-next.51 to 0.0.3-next.52
+    * @twin.org/engine-types bumped from 0.0.3-next.51 to 0.0.3-next.52
+
 ## [0.0.3-next.51](https://github.com/iotaledger/twin-engine/compare/engine-v0.0.3-next.50...engine-v0.0.3-next.51) (2026-06-15)
 
 
