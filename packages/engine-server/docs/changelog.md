@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.0.3-next.53](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.0.3-next.52...engine-server-v0.0.3-next.53) (2026-06-18)
+
+
+### Features
+
+* remove hosting component ([#159](https://github.com/iotaledger/twin-engine/issues/159)) ([bf304ad](https://github.com/iotaledger/twin-engine/commit/bf304ad97b2b94a77169d9ea2730ee5d750d8996))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.52 to 0.0.3-next.53
+    * @twin.org/engine-models bumped from 0.0.3-next.52 to 0.0.3-next.53
+    * @twin.org/engine-server-types bumped from 0.0.3-next.52 to 0.0.3-next.53
+  * devDependencies
+    * @twin.org/engine bumped from 0.0.3-next.52 to 0.0.3-next.53
+
 ## [0.0.3-next.52](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.0.3-next.51...engine-server-v0.0.3-next.52) (2026-06-16)
 
 
