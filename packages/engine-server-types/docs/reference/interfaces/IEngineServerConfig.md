@@ -506,12 +506,6 @@ Context Id Handler component options which can be overridden by individual compo
 
 Information component options which can be overridden by individual components by specifying types other than default.
 
-##### hostingComponent?
-
-> `optional` **hostingComponent?**: `IEngineCoreTypeConfig`\<[`HostingComponentConfig`](../type-aliases/HostingComponentConfig.md)\>[]
-
-Hosting component options which can be overridden by individual components by specifying types other than default.
-
 ##### restRouteProcessor?
 
 > `optional` **restRouteProcessor?**: `IEngineCoreTypeConfig`\<[`RestRouteProcessorConfig`](../type-aliases/RestRouteProcessorConfig.md)\>[]
