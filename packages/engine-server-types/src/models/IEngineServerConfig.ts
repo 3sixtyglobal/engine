@@ -7,7 +7,6 @@ import type { AuthenticationAdminComponentConfig } from "./config/authentication
 import type { AuthenticationAuditComponentConfig } from "./config/authenticationAuditComponentConfig.js";
 import type { AuthenticationComponentConfig } from "./config/authenticationComponentConfig.js";
 import type { AuthenticationRateComponentConfig } from "./config/authenticationRateComponentConfig.js";
-import type { HostingComponentConfig } from "./config/hostingComponentConfig.js";
 import type { InformationComponentConfig } from "./config/informationComponentConfig.js";
 import type { MimeTypeProcessorConfig } from "./config/mimeTypeProcessorConfig.js";
 import type { RestRouteProcessorConfig } from "./config/restRouteProcessorConfig.js";
@@ -32,11 +31,6 @@ export interface IEngineServerConfig extends IEngineConfig {
 		 * Information component options which can be overridden by individual components by specifying types other than default.
 		 */
 		informationComponent?: IEngineCoreTypeConfig<InformationComponentConfig>[];
-
-		/**
-		 * Hosting component options which can be overridden by individual components by specifying types other than default.
-		 */
-		hostingComponent?: IEngineCoreTypeConfig<HostingComponentConfig>[];
 
 		/**
 		 * REST route processors options which can be overridden by individual components by specifying types other than default.

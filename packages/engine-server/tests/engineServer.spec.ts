@@ -10,7 +10,6 @@ import {
 	AuthenticationAuditComponentType,
 	AuthenticationComponentType,
 	AuthenticationRateComponentType,
-	HostingComponentType,
 	InformationComponentType,
 	RestRouteProcessorType,
 	SocketRouteProcessorType,
@@ -369,16 +368,6 @@ describe("engine-server", () => {
 									name: "foo",
 									version: "1"
 								}
-							}
-						}
-					}
-				],
-				hostingComponent: [
-					{
-						type: HostingComponentType.Service,
-						options: {
-							config: {
-								localOrigin: `http://localhost:${port}`
 							}
 						}
 					}
