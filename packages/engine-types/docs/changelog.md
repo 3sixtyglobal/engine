@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.55](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.54...engine-types-v0.0.3-next.55) (2026-06-19)
+
+
+### Features
+
+* local optimization ([#164](https://github.com/iotaledger/twin-engine/issues/164)) ([ef32db9](https://github.com/iotaledger/twin-engine/commit/ef32db9041a25b70c9d3c3aae8546e620a78f9f6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.54 to 0.0.3-next.55
+    * @twin.org/engine-models bumped from 0.0.3-next.54 to 0.0.3-next.55
+
 ## [0.0.3-next.54](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.53...engine-types-v0.0.3-next.54) (2026-06-19)
 
 
