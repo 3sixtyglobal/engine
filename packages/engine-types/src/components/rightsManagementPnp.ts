@@ -50,7 +50,8 @@ export function initialiseRightsManagementPnpComponent(
 						policyNegotiationPointRemoteComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPnpComponent",
 							["remote"]
-						)
+						),
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
 					},
 					createConfig.options
 				)
