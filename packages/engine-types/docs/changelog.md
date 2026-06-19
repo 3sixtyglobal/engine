@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.54](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.53...engine-types-v0.0.3-next.54) (2026-06-19)
+
+
+### Features
+
+* wire dataspace and federated catalogue telemetry components ([#162](https://github.com/iotaledger/twin-engine/issues/162)) ([5135694](https://github.com/iotaledger/twin-engine/commit/513569408973c3c6ec277df095f0baaf87f08520))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.0.3-next.53 to 0.0.3-next.54
+    * @twin.org/engine-models bumped from 0.0.3-next.53 to 0.0.3-next.54
+
 ## [0.0.3-next.53](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.0.3-next.52...engine-types-v0.0.3-next.53) (2026-06-18)
 
 
