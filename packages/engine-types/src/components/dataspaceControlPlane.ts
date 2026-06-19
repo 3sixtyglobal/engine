@@ -94,7 +94,9 @@ export function initialiseDataspaceControlPlaneComponent(
 						dataPlaneComponentType: engineCore.getRegisteredInstanceTypeOptional(
 							"dataspaceDataPlaneComponent"
 						),
-						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent"),
+						telemetryComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
 					},
 					createConfig.options
 				)

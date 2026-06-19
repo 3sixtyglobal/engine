@@ -108,7 +108,9 @@ export function initialiseDataspaceDataPlaneComponent(
 						pepComponentType: engineCore.getRegisteredInstanceTypeOptional(
 							"rightsManagementPepComponent"
 						),
-						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent"),
+						telemetryComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
 					},
 					createConfig.options
 				)

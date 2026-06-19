@@ -52,7 +52,9 @@ export function initialiseFederatedCatalogueComponent(
 						loggingComponentType: engineCore.getRegisteredLoggerType(
 							nameof(FederatedCatalogueService)
 						),
-						trustComponentType: engineCore.getRegisteredInstanceType("trustComponent")
+						trustComponentType: engineCore.getRegisteredInstanceType("trustComponent"),
+						telemetryComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
 					},
 					createConfig.options
 				)
