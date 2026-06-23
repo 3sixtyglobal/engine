@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3-next.56](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.0.3-next.55...engine-server-types-v0.0.3-next.56) (2026-06-23)
+
+
+### Features
+
+* platform component for authentication rate ([319f0b9](https://github.com/iotaledger/twin-engine/commit/319f0b91528195765fca03871e79772f861eba37))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.0.3-next.55 to 0.0.3-next.56
+    * @twin.org/engine-types bumped from 0.0.3-next.55 to 0.0.3-next.56
+
 ## [0.0.3-next.55](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.0.3-next.54...engine-server-types-v0.0.3-next.55) (2026-06-19)
 
 
