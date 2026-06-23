@@ -50,7 +50,8 @@ export function initialiseAuthenticationRateComponent(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						taskSchedulerComponentType:
-							engineCore.getRegisteredInstanceType("taskSchedulerComponent")
+							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
 					},
 					createConfig.options
 				)
