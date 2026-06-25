@@ -1,21 +1,21 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { readFile, mkdir, stat, writeFile } from "node:fs/promises";
+import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { BaseError, GeneralError, Guards, I18n, StringHelper } from "@twin.org/core";
+import { BaseError, GeneralError, Guards, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineState, IEngineStateStorage } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofCamelCase } from "@twin.org/nameof";
 
 /**
  * Store state in a file.
  */
-export class FileStateStorage<S extends IEngineState = IEngineState>
-	implements IEngineStateStorage<S>
-{
+export class FileStateStorage<
+	S extends IEngineState = IEngineState
+> implements IEngineStateStorage<S> {
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<FileStateStorage>();
+	public static readonly CLASS_NAME: string = nameof<FileStateStorage>();
 
 	/**
 	 * The filename to store the state.
@@ -35,7 +35,7 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 	 * @param readonlyMode Whether the file is in read-only mode.
 	 */
 	constructor(filename: string, readonlyMode: boolean = false) {
-		Guards.stringValue(this.CLASS_NAME, nameof(filename), filename);
+		Guards.stringValue(FileStateStorage.CLASS_NAME, nameof(filename), filename);
 		this._filename = filename;
 		this._readonlyMode = readonlyMode;
 	}
@@ -48,7 +48,7 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 	public async load(engineCore: IEngineCore): Promise<S | undefined> {
 		try {
 			engineCore.logInfo(
-				I18n.formatMessage(`${StringHelper.camelCase(this.CLASS_NAME)}.loading`, {
+				I18n.formatMessage(`${nameofCamelCase<FileStateStorage>()}.loading`, {
 					filename: this._filename
 				})
 			);
@@ -58,8 +58,8 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 			}
 		} catch (err) {
 			throw new GeneralError(
-				this.CLASS_NAME,
-				"loadingError",
+				FileStateStorage.CLASS_NAME,
+				"failedLoading",
 				{ filename: this._filename },
 				BaseError.fromError(err)
 			);
@@ -70,13 +70,13 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 	 * Method for saving the state.
 	 * @param engineCore The engine core to save the state for.
 	 * @param state The state of the engine to save.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the state has been written to disk.
 	 */
 	public async save(engineCore: IEngineCore, state: S): Promise<void> {
 		if (!this._readonlyMode) {
 			try {
 				engineCore.logInfo(
-					I18n.formatMessage(`${StringHelper.camelCase(this.CLASS_NAME)}.saving`, {
+					I18n.formatMessage(`${nameofCamelCase<FileStateStorage>()}.saving`, {
 						filename: this._filename
 					})
 				);
@@ -86,8 +86,8 @@ export class FileStateStorage<S extends IEngineState = IEngineState>
 				await writeFile(this._filename, JSON.stringify(state, undefined, "\t"), "utf8");
 			} catch (err) {
 				throw new GeneralError(
-					this.CLASS_NAME,
-					"savingError",
+					FileStateStorage.CLASS_NAME,
+					"failedSaving",
 					{ filename: this._filename },
 					BaseError.fromError(err)
 				);

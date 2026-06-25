@@ -6,12 +6,12 @@ Mime type processor config types.
 
 ## Properties
 
-### type
+### type {#type}
 
 > **type**: *typeof* [`Jwt`](../variables/MimeTypeProcessorType.md#jwt)
 
 ***
 
-### options?
+### options? {#options}
 
-> `optional` **options**: `never`
+> `optional` **options?**: `never`

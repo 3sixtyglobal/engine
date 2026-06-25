@@ -1,6 +1,6 @@
 # Function: initialiseIdentityProfileComponent()
 
-> **initialiseIdentityProfileComponent**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseIdentityProfileComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`IdentityProfileComponentConfig`](../type-aliases/IdentityProfileComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the identity profile component.
 
@@ -24,18 +24,8 @@ The context for the engine.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`IdentityProfileComponentConfig`](../type-aliases/IdentityProfileComponentConfig.md), `Factory`\<`IComponent`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the component type is unknown.
+The instance created and the factory for it.

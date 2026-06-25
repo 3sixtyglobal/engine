@@ -1,6 +1,6 @@
 # Function: initialiseDataConverterConnector()
 
-> **initialiseDataConverterConnector**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseDataConverterConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`DataConverterConnectorConfig`](../type-aliases/DataConverterConnectorConfig.md), `Factory`\<`IDataConverterConnector`\>\>
 
 Initialise the data converter connector.
 
@@ -24,18 +24,8 @@ The context for the engine.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`DataConverterConnectorConfig`](../type-aliases/DataConverterConnectorConfig.md), `Factory`\<`IDataConverterConnector`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the connector type is unknown.
+The instance created and the factory for it.

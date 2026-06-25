@@ -4,9 +4,9 @@ Configuration for the engine core.
 
 ## Properties
 
-### debug?
+### debug? {#debug}
 
-> `optional` **debug**: `boolean`
+> `optional` **debug?**: `boolean`
 
 Start the engine in debug mode.
 
@@ -18,9 +18,9 @@ false
 
 ***
 
-### silent?
+### silent? {#silent}
 
-> `optional` **silent**: `boolean`
+> `optional` **silent?**: `boolean`
 
 Disable output to the console.
 
@@ -32,7 +32,15 @@ false
 
 ***
 
-### types
+### silentLoggers? {#silentloggers}
+
+> `optional` **silentLoggers?**: `string`[]
+
+The loggers to disable output for.
+
+***
+
+### types {#types}
 
 > **types**: `object`
 
@@ -40,4 +48,4 @@ The types to initialise in the engine.
 
 #### Index Signature
 
-\[`type`: `string`\]: `undefined` \| [`IEngineCoreTypeConfig`](../type-aliases/IEngineCoreTypeConfig.md)[]
+\[`type`: `string`\]: [`IEngineCoreTypeConfig`](../type-aliases/IEngineCoreTypeConfig.md)[] \| `undefined`

@@ -1,6 +1,6 @@
 # Function: initialiseMessagingPushNotificationConnector()
 
-> **initialiseMessagingPushNotificationConnector**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseMessagingPushNotificationConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`MessagingPushNotificationConnectorConfig`](../type-aliases/MessagingPushNotificationConnectorConfig.md), `Factory`\<`IMessagingPushNotificationsConnector`\>\>
 
 Initialise a messaging push notification connector.
 
@@ -24,18 +24,8 @@ The context for the engine.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`MessagingPushNotificationConnectorConfig`](../type-aliases/MessagingPushNotificationConnectorConfig.md), `Factory`\<`IMessagingPushNotificationsConnector`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the connector type is unknown.
+The instance created and the factory for it.

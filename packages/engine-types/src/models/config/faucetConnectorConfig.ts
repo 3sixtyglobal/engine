@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IEntityStorageFaucetConnectorConstructorOptions } from "@twin.org/wallet-connector-entity-storage";
 import type { IIotaFaucetConnectorConstructorOptions } from "@twin.org/wallet-connector-iota";
-import type { FaucetConnectorType } from "../types/faucetConnectorType";
+import type { FaucetConnectorType } from "../types/faucetConnectorType.js";
 
 /**
  * Faucet config types.

@@ -4,57 +4,57 @@
 
 Entity storage connector types.
 
-## Type declaration
+## Type Declaration
 
-### File
+### File {#file}
 
 > `readonly` **File**: `"file"` = `"file"`
 
-Use storage.
+File storage.
 
-### Memory
+### Memory {#memory}
 
 > `readonly` **Memory**: `"memory"` = `"memory"`
 
 Memory.
 
-### ScyllaDb
+### ScyllaDb {#scylladb}
 
 > `readonly` **ScyllaDb**: `"scylladb"` = `"scylladb"`
 
 ScyllaDb.
 
-### AwsDynamoDb
+### AwsDynamoDb {#awsdynamodb}
 
 > `readonly` **AwsDynamoDb**: `"aws-dynamodb"` = `"aws-dynamodb"`
 
 AWS DynamoDB.
 
-### AzureCosmosDb
+### AzureCosmosDb {#azurecosmosdb}
 
 > `readonly` **AzureCosmosDb**: `"azure-cosmosdb"` = `"azure-cosmosdb"`
 
 Azure CosmosDB.
 
-### GcpFirestoreDb
+### GcpFirestoreDb {#gcpfirestoredb}
 
 > `readonly` **GcpFirestoreDb**: `"gcp-firestoredb"` = `"gcp-firestoredb"`
 
 GCP Firestore.
 
-### MySqlDb
+### MySqlDb {#mysqldb}
 
 > `readonly` **MySqlDb**: `"mysql"` = `"mysql"`
 
 MySqlDb.
 
-### MongoDb
+### MongoDb {#mongodb}
 
 > `readonly` **MongoDb**: `"mongodb"` = `"mongodb"`
 
 MongoDb.
 
-### PostgreSql
+### PostgreSql {#postgresql}
 
 > `readonly` **PostgreSql**: `"postgresql"` = `"postgresql"`
 

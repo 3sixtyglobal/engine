@@ -4,15 +4,15 @@
 
 Data converter connector types.
 
-## Type declaration
+## Type Declaration
 
-### Json
+### Json {#json}
 
 > `readonly` **Json**: `"json"` = `"json"`
 
 JSON.
 
-### Xml
+### Xml {#xml}
 
 > `readonly` **Xml**: `"xml"` = `"xml"`
 

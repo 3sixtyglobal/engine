@@ -1,8 +1,19 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import path from "node:path";
-import { ComponentFactory, GeneralError, I18n, Is, StringHelper } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import {
+	ComponentFactory,
+	GeneralError,
+	I18n,
+	type IComponent,
+	Is,
+	StringHelper
+} from "@twin.org/core";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { CosmosDbEntityStorageConnector } from "@twin.org/entity-storage-connector-cosmosdb";
 import { DynamoDbEntityStorageConnector } from "@twin.org/entity-storage-connector-dynamodb";
 import { FileEntityStorageConnector } from "@twin.org/entity-storage-connector-file";
@@ -14,14 +25,16 @@ import { PostgreSqlEntityStorageConnector } from "@twin.org/entity-storage-conne
 import { ScyllaDBTableConnector } from "@twin.org/entity-storage-connector-scylladb";
 import {
 	EntityStorageConnectorFactory,
-	type IEntityStorageComponent,
 	type IEntityStorageConnector
 } from "@twin.org/entity-storage-models";
+import { EntityStorageRestClient } from "@twin.org/entity-storage-rest-client";
 import { EntityStorageService } from "@twin.org/entity-storage-service";
-import type { EntityStorageComponentConfig } from "../models/config/entityStorageComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { EntityStorageComponentType } from "../models/types/entityStorageComponentType";
-import { EntityStorageConnectorType } from "../models/types/entityStorageConnectorType";
+import { nameofKebabCase } from "@twin.org/nameof";
+import type { EntityStorageComponentConfig } from "../models/config/entityStorageComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { EntityStorageComponentType } from "../models/types/entityStorageComponentType.js";
+import { EntityStorageConnectorType } from "../models/types/entityStorageConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the entity storage connector.
@@ -29,48 +42,55 @@ import { EntityStorageConnectorType } from "../models/types/entityStorageConnect
  * @param context The context for the engine.
  * @param typeCustom Override the type of connector to use instead of default configuration.
  * @param schema The schema for the entity storage.
- * @throws GeneralError if the connector type is unknown.
+ * @param partitionContextIds The context IDs to use for partitioning the data.
+ * @throws GeneralError when the configuration is invalid.
  */
 export function initialiseEntityStorageConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	typeCustom: string | undefined,
-	schema: string
+	schema: string,
+	partitionContextIds: string[]
 ): void {
-	const instanceName = StringHelper.kebabCase(schema);
+	const kebabName = StringHelper.kebabCase(schema);
+	let instanceName = kebabName;
 
-	if (!EntityStorageConnectorFactory.hasName(instanceName)) {
-		let entityStorageConfig;
+	let entityStorageConfig;
 
-		if (Is.stringValue(typeCustom)) {
-			// A custom type has been specified, so look it up
-			entityStorageConfig = context.config.types.entityStorageConnector?.find(
-				c => c.type === typeCustom || c.overrideInstanceType === typeCustom
-			);
-			if (Is.empty(entityStorageConfig)) {
-				throw new GeneralError("engineCore", "entityStorageCustomMissing", {
-					typeCustom,
-					storageName: instanceName
-				});
-			}
-		} else {
-			// The default entity storage method is either the one with the isDefault flag set
-			// or pick the first one if no default is set.
-			entityStorageConfig =
-				context.config.types.entityStorageConnector?.find(c => c.isDefault ?? false) ??
-				context.config.types.entityStorageConnector?.[0];
-			if (Is.empty(entityStorageConfig)) {
-				throw new GeneralError("engineCore", "entityStorageMissing", {
-					storageName: instanceName
-				});
-			}
+	if (Is.stringValue(typeCustom)) {
+		// A custom type has been specified, so look it up
+		entityStorageConfig = context.config.types.entityStorageConnector?.find(
+			c => c.type === typeCustom || c.overrideInstanceType === typeCustom
+		);
+		if (Is.empty(entityStorageConfig)) {
+			throw new GeneralError("engineTypes", "entityStorageCustomMissing", {
+				typeCustom,
+				storageName: instanceName
+			});
 		}
 
+		// Since we have a custom type we need to use that as the instance name for the
+		// connector so that it can be looked up by other components
+		instanceName = typeCustom;
+	} else {
+		// The default entity storage method is either the one with the isDefault flag set
+		// or pick the first one if no default is set.
+		entityStorageConfig =
+			context.config.types.entityStorageConnector?.find(c => c.isDefault ?? false) ??
+			context.config.types.entityStorageConnector?.[0];
+		if (Is.empty(entityStorageConfig)) {
+			throw new GeneralError("engineTypes", "entityStorageMissing", {
+				storageName: instanceName
+			});
+		}
+	}
+
+	if (!EntityStorageConnectorFactory.hasName(instanceName)) {
 		const type = entityStorageConfig.type;
 		let entityStorageConnector: IEntityStorageConnector;
 
 		engineCore.logInfo(
-			I18n.formatMessage("engineCore.configuringEntityStorage", {
+			I18n.formatMessage("info.engineTypes.configuringEntityStorage", {
 				element: "Entity Storage",
 				storageName: instanceName,
 				storageType: type
@@ -79,11 +99,18 @@ export function initialiseEntityStorageConnector(
 
 		if (type === EntityStorageConnectorType.Memory) {
 			entityStorageConnector = new MemoryEntityStorageConnector({
-				entitySchema: schema
+				entitySchema: schema,
+				partitionContextIds,
+				...entityStorageConfig.options,
+				config: {
+					...entityStorageConfig.options.config,
+					storageKey: `${entityStorageConfig.options.storagePrefix ?? ""}${instanceName}`
+				}
 			});
 		} else if (type === EntityStorageConnectorType.File) {
 			entityStorageConnector = new FileEntityStorageConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -96,6 +123,7 @@ export function initialiseEntityStorageConnector(
 		} else if (type === EntityStorageConnectorType.AwsDynamoDb) {
 			entityStorageConnector = new DynamoDbEntityStorageConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -105,6 +133,7 @@ export function initialiseEntityStorageConnector(
 		} else if (type === EntityStorageConnectorType.AzureCosmosDb) {
 			entityStorageConnector = new CosmosDbEntityStorageConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -114,6 +143,7 @@ export function initialiseEntityStorageConnector(
 		} else if (type === EntityStorageConnectorType.GcpFirestoreDb) {
 			entityStorageConnector = new FirestoreEntityStorageConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -123,6 +153,7 @@ export function initialiseEntityStorageConnector(
 		} else if (type === EntityStorageConnectorType.ScyllaDb) {
 			entityStorageConnector = new ScyllaDBTableConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -132,6 +163,7 @@ export function initialiseEntityStorageConnector(
 		} else if (type === EntityStorageConnectorType.MySqlDb) {
 			entityStorageConnector = new MySqlEntityStorageConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -141,6 +173,7 @@ export function initialiseEntityStorageConnector(
 		} else if (type === EntityStorageConnectorType.MongoDb) {
 			entityStorageConnector = new MongoDbEntityStorageConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -150,6 +183,7 @@ export function initialiseEntityStorageConnector(
 		} else if (type === EntityStorageConnectorType.PostgreSql) {
 			entityStorageConnector = new PostgreSqlEntityStorageConnector({
 				entitySchema: schema,
+				partitionContextIds,
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -157,7 +191,7 @@ export function initialiseEntityStorageConnector(
 				}
 			});
 		} else {
-			throw new GeneralError("engineCore", "connectorUnknownType", {
+			throw new GeneralError("engineTypes", "connectorUnknownType", {
 				type,
 				connectorType: "entityStorageConnector"
 			});
@@ -165,70 +199,65 @@ export function initialiseEntityStorageConnector(
 
 		context.componentInstances.push({
 			instanceType: instanceName,
-			component: entityStorageConnector
+			component: entityStorageConnector,
+			initialised: false
 		});
 		EntityStorageConnectorFactory.register(instanceName, () => entityStorageConnector);
 	}
 }
 
 /**
- * Initialise the entity storage connector.
+ * Initialise the entity storage component.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseEntityStorageComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: EntityStorageComponentConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Entity Storage Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: EntityStorageComponentConfig
+): EngineTypeInitialiserReturn<EntityStorageComponentConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-
-	let connector: IEntityStorageComponent;
-	let instanceType: string;
-	if (type === EntityStorageComponentType.Service) {
+	if (instanceConfig.type === EntityStorageComponentType.Service) {
 		const kebabName = StringHelper.kebabCase(instanceConfig.options.entityStorageType);
+		createComponent = (createConfig: typeof instanceConfig) => {
+			// See if there is a custom entity storage for this type, otherwise just use the default one.
+			const hasCustom = context.config.types.entityStorageConnector?.some(
+				c => c.type === kebabName || c.overrideInstanceType === kebabName
+			);
 
-		// See if there is a custom entity storage for this type, otherwise just use the default one.
-		const hasCustom = context.config.types.entityStorageConnector?.some(
-			c => c.type === kebabName || c.overrideInstanceType === kebabName
-		);
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				hasCustom ? kebabName : undefined,
+				createConfig.options.entityStorageType,
+				createConfig.options.partitionContextIds
+			);
 
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			hasCustom ? kebabName : undefined,
-			instanceConfig.options.entityStorageType
-		);
-		connector = new EntityStorageService({
-			entityStorageType: kebabName,
-			config: {
-				...instanceConfig.options.config
-			}
-		});
-		instanceType = StringHelper.kebabCase(instanceConfig.options.entityStorageType);
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			serviceType: "entityStorageComponent"
-		});
+			return new EntityStorageService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options, {
+					entityStorageType: kebabName
+				})
+			);
+		};
+		instanceTypeName = kebabName;
+	} else if (instanceConfig.type === EntityStorageComponentType.RestClient) {
+		const kebabName = StringHelper.kebabCase(instanceConfig.options.entityStorageType);
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new EntityStorageRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options, {
+					pathPrefix: kebabName
+				})
+			);
+		instanceTypeName = `${nameofKebabCase(EntityStorageRestClient)}-${kebabName}`;
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component: connector
-	});
-	ComponentFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
+		factory: ComponentFactory
+	};
 }

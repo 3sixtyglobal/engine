@@ -1,6 +1,6 @@
 # Function: initialiseMessagingSmsConnector()
 
-> **initialiseMessagingSmsConnector**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseMessagingSmsConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`MessagingSmsConnectorConfig`](../type-aliases/MessagingSmsConnectorConfig.md), `Factory`\<`IMessagingSmsConnector`\>\>
 
 Initialise a messaging sms connector.
 
@@ -24,18 +24,8 @@ The context for the engine.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`MessagingSmsConnectorConfig`](../type-aliases/MessagingSmsConnectorConfig.md), `Factory`\<`IMessagingSmsConnector`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the connector type is unknown.
+The instance created and the factory for it.

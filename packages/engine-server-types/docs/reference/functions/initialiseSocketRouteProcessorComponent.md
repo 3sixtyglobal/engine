@@ -1,6 +1,6 @@
 # Function: initialiseSocketRouteProcessorComponent()
 
-> **initialiseSocketRouteProcessorComponent**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseSocketRouteProcessorComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`SocketRouteProcessorConfig`](../type-aliases/SocketRouteProcessorConfig.md), `Factory`\<`ISocketRouteProcessor`\>\>
 
 Initialise the socket route processor.
 
@@ -24,18 +24,8 @@ The context for the engine.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`SocketRouteProcessorConfig`](../type-aliases/SocketRouteProcessorConfig.md), `Factory`\<`ISocketRouteProcessor`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the component type is unknown.
+The instance created and the factory for it.

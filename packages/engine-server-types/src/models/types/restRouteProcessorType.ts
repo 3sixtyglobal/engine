@@ -12,19 +12,34 @@ export const RestRouteProcessorType = {
 	AuthHeader: "auth-header",
 
 	/**
+	 * Auth verifiable credential.
+	 */
+	AuthVerifiableCredential: "auth-verifiable-credential",
+
+	/**
 	 * Logging.
 	 */
 	Logging: "logging",
 
 	/**
-	 * Node Identity.
+	 * Context ID.
 	 */
-	NodeIdentity: "node-identity",
+	ContextId: "context-id",
 
 	/**
-	 * Static User Identity.
+	 * Static Context ID.
 	 */
-	StaticUserIdentity: "static-user-identity",
+	StaticContextId: "static-context-id",
+
+	/**
+	 * Tenant.
+	 */
+	Tenant: "tenant",
+
+	/**
+	 * Single Tenant.
+	 */
+	SingleTenant: "single-tenant",
 
 	/**
 	 * REST Route.

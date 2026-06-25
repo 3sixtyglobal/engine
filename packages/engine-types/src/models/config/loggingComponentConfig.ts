@@ -1,13 +1,18 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import type { IBaseRestClientConfig } from "@twin.org/api-models";
 import type { ILoggingServiceConstructorOptions } from "@twin.org/logging-service";
-import type { LoggingComponentType } from "../types/loggingComponentType";
+import type { LoggingComponentType } from "../types/loggingComponentType.js";
 
 /**
  * Logging component config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
-export type LoggingComponentConfig = {
-	type: typeof LoggingComponentType.Service;
-	options?: ILoggingServiceConstructorOptions;
-};
+export type LoggingComponentConfig =
+	| {
+			type: typeof LoggingComponentType.Service;
+			options?: ILoggingServiceConstructorOptions;
+	  }
+	| {
+			type: typeof LoggingComponentType.RestClient;
+			options: IBaseRestClientConfig;
+	  };

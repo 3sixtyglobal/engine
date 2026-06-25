@@ -1,12 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { I18n } from "@twin.org/core";
-import { EngineCore } from "../src/engineCore";
-import { MemoryStateStorage } from "../src/storage/memoryStateStorage";
+import locales from "../locales/en.json" with { type: "json" };
+import { EngineCore } from "../src/engineCore.js";
+import { MemoryStateStorage } from "../src/storage/memoryStateStorage.js";
 
 describe("engine-core", () => {
 	beforeAll(async () => {
-		I18n.addDictionary("en", await import("../locales/en.json"));
+		I18n.addDictionary("en", locales);
 	});
 
 	test("Can start engine core with no config", async () => {

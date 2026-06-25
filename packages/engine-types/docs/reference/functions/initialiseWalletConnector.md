@@ -1,6 +1,6 @@
 # Function: initialiseWalletConnector()
 
-> **initialiseWalletConnector**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseWalletConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`WalletConnectorConfig`](../type-aliases/WalletConnectorConfig.md), `Factory`\<`IWalletConnector`\>\>
 
 Initialise a wallet connector.
 
@@ -16,7 +16,7 @@ The engine core.
 
 `IEngineCoreContext`\<[`IEngineConfig`](../interfaces/IEngineConfig.md)\>
 
-The context for the node.
+The context for the engine.
 
 ### instanceConfig
 
@@ -24,18 +24,8 @@ The context for the node.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`WalletConnectorConfig`](../type-aliases/WalletConnectorConfig.md), `Factory`\<`IWalletConnector`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the connector type is unknown.
+The instance created and the factory for it.

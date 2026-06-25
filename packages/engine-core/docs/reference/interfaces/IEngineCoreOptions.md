@@ -14,33 +14,33 @@ The options for creating engine core.
 
 ## Properties
 
-### config?
+### config? {#config}
 
-> `optional` **config**: `C`
+> `optional` **config?**: `C`
 
 The engine core config.
 
 ***
 
-### stateStorage?
+### stateStorage? {#statestorage}
 
-> `optional` **stateStorage**: `IEngineStateStorage`\<`S`\>
+> `optional` **stateStorage?**: `IEngineStateStorage`\<`S`\>
 
 The state storage component.
 
 ***
 
-### skipBootstrap?
+### skipBootstrap? {#skipbootstrap}
 
-> `optional` **skipBootstrap**: `boolean`
+> `optional` **skipBootstrap?**: `boolean`
 
 Skip the bootstrap process, useful for additional engine instances.
 
 ***
 
-### populateTypeInitialisers()?
+### populateTypeInitialisers? {#populatetypeinitialisers}
 
-> `optional` **populateTypeInitialisers**: (`engineCore`, `context`) => `void`
+> `optional` **populateTypeInitialisers?**: (`engineCore`, `context`) => `void`
 
 Populate the type initialisers for the engine.
 
@@ -60,9 +60,9 @@ Populate the type initialisers for the engine.
 
 ***
 
-### customBootstrap()?
+### customBootstrap? {#custombootstrap}
 
-> `optional` **customBootstrap**: (`engineCore`, `context`) => `Promise`\<`void`\>
+> `optional` **customBootstrap?**: (`engineCore`, `context`) => `Promise`\<`void`\>
 
 Custom bootstrap method for the engine.
 
@@ -79,17 +79,3 @@ Custom bootstrap method for the engine.
 #### Returns
 
 `Promise`\<`void`\>
-
-***
-
-### loggerTypeName?
-
-> `optional` **loggerTypeName**: `string`
-
-The name of the logger to use in the engine.
-
-#### Default
-
-```ts
-engine
-```

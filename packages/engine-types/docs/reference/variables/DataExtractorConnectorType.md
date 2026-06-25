@@ -4,9 +4,9 @@
 
 Data extractor connector types.
 
-## Type declaration
+## Type Declaration
 
-### JsonPath
+### JsonPath {#jsonpath}
 
 > `readonly` **JsonPath**: `"json-path"` = `"json-path"`
 

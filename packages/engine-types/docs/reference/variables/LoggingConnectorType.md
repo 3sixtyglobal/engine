@@ -4,21 +4,21 @@
 
 Logging connector types.
 
-## Type declaration
+## Type Declaration
 
-### EntityStorage
+### EntityStorage {#entitystorage}
 
 > `readonly` **EntityStorage**: `"entity-storage"` = `"entity-storage"`
 
 Entity storage.
 
-### Console
+### Console {#console}
 
 > `readonly` **Console**: `"console"` = `"console"`
 
 Console.
 
-### Multi
+### Multi {#multi}
 
 > `readonly` **Multi**: `"multi"` = `"multi"`
 

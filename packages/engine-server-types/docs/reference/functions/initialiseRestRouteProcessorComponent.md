@@ -1,6 +1,6 @@
 # Function: initialiseRestRouteProcessorComponent()
 
-> **initialiseRestRouteProcessorComponent**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseRestRouteProcessorComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RestRouteProcessorConfig`](../type-aliases/RestRouteProcessorConfig.md), `Factory`\<`IRestRouteProcessor`\>\>
 
 Initialise the rest route processor.
 
@@ -24,18 +24,8 @@ The context for the engine.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`RestRouteProcessorConfig`](../type-aliases/RestRouteProcessorConfig.md), `Factory`\<`IRestRouteProcessor`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the component type is unknown.
+The instance created and the factory for it.

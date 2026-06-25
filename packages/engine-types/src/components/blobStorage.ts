@@ -7,109 +7,168 @@ import { FileBlobStorageConnector } from "@twin.org/blob-storage-connector-file"
 import { GcpBlobStorageConnector } from "@twin.org/blob-storage-connector-gcp";
 import { IpfsBlobStorageConnector } from "@twin.org/blob-storage-connector-ipfs";
 import { MemoryBlobStorageConnector } from "@twin.org/blob-storage-connector-memory";
-import {
-	BlobStorageConnectorFactory,
-	type IBlobStorageComponent,
-	type IBlobStorageConnector
-} from "@twin.org/blob-storage-models";
+import { BlobStorageConnectorFactory } from "@twin.org/blob-storage-models";
+import { BlobStorageRestClient } from "@twin.org/blob-storage-rest-client";
 import {
 	BlobStorageService,
 	initSchema as initSchemaBlobStorage,
 	type BlobStorageEntry
 } from "@twin.org/blob-storage-service";
-import { ComponentFactory, GeneralError, I18n, Is } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { BlobStorageComponentConfig } from "../models/config/blobStorageComponentConfig";
-import type { BlobStorageConnectorConfig } from "../models/config/blobStorageConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { BlobStorageComponentType } from "../models/types/blobStorageComponentType";
-import { BlobStorageConnectorType } from "../models/types/blobStorageConnectorType";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
+import { ComponentFactory, type IComponent, Is } from "@twin.org/core";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { BlobStorageComponentConfig } from "../models/config/blobStorageComponentConfig.js";
+import type { BlobStorageConnectorConfig } from "../models/config/blobStorageConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { BlobStorageComponentType } from "../models/types/blobStorageComponentType.js";
+import { BlobStorageConnectorType } from "../models/types/blobStorageConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the blob storage connector.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseBlobStorageConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: BlobStorageConnectorConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Blob Storage Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: BlobStorageConnectorConfig
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof BlobStorageConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-	let connector: IBlobStorageConnector;
-	let instanceType: string;
-
-	if (type === BlobStorageConnectorType.Ipfs) {
-		connector = new IpfsBlobStorageConnector(instanceConfig.options);
-		instanceType = IpfsBlobStorageConnector.NAMESPACE;
-	} else if (type === BlobStorageConnectorType.File) {
-		connector = new FileBlobStorageConnector({
-			...instanceConfig.options,
-			config: {
-				...instanceConfig.options.config,
-				directory: Is.stringValue(instanceConfig.options.storagePrefix)
-					? path.join(instanceConfig.options.config.directory, instanceConfig.options.storagePrefix)
-					: instanceConfig.options.config.directory
-			}
-		});
-		instanceType = FileBlobStorageConnector.NAMESPACE;
-	} else if (type === BlobStorageConnectorType.Memory) {
-		connector = new MemoryBlobStorageConnector();
-		instanceType = MemoryBlobStorageConnector.NAMESPACE;
-	} else if (type === BlobStorageConnectorType.AwsS3) {
-		connector = new S3BlobStorageConnector({
-			...instanceConfig.options,
-			config: {
-				...instanceConfig.options.config,
-				bucketName: `${instanceConfig.options.storagePrefix ?? ""}${instanceConfig.options.config.bucketName}`
-			}
-		});
-		instanceType = S3BlobStorageConnector.NAMESPACE;
-	} else if (type === BlobStorageConnectorType.GcpStorage) {
-		connector = new GcpBlobStorageConnector({
-			...instanceConfig.options,
-			config: {
-				...instanceConfig.options.config,
-				bucketName: `${instanceConfig.options.storagePrefix ?? ""}${instanceConfig.options.config.bucketName}`
-			}
-		});
-		instanceType = GcpBlobStorageConnector.NAMESPACE;
-	} else if (type === BlobStorageConnectorType.AzureStorage) {
-		connector = new AzureBlobStorageConnector({
-			...instanceConfig.options,
-			config: {
-				...instanceConfig.options.config,
-				containerName: `${instanceConfig.options.storagePrefix ?? ""}${instanceConfig.options.config.containerName}`
-			}
-		});
-		instanceType = AzureBlobStorageConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "blobStorageConnector"
-		});
+	if (instanceConfig.type === BlobStorageConnectorType.Ipfs) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new IpfsBlobStorageConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						partitionContextIds: ContextIdHelper.pickKeysFromAvailable(
+							engineCore.getContextIdKeys(),
+							[ContextIdKeys.Node, ContextIdKeys.Tenant]
+						)
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = IpfsBlobStorageConnector.NAMESPACE;
+	} else if (instanceConfig.type === BlobStorageConnectorType.File) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new FileBlobStorageConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						partitionContextIds: ContextIdHelper.pickKeysFromAvailable(
+							engineCore.getContextIdKeys(),
+							[ContextIdKeys.Node, ContextIdKeys.Tenant]
+						)
+					},
+					{
+						config: {
+							directory: Is.stringValue(createConfig?.options.storagePrefix)
+								? path.join(
+										createConfig.options.config.directory,
+										createConfig.options.storagePrefix
+									)
+								: (createConfig.options.config.directory ?? "")
+						}
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = FileBlobStorageConnector.NAMESPACE;
+	} else if (instanceConfig.type === BlobStorageConnectorType.Memory) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new MemoryBlobStorageConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						partitionContextIds: ContextIdHelper.pickKeysFromAvailable(
+							engineCore.getContextIdKeys(),
+							[ContextIdKeys.Node, ContextIdKeys.Tenant]
+						)
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = MemoryBlobStorageConnector.NAMESPACE;
+	} else if (instanceConfig.type === BlobStorageConnectorType.AwsS3) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new S3BlobStorageConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						partitionContextIds: ContextIdHelper.pickKeysFromAvailable(
+							engineCore.getContextIdKeys(),
+							[ContextIdKeys.Node, ContextIdKeys.Tenant]
+						)
+					},
+					{
+						config: {
+							bucketName: createConfig
+								? `${createConfig.options.storagePrefix ?? ""}${createConfig.options.config.bucketName}`
+								: "",
+							region: createConfig?.options.config.region ?? ""
+						}
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = S3BlobStorageConnector.NAMESPACE;
+	} else if (instanceConfig.type === BlobStorageConnectorType.GcpStorage) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new GcpBlobStorageConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						partitionContextIds: ContextIdHelper.pickKeysFromAvailable(
+							engineCore.getContextIdKeys(),
+							[ContextIdKeys.Node, ContextIdKeys.Tenant]
+						)
+					},
+					{
+						config: {
+							bucketName: createConfig
+								? `${createConfig.options.storagePrefix ?? ""}${createConfig.options.config.bucketName}`
+								: "",
+							projectId: createConfig?.options.config.projectId ?? ""
+						}
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = GcpBlobStorageConnector.NAMESPACE;
+	} else if (instanceConfig.type === BlobStorageConnectorType.AzureStorage) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new AzureBlobStorageConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						partitionContextIds: ContextIdHelper.pickKeysFromAvailable(
+							engineCore.getContextIdKeys(),
+							[ContextIdKeys.Node, ContextIdKeys.Tenant]
+						),
+						config: {
+							containerName: createConfig
+								? `${createConfig.options.storagePrefix ?? ""}${createConfig.options.config.containerName}`
+								: "",
+							accountName: createConfig?.options.config.accountName ?? "",
+							accountKey: createConfig?.options.config.accountKey ?? ""
+						}
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = AzureBlobStorageConnector.NAMESPACE;
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component: connector
-	});
-	BlobStorageConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
+		factory: BlobStorageConnectorFactory
+	};
 }
 
 /**
@@ -117,52 +176,50 @@ export function initialiseBlobStorageConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseBlobStorageComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: BlobStorageComponentConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Blob Storage Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: BlobStorageComponentConfig
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-	let component: IBlobStorageComponent;
-	let instanceType: string;
-
-	if (type === BlobStorageComponentType.Service) {
-		initSchemaBlobStorage();
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.entryEntityStorageType,
-			nameof<BlobStorageEntry>()
-		);
-
-		component = new BlobStorageService({
-			vaultConnectorType: context.defaultTypes.vaultConnector,
-			...instanceConfig.options
-		});
-		instanceType = BlobStorageService.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "blobStorageComponent"
-		});
+	if (instanceConfig.type === BlobStorageComponentType.Service) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaBlobStorage();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.entryEntityStorageType,
+				nameof<BlobStorageEntry>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			return new BlobStorageService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{ vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector") },
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = nameofKebabCase(BlobStorageService);
+	} else if (instanceConfig.type === BlobStorageComponentType.RestClient) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			const mergedOptions = EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+				createConfig.options
+			);
+			return new BlobStorageRestClient(mergedOptions);
+		};
+		instanceTypeName = nameofKebabCase(BlobStorageRestClient);
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
+		factory: ComponentFactory
+	};
 }

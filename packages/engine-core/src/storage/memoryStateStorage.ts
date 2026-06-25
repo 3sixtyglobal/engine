@@ -1,19 +1,19 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { I18n, StringHelper } from "@twin.org/core";
+import { I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineState, IEngineStateStorage } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { nameof, nameofCamelCase } from "@twin.org/nameof";
 
 /**
  * Store state in memory.
  */
-export class MemoryStateStorage<S extends IEngineState = IEngineState>
-	implements IEngineStateStorage<S>
-{
+export class MemoryStateStorage<
+	S extends IEngineState = IEngineState
+> implements IEngineStateStorage<S> {
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<MemoryStateStorage>();
+	public static readonly CLASS_NAME: string = nameof<MemoryStateStorage>();
 
 	/**
 	 * Readonly mode state file is not updated.
@@ -44,7 +44,7 @@ export class MemoryStateStorage<S extends IEngineState = IEngineState>
 	 */
 	public async load(engineCore: IEngineCore): Promise<S | undefined> {
 		engineCore.logInfo(
-			I18n.formatMessage(`${StringHelper.camelCase(this.CLASS_NAME)}.loading`, {
+			I18n.formatMessage(`${nameofCamelCase<MemoryStateStorage>()}.loading`, {
 				filename: this._engineState
 			})
 		);
@@ -55,11 +55,11 @@ export class MemoryStateStorage<S extends IEngineState = IEngineState>
 	 * Method for saving the state.
 	 * @param engineCore The engine core to save the state for.
 	 * @param state The state of the engine to save.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the state has been stored in memory.
 	 */
 	public async save(engineCore: IEngineCore, state: S): Promise<void> {
 		if (!this._readonlyMode) {
-			engineCore.logInfo(I18n.formatMessage(`${StringHelper.camelCase(this.CLASS_NAME)}.saving`));
+			engineCore.logInfo(I18n.formatMessage(`${nameofCamelCase<MemoryStateStorage>()}.saving`));
 			this._engineState = state;
 		}
 	}

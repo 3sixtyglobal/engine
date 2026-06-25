@@ -1,6 +1,6 @@
-# Type Alias: EngineTypeInitialiser()\<T\>
+# Type Alias: EngineTypeInitialiser\<T, F\>
 
-> **EngineTypeInitialiser**\<`T`\> = (`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`) => `string` \| `undefined`
+> **EngineTypeInitialiser**\<`T`, `F`\> = (`engineCore`, `context`, `instanceConfig`) => [`EngineTypeInitialiserReturn`](../interfaces/EngineTypeInitialiserReturn.md)\<`T`, `F`\>
 
 Method definition for the engine type initialiser.
 
@@ -9,6 +9,10 @@ Method definition for the engine type initialiser.
 ### T
 
 `T` *extends* [`IEngineCoreTypeBaseConfig`](../interfaces/IEngineCoreTypeBaseConfig.md) = [`IEngineCoreTypeBaseConfig`](../interfaces/IEngineCoreTypeBaseConfig.md)
+
+### F
+
+`F` = `Factory`\<`unknown`\>
 
 ## Parameters
 
@@ -24,10 +28,6 @@ Method definition for the engine type initialiser.
 
 `T`
 
-### overrideInstanceType?
-
-`string`
-
 ## Returns
 
-`string` \| `undefined`
+[`EngineTypeInitialiserReturn`](../interfaces/EngineTypeInitialiserReturn.md)\<`T`, `F`\>

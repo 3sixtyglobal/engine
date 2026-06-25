@@ -1,67 +1,82 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { GeneralError, I18n } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { EntityStorageFaucetConnector } from "@twin.org/wallet-connector-entity-storage";
-import { IotaFaucetConnector } from "@twin.org/wallet-connector-iota";
-import { FaucetConnectorFactory, type IFaucetConnector } from "@twin.org/wallet-models";
-import type { FaucetConnectorConfig } from "../models/config/faucetConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { FaucetConnectorType } from "../models/types/faucetConnectorType";
+import type { IComponent } from "@twin.org/core";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
+import { nameof } from "@twin.org/nameof";
+import {
+	EntityStorageFaucetConnector,
+	initSchema as initSchemaWallet,
+	type WalletAddress
+} from "@twin.org/wallet-connector-entity-storage";
+import {
+	type IIotaFaucetConnectorConfig,
+	IotaFaucetConnector
+} from "@twin.org/wallet-connector-iota";
+import { FaucetConnectorFactory } from "@twin.org/wallet-models";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { DltConfig } from "../models/config/dltConfig.js";
+import type { FaucetConnectorConfig } from "../models/config/faucetConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { DltConfigType } from "../models/types/dltConfigType.js";
+import { FaucetConnectorType } from "../models/types/faucetConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise a faucet connector.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseFaucetConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: FaucetConnectorConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Faucet Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: FaucetConnectorConfig
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof FaucetConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-
-	let connector: IFaucetConnector;
-	let instanceType: string;
-
-	if (type === FaucetConnectorType.Iota) {
-		const dltConfig = context.config.types.dltConfig?.find(
-			dlt => dlt.type === context.defaultTypes.dltConfig
-		);
-		connector = new IotaFaucetConnector({
-			...instanceConfig.options,
-			config: {
-				...dltConfig?.options?.config,
-				...instanceConfig.options.config
-			}
-		});
-		instanceType = IotaFaucetConnector.NAMESPACE;
-	} else if (type === FaucetConnectorType.EntityStorage) {
-		connector = new EntityStorageFaucetConnector(instanceConfig.options);
-		instanceType = EntityStorageFaucetConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "faucetConnector"
-		});
+	if (instanceConfig.type === FaucetConnectorType.Iota) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
+				engineCore.getConfig(),
+				"dltConfig",
+				DltConfigType.Iota
+			);
+			return new IotaFaucetConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						config: dltConfig?.options?.config as IIotaFaucetConnectorConfig
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = IotaFaucetConnector.NAMESPACE;
+	} else if (instanceConfig.type === FaucetConnectorType.EntityStorage) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaWallet();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.walletAddressEntityStorageType,
+				nameof<WalletAddress>(),
+				[]
+			);
+			return new EntityStorageFaucetConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = EntityStorageFaucetConnector.NAMESPACE;
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component: connector
-	});
-	FaucetConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
+		factory: FaucetConnectorFactory
+	};
 }

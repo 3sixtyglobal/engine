@@ -4,21 +4,21 @@
 
 Identity resolver connector types.
 
-## Type declaration
+## Type Declaration
 
-### EntityStorage
+### EntityStorage {#entitystorage}
 
 > `readonly` **EntityStorage**: `"entity-storage"` = `"entity-storage"`
 
 Entity storage.
 
-### Iota
+### Iota {#iota}
 
 > `readonly` **Iota**: `"iota"` = `"iota"`
 
 IOTA.
 
-### Universal
+### Universal {#universal}
 
 > `readonly` **Universal**: `"universal"` = `"universal"`
 

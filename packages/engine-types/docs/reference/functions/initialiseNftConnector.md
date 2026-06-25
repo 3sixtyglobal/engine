@@ -1,6 +1,6 @@
 # Function: initialiseNftConnector()
 
-> **initialiseNftConnector**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseNftConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`NftConnectorConfig`](../type-aliases/NftConnectorConfig.md), `Factory`\<`INftConnector`\>\>
 
 Initialise the NFT connector.
 
@@ -24,18 +24,8 @@ The context for the engine.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`NftConnectorConfig`](../type-aliases/NftConnectorConfig.md), `Factory`\<`INftConnector`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the connector type is unknown.
+The instance created and the factory for it.

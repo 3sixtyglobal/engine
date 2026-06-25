@@ -1,74 +1,82 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import type { IImmutableProofComponent } from "@twin.org/immutable-proof-models";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
+import { ComponentFactory } from "@twin.org/core";
+import type { IComponent } from "@twin.org/core";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
+import { ImmutableProofRestClient } from "@twin.org/immutable-proof-rest-client";
 import {
 	type ImmutableProof,
 	ImmutableProofService,
 	initSchema as initSchemaImmutableProof
 } from "@twin.org/immutable-proof-service";
-import { nameof } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { ImmutableProofComponentConfig } from "../models/config/immutableProofComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { ImmutableProofComponentType } from "../models/types/immutableProofComponentType";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { ImmutableProofComponentConfig } from "../models/config/immutableProofComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { ImmutableProofComponentType } from "../models/types/immutableProofComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the immutable proof component.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseImmutableProofComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: ImmutableProofComponentConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Immutable Proof Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: ImmutableProofComponentConfig
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-	let component: IImmutableProofComponent;
-	let instanceType: string;
+	if (instanceConfig.type === ImmutableProofComponentType.Service) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaImmutableProof();
 
-	if (type === ImmutableProofComponentType.Service) {
-		initSchemaImmutableProof();
-
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.immutableProofEntityStorageType,
-			nameof<ImmutableProof>()
-		);
-
-		component = new ImmutableProofService({
-			verifiableStorageType: context.defaultTypes.verifiableStorageConnector,
-			identityConnectorType: context.defaultTypes.identityConnector,
-			backgroundTaskConnectorType: context.defaultTypes.backgroundTaskConnector,
-			eventBusComponentType: context.defaultTypes.eventBusComponent,
-			...instanceConfig.options
-		});
-		instanceType = ImmutableProofService.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "immutableProofComponent"
-		});
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.immutableProofEntityStorageType,
+				nameof<ImmutableProof>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			return new ImmutableProofService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						notarizationConnectorType:
+							engineCore.getRegisteredInstanceType("notarizationConnector"),
+						identityConnectorType: engineCore.getRegisteredInstanceType("identityConnector"),
+						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(ImmutableProofService)),
+						backgroundTaskComponentType:
+							engineCore.getRegisteredInstanceType("backgroundTaskComponent"),
+						eventBusComponentType: engineCore.getRegisteredInstanceTypeOptional("eventBusComponent")
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = nameofKebabCase(ImmutableProofService);
+	} else if (instanceConfig.type === ImmutableProofComponentType.RestClient) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new ImmutableProofRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(ImmutableProofRestClient);
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
+		factory: ComponentFactory
+	};
 }

@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IEngineCore } from "./IEngineCore";
-import type { IEngineState } from "./IEngineState";
+import type { IEngineCore } from "./IEngineCore.js";
+import type { IEngineState } from "./IEngineState.js";
 
 /**
  * Definition of state storage for engine.
@@ -18,7 +18,7 @@ export interface IEngineStateStorage<S extends IEngineState = IEngineState> {
 	 * Method for saving the state.
 	 * @param engineCore The engine core to save the state for.
 	 * @param state The state of the engine to save.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the state has been persisted.
 	 */
 	save(engineCore: IEngineCore, state: S): Promise<void>;
 }

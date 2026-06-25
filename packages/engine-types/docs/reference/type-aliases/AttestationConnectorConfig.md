@@ -6,12 +6,12 @@ Attestation config connector types.
 
 ## Properties
 
-### type
+### type {#type}
 
 > **type**: *typeof* [`Nft`](../variables/AttestationConnectorType.md#nft)
 
 ***
 
-### options?
+### options? {#options}
 
-> `optional` **options**: `INftAttestationConnectorConstructorOptions`
+> `optional` **options?**: `INftAttestationConnectorConstructorOptions`

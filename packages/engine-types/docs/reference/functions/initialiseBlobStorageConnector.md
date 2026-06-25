@@ -1,6 +1,6 @@
 # Function: initialiseBlobStorageConnector()
 
-> **initialiseBlobStorageConnector**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseBlobStorageConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`BlobStorageConnectorConfig`](../type-aliases/BlobStorageConnectorConfig.md), `Factory`\<`IBlobStorageConnector`\>\>
 
 Initialise the blob storage connector.
 
@@ -24,18 +24,8 @@ The context for the engine.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`BlobStorageConnectorConfig`](../type-aliases/BlobStorageConnectorConfig.md), `Factory`\<`IBlobStorageConnector`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the connector type is unknown.
+The instance created and the factory for it.

@@ -4,9 +4,9 @@
 
 Mime type route processor types.
 
-## Type declaration
+## Type Declaration
 
-### Jwt
+### Jwt {#jwt}
 
 > `readonly` **Jwt**: `"jwt"` = `"jwt"`
 

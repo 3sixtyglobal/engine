@@ -1,6 +1,6 @@
 # Function: initialiseDataExtractorConnector()
 
-> **initialiseDataExtractorConnector**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseDataExtractorConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`DataExtractorConnectorConfig`](../type-aliases/DataExtractorConnectorConfig.md), `Factory`\<`IDataExtractorConnector`\>\>
 
 Initialise the data extractor connector.
 
@@ -24,18 +24,8 @@ The context for the engine.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`DataExtractorConnectorConfig`](../type-aliases/DataExtractorConnectorConfig.md), `Factory`\<`IDataExtractorConnector`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the connector type is unknown.
+The instance created and the factory for it.

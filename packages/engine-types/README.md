@@ -1,6 +1,6 @@
 # TWIN Engine Types
 
-The data types to use in an engine.
+Engine Types contains component and connector type definitions used to compose runtime capabilities. It also includes helpers for retrieving and merging configuration so engine setup remains consistent as integrations grow.
 
 ## Installation
 

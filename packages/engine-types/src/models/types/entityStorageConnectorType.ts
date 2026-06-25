@@ -7,7 +7,7 @@
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const EntityStorageConnectorType = {
 	/**
-	 * Use storage.
+	 * File storage.
 	 */
 	File: "file",
 

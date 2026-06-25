@@ -1,0 +1,14 @@
+[
+	{
+		"type": "eventBusComponent",
+		"module": "@twin.org/event-bus-service",
+		"method": "generateSocketRoutesEventBus",
+		"defaultPath": "event-bus"
+	},
+	{
+		"type": "dataspaceDataPlaneComponent",
+		"module": "@twin.org/dataspace-data-plane-service",
+		"method": "generateSocketRoutesDataspaceDataPlane",
+		"defaultPath": "dataspace"
+	}
+]

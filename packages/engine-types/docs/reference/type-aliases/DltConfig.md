@@ -6,16 +6,16 @@ DLT config types.
 
 ## Properties
 
-### type
+### type {#type}
 
 > **type**: *typeof* [`Iota`](../variables/DltConfigType.md#iota)
 
 ***
 
-### options?
+### options? {#options}
 
-> `optional` **options**: `object`
+> `optional` **options?**: `object`
 
 #### config?
 
-> `optional` **config**: `IIotaConfig`
+> `optional` **config?**: `IIotaConfig`

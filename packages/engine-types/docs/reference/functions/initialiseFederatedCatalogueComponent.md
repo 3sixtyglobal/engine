@@ -1,6 +1,6 @@
 # Function: initialiseFederatedCatalogueComponent()
 
-> **initialiseFederatedCatalogueComponent**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseFederatedCatalogueComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`FederatedCatalogueComponentConfig`](../type-aliases/FederatedCatalogueComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the federated catalogue component.
 
@@ -24,18 +24,8 @@ The context for the engine.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`FederatedCatalogueComponentConfig`](../type-aliases/FederatedCatalogueComponentConfig.md), `Factory`\<`IComponent`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the component type is unknown.
+The instance created and the factory for it.

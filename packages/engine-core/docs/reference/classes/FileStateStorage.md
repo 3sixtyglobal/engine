@@ -16,7 +16,7 @@ Store state in a file.
 
 ### Constructor
 
-> **new FileStateStorage**\<`S`\>(`filename`, `readonlyMode`): `FileStateStorage`\<`S`\>
+> **new FileStateStorage**\<`S`\>(`filename`, `readonlyMode?`): `FileStateStorage`\<`S`\>
 
 Create a new instance of FileStateStorage.
 
@@ -28,7 +28,7 @@ Create a new instance of FileStateStorage.
 
 The filename to store the state.
 
-##### readonlyMode
+##### readonlyMode?
 
 `boolean` = `false`
 
@@ -40,17 +40,17 @@ Whether the file is in read-only mode.
 
 ## Properties
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
-> `readonly` **CLASS\_NAME**: `string`
+> `readonly` `static` **CLASS\_NAME**: `string`
 
 Runtime name for the class.
 
 ## Methods
 
-### load()
+### load() {#load}
 
-> **load**(`engineCore`): `Promise`\<`undefined` \| `S`\>
+> **load**(`engineCore`): `Promise`\<`S` \| `undefined`\>
 
 Method for loading the state.
 
@@ -64,7 +64,7 @@ The engine core to load the state for.
 
 #### Returns
 
-`Promise`\<`undefined` \| `S`\>
+`Promise`\<`S` \| `undefined`\>
 
 The state of the engine or undefined if it doesn't exist.
 
@@ -74,7 +74,7 @@ The state of the engine or undefined if it doesn't exist.
 
 ***
 
-### save()
+### save() {#save}
 
 > **save**(`engineCore`, `state`): `Promise`\<`void`\>
 
@@ -98,7 +98,7 @@ The state of the engine to save.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when the state has been written to disk.
 
 #### Implementation of
 

@@ -4,9 +4,9 @@ Interface describing the engine server methods.
 
 ## Methods
 
-### addRestRouteGenerator()
+### addRestRouteGenerator() {#addrestroutegenerator}
 
-> **addRestRouteGenerator**(`type`, `typeConfig`, `module`, `method`): `void`
+> **addRestRouteGenerator**(`type`, `module`, `method`): `void`
 
 Add a REST route generator.
 
@@ -18,12 +18,6 @@ Add a REST route generator.
 
 The type to add the generator for.
 
-##### typeConfig
-
-The type config.
-
-`undefined` | [`IEngineCoreTypeConfig`](../type-aliases/IEngineCoreTypeConfig.md)[]
-
 ##### module
 
 `string`
@@ -42,9 +36,9 @@ The method to call on the module.
 
 ***
 
-### addSocketRouteGenerator()
+### addSocketRouteGenerator() {#addsocketroutegenerator}
 
-> **addSocketRouteGenerator**(`type`, `typeConfig`, `module`, `method`): `void`
+> **addSocketRouteGenerator**(`type`, `module`, `method`): `void`
 
 Add a socket route generator.
 
@@ -56,12 +50,6 @@ Add a socket route generator.
 
 The type to add the generator for.
 
-##### typeConfig
-
-The type config.
-
-`undefined` | [`IEngineCoreTypeConfig`](../type-aliases/IEngineCoreTypeConfig.md)[]
-
 ##### module
 
 `string`
@@ -80,21 +68,21 @@ The method to call on the module.
 
 ***
 
-### start()
+### start() {#start}
 
-> **start**(): `Promise`\<`boolean`\>
+> **start**(): `Promise`\<`void`\>
 
 Start the engine server.
 
 #### Returns
 
-`Promise`\<`boolean`\>
+`Promise`\<`void`\>
 
-True if the start was successful.
+A promise that resolves when the server has started and is ready to accept requests.
 
 ***
 
-### stop()
+### stop() {#stop}
 
 > **stop**(): `Promise`\<`void`\>
 
@@ -104,4 +92,4 @@ Stop the engine server.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when the server has stopped and all connections are closed.

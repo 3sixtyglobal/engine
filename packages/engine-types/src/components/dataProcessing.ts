@@ -1,6 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
 import {
 	JsonConverterConnector,
 	XmlConverterConnector
@@ -8,72 +9,58 @@ import {
 import { JsonPathExtractorConnector } from "@twin.org/data-processing-extractors";
 import {
 	DataConverterConnectorFactory,
-	DataExtractorConnectorFactory,
-	type IDataConverterConnector,
-	type IDataExtractorConnector,
-	type IDataProcessingComponent
+	DataExtractorConnectorFactory
 } from "@twin.org/data-processing-models";
+import { DataProcessingRestClient } from "@twin.org/data-processing-rest-client";
 import {
 	DataProcessingService,
 	initSchema as initSchemaDataProcessing,
 	type ExtractionRuleGroup
 } from "@twin.org/data-processing-service";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { DataConverterConnectorConfig } from "../models/config/dataConverterConnectorConfig";
-import type { DataExtractorConnectorConfig } from "../models/config/dataExtractorConnectorConfig";
-import type { DataProcessingComponentConfig } from "../models/config/dataProcessingComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { DataConverterConnectorType } from "../models/types/dataConverterConnectorType";
-import { DataExtractorConnectorType } from "../models/types/dataExtractorConnectorType";
-import { DataProcessingComponentType } from "../models/types/dataProcessingComponentType";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { DataConverterConnectorConfig } from "../models/config/dataConverterConnectorConfig.js";
+import type { DataExtractorConnectorConfig } from "../models/config/dataExtractorConnectorConfig.js";
+import type { DataProcessingComponentConfig } from "../models/config/dataProcessingComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { DataConverterConnectorType } from "../models/types/dataConverterConnectorType.js";
+import { DataExtractorConnectorType } from "../models/types/dataExtractorConnectorType.js";
+import { DataProcessingComponentType } from "../models/types/dataProcessingComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the data converter connector.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseDataConverterConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: DataConverterConnectorConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Data Converter Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: DataConverterConnectorConfig
+): EngineTypeInitialiserReturn<DataConverterConnectorConfig, typeof DataConverterConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-	let connector: IDataConverterConnector;
-	let instanceType: string;
-
-	if (type === DataConverterConnectorType.Json) {
-		connector = new JsonConverterConnector();
-		instanceType = JsonConverterConnector.NAMESPACE;
-	} else if (type === DataConverterConnectorType.Xml) {
-		connector = new XmlConverterConnector();
-		instanceType = XmlConverterConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "dataConverterConnector"
-		});
+	if (instanceConfig.type === DataConverterConnectorType.Json) {
+		createComponent = (createConfig: typeof instanceConfig) => new JsonConverterConnector();
+		instanceTypeName = JsonConverterConnector.NAMESPACE;
+	} else if (instanceConfig.type === DataConverterConnectorType.Xml) {
+		createComponent = (createConfig: typeof instanceConfig) => new XmlConverterConnector();
+		instanceTypeName = XmlConverterConnector.NAMESPACE;
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component: connector
-	});
-	DataConverterConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
+		factory: DataConverterConnectorFactory
+	};
 }
 
 /**
@@ -81,43 +68,26 @@ export function initialiseDataConverterConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseDataExtractorConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: DataExtractorConnectorConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Data Extractor Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: DataExtractorConnectorConfig
+): EngineTypeInitialiserReturn<DataExtractorConnectorConfig, typeof DataExtractorConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-	let connector: IDataExtractorConnector;
-	let instanceType: string;
-
-	if (type === DataExtractorConnectorType.JsonPath) {
-		connector = new JsonPathExtractorConnector();
-		instanceType = JsonPathExtractorConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "dataExtractorConnector"
-		});
+	if (instanceConfig.type === DataExtractorConnectorType.JsonPath) {
+		createComponent = (createConfig: typeof instanceConfig) => new JsonPathExtractorConnector();
+		instanceTypeName = JsonPathExtractorConnector.NAMESPACE;
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component: connector
-	});
-	DataExtractorConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		createComponent,
+		instanceTypeName,
+		factory: DataExtractorConnectorFactory
+	};
 }
 
 /**
@@ -125,51 +95,45 @@ export function initialiseDataExtractorConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseDataProcessingComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: DataProcessingComponentConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Data Processing Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: DataProcessingComponentConfig
+): EngineTypeInitialiserReturn<DataProcessingComponentConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-	let component: IDataProcessingComponent;
-	let instanceType: string;
-
-	if (type === DataProcessingComponentType.Service) {
-		initSchemaDataProcessing();
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.extractionRuleGroupStorageConnectorType,
-			nameof<ExtractionRuleGroup>()
-		);
-
-		component = new DataProcessingService({
-			...instanceConfig.options
-		});
-		instanceType = DataProcessingService.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "dataProcessingComponent"
-		});
+	if (instanceConfig.type === DataProcessingComponentType.Service) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaDataProcessing();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.extractionRuleGroupStorageConnectorType,
+				nameof<ExtractionRuleGroup>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			return new DataProcessingService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = nameofKebabCase(DataProcessingService);
+	} else if (instanceConfig.type === DataProcessingComponentType.RestClient) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new DataProcessingRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(DataProcessingRestClient);
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
+		factory: ComponentFactory
+	};
 }

@@ -10,7 +10,7 @@ Configuration for the engine core type base.
 
 ## Properties
 
-### type
+### type {#type}
 
 > **type**: `string`
 
@@ -18,8 +18,8 @@ The type of the instance.
 
 ***
 
-### options?
+### options? {#options}
 
-> `optional` **options**: `T`
+> `optional` **options?**: `T`
 
 The options for the instance.

@@ -10,6 +10,8 @@
 - [IEngineStateStorage](interfaces/IEngineStateStorage.md)
 - [IEngineCoreConfig](interfaces/IEngineCoreConfig.md)
 - [IEngineCoreTypeBaseConfig](interfaces/IEngineCoreTypeBaseConfig.md)
+- [IEngineModuleConfig](interfaces/IEngineModuleConfig.md)
+- [EngineTypeInitialiserReturn](interfaces/EngineTypeInitialiserReturn.md)
 
 ## Type Aliases
 

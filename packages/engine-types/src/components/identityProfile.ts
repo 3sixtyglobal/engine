@@ -1,75 +1,70 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
-import type { IEngineCoreContext, IEngineCore } from "@twin.org/engine-models";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
+import type { IComponent } from "@twin.org/core";
+import { ComponentFactory } from "@twin.org/core";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import {
 	EntityStorageIdentityProfileConnector,
 	initSchema as initSchemaIdentityStorage,
 	type IdentityProfile
 } from "@twin.org/identity-connector-entity-storage";
-import {
-	IdentityProfileConnectorFactory,
-	type IIdentityProfileComponent,
-	type IIdentityProfileConnector
-} from "@twin.org/identity-models";
+import { IdentityProfileConnectorFactory } from "@twin.org/identity-models";
+import { IdentityProfileRestClient } from "@twin.org/identity-rest-client";
 import { IdentityProfileService } from "@twin.org/identity-service";
-import { nameof } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { IdentityProfileComponentConfig } from "../models/config/identityProfileComponentConfig";
-import type { IdentityProfileConnectorConfig } from "../models/config/identityProfileConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { IdentityProfileComponentType } from "../models/types/identityProfileComponentType";
-import { IdentityProfileConnectorType } from "../models/types/identityProfileConnectorType";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { IdentityProfileComponentConfig } from "../models/config/identityProfileComponentConfig.js";
+import type { IdentityProfileConnectorConfig } from "../models/config/identityProfileConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { IdentityProfileComponentType } from "../models/types/identityProfileComponentType.js";
+import { IdentityProfileConnectorType } from "../models/types/identityProfileConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the identity profile connector.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseIdentityProfileConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: IdentityProfileConnectorConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Identity Profile Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: IdentityProfileConnectorConfig
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof IdentityProfileConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-
-	let connector: IIdentityProfileConnector;
-	let instanceType: string;
-	if (type === IdentityProfileConnectorType.EntityStorage) {
-		initSchemaIdentityStorage({ includeDocument: false });
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.profileEntityStorageType,
-			nameof<IdentityProfile>()
-		);
-		connector = new EntityStorageIdentityProfileConnector(instanceConfig.options);
-		instanceType = EntityStorageIdentityProfileConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			serviceType: "identityProfile"
-		});
+	if (instanceConfig.type === IdentityProfileConnectorType.EntityStorage) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaIdentityStorage({ includeDocument: false });
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.profileEntityStorageType,
+				nameof<IdentityProfile>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			return new EntityStorageIdentityProfileConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = EntityStorageIdentityProfileConnector.NAMESPACE;
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component: connector
-	});
-	IdentityProfileConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		createComponent,
+		instanceTypeName,
+		factory: IdentityProfileConnectorFactory
+	};
 }
 
 /**
@@ -77,44 +72,40 @@ export function initialiseIdentityProfileConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseIdentityProfileComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: IdentityProfileComponentConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Identity Profile Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: IdentityProfileComponentConfig
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-	let component: IIdentityProfileComponent;
-	let instanceType: string;
-
-	if (type === IdentityProfileComponentType.Service) {
-		component = new IdentityProfileService({
-			profileEntityConnectorType: context.defaultTypes.identityProfileConnector,
-			...instanceConfig.options
-		});
-		instanceType = IdentityProfileService.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "identityProfileComponent"
-		});
+	if (instanceConfig.type === IdentityProfileComponentType.Service) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new IdentityProfileService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						profileEntityConnectorType: engineCore.getRegisteredInstanceType(
+							"identityProfileConnector"
+						)
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(IdentityProfileService);
+	} else if (instanceConfig.type === IdentityProfileComponentType.RestClient) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new IdentityProfileRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(IdentityProfileRestClient);
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
+		factory: ComponentFactory
+	};
 }

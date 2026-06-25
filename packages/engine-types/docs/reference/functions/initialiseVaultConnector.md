@@ -1,6 +1,6 @@
 # Function: initialiseVaultConnector()
 
-> **initialiseVaultConnector**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseVaultConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`VaultConnectorConfig`](../type-aliases/VaultConnectorConfig.md), `Factory`\<`IVaultConnector`\>\>
 
 Initialise the vault connector.
 
@@ -24,18 +24,8 @@ The context for the engine.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`VaultConnectorConfig`](../type-aliases/VaultConnectorConfig.md), `Factory`\<`IVaultConnector`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the connector type is unknown.
+The instance created and the factory for it.

@@ -1,79 +1,93 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import { nameof } from "@twin.org/nameof";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
+import { ComponentFactory } from "@twin.org/core";
+import type { IComponent } from "@twin.org/core";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import {
 	EntityStorageNftConnector,
 	initSchema,
 	type Nft
 } from "@twin.org/nft-connector-entity-storage";
 import { IotaNftConnector } from "@twin.org/nft-connector-iota";
-import { NftConnectorFactory, type INftComponent, type INftConnector } from "@twin.org/nft-models";
+import { NftConnectorFactory } from "@twin.org/nft-models";
+import { NftRestClient } from "@twin.org/nft-rest-client";
 import { NftService } from "@twin.org/nft-service";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { NftComponentConfig } from "../models/config/nftComponentConfig";
-import type { NftConnectorConfig } from "../models/config/nftConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { NftComponentType } from "../models/types/nftComponentType";
-import { NftConnectorType } from "../models/types/nftConnectorType";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { DltConfig } from "../models/config/dltConfig.js";
+import type { NftComponentConfig } from "../models/config/nftComponentConfig.js";
+import type { NftConnectorConfig } from "../models/config/nftConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { DltConfigType } from "../models/types/dltConfigType.js";
+import { NftComponentType } from "../models/types/nftComponentType.js";
+import { NftConnectorType } from "../models/types/nftConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the NFT connector.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseNftConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: NftConnectorConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `NFT Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: NftConnectorConfig
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof NftConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-	let connector: INftConnector;
-	let instanceType: string;
+	if (instanceConfig.type === NftConnectorType.EntityStorage) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchema();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.nftEntityStorageType,
+				nameof<Nft>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
 
-	if (type === NftConnectorType.EntityStorage) {
-		initSchema();
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.nftEntityStorageType,
-			nameof<Nft>()
-		);
-		connector = new EntityStorageNftConnector(instanceConfig.options);
-		instanceType = EntityStorageNftConnector.NAMESPACE;
-	} else if (type === NftConnectorType.Iota) {
-		connector = new IotaNftConnector({
-			vaultConnectorType: context.defaultTypes.vaultConnector,
-			walletConnectorType: context.defaultTypes.walletConnector,
-			...instanceConfig.options
-		});
-		instanceType = IotaNftConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "nftConnector"
-		});
+			return new EntityStorageNftConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = EntityStorageNftConnector.NAMESPACE;
+	} else if (instanceConfig.type === NftConnectorType.Iota) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			const dltConfig = EngineTypeHelper.getConfigOfType<DltConfig>(
+				engineCore.getConfig(),
+				"dltConfig",
+				DltConfigType.Iota
+			);
+			return new IotaNftConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+						loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
+						config: dltConfig?.options?.config
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = IotaNftConnector.NAMESPACE;
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component: connector
-	});
-	NftConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
+		factory: NftConnectorFactory
+	};
 }
 
 /**
@@ -81,41 +95,33 @@ export function initialiseNftConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseNftComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: NftComponentConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Nft Storage Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: NftComponentConfig
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-	let component: INftComponent;
-	let instanceType: string;
-
-	if (type === NftComponentType.Service) {
-		component = new NftService(instanceConfig.options);
-		instanceType = NftService.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "nftComponent"
-		});
+	if (instanceConfig.type === NftComponentType.Service) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new NftService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(NftService);
+	} else if (instanceConfig.type === NftComponentType.RestClient) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new NftRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(NftRestClient);
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
+		factory: ComponentFactory
+	};
 }

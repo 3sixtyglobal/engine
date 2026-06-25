@@ -4,15 +4,15 @@
 
 Vault connector types.
 
-## Type declaration
+## Type Declaration
 
-### EntityStorage
+### EntityStorage {#entitystorage}
 
 > `readonly` **EntityStorage**: `"entity-storage"` = `"entity-storage"`
 
 Entity storage.
 
-### Hashicorp
+### Hashicorp {#hashicorp}
 
 > `readonly` **Hashicorp**: `"hashicorp"` = `"hashicorp"`
 

@@ -1,6 +1,6 @@
 # Function: initialiseAttestationConnector()
 
-> **initialiseAttestationConnector**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseAttestationConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AttestationConnectorConfig`](../type-aliases/AttestationConnectorConfig.md), `Factory`\<`IAttestationConnector`\>\>
 
 Initialise the attestation connector.
 
@@ -22,20 +22,10 @@ The context for the engine.
 
 [`AttestationConnectorConfig`](../type-aliases/AttestationConnectorConfig.md)
 
-The instance config.
-
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
+The instance config type.
 
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`AttestationConnectorConfig`](../type-aliases/AttestationConnectorConfig.md), `Factory`\<`IAttestationConnector`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the connector type is unknown.
+The instance created and the factory for it.

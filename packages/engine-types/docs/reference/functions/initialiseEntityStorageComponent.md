@@ -1,8 +1,8 @@
 # Function: initialiseEntityStorageComponent()
 
-> **initialiseEntityStorageComponent**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseEntityStorageComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`EntityStorageComponentConfig`](../type-aliases/EntityStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
 
-Initialise the entity storage connector.
+Initialise the entity storage component.
 
 ## Parameters
 
@@ -24,18 +24,8 @@ The context for the engine.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`EntityStorageComponentConfig`](../type-aliases/EntityStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the connector type is unknown.
+The instance created and the factory for it.

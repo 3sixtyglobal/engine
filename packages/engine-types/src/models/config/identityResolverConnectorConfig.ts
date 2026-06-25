@@ -3,7 +3,7 @@
 import type { IEntityStorageIdentityResolverConnectorConstructorOptions } from "@twin.org/identity-connector-entity-storage";
 import type { IIotaIdentityResolverConnectorConstructorOptions } from "@twin.org/identity-connector-iota";
 import type { IUniversalResolverConnectorConstructorOptions } from "@twin.org/identity-connector-universal";
-import type { IdentityResolverConnectorType } from "../types/identityResolverConnectorType";
+import type { IdentityResolverConnectorType } from "../types/identityResolverConnectorType.js";
 
 /**
  * Identity resolver config connector types.

@@ -1,6 +1,6 @@
 # Function: initialiseIdentityConnector()
 
-> **initialiseIdentityConnector**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseIdentityConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`IdentityConnectorConfig`](../type-aliases/IdentityConnectorConfig.md), `Factory`\<`IIdentityConnector`\>\>
 
 Initialise the identity connector.
 
@@ -24,18 +24,8 @@ The context for the engine.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`IdentityConnectorConfig`](../type-aliases/IdentityConnectorConfig.md), `Factory`\<`IIdentityConnector`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the connector type is unknown.
+The instance created and the factory for it.

@@ -14,7 +14,7 @@ Helper methods for engine config.
 
 ## Properties
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
 > `readonly` `static` **CLASS\_NAME**: `string`
 
@@ -22,9 +22,9 @@ Runtime name for the class.
 
 ## Methods
 
-### addCustomEntityStorage()
+### addCustomEntityStorage() {#addcustomentitystorage}
 
-> `static` **addCustomEntityStorage**\<`T`\>(`engineConfig`, `entityTypeName`, `entitySchema`, `restPath?`, `options?`): `void`
+> `static` **addCustomEntityStorage**\<`T`\>(`engineConfig`, `entityTypeName`, `entitySchema`, `restPath?`, `partitionContextIds?`): `void`
 
 Add a custom entity storage to the engine configuration.
 
@@ -60,21 +60,11 @@ The entity schema.
 
 The rest path to serve the entity storage from, leave undefined for no endpoints.
 
-##### options?
+##### partitionContextIds?
 
-Additional options.
+`string`[]
 
-###### includeNodeIdentity?
-
-`boolean`
-
-Whether to include the node identity in the entity, defaults to true.
-
-###### includeUserIdentity?
-
-`true`
-
-Whether to include the user identity in the entity, defaults to true.
+The context ids to use for partitioning.
 
 #### Returns
 

@@ -1,6 +1,6 @@
 # TWIN Engine Models
 
-Models which define the structure of the engine.
+Engine Models defines shared contracts and factories used to compose runtime behaviour across the repository. It provides stable interfaces for core and server implementations so packages can interoperate with a clear and predictable structure.
 
 ## Installation
 

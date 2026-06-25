@@ -3,7 +3,7 @@
 import type { IConsoleLoggingConnectorConstructorOptions } from "@twin.org/logging-connector-console";
 import type { IEntityStorageLoggingConnectorConstructorOptions } from "@twin.org/logging-connector-entity-storage";
 import type { IMultiLoggingConnectorConstructorOptions } from "@twin.org/logging-models";
-import type { LoggingConnectorType } from "../types/loggingConnectorType";
+import type { LoggingConnectorType } from "../types/loggingConnectorType.js";
 
 /**
  * Logging config connector types.

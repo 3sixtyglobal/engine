@@ -1,93 +1,78 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import type { IFederatedCatalogueComponent } from "@twin.org/federated-catalogue-models";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
+import { ComponentFactory } from "@twin.org/core";
+import type { IComponent } from "@twin.org/core";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
+import { FederatedCatalogueRestClient } from "@twin.org/federated-catalogue-rest-client";
 import {
-	type DataResourceEntry,
-	type DataSpaceConnectorEntry,
+	type Dataset,
 	FederatedCatalogueService,
-	initSchema as initSchemaFederatedCatalogue,
-	type ParticipantEntry,
-	type ServiceOfferingEntry
+	initSchema as initSchemaFederatedCatalogue
 } from "@twin.org/federated-catalogue-service";
-import { nameof } from "@twin.org/nameof";
-import { initialiseEntityStorageConnector } from "./entityStorage";
-import type { FederatedCatalogueComponentConfig } from "../models/config/federatedCatalogueComponentConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { FederatedCatalogueComponentType } from "../models/types/federatedCatalogueComponentType";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
+import { initialiseEntityStorageConnector } from "./entityStorage.js";
+import type { FederatedCatalogueComponentConfig } from "../models/config/federatedCatalogueComponentConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { FederatedCatalogueComponentType } from "../models/types/federatedCatalogueComponentType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise the federated catalogue component.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseFederatedCatalogueComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: FederatedCatalogueComponentConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Federated Catalogue Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: FederatedCatalogueComponentConfig
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-	let component: IFederatedCatalogueComponent;
-	let instanceType: string;
-
-	if (type === FederatedCatalogueComponentType.Service) {
-		initSchemaFederatedCatalogue();
-
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.dataResourceEntityStorageType,
-			nameof<DataResourceEntry>()
-		);
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.participantEntityStorageType,
-			nameof<ParticipantEntry>()
-		);
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.serviceOfferingEntityStorageType,
-			nameof<ServiceOfferingEntry>()
-		);
-		initialiseEntityStorageConnector(
-			engineCore,
-			context,
-			instanceConfig.options?.dataSpaceConnectorStorageType,
-			nameof<DataSpaceConnectorEntry>()
-		);
-
-		component = new FederatedCatalogueService({
-			loggingConnectorType: context.defaultTypes.loggingConnector,
-			identityResolverComponentType: context.defaultTypes.identityResolverComponent,
-			...instanceConfig.options
-		});
-		instanceType = FederatedCatalogueService.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "FederatedCatalogueComponent"
-		});
+	if (instanceConfig.type === FederatedCatalogueComponentType.Service) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaFederatedCatalogue();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.datasetEntityStorageType,
+				nameof<Dataset>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
+			);
+			return new FederatedCatalogueService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(FederatedCatalogueService)
+						),
+						trustComponentType: engineCore.getRegisteredInstanceType("trustComponent"),
+						telemetryComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = nameofKebabCase(FederatedCatalogueService);
+	} else if (instanceConfig.type === FederatedCatalogueComponentType.RestClient) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new FederatedCatalogueRestClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(FederatedCatalogueRestClient);
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
+
+		factory: ComponentFactory
+	};
 }

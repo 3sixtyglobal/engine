@@ -1,6 +1,6 @@
 # Function: initialiseFaucetConnector()
 
-> **initialiseFaucetConnector**(`engineCore`, `context`, `instanceConfig`, `overrideInstanceType?`): `undefined` \| `string`
+> **initialiseFaucetConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`FaucetConnectorConfig`](../type-aliases/FaucetConnectorConfig.md), `Factory`\<`IFaucetConnector`\>\>
 
 Initialise a faucet connector.
 
@@ -24,18 +24,8 @@ The context for the engine.
 
 The instance config.
 
-### overrideInstanceType?
-
-`string`
-
-The instance type to override the default.
-
 ## Returns
 
-`undefined` \| `string`
+`EngineTypeInitialiserReturn`\<[`FaucetConnectorConfig`](../type-aliases/FaucetConnectorConfig.md), `Factory`\<`IFaucetConnector`\>\>
 
-The name of the instance created.
-
-## Throws
-
-GeneralError if the connector type is unknown.
+The instance created and the factory for it.

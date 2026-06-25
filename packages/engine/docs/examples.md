@@ -1,35 +1,68 @@
-# @twin.org/engine - Examples
+# Engine Examples
 
-## Environment Variables
+These examples show a practical way to configure and run an instance with built-in type initialisers and custom entity storage.
 
-The engine supports various environment variables for configuration. Here are some key examples:
+## Engine
 
-### IOTA DLT Configuration
+```typescript
+import { Engine } from '@twin.org/engine';
+import type { IEngineConfig } from '@twin.org/engine-types';
 
-Basic IOTA configuration:
+const config: IEngineConfig = {
+  debug: true,
+  silent: false,
+  types: {}
+};
 
-```bash
-# IOTA Node Configuration
-IOTA_NODE_ENDPOINT="https://api.devnet.iota.cafe"
-IOTA_FAUCET_ENDPOINT="https://faucet.devnet.iota.cafe"
-IOTA_EXPLORER_ENDPOINT="https://explorer.iota.org/"
-IOTA_NETWORK="devnet"
-IOTA_COIN_TYPE="4218"
+const engine = new Engine({ config, skipBootstrap: true });
+
+engine.addContextIdKey('tenant', ['tenant']);
+engine.addContextId('tenant', 'tenant-a');
+
+engine.addTypeInitialiser('loggingConnector', '@twin.org/engine-types', 'initLoggingConnector');
+
+console.log(engine.getContextIdKeys()); // ["tenant"]
+console.log(engine.getContextIds()); // { tenant: "tenant-a" }
+console.log(engine.isStarted()); // false
+
+await engine.start(true);
+console.log(engine.isStarted()); // true
+
+await engine.stop();
+console.log(engine.isStarted()); // false
 ```
 
-### IOTA Gas Station Configuration (Optional)
+## EngineConfigHelper
 
-The IOTA Gas Station pattern allows for sponsored transactions and improved UX:
+```typescript
+import { EngineConfigHelper } from '@twin.org/engine';
+import type { IEngineConfig } from '@twin.org/engine-types';
+import type { IEntitySchema } from '@twin.org/entity';
 
-```bash
-# Gas Station Configuration
-IOTA_GAS_STATION_ENDPOINT="https://gas-station.example.com"
-IOTA_GAS_STATION_AUTH_TOKEN="your-auth-token"
+interface Product {
+  id: string;
+  name: string;
+}
+
+const config: IEngineConfig = {
+  debug: false,
+  silent: true,
+  types: {}
+};
+
+const productSchema = {
+  type: 'Product',
+  properties: {
+    id: { type: 'string', isPrimary: true },
+    name: { type: 'string' }
+  }
+} as IEntitySchema<Product>;
+
+EngineConfigHelper.addCustomEntityStorage(config, 'product', productSchema, '/products', [
+  'node',
+  'tenant'
+]);
+
+console.log(config.types.entityStorageComponent?.length ?? 0); // 1
+console.log(config.types.entityStorageComponent?.[0].restPath); // "/products"
 ```
-
-**Configuration Options:**
-
-- `IOTA_GAS_STATION_ENDPOINT`: The URL of the gas station service
-- `IOTA_GAS_STATION_AUTH_TOKEN`: Authentication token for the gas station
-
-When gas station is configured, all IOTA-related connectors (wallet, nft, verifiable-storage, identity, identity-resolver) will automatically use the centralized configuration and have access to gas station functionality.

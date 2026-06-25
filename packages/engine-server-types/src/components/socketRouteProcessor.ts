@@ -1,81 +1,135 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { AuthHeaderProcessor } from "@twin.org/api-auth-entity-storage-service";
-import { SocketRouteProcessorFactory, type IBaseRouteProcessor } from "@twin.org/api-models";
+import {
+	AuthHeaderProcessor,
+	initSchema as initSchemaAuthEntityStorage,
+	type AuthenticationUser
+} from "@twin.org/api-auth-entity-storage-service";
+import { SocketRouteProcessorFactory } from "@twin.org/api-models";
 import {
 	LoggingProcessor,
-	NodeIdentityProcessor,
+	ContextIdProcessor,
 	SocketRouteProcessor,
-	StaticUserIdentityProcessor
+	StaticContextIdProcessor
 } from "@twin.org/api-processors";
-import { GeneralError, I18n } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
-import type { SocketRouteProcessorConfig } from "../models/config/socketRouteProcessorConfig";
-import type { IEngineServerConfig } from "../models/IEngineServerConfig";
-import { SocketRouteProcessorType } from "../models/types/socketRouteProcessorType";
+import {
+	initSchema as initSchemaTenantProcessor,
+	type Tenant,
+	SingleTenantProcessor,
+	TenantProcessor
+} from "@twin.org/api-tenant-processor";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
+import type { IComponent } from "@twin.org/core";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
+import { EngineTypeHelper, initialiseEntityStorageConnector } from "@twin.org/engine-types";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
+import type { SocketRouteProcessorConfig } from "../models/config/socketRouteProcessorConfig.js";
+import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
+import { SocketRouteProcessorType } from "../models/types/socketRouteProcessorType.js";
 
 /**
  * Initialise the socket route processor.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseSocketRouteProcessorComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
-	instanceConfig: SocketRouteProcessorConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Socket Route Processor: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: SocketRouteProcessorConfig
+): EngineTypeInitialiserReturn<SocketRouteProcessorConfig, typeof SocketRouteProcessorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-	let component: IBaseRouteProcessor;
-	let instanceType: string;
+	if (instanceConfig.type === SocketRouteProcessorType.AuthHeader) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaAuthEntityStorage();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.userEntityStorageType,
+				nameof<AuthenticationUser>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
 
-	if (type === SocketRouteProcessorType.AuthHeader) {
-		component = new AuthHeaderProcessor({
-			vaultConnectorType: context.defaultTypes.vaultConnector,
-			config: {
-				...instanceConfig.options?.config
-			}
-		});
-		instanceType = AuthHeaderProcessor.NAMESPACE;
-	} else if (type === SocketRouteProcessorType.Logging) {
-		component = new LoggingProcessor({
-			loggingConnectorType: context.defaultTypes.loggingConnector,
-			config: {
-				...instanceConfig.options?.config
-			}
-		});
-		instanceType = LoggingProcessor.NAMESPACE;
-	} else if (type === SocketRouteProcessorType.NodeIdentity) {
-		component = new NodeIdentityProcessor();
-		instanceType = NodeIdentityProcessor.NAMESPACE;
-	} else if (type === SocketRouteProcessorType.StaticUserIdentity) {
-		component = new StaticUserIdentityProcessor(instanceConfig.options);
-		instanceType = StaticUserIdentityProcessor.NAMESPACE;
-	} else if (type === SocketRouteProcessorType.SocketRoute) {
-		component = new SocketRouteProcessor(instanceConfig.options);
-		instanceType = SocketRouteProcessor.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "socketRouteProcessorComponent"
-		});
+			return new AuthHeaderProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+						tenantAdminComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("tenantAdminComponent")
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = nameofKebabCase(AuthHeaderProcessor);
+	} else if (instanceConfig.type === SocketRouteProcessorType.Logging) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new LoggingProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(LoggingProcessor))
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(LoggingProcessor);
+	} else if (instanceConfig.type === SocketRouteProcessorType.ContextId) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new ContextIdProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(ContextIdProcessor);
+	} else if (instanceConfig.type === SocketRouteProcessorType.StaticContextId) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new StaticContextIdProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(StaticContextIdProcessor);
+	} else if (instanceConfig.type === SocketRouteProcessorType.SocketRoute) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new SocketRouteProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(SocketRouteProcessor);
+	} else if (instanceConfig.type === SocketRouteProcessorType.Tenant) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initSchemaTenantProcessor();
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.tenantEntityStorageType,
+				nameof<Tenant>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			return new TenantProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = nameofKebabCase(TenantProcessor);
+	} else if (instanceConfig.type === SocketRouteProcessorType.SingleTenant) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new SingleTenantProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(SingleTenantProcessor);
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({
-		instanceType: finalInstanceType,
-		component
-	});
-	SocketRouteProcessorFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
+		factory: SocketRouteProcessorFactory
+	};
 }

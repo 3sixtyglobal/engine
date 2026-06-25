@@ -4,9 +4,9 @@
 
 Messaging component types.
 
-## Type declaration
+## Type Declaration
 
-### Service
+### Service {#service}
 
 > `readonly` **Service**: `"service"` = `"service"`
 

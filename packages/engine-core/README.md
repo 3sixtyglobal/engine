@@ -1,6 +1,6 @@
 # TWIN Engine Core
 
-Engine implementation for the core.
+Engine Core provides the runtime lifecycle and orchestration layer for engine instances. It manages component initialisation, context handling, state persistence, and cloning workflows that higher-level packages rely on.
 
 ## Installation
 

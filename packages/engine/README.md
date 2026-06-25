@@ -1,6 +1,6 @@
 # TWIN Engine
 
-Engine implementation.
+Engine provides a ready-to-use runtime that extends the core layer with built-in type initialisers. It helps applications start from a practical baseline while still allowing customisation of configuration and component selection.
 
 ## Installation
 

@@ -1,62 +1,56 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, GeneralError, I18n } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import { ComponentFactory, type IComponent } from "@twin.org/core";
+import type {
+	EngineTypeInitialiserReturn,
+	IEngineCore,
+	IEngineCoreContext
+} from "@twin.org/engine-models";
 import { LocalEventBusConnector } from "@twin.org/event-bus-connector-local";
-import {
-	EventBusConnectorFactory,
-	type IEventBusComponent,
-	type IEventBusConnector
-} from "@twin.org/event-bus-models";
+import { EventBusConnectorFactory } from "@twin.org/event-bus-models";
 import { EventBusService } from "@twin.org/event-bus-service";
-import type { EventBusComponentConfig } from "../models/config/eventBusComponentConfig";
-import type { EventBusConnectorConfig } from "../models/config/eventBusConnectorConfig";
-import type { IEngineConfig } from "../models/IEngineConfig";
-import { EventBusComponentType } from "../models/types/eventBusComponentType";
-import { EventBusConnectorType } from "../models/types/eventBusConnectorType";
+import { EventBusSocketClient } from "@twin.org/event-bus-socket-client";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
+import type { EventBusComponentConfig } from "../models/config/eventBusComponentConfig.js";
+import type { EventBusConnectorConfig } from "../models/config/eventBusConnectorConfig.js";
+import type { IEngineConfig } from "../models/IEngineConfig.js";
+import { EventBusComponentType } from "../models/types/eventBusComponentType.js";
+import { EventBusConnectorType } from "../models/types/eventBusConnectorType.js";
+import { EngineTypeHelper } from "../utils/engineTypeHelper.js";
 
 /**
  * Initialise a event bus connector.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the connector type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseEventBusConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: EventBusConnectorConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Event Bus Connector: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: EventBusConnectorConfig
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof EventBusConnectorFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-	let connector: IEventBusConnector;
-	let instanceType: string;
-
-	if (type === EventBusConnectorType.Local) {
-		connector = new LocalEventBusConnector({
-			loggingConnectorType: context.defaultTypes.loggingConnector,
-			...instanceConfig.options
-		});
-		instanceType = LocalEventBusConnector.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "connectorUnknownType", {
-			type,
-			connectorType: "eventBusConnector"
-		});
+	if (instanceConfig.type === EventBusConnectorType.Local) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new LocalEventBusConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(LocalEventBusConnector))
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = LocalEventBusConnector.NAMESPACE;
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component: connector });
-	EventBusConnectorFactory.register(finalInstanceType, () => connector);
-	return finalInstanceType;
+	return {
+		createComponent,
+		instanceTypeName,
+		factory: EventBusConnectorFactory
+	};
 }
 
 /**
@@ -64,41 +58,41 @@ export function initialiseEventBusConnector(
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
- * @param overrideInstanceType The instance type to override the default.
- * @returns The name of the instance created.
- * @throws GeneralError if the component type is unknown.
+ * @returns The instance created and the factory for it.
  */
 export function initialiseEventBusComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
-	instanceConfig: EventBusComponentConfig,
-	overrideInstanceType?: string
-): string | undefined {
-	engineCore.logInfo(
-		I18n.formatMessage("engineCore.configuring", {
-			element: `Event Bus Component: ${instanceConfig.type}`
-		})
-	);
+	instanceConfig: EventBusComponentConfig
+): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+	let createComponent;
+	let instanceTypeName;
 
-	const type = instanceConfig.type;
-	let component: IEventBusComponent;
-	let instanceType: string;
-
-	if (type === EventBusComponentType.Service) {
-		component = new EventBusService({
-			eventBusConnectorType: context.defaultTypes.eventBusConnector,
-			...instanceConfig.options
-		});
-		instanceType = EventBusService.NAMESPACE;
-	} else {
-		throw new GeneralError("engineCore", "componentUnknownType", {
-			type,
-			componentType: "EventBusComponent"
-		});
+	if (instanceConfig.type === EventBusComponentType.Service) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new EventBusService(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{ eventBusConnectorType: engineCore.getRegisteredInstanceType("eventBusConnector") },
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(EventBusService);
+	} else if (instanceConfig.type === EventBusComponentType.SocketClient) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new EventBusSocketClient(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(EventBusSocketClient))
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(EventBusSocketClient);
 	}
 
-	const finalInstanceType = overrideInstanceType ?? instanceType;
-	context.componentInstances.push({ instanceType: finalInstanceType, component });
-	ComponentFactory.register(finalInstanceType, () => component);
-	return finalInstanceType;
+	return {
+		createComponent: createComponent as (createConfig: typeof instanceConfig) => IComponent,
+		instanceTypeName,
+		factory: ComponentFactory
+	};
 }

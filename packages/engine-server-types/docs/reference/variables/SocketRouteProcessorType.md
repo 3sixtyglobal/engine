@@ -4,33 +4,51 @@
 
 Socket route processor types.
 
-## Type declaration
+## Type Declaration
 
-### AuthHeader
+### AuthHeader {#authheader}
 
 > `readonly` **AuthHeader**: `"auth-header"` = `"auth-header"`
 
 Auth header.
 
-### Logging
+### AuthVerifiableCredential {#authverifiablecredential}
+
+> `readonly` **AuthVerifiableCredential**: `"auth-verifiable-credential"` = `"auth-verifiable-credential"`
+
+Auth verifiable credential.
+
+### Logging {#logging}
 
 > `readonly` **Logging**: `"logging"` = `"logging"`
 
 Logging.
 
-### NodeIdentity
+### ContextId {#contextid}
 
-> `readonly` **NodeIdentity**: `"node-identity"` = `"node-identity"`
+> `readonly` **ContextId**: `"context-id"` = `"context-id"`
 
-Node Identity.
+Context ID.
 
-### StaticUserIdentity
+### StaticContextId {#staticcontextid}
 
-> `readonly` **StaticUserIdentity**: `"static-user-identity"` = `"static-user-identity"`
+> `readonly` **StaticContextId**: `"static-context-id"` = `"static-context-id"`
 
-Static User Identity.
+Static Context ID.
 
-### SocketRoute
+### Tenant {#tenant}
+
+> `readonly` **Tenant**: `"tenant"` = `"tenant"`
+
+Tenant.
+
+### SingleTenant {#singletenant}
+
+> `readonly` **SingleTenant**: `"single-tenant"` = `"single-tenant"`
+
+Single Tenant.
+
+### SocketRoute {#socketroute}
 
 > `readonly` **SocketRoute**: `"socket-route"` = `"socket-route"`
 

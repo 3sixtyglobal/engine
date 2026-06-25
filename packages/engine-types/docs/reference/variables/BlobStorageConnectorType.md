@@ -4,39 +4,39 @@
 
 Blob storage connector types.
 
-## Type declaration
+## Type Declaration
 
-### File
+### File {#file}
 
 > `readonly` **File**: `"file"` = `"file"`
 
 File storage.
 
-### Memory
+### Memory {#memory}
 
 > `readonly` **Memory**: `"memory"` = `"memory"`
 
 Memory.
 
-### Ipfs
+### Ipfs {#ipfs}
 
 > `readonly` **Ipfs**: `"ipfs"` = `"ipfs"`
 
 IPFS.
 
-### AwsS3
+### AwsS3 {#awss3}
 
 > `readonly` **AwsS3**: `"aws-s3"` = `"aws-s3"`
 
 AWS S3.
 
-### AzureStorage
+### AzureStorage {#azurestorage}
 
 > `readonly` **AzureStorage**: `"azure-storage"` = `"azure-storage"`
 
 Azure Storage.
 
-### GcpStorage
+### GcpStorage {#gcpstorage}
 
 > `readonly` **GcpStorage**: `"gcp-storage"` = `"gcp-storage"`
 

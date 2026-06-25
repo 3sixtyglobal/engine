@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IEntityStorageVaultConnectorConstructorOptions } from "@twin.org/vault-connector-entity-storage";
 import type { IHashicorpVaultConnectorConstructorOptions } from "@twin.org/vault-connector-hashicorp";
-import type { VaultConnectorType } from "../types/vaultConnectorType";
+import type { VaultConnectorType } from "../types/vaultConnectorType.js";
 
 /**
  * Vault connector config types.

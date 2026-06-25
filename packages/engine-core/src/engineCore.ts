@@ -1,15 +1,22 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import { isMainThread } from "node:worker_threads";
+import {
+	ContextIdHandlerFactory,
+	ContextIdStore,
+	type IContextIdHandler,
+	type IContextIds
+} from "@twin.org/context";
 import {
 	BaseError,
+	ComponentFactory,
 	ErrorHelper,
 	GeneralError,
 	Guards,
 	I18n,
 	type IComponent,
-	Is,
 	type IError,
-	ObjectHelper
+	Is
 } from "@twin.org/core";
 import type {
 	EngineTypeInitialiser,
@@ -17,7 +24,6 @@ import type {
 	IEngineCoreClone,
 	IEngineCoreConfig,
 	IEngineCoreContext,
-	IEngineCoreTypeBaseConfig,
 	IEngineCoreTypeConfig,
 	IEngineState,
 	IEngineStateStorage
@@ -25,14 +31,15 @@ import type {
 import { EntitySchemaFactory, type IEntitySchema } from "@twin.org/entity";
 import { ConsoleLoggingConnector } from "@twin.org/logging-connector-console";
 import {
+	type ILoggingComponent,
 	LoggingConnectorFactory,
-	SilentLoggingConnector,
-	type ILoggingConnector
+	SilentLoggingConnector
 } from "@twin.org/logging-models";
+import { LoggingService } from "@twin.org/logging-service";
 import { ModuleHelper } from "@twin.org/modules";
-import { nameof } from "@twin.org/nameof";
-import type { IEngineCoreOptions } from "./models/IEngineCoreOptions";
-import { MemoryStateStorage } from "./storage/memoryStateStorage";
+import { nameof, nameofCamelCase } from "@twin.org/nameof";
+import type { IEngineCoreOptions } from "./models/IEngineCoreOptions.js";
+import { MemoryStateStorage } from "./storage/memoryStateStorage.js";
 
 /**
  * Core for the engine.
@@ -40,22 +47,36 @@ import { MemoryStateStorage } from "./storage/memoryStateStorage";
 export class EngineCore<
 	C extends IEngineCoreConfig = IEngineCoreConfig,
 	S extends IEngineState = IEngineState
-> implements IEngineCore<C, S>
-{
+> implements IEngineCore<C, S> {
 	/**
-	 * Name for the engine logger.
+	 * Name for the engine logger component, used for direct console logging.
 	 */
-	public static readonly LOGGER_TYPE_NAME: string = "engine";
+	public static readonly LOGGING_COMPONENT_TYPE_NAME: string = "engine-logging-service";
+
+	/**
+	 * Name for the engine logger connector, used for direct console logging.
+	 */
+	public static readonly LOGGING_CONNECTOR_TYPE_NAME: string = "engine-logging-connector";
 
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<EngineCore>();
+	public static readonly CLASS_NAME: string = nameof<EngineCore>();
 
 	/**
 	 * The core context.
 	 */
 	protected _context: IEngineCoreContext<C, S>;
+
+	/**
+	 * The context ID keys.
+	 */
+	protected readonly _contextIdKeys: { key: string; componentFeatures: string[] }[];
+
+	/**
+	 * The context IDs.
+	 */
+	protected _contextIds?: IContextIds;
 
 	/**
 	 * The state storage interface.
@@ -64,10 +85,10 @@ export class EngineCore<
 	private _stateStorage?: IEngineStateStorage<S>;
 
 	/**
-	 * The logging connector for the engine.
+	 * The logging component for the engine.
 	 * @internal
 	 */
-	private _engineLoggingConnector?: ILoggingConnector;
+	private _engineLoggingComponent?: ILoggingComponent;
 
 	/**
 	 * Skip the bootstrap process.
@@ -76,18 +97,11 @@ export class EngineCore<
 	private _skipBootstrap?: boolean;
 
 	/**
-	 * The logger type name to use.
-	 * @internal
-	 */
-	private _loggerTypeName: string;
-
-	/**
 	 * The type initialisers.
 	 * @internal
 	 */
 	private _typeInitialisers: {
 		type: string;
-		typeConfig: IEngineCoreTypeConfig[];
 		module: string;
 		method: string;
 	}[];
@@ -97,6 +111,12 @@ export class EngineCore<
 	 * @internal
 	 */
 	private _isStarted: boolean;
+
+	/**
+	 * Is the engine a clone.
+	 * @internal
+	 */
+	private _isClone: boolean;
 
 	/**
 	 * Add type initialisers to the engine.
@@ -130,18 +150,19 @@ export class EngineCore<
 		this._skipBootstrap = options.skipBootstrap ?? false;
 		this._populateTypeInitialisers = options.populateTypeInitialisers;
 		this._customBootstrap = options.customBootstrap;
-		this._loggerTypeName = options.loggerTypeName ?? EngineCore.LOGGER_TYPE_NAME;
 		this._typeInitialisers = [];
+		this._contextIdKeys = [];
 
 		this._context = {
 			config: options.config,
-			defaultTypes: {},
+			registeredInstances: {},
 			componentInstances: [],
-			state: { componentStates: {} } as unknown as S,
+			state: {} as S,
 			stateDirty: false
 		};
 		this._stateStorage = options.stateStorage;
 		this._isStarted = false;
+		this._isClone = false;
 
 		if (Is.function(this._populateTypeInitialisers)) {
 			this._populateTypeInitialisers(this, this._context);
@@ -151,20 +172,21 @@ export class EngineCore<
 	/**
 	 * Add a type initialiser.
 	 * @param type The type to add the initialiser for.
-	 * @param typeConfig The type config.
 	 * @param module The name of the module which contains the initialiser method.
 	 * @param method The name of the method to call.
 	 */
-	public addTypeInitialiser(
-		type: string,
-		typeConfig: IEngineCoreTypeConfig[] | undefined,
-		module: string,
-		method: string
-	): void {
-		if (!Is.empty(typeConfig)) {
+	public addTypeInitialiser(type: string, module: string, method: string): void {
+		Guards.stringValue(EngineCore.CLASS_NAME, nameof(type), type);
+		Guards.stringValue(EngineCore.CLASS_NAME, nameof(module), module);
+		Guards.stringValue(EngineCore.CLASS_NAME, nameof(method), method);
+
+		const currentIndex = this._typeInitialisers.findIndex(t => t.type === type);
+		if (currentIndex >= 0) {
+			this._typeInitialisers[currentIndex].module = module;
+			this._typeInitialisers[currentIndex].method = method;
+		} else {
 			this._typeInitialisers.push({
 				type,
-				typeConfig,
 				module,
 				method
 			});
@@ -172,149 +194,240 @@ export class EngineCore<
 	}
 
 	/**
-	 * Start the engine core.
-	 * @returns True if the start was successful.
+	 * Get the type config for a specific type.
+	 * @param type The type to get the config for.
+	 * @returns The type config or undefined if not found.
 	 */
-	public async start(): Promise<boolean> {
-		if (this._isStarted) {
-			return false;
+	public getTypeConfig(type: string): IEngineCoreTypeConfig[] | undefined {
+		Guards.stringValue(EngineCore.CLASS_NAME, nameof(type), type);
+		return this._context.config.types?.[type];
+	}
+
+	/**
+	 * Add a context ID key to the engine.
+	 * @param key The context ID key.
+	 * @param componentFeatures The component features for the context ID handler.
+	 */
+	public addContextIdKey(key: string, componentFeatures: string[]): void {
+		const exists = this._contextIdKeys.find(k => k.key === key);
+		if (Is.empty(exists)) {
+			this._contextIdKeys.push({ key, componentFeatures });
 		}
+	}
 
-		this.setupEngineLogger();
-		this.logInfo(I18n.formatMessage("engineCore.starting"));
+	/**
+	 * Get the context ID keys for the engine.
+	 * @returns The context IDs keys.
+	 */
+	public getContextIdKeys(): string[] {
+		return this._contextIdKeys.map(k => k.key);
+	}
 
-		if (this._context.config.debug) {
-			this.logInfo(I18n.formatMessage("engineCore.debuggingEnabled"));
-		}
+	/**
+	 * Add a context ID to the engine.
+	 * @param key The context ID key.
+	 * @param value The context ID value.
+	 */
+	public addContextId(key: string, value: string): void {
+		this._contextIds ??= {};
+		this._contextIds[key] = value;
+	}
 
-		let canContinue;
-		try {
-			canContinue = await this.stateLoad();
+	/**
+	 * Get the context IDs for the engine.
+	 * @returns The context IDs or undefined if none are set.
+	 */
+	public getContextIds(): IContextIds | undefined {
+		return this._contextIds;
+	}
 
-			if (canContinue) {
-				for (const { type, typeConfig, module, method } of this._typeInitialisers) {
-					await this.initialiseTypeConfig(type, typeConfig, module, method);
+	/**
+	 * Start the engine core.
+	 * @param skipComponentStart Should the component start be skipped.
+	 * @returns A promise that resolves when the engine and all components have started.
+	 */
+	public async start(skipComponentStart?: boolean): Promise<void> {
+		if (!this._isStarted) {
+			this.setupEngineLogger();
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.starting`));
+
+			if (this._context.config.debug) {
+				await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.debuggingEnabled`));
+			}
+
+			const skipComponent = skipComponentStart ?? false;
+			try {
+				await this.stateLoad();
+
+				for (const { type, module, method } of this._typeInitialisers) {
+					await this.initialiseTypeConfig(type, module, method);
 				}
+
+				this.initialiseContextIdHandlers();
 
 				await this.bootstrap();
 
-				this.logInfo(I18n.formatMessage("engineCore.componentsStarting"));
+				this._isStarted = true;
 
-				for (const instance of this._context.componentInstances) {
-					if (Is.function(instance.component.start)) {
-						const instanceName = this.getInstanceName(instance);
+				if (!skipComponent) {
+					await this.logInfo(
+						I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStarting`)
+					);
 
-						this.logInfo(
-							I18n.formatMessage("engineCore.componentStarting", {
-								element: instance.instanceType
-							})
-						);
+					await ContextIdStore.run(this._contextIds ?? {}, async () => {
+						for (const instance of this._context.componentInstances) {
+							if (!instance.initialised) {
+								instance.initialised = true;
 
-						const componentState: {
-							[id: string]: unknown;
-						} = this._context.state.componentStates[instanceName] ?? {};
-						const lastState = ObjectHelper.clone(componentState);
+								const startMethod = instance.component.start?.bind(instance.component);
+								if (Is.function(startMethod)) {
+									await this.logInfo(
+										I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStarting`, {
+											className: instance.component.className(),
+											instanceType: instance.instanceType
+										})
+									);
 
-						await instance.component.start(
-							this._context.state.nodeIdentity,
-							this._loggerTypeName,
-							componentState
-						);
+									try {
+										await startMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
+									} catch (err) {
+										await this.logError(
+											new GeneralError(
+												EngineCore.CLASS_NAME,
+												"componentStartFailed",
+												{
+													className: instance.component.className(),
+													instanceType: instance.instanceType
+												},
+												BaseError.fromError(err)
+											)
+										);
 
-						if (!ObjectHelper.equal(lastState, componentState)) {
-							this._context.state.componentStates[instanceName] = componentState;
-							this._context.stateDirty = true;
+										throw err;
+									}
+								}
+							}
 						}
+					});
+
+					await this.logInfo(
+						I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsComplete`)
+					);
+				} else {
+					// If we are skipping component start then just mark them as initialised
+					// we still need to be able to call stop on them to clean up
+					for (const instance of this._context.componentInstances) {
+						instance.initialised = true;
 					}
 				}
 
-				this.logInfo(I18n.formatMessage("engineCore.componentsComplete"));
-			}
-
-			this.logInfo(I18n.formatMessage("engineCore.started"));
-			this._isStarted = true;
-		} catch (err) {
-			canContinue = false;
-			this.logError(BaseError.fromError(err));
-		} finally {
-			if (!(await this.stateSave())) {
-				canContinue = false;
+				await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.started`));
+			} catch (err) {
+				await this.stop();
+				await this.logError(BaseError.fromError(err));
+				throw err;
+			} finally {
+				await this.stateSave();
 			}
 		}
-
-		return canContinue;
 	}
 
 	/**
 	 * Stop the engine core.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when all components have stopped and state has been saved.
 	 */
 	public async stop(): Promise<void> {
-		this.logInfo(I18n.formatMessage("engineCore.stopping"));
-		this.logInfo(I18n.formatMessage("engineCore.componentsStopping"));
+		if (this._isStarted) {
+			this._isStarted = false;
 
-		for (const instance of this._context.componentInstances) {
-			if (Is.function(instance.component.stop)) {
-				const instanceName = this.getInstanceName(instance);
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopping`));
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopping`));
 
-				const componentState: {
-					[id: string]: unknown;
-				} = this._context.state.componentStates[instanceName] ?? {};
-				const lastState = ObjectHelper.clone(componentState);
+			await ContextIdStore.run(this._contextIds ?? {}, async () => {
+				for (const instance of this._context.componentInstances) {
+					if (instance.initialised) {
+						instance.initialised = false;
+						const stopMethod = instance.component.stop?.bind(instance.component);
+						if (Is.function(stopMethod)) {
+							await this.logInfo(
+								I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStopping`, {
+									className: instance.component.className(),
+									instanceType: instance.instanceType
+								})
+							);
 
-				this.logInfo(
-					I18n.formatMessage("engineCore.componentStopping", { element: instance.instanceType })
-				);
-
-				try {
-					await instance.component.stop(
-						this._context.state.nodeIdentity,
-						this._loggerTypeName,
-						componentState
-					);
-
-					if (!ObjectHelper.equal(lastState, componentState)) {
-						this._context.state.componentStates[instanceName] = componentState;
-						this._context.stateDirty = true;
+							try {
+								await stopMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
+							} catch (err) {
+								await this.logError(
+									new GeneralError(
+										EngineCore.CLASS_NAME,
+										"componentStopFailed",
+										{
+											className: instance.component.className(),
+											instanceType: instance.instanceType
+										},
+										BaseError.fromError(err)
+									)
+								);
+							}
+						}
 					}
-				} catch (err) {
-					this.logError(
-						new GeneralError(
-							this.CLASS_NAME,
-							"componentStopFailed",
-							{
-								component: instance.instanceType
-							},
-							BaseError.fromError(err)
-						)
-					);
 				}
-			}
+			});
+
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopped`));
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopped`));
 		}
 
 		await this.stateSave();
+	}
 
-		this.logInfo(I18n.formatMessage("engineCore.componentsStopped"));
-		this.logInfo(I18n.formatMessage("engineCore.stopped"));
+	/**
+	 * Is the engine started.
+	 * @returns True if the engine is started.
+	 */
+	public isStarted(): boolean {
+		return this._isStarted;
+	}
+
+	/**
+	 * Is this the primary engine instance.
+	 * @returns True if the engine is the primary instance.
+	 */
+	public isPrimary(): boolean {
+		return isMainThread && !this._isClone;
+	}
+
+	/**
+	 * Is this engine instance a clone.
+	 * @returns True if the engine instance is a clone.
+	 */
+	public isClone(): boolean {
+		return this._isClone;
 	}
 
 	/**
 	 * Log info.
 	 * @param message The message to log.
+	 * @returns A promise that resolves when the message has been logged.
 	 */
-	public logInfo(message: string): void {
-		this._engineLoggingConnector?.log({
-			source: this.CLASS_NAME,
-			level: "info",
-			message
-		});
+	public async logInfo(message: string): Promise<void> {
+		if (!this._context.config.silentLoggers?.includes(EngineCore.CLASS_NAME)) {
+			await this._engineLoggingComponent?.log({
+				source: EngineCore.CLASS_NAME,
+				level: "info",
+				message
+			});
+		}
 	}
 
 	/**
 	 * Log error.
 	 * @param error The error to log.
+	 * @returns A promise that resolves when the error has been logged.
 	 */
-	public logError(error: IError): void {
+	public async logError(error: IError): Promise<void> {
 		const formattedErrors = ErrorHelper.localizeErrors(error);
 		for (const formattedError of formattedErrors) {
 			let message = Is.stringValue(formattedError.source)
@@ -323,8 +436,8 @@ export class EngineCore<
 			if (this._context.config.debug && Is.stringValue(formattedError.stack)) {
 				message += `\n${formattedError.stack}`;
 			}
-			this._engineLoggingConnector?.log({
-				source: this.CLASS_NAME,
+			await this._engineLoggingComponent?.log({
+				source: EngineCore.CLASS_NAME,
 				level: "error",
 				message
 			});
@@ -348,11 +461,123 @@ export class EngineCore<
 	}
 
 	/**
-	 * Get the types for the component.
-	 * @returns The default types.
+	 * Set the state to dirty so it gets saved.
 	 */
-	public getDefaultTypes(): { [type: string]: string } {
-		return this._context.defaultTypes;
+	public setStateDirty(): void {
+		this._context.stateDirty = true;
+	}
+
+	/**
+	 * Get all the registered instances.
+	 * @returns The registered instances.
+	 */
+	public getRegisteredInstances(): {
+		[name: string]: {
+			type: string;
+			isDefault?: boolean;
+			features?: string[];
+		}[];
+	} {
+		return this._context.registeredInstances;
+	}
+
+	/**
+	 * Get the registered instance type for the component/connector.
+	 * @param componentConnectorType The type of the component/connector.
+	 * @param features The requested features of the component, if not specified the default entry will be retrieved.
+	 * @returns The instance type matching the criteria if one is registered.
+	 * @throws If a matching instance was not found.
+	 */
+	public getRegisteredInstanceType(componentConnectorType: string, features?: string[]): string {
+		Guards.stringValue(
+			EngineCore.CLASS_NAME,
+			nameof(componentConnectorType),
+			componentConnectorType
+		);
+
+		const registeredType = this.getRegisteredInstanceTypeOptional(componentConnectorType, features);
+
+		if (!Is.stringValue(registeredType)) {
+			if (Is.arrayValue(features)) {
+				throw new GeneralError(EngineCore.CLASS_NAME, "instanceTypeNotFoundWithFeatures", {
+					type: componentConnectorType,
+					features: features.join(",")
+				});
+			}
+			throw new GeneralError(EngineCore.CLASS_NAME, "instanceTypeNotFound", {
+				type: componentConnectorType
+			});
+		}
+
+		return registeredType;
+	}
+
+	/**
+	 * Get the registered instance type for the component/connector if it exists.
+	 * @param componentConnectorType The type of the component/connector.
+	 * @param features The requested features of the component, if not specified the default entry will be retrieved.
+	 * @returns The instance type matching the criteria if one is registered.
+	 */
+	public getRegisteredInstanceTypeOptional(
+		componentConnectorType: string,
+		features?: string[]
+	): string | undefined {
+		let registeredType: string | undefined;
+
+		const registeredTypes = this._context.registeredInstances[componentConnectorType];
+		if (Is.arrayValue(registeredTypes)) {
+			if (Is.arrayValue(features)) {
+				registeredType = registeredTypes.find(t =>
+					t.features?.every(f => features.includes(f))
+				)?.type;
+			} else {
+				// First look for the default entry
+				registeredType = registeredTypes.find(t => t.isDefault)?.type;
+
+				// Can't find a default so just use the first entry
+				if (!Is.stringValue(registeredType)) {
+					registeredType = registeredTypes[0]?.type;
+				}
+			}
+		}
+
+		return registeredType;
+	}
+
+	/**
+	 * Get the registered logger for the component/connector.
+	 * @param componentName The name of the component to get the logger for.
+	 * @returns The logger type name if one is registered and not silenced.
+	 */
+	public getRegisteredLoggerType(componentName: string): string | undefined {
+		if (this._context.config.silentLoggers?.includes(componentName)) {
+			return undefined;
+		}
+		return this.getRegisteredInstanceTypeOptional("loggingComponent");
+	}
+
+	/**
+	 * Get the registered components.
+	 * @returns The registered components.
+	 */
+	public async getRegisteredComponents(): Promise<
+		{
+			instanceType: string;
+			component: IComponent;
+			initialised: boolean;
+		}[]
+	> {
+		return this._context.componentInstances;
+	}
+
+	/**
+	 * Add a registered component to the engine.
+	 * @param instanceType The instance type to register the component under.
+	 * @param component The component to register.
+	 * @returns A promise that resolves when the component has been registered.
+	 */
+	public async addRegisteredComponent(instanceType: string, component: IComponent): Promise<void> {
+		this._context.componentInstances.push({ instanceType, component, initialised: true });
 	}
 
 	/**
@@ -374,7 +599,7 @@ export class EngineCore<
 			state: this._context.state,
 			typeInitialisers: this._typeInitialisers,
 			entitySchemas,
-			loggerTypeName: this._loggerTypeName
+			contextIdKeys: this._contextIdKeys
 		};
 
 		return cloneData;
@@ -383,16 +608,25 @@ export class EngineCore<
 	/**
 	 * Populate the engine from the clone data.
 	 * @param cloneData The clone data to populate from.
+	 * @param contextIds The context IDs to use for the clone.
 	 * @param silent Should the clone be silent.
 	 */
-	public populateClone(cloneData: IEngineCoreClone<C, S>, silent?: boolean): void {
-		Guards.object(this.CLASS_NAME, nameof(cloneData), cloneData);
-		Guards.object(this.CLASS_NAME, nameof(cloneData.config), cloneData.config);
-		Guards.object(this.CLASS_NAME, nameof(cloneData.state), cloneData.state);
-		Guards.array(this.CLASS_NAME, nameof(cloneData.typeInitialisers), cloneData.typeInitialisers);
+	public populateClone(
+		cloneData: IEngineCoreClone<C, S>,
+		contextIds?: IContextIds,
+		silent?: boolean
+	): void {
+		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData), cloneData);
+		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData.config), cloneData.config);
+		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData.state), cloneData.state);
+		Guards.array(
+			EngineCore.CLASS_NAME,
+			nameof(cloneData.typeInitialisers),
+			cloneData.typeInitialisers
+		);
 
-		this._loggerTypeName = cloneData.loggerTypeName;
 		this._skipBootstrap = true;
+		this._isClone = true;
 
 		if (silent ?? false) {
 			cloneData.config.silent = true;
@@ -400,13 +634,15 @@ export class EngineCore<
 
 		this._context = {
 			config: cloneData.config,
-			defaultTypes: {},
+			registeredInstances: {},
 			componentInstances: [],
-			state: { componentStates: {} } as unknown as S,
+			state: {} as S,
 			stateDirty: false
 		};
 
 		this._typeInitialisers = cloneData.typeInitialisers;
+		this._contextIdKeys.push(...cloneData.contextIdKeys);
+		this._contextIds = contextIds;
 
 		for (const schemaName of Object.keys(cloneData.entitySchemas)) {
 			EntitySchemaFactory.register(schemaName, () => cloneData.entitySchemas[schemaName]);
@@ -419,15 +655,18 @@ export class EngineCore<
 	/**
 	 * Initialise the types from connector.
 	 * @param typeKey The key for the default types.
-	 * @param instanceMethod The function to initialise the instance.
+	 * @param module The module containing the initialiser.
+	 * @param method The method to initialise the instance.
+	 * @returns A promise that resolves when the type configuration has been initialised.
 	 * @internal
 	 */
-	private async initialiseTypeConfig<Y extends IEngineCoreTypeBaseConfig>(
+	private async initialiseTypeConfig(
 		typeKey: string,
-		typeConfig: IEngineCoreTypeConfig<Y>[],
 		module: string,
 		method: string
 	): Promise<void> {
+		const typeConfig: IEngineCoreTypeConfig[] | undefined = this._context.config.types?.[typeKey];
+
 		if (Is.arrayValue(typeConfig)) {
 			const instanceMethod = await ModuleHelper.getModuleEntry<EngineTypeInitialiser>(
 				module,
@@ -435,17 +674,54 @@ export class EngineCore<
 			);
 
 			for (let i = 0; i < typeConfig.length; i++) {
-				const instanceType = instanceMethod(
-					this,
-					this._context,
-					typeConfig[i],
-					typeConfig[i].overrideInstanceType
+				await this.logInfo(
+					I18n.formatMessage("engineCore.configuring", {
+						componentType: typeKey,
+						configType: typeConfig[i].type
+					})
 				);
-				if (
-					Is.stringValue(instanceType) &&
-					(Is.empty(this._context.defaultTypes[typeKey]) || typeConfig[i].isDefault)
-				) {
-					this._context.defaultTypes[typeKey] = instanceType;
+
+				const result = instanceMethod(this, this._context, typeConfig[i]);
+				const componentCreateMethod = result.createComponent;
+
+				if (Is.stringValue(result.instanceTypeName) && Is.function(componentCreateMethod)) {
+					const finalInstanceType = typeConfig[i].overrideInstanceType ?? result.instanceTypeName;
+
+					// If this is a multi instance component we need to make sure we
+					// generate a unique instance for every factory call
+					// this is often used for REST clients where each instance might
+					// use a different endpoint url
+					// They are generated using the create method of factory
+					// passing custom options, instead of the regular get method
+					// which doesn't allow for custom options
+					if (typeConfig[i].isMultiInstance ?? false) {
+						result.factory?.register(finalInstanceType, params =>
+							componentCreateMethod({
+								type: typeConfig[i].type,
+								options: params
+							})
+						);
+					} else {
+						const component = componentCreateMethod(typeConfig[i]);
+						this._context.componentInstances.push({
+							instanceType: finalInstanceType,
+							component,
+							initialised: false
+						});
+						result.factory?.register(finalInstanceType, () => component);
+					}
+
+					this._context.registeredInstances[typeKey] ??= [];
+					this._context.registeredInstances[typeKey].push({
+						type: finalInstanceType,
+						isDefault: typeConfig[i].isDefault,
+						features: typeConfig[i].features
+					});
+				} else {
+					throw new GeneralError("engineCore", "componentUnknownType", {
+						type: typeConfig[i].type,
+						componentType: typeKey
+					});
 				}
 			}
 		}
@@ -457,7 +733,7 @@ export class EngineCore<
 	 */
 	private setupEngineLogger(): void {
 		const silent = this._context.config.silent ?? false;
-		const engineLogger = silent
+		const engineLoggerConnector = silent
 			? new SilentLoggingConnector()
 			: new ConsoleLoggingConnector({
 					config: {
@@ -467,118 +743,123 @@ export class EngineCore<
 				});
 
 		this._context.componentInstances.push({
-			instanceType: this._loggerTypeName,
-			component: engineLogger
+			instanceType: EngineCore.LOGGING_CONNECTOR_TYPE_NAME,
+			component: engineLoggerConnector,
+			initialised: false
 		});
 
-		LoggingConnectorFactory.register(this._loggerTypeName, () => engineLogger);
+		LoggingConnectorFactory.register(
+			EngineCore.LOGGING_CONNECTOR_TYPE_NAME,
+			() => engineLoggerConnector
+		);
 
-		this._engineLoggingConnector = engineLogger;
-		this._context.defaultTypes.loggingConnector = this._loggerTypeName;
+		this._context.registeredInstances.loggingConnector = [
+			{
+				type: EngineCore.LOGGING_CONNECTOR_TYPE_NAME
+			}
+		];
+
+		const engineLoggerComponent = new LoggingService({
+			loggingConnectorType: EngineCore.LOGGING_CONNECTOR_TYPE_NAME
+		});
+		this._engineLoggingComponent = engineLoggerComponent;
+
+		ComponentFactory.register(EngineCore.LOGGING_COMPONENT_TYPE_NAME, () => engineLoggerComponent);
+		this._context.registeredInstances.loggingComponent = [
+			{
+				type: EngineCore.LOGGING_COMPONENT_TYPE_NAME
+			}
+		];
 	}
 
 	/**
 	 * Load the state.
-	 * @returns True if the state was loaded and can continue.
+	 * @returns A promise that resolves when the state has been loaded.
 	 * @internal
 	 */
-	private async stateLoad(): Promise<boolean> {
+	private async stateLoad(): Promise<void> {
 		if (this._stateStorage) {
 			try {
-				this._context.state = ((await this._stateStorage.load(this)) ?? {
-					componentStates: {}
-				}) as unknown as S;
-				this._context.state.componentStates ??= {};
+				this._context.state = ((await this._stateStorage.load(this)) ?? {}) as S;
 				this._context.stateDirty = false;
-
-				return true;
 			} catch (err) {
-				this.logError(BaseError.fromError(err));
-				return false;
+				await this.logError(BaseError.fromError(err));
+				throw err;
 			}
 		}
-		return true;
 	}
 
 	/**
 	 * Save the state.
-	 * @returns True if the state was saved.
+	 * @returns A promise that resolves when the state has been persisted.
 	 * @internal
 	 */
-	private async stateSave(): Promise<boolean> {
+	private async stateSave(): Promise<void> {
 		if (this._stateStorage && !Is.empty(this._context.state) && this._context.stateDirty) {
 			try {
 				await this._stateStorage.save(this, this._context.state);
 				this._context.stateDirty = false;
-				return true;
 			} catch (err) {
-				this.logError(BaseError.fromError(err));
+				await this.logError(BaseError.fromError(err));
 			}
-			return false;
 		}
-		return true;
 	}
 
 	/**
 	 * Bootstrap the engine.
+	 * @returns A promise that resolves when bootstrapping is complete.
 	 * @internal
 	 */
 	private async bootstrap(): Promise<void> {
 		if (!this._skipBootstrap) {
-			this.logInfo(I18n.formatMessage("engineCore.bootstrapStarted"));
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapStarted`));
 
 			// First bootstrap the components.
 			for (const instance of this._context.componentInstances) {
-				if (Is.function(instance.component.bootstrap)) {
-					const instanceName = this.getInstanceName(instance);
-
-					this.logInfo(
-						I18n.formatMessage("engineCore.bootstrapping", {
-							element: instanceName
+				const bootstrapMethod = instance.component.bootstrap?.bind(instance.component);
+				if (Is.function(bootstrapMethod)) {
+					await this.logInfo(
+						I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapping`, {
+							className: instance.component.className(),
+							instanceType: instance.instanceType
 						})
 					);
 
-					const componentState: {
-						[id: string]: unknown;
-					} = this._context.state.componentStates[instanceName] ?? {};
-					const lastState = ObjectHelper.clone(componentState);
-
-					const bootstrapSuccess = await instance.component.bootstrap(
-						this._loggerTypeName,
-						componentState
-					);
+					const bootstrapSuccess = await bootstrapMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
 
 					// If the bootstrap method failed then throw an error
 					if (!bootstrapSuccess) {
-						throw new GeneralError(this.CLASS_NAME, "bootstrapFailed", {
-							component: `${instance.component.CLASS_NAME}:${instance.instanceType}`
+						throw new GeneralError(EngineCore.CLASS_NAME, "bootstrapFailed", {
+							className: instance.component.className(),
+							instanceType: instance.instanceType
 						});
-					}
-
-					if (!ObjectHelper.equal(lastState, componentState)) {
-						this._context.state.componentStates[instanceName] = componentState;
-						this._context.stateDirty = true;
 					}
 				}
 			}
 			// Now perform any custom bootstrap operations
-			if (Is.function(this._customBootstrap)) {
-				await this._customBootstrap(this, this._context);
+			const customBootstrap = this._customBootstrap;
+			if (Is.function(customBootstrap)) {
+				await customBootstrap.call(this, this, this._context);
 			}
 
-			this.logInfo(I18n.formatMessage("engineCore.bootstrapComplete"));
+			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapComplete`));
 		}
 	}
 
 	/**
-	 * Get the instance name.
-	 * @param instance The instance to get the name for.
-	 * @param instance.instanceType The instance type.
-	 * @param instance.component The component.
-	 * @returns The instance name.
+	 * Initialise the context ID handlers.
 	 * @internal
 	 */
-	private getInstanceName(instance: { instanceType: string; component: IComponent }): string {
-		return `${instance.component.CLASS_NAME}-${instance.instanceType}`;
+	private initialiseContextIdHandlers(): void {
+		for (const contextIdKey of this._contextIdKeys) {
+			const handlerType: string | undefined = this.getRegisteredInstanceTypeOptional(
+				"contextIdHandlerComponent",
+				contextIdKey.componentFeatures
+			);
+			if (Is.stringValue(handlerType)) {
+				const handler = ComponentFactory.get<IContextIdHandler>(handlerType);
+				ContextIdHandlerFactory.register(contextIdKey.key, () => handler);
+			}
+		}
 	}
 }

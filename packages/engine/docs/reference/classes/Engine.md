@@ -42,9 +42,9 @@ The options for the engine.
 
 ## Properties
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
-> `readonly` **CLASS\_NAME**: `string`
+> `readonly` `static` **CLASS\_NAME**: `string`
 
 Runtime name for the class.
 
@@ -54,19 +54,31 @@ Runtime name for the class.
 
 ***
 
-### LOGGER\_TYPE\_NAME
+### LOGGING\_COMPONENT\_TYPE\_NAME {#logging_component_type_name}
 
-> `readonly` `static` **LOGGER\_TYPE\_NAME**: `string`
+> `readonly` `static` **LOGGING\_COMPONENT\_TYPE\_NAME**: `string`
 
-Name for the engine logger.
+Name for the engine logger component, used for direct console logging.
 
 #### Inherited from
 
-`EngineCore.LOGGER_TYPE_NAME`
+`EngineCore.LOGGING_COMPONENT_TYPE_NAME`
 
 ***
 
-### \_context
+### LOGGING\_CONNECTOR\_TYPE\_NAME {#logging_connector_type_name}
+
+> `readonly` `static` **LOGGING\_CONNECTOR\_TYPE\_NAME**: `string`
+
+Name for the engine logger connector, used for direct console logging.
+
+#### Inherited from
+
+`EngineCore.LOGGING_CONNECTOR_TYPE_NAME`
+
+***
+
+### \_context {#_context}
 
 > `protected` **\_context**: `IEngineCoreContext`\<`C`, `S`\>
 
@@ -76,11 +88,43 @@ The core context.
 
 `EngineCore._context`
 
+***
+
+### \_contextIdKeys {#_contextidkeys}
+
+> `protected` `readonly` **\_contextIdKeys**: `object`[]
+
+The context ID keys.
+
+#### key
+
+> **key**: `string`
+
+#### componentFeatures
+
+> **componentFeatures**: `string`[]
+
+#### Inherited from
+
+`EngineCore._contextIdKeys`
+
+***
+
+### \_contextIds? {#_contextids}
+
+> `protected` `optional` **\_contextIds?**: `IContextIds`
+
+The context IDs.
+
+#### Inherited from
+
+`EngineCore._contextIds`
+
 ## Methods
 
-### addTypeInitialiser()
+### addTypeInitialiser() {#addtypeinitialiser}
 
-> **addTypeInitialiser**(`type`, `typeConfig`, `module`, `method`): `void`
+> **addTypeInitialiser**(`type`, `module`, `method`): `void`
 
 Add a type initialiser.
 
@@ -91,12 +135,6 @@ Add a type initialiser.
 `string`
 
 The type to add the initialiser for.
-
-##### typeConfig
-
-The type config.
-
-`undefined` | `IEngineCoreTypeConfig`[]
 
 ##### module
 
@@ -120,17 +158,147 @@ The name of the method to call.
 
 ***
 
-### start()
+### getTypeConfig() {#gettypeconfig}
 
-> **start**(): `Promise`\<`boolean`\>
+> **getTypeConfig**(`type`): `IEngineCoreTypeConfig`[] \| `undefined`
 
-Start the engine core.
+Get the type config for a specific type.
+
+#### Parameters
+
+##### type
+
+`string`
+
+The type to get the config for.
 
 #### Returns
 
-`Promise`\<`boolean`\>
+`IEngineCoreTypeConfig`[] \| `undefined`
 
-True if the start was successful.
+The type config or undefined if not found.
+
+#### Inherited from
+
+`EngineCore.getTypeConfig`
+
+***
+
+### addContextIdKey() {#addcontextidkey}
+
+> **addContextIdKey**(`key`, `componentFeatures`): `void`
+
+Add a context ID key to the engine.
+
+#### Parameters
+
+##### key
+
+`string`
+
+The context ID key.
+
+##### componentFeatures
+
+`string`[]
+
+The component features for the context ID handler.
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+`EngineCore.addContextIdKey`
+
+***
+
+### getContextIdKeys() {#getcontextidkeys}
+
+> **getContextIdKeys**(): `string`[]
+
+Get the context ID keys for the engine.
+
+#### Returns
+
+`string`[]
+
+The context IDs keys.
+
+#### Inherited from
+
+`EngineCore.getContextIdKeys`
+
+***
+
+### addContextId() {#addcontextid}
+
+> **addContextId**(`key`, `value`): `void`
+
+Add a context ID to the engine.
+
+#### Parameters
+
+##### key
+
+`string`
+
+The context ID key.
+
+##### value
+
+`string`
+
+The context ID value.
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+`EngineCore.addContextId`
+
+***
+
+### getContextIds() {#getcontextids}
+
+> **getContextIds**(): `IContextIds` \| `undefined`
+
+Get the context IDs for the engine.
+
+#### Returns
+
+`IContextIds` \| `undefined`
+
+The context IDs or undefined if none are set.
+
+#### Inherited from
+
+`EngineCore.getContextIds`
+
+***
+
+### start() {#start}
+
+> **start**(`skipComponentStart?`): `Promise`\<`void`\>
+
+Start the engine core.
+
+#### Parameters
+
+##### skipComponentStart?
+
+`boolean`
+
+Should the component start be skipped.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+A promise that resolves when the engine and all components have started.
 
 #### Inherited from
 
@@ -138,7 +306,7 @@ True if the start was successful.
 
 ***
 
-### stop()
+### stop() {#stop}
 
 > **stop**(): `Promise`\<`void`\>
 
@@ -148,7 +316,7 @@ Stop the engine core.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when all components have stopped and state has been saved.
 
 #### Inherited from
 
@@ -156,9 +324,63 @@ Nothing.
 
 ***
 
-### logInfo()
+### isStarted() {#isstarted}
 
-> **logInfo**(`message`): `void`
+> **isStarted**(): `boolean`
+
+Is the engine started.
+
+#### Returns
+
+`boolean`
+
+True if the engine is started.
+
+#### Inherited from
+
+`EngineCore.isStarted`
+
+***
+
+### isPrimary() {#isprimary}
+
+> **isPrimary**(): `boolean`
+
+Is this the primary engine instance.
+
+#### Returns
+
+`boolean`
+
+True if the engine is the primary instance.
+
+#### Inherited from
+
+`EngineCore.isPrimary`
+
+***
+
+### isClone() {#isclone}
+
+> **isClone**(): `boolean`
+
+Is this engine instance a clone.
+
+#### Returns
+
+`boolean`
+
+True if the engine instance is a clone.
+
+#### Inherited from
+
+`EngineCore.isClone`
+
+***
+
+### logInfo() {#loginfo}
+
+> **logInfo**(`message`): `Promise`\<`void`\>
 
 Log info.
 
@@ -172,7 +394,9 @@ The message to log.
 
 #### Returns
 
-`void`
+`Promise`\<`void`\>
+
+A promise that resolves when the message has been logged.
 
 #### Inherited from
 
@@ -180,9 +404,9 @@ The message to log.
 
 ***
 
-### logError()
+### logError() {#logerror}
 
-> **logError**(`error`): `void`
+> **logError**(`error`): `Promise`\<`void`\>
 
 Log error.
 
@@ -196,7 +420,9 @@ The error to log.
 
 #### Returns
 
-`void`
+`Promise`\<`void`\>
+
+A promise that resolves when the error has been logged.
 
 #### Inherited from
 
@@ -204,7 +430,7 @@ The error to log.
 
 ***
 
-### getConfig()
+### getConfig() {#getconfig}
 
 > **getConfig**(): `C`
 
@@ -222,7 +448,7 @@ The config for the engine.
 
 ***
 
-### getState()
+### getState() {#getstate}
 
 > **getState**(): `S`
 
@@ -240,25 +466,185 @@ The state of the engine.
 
 ***
 
-### getDefaultTypes()
+### setStateDirty() {#setstatedirty}
 
-> **getDefaultTypes**(): `object`
+> **setStateDirty**(): `void`
 
-Get the types for the component.
+Set the state to dirty so it gets saved.
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+`EngineCore.setStateDirty`
+
+***
+
+### getRegisteredInstances() {#getregisteredinstances}
+
+> **getRegisteredInstances**(): `object`
+
+Get all the registered instances.
 
 #### Returns
 
 `object`
 
-The default types.
+The registered instances.
 
 #### Inherited from
 
-`EngineCore.getDefaultTypes`
+`EngineCore.getRegisteredInstances`
 
 ***
 
-### getCloneData()
+### getRegisteredInstanceType() {#getregisteredinstancetype}
+
+> **getRegisteredInstanceType**(`componentConnectorType`, `features?`): `string`
+
+Get the registered instance type for the component/connector.
+
+#### Parameters
+
+##### componentConnectorType
+
+`string`
+
+The type of the component/connector.
+
+##### features?
+
+`string`[]
+
+The requested features of the component, if not specified the default entry will be retrieved.
+
+#### Returns
+
+`string`
+
+The instance type matching the criteria if one is registered.
+
+#### Throws
+
+If a matching instance was not found.
+
+#### Inherited from
+
+`EngineCore.getRegisteredInstanceType`
+
+***
+
+### getRegisteredInstanceTypeOptional() {#getregisteredinstancetypeoptional}
+
+> **getRegisteredInstanceTypeOptional**(`componentConnectorType`, `features?`): `string` \| `undefined`
+
+Get the registered instance type for the component/connector if it exists.
+
+#### Parameters
+
+##### componentConnectorType
+
+`string`
+
+The type of the component/connector.
+
+##### features?
+
+`string`[]
+
+The requested features of the component, if not specified the default entry will be retrieved.
+
+#### Returns
+
+`string` \| `undefined`
+
+The instance type matching the criteria if one is registered.
+
+#### Inherited from
+
+`EngineCore.getRegisteredInstanceTypeOptional`
+
+***
+
+### getRegisteredLoggerType() {#getregisteredloggertype}
+
+> **getRegisteredLoggerType**(`componentName`): `string` \| `undefined`
+
+Get the registered logger for the component/connector.
+
+#### Parameters
+
+##### componentName
+
+`string`
+
+The name of the component to get the logger for.
+
+#### Returns
+
+`string` \| `undefined`
+
+The logger type name if one is registered and not silenced.
+
+#### Inherited from
+
+`EngineCore.getRegisteredLoggerType`
+
+***
+
+### getRegisteredComponents() {#getregisteredcomponents}
+
+> **getRegisteredComponents**(): `Promise`\<`object`[]\>
+
+Get the registered components.
+
+#### Returns
+
+`Promise`\<`object`[]\>
+
+The registered components.
+
+#### Inherited from
+
+`EngineCore.getRegisteredComponents`
+
+***
+
+### addRegisteredComponent() {#addregisteredcomponent}
+
+> **addRegisteredComponent**(`instanceType`, `component`): `Promise`\<`void`\>
+
+Add a registered component to the engine.
+
+#### Parameters
+
+##### instanceType
+
+`string`
+
+The instance type to register the component under.
+
+##### component
+
+`IComponent`
+
+The component to register.
+
+#### Returns
+
+`Promise`\<`void`\>
+
+A promise that resolves when the component has been registered.
+
+#### Inherited from
+
+`EngineCore.addRegisteredComponent`
+
+***
+
+### getCloneData() {#getclonedata}
 
 > **getCloneData**(): `IEngineCoreClone`\<`C`, `S`\>
 
@@ -276,9 +662,9 @@ The clone data.
 
 ***
 
-### populateClone()
+### populateClone() {#populateclone}
 
-> **populateClone**(`cloneData`, `silent?`): `void`
+> **populateClone**(`cloneData`, `contextIds?`, `silent?`): `void`
 
 Populate the engine from the clone data.
 
@@ -289,6 +675,12 @@ Populate the engine from the clone data.
 `IEngineCoreClone`\<`C`, `S`\>
 
 The clone data to populate from.
+
+##### contextIds?
+
+`IContextIds`
+
+The context IDs to use for the clone.
 
 ##### silent?
 

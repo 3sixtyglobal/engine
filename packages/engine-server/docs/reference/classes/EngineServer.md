@@ -38,17 +38,17 @@ The engine core to serve from.
 
 ## Properties
 
-### CLASS\_NAME
+### CLASS\_NAME {#class_name}
 
-> `readonly` **CLASS\_NAME**: `string`
+> `readonly` `static` **CLASS\_NAME**: `string`
 
 Runtime name for the class.
 
 ## Methods
 
-### addRestRouteGenerator()
+### addRestRouteGenerator() {#addrestroutegenerator}
 
-> **addRestRouteGenerator**(`type`, `typeConfig`, `module`, `method`): `void`
+> **addRestRouteGenerator**(`type`, `module`, `method`): `void`
 
 Add a REST route generator.
 
@@ -59,12 +59,6 @@ Add a REST route generator.
 `string`
 
 The type to add the generator for.
-
-##### typeConfig
-
-The type config.
-
-`undefined` | `IEngineCoreTypeConfig`[]
 
 ##### module
 
@@ -88,9 +82,9 @@ The method to call on the module.
 
 ***
 
-### addSocketRouteGenerator()
+### addSocketRouteGenerator() {#addsocketroutegenerator}
 
-> **addSocketRouteGenerator**(`type`, `typeConfig`, `module`, `method`): `void`
+> **addSocketRouteGenerator**(`type`, `module`, `method`): `void`
 
 Add a socket route generator.
 
@@ -101,12 +95,6 @@ Add a socket route generator.
 `string`
 
 The type to add the generator for.
-
-##### typeConfig
-
-The type config.
-
-`undefined` | `IEngineCoreTypeConfig`[]
 
 ##### module
 
@@ -130,7 +118,7 @@ The method to call on the module.
 
 ***
 
-### getRestRoutes()
+### getRestRoutes() {#getrestroutes}
 
 > **getRestRoutes**(): `IRestRoute`\<`any`, `any`\>[]
 
@@ -144,7 +132,7 @@ The REST routes.
 
 ***
 
-### getSocketRoutes()
+### getSocketRoutes() {#getsocketroutes}
 
 > **getSocketRoutes**(): `ISocketRoute`\<`any`, `any`\>[]
 
@@ -158,17 +146,17 @@ The socket routes.
 
 ***
 
-### start()
+### start() {#start}
 
-> **start**(): `Promise`\<`boolean`\>
+> **start**(): `Promise`\<`void`\>
 
 Start the engine server.
 
 #### Returns
 
-`Promise`\<`boolean`\>
+`Promise`\<`void`\>
 
-True if the start was successful.
+A promise that resolves when the server has started and is ready to accept requests.
 
 #### Implementation of
 
@@ -176,7 +164,7 @@ True if the start was successful.
 
 ***
 
-### stop()
+### stop() {#stop}
 
 > **stop**(): `Promise`\<`void`\>
 
@@ -186,7 +174,7 @@ Stop the engine server.
 
 `Promise`\<`void`\>
 
-Nothing.
+A promise that resolves when the server has stopped and all connections are closed.
 
 #### Implementation of
 

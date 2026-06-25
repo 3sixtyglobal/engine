@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IMessagingServiceConstructorOptions } from "@twin.org/messaging-service";
-import type { MessagingComponentType } from "../types/messagingComponentType";
+import type { MessagingComponentType } from "../types/messagingComponentType.js";
 
 /**
  * Messaging component config types.

@@ -4,11 +4,12 @@ import type { ICosmosDbEntityStorageConnectorConstructorOptions } from "@twin.or
 import type { IDynamoDbEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-dynamodb";
 import type { IFileEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-file";
 import type { IFirestoreEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-gcp-firestore";
+import type { IMemoryEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-memory";
 import type { IMongoDbEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-mongodb";
 import type { IMySqlEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-mysql";
 import type { IPostgreSqlEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-postgresql";
 import type { IScyllaDBTableConnectorConstructorOptions } from "@twin.org/entity-storage-connector-scylladb";
-import type { EntityStorageConnectorType } from "../types/entityStorageConnectorType";
+import type { EntityStorageConnectorType } from "../types/entityStorageConnectorType.js";
 
 /**
  * Entity storage connector config types.
@@ -22,7 +23,10 @@ export type EntityStorageConnectorConfig =
 	  }
 	| {
 			type: typeof EntityStorageConnectorType.Memory;
-			options?: never;
+			options: Omit<IMemoryEntityStorageConnectorConstructorOptions, "entitySchema" | "config"> & {
+				config?: Omit<IMemoryEntityStorageConnectorConstructorOptions["config"], "storageKey">;
+				storagePrefix?: string;
+			};
 	  }
 	| {
 			type: typeof EntityStorageConnectorType.AwsDynamoDb;

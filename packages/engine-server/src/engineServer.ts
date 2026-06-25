@@ -1,12 +1,15 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IRestRoute, ISocketRoute, IWebServer } from "@twin.org/api-models";
 import {
 	MimeTypeProcessorFactory,
 	RestRouteProcessorFactory,
-	SocketRouteProcessorFactory
+	SocketRouteProcessorFactory,
+	type IRestRoute,
+	type ISocketRoute,
+	type IWebServer
 } from "@twin.org/api-models";
 import { FastifyWebServer } from "@twin.org/api-server-fastify";
+import { ContextIdStore } from "@twin.org/context";
 import { Guards, Is, StringHelper } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreTypeConfig, IEngineServer } from "@twin.org/engine-models";
 import {
@@ -16,17 +19,20 @@ import {
 } from "@twin.org/engine-server-types";
 import { ModuleHelper } from "@twin.org/modules";
 import { nameof } from "@twin.org/nameof";
+import serverRestRouteGenerators from "./data/serverRestRouteGenerators.json" with { type: "json" };
+import serverSocketRouteGenerators from "./data/serverSocketRouteGenerators.json" with { type: "json" };
+import serverTypeInitialisers from "./data/serverTypeInitialisers.json" with { type: "json" };
 
 /**
  * Server for the engine.
  */
-export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
-	implements IEngineServer
-{
+export class EngineServer<
+	T extends IEngineServerConfig = IEngineServerConfig
+> implements IEngineServer {
 	/**
 	 * Runtime name for the class.
 	 */
-	public readonly CLASS_NAME: string = nameof<EngineServer>();
+	public static readonly CLASS_NAME: string = nameof<EngineServer>();
 
 	/**
 	 * The engine.
@@ -40,7 +46,6 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	 */
 	private readonly _restRouteGenerators: {
 		type: string;
-		typeConfig: IEngineCoreTypeConfig[];
 		module: string;
 		method: string;
 	}[];
@@ -51,7 +56,6 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	 */
 	private readonly _socketRouteGenerators: {
 		type: string;
-		typeConfig: IEngineCoreTypeConfig[];
 		module: string;
 		method: string;
 	}[];
@@ -61,12 +65,6 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	 * @internal
 	 */
 	private _webServer?: IWebServer<unknown>;
-
-	/**
-	 * The logging connector type.
-	 * @internal
-	 */
-	private _loggingConnectorType?: string;
 
 	/**
 	 * The REST routes for the application.
@@ -86,8 +84,8 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	 * @param options.engineCore The engine core to serve from.
 	 */
 	constructor(options: { engineCore: IEngineCore<T> }) {
-		Guards.object(this.CLASS_NAME, nameof(options), options);
-		Guards.object(this.CLASS_NAME, nameof(options.engineCore), options.engineCore);
+		Guards.object(EngineServer.CLASS_NAME, nameof(options), options);
+		Guards.object(EngineServer.CLASS_NAME, nameof(options.engineCore), options.engineCore);
 
 		this._engineCore = options.engineCore;
 		this._restRouteGenerators = [];
@@ -151,20 +149,21 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	/**
 	 * Add a REST route generator.
 	 * @param type The type to add the generator for.
-	 * @param typeConfig The type config.
 	 * @param module The module containing the generator.
 	 * @param method The method to call on the module.
 	 */
-	public addRestRouteGenerator(
-		type: string,
-		typeConfig: IEngineCoreTypeConfig[] | undefined,
-		module: string,
-		method: string
-	): void {
-		if (!Is.empty(typeConfig)) {
+	public addRestRouteGenerator(type: string, module: string, method: string): void {
+		Guards.stringValue(EngineServer.CLASS_NAME, nameof(type), type);
+		Guards.stringValue(EngineServer.CLASS_NAME, nameof(module), module);
+		Guards.stringValue(EngineServer.CLASS_NAME, nameof(method), method);
+
+		const currentIndex = this._restRouteGenerators.findIndex(r => r.type === type);
+		if (currentIndex >= 0) {
+			this._restRouteGenerators[currentIndex].module = module;
+			this._restRouteGenerators[currentIndex].method = method;
+		} else {
 			this._restRouteGenerators.push({
 				type,
-				typeConfig,
 				module,
 				method
 			});
@@ -174,20 +173,21 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	/**
 	 * Add a socket route generator.
 	 * @param type The type to add the generator for.
-	 * @param typeConfig The type config.
 	 * @param module The module containing the generator.
 	 * @param method The method to call on the module.
 	 */
-	public addSocketRouteGenerator(
-		type: string,
-		typeConfig: IEngineCoreTypeConfig[] | undefined,
-		module: string,
-		method: string
-	): void {
-		if (!Is.empty(typeConfig)) {
+	public addSocketRouteGenerator(type: string, module: string, method: string): void {
+		Guards.stringValue(EngineServer.CLASS_NAME, nameof(type), type);
+		Guards.stringValue(EngineServer.CLASS_NAME, nameof(module), module);
+		Guards.stringValue(EngineServer.CLASS_NAME, nameof(method), method);
+
+		const currentIndex = this._socketRouteGenerators.findIndex(s => s.type === type);
+		if (currentIndex >= 0) {
+			this._socketRouteGenerators[currentIndex].module = module;
+			this._socketRouteGenerators[currentIndex].method = method;
+		} else {
 			this._socketRouteGenerators.push({
 				type,
-				typeConfig,
 				module,
 				method
 			});
@@ -212,33 +212,35 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 
 	/**
 	 * Start the engine server.
-	 * @returns True if the start was successful.
+	 * @returns A promise that resolves when the server has started and is ready to accept requests.
 	 */
-	public async start(): Promise<boolean> {
-		const canContinue = await this._engineCore.start();
+	public async start(): Promise<void> {
+		await this._engineCore.start();
 
-		if (canContinue) {
+		await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
 			await this.startWebServer();
-		}
-
-		return canContinue;
+		});
 	}
 
 	/**
 	 * Stop the engine server.
-	 * @returns Nothing.
+	 * @returns A promise that resolves when the server has stopped and all connections are closed.
 	 */
 	public async stop(): Promise<void> {
-		if (this._webServer) {
-			await this._webServer.stop();
-			this._webServer = undefined;
-		}
+		await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
+			if (this._webServer) {
+				const webServer = this._webServer;
+				this._webServer = undefined;
+				await webServer.stop();
+			}
+		});
 
 		await this._engineCore.stop();
 	}
 
 	/**
 	 * Starts the web server.
+	 * @returns A promise that resolves when the web server is built and listening.
 	 * @internal
 	 */
 	private async startWebServer(): Promise<void> {
@@ -255,13 +257,16 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 		);
 
 		const coreConfig = this._engineCore.getConfig();
-		const defaults = this._engineCore.getDefaultTypes();
-		this._loggingConnectorType = coreConfig.silent ? undefined : defaults.loggingConnector;
+		const loggingComponentType = coreConfig.silent
+			? undefined
+			: this._engineCore.getRegisteredLoggerType(nameof(FastifyWebServer));
 
 		this._webServer = new FastifyWebServer({
-			loggingConnectorType: this._loggingConnectorType,
+			loggingComponentType,
 			mimeTypeProcessors
 		});
+
+		await this._engineCore.addRegisteredComponent("webServer", this._webServer);
 
 		await this._webServer.build(
 			restRouteProcessors,
@@ -281,8 +286,8 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	private async buildRestRoutes(): Promise<IRestRoute[]> {
 		const routes: IRestRoute[] = [];
 
-		for (const { type, typeConfig, module, method } of this._restRouteGenerators) {
-			await this.initialiseRestTypeRoute(routes, type, typeConfig, module, method);
+		for (const { type, module, method } of this._restRouteGenerators) {
+			await this.initialiseRestTypeRoute(routes, type, module, method);
 		}
 
 		return routes;
@@ -296,8 +301,8 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	private async buildSocketRoutes(): Promise<ISocketRoute[]> {
 		const routes: ISocketRoute[] = [];
 
-		for (const { type, typeConfig, module, method } of this._socketRouteGenerators) {
-			await this.initialiseSocketTypeRoute(routes, type, typeConfig, module, method);
+		for (const { type, module, method } of this._socketRouteGenerators) {
+			await this.initialiseSocketTypeRoute(routes, type, module, method);
 		}
 
 		return routes;
@@ -307,31 +312,34 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	 * Initialise the rest routes from connector.
 	 * @param routes The routes to add to.
 	 * @param typeKey The key for the default types.
-	 * @param typeConfig The type config.
-	 * @param generateRoutes The function to generate the routes.
+	 * @param module The module containing the route generator.
+	 * @param method The method to generate the routes.
+	 * @returns A promise that resolves when all REST routes for the type have been added.
 	 * @internal
 	 */
 	private async initialiseRestTypeRoute(
 		routes: IRestRoute[],
 		typeKey: string,
-		typeConfig: IEngineCoreTypeConfig[] | undefined,
 		module: string,
 		method: string
 	): Promise<void> {
-		if (Is.arrayValue(typeConfig)) {
-			const defaultEngineTypes = this._engineCore.getDefaultTypes();
+		const typeConfig: IEngineCoreTypeConfig[] | undefined = this._engineCore.getTypeConfig(typeKey);
 
+		if (Is.arrayValue(typeConfig)) {
 			const generateRoutes = await ModuleHelper.getModuleEntry<
-				(baseRouteName: string, componentName: string) => IRestRoute[]
+				(baseRouteName: string, componentName: string, options?: unknown) => IRestRoute[]
 			>(module, method);
 
 			for (let i = 0; i < typeConfig.length; i++) {
 				const restPath = typeConfig[i].restPath;
+				const restOptions = typeConfig[i].restOptions;
 
 				if (Is.string(restPath)) {
-					const serviceType = typeConfig[i].overrideInstanceType ?? defaultEngineTypes[typeKey];
+					const serviceType =
+						typeConfig[i].overrideInstanceType ??
+						this._engineCore.getRegisteredInstanceType(typeKey);
 					if (Is.stringValue(serviceType)) {
-						const generatedRoutes = generateRoutes(restPath, serviceType);
+						const generatedRoutes = generateRoutes(restPath, serviceType, restOptions);
 						for (const route of generatedRoutes) {
 							// Don't strip trailing slashes from the root path.
 							if (Is.stringValue(route.path) && route.path.length > 1) {
@@ -349,31 +357,33 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	 * Initialise the socket routes from connector.
 	 * @param routes The routes to add to.
 	 * @param typeKey The key for the default types.
-	 * @param typeConfig The type config.
 	 * @param module The module containing the generator.
 	 * @param method The method to call on the module.
+	 * @returns A promise that resolves when all socket routes for the type have been added.
 	 * @internal
 	 */
 	private async initialiseSocketTypeRoute(
 		routes: ISocketRoute[],
 		typeKey: string,
-		typeConfig: IEngineCoreTypeConfig[] | undefined,
 		module: string,
 		method: string
 	): Promise<void> {
-		if (Is.arrayValue(typeConfig)) {
-			const defaultEngineTypes = this._engineCore.getDefaultTypes();
+		const typeConfig: IEngineCoreTypeConfig[] | undefined = this._engineCore.getTypeConfig(typeKey);
 
+		if (Is.arrayValue(typeConfig)) {
 			const generateRoutes = await ModuleHelper.getModuleEntry<
-				(baseRouteName: string, componentName: string) => ISocketRoute[]
+				(baseRouteName: string, componentName: string, options?: unknown) => ISocketRoute[]
 			>(module, method);
 
 			for (let i = 0; i < typeConfig.length; i++) {
 				const socketPath = typeConfig[i].socketPath;
+				const socketOptions = typeConfig[i].socketOptions;
 				if (Is.string(socketPath)) {
-					const serviceType = typeConfig[i].overrideInstanceType ?? defaultEngineTypes[typeKey];
+					const serviceType =
+						typeConfig[i].overrideInstanceType ??
+						this._engineCore.getRegisteredInstanceType(typeKey);
 					if (Is.stringValue(serviceType)) {
-						routes.push(...generateRoutes(socketPath, serviceType));
+						routes.push(...generateRoutes(socketPath, serviceType, socketOptions));
 					}
 				}
 			}
@@ -385,38 +395,9 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	 * @internal
 	 */
 	private addServerTypeInitialisers(): void {
-		const coreConfig = this._engineCore.getConfig();
-
-		this._engineCore.addTypeInitialiser(
-			"authenticationComponent",
-			coreConfig.types.authenticationComponent,
-			"@twin.org/engine-server-types",
-			"initialiseAuthenticationComponent"
-		);
-		this._engineCore.addTypeInitialiser(
-			"informationComponent",
-			coreConfig.types.informationComponent,
-			"@twin.org/engine-server-types",
-			"initialiseInformationComponent"
-		);
-		this._engineCore.addTypeInitialiser(
-			"restRouteProcessor",
-			coreConfig.types.restRouteProcessor,
-			"@twin.org/engine-server-types",
-			"initialiseRestRouteProcessorComponent"
-		);
-		this._engineCore.addTypeInitialiser(
-			"socketRouteProcessor",
-			coreConfig.types.socketRouteProcessor,
-			"@twin.org/engine-server-types",
-			"initialiseSocketRouteProcessorComponent"
-		);
-		this._engineCore.addTypeInitialiser(
-			"mimeTypeProcessor",
-			coreConfig.types.mimeTypeProcessor,
-			"@twin.org/engine-server-types",
-			"initialiseMimeTypeProcessorComponent"
-		);
+		for (const initializer of serverTypeInitialisers) {
+			this._engineCore.addTypeInitialiser(initializer.type, initializer.module, initializer.method);
+		}
 	}
 
 	/**
@@ -424,124 +405,9 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	 * @internal
 	 */
 	private addServerRestRouteGenerators(): void {
-		const coreConfig = this._engineCore.getConfig();
-
-		this.addRestRouteGenerator(
-			"informationComponent",
-			coreConfig.types.informationComponent,
-			"@twin.org/api-service",
-			"generateRestRoutesInformation"
-		);
-
-		this.addRestRouteGenerator(
-			"authenticationComponent",
-			coreConfig.types.authenticationComponent,
-			"@twin.org/api-auth-entity-storage-service",
-			"generateRestRoutesAuthentication"
-		);
-
-		this.addRestRouteGenerator(
-			"loggingComponent",
-			coreConfig.types.loggingComponent,
-			"@twin.org/logging-service",
-			"generateRestRoutesLogging"
-		);
-		this.addRestRouteGenerator(
-			"telemetryComponent",
-			coreConfig.types.telemetryComponent,
-			"@twin.org/telemetry-service",
-			"generateRestRoutesTelemetry"
-		);
-		this.addRestRouteGenerator(
-			"blobStorageComponent",
-			coreConfig.types.blobStorageComponent,
-			"@twin.org/blob-storage-service",
-			"generateRestRoutesBlobStorage"
-		);
-		this.addRestRouteGenerator(
-			"identityComponent",
-			coreConfig.types.identityComponent,
-			"@twin.org/identity-service",
-			"generateRestRoutesIdentity"
-		);
-		this.addRestRouteGenerator(
-			"identityResolverComponent",
-			coreConfig.types.identityResolverComponent,
-			"@twin.org/identity-service",
-			"generateRestRoutesIdentityResolver"
-		);
-		this.addRestRouteGenerator(
-			"identityProfileComponent",
-			coreConfig.types.identityProfileComponent,
-			"@twin.org/identity-service",
-			"generateRestRoutesIdentityProfile"
-		);
-		this.addRestRouteGenerator(
-			"nftComponent",
-			coreConfig.types.nftComponent,
-			"@twin.org/nft-service",
-			"generateRestRoutesNft"
-		);
-		this.addRestRouteGenerator(
-			"verifiableStorageComponent",
-			coreConfig.types.verifiableStorageComponent,
-			"@twin.org/verifiable-storage-service",
-			"generateRestRoutesVerifiableStorage"
-		);
-		this.addRestRouteGenerator(
-			"attestationComponent",
-			coreConfig.types.attestationComponent,
-			"@twin.org/attestation-service",
-			"generateRestRoutesAttestation"
-		);
-		this.addRestRouteGenerator(
-			"immutableProofComponent",
-			coreConfig.types.immutableProofComponent,
-			"@twin.org/immutable-proof-service",
-			"generateRestRoutesImmutableProof"
-		);
-		this.addRestRouteGenerator(
-			"auditableItemGraphComponent",
-			coreConfig.types.auditableItemGraphComponent,
-			"@twin.org/auditable-item-graph-service",
-			"generateRestRoutesAuditableItemGraph"
-		);
-		this.addRestRouteGenerator(
-			"auditableItemStreamComponent",
-			coreConfig.types.auditableItemStreamComponent,
-			"@twin.org/auditable-item-stream-service",
-			"generateRestRoutesAuditableItemStream"
-		);
-		this.addRestRouteGenerator(
-			"entityStorageComponent",
-			coreConfig.types.entityStorageComponent,
-			"@twin.org/entity-storage-service",
-			"generateRestRoutesEntityStorage"
-		);
-		this.addRestRouteGenerator(
-			"dataProcessingComponent",
-			coreConfig.types.dataProcessingComponent,
-			"@twin.org/data-processing-service",
-			"generateRestRoutesDataProcessing"
-		);
-		this.addRestRouteGenerator(
-			"documentManagementComponent",
-			coreConfig.types.documentManagementComponent,
-			"@twin.org/document-management-service",
-			"generateRestRoutesDocumentManagement"
-		);
-		this.addRestRouteGenerator(
-			"federatedCatalogueComponent",
-			coreConfig.types.federatedCatalogueComponent,
-			"@twin.org/federated-catalogue-service",
-			"generateRestRoutesFederatedCatalogue"
-		);
-		this.addRestRouteGenerator(
-			"rightsManagementComponent",
-			coreConfig.types.rightsManagementComponent,
-			"@twin.org/rights-management-service",
-			"generateRestRoutesRightsManagement"
-		);
+		for (const generator of serverRestRouteGenerators) {
+			this.addRestRouteGenerator(generator.type, generator.module, generator.method);
+		}
 	}
 
 	/**
@@ -549,13 +415,8 @@ export class EngineServer<T extends IEngineServerConfig = IEngineServerConfig>
 	 * @internal
 	 */
 	private addServerSocketRouteGenerators(): void {
-		const coreConfig = this._engineCore.getConfig();
-
-		this.addSocketRouteGenerator(
-			"eventBusComponent",
-			coreConfig.types.eventBusComponent,
-			"@twin.org/event-bus-service",
-			"generateSocketRoutesEventBus"
-		);
+		for (const generator of serverSocketRouteGenerators) {
+			this.addSocketRouteGenerator(generator.type, generator.module, generator.method);
+		}
 	}
 }

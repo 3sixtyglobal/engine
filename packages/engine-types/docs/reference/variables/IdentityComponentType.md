@@ -4,10 +4,16 @@
 
 Identity component types.
 
-## Type declaration
+## Type Declaration
 
-### Service
+### Service {#service}
 
 > `readonly` **Service**: `"service"` = `"service"`
 
 Service.
+
+### RestClient {#restclient}
+
+> `readonly` **RestClient**: `"rest-client"` = `"rest-client"`
+
+REST client.

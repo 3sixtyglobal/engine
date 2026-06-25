@@ -2,16 +2,20 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IAuthHeaderProcessorConstructorOptions } from "@twin.org/api-auth-entity-storage-service";
 import type {
+	IContextIdProcessorConstructorOptions,
 	ILoggingProcessorConstructorOptions,
 	ISocketRouteProcessorConstructorOptions,
-	IStaticUserIdentityProcessorConstructorOptions
+	IStaticContextIdProcessorConstructorOptions
 } from "@twin.org/api-processors";
-import type { SocketRouteProcessorType } from "../types/socketRouteProcessorType";
+import type {
+	ISingleTenantProcessorConstructorOptions,
+	ITenantProcessorConstructorOptions
+} from "@twin.org/api-tenant-processor";
+import type { SocketRouteProcessorType } from "../types/socketRouteProcessorType.js";
 
 /**
  * Socket route processor config types.
  */
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type SocketRouteProcessorConfig =
 	| {
 			type: typeof SocketRouteProcessorType.AuthHeader;
@@ -22,12 +26,20 @@ export type SocketRouteProcessorConfig =
 			options?: ILoggingProcessorConstructorOptions;
 	  }
 	| {
-			type: typeof SocketRouteProcessorType.NodeIdentity;
-			options?: never;
+			type: typeof SocketRouteProcessorType.ContextId;
+			options: IContextIdProcessorConstructorOptions;
 	  }
 	| {
-			type: typeof SocketRouteProcessorType.StaticUserIdentity;
-			options: IStaticUserIdentityProcessorConstructorOptions;
+			type: typeof SocketRouteProcessorType.StaticContextId;
+			options: IStaticContextIdProcessorConstructorOptions;
+	  }
+	| {
+			type: typeof SocketRouteProcessorType.Tenant;
+			options?: ITenantProcessorConstructorOptions;
+	  }
+	| {
+			type: typeof SocketRouteProcessorType.SingleTenant;
+			options?: ISingleTenantProcessorConstructorOptions;
 	  }
 	| {
 			type: typeof SocketRouteProcessorType.SocketRoute;

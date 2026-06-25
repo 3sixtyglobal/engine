@@ -14,7 +14,7 @@ The context for the engine core.
 
 ## Properties
 
-### config
+### config {#config}
 
 > **config**: `C`
 
@@ -22,7 +22,7 @@ The engine core config.
 
 ***
 
-### state
+### state {#state}
 
 > **state**: `S`
 
@@ -30,7 +30,7 @@ The engine core state.
 
 ***
 
-### stateDirty
+### stateDirty {#statedirty}
 
 > **stateDirty**: `boolean`
 
@@ -38,19 +38,20 @@ The state dirty flag, which flags that the state needs saving.
 
 ***
 
-### defaultTypes
+### registeredInstances {#registeredinstances}
 
-> **defaultTypes**: `object`
+> **registeredInstances**: `object`
 
-The default types to use when components don't have custom types.
+The registered instances to use when components don't have custom types.
+The default entry will be the first in the list.
 
 #### Index Signature
 
-\[`type`: `string`\]: `string`
+\[`name`: `string`\]: `object`[]
 
 ***
 
-### componentInstances
+### componentInstances {#componentinstances}
 
 > **componentInstances**: `object`[]
 
@@ -63,3 +64,7 @@ The components.
 #### component
 
 > **component**: `IComponent`
+
+#### initialised
+
+> **initialised**: `boolean`
