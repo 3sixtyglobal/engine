@@ -19,7 +19,12 @@ export const LoggingConnectorType = {
 	/**
 	 * Multi combines other loggers.
 	 */
-	Multi: "multi"
+	Multi: "multi",
+
+	/**
+	 * OpenTelemetry.
+	 */
+	Otel: "otel"
 } as const;
 
 /**

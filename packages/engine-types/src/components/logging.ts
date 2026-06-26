@@ -13,6 +13,7 @@ import {
 	initSchema as initSchemaLogging,
 	type LogEntry
 } from "@twin.org/logging-connector-entity-storage";
+import { OpenTelemetryLoggingConnector } from "@twin.org/logging-connector-opentelemetry";
 import { LoggingConnectorFactory, MultiLoggingConnector } from "@twin.org/logging-models";
 import { LoggingRestClient } from "@twin.org/logging-rest-client";
 import { LoggingService } from "@twin.org/logging-service";
@@ -75,6 +76,12 @@ export function initialiseLoggingConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
 			);
 		instanceTypeName = MultiLoggingConnector.NAMESPACE;
+	} else if (instanceConfig.type === LoggingConnectorType.Otel) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new OpenTelemetryLoggingConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = OpenTelemetryLoggingConnector.NAMESPACE;
 	}
 
 	return {
