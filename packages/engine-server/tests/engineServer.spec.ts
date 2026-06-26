@@ -580,6 +580,7 @@ describe("engine-server", () => {
 			"POST     /federated-catalogue/datasets",
 			"DELETE   /federated-catalogue/datasets/:datasetId",
 			// Dataspace Control Plane routes
+			"GET      .well-known/dspace-version",
 			"POST     /dataspace/transfers/request",
 			"GET      /dataspace/transfers/:pid",
 			"POST     /dataspace/transfers/:pid/start",
