@@ -20,7 +20,7 @@ import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
 import { AuthenticationComponentType } from "../models/types/authenticationComponentType.js";
 
 /**
- * Initialise the authentication.
+ * Initialise the authentication component.
  * @param engineCore The engine core.
  * @param context The context for the engine.
  * @param instanceConfig The instance config.
