@@ -330,14 +330,14 @@
 		"method": "initialiseFederatedCatalogueFilterComponent"
 	},
 	{
-		"type": "dataspaceControlPlaneComponent",
-		"module": "@twin.org/engine-types",
-		"method": "initialiseDataspaceControlPlaneComponent"
-	},
-	{
 		"type": "dataspaceDataPlaneComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseDataspaceDataPlaneComponent"
+	},
+	{
+		"type": "dataspaceControlPlaneComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseDataspaceControlPlaneComponent"
 	},
 	{
 		"type": "tenantAdminComponent",

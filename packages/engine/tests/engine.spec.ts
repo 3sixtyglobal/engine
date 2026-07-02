@@ -445,8 +445,8 @@ describe("engine", () => {
 			"policy-negotiation-point-rest-client",
 			"policy-negotiation-point-service",
 			"federated-catalogue-service",
-			"dataspace-control-plane-service",
-			"dataspace-data-plane-service"
+			"dataspace-data-plane-service",
+			"dataspace-control-plane-service"
 		]);
 
 		expect(EntitySchemaFactory.names().filter(n => !/V(\d)+$/.test(n))).toEqual([
@@ -484,11 +484,11 @@ describe("engine", () => {
 			"OdrlPolicy",
 			"PolicyNegotiation",
 			"Dataset",
-			"TransferProcess",
-			"DataspaceAppDataset",
 			"ActivityLogDetails",
 			"ActivityTask",
-			"PushSubscription"
+			"PushSubscription",
+			"TransferProcess",
+			"DataspaceAppDataset"
 		]);
 
 		expect(engine).toBeDefined();
@@ -1315,9 +1315,9 @@ describe("engine", () => {
 			"policy-negotiation-admin-point-rest-client",
 			"policy-negotiation-point-rest-client",
 			"federated-catalogue-rest-client",
-			"dataspace-control-plane-rest-client",
 			"dataspace-data-plane-rest-client",
-			"dataspace-data-plane-socket-client"
+			"dataspace-data-plane-socket-client",
+			"dataspace-control-plane-rest-client"
 		]);
 
 		expect(EntitySchemaFactory.names().filter(n => !/V(\d)+$/.test(n))).toEqual([

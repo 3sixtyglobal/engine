@@ -37,34 +37,11 @@ export function initialiseDataspaceControlPlaneComponent(
 
 	if (instanceConfig.type === DataspaceControlPlaneComponentType.Service) {
 		createComponent = (createConfig: typeof instanceConfig) => {
-			initSchemaDataspaceControlPlane();
-
-			// Initialize entity storage for TransferProcessEntity.
-			// This storage is shared with Data Plane service. Both planes must
-			// register the same connector name with the same partition keys,
-			// otherwise initialiseEntityStorageConnector silently drops the
-			// second registration and the two layers disagree on where records
-			// live.
-			const partitionContextIds = ContextIdHelper.pickKeysFromAvailable(
-				engineCore.getContextIdKeys(),
-				[ContextIdKeys.Node, ContextIdKeys.Tenant]
-			);
-
-			initialiseEntityStorageConnector(
+			initialiseDataspaceSharedEntityStorages(
 				engineCore,
 				context,
 				instanceConfig.options?.transferProcessEntityStorageType,
-				nameof<TransferProcess>(),
-				partitionContextIds
-			);
-
-			// Tenant-supplied partial datasets are stored [Node]-only
-			initialiseEntityStorageConnector(
-				engineCore,
-				context,
-				instanceConfig.options?.dataspaceAppDatasetEntityStorageType,
-				nameof<DataspaceAppDataset>(),
-				partitionContextIds
+				instanceConfig.options?.dataspaceAppDatasetEntityStorageType
 			);
 
 			return new DataspaceControlPlaneService(
@@ -91,7 +68,7 @@ export function initialiseDataspaceControlPlaneComponent(
 						),
 						taskSchedulerComponentType:
 							engineCore.getRegisteredInstanceTypeOptional("taskSchedulerComponent"),
-						dataPlaneComponentType: engineCore.getRegisteredInstanceTypeOptional(
+						dataPlaneComponentType: engineCore.getRegisteredInstanceType(
 							"dataspaceDataPlaneComponent"
 						),
 						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent"),
@@ -114,4 +91,44 @@ export function initialiseDataspaceControlPlaneComponent(
 		instanceTypeName,
 		factory: ComponentFactory
 	};
+}
+
+/**
+ * Initialise the shared entity storages used by both control and data plane services.
+ * Both planes must register the same connector name with the same partition keys,
+ * otherwise initialiseEntityStorageConnector silently drops the second registration
+ * and the two layers disagree on where records live.
+ * @param engineCore The engine core.
+ * @param context The context for the engine.
+ * @param transferProcessEntityStorageType The entity storage type for transfer processes.
+ * @param dataspaceAppDatasetEntityStorageType The entity storage type for dataspace app datasets.
+ */
+export function initialiseDataspaceSharedEntityStorages(
+	engineCore: IEngineCore<IEngineConfig>,
+	context: IEngineCoreContext<IEngineConfig>,
+	transferProcessEntityStorageType: string | undefined,
+	dataspaceAppDatasetEntityStorageType: string | undefined
+): void {
+	initSchemaDataspaceControlPlane();
+
+	const partitionContextIds = ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+		ContextIdKeys.Node,
+		ContextIdKeys.Tenant
+	]);
+
+	initialiseEntityStorageConnector(
+		engineCore,
+		context,
+		transferProcessEntityStorageType,
+		nameof<TransferProcess>(),
+		partitionContextIds
+	);
+
+	initialiseEntityStorageConnector(
+		engineCore,
+		context,
+		dataspaceAppDatasetEntityStorageType,
+		nameof<DataspaceAppDataset>(),
+		partitionContextIds
+	);
 }

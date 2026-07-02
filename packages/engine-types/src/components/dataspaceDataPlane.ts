@@ -11,13 +11,13 @@ import {
 	initSchema as initSchemaDataspaceDataPlane
 } from "@twin.org/dataspace-data-plane-service";
 import { DataspaceDataPlaneSocketClient } from "@twin.org/dataspace-data-plane-socket-client";
-import type { DataspaceAppDataset, TransferProcess } from "@twin.org/dataspace-models";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
+import { initialiseDataspaceSharedEntityStorages } from "./dataspaceControlPlane.js";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { DataspaceDataPlaneComponentConfig } from "../models/config/dataspaceDataPlaneComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
@@ -43,12 +43,18 @@ export function initialiseDataspaceDataPlaneComponent(
 		createComponent = (createConfig: typeof instanceConfig) => {
 			initSchemaDataspaceDataPlane();
 
+			initialiseDataspaceSharedEntityStorages(
+				engineCore,
+				context,
+				instanceConfig.options?.transferProcessEntityStorageType,
+				instanceConfig.options?.dataspaceAppDatasetEntityStorageType
+			);
+
 			const partitionContextIds = ContextIdHelper.pickKeysFromAvailable(
 				engineCore.getContextIdKeys(),
 				[ContextIdKeys.Node, ContextIdKeys.Tenant]
 			);
 
-			// Initialize entity storage for ActivityLogDetails and ActivityTask
 			initialiseEntityStorageConnector(
 				engineCore,
 				context,
@@ -62,26 +68,6 @@ export function initialiseDataspaceDataPlaneComponent(
 				context,
 				instanceConfig.options?.activityTaskEntityStorageType,
 				nameof<ActivityTask>(),
-				partitionContextIds
-			);
-
-			// TransferProcessEntity storage is shared with Control Plane.
-			initialiseEntityStorageConnector(
-				engineCore,
-				context,
-				instanceConfig.options?.transferProcessEntityStorageType,
-				nameof<TransferProcess>(),
-				partitionContextIds
-			);
-
-			// DataspaceAppDataset storage is also shared with the Control Plane —
-			// register here too in case the DP component initialises before
-			// the CP one in the engine startup order. Read-only on this side.
-			initialiseEntityStorageConnector(
-				engineCore,
-				context,
-				instanceConfig.options?.dataspaceAppDatasetEntityStorageType,
-				nameof<DataspaceAppDataset>(),
 				partitionContextIds
 			);
 
