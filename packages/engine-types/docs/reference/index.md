@@ -243,6 +243,7 @@
 - [initialiseDataExtractorConnector](functions/initialiseDataExtractorConnector.md)
 - [initialiseDataProcessingComponent](functions/initialiseDataProcessingComponent.md)
 - [initialiseDataspaceControlPlaneComponent](functions/initialiseDataspaceControlPlaneComponent.md)
+- [initialiseDataspaceSharedEntityStorages](functions/initialiseDataspaceSharedEntityStorages.md)
 - [initialiseDataspaceDataPlaneComponent](functions/initialiseDataspaceDataPlaneComponent.md)
 - [initialiseDocumentManagementComponent](functions/initialiseDocumentManagementComponent.md)
 - [initialiseEntityStorageConnector](functions/initialiseEntityStorageConnector.md)
