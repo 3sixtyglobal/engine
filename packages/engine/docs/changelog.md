@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.9.1-next.5](https://github.com/iotaledger/twin-engine/compare/engine-v0.9.1-next.4...engine-v0.9.1-next.5) (2026-07-02)
+
+
+### Features
+
+* dataspace ordering ([#180](https://github.com/iotaledger/twin-engine/issues/180)) ([e319596](https://github.com/iotaledger/twin-engine/commit/e31959689e7037618b530740bc023a9c499e5924))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.1-next.4 to 0.9.1-next.5
+    * @twin.org/engine-models bumped from 0.9.1-next.4 to 0.9.1-next.5
+    * @twin.org/engine-types bumped from 0.9.1-next.4 to 0.9.1-next.5
+
 ## [0.9.1-next.4](https://github.com/iotaledger/twin-engine/compare/engine-v0.9.1-next.3...engine-v0.9.1-next.4) (2026-06-30)
 
 
