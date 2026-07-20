@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.1-next.6](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.1-next.5...engine-types-v0.9.1-next.6) (2026-07-20)
+
+
+### Features
+
+* add file logging connector ([#184](https://github.com/iotaledger/twin-engine/issues/184)) ([918eb82](https://github.com/iotaledger/twin-engine/commit/918eb82ea5ef11cb311e03945dae163a8fb81096))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.1-next.5 to 0.9.1-next.6
+    * @twin.org/engine-models bumped from 0.9.1-next.5 to 0.9.1-next.6
+
 ## [0.9.1-next.5](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.1-next.4...engine-types-v0.9.1-next.5) (2026-07-02)
 
 
