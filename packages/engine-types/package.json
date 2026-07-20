@@ -111,6 +111,7 @@
 		"@twin.org/logging-models": "next",
 		"@twin.org/logging-connector-console": "next",
 		"@twin.org/logging-connector-entity-storage": "next",
+		"@twin.org/logging-connector-file": "next",
 		"@twin.org/logging-connector-opentelemetry": "next",
 		"@twin.org/logging-rest-client": "next",
 		"@twin.org/logging-service": "next",

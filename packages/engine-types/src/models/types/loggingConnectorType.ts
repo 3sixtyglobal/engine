@@ -24,7 +24,12 @@ export const LoggingConnectorType = {
 	/**
 	 * OpenTelemetry.
 	 */
-	Otel: "otel"
+	Otel: "otel",
+
+	/**
+	 * File.
+	 */
+	File: "file"
 } as const;
 
 /**
