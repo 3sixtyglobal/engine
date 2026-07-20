@@ -29,3 +29,9 @@ Multi combines other loggers.
 > `readonly` **Otel**: `"otel"` = `"otel"`
 
 OpenTelemetry.
+
+### File {#file}
+
+> `readonly` **File**: `"file"` = `"file"`
+
+File.
