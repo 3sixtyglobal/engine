@@ -16,7 +16,8 @@ import {
 	I18n,
 	type IComponent,
 	type IError,
-	Is
+	Is,
+	ObjectHelper
 } from "@twin.org/core";
 import {
 	EngineLogLevel,
@@ -634,8 +635,20 @@ export class EngineCore<
 			entitySchemas[schemaName] = EntitySchemaFactory.get(schemaName);
 		}
 
+		const sourceConfig = this._context.config;
+		const cloneTypes: { [type: string]: IEngineCoreTypeConfig[] } = {};
+		for (const typeKey of Object.keys(sourceConfig.types ?? {})) {
+			const entries = sourceConfig.types?.[typeKey];
+			if (Is.arrayValue(entries)) {
+				const cloneableEntries = entries.filter(e => e.isCloneable !== false);
+				if (cloneableEntries.length > 0) {
+					cloneTypes[typeKey] = cloneableEntries;
+				}
+			}
+		}
+
 		const cloneData: IEngineCoreClone<C, S> = {
-			config: this._context.config,
+			config: { ...sourceConfig, types: cloneTypes },
 			state: this._context.state,
 			typeInitialisers: this._typeInitialisers,
 			entitySchemas,
@@ -649,12 +662,15 @@ export class EngineCore<
 	 * Populate the engine from the clone data.
 	 * @param cloneData The clone data to populate from.
 	 * @param contextIds The context IDs to use for the clone.
-	 * @param logLevel The log level for the clone, true maps to error level.
+	 * @param options An optional object containing the log level, types and entity types to include.
+	 * @param options.logLevel The log level for the clone, true maps to error level.
+	 * @param options.types An optional allowlist of type keys to include; when omitted all types are cloned.
+	 * @param options.entityTypes An optional allowlist of entity type names; when provided only those entity schemas and their associated storage components are cloned.
 	 */
 	public populateClone(
 		cloneData: IEngineCoreClone<C, S>,
 		contextIds?: IContextIds,
-		logLevel?: boolean | EngineLogLevel
+		options?: boolean | { logLevel?: EngineLogLevel; types?: string[]; entityTypes?: string[] }
 	): void {
 		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData), cloneData);
 		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData.config), cloneData.config);
@@ -668,32 +684,83 @@ export class EngineCore<
 		this._skipBootstrap = true;
 		this._isClone = true;
 
-		if (logLevel === true) {
+		let optionsEntityTypes: string[] | undefined;
+		let optionsTypes: string[] | undefined;
+		if (Is.object(options)) {
+			if (!Is.empty(options.logLevel)) {
+				const logLevel = options.logLevel;
+				Guards.arrayOneOf(
+					EngineCore.CLASS_NAME,
+					nameof(logLevel),
+					logLevel,
+					Object.values(EngineLogLevel)
+				);
+				cloneData.config.logLevel = logLevel;
+			}
+			optionsEntityTypes = options.entityTypes;
+			optionsTypes = options.types;
+		} else if (options === true) {
 			cloneData.config.logLevel = EngineLogLevel.Error;
-		} else if (Is.stringValue(logLevel)) {
-			Guards.arrayOneOf(
-				EngineCore.CLASS_NAME,
-				nameof(logLevel),
-				logLevel,
-				Object.values(EngineLogLevel)
-			);
-			cloneData.config.logLevel = logLevel;
+		}
+
+		let cloneEntitySchemas = cloneData.entitySchemas;
+
+		const safeTypes: { [type: string]: IEngineCoreTypeConfig[] } = {};
+		for (const typeKey of Object.keys(cloneData.config.types ?? {})) {
+			const entries = cloneData.config.types?.[typeKey];
+			if (Is.arrayValue(entries)) {
+				const cloneableEntries = entries.filter(e => e.isCloneable !== false);
+				if (cloneableEntries.length > 0) {
+					safeTypes[typeKey] = cloneableEntries;
+				}
+			}
+		}
+		let cloneConfig: IEngineCoreConfig = { ...cloneData.config, types: safeTypes };
+
+		if (Is.arrayValue(optionsEntityTypes)) {
+			const filteredSchemas: { [schema: string]: IEntitySchema } = {};
+			for (const schemaName of Object.keys(cloneData.entitySchemas)) {
+				if (optionsEntityTypes.includes(schemaName)) {
+					filteredSchemas[schemaName] = cloneData.entitySchemas[schemaName];
+				}
+			}
+			cloneEntitySchemas = filteredSchemas;
+
+			const filteredTypes: { [type: string]: IEngineCoreTypeConfig[] } = {};
+			for (const typeKey of Object.keys(safeTypes)) {
+				const entries = safeTypes[typeKey];
+				if (Is.arrayValue(entries)) {
+					const kept = entries.filter(e => {
+						const storageType = ObjectHelper.propertyGet(e.options, "entityStorageType");
+						if (Is.stringValue(storageType)) {
+							return optionsEntityTypes.includes(storageType);
+						}
+						return true;
+					});
+					if (kept.length > 0) {
+						filteredTypes[typeKey] = kept;
+					}
+				}
+			}
+			cloneConfig = { ...cloneData.config, types: filteredTypes };
 		}
 
 		this._context = {
-			config: cloneData.config,
+			config: cloneConfig as C,
 			registeredInstances: {},
 			componentInstances: [],
 			state: {} as S,
 			stateDirty: false
 		};
 
-		this._typeInitialisers = cloneData.typeInitialisers;
+		this._typeInitialisers = Is.arrayValue(optionsTypes)
+			? cloneData.typeInitialisers.filter(t => optionsTypes.includes(t.type))
+			: cloneData.typeInitialisers;
 		this._contextIdKeys.push(...cloneData.contextIdKeys);
 		this._contextIds = contextIds;
 
-		for (const schemaName of Object.keys(cloneData.entitySchemas)) {
-			EntitySchemaFactory.register(schemaName, () => cloneData.entitySchemas[schemaName]);
+		for (const schemaName of Object.keys(cloneEntitySchemas)) {
+			EntitySchemaFactory.register(schemaName, () => cloneEntitySchemas[schemaName]);
 		}
 
 		this._stateStorage = new MemoryStateStorage(true, cloneData.state);

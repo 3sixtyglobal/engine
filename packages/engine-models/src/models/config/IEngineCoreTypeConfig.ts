@@ -46,4 +46,9 @@ export type IEngineCoreTypeConfig<T extends IEngineCoreTypeBaseConfig = IEngineC
 		 * The options for the socket API route generation.
 		 */
 		socketOptions?: unknown;
+
+		/**
+		 * Whether this service can be included when creating a clone instance, defaults to true.
+		 */
+		isCloneable?: boolean;
 	};

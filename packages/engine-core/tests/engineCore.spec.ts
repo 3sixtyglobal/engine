@@ -137,7 +137,7 @@ describe("engine-core", () => {
 
 		const cloneData = engine.getCloneData();
 		const clone = new TestEngineCore();
-		clone.populateClone(cloneData, undefined, EngineLogLevel.Error);
+		clone.populateClone(cloneData, undefined, { logLevel: EngineLogLevel.Error });
 		clone.addStartableComponent("failing-start-component", new FailingStartComponent());
 
 		await expect(clone.start()).rejects.toThrow();
@@ -195,7 +195,7 @@ describe("engine-core", () => {
 
 		const cloneData = engine.getCloneData();
 		const clone = new TestEngineCore();
-		clone.populateClone(cloneData, undefined, EngineLogLevel.None);
+		clone.populateClone(cloneData, undefined, { logLevel: EngineLogLevel.None });
 		clone.addStartableComponent("failing-start-component", new FailingStartComponent());
 
 		await expect(clone.start()).rejects.toThrow();
@@ -235,7 +235,9 @@ describe("engine-core", () => {
 
 		const clone = new EngineCore();
 		expect(() =>
-			clone.populateClone(cloneData, undefined, "verbose" as unknown as EngineLogLevel)
+			clone.populateClone(cloneData, undefined, {
+				logLevel: "verbose" as unknown as EngineLogLevel
+			})
 		).toThrow();
 	});
 });
