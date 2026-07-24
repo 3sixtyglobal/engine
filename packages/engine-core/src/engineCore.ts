@@ -705,17 +705,21 @@ export class EngineCore<
 
 		let cloneEntitySchemas = cloneData.entitySchemas;
 
-		const safeTypes: { [type: string]: IEngineCoreTypeConfig[] } = {};
-		for (const typeKey of Object.keys(cloneData.config.types ?? {})) {
-			const entries = cloneData.config.types?.[typeKey];
-			if (Is.arrayValue(entries)) {
-				const cloneableEntries = entries.filter(e => e.isCloneable !== false);
-				if (cloneableEntries.length > 0) {
-					safeTypes[typeKey] = cloneableEntries;
+		const sourceTypes = cloneData.config.types ?? {};
+		const partialTypes: { [type: string]: IEngineCoreTypeConfig[] } = {};
+		for (const typeKey of Object.keys(sourceTypes)) {
+			if (!Is.arrayValue(optionsTypes) || optionsTypes.includes(typeKey)) {
+				const entries = sourceTypes[typeKey];
+				if (Is.arrayValue(entries)) {
+					const cloneableEntries = entries.filter(e => e.isCloneable !== false);
+					if (cloneableEntries.length > 0) {
+						partialTypes[typeKey] = cloneableEntries;
+					}
 				}
 			}
 		}
-		let cloneConfig: IEngineCoreConfig = { ...cloneData.config, types: safeTypes };
+
+		let cloneConfig: IEngineCoreConfig = { ...cloneData.config, types: partialTypes };
 
 		if (Is.arrayValue(optionsEntityTypes)) {
 			const filteredSchemas: { [schema: string]: IEntitySchema } = {};
@@ -727,19 +731,13 @@ export class EngineCore<
 			cloneEntitySchemas = filteredSchemas;
 
 			const filteredTypes: { [type: string]: IEngineCoreTypeConfig[] } = {};
-			for (const typeKey of Object.keys(safeTypes)) {
-				const entries = safeTypes[typeKey];
-				if (Is.arrayValue(entries)) {
-					const kept = entries.filter(e => {
-						const storageType = ObjectHelper.propertyGet(e.options, "entityStorageType");
-						if (Is.stringValue(storageType)) {
-							return optionsEntityTypes.includes(storageType);
-						}
-						return true;
-					});
-					if (kept.length > 0) {
-						filteredTypes[typeKey] = kept;
-					}
+			for (const typeKey of Object.keys(partialTypes)) {
+				const kept = partialTypes[typeKey].filter(e => {
+					const storageType = ObjectHelper.propertyGet(e.options, "entityStorageType");
+					return Is.stringValue(storageType) ? optionsEntityTypes.includes(storageType) : true;
+				});
+				if (kept.length > 0) {
+					filteredTypes[typeKey] = kept;
 				}
 			}
 			cloneConfig = { ...cloneData.config, types: filteredTypes };

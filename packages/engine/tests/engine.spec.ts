@@ -1284,6 +1284,34 @@ describe("engine", () => {
 		expect(engine.getConfig().logLevel).toBeUndefined();
 	});
 
+	test("populateClone with no type or entity type options preserves the clone config exactly", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		Factory.clearFactories();
+
+		const cloneData = engine.getCloneData();
+
+		const clone = new Engine();
+		clone.populateClone(cloneData, { [ContextIdKeys.Node]: "did:iota:0x123" });
+		await clone.start();
+
+		expect(clone.getConfig()).toEqual(cloneData.config);
+	});
+
 	test("Can clone the engine with a types allowlist and partial instance filtering", async () => {
 		const config: IEngineConfig = {
 			debug: true,
@@ -1413,6 +1441,125 @@ describe("engine", () => {
 		expect(engine.getRegisteredInstances().entityStorageComponent).toHaveLength(2);
 		expect(clone.getRegisteredInstances().entityStorageComponent).toHaveLength(1);
 		expect(clone.getRegisteredInstances().entityStorageComponent[0].type).toBe("test-entity");
+	});
+
+	test("Can clone the engine with a nonexistent type in options.types without error", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+
+		const cloneData = engine.getCloneData();
+
+		await engine.stop();
+		Factory.clearFactories();
+
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			{ types: ["nonExistentType"] }
+		);
+		await clone.start();
+
+		// Nonexistent type is silently ignored: no configured types survive into the clone config.
+		expect(Object.keys(clone.getConfig().types ?? {})).toHaveLength(0);
+		// Only the built-in engine logger entries are present (1 each), not the configured ones.
+		expect(clone.getRegisteredInstances().loggingConnector).toHaveLength(1);
+		expect(clone.getRegisteredInstances().loggingComponent).toHaveLength(1);
+	});
+
+	test("Can clone the engine with a nonexistent entity type in options.entityTypes without error", async () => {
+		EntitySchemaFactory.register(nameof<TestEntity>(), () =>
+			EntitySchemaHelper.getSchema(TestEntity)
+		);
+
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }],
+				entityStorageConnector: [
+					{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: { entityStorageType: nameof<TestEntity>(), partitionContextIds: [] }
+					}
+				]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+
+		const cloneData = engine.getCloneData();
+
+		await engine.stop();
+		Factory.clearFactories();
+
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			{ entityTypes: ["nonExistentEntity"] }
+		);
+		await clone.start();
+
+		expect(clone.getRegisteredInstances().entityStorageComponent).toBeUndefined();
+	});
+
+	test("Can clone the engine with options.types filtering the clone config types", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+
+		const cloneData = engine.getCloneData();
+
+		await engine.stop();
+		Factory.clearFactories();
+
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			{ types: ["loggingConnector"] }
+		);
+		await clone.start();
+
+		// Only the allowed type key survives in the clone config.
+		expect(clone.getConfig().types).toHaveProperty("loggingConnector");
+		expect(clone.getConfig().types).not.toHaveProperty("loggingComponent");
+		// loggingConnector has the built-in entry plus the configured one.
+		expect(clone.getRegisteredInstances().loggingConnector).toHaveLength(2);
+		// loggingComponent has only the built-in engine logger entry (configured one was filtered).
+		expect(clone.getRegisteredInstances().loggingComponent).toHaveLength(1);
 	});
 
 	test("Can start engine with REST client config", async () => {
