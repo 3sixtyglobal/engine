@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.9.1-next.7](https://github.com/iotaledger/twin-engine/compare/engine-v0.9.1-next.6...engine-v0.9.1-next.7) (2026-07-24)
+
+
+### Features
+
+* clone log-level control and per-component start timing in engine core ([#189](https://github.com/iotaledger/twin-engine/issues/189)) ([8e4e26d](https://github.com/iotaledger/twin-engine/commit/8e4e26d9992955d380ef2873ad6ad54c31faaf68))
+* improved cloning ([#190](https://github.com/iotaledger/twin-engine/issues/190)) ([b43833b](https://github.com/iotaledger/twin-engine/commit/b43833b8bbcf4b1257abbe9c2552238963d3f6e2))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.1-next.6 to 0.9.1-next.7
+    * @twin.org/engine-models bumped from 0.9.1-next.6 to 0.9.1-next.7
+    * @twin.org/engine-types bumped from 0.9.1-next.6 to 0.9.1-next.7
+
 ## [0.9.1-next.6](https://github.com/iotaledger/twin-engine/compare/engine-v0.9.1-next.5...engine-v0.9.1-next.6) (2026-07-20)
 
 
