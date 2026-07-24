@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.9.1-next.8](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.9.1-next.7...engine-core-v0.9.1-next.8) (2026-07-24)
+
+
+### Bug Fixes
+
+* improve populateClone filtering ([60abfff](https://github.com/iotaledger/twin-engine/commit/60abfffb7ed7140f4be9ab59c7dd0aff689330ae))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.9.1-next.7 to 0.9.1-next.8
+
 ## [0.9.1-next.7](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.9.1-next.6...engine-core-v0.9.1-next.7) (2026-07-24)
 
 
