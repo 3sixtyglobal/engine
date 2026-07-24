@@ -54,6 +54,12 @@ The path for the socket API.
 
 The options for the socket API route generation.
 
+### isCloneable?
+
+> `optional` **isCloneable?**: `boolean`
+
+Whether this service can be included when creating a clone instance, defaults to true.
+
 ## Type Parameters
 
 ### T

@@ -44,6 +44,24 @@ false
 
 ***
 
+### logLevel? {#loglevel}
+
+> `optional` **logLevel?**: `EngineLogLevel`
+
+The log level for the engine logger, takes precedence over silent when set.
+
+#### Default
+
+```ts
+all
+```
+
+#### Inherited from
+
+`IEngineCoreConfig.logLevel`
+
+***
+
 ### silentLoggers? {#silentloggers}
 
 > `optional` **silentLoggers?**: `string`[]
