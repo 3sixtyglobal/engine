@@ -32,6 +32,20 @@ false
 
 ***
 
+### logLevel? {#loglevel}
+
+> `optional` **logLevel?**: [`EngineLogLevel`](../type-aliases/EngineLogLevel.md)
+
+The log level for the engine logger, takes precedence over silent when set.
+
+#### Default
+
+```ts
+all
+```
+
+***
+
 ### silentLoggers? {#silentloggers}
 
 > `optional` **silentLoggers?**: `string`[]

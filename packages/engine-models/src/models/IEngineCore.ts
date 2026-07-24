@@ -4,6 +4,7 @@ import type { IContextIds } from "@twin.org/context";
 import type { IComponent, IError } from "@twin.org/core";
 import type { IEngineCoreConfig } from "./config/IEngineCoreConfig.js";
 import type { IEngineCoreTypeConfig } from "./config/IEngineCoreTypeConfig.js";
+import type { EngineLogLevel } from "./engineLogLevel.js";
 import type { IEngineCoreClone } from "./IEngineCoreClone.js";
 import type { IEngineState } from "./IEngineState.js";
 
@@ -183,11 +184,11 @@ export interface IEngineCore<
 	 * Populate the engine from the clone data.
 	 * @param cloneData The clone data to populate from.
 	 * @param contextIds The context IDs to use for the clone.
-	 * @param silent Should the clone be silent.
+	 * @param logLevel The log level for the clone, true maps to error level.
 	 */
 	populateClone(
 		cloneData: IEngineCoreClone<C, S>,
 		contextIds?: IContextIds,
-		silent?: boolean
+		logLevel?: boolean | EngineLogLevel
 	): void;
 }

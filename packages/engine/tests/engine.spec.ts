@@ -6,6 +6,7 @@ import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@twin.or
 import { ComponentFactory, Factory, I18n } from "@twin.org/core";
 import { MemoryStateStorage } from "@twin.org/engine-core";
 import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
+import { EngineLogLevel } from "@twin.org/engine-models";
 import {
 	AttestationComponentType,
 	AttestationConnectorType,
@@ -1024,6 +1025,40 @@ describe("engine", () => {
 		clone.populateClone(cloneData, { [ContextIdKeys.Node]: "did:iota:0x123" }, true);
 		await clone.start();
 
+		expect(clone.getConfig()).toEqual(engine.getConfig());
+		expect(clone.getState()).toEqual(engine.getState());
+		expect(clone.getRegisteredInstances()).toEqual(engine.getRegisteredInstances());
+	});
+
+	test("Can clone the engine with a log level", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		Factory.clearFactories();
+
+		const cloneData = engine.getCloneData();
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			EngineLogLevel.Error
+		);
+		await clone.start();
+
+		expect(clone.getConfig().logLevel).toEqual(EngineLogLevel.Error);
 		expect(clone.getConfig()).toEqual(engine.getConfig());
 		expect(clone.getState()).toEqual(engine.getState());
 		expect(clone.getRegisteredInstances()).toEqual(engine.getRegisteredInstances());

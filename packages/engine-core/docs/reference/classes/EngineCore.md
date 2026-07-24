@@ -636,7 +636,7 @@ The clone data.
 
 ### populateClone() {#populateclone}
 
-> **populateClone**(`cloneData`, `contextIds?`, `silent?`): `void`
+> **populateClone**(`cloneData`, `contextIds?`, `logLevel?`): `void`
 
 Populate the engine from the clone data.
 
@@ -654,11 +654,11 @@ The clone data to populate from.
 
 The context IDs to use for the clone.
 
-##### silent?
+##### logLevel?
 
-`boolean`
+`boolean` \| `EngineLogLevel`
 
-Should the clone be silent.
+The log level for the clone, true maps to error level.
 
 #### Returns
 
