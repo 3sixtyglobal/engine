@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.9.1](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.9.1...engine-server-types-v0.9.1) (2026-07-27)
+
+
+### Features
+
+* add federated catalogue ([1b15dd0](https://github.com/iotaledger/twin-engine/commit/1b15dd059a11446457651c411a73145fab37f025))
+* add mimeTypeProcessors and disableNodeIdentity ([bb7e81e](https://github.com/iotaledger/twin-engine/commit/bb7e81e2036fe042068a5645ec59b22e20d33aad))
+* add task scheduler ([0951107](https://github.com/iotaledger/twin-engine/commit/09511073ad042194a45206303f0ef31d8d6af5db))
+* modifying the engine to run the new services ([#10](https://github.com/iotaledger/twin-engine/issues/10)) ([6f7141f](https://github.com/iotaledger/twin-engine/commit/6f7141fe0a6d05c725066b274bcc18b5490e580b))
+* release to production ([3a4acd1](https://github.com/iotaledger/twin-engine/commit/3a4acd1f6c66b841d80b6fd3bc1a439a77148fa5))
+* release to production ([5559958](https://github.com/iotaledger/twin-engine/commit/5559958e2128e6ec3a81e779d1ebd3f370bbb081))
+* release to production ([#171](https://github.com/iotaledger/twin-engine/issues/171)) ([31c43e9](https://github.com/iotaledger/twin-engine/commit/31c43e978f11175fbfa18ad2025c2dc8a62e1434))
+* release to production ([#196](https://github.com/iotaledger/twin-engine/issues/196)) ([91987ea](https://github.com/iotaledger/twin-engine/commit/91987ea74e53d8e2295e0a353d38504fd0ee791f))
+* switch to devDeps ([32832ac](https://github.com/iotaledger/twin-engine/commit/32832acd934e1e5569474281a527c9b118d30732))
+* update dependencies ([97c9f64](https://github.com/iotaledger/twin-engine/commit/97c9f64b6ef096963bcc5de338a2a9e99bdc1a11))
+* use shared store mechanism ([#2](https://github.com/iotaledger/twin-engine/issues/2)) ([9eed8d7](https://github.com/iotaledger/twin-engine/commit/9eed8d7766388479b42f03e2542fe761f2156408))
+
 ## [0.9.1-next.8](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.9.1-next.7...engine-server-types-v0.9.1-next.8) (2026-07-24)
 
 
