@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/engine-server",
-	"version": "0.9.1-next.8",
+	"version": "0.9.1",
 	"description": "Server runtime that exposes engine components through REST and socket routes.",
 	"repository": {
 		"type": "git",
@@ -28,22 +28,22 @@
 		"dist:no-test": "npm run clean && npm run build && npm run test:build"
 	},
 	"dependencies": {
-		"@twin.org/api-models": "next",
-		"@twin.org/api-server-fastify": "next",
-		"@twin.org/context": "next",
-		"@twin.org/core": "next",
-		"@twin.org/engine-core": "0.9.1-next.8",
-		"@twin.org/engine-models": "0.9.1-next.8",
-		"@twin.org/engine-server-types": "0.9.1-next.8",
-		"@twin.org/modules": "next",
-		"@twin.org/nameof": "next"
+		"@twin.org/api-models": "^0.9.1",
+		"@twin.org/api-server-fastify": "^0.9.1",
+		"@twin.org/context": "^0.9.1",
+		"@twin.org/core": "^0.9.1",
+		"@twin.org/engine-core": "^0.9.1",
+		"@twin.org/engine-models": "^0.9.1",
+		"@twin.org/engine-server-types": "^0.9.1",
+		"@twin.org/modules": "^0.9.1",
+		"@twin.org/nameof": "^0.9.1"
 	},
 	"devDependencies": {
-		"@twin.org/engine": "0.9.1-next.8",
-		"@twin.org/nameof-transformer": "next",
-		"@twin.org/nameof-vitest-plugin": "next",
-		"@twin.org/validate-locales": "next",
-		"@twin.org/ts-to-openapi": "next",
+		"@twin.org/engine": "^0.9.1",
+		"@twin.org/nameof-transformer": "^0.9.1",
+		"@twin.org/nameof-vitest-plugin": "^0.9.1",
+		"@twin.org/validate-locales": "^0.9.1",
+		"@twin.org/ts-to-openapi": "^0.9.1",
 		"@vitest/coverage-v8": "4.1.10",
 		"copyfiles": "2.4.1",
 		"nodemon": "3.1.14",
