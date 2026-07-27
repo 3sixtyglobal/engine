@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import type { EngineLogLevel } from "../engineLogLevel.js";
 import type { IEngineCoreTypeConfig } from "./IEngineCoreTypeConfig.js";
 
 /**
@@ -17,6 +18,12 @@ export interface IEngineCoreConfig {
 	 * @default false
 	 */
 	silent?: boolean;
+
+	/**
+	 * The log level for the engine logger, takes precedence over silent when set.
+	 * @default all
+	 */
+	logLevel?: EngineLogLevel;
 
 	/**
 	 * The loggers to disable output for.

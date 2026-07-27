@@ -460,7 +460,7 @@ The clone data.
 
 ### populateClone() {#populateclone}
 
-> **populateClone**(`cloneData`, `contextIds?`, `silent?`): `void`
+> **populateClone**(`cloneData`, `contextIds?`, `options?`): `void`
 
 Populate the engine from the clone data.
 
@@ -478,11 +478,39 @@ The clone data to populate from.
 
 The context IDs to use for the clone.
 
-##### silent?
+##### options?
+
+`boolean` \| \{ `logLevel?`: [`EngineLogLevel`](../type-aliases/EngineLogLevel.md); `types?`: `string`[]; `entityTypes?`: `string`[]; \}
+
+An optional object containing the log level, types and entity types to include.
 
 `boolean`
 
-Should the clone be silent.
+***
+
+###### Type Literal
+
+\{ `logLevel?`: [`EngineLogLevel`](../type-aliases/EngineLogLevel.md); `types?`: `string`[]; `entityTypes?`: `string`[]; \}
+
+An optional object containing the log level, types and entity types to include.
+
+###### logLevel?
+
+[`EngineLogLevel`](../type-aliases/EngineLogLevel.md)
+
+The log level for the clone, true maps to error level.
+
+###### types?
+
+`string`[]
+
+An optional allowlist of type keys to include; when omitted all types are cloned.
+
+###### entityTypes?
+
+`string`[]
+
+An optional allowlist of entity type names; when provided only those entity schemas and their associated storage components are cloned.
 
 #### Returns
 

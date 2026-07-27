@@ -4,6 +4,7 @@ import type { IContextIds } from "@twin.org/context";
 import type { IComponent, IError } from "@twin.org/core";
 import type { IEngineCoreConfig } from "./config/IEngineCoreConfig.js";
 import type { IEngineCoreTypeConfig } from "./config/IEngineCoreTypeConfig.js";
+import type { EngineLogLevel } from "./engineLogLevel.js";
 import type { IEngineCoreClone } from "./IEngineCoreClone.js";
 import type { IEngineState } from "./IEngineState.js";
 
@@ -183,11 +184,14 @@ export interface IEngineCore<
 	 * Populate the engine from the clone data.
 	 * @param cloneData The clone data to populate from.
 	 * @param contextIds The context IDs to use for the clone.
-	 * @param silent Should the clone be silent.
+	 * @param options An optional object containing the log level, types and entity types to include.
+	 * @param options.logLevel The log level for the clone, true maps to error level.
+	 * @param options.types An optional allowlist of type keys to include; when omitted all types are cloned.
+	 * @param options.entityTypes An optional allowlist of entity type names; when provided only those entity schemas and their associated storage components are cloned.
 	 */
 	populateClone(
 		cloneData: IEngineCoreClone<C, S>,
 		contextIds?: IContextIds,
-		silent?: boolean
+		options?: boolean | { logLevel?: EngineLogLevel; types?: string[]; entityTypes?: string[] }
 	): void;
 }

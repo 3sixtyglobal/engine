@@ -25,9 +25,11 @@
 		"bootstrapping": "Bootstrapping component type \"{className}\" with instance type \"{instanceType}\"",
 		"componentsStarting": "Components are starting",
 		"componentsComplete": "Components have started",
+		"componentsSummary": "Components started in {totalMs}ms, slowest: {slowestComponents}",
 		"componentsStopping": "Components are stopping",
 		"componentsStopped": "Components have stopped",
 		"componentStarting": "Starting component type \"{className}\" with instance type \"{instanceType}\"",
+		"componentStarted": "Started component type \"{className}\" with instance type \"{instanceType}\" in {elapsedMs}ms",
 		"componentStopping": "Stopping component type \"{className}\" with instance type \"{instanceType}\""
 	},
 	"fileStateStorage": {

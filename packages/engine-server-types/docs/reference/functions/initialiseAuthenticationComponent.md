@@ -2,7 +2,7 @@
 
 > **initialiseAuthenticationComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AuthenticationComponentConfig`](../type-aliases/AuthenticationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
-Initialise the authentication.
+Initialise the authentication component.
 
 ## Parameters
 

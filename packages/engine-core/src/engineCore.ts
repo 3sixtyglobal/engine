@@ -16,23 +16,27 @@ import {
 	I18n,
 	type IComponent,
 	type IError,
-	Is
+	Is,
+	ObjectHelper
 } from "@twin.org/core";
-import type {
-	EngineTypeInitialiser,
-	IEngineCore,
-	IEngineCoreClone,
-	IEngineCoreConfig,
-	IEngineCoreContext,
-	IEngineCoreTypeConfig,
-	IEngineState,
-	IEngineStateStorage
+import {
+	EngineLogLevel,
+	type EngineTypeInitialiser,
+	type IEngineCore,
+	type IEngineCoreClone,
+	type IEngineCoreConfig,
+	type IEngineCoreContext,
+	type IEngineCoreTypeConfig,
+	type IEngineState,
+	type IEngineStateStorage
 } from "@twin.org/engine-models";
 import { EntitySchemaFactory, type IEntitySchema } from "@twin.org/entity";
 import { ConsoleLoggingConnector } from "@twin.org/logging-connector-console";
 import {
 	type ILoggingComponent,
+	type ILoggingConnector,
 	LoggingConnectorFactory,
+	LogLevel,
 	SilentLoggingConnector
 } from "@twin.org/logging-models";
 import { LoggingService } from "@twin.org/logging-service";
@@ -274,6 +278,13 @@ export class EngineCore<
 						I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStarting`)
 					);
 
+					const componentTimings: {
+						className: string;
+						instanceType: string;
+						elapsedMs: number;
+					}[] = [];
+					const componentsStartTime = performance.now();
+
 					await ContextIdStore.run(this._contextIds ?? {}, async () => {
 						for (const instance of this._context.componentInstances) {
 							if (!instance.initialised) {
@@ -288,6 +299,7 @@ export class EngineCore<
 										})
 									);
 
+									const componentStartTime = performance.now();
 									try {
 										await startMethod(EngineCore.LOGGING_COMPONENT_TYPE_NAME);
 									} catch (err) {
@@ -305,10 +317,39 @@ export class EngineCore<
 
 										throw err;
 									}
+
+									const elapsedMs = Math.round(performance.now() - componentStartTime);
+									componentTimings.push({
+										className: instance.component.className(),
+										instanceType: instance.instanceType,
+										elapsedMs
+									});
+									await this.logDebug(
+										I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentStarted`, {
+											className: instance.component.className(),
+											instanceType: instance.instanceType,
+											elapsedMs
+										})
+									);
 								}
 							}
 						}
 					});
+
+					if (componentTimings.length > 0) {
+						const totalMs = Math.round(performance.now() - componentsStartTime);
+						const slowestComponents = componentTimings
+							.sort((a, b) => b.elapsedMs - a.elapsedMs)
+							.slice(0, 3)
+							.map(t => `${t.className} (${t.instanceType}) ${t.elapsedMs}ms`)
+							.join(", ");
+						await this.logDebug(
+							I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsSummary`, {
+								totalMs,
+								slowestComponents
+							})
+						);
+					}
 
 					await this.logInfo(
 						I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsComplete`)
@@ -594,8 +635,20 @@ export class EngineCore<
 			entitySchemas[schemaName] = EntitySchemaFactory.get(schemaName);
 		}
 
+		const sourceConfig = this._context.config;
+		const cloneTypes: { [type: string]: IEngineCoreTypeConfig[] } = {};
+		for (const typeKey of Object.keys(sourceConfig.types ?? {})) {
+			const entries = sourceConfig.types?.[typeKey];
+			if (Is.arrayValue(entries)) {
+				const cloneableEntries = entries.filter(e => e.isCloneable !== false);
+				if (cloneableEntries.length > 0) {
+					cloneTypes[typeKey] = cloneableEntries;
+				}
+			}
+		}
+
 		const cloneData: IEngineCoreClone<C, S> = {
-			config: this._context.config,
+			config: { ...sourceConfig, types: cloneTypes },
 			state: this._context.state,
 			typeInitialisers: this._typeInitialisers,
 			entitySchemas,
@@ -609,12 +662,15 @@ export class EngineCore<
 	 * Populate the engine from the clone data.
 	 * @param cloneData The clone data to populate from.
 	 * @param contextIds The context IDs to use for the clone.
-	 * @param silent Should the clone be silent.
+	 * @param options An optional object containing the log level, types and entity types to include.
+	 * @param options.logLevel The log level for the clone, true maps to error level.
+	 * @param options.types An optional allowlist of type keys to include; when omitted all types are cloned.
+	 * @param options.entityTypes An optional allowlist of entity type names; when provided only those entity schemas and their associated storage components are cloned.
 	 */
 	public populateClone(
 		cloneData: IEngineCoreClone<C, S>,
 		contextIds?: IContextIds,
-		silent?: boolean
+		options?: boolean | { logLevel?: EngineLogLevel; types?: string[]; entityTypes?: string[] }
 	): void {
 		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData), cloneData);
 		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData.config), cloneData.config);
@@ -628,24 +684,81 @@ export class EngineCore<
 		this._skipBootstrap = true;
 		this._isClone = true;
 
-		if (silent ?? false) {
-			cloneData.config.silent = true;
+		let optionsEntityTypes: string[] | undefined;
+		let optionsTypes: string[] | undefined;
+		if (Is.object(options)) {
+			if (!Is.empty(options.logLevel)) {
+				const logLevel = options.logLevel;
+				Guards.arrayOneOf(
+					EngineCore.CLASS_NAME,
+					nameof(logLevel),
+					logLevel,
+					Object.values(EngineLogLevel)
+				);
+				cloneData.config.logLevel = logLevel;
+			}
+			optionsEntityTypes = options.entityTypes;
+			optionsTypes = options.types;
+		} else if (options === true) {
+			cloneData.config.logLevel = EngineLogLevel.Error;
+		}
+
+		let cloneEntitySchemas = cloneData.entitySchemas;
+
+		const sourceTypes = cloneData.config.types ?? {};
+		const partialTypes: { [type: string]: IEngineCoreTypeConfig[] } = {};
+		for (const typeKey of Object.keys(sourceTypes)) {
+			if (!Is.arrayValue(optionsTypes) || optionsTypes.includes(typeKey)) {
+				const entries = sourceTypes[typeKey];
+				if (Is.arrayValue(entries)) {
+					const cloneableEntries = entries.filter(e => e.isCloneable !== false);
+					if (cloneableEntries.length > 0) {
+						partialTypes[typeKey] = cloneableEntries;
+					}
+				}
+			}
+		}
+
+		let cloneConfig: IEngineCoreConfig = { ...cloneData.config, types: partialTypes };
+
+		if (Is.arrayValue(optionsEntityTypes)) {
+			const filteredSchemas: { [schema: string]: IEntitySchema } = {};
+			for (const schemaName of Object.keys(cloneData.entitySchemas)) {
+				if (optionsEntityTypes.includes(schemaName)) {
+					filteredSchemas[schemaName] = cloneData.entitySchemas[schemaName];
+				}
+			}
+			cloneEntitySchemas = filteredSchemas;
+
+			const filteredTypes: { [type: string]: IEngineCoreTypeConfig[] } = {};
+			for (const typeKey of Object.keys(partialTypes)) {
+				const kept = partialTypes[typeKey].filter(e => {
+					const storageType = ObjectHelper.propertyGet(e.options, "entityStorageType");
+					return Is.stringValue(storageType) ? optionsEntityTypes.includes(storageType) : true;
+				});
+				if (kept.length > 0) {
+					filteredTypes[typeKey] = kept;
+				}
+			}
+			cloneConfig = { ...cloneData.config, types: filteredTypes };
 		}
 
 		this._context = {
-			config: cloneData.config,
+			config: cloneConfig as C,
 			registeredInstances: {},
 			componentInstances: [],
 			state: {} as S,
 			stateDirty: false
 		};
 
-		this._typeInitialisers = cloneData.typeInitialisers;
+		this._typeInitialisers = Is.arrayValue(optionsTypes)
+			? cloneData.typeInitialisers.filter(t => optionsTypes.includes(t.type))
+			: cloneData.typeInitialisers;
 		this._contextIdKeys.push(...cloneData.contextIdKeys);
 		this._contextIds = contextIds;
 
-		for (const schemaName of Object.keys(cloneData.entitySchemas)) {
-			EntitySchemaFactory.register(schemaName, () => cloneData.entitySchemas[schemaName]);
+		for (const schemaName of Object.keys(cloneEntitySchemas)) {
+			EntitySchemaFactory.register(schemaName, () => cloneEntitySchemas[schemaName]);
 		}
 
 		this._stateStorage = new MemoryStateStorage(true, cloneData.state);
@@ -732,15 +845,28 @@ export class EngineCore<
 	 * @internal
 	 */
 	private setupEngineLogger(): void {
-		const silent = this._context.config.silent ?? false;
-		const engineLoggerConnector = silent
-			? new SilentLoggingConnector()
-			: new ConsoleLoggingConnector({
-					config: {
-						translateMessages: true,
-						hideGroups: true
-					}
-				});
+		const logLevel =
+			this._context.config.logLevel ??
+			((this._context.config.silent ?? false) ? EngineLogLevel.None : EngineLogLevel.All);
+
+		let engineLoggerConnector: ILoggingConnector;
+		if (logLevel === EngineLogLevel.None) {
+			engineLoggerConnector = new SilentLoggingConnector();
+		} else {
+			let levels: LogLevel[] | undefined;
+			if (logLevel === EngineLogLevel.Error) {
+				levels = [LogLevel.Error];
+			} else if (logLevel === EngineLogLevel.Warn) {
+				levels = [LogLevel.Error, LogLevel.Warn];
+			}
+			engineLoggerConnector = new ConsoleLoggingConnector({
+				config: {
+					translateMessages: true,
+					hideGroups: true,
+					levels
+				}
+			});
+		}
 
 		this._context.componentInstances.push({
 			instanceType: EngineCore.LOGGING_CONNECTOR_TYPE_NAME,
@@ -770,6 +896,22 @@ export class EngineCore<
 				type: EngineCore.LOGGING_COMPONENT_TYPE_NAME
 			}
 		];
+	}
+
+	/**
+	 * Log debug.
+	 * @param message The message to log.
+	 * @returns A promise that resolves when the message has been logged.
+	 * @internal
+	 */
+	private async logDebug(message: string): Promise<void> {
+		if (!this._context.config.silentLoggers?.includes(EngineCore.CLASS_NAME)) {
+			await this._engineLoggingComponent?.log({
+				source: EngineCore.CLASS_NAME,
+				level: "debug",
+				message
+			});
+		}
 	}
 
 	/**

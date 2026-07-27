@@ -6,6 +6,7 @@ import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@twin.or
 import { ComponentFactory, Factory, I18n } from "@twin.org/core";
 import { MemoryStateStorage } from "@twin.org/engine-core";
 import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
+import { EngineLogLevel } from "@twin.org/engine-models";
 import {
 	AttestationComponentType,
 	AttestationConnectorType,
@@ -445,8 +446,8 @@ describe("engine", () => {
 			"policy-negotiation-point-rest-client",
 			"policy-negotiation-point-service",
 			"federated-catalogue-service",
-			"dataspace-control-plane-service",
-			"dataspace-data-plane-service"
+			"dataspace-data-plane-service",
+			"dataspace-control-plane-service"
 		]);
 
 		expect(EntitySchemaFactory.names().filter(n => !/V(\d)+$/.test(n))).toEqual([
@@ -484,11 +485,11 @@ describe("engine", () => {
 			"OdrlPolicy",
 			"PolicyNegotiation",
 			"Dataset",
-			"TransferProcess",
-			"DataspaceAppDataset",
 			"ActivityLogDetails",
 			"ActivityTask",
-			"PushSubscription"
+			"PushSubscription",
+			"TransferProcess",
+			"DataspaceAppDataset"
 		]);
 
 		expect(engine).toBeDefined();
@@ -1024,9 +1025,541 @@ describe("engine", () => {
 		clone.populateClone(cloneData, { [ContextIdKeys.Node]: "did:iota:0x123" }, true);
 		await clone.start();
 
-		expect(clone.getConfig()).toEqual(engine.getConfig());
+		expect(clone.getConfig().logLevel).toEqual(EngineLogLevel.Error);
 		expect(clone.getState()).toEqual(engine.getState());
 		expect(clone.getRegisteredInstances()).toEqual(engine.getRegisteredInstances());
+	});
+
+	test("Can clone the engine with a log level", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		Factory.clearFactories();
+
+		const cloneData = engine.getCloneData();
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			{ logLevel: EngineLogLevel.Error }
+		);
+		await clone.start();
+
+		expect(clone.getConfig().logLevel).toEqual(EngineLogLevel.Error);
+		expect(clone.getState()).toEqual(engine.getState());
+		expect(clone.getRegisteredInstances()).toEqual(engine.getRegisteredInstances());
+	});
+
+	test("Can clone the engine and exclude a service marked as not cloneable", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }],
+				healthComponent: [{ type: HealthComponentType.Service, isCloneable: false }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		Factory.clearFactories();
+
+		const cloneData = engine.getCloneData();
+		const clone = new Engine();
+		clone.populateClone(cloneData, { [ContextIdKeys.Node]: "did:iota:0x123" });
+		await clone.start();
+
+		expect(engine.getRegisteredInstances()).toHaveProperty("healthComponent");
+		expect(clone.getRegisteredInstances()).not.toHaveProperty("healthComponent");
+	});
+
+	test("Can clone the engine with a subset of component types", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }],
+				healthComponent: [{ type: HealthComponentType.Service }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		Factory.clearFactories();
+
+		const cloneData = engine.getCloneData();
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			{ types: ["loggingConnector", "loggingComponent"] }
+		);
+		await clone.start();
+
+		expect(engine.getRegisteredInstances()).toHaveProperty("healthComponent");
+		expect(clone.getRegisteredInstances()).not.toHaveProperty("healthComponent");
+		expect(clone.getRegisteredInstances()).toHaveProperty("loggingConnector");
+		expect(clone.getRegisteredInstances()).toHaveProperty("loggingComponent");
+	});
+
+	test("Can clone the engine and honour isCloneable when the type is in the allowlist", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }],
+				healthComponent: [{ type: HealthComponentType.Service, isCloneable: false }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		Factory.clearFactories();
+
+		const cloneData = engine.getCloneData();
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			{ types: ["loggingConnector", "loggingComponent", "healthComponent"] }
+		);
+		await clone.start();
+
+		expect(engine.getRegisteredInstances()).toHaveProperty("healthComponent");
+		expect(clone.getRegisteredInstances()).not.toHaveProperty("healthComponent");
+		expect(clone.getRegisteredInstances()).toHaveProperty("loggingConnector");
+		expect(clone.getRegisteredInstances()).toHaveProperty("loggingComponent");
+	});
+
+	test("Can clone the engine and partially exclude instances within a type", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }],
+				dataConverterConnector: [
+					{ type: DataConverterConnectorType.Json },
+					{ type: DataConverterConnectorType.Xml, isCloneable: false }
+				]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		Factory.clearFactories();
+
+		const cloneData = engine.getCloneData();
+		const clone = new Engine();
+		clone.populateClone(cloneData, { [ContextIdKeys.Node]: "did:iota:0x123" });
+		await clone.start();
+
+		expect(engine.getRegisteredInstances().dataConverterConnector).toHaveLength(2);
+		expect(clone.getRegisteredInstances().dataConverterConnector).toHaveLength(1);
+		expect(clone.getRegisteredInstances().dataConverterConnector[0].type).toBe("json");
+	});
+
+	test("Can clone the engine and include a service explicitly marked as cloneable", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }],
+				healthComponent: [{ type: HealthComponentType.Service, isCloneable: true }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		Factory.clearFactories();
+
+		const cloneData = engine.getCloneData();
+		const clone = new Engine();
+		clone.populateClone(cloneData, { [ContextIdKeys.Node]: "did:iota:0x123" });
+		await clone.start();
+
+		expect(clone.getRegisteredInstances()).toHaveProperty("healthComponent");
+	});
+
+	test("getCloneData does not mutate the original engine config", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }],
+				healthComponent: [{ type: HealthComponentType.Service, isCloneable: false }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		Factory.clearFactories();
+
+		const cloneData = engine.getCloneData();
+
+		expect(engine.getConfig().types).toHaveProperty("healthComponent");
+		expect(engine.getConfig().types.healthComponent?.[0].isCloneable).toBe(false);
+		expect(cloneData.config.types).not.toHaveProperty("healthComponent");
+	});
+
+	test("populateClone logLevel does not mutate the original engine config", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		Factory.clearFactories();
+
+		expect(engine.getConfig().logLevel).toBeUndefined();
+
+		const cloneData = engine.getCloneData();
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			{ logLevel: EngineLogLevel.Error }
+		);
+		await clone.start();
+
+		expect(clone.getConfig().logLevel).toEqual(EngineLogLevel.Error);
+		expect(engine.getConfig().logLevel).toBeUndefined();
+	});
+
+	test("populateClone with no type or entity type options preserves the clone config exactly", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		Factory.clearFactories();
+
+		const cloneData = engine.getCloneData();
+
+		const clone = new Engine();
+		clone.populateClone(cloneData, { [ContextIdKeys.Node]: "did:iota:0x123" });
+		await clone.start();
+
+		expect(clone.getConfig()).toEqual(cloneData.config);
+	});
+
+	test("Can clone the engine with a types allowlist and partial instance filtering", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }],
+				dataConverterConnector: [
+					{ type: DataConverterConnectorType.Json },
+					{ type: DataConverterConnectorType.Xml, isCloneable: false }
+				],
+				healthComponent: [{ type: HealthComponentType.Service }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		Factory.clearFactories();
+
+		const cloneData = engine.getCloneData();
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			{ types: ["loggingConnector", "loggingComponent", "dataConverterConnector"] }
+		);
+		await clone.start();
+
+		expect(clone.getRegisteredInstances()).toHaveProperty("loggingConnector");
+		expect(clone.getRegisteredInstances()).toHaveProperty("loggingComponent");
+		expect(clone.getRegisteredInstances()).not.toHaveProperty("healthComponent");
+		expect(clone.getRegisteredInstances().dataConverterConnector).toHaveLength(1);
+		expect(clone.getRegisteredInstances().dataConverterConnector[0].type).toBe("json");
+	});
+
+	test("Types allowlist excludes a type regardless of its isCloneable entries", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }],
+				healthComponent: [{ type: HealthComponentType.Service, isCloneable: true }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		Factory.clearFactories();
+
+		const cloneData = engine.getCloneData();
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			{ types: ["loggingConnector", "loggingComponent"] }
+		);
+		await clone.start();
+
+		expect(clone.getRegisteredInstances()).toHaveProperty("loggingConnector");
+		expect(clone.getRegisteredInstances()).toHaveProperty("loggingComponent");
+		expect(clone.getRegisteredInstances()).not.toHaveProperty("healthComponent");
+	});
+
+	test("Can clone the engine with a subset of entity types", async () => {
+		EntitySchemaFactory.register(nameof<TestEntity>(), () =>
+			EntitySchemaHelper.getSchema(TestEntity)
+		);
+		EntitySchemaFactory.register(nameof<TestMigrationEntity>(), () =>
+			EntitySchemaHelper.getSchema(TestMigrationEntity)
+		);
+
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }],
+				entityStorageConnector: [
+					{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: { entityStorageType: nameof<TestEntity>(), partitionContextIds: [] }
+					},
+					{
+						type: EntityStorageComponentType.Service,
+						options: {
+							entityStorageType: nameof<TestMigrationEntity>(),
+							partitionContextIds: []
+						}
+					}
+				]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+
+		const cloneData = engine.getCloneData();
+
+		await engine.stop();
+		Factory.clearFactories();
+
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			{ entityTypes: [nameof<TestEntity>()] }
+		);
+		await clone.start();
+
+		expect(engine.getRegisteredInstances().entityStorageComponent).toHaveLength(2);
+		expect(clone.getRegisteredInstances().entityStorageComponent).toHaveLength(1);
+		expect(clone.getRegisteredInstances().entityStorageComponent[0].type).toBe("test-entity");
+	});
+
+	test("Can clone the engine with a nonexistent type in options.types without error", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+
+		const cloneData = engine.getCloneData();
+
+		await engine.stop();
+		Factory.clearFactories();
+
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			{ types: ["nonExistentType"] }
+		);
+		await clone.start();
+
+		// Nonexistent type is silently ignored: no configured types survive into the clone config.
+		expect(Object.keys(clone.getConfig().types ?? {})).toHaveLength(0);
+		// Only the built-in engine logger entries are present (1 each), not the configured ones.
+		expect(clone.getRegisteredInstances().loggingConnector).toHaveLength(1);
+		expect(clone.getRegisteredInstances().loggingComponent).toHaveLength(1);
+	});
+
+	test("Can clone the engine with a nonexistent entity type in options.entityTypes without error", async () => {
+		EntitySchemaFactory.register(nameof<TestEntity>(), () =>
+			EntitySchemaHelper.getSchema(TestEntity)
+		);
+
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }],
+				entityStorageConnector: [
+					{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: { entityStorageType: nameof<TestEntity>(), partitionContextIds: [] }
+					}
+				]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+
+		const cloneData = engine.getCloneData();
+
+		await engine.stop();
+		Factory.clearFactories();
+
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			{ entityTypes: ["nonExistentEntity"] }
+		);
+		await clone.start();
+
+		expect(clone.getRegisteredInstances().entityStorageComponent).toBeUndefined();
+	});
+
+	test("Can clone the engine with options.types filtering the clone config types", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+
+		const cloneData = engine.getCloneData();
+
+		await engine.stop();
+		Factory.clearFactories();
+
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			{ types: ["loggingConnector"] }
+		);
+		await clone.start();
+
+		// Only the allowed type key survives in the clone config.
+		expect(clone.getConfig().types).toHaveProperty("loggingConnector");
+		expect(clone.getConfig().types).not.toHaveProperty("loggingComponent");
+		// loggingConnector has the built-in entry plus the configured one.
+		expect(clone.getRegisteredInstances().loggingConnector).toHaveLength(2);
+		// loggingComponent has only the built-in engine logger entry (configured one was filtered).
+		expect(clone.getRegisteredInstances().loggingComponent).toHaveLength(1);
 	});
 
 	test("Can start engine with REST client config", async () => {
@@ -1315,9 +1848,9 @@ describe("engine", () => {
 			"policy-negotiation-admin-point-rest-client",
 			"policy-negotiation-point-rest-client",
 			"federated-catalogue-rest-client",
-			"dataspace-control-plane-rest-client",
 			"dataspace-data-plane-rest-client",
-			"dataspace-data-plane-socket-client"
+			"dataspace-data-plane-socket-client",
+			"dataspace-control-plane-rest-client"
 		]);
 
 		expect(EntitySchemaFactory.names().filter(n => !/V(\d)+$/.test(n))).toEqual([

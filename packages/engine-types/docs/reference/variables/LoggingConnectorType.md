@@ -23,3 +23,15 @@ Console.
 > `readonly` **Multi**: `"multi"` = `"multi"`
 
 Multi combines other loggers.
+
+### Otel {#otel}
+
+> `readonly` **Otel**: `"otel"` = `"otel"`
+
+OpenTelemetry.
+
+### File {#file}
+
+> `readonly` **File**: `"file"` = `"file"`
+
+File.
