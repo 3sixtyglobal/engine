@@ -47,7 +47,8 @@ export function initialiseDataspaceDataPlaneComponent(
 				engineCore,
 				context,
 				instanceConfig.options?.transferProcessEntityStorageType,
-				instanceConfig.options?.dataspaceAppDatasetEntityStorageType
+				instanceConfig.options?.dataspaceAppDatasetEntityStorageType,
+				instanceConfig.options?.transferRetrievalEntityStorageType
 			);
 
 			const partitionContextIds = ContextIdHelper.pickKeysFromAvailable(
