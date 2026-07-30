@@ -649,7 +649,7 @@ export class EngineCore<
 
 		const cloneData: IEngineCoreClone<C, S> = {
 			config: { ...sourceConfig, types: cloneTypes },
-			state: this._context.state,
+			state: ObjectHelper.clone(this._context.state),
 			typeInitialisers: this._typeInitialisers,
 			entitySchemas,
 			contextIdKeys: this._contextIdKeys

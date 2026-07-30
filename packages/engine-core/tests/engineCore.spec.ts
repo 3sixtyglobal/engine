@@ -240,4 +240,35 @@ describe("engine-core", () => {
 			})
 		).toThrow();
 	});
+
+	test("Can isolate clone state from parent state", async () => {
+		const parentState = {
+			nodeId: "parent-node",
+			nested: {
+				counter: 1
+			}
+		};
+
+		const parent = new EngineCore({
+			config: { silent: true, types: {} },
+			stateStorage: new MemoryStateStorage(false, parentState)
+		});
+
+		await parent.start();
+
+		const cloneData = parent.getCloneData();
+		expect(cloneData.state).not.toBe(parent.getState());
+
+		const clone = new EngineCore();
+		clone.populateClone(cloneData);
+		await clone.start();
+
+		expect(clone.getState()).not.toBe(parent.getState());
+
+		(clone.getState() as typeof parentState).nested.counter = 2;
+		expect(parent.getState().nested.counter).toBe(1);
+
+		await clone.stop();
+		await parent.stop();
+	});
 });
