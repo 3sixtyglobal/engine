@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.9.2-next.2](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.9.2-next.1...engine-core-v0.9.2-next.2) (2026-07-30)
+
+
+### Bug Fixes
+
+* clone state ([#203](https://github.com/iotaledger/twin-engine/issues/203)) ([a240233](https://github.com/iotaledger/twin-engine/commit/a240233eb775d5e35095f3aff3c834d51c473a2c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.9.2-next.1 to 0.9.2-next.2
+
 ## [0.9.2-next.1](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.9.2-next.0...engine-core-v0.9.2-next.1) (2026-07-28)
 
 
