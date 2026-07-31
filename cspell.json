@@ -35,9 +35,9 @@
 		"nameof",
 		"Odrl",
 		"openapi",
+		"Postgre",
 		"PNAP",
 		"PNRP",
-		"Postgre",
 		"scylladb",
 		"Stiftung"
 	],
