@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.2-next.3](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.9.2-next.2...engine-server-types-v0.9.2-next.3) (2026-08-02)
+
+
+### Bug Fixes
+
+* enable includeErrorStack on the web server in debug mode ([#206](https://github.com/iotaledger/twin-engine/issues/206)) ([a0c85a1](https://github.com/iotaledger/twin-engine/commit/a0c85a1cc3f79fdadc652d0362dbad02d4e3f9e8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.9.2-next.2 to 0.9.2-next.3
+    * @twin.org/engine-types bumped from 0.9.2-next.2 to 0.9.2-next.3
+
 ## [0.9.2-next.2](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.9.2-next.1...engine-server-types-v0.9.2-next.2) (2026-07-30)
 
 
