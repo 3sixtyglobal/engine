@@ -67,6 +67,11 @@ export function initialiseRestRouteProcessorComponent(
 						tenantAdminComponentType:
 							engineCore.getRegisteredInstanceTypeOptional("tenantAdminComponent")
 					},
+					{
+						config: {
+							includeErrorStack: context.config.debug
+						}
+					},
 					createConfig.options
 				)
 			);
@@ -98,7 +103,14 @@ export function initialiseRestRouteProcessorComponent(
 	} else if (instanceConfig.type === RestRouteProcessorType.RestRoute) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new RestRouteProcessor(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						config: {
+							includeErrorStack: context.config.debug
+						}
+					},
+					createConfig.options
+				)
 			);
 		instanceTypeName = nameofKebabCase(RestRouteProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.Tenant) {
@@ -115,14 +127,28 @@ export function initialiseRestRouteProcessorComponent(
 				])
 			);
 			return new TenantProcessor(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						config: {
+							includeErrorStack: context.config.debug
+						}
+					},
+					createConfig.options
+				)
 			);
 		};
 		instanceTypeName = nameofKebabCase(TenantProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.SingleTenant) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new SingleTenantProcessor(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						config: {
+							includeErrorStack: context.config.debug
+						}
+					},
+					createConfig.options
+				)
 			);
 		instanceTypeName = nameofKebabCase(SingleTenantProcessor);
 	}

@@ -263,7 +263,10 @@ export class EngineServer<
 
 		this._webServer = new FastifyWebServer({
 			loggingComponentType,
-			mimeTypeProcessors
+			mimeTypeProcessors,
+			config: {
+				includeErrorStack: coreConfig.debug
+			}
 		});
 
 		await this._engineCore.addRegisteredComponent("webServer", this._webServer);

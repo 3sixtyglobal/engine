@@ -67,6 +67,11 @@ export function initialiseSocketRouteProcessorComponent(
 						tenantAdminComponentType:
 							engineCore.getRegisteredInstanceTypeOptional("tenantAdminComponent")
 					},
+					{
+						config: {
+							includeErrorStack: context.config.debug
+						}
+					},
 					createConfig.options
 				)
 			);
@@ -98,7 +103,14 @@ export function initialiseSocketRouteProcessorComponent(
 	} else if (instanceConfig.type === SocketRouteProcessorType.SocketRoute) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new SocketRouteProcessor(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						config: {
+							includeErrorStack: context.config.debug
+						}
+					},
+					createConfig.options
+				)
 			);
 		instanceTypeName = nameofKebabCase(SocketRouteProcessor);
 	} else if (instanceConfig.type === SocketRouteProcessorType.Tenant) {
@@ -115,14 +127,28 @@ export function initialiseSocketRouteProcessorComponent(
 				])
 			);
 			return new TenantProcessor(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						config: {
+							includeErrorStack: context.config.debug
+						}
+					},
+					createConfig.options
+				)
 			);
 		};
 		instanceTypeName = nameofKebabCase(TenantProcessor);
 	} else if (instanceConfig.type === SocketRouteProcessorType.SingleTenant) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new SingleTenantProcessor(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						config: {
+							includeErrorStack: context.config.debug
+						}
+					},
+					createConfig.options
+				)
 			);
 		instanceTypeName = nameofKebabCase(SingleTenantProcessor);
 	}
