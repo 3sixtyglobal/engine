@@ -152,7 +152,7 @@
 		"type": "federatedCatalogueComponent",
 		"module": "@twin.org/federated-catalogue-service",
 		"method": "generateRestRoutesFederatedCatalogue",
-		"defaultPath": "/federated-catalogue"
+		"defaultPath": "/catalog"
 	},
 	{
 		"type": "dataspaceControlPlaneComponent",
