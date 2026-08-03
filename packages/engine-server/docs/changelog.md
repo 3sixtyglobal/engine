@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.9.2-next.4](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.9.2-next.3...engine-server-v0.9.2-next.4) (2026-08-03)
+
+
+### Features
+
+* renamed catalogue route ([#208](https://github.com/iotaledger/twin-engine/issues/208)) ([de25e48](https://github.com/iotaledger/twin-engine/commit/de25e486eec193a0ba6075e8a5900243e0badcb6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.2-next.3 to 0.9.2-next.4
+    * @twin.org/engine-models bumped from 0.9.2-next.3 to 0.9.2-next.4
+    * @twin.org/engine-server-types bumped from 0.9.2-next.3 to 0.9.2-next.4
+  * devDependencies
+    * @twin.org/engine bumped from 0.9.2-next.3 to 0.9.2-next.4
+
 ## [0.9.2-next.3](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.9.2-next.2...engine-server-v0.9.2-next.3) (2026-08-02)
 
 
