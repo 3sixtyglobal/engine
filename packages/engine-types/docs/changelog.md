@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.2-next.5](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.2-next.4...engine-types-v0.9.2-next.5) (2026-08-03)
+
+
+### Features
+
+* enable health service config ([9eede99](https://github.com/iotaledger/twin-engine/commit/9eede99c8d7d23d2ea12d22cf781d3570b08b247))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.2-next.4 to 0.9.2-next.5
+    * @twin.org/engine-models bumped from 0.9.2-next.4 to 0.9.2-next.5
+
 ## [0.9.2-next.4](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.2-next.3...engine-types-v0.9.2-next.4) (2026-08-03)
 
 
