@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.9.2-next.6](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.2-next.5...engine-types-v0.9.2-next.6) (2026-08-06)
+
+
+### Features
+
+* wire platform and task scheduler components into immutable proof ([#211](https://github.com/iotaledger/twin-engine/issues/211)) ([c4500dc](https://github.com/iotaledger/twin-engine/commit/c4500dcd4bc0ebc292081d6a4255d28a34e24181))
+* wire telemetry component into attestation service ([#213](https://github.com/iotaledger/twin-engine/issues/213)) ([4bd68be](https://github.com/iotaledger/twin-engine/commit/4bd68be1b0b31c2b7634ae0e354895692a2a7b5c))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.2-next.5 to 0.9.2-next.6
+    * @twin.org/engine-models bumped from 0.9.2-next.5 to 0.9.2-next.6
+
 ## [0.9.2-next.5](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.2-next.4...engine-types-v0.9.2-next.5) (2026-08-03)
 
 
