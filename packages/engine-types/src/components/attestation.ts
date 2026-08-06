@@ -73,7 +73,13 @@ export function initialiseAttestationComponent(
 	if (instanceConfig.type === AttestationComponentType.Service) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new AttestationService(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						telemetryComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+					},
+					createConfig.options
+				)
 			);
 		instanceTypeName = nameofKebabCase(AttestationService);
 	} else if (instanceConfig.type === AttestationComponentType.RestClient) {
