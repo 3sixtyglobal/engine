@@ -24,9 +24,9 @@ Console.
 
 Multi combines other loggers.
 
-### Otel {#otel}
+### OpenTelemetry {#opentelemetry}
 
-> `readonly` **Otel**: `"otel"` = `"otel"`
+> `readonly` **OpenTelemetry**: `"open-telemetry"` = `"open-telemetry"`
 
 OpenTelemetry.
 
