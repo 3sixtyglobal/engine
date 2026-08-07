@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.9.2-next.7](https://github.com/iotaledger/twin-engine/compare/engine-v0.9.2-next.6...engine-v0.9.2-next.7) (2026-08-07)
+
+
+### Features
+
+* add tracing support ([fa18503](https://github.com/iotaledger/twin-engine/commit/fa185035dbabb8610741110bedc0827cc61dd288))
+* linting and dependency update ([7289210](https://github.com/iotaledger/twin-engine/commit/7289210726b67b69ded06d9c7a5a7e01e42285a0))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.2-next.6 to 0.9.2-next.7
+    * @twin.org/engine-models bumped from 0.9.2-next.6 to 0.9.2-next.7
+    * @twin.org/engine-types bumped from 0.9.2-next.6 to 0.9.2-next.7
+
 ## [0.9.2-next.6](https://github.com/iotaledger/twin-engine/compare/engine-v0.9.2-next.5...engine-v0.9.2-next.6) (2026-08-06)
 
 
