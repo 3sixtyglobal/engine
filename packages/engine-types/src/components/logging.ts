@@ -77,7 +77,7 @@ export function initialiseLoggingConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
 			);
 		instanceTypeName = MultiLoggingConnector.NAMESPACE;
-	} else if (instanceConfig.type === LoggingConnectorType.Otel) {
+	} else if (instanceConfig.type === LoggingConnectorType.OpenTelemetry) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new OpenTelemetryLoggingConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
