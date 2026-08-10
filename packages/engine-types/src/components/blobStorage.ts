@@ -201,7 +201,11 @@ export function initialiseBlobStorageComponent(
 			);
 			return new BlobStorageService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector") },
+					{
+						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+						telemetryComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+					},
 					createConfig.options
 				)
 			);

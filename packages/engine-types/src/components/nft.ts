@@ -108,7 +108,13 @@ export function initialiseNftComponent(
 	if (instanceConfig.type === NftComponentType.Service) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new NftService(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						telemetryComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+					},
+					createConfig.options
+				)
 			);
 		instanceTypeName = nameofKebabCase(NftService);
 	} else if (instanceConfig.type === NftComponentType.RestClient) {

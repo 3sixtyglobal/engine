@@ -110,7 +110,13 @@ export function initialiseNotarizationComponent(
 	if (instanceConfig.type === NotarizationComponentType.Service) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new NotarizationService(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						telemetryComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+					},
+					createConfig.options
+				)
 			);
 		instanceTypeName = nameofKebabCase(NotarizationService);
 	} else if (instanceConfig.type === NotarizationComponentType.RestClient) {
