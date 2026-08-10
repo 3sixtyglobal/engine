@@ -63,7 +63,9 @@ export function initialiseImmutableProofComponent(
 							engineCore.getRegisteredInstanceTypeOptional("eventBusComponent"),
 						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent"),
 						taskSchedulerComponentType:
-							engineCore.getRegisteredInstanceType("taskSchedulerComponent")
+							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
+						telemetryComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
 					},
 					createConfig.options
 				)
