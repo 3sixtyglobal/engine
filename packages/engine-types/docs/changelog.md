@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.9.2-next.8](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.2-next.7...engine-types-v0.9.2-next.8) (2026-08-10)
+
+
+### Features
+
+* use getRegisteredLoggerType for all components logging lookup ([6e30c75](https://github.com/iotaledger/twin-engine/commit/6e30c750be713cc217fc7ef26c3d285cad538bb1))
+* wire-up immutable proof telemetry ([e789a1f](https://github.com/iotaledger/twin-engine/commit/e789a1f51a62208eab6dd9e7c36ddc6dd53b71a2))
+* wire-up immutable proof telemetry ([4fe83a4](https://github.com/iotaledger/twin-engine/commit/4fe83a43dd4bafe74ae47671a9736187567065f6))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.2-next.7 to 0.9.2-next.8
+    * @twin.org/engine-models bumped from 0.9.2-next.7 to 0.9.2-next.8
+
 ## [0.9.2-next.7](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.2-next.6...engine-types-v0.9.2-next.7) (2026-08-07)
 
 

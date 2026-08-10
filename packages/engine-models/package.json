@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/engine-models",
-	"version": "0.9.2-next.7",
+	"version": "0.9.2-next.8",
 	"description": "Shared contracts and factory interfaces for composing engine core and server implementations.",
 	"repository": {
 		"type": "git",

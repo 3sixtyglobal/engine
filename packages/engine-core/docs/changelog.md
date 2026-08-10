@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.9.2-next.8](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.9.2-next.7...engine-core-v0.9.2-next.8) (2026-08-10)
+
+
+### Features
+
+* make sure options exists ([e77fe22](https://github.com/iotaledger/twin-engine/commit/e77fe227134b2e620b9bc22cfa7b269a238f53f8))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.9.2-next.7 to 0.9.2-next.8
+
 ## [0.9.2-next.7](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.9.2-next.6...engine-core-v0.9.2-next.7) (2026-08-07)
 
 
