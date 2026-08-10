@@ -73,7 +73,7 @@ export function initialiseNftConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-						loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
+						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(IotaNftConnector)),
 						config: dltConfig?.options?.config
 					},
 					createConfig.options

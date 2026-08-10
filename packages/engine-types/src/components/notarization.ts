@@ -73,7 +73,9 @@ export function initialiseNotarizationConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-						loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(IotaNotarizationConnector)
+						),
 						config: dltConfig?.options?.config
 					},
 					createConfig.options

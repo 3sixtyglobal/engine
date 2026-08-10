@@ -52,7 +52,9 @@ export function initialiseDataspaceControlPlaneComponent(
 			return new DataspaceControlPlaneService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(DataspaceControlPlaneService)
+						),
 						trustComponentType: engineCore.getRegisteredInstanceTypeOptional("trustComponent"),
 						policyAdministrationPointComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPapComponent"

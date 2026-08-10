@@ -86,7 +86,9 @@ export function initialiseDataspaceDataPlaneComponent(
 			return new DataspaceDataPlaneService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(DataspaceDataPlaneService)
+						),
 						backgroundTaskComponentType:
 							engineCore.getRegisteredInstanceTypeOptional("backgroundTaskComponent"),
 						taskSchedulerComponentType:
@@ -113,7 +115,9 @@ export function initialiseDataspaceDataPlaneComponent(
 			new DataspaceDataPlaneSocketClient(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent")
+						loggingComponentType: engineCore.getRegisteredLoggerType(
+							nameof(DataspaceDataPlaneSocketClient)
+						)
 					},
 					createConfig.options
 				)
