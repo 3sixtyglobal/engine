@@ -733,7 +733,9 @@ export class EngineCore<
 			const filteredTypes: { [type: string]: IEngineCoreTypeConfig[] } = {};
 			for (const typeKey of Object.keys(partialTypes)) {
 				const kept = partialTypes[typeKey].filter(e => {
-					const storageType = ObjectHelper.propertyGet(e.options, "entityStorageType");
+					const storageType = Is.object(e.options)
+						? ObjectHelper.propertyGet(e.options, "entityStorageType")
+						: undefined;
 					return Is.stringValue(storageType) ? optionsEntityTypes.includes(storageType) : true;
 				});
 				if (kept.length > 0) {
