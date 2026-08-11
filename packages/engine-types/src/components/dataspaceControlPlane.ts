@@ -55,7 +55,7 @@ export function initialiseDataspaceControlPlaneComponent(
 						loggingComponentType: engineCore.getRegisteredLoggerType(
 							nameof(DataspaceControlPlaneService)
 						),
-						trustComponentType: engineCore.getRegisteredInstanceTypeOptional("trustComponent"),
+						trustComponentType: engineCore.getRegisteredInstanceType("trustComponent"),
 						policyAdministrationPointComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPapComponent"
 						),
@@ -68,13 +68,8 @@ export function initialiseDataspaceControlPlaneComponent(
 						federatedCatalogueComponentType: engineCore.getRegisteredInstanceType(
 							"federatedCatalogueComponent"
 						),
-						identityComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("identityComponent"),
-						identityAuthenticationComponentType: engineCore.getRegisteredInstanceTypeOptional(
-							"identityAuthenticationComponent"
-						),
 						taskSchedulerComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("taskSchedulerComponent"),
+							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
 						dataPlaneComponentType: engineCore.getRegisteredInstanceType(
 							"dataspaceDataPlaneComponent"
 						),

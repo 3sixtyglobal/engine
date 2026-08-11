@@ -90,13 +90,12 @@ export function initialiseDataspaceDataPlaneComponent(
 							nameof(DataspaceDataPlaneService)
 						),
 						backgroundTaskComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("backgroundTaskComponent"),
+							engineCore.getRegisteredInstanceType("backgroundTaskComponent"),
 						taskSchedulerComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("taskSchedulerComponent"),
-						trustComponentType: engineCore.getRegisteredInstanceTypeOptional("trustComponent"),
-						pepComponentType: engineCore.getRegisteredInstanceTypeOptional(
-							"rightsManagementPepComponent"
-						),
+							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
+						trustComponentType: engineCore.getRegisteredInstanceType("trustComponent"),
+						pepComponentType: engineCore.getRegisteredInstanceType("rightsManagementPepComponent"),
+						papComponentType: engineCore.getRegisteredInstanceType("rightsManagementPapComponent"),
 						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent"),
 						telemetryComponentType:
 							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
