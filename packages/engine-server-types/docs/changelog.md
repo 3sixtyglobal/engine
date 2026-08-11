@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.2-next.9](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.9.2-next.8...engine-server-types-v0.9.2-next.9) (2026-08-11)
+
+
+### Miscellaneous Chores
+
+* **engine-server-types:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.9.2-next.8 to 0.9.2-next.9
+    * @twin.org/engine-types bumped from 0.9.2-next.8 to 0.9.2-next.9
+
 ## [0.9.2-next.8](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.9.2-next.7...engine-server-types-v0.9.2-next.8) (2026-08-10)
 
 

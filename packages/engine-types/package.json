@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/engine-types",
-	"version": "0.9.2-next.8",
+	"version": "0.9.2-next.9",
 	"description": "Component and connector type definitions with configuration helpers for engine composition.",
 	"repository": {
 		"type": "git",
@@ -77,8 +77,8 @@
 		"@twin.org/document-management-models": "next",
 		"@twin.org/document-management-rest-client": "next",
 		"@twin.org/document-management-service": "next",
-		"@twin.org/engine-core": "0.9.2-next.8",
-		"@twin.org/engine-models": "0.9.2-next.8",
+		"@twin.org/engine-core": "0.9.2-next.9",
+		"@twin.org/engine-models": "0.9.2-next.9",
 		"@twin.org/entity": "next",
 		"@twin.org/entity-storage-connector-cosmosdb": "next",
 		"@twin.org/entity-storage-connector-dynamodb": "next",

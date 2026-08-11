@@ -1,8 +1,8 @@
 {
-	"packages/engine-models": "0.9.2-next.8",
-	"packages/engine-core": "0.9.2-next.8",
-	"packages/engine-types": "0.9.2-next.8",
-	"packages/engine-server-types": "0.9.2-next.8",
-	"packages/engine": "0.9.2-next.8",
-	"packages/engine-server": "0.9.2-next.8"
+	"packages/engine-models": "0.9.2-next.9",
+	"packages/engine-core": "0.9.2-next.9",
+	"packages/engine-types": "0.9.2-next.9",
+	"packages/engine-server-types": "0.9.2-next.9",
+	"packages/engine": "0.9.2-next.9",
+	"packages/engine-server": "0.9.2-next.9"
 }
