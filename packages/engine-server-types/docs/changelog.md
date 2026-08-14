@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.2-next.10](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.9.2-next.9...engine-server-types-v0.9.2-next.10) (2026-08-14)
+
+
+### Features
+
+* add tenant override processor ([#219](https://github.com/iotaledger/twin-engine/issues/219)) ([abcff10](https://github.com/iotaledger/twin-engine/commit/abcff1010a4ddf7c6e46c361be8f24f0c1976c27))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.9.2-next.9 to 0.9.2-next.10
+    * @twin.org/engine-types bumped from 0.9.2-next.9 to 0.9.2-next.10
+
 ## [0.9.2-next.9](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.9.2-next.8...engine-server-types-v0.9.2-next.9) (2026-08-11)
 
 
