@@ -43,4 +43,5 @@
 - [initialiseInformationComponent](functions/initialiseInformationComponent.md)
 - [initialiseMimeTypeProcessorComponent](functions/initialiseMimeTypeProcessorComponent.md)
 - [initialiseRestRouteProcessorComponent](functions/initialiseRestRouteProcessorComponent.md)
+- [initTenantStorage](functions/initTenantStorage.md)
 - [initialiseSocketRouteProcessorComponent](functions/initialiseSocketRouteProcessorComponent.md)
