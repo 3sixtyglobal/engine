@@ -9,6 +9,7 @@ import type {
 } from "@twin.org/api-processors";
 import type {
 	ISingleTenantProcessorConstructorOptions,
+	ITenantOverrideProcessorConstructorOptions,
 	ITenantProcessorConstructorOptions
 } from "@twin.org/api-tenant-processor";
 import type { SocketRouteProcessorType } from "../types/socketRouteProcessorType.js";
@@ -40,6 +41,10 @@ export type SocketRouteProcessorConfig =
 	| {
 			type: typeof SocketRouteProcessorType.SingleTenant;
 			options?: ISingleTenantProcessorConstructorOptions;
+	  }
+	| {
+			type: typeof SocketRouteProcessorType.TenantOverride;
+			options?: ITenantOverrideProcessorConstructorOptions;
 	  }
 	| {
 			type: typeof SocketRouteProcessorType.SocketRoute;

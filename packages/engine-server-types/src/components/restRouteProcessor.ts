@@ -16,6 +16,7 @@ import {
 	initSchema as initSchemaTenantProcessor,
 	TenantProcessor,
 	SingleTenantProcessor,
+	TenantOverrideProcessor,
 	type Tenant
 } from "@twin.org/api-tenant-processor";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
@@ -115,17 +116,7 @@ export function initialiseRestRouteProcessorComponent(
 		instanceTypeName = nameofKebabCase(RestRouteProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.Tenant) {
 		createComponent = (createConfig: typeof instanceConfig) => {
-			initSchemaTenantProcessor();
-			initialiseEntityStorageConnector(
-				engineCore,
-				context,
-				createConfig.options?.tenantEntityStorageType,
-				nameof<Tenant>(),
-				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-					ContextIdKeys.Node,
-					ContextIdKeys.Tenant
-				])
-			);
+			initTenantStorage(engineCore, context, createConfig?.options?.tenantEntityStorageType);
 			return new TenantProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
@@ -151,6 +142,21 @@ export function initialiseRestRouteProcessorComponent(
 				)
 			);
 		instanceTypeName = nameofKebabCase(SingleTenantProcessor);
+	} else if (instanceConfig.type === RestRouteProcessorType.TenantOverride) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initTenantStorage(engineCore, context, createConfig?.options?.tenantEntityStorageType);
+			return new TenantOverrideProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						config: {
+							includeErrorStack: context.config.debug
+						}
+					},
+					createConfig.options
+				)
+			);
+		};
+		instanceTypeName = nameofKebabCase(TenantOverrideProcessor);
 	}
 
 	return {
@@ -158,4 +164,28 @@ export function initialiseRestRouteProcessorComponent(
 		instanceTypeName,
 		factory: RestRouteProcessorFactory
 	};
+}
+
+/**
+ * Initialise the tenant storage.
+ * @param engineCore The engine core.
+ * @param context The context for the engine.
+ * @param tenantEntityStorageType The tenant entity storage type.
+ */
+export function initTenantStorage(
+	engineCore: IEngineCore<IEngineServerConfig>,
+	context: IEngineCoreContext<IEngineServerConfig>,
+	tenantEntityStorageType?: string
+): void {
+	initSchemaTenantProcessor();
+	initialiseEntityStorageConnector(
+		engineCore,
+		context,
+		tenantEntityStorageType,
+		nameof<Tenant>(),
+		ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+			ContextIdKeys.Node,
+			ContextIdKeys.Tenant
+		])
+	);
 }

@@ -9,7 +9,8 @@ import type {
 } from "@twin.org/api-processors";
 import type {
 	ISingleTenantProcessorConstructorOptions,
-	ITenantProcessorConstructorOptions
+	ITenantProcessorConstructorOptions,
+	ITenantOverrideProcessorConstructorOptions
 } from "@twin.org/api-tenant-processor";
 import type { RestRouteProcessorType } from "../types/restRouteProcessorType.js";
 
@@ -40,6 +41,10 @@ export type RestRouteProcessorConfig =
 	| {
 			type: typeof RestRouteProcessorType.SingleTenant;
 			options?: ISingleTenantProcessorConstructorOptions;
+	  }
+	| {
+			type: typeof RestRouteProcessorType.TenantOverride;
+			options?: ITenantOverrideProcessorConstructorOptions;
 	  }
 	| {
 			type: typeof RestRouteProcessorType.RestRoute;
