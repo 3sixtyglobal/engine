@@ -59,3 +59,9 @@ Tenant override.
 > `readonly` **RestRoute**: `"rest-route"` = `"rest-route"`
 
 REST Route.
+
+### Metrics {#metrics}
+
+> `readonly` **Metrics**: `"metrics"` = `"metrics"`
+
+Metrics.
