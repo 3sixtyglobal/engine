@@ -28,6 +28,7 @@ import type {
 } from "@twin.org/engine-models";
 import { EngineTypeHelper, initialiseEntityStorageConnector } from "@twin.org/engine-types";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
+import { MetricsRouteProcessor } from "@twin.org/telemetry-processors";
 import type { RestRouteProcessorConfig } from "../models/config/restRouteProcessorConfig.js";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
 import { RestRouteProcessorType } from "../models/types/restRouteProcessorType.js";
@@ -157,6 +158,18 @@ export function initialiseRestRouteProcessorComponent(
 			);
 		};
 		instanceTypeName = nameofKebabCase(TenantOverrideProcessor);
+	} else if (instanceConfig.type === RestRouteProcessorType.Metrics) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new MetricsRouteProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						telemetryComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(MetricsRouteProcessor);
 	}
 
 	return {

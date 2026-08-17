@@ -49,7 +49,12 @@ export const RestRouteProcessorType = {
 	/**
 	 * REST Route.
 	 */
-	RestRoute: "rest-route"
+	RestRoute: "rest-route",
+
+	/**
+	 * Metrics.
+	 */
+	Metrics: "metrics"
 } as const;
 
 /**

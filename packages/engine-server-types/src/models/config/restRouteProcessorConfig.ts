@@ -9,9 +9,10 @@ import type {
 } from "@twin.org/api-processors";
 import type {
 	ISingleTenantProcessorConstructorOptions,
-	ITenantProcessorConstructorOptions,
-	ITenantOverrideProcessorConstructorOptions
+	ITenantOverrideProcessorConstructorOptions,
+	ITenantProcessorConstructorOptions
 } from "@twin.org/api-tenant-processor";
+import type { IMetricsRouteProcessorConstructorOptions } from "@twin.org/telemetry-processors";
 import type { RestRouteProcessorType } from "../types/restRouteProcessorType.js";
 
 /**
@@ -45,6 +46,10 @@ export type RestRouteProcessorConfig =
 	| {
 			type: typeof RestRouteProcessorType.TenantOverride;
 			options?: ITenantOverrideProcessorConstructorOptions;
+	  }
+	| {
+			type: typeof RestRouteProcessorType.Metrics;
+			options?: IMetricsRouteProcessorConstructorOptions;
 	  }
 	| {
 			type: typeof RestRouteProcessorType.RestRoute;
