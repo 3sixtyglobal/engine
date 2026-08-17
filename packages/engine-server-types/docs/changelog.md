@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.2-next.11](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.9.2-next.10...engine-server-types-v0.9.2-next.11) (2026-08-17)
+
+
+### Features
+
+* add telemetry metrics for REST requests ([#222](https://github.com/iotaledger/twin-engine/issues/222)) ([f5391e4](https://github.com/iotaledger/twin-engine/commit/f5391e41b533ec4f2895a6b580dfaba8262ce098))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.9.2-next.10 to 0.9.2-next.11
+    * @twin.org/engine-types bumped from 0.9.2-next.10 to 0.9.2-next.11
+
 ## [0.9.2-next.10](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.9.2-next.9...engine-server-types-v0.9.2-next.10) (2026-08-14)
 
 
