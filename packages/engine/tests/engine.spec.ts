@@ -12,6 +12,8 @@ import {
 	AttestationConnectorType,
 	AuditableItemGraphComponentType,
 	AuditableItemStreamComponentType,
+	AuthorizationComponentType,
+	AuthorizationConnectorType,
 	AutomationActionType,
 	AutomationComponentType,
 	BackgroundTaskComponentType,
@@ -226,6 +228,8 @@ describe("engine", () => {
 					telemetryComponent: [{ type: TelemetryComponentType.Service }],
 					metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 					metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
+					authorizationConnector: [{ type: AuthorizationConnectorType.EntityStorage }],
+					authorizationComponent: [{ type: AuthorizationComponentType.Service }],
 					automationComponent: [{ type: AutomationComponentType.Service }],
 					automationAction: [
 						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
@@ -419,6 +423,7 @@ describe("engine", () => {
 			"event-bus-service",
 			"telemetry-service",
 			"metrics-collector-service",
+			"authorization-service",
 			"automation-service",
 			"messaging-admin-service",
 			"messaging-service",
@@ -457,6 +462,10 @@ describe("engine", () => {
 			"ScheduledTask",
 			"TelemetryMetric",
 			"TelemetryMetricValue",
+			"AuthorizationPolicy",
+			"AuthorizationRoleAssignment",
+			"AuthorizationRoleInheritance",
+			"AuthorizationRoleName",
 			"AutomationActionEntry",
 			"EmailEntry",
 			"SmsEntry",
@@ -619,6 +628,8 @@ describe("engine", () => {
 					telemetryComponent: [{ type: TelemetryComponentType.Service }],
 					metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 					metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
+					authorizationConnector: [{ type: AuthorizationConnectorType.EntityStorage }],
+					authorizationComponent: [{ type: AuthorizationComponentType.Service }],
 					automationComponent: [{ type: AutomationComponentType.Service }],
 					automationAction: [
 						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
@@ -847,6 +858,8 @@ describe("engine", () => {
 				telemetryComponent: [{ type: TelemetryComponentType.Service }],
 				metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 				metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
+				authorizationConnector: [{ type: AuthorizationConnectorType.EntityStorage }],
+				authorizationComponent: [{ type: AuthorizationComponentType.Service }],
 				automationComponent: [{ type: AutomationComponentType.Service }],
 				automationAction: [
 					{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
@@ -1611,6 +1624,13 @@ describe("engine", () => {
 					],
 					metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 					metricsProducerComponent: [], // No REST client available for metrics producer
+					authorizationConnector: [{ type: AuthorizationConnectorType.EntityStorage }],
+					authorizationComponent: [
+						{
+							type: AuthorizationComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
+						}
+					],
 					messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
 					messagingSmsConnector: [{ type: MessagingSmsConnectorType.EntityStorage }],
 					messagingPushNotificationConnector: [
@@ -1824,6 +1844,7 @@ describe("engine", () => {
 			"event-bus-socket-client",
 			"telemetry-rest-client",
 			"metrics-collector-service",
+			"authorization-rest-client",
 			"automation-service",
 			"messaging-admin-service",
 			"messaging-service",
@@ -1861,6 +1882,10 @@ describe("engine", () => {
 			"ScheduledTask",
 			"TelemetryMetric",
 			"TelemetryMetricValue",
+			"AuthorizationPolicy",
+			"AuthorizationRoleAssignment",
+			"AuthorizationRoleInheritance",
+			"AuthorizationRoleName",
 			"AutomationActionEntry",
 			"EmailEntry",
 			"SmsEntry",

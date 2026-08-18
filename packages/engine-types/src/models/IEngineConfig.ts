@@ -5,6 +5,8 @@ import type { AttestationComponentConfig } from "./config/attestationComponentCo
 import type { AttestationConnectorConfig } from "./config/attestationConnectorConfig.js";
 import type { AuditableItemGraphComponentConfig } from "./config/auditableItemGraphComponentConfig.js";
 import type { AuditableItemStreamComponentConfig } from "./config/auditableItemStreamComponentConfig.js";
+import type { AuthorizationComponentConfig } from "./config/authorizationComponentConfig.js";
+import type { AuthorizationConnectorConfig } from "./config/authorizationConnectorConfig.js";
 import type { AutomationActionConfig } from "./config/automationActionConfig.js";
 import type { AutomationComponentConfig } from "./config/automationComponentConfig.js";
 import type { BackgroundTaskComponentConfig } from "./config/backgroundTaskComponentConfig.js";
@@ -132,6 +134,16 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Metrics collector options. Each entry registers a collector in `MetricsCollectorFactory`.
 		 */
 		metricsCollectorComponent?: IEngineCoreTypeConfig<MetricsCollectorComponentConfig>[];
+
+		/**
+		 * Authorization connector options which can be overridden by individual components by specifying types other than default.
+		 */
+		authorizationConnector?: IEngineCoreTypeConfig<AuthorizationConnectorConfig>[];
+
+		/**
+		 * Authorization component options which can be overridden by individual components by specifying types other than default.
+		 */
+		authorizationComponent?: IEngineCoreTypeConfig<AuthorizationComponentConfig>[];
 
 		/**
 		 * Messaging email connector options which can be overridden by individual components by specifying types other than default.

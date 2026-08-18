@@ -1,6 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 export * from "./components/attestation.js";
+export * from "./components/authorization.js";
 export * from "./components/auditableItemGraph.js";
 export * from "./components/auditableItemStream.js";
 export * from "./components/automation.js";
@@ -56,6 +57,8 @@ export * from "./components/vault.js";
 export * from "./components/wallet.js";
 export * from "./models/config/attestationComponentConfig.js";
 export * from "./models/config/attestationConnectorConfig.js";
+export * from "./models/config/authorizationComponentConfig.js";
+export * from "./models/config/authorizationConnectorConfig.js";
 export * from "./models/config/auditableItemGraphComponentConfig.js";
 export * from "./models/config/auditableItemStreamComponentConfig.js";
 export * from "./models/config/automationActionConfig.js";
@@ -130,6 +133,8 @@ export * from "./models/config/walletConnectorConfig.js";
 export * from "./models/IEngineConfig.js";
 export * from "./models/types/attestationComponentType.js";
 export * from "./models/types/attestationConnectorType.js";
+export * from "./models/types/authorizationComponentType.js";
+export * from "./models/types/authorizationConnectorType.js";
 export * from "./models/types/auditableItemGraphComponentType.js";
 export * from "./models/types/auditableItemStreamComponentType.js";
 export * from "./models/types/automationActionType.js";

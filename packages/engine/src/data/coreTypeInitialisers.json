@@ -70,6 +70,16 @@
 		"method": "initialiseMetricsCollectorComponent"
 	},
 	{
+		"type": "authorizationConnector",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseAuthorizationConnector"
+	},
+	{
+		"type": "authorizationComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseAuthorizationComponent"
+	},
+	{
 		"type": "automationComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseAutomationComponent"
