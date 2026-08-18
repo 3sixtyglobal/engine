@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.9.2-next.12](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.9.2-next.11...engine-server-v0.9.2-next.12) (2026-08-18)
+
+
+### Features
+
+* add tracing ([#225](https://github.com/iotaledger/twin-engine/issues/225)) ([852bb7b](https://github.com/iotaledger/twin-engine/commit/852bb7ba8b49e13c0edf7da4a8adf49cb303223a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.9.2-next.11 to 0.9.2-next.12
+    * @twin.org/engine-server-types bumped from 0.9.2-next.11 to 0.9.2-next.12
+  * devDependencies
+    * @twin.org/engine bumped from 0.9.2-next.11 to 0.9.2-next.12
+    * @twin.org/engine-core bumped from 0.9.2-next.11 to 0.9.2-next.12
+    * @twin.org/engine-types bumped from 0.9.2-next.11 to 0.9.2-next.12
+
 ## [0.9.2-next.11](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.9.2-next.10...engine-server-v0.9.2-next.11) (2026-08-17)
 
 
