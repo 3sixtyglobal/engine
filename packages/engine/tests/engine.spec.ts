@@ -469,13 +469,13 @@ describe("engine", () => {
 			"ScheduledTask",
 			"TelemetryMetric",
 			"TelemetryMetricValue",
+			"SpanEvent",
+			"SpanLink",
+			"Span",
 			"AuthorizationPolicy",
 			"AuthorizationRoleAssignment",
 			"AuthorizationRoleInheritance",
 			"AuthorizationRoleName",
-			"SpanEvent",
-			"SpanLink",
-			"Span",
 			"AutomationActionEntry",
 			"EmailEntry",
 			"SmsEntry",
@@ -1977,7 +1977,7 @@ describe("engine", () => {
 						entityStorageConnector: [
 							{
 								type: EntityStorageConnectorType.Memory,
-								options: { storagePrefix: "test-" }
+								options: { storagePrefix: "migrate-" }
 							}
 						],
 						entityStorageComponent: [

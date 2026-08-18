@@ -12,6 +12,7 @@ import type {
 	ITenantOverrideProcessorConstructorOptions,
 	ITenantProcessorConstructorOptions
 } from "@twin.org/api-tenant-processor";
+import type { IAuthorizationProcessorConstructorOptions } from "@twin.org/authorization-service";
 import type { IMetricsRouteProcessorConstructorOptions } from "@twin.org/telemetry-processors";
 import type { ITracingRouteProcessorConstructorOptions } from "@twin.org/tracing-processors";
 import type { RestRouteProcessorType } from "../types/restRouteProcessorType.js";
@@ -59,4 +60,8 @@ export type RestRouteProcessorConfig =
 	| {
 			type: typeof RestRouteProcessorType.Tracing;
 			options?: ITracingRouteProcessorConstructorOptions;
+	  }
+	| {
+			type: typeof RestRouteProcessorType.Authorization;
+			options?: IAuthorizationProcessorConstructorOptions;
 	  };

@@ -54,6 +54,12 @@
 		"defaultPath": "/tracing"
 	},
 	{
+		"type": "authorizationComponent",
+		"module": "@twin.org/authorization-service",
+		"method": "generateRestRoutesAuthorization",
+		"defaultPath": "/authorization"
+	},
+	{
 		"type": "automationComponent",
 		"module": "@twin.org/automation-service",
 		"method": "generateRestRoutesAutomation",

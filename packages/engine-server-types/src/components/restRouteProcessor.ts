@@ -19,6 +19,7 @@ import {
 	TenantOverrideProcessor,
 	type Tenant
 } from "@twin.org/api-tenant-processor";
+import { AuthorizationProcessor } from "@twin.org/authorization-service";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import type { IComponent } from "@twin.org/core";
 import type {
@@ -183,6 +184,21 @@ export function initialiseRestRouteProcessorComponent(
 				)
 			);
 		instanceTypeName = nameofKebabCase(TracingRouteProcessor);
+	} else if (instanceConfig.type === RestRouteProcessorType.Authorization) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new AuthorizationProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						authorizationComponentType:
+							engineCore.getRegisteredInstanceType("authorizationComponent"),
+						config: {
+							includeErrorStack: context.config.debug
+						}
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(AuthorizationProcessor);
 	}
 
 	return {
