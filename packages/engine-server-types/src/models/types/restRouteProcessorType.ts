@@ -54,7 +54,12 @@ export const RestRouteProcessorType = {
 	/**
 	 * Metrics.
 	 */
-	Metrics: "metrics"
+	Metrics: "metrics",
+
+	/**
+	 * Tracing.
+	 */
+	Tracing: "tracing"
 } as const;
 
 /**

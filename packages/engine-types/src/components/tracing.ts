@@ -11,7 +11,7 @@ import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import {
 	EntityStorageTracingConnector,
 	initSchema,
-	type SpanEntity
+	type Span
 } from "@twin.org/tracing-connector-entity-storage";
 import { OpenTelemetryTracingConnector } from "@twin.org/tracing-connector-opentelemetry";
 import { TracingConnectorFactory } from "@twin.org/tracing-models";
@@ -47,7 +47,7 @@ export function initialiseTracingConnector(
 				engineCore,
 				context,
 				createConfig.options?.spanStorageConnectorType,
-				nameof<SpanEntity>(),
+				nameof<Span>(),
 				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
 					ContextIdKeys.Node,
 					ContextIdKeys.Tenant

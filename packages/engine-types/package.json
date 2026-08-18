@@ -153,6 +153,7 @@
 		"@twin.org/tracing-connector-entity-storage": "next",
 		"@twin.org/tracing-connector-opentelemetry": "next",
 		"@twin.org/tracing-models": "next",
+		"@twin.org/tracing-processors": "next",
 		"@twin.org/tracing-rest-client": "next",
 		"@twin.org/tracing-service": "next",
 		"@twin.org/trust-generators": "next",

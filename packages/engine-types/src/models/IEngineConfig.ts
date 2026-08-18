@@ -47,6 +47,7 @@ import type { NftConnectorConfig } from "./config/nftConnectorConfig.js";
 import type { NotarizationComponentConfig } from "./config/notarizationComponentConfig.js";
 import type { NotarizationConnectorConfig } from "./config/notarizationConnectorConfig.js";
 import type { PlatformComponentConfig } from "./config/platformComponentConfig.js";
+import type { RestClientProcessorConfig } from "./config/restClientProcessorConfig.js";
 import type { RightsManagementPapComponentConfig } from "./config/rightsManagementPapComponentConfig.js";
 import type { RightsManagementPdpComponentConfig } from "./config/rightsManagementPdpComponentConfig.js";
 import type { RightsManagementPepComponentConfig } from "./config/rightsManagementPepComponentConfig.js";
@@ -433,6 +434,11 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Platform component options which can be overridden by individual components by specifying types other than default.
 		 */
 		platformComponent?: IEngineCoreTypeConfig<PlatformComponentConfig>[];
+
+		/**
+		 * REST client processor options.
+		 */
+		restClientProcessor?: IEngineCoreTypeConfig<RestClientProcessorConfig>[];
 
 		/**
 		 * Tenant admin component options which can be overridden by individual components by specifying types other than default.
