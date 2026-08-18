@@ -60,6 +60,11 @@
 		"method": "initialiseTracingComponent"
 	},
 	{
+		"type": "restClientProcessor",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseRestClientProcessorComponent"
+	},
+	{
 		"type": "metricsProducerComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseMetricsProducerComponent"

@@ -56,6 +56,7 @@ import {
 	NotarizationComponentType,
 	NotarizationConnectorType,
 	PlatformComponentType,
+	RestClientProcessorType,
 	RightsManagementPapComponentType,
 	RightsManagementPdpComponentType,
 	RightsManagementPepComponentType,
@@ -76,6 +77,8 @@ import {
 	TelemetryComponentType,
 	TelemetryConnectorType,
 	TenantAdminComponentType,
+	TracingComponentType,
+	TracingConnectorType,
 	TrustComponentType,
 	TrustGeneratorComponentType,
 	TrustVerifierComponentType,
@@ -226,10 +229,13 @@ describe("engine", () => {
 					eventBusComponent: [{ type: EventBusComponentType.Service }],
 					telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
 					telemetryComponent: [{ type: TelemetryComponentType.Service }],
+					tracingConnector: [{ type: TracingConnectorType.EntityStorage }],
+					tracingComponent: [{ type: TracingComponentType.Service }],
 					metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 					metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
 					authorizationConnector: [{ type: AuthorizationConnectorType.EntityStorage }],
 					authorizationComponent: [{ type: AuthorizationComponentType.Service }],
+					restClientProcessor: [{ type: RestClientProcessorType.Tracing }],
 					automationComponent: [{ type: AutomationComponentType.Service }],
 					automationAction: [
 						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
@@ -422,6 +428,7 @@ describe("engine", () => {
 			"task-scheduler-service",
 			"event-bus-service",
 			"telemetry-service",
+			"tracing-service",
 			"metrics-collector-service",
 			"authorization-service",
 			"automation-service",
@@ -466,6 +473,9 @@ describe("engine", () => {
 			"AuthorizationRoleAssignment",
 			"AuthorizationRoleInheritance",
 			"AuthorizationRoleName",
+			"SpanEvent",
+			"SpanLink",
+			"Span",
 			"AutomationActionEntry",
 			"EmailEntry",
 			"SmsEntry",
@@ -626,10 +636,13 @@ describe("engine", () => {
 					eventBusComponent: [{ type: EventBusComponentType.Service }],
 					telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
 					telemetryComponent: [{ type: TelemetryComponentType.Service }],
+					tracingConnector: [{ type: TracingConnectorType.EntityStorage }],
+					tracingComponent: [{ type: TracingComponentType.Service }],
 					metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 					metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
 					authorizationConnector: [{ type: AuthorizationConnectorType.EntityStorage }],
 					authorizationComponent: [{ type: AuthorizationComponentType.Service }],
+					restClientProcessor: [{ type: RestClientProcessorType.Tracing }],
 					automationComponent: [{ type: AutomationComponentType.Service }],
 					automationAction: [
 						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
@@ -1631,6 +1644,7 @@ describe("engine", () => {
 							options: { endpoint: "http://localhost:3000" }
 						}
 					],
+					restClientProcessor: [{ type: RestClientProcessorType.Tracing }],
 					messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
 					messagingSmsConnector: [{ type: MessagingSmsConnectorType.EntityStorage }],
 					messagingPushNotificationConnector: [
@@ -1948,7 +1962,7 @@ describe("engine", () => {
 				{ from: "legacyField", to: "newField" },
 				{ from: "score", to: "tags" }
 			],
-			transformEntityProperty: (from, to, value) => [`item:${value as number}`]
+			transformEntityProperty: (source, fromSchema, toSchema, value) => [`item:${value as number}`]
 		}));
 
 		// Capture console.info to verify migration log messages are emitted.

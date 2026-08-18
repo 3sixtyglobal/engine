@@ -78,6 +78,8 @@ import {
 	TelemetryComponentType,
 	TelemetryConnectorType,
 	TenantAdminComponentType,
+	TracingComponentType,
+	TracingConnectorType,
 	TrustComponentType,
 	TrustGeneratorComponentType,
 	TrustVerifierComponentType,
@@ -193,6 +195,8 @@ describe("engine-server", () => {
 				eventBusComponent: [{ type: EventBusComponentType.Service }],
 				telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
 				telemetryComponent: [{ type: TelemetryComponentType.Service }],
+				tracingConnector: [{ type: TracingConnectorType.EntityStorage }],
+				tracingComponent: [{ type: TracingComponentType.Service }],
 				metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 				metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
 				messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
@@ -375,6 +379,9 @@ describe("engine-server", () => {
 				restRouteProcessor: [
 					{
 						type: RestRouteProcessorType.RestRoute
+					},
+					{
+						type: RestRouteProcessorType.Tracing
 					}
 				],
 				socketRouteProcessor: [
@@ -463,6 +470,10 @@ describe("engine-server", () => {
 			"GET      /telemetry/metric",
 			"GET      /telemetry/metric/:id/value/:valueId",
 			"GET      /telemetry/metric/:id/value",
+			"POST     /tracing",
+			"PUT      /tracing/:spanId",
+			"GET      /tracing",
+			"GET      /tracing/trace/:traceId",
 			"POST     /automation/trigger/:trigger",
 			"POST     /automation",
 			"DELETE   /automation/:actionId",

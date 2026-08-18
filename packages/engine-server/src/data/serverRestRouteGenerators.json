@@ -48,6 +48,12 @@
 		"defaultPath": "/telemetry"
 	},
 	{
+		"type": "tracingComponent",
+		"module": "@twin.org/tracing-service",
+		"method": "generateRestRoutesTracing",
+		"defaultPath": "/tracing"
+	},
+	{
 		"type": "automationComponent",
 		"module": "@twin.org/automation-service",
 		"method": "generateRestRoutesAutomation",

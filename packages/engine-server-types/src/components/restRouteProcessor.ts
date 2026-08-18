@@ -29,6 +29,7 @@ import type {
 import { EngineTypeHelper, initialiseEntityStorageConnector } from "@twin.org/engine-types";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { MetricsRouteProcessor } from "@twin.org/telemetry-processors";
+import { TracingRouteProcessor } from "@twin.org/tracing-processors";
 import type { RestRouteProcessorConfig } from "../models/config/restRouteProcessorConfig.js";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
 import { RestRouteProcessorType } from "../models/types/restRouteProcessorType.js";
@@ -170,6 +171,18 @@ export function initialiseRestRouteProcessorComponent(
 				)
 			);
 		instanceTypeName = nameofKebabCase(MetricsRouteProcessor);
+	} else if (instanceConfig.type === RestRouteProcessorType.Tracing) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new TracingRouteProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						tracingComponentType: engineCore.getRegisteredInstanceTypeOptional("tracingComponent"),
+						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(TracingRouteProcessor))
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(TracingRouteProcessor);
 	}
 
 	return {

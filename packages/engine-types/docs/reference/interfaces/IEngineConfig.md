@@ -498,6 +498,12 @@ Dataspace data plane component options which can be overridden by individual com
 
 Platform component options which can be overridden by individual components by specifying types other than default.
 
+#### restClientProcessor?
+
+> `optional` **restClientProcessor?**: `IEngineCoreTypeConfig`\<[`RestClientProcessorConfig`](../type-aliases/RestClientProcessorConfig.md)\>[]
+
+REST client processor options.
+
 #### tenantAdminComponent?
 
 > `optional` **tenantAdminComponent?**: `IEngineCoreTypeConfig`\<[`TenantAdminComponentConfig`](../type-aliases/TenantAdminComponentConfig.md)\>[]

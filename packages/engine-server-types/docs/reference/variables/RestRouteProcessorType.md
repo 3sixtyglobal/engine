@@ -65,3 +65,9 @@ REST Route.
 > `readonly` **Metrics**: `"metrics"` = `"metrics"`
 
 Metrics.
+
+### Tracing {#tracing}
+
+> `readonly` **Tracing**: `"tracing"` = `"tracing"`
+
+Tracing.
