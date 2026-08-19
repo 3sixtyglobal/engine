@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.2-next.13](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.2-next.12...engine-types-v0.9.2-next.13) (2026-08-19)
+
+
+### Features
+
+* add platform component to tracing entity storage ([0823ec9](https://github.com/iotaledger/twin-engine/commit/0823ec93b80709522369e13d8c6f5886db405639))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.2-next.12 to 0.9.2-next.13
+    * @twin.org/engine-models bumped from 0.9.2-next.12 to 0.9.2-next.13
+
 ## [0.9.2-next.12](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.2-next.11...engine-types-v0.9.2-next.12) (2026-08-18)
 
 
