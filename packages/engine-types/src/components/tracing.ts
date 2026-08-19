@@ -54,7 +54,12 @@ export function initialiseTracingConnector(
 				])
 			);
 			return new EntityStorageTracingConnector(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
+					},
+					createConfig.options
+				)
 			);
 		};
 		instanceTypeName = EntityStorageTracingConnector.NAMESPACE;
