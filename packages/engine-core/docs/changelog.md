@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.9.2-next.14](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.9.2-next.13...engine-core-v0.9.2-next.14) (2026-08-20)
+
+
+### Features
+
+* silent telemetry tracing ([#229](https://github.com/iotaledger/twin-engine/issues/229)) ([33b184a](https://github.com/iotaledger/twin-engine/commit/33b184a7def9f28fcff7c540e739b7ae28d46298))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.9.2-next.13 to 0.9.2-next.14
+
 ## [0.9.2-next.13](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.9.2-next.12...engine-core-v0.9.2-next.13) (2026-08-19)
 
 
