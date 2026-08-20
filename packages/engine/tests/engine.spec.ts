@@ -1084,6 +1084,22 @@ describe("engine", () => {
 			types: {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
+				entityStorageConnector: [
+					{
+						type: EntityStorageConnectorType.Memory,
+						options: { storagePrefix: "test-" }
+					}
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: {
+							entityStorageType: "background-task",
+							partitionContextIds: []
+						}
+					}
+				],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 				healthComponent: [{ type: HealthComponentType.Service, isCloneable: false }]
 			}
 		};
@@ -1113,6 +1129,22 @@ describe("engine", () => {
 			types: {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
+				entityStorageConnector: [
+					{
+						type: EntityStorageConnectorType.Memory,
+						options: { storagePrefix: "test-" }
+					}
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: {
+							entityStorageType: "background-task",
+							partitionContextIds: []
+						}
+					}
+				],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 				healthComponent: [{ type: HealthComponentType.Service }]
 			}
 		};
@@ -1148,6 +1180,22 @@ describe("engine", () => {
 			types: {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
+				entityStorageConnector: [
+					{
+						type: EntityStorageConnectorType.Memory,
+						options: { storagePrefix: "test-" }
+					}
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: {
+							entityStorageType: "background-task",
+							partitionContextIds: []
+						}
+					}
+				],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 				healthComponent: [{ type: HealthComponentType.Service, isCloneable: false }]
 			}
 		};
@@ -1216,6 +1264,22 @@ describe("engine", () => {
 			types: {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
+				entityStorageConnector: [
+					{
+						type: EntityStorageConnectorType.Memory,
+						options: { storagePrefix: "test-" }
+					}
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: {
+							entityStorageType: "background-task",
+							partitionContextIds: []
+						}
+					}
+				],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 				healthComponent: [{ type: HealthComponentType.Service, isCloneable: true }]
 			}
 		};
@@ -1244,6 +1308,22 @@ describe("engine", () => {
 			types: {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
+				entityStorageConnector: [
+					{
+						type: EntityStorageConnectorType.Memory,
+						options: { storagePrefix: "test-" }
+					}
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: {
+							entityStorageType: "background-task",
+							partitionContextIds: []
+						}
+					}
+				],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 				healthComponent: [{ type: HealthComponentType.Service, isCloneable: false }]
 			}
 		};
@@ -1337,6 +1417,22 @@ describe("engine", () => {
 					{ type: DataConverterConnectorType.Json },
 					{ type: DataConverterConnectorType.Xml, isCloneable: false }
 				],
+				entityStorageConnector: [
+					{
+						type: EntityStorageConnectorType.Memory,
+						options: { storagePrefix: "test-" }
+					}
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: {
+							entityStorageType: "background-task",
+							partitionContextIds: []
+						}
+					}
+				],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 				healthComponent: [{ type: HealthComponentType.Service }]
 			}
 		};
@@ -1373,6 +1469,22 @@ describe("engine", () => {
 			types: {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
+				entityStorageConnector: [
+					{
+						type: EntityStorageConnectorType.Memory,
+						options: { storagePrefix: "test-" }
+					}
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: {
+							entityStorageType: "background-task",
+							partitionContextIds: []
+						}
+					}
+				],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 				healthComponent: [{ type: HealthComponentType.Service, isCloneable: true }]
 			}
 		};

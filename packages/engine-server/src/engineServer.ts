@@ -259,7 +259,7 @@ export class EngineServer<
 		const coreConfig = this._engineCore.getConfig();
 		const loggingComponentType = coreConfig.silent
 			? undefined
-			: this._engineCore.getRegisteredLoggerType(nameof(FastifyWebServer));
+			: this._engineCore.getRegisteredSilencedType("logging", nameof(FastifyWebServer));
 
 		this._webServer = new FastifyWebServer({
 			loggingComponentType,

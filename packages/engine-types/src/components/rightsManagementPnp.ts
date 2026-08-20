@@ -34,7 +34,8 @@ export function initialiseRightsManagementPnpComponent(
 			new PolicyNegotiationPointService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(PolicyNegotiationPointService)
 						),
 						policyNegotiationAdministrationPointComponentType: engineCore.getRegisteredInstanceType(

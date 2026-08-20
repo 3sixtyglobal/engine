@@ -49,12 +49,15 @@ export function initialiseFederatedCatalogueComponent(
 			return new FederatedCatalogueService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(FederatedCatalogueService)
 						),
 						trustComponentType: engineCore.getRegisteredInstanceType("trustComponent"),
-						telemetryComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(FederatedCatalogueService)
+						)
 					},
 					createConfig.options
 				)

@@ -11,7 +11,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { AttestationComponentConfig } from "../models/config/attestationComponentConfig.js";
 import type { AttestationConnectorConfig } from "../models/config/attestationConnectorConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
@@ -75,8 +75,10 @@ export function initialiseAttestationComponent(
 			new AttestationService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						telemetryComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(AttestationService)
+						)
 					},
 					createConfig.options
 				)

@@ -6,7 +6,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { TracingRestClientProcessor } from "@twin.org/tracing-processors";
 import type { RestClientProcessorConfig } from "../models/config/restClientProcessorConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
@@ -33,7 +33,10 @@ export function initialiseRestClientProcessorComponent(
 			new TracingRestClientProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						tracingComponentType: engineCore.getRegisteredInstanceTypeOptional("tracingComponent")
+						tracingComponentType: engineCore.getRegisteredSilencedType(
+							"tracing",
+							nameof(TracingRestClientProcessor)
+						)
 					},
 					createConfig.options
 				)

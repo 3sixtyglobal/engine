@@ -52,7 +52,10 @@ export function initialiseAutomationComponent(
 			return new AutomationService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(AutomationService))
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(AutomationService)
+						)
 					},
 					createConfig.options
 				)

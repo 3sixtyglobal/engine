@@ -67,7 +67,8 @@ export function initialiseTelemetryConnector(
 			return new EntityStorageTelemetryConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(EntityStorageTelemetryConnector)
 						)
 					},
@@ -103,7 +104,8 @@ export function initialiseTelemetryConnector(
 			return new OpenTelemetryTelemetryConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(OpenTelemetryTelemetryConnector)
 						)
 					},

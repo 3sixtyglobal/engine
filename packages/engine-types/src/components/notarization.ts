@@ -73,7 +73,8 @@ export function initialiseNotarizationConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(IotaNotarizationConnector)
 						),
 						config: dltConfig?.options?.config
@@ -112,8 +113,10 @@ export function initialiseNotarizationComponent(
 			new NotarizationService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						telemetryComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(NotarizationService)
+						)
 					},
 					createConfig.options
 				)

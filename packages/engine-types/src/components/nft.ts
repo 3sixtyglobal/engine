@@ -73,7 +73,10 @@ export function initialiseNftConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(IotaNftConnector)),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(IotaNftConnector)
+						),
 						config: dltConfig?.options?.config
 					},
 					createConfig.options
@@ -110,8 +113,10 @@ export function initialiseNftComponent(
 			new NftService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						telemetryComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(NftService)
+						)
 					},
 					createConfig.options
 				)

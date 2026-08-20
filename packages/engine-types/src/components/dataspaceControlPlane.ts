@@ -52,7 +52,8 @@ export function initialiseDataspaceControlPlaneComponent(
 			return new DataspaceControlPlaneService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(DataspaceControlPlaneService)
 						),
 						trustComponentType: engineCore.getRegisteredInstanceType("trustComponent"),
@@ -74,8 +75,10 @@ export function initialiseDataspaceControlPlaneComponent(
 							"dataspaceDataPlaneComponent"
 						),
 						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent"),
-						telemetryComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(DataspaceControlPlaneService)
+						)
 					},
 					createConfig.options
 				)
