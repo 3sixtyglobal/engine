@@ -46,11 +46,23 @@ all
 
 ***
 
-### silentLoggers? {#silentloggers}
+### silentComponents? {#silentcomponents}
 
-> `optional` **silentLoggers?**: `string`[]
+> `optional` **silentComponents?**: `object`
 
-The loggers to disable output for.
+The components to disable output for.
+
+#### logging?
+
+> `optional` **logging?**: `string`[]
+
+#### telemetry?
+
+> `optional` **telemetry?**: `string`[]
+
+#### tracing?
+
+> `optional` **tracing?**: `string`[]
 
 ***
 
