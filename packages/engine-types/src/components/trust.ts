@@ -33,7 +33,10 @@ export function initialiseTrustComponent(
 			new TrustService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(TrustService))
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(TrustService)
+						)
 					},
 					createConfig.options
 				)

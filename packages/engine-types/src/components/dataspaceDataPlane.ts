@@ -86,7 +86,8 @@ export function initialiseDataspaceDataPlaneComponent(
 			return new DataspaceDataPlaneService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(DataspaceDataPlaneService)
 						),
 						backgroundTaskComponentType:
@@ -97,8 +98,10 @@ export function initialiseDataspaceDataPlaneComponent(
 						pepComponentType: engineCore.getRegisteredInstanceType("rightsManagementPepComponent"),
 						papComponentType: engineCore.getRegisteredInstanceType("rightsManagementPapComponent"),
 						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent"),
-						telemetryComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(DataspaceDataPlaneService)
+						)
 					},
 					createConfig.options
 				)
@@ -114,7 +117,8 @@ export function initialiseDataspaceDataPlaneComponent(
 			new DataspaceDataPlaneSocketClient(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(DataspaceDataPlaneSocketClient)
 						)
 					},

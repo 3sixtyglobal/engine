@@ -86,7 +86,10 @@ export function initialiseRestRouteProcessorComponent(
 			new LoggingProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(LoggingProcessor))
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(LoggingProcessor)
+						)
 					},
 					createConfig.options
 				)
@@ -165,8 +168,10 @@ export function initialiseRestRouteProcessorComponent(
 			new MetricsRouteProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						telemetryComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(MetricsRouteProcessor)
+						)
 					},
 					createConfig.options
 				)
@@ -177,8 +182,14 @@ export function initialiseRestRouteProcessorComponent(
 			new TracingRouteProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						tracingComponentType: engineCore.getRegisteredInstanceTypeOptional("tracingComponent"),
-						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(TracingRouteProcessor))
+						tracingComponentType: engineCore.getRegisteredSilencedType(
+							"tracing",
+							nameof(TracingRouteProcessor)
+						),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(TracingRouteProcessor)
+						)
 					},
 					createConfig.options
 				)

@@ -454,7 +454,7 @@ export class EngineCore<
 	 * @returns A promise that resolves when the message has been logged.
 	 */
 	public async logInfo(message: string): Promise<void> {
-		if (!this._context.config.silentLoggers?.includes(EngineCore.CLASS_NAME)) {
+		if (!this._context.config.silentComponents?.logging?.includes(EngineCore.CLASS_NAME)) {
 			await this._engineLoggingComponent?.log({
 				source: EngineCore.CLASS_NAME,
 				level: "info",
@@ -586,15 +586,19 @@ export class EngineCore<
 	}
 
 	/**
-	 * Get the registered logger for the component/connector.
-	 * @param componentName The name of the component to get the logger for.
-	 * @returns The logger type name if one is registered and not silenced.
+	 * Get the registered component type for the given component type, if not silenced.
+	 * @param componentType The type of component to get the registered type for.
+	 * @param componentName The name of the component to get the type for.
+	 * @returns The component type name if one is registered and not silenced.
 	 */
-	public getRegisteredLoggerType(componentName: string): string | undefined {
-		if (this._context.config.silentLoggers?.includes(componentName)) {
+	public getRegisteredSilencedType(
+		componentType: "logging" | "telemetry" | "tracing",
+		componentName: string
+	): string | undefined {
+		if (this._context.config.silentComponents?.[componentType]?.includes(componentName)) {
 			return undefined;
 		}
-		return this.getRegisteredInstanceTypeOptional("loggingComponent");
+		return this.getRegisteredInstanceTypeOptional(`${componentType}Component`);
 	}
 
 	/**
@@ -907,7 +911,7 @@ export class EngineCore<
 	 * @internal
 	 */
 	private async logDebug(message: string): Promise<void> {
-		if (!this._context.config.silentLoggers?.includes(EngineCore.CLASS_NAME)) {
+		if (!this._context.config.silentComponents?.logging?.includes(EngineCore.CLASS_NAME)) {
 			await this._engineLoggingComponent?.log({
 				source: EngineCore.CLASS_NAME,
 				level: "debug",

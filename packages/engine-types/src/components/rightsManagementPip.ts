@@ -33,7 +33,8 @@ export function initialiseRightsManagementPipComponent(
 			new PolicyInformationPointService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(PolicyInformationPointService)
 						)
 					},

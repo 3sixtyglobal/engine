@@ -33,7 +33,8 @@ export function initialiseRightsManagementPxpComponent(
 			new PolicyExecutionPointService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(PolicyExecutionPointService)
 						)
 					},

@@ -26,9 +26,13 @@ export interface IEngineCoreConfig {
 	logLevel?: EngineLogLevel;
 
 	/**
-	 * The loggers to disable output for.
+	 * The components to disable output for.
 	 */
-	silentLoggers?: string[];
+	silentComponents?: {
+		logging?: string[];
+		telemetry?: string[];
+		tracing?: string[];
+	};
 
 	/**
 	 * The types to initialise in the engine.

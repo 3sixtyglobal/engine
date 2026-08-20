@@ -37,7 +37,8 @@ export function initialiseRightsManagementPolicyArbiterComponent(
 			new PassThroughPolicyArbiter(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(PassThroughPolicyArbiter)
 						)
 					},
@@ -50,7 +51,10 @@ export function initialiseRightsManagementPolicyArbiterComponent(
 			new DefaultPolicyArbiter(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(DefaultPolicyArbiter)),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(DefaultPolicyArbiter)
+						),
 						policyAdministrationPointComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPapComponent"
 						)

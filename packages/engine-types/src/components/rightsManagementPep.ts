@@ -33,7 +33,8 @@ export function initialiseRightsManagementPepComponent(
 			new PolicyEnforcementPointService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(PolicyEnforcementPointService)
 						),
 						policyDecisionPointComponentType: engineCore.getRegisteredInstanceType(

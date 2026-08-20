@@ -34,6 +34,8 @@ export function initialiseHealthComponent(
 			new HealthService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
+						backgroundTaskComponentType:
+							engineCore.getRegisteredInstanceType("backgroundTaskComponent"),
 						config: {
 							includeErrorStack: engineCore.getConfig().debug
 						}

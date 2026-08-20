@@ -82,7 +82,10 @@ export function initialiseSocketRouteProcessorComponent(
 			new LoggingProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(LoggingProcessor))
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(LoggingProcessor)
+						)
 					},
 					createConfig.options
 				)

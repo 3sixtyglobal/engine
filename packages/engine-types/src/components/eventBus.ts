@@ -38,7 +38,10 @@ export function initialiseEventBusConnector(
 			new LocalEventBusConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(LocalEventBusConnector))
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(LocalEventBusConnector)
+						)
 					},
 					createConfig.options
 				)
@@ -82,7 +85,10 @@ export function initialiseEventBusComponent(
 			new EventBusSocketClient(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(EventBusSocketClient))
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(EventBusSocketClient)
+						)
 					},
 					createConfig.options
 				)

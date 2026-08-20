@@ -82,7 +82,8 @@ export function initialiseAuthorizationConnector(
 			return new EntityStorageAuthorizationConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(EntityStorageAuthorizationConnector)
 						)
 					},
@@ -96,7 +97,8 @@ export function initialiseAuthorizationConnector(
 			new CasbinAuthorizationConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(CasbinAuthorizationConnector)
 						)
 					},
@@ -133,8 +135,10 @@ export function initialiseAuthorizationComponent(
 			new AuthorizationService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						telemetryComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(AuthorizationService)
+						)
 					},
 					createConfig.options
 				)

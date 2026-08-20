@@ -56,7 +56,8 @@ export function initialiseRightsManagementPnapComponent(
 			return new PolicyNegotiationAdminPointService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(PolicyNegotiationAdminPointService)
 						),
 						taskSchedulerComponentType:

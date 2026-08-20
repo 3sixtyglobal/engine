@@ -568,29 +568,35 @@ The instance type matching the criteria if one is registered.
 
 ***
 
-### getRegisteredLoggerType() {#getregisteredloggertype}
+### getRegisteredSilencedType() {#getregisteredsilencedtype}
 
-> **getRegisteredLoggerType**(`componentName`): `string` \| `undefined`
+> **getRegisteredSilencedType**(`componentType`, `componentName`): `string` \| `undefined`
 
-Get the registered logger for the component/connector.
+Get the registered component type for the given component type, if not silenced.
 
 #### Parameters
+
+##### componentType
+
+`"logging"` \| `"telemetry"` \| `"tracing"`
+
+The type of component to get the registered type for.
 
 ##### componentName
 
 `string`
 
-The name of the component to get the logger for.
+The name of the component to get the type for.
 
 #### Returns
 
 `string` \| `undefined`
 
-The logger type name if one is registered and not silenced.
+The component type name if one is registered and not silenced.
 
 #### Inherited from
 
-`EngineCore.getRegisteredLoggerType`
+`EngineCore.getRegisteredSilencedType`
 
 ***
 
