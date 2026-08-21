@@ -17,3 +17,15 @@ Entity storage.
 > `readonly` **OpenTelemetry**: `"open-telemetry"` = `"open-telemetry"`
 
 OpenTelemetry.
+
+### Multi {#multi}
+
+> `readonly` **Multi**: `"multi"` = `"multi"`
+
+Multi combines other telemetry connectors.
+
+### Silent {#silent}
+
+> `readonly` **Silent**: `"silent"` = `"silent"`
+
+Silent for a noop connector.
