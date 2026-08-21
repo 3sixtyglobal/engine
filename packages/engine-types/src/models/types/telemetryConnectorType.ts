@@ -14,7 +14,17 @@ export const TelemetryConnectorType = {
 	/**
 	 * OpenTelemetry.
 	 */
-	OpenTelemetry: "open-telemetry"
+	OpenTelemetry: "open-telemetry",
+
+	/**
+	 * Multi combines other telemetry connectors.
+	 */
+	Multi: "multi",
+
+	/**
+	 * Silent for a noop connector.
+	 */
+	Silent: "silent"
 } as const;
 
 /**

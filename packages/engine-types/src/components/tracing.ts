@@ -14,7 +14,11 @@ import {
 	type Span
 } from "@twin.org/tracing-connector-entity-storage";
 import { OpenTelemetryTracingConnector } from "@twin.org/tracing-connector-opentelemetry";
-import { TracingConnectorFactory } from "@twin.org/tracing-models";
+import {
+	MultiTracingConnector,
+	SilentTracingConnector,
+	TracingConnectorFactory
+} from "@twin.org/tracing-models";
 import { TracingRestClient } from "@twin.org/tracing-rest-client";
 import { TracingService } from "@twin.org/tracing-service";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
@@ -69,6 +73,15 @@ export function initialiseTracingConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
 			);
 		instanceTypeName = OpenTelemetryTracingConnector.NAMESPACE;
+	} else if (instanceConfig.type === TracingConnectorType.Multi) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new MultiTracingConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = MultiTracingConnector.NAMESPACE;
+	} else if (instanceConfig.type === TracingConnectorType.Silent) {
+		createComponent = (createConfig: typeof instanceConfig) => new SilentTracingConnector();
+		instanceTypeName = SilentTracingConnector.NAMESPACE;
 	}
 
 	return {

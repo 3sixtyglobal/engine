@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IEntityStorageTelemetryConnectorConstructorOptions } from "@twin.org/telemetry-connector-entity-storage";
 import type { IOpenTelemetryTelemetryConnectorConstructorOptions } from "@twin.org/telemetry-connector-opentelemetry";
+import type { IMultiTelemetryConnectorConstructorOptions } from "@twin.org/telemetry-models";
 import type { TelemetryConnectorType } from "../types/telemetryConnectorType.js";
 
 /**
@@ -15,4 +16,12 @@ export type TelemetryConnectorConfig =
 	| {
 			type: typeof TelemetryConnectorType.OpenTelemetry;
 			options?: IOpenTelemetryTelemetryConnectorConstructorOptions;
+	  }
+	| {
+			type: typeof TelemetryConnectorType.Multi;
+			options: IMultiTelemetryConnectorConstructorOptions;
+	  }
+	| {
+			type: typeof TelemetryConnectorType.Silent;
+			options?: never;
 	  };
