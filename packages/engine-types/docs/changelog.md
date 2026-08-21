@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.2-next.15](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.2-next.14...engine-types-v0.9.2-next.15) (2026-08-21)
+
+
+### Features
+
+* telemetry tracing multi ([#233](https://github.com/iotaledger/twin-engine/issues/233)) ([23f713f](https://github.com/iotaledger/twin-engine/commit/23f713f2b349a1427b2a7aaa45a45ab3b796e2bc))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.2-next.14 to 0.9.2-next.15
+    * @twin.org/engine-models bumped from 0.9.2-next.14 to 0.9.2-next.15
+
 ## [0.9.2-next.14](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.2-next.13...engine-types-v0.9.2-next.14) (2026-08-20)
 
 
