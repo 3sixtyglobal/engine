@@ -16,6 +16,7 @@
 ## Type Aliases
 
 - [IEngineCoreTypeConfig](type-aliases/IEngineCoreTypeConfig.md)
+- [EngineCloneMode](type-aliases/EngineCloneMode.md)
 - [EngineLogLevel](type-aliases/EngineLogLevel.md)
 - [EngineTypeInitialiser](type-aliases/EngineTypeInitialiser.md)
 
@@ -23,4 +24,5 @@
 
 - [EngineCoreFactory](variables/EngineCoreFactory.md)
 - [EngineServerFactory](variables/EngineServerFactory.md)
+- [EngineCloneMode](variables/EngineCloneMode.md)
 - [EngineLogLevel](variables/EngineLogLevel.md)
