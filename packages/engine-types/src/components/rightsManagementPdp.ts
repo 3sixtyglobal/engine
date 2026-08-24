@@ -33,7 +33,8 @@ export function initialiseRightsManagementPdpComponent(
 			new PolicyDecisionPointService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(PolicyDecisionPointService)
 						),
 						policyInformationPointComponentType: engineCore.getRegisteredInstanceType(

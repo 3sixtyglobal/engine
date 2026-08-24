@@ -1,6 +1,6 @@
 # Function: initialiseDataspaceSharedEntityStorages()
 
-> **initialiseDataspaceSharedEntityStorages**(`engineCore`, `context`, `transferProcessEntityStorageType`, `dataspaceAppDatasetEntityStorageType`): `void`
+> **initialiseDataspaceSharedEntityStorages**(`engineCore`, `context`, `transferProcessEntityStorageType`, `dataspaceAppDatasetEntityStorageType`, `transferRetrievalEntityStorageType?`): `void`
 
 Initialise the shared entity storages used by both control and data plane services.
 Both planes must register the same connector name with the same partition keys,
@@ -32,6 +32,12 @@ The entity storage type for transfer processes.
 `string` \| `undefined`
 
 The entity storage type for dataspace app datasets.
+
+### transferRetrievalEntityStorageType?
+
+`string`
+
+The entity storage type for transfer retrievals.
 
 ## Returns
 

@@ -37,7 +37,8 @@ export function initialiseRightsManagementPolicyEnforcementProcessorComponent(
 			new PassThroughPolicyEnforcementProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(PassThroughPolicyEnforcementProcessor)
 						)
 					},
@@ -52,7 +53,8 @@ export function initialiseRightsManagementPolicyEnforcementProcessorComponent(
 			new DefaultPolicyEnforcementProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(DefaultPolicyEnforcementProcessor)
 						)
 					},

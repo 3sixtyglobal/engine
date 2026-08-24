@@ -42,6 +42,11 @@ export const SocketRouteProcessorType = {
 	SingleTenant: "single-tenant",
 
 	/**
+	 * Tenant override.
+	 */
+	TenantOverride: "tenant-override",
+
+	/**
 	 * Socket Route.
 	 */
 	SocketRoute: "socket-route"

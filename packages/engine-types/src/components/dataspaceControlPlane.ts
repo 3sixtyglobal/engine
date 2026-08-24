@@ -7,7 +7,11 @@ import {
 	DataspaceControlPlaneService,
 	initSchema as initSchemaDataspaceControlPlane
 } from "@twin.org/dataspace-control-plane-service";
-import type { DataspaceAppDataset, TransferProcess } from "@twin.org/dataspace-models";
+import type {
+	DataspaceAppDataset,
+	TransferProcess,
+	TransferRetrieval
+} from "@twin.org/dataspace-models";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
@@ -41,14 +45,18 @@ export function initialiseDataspaceControlPlaneComponent(
 				engineCore,
 				context,
 				instanceConfig.options?.transferProcessEntityStorageType,
-				instanceConfig.options?.dataspaceAppDatasetEntityStorageType
+				instanceConfig.options?.dataspaceAppDatasetEntityStorageType,
+				instanceConfig.options?.transferRetrievalEntityStorageType
 			);
 
 			return new DataspaceControlPlaneService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
-						trustComponentType: engineCore.getRegisteredInstanceTypeOptional("trustComponent"),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(DataspaceControlPlaneService)
+						),
+						trustComponentType: engineCore.getRegisteredInstanceType("trustComponent"),
 						policyAdministrationPointComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPapComponent"
 						),
@@ -61,19 +69,16 @@ export function initialiseDataspaceControlPlaneComponent(
 						federatedCatalogueComponentType: engineCore.getRegisteredInstanceType(
 							"federatedCatalogueComponent"
 						),
-						identityComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("identityComponent"),
-						identityAuthenticationComponentType: engineCore.getRegisteredInstanceTypeOptional(
-							"identityAuthenticationComponent"
-						),
 						taskSchedulerComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("taskSchedulerComponent"),
+							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
 						dataPlaneComponentType: engineCore.getRegisteredInstanceType(
 							"dataspaceDataPlaneComponent"
 						),
 						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent"),
-						telemetryComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(DataspaceControlPlaneService)
+						)
 					},
 					createConfig.options
 				)
@@ -102,12 +107,14 @@ export function initialiseDataspaceControlPlaneComponent(
  * @param context The context for the engine.
  * @param transferProcessEntityStorageType The entity storage type for transfer processes.
  * @param dataspaceAppDatasetEntityStorageType The entity storage type for dataspace app datasets.
+ * @param transferRetrievalEntityStorageType The entity storage type for transfer retrievals.
  */
 export function initialiseDataspaceSharedEntityStorages(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	transferProcessEntityStorageType: string | undefined,
-	dataspaceAppDatasetEntityStorageType: string | undefined
+	dataspaceAppDatasetEntityStorageType: string | undefined,
+	transferRetrievalEntityStorageType?: string
 ): void {
 	initSchemaDataspaceControlPlane();
 
@@ -129,6 +136,14 @@ export function initialiseDataspaceSharedEntityStorages(
 		context,
 		dataspaceAppDatasetEntityStorageType,
 		nameof<DataspaceAppDataset>(),
+		partitionContextIds
+	);
+
+	initialiseEntityStorageConnector(
+		engineCore,
+		context,
+		transferRetrievalEntityStorageType,
+		nameof<TransferRetrieval>(),
 		partitionContextIds
 	);
 }

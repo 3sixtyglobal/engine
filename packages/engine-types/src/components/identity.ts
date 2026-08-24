@@ -107,8 +107,11 @@ export function initialiseIdentityComponent(
 			new IdentityService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						telemetryComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(IdentityService)
+						)
 					},
 					createConfig.options
 				)

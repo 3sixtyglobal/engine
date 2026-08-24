@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import type { EngineCloneMode } from "../engineCloneMode.js";
 import type { IEngineCoreTypeBaseConfig } from "./IEngineCoreTypeBaseConfig.js";
 
 /**
@@ -48,7 +49,7 @@ export type IEngineCoreTypeConfig<T extends IEngineCoreTypeBaseConfig = IEngineC
 		socketOptions?: unknown;
 
 		/**
-		 * Whether this service can be included when creating a clone instance, defaults to true.
+		 * Controls whether this entry is included when creating a clone, defaults to Optional.
 		 */
-		isCloneable?: boolean;
+		cloneMode?: EngineCloneMode;
 	};

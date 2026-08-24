@@ -6,7 +6,7 @@ import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@twin.or
 import { ComponentFactory, Factory, I18n } from "@twin.org/core";
 import { MemoryStateStorage } from "@twin.org/engine-core";
 import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
-import { EngineLogLevel } from "@twin.org/engine-models";
+import { EngineCloneMode, EngineLogLevel } from "@twin.org/engine-models";
 import {
 	AttestationComponentType,
 	AttestationConnectorType,
@@ -54,6 +54,7 @@ import {
 	NotarizationComponentType,
 	NotarizationConnectorType,
 	PlatformComponentType,
+	RestClientProcessorType,
 	RightsManagementPapComponentType,
 	RightsManagementPdpComponentType,
 	RightsManagementPepComponentType,
@@ -74,6 +75,8 @@ import {
 	TelemetryComponentType,
 	TelemetryConnectorType,
 	TenantAdminComponentType,
+	TracingComponentType,
+	TracingConnectorType,
 	TrustComponentType,
 	TrustGeneratorComponentType,
 	TrustVerifierComponentType,
@@ -224,8 +227,11 @@ describe("engine", () => {
 					eventBusComponent: [{ type: EventBusComponentType.Service }],
 					telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
 					telemetryComponent: [{ type: TelemetryComponentType.Service }],
+					tracingConnector: [{ type: TracingConnectorType.EntityStorage }],
+					tracingComponent: [{ type: TracingComponentType.Service }],
 					metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 					metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
+					restClientProcessor: [{ type: RestClientProcessorType.Tracing }],
 					automationComponent: [{ type: AutomationComponentType.Service }],
 					automationAction: [
 						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
@@ -418,6 +424,7 @@ describe("engine", () => {
 			"task-scheduler-service",
 			"event-bus-service",
 			"telemetry-service",
+			"tracing-service",
 			"metrics-collector-service",
 			"automation-service",
 			"messaging-admin-service",
@@ -457,6 +464,9 @@ describe("engine", () => {
 			"ScheduledTask",
 			"TelemetryMetric",
 			"TelemetryMetricValue",
+			"SpanEvent",
+			"SpanLink",
+			"Span",
 			"AutomationActionEntry",
 			"EmailEntry",
 			"SmsEntry",
@@ -489,7 +499,8 @@ describe("engine", () => {
 			"ActivityTask",
 			"PushSubscription",
 			"TransferProcess",
-			"DataspaceAppDataset"
+			"DataspaceAppDataset",
+			"TransferRetrieval"
 		]);
 
 		expect(engine).toBeDefined();
@@ -616,8 +627,11 @@ describe("engine", () => {
 					eventBusComponent: [{ type: EventBusComponentType.Service }],
 					telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
 					telemetryComponent: [{ type: TelemetryComponentType.Service }],
+					tracingConnector: [{ type: TracingConnectorType.EntityStorage }],
+					tracingComponent: [{ type: TracingComponentType.Service }],
 					metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 					metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
+					restClientProcessor: [{ type: RestClientProcessorType.Tracing }],
 					automationComponent: [{ type: AutomationComponentType.Service }],
 					automationAction: [
 						{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
@@ -1070,7 +1084,23 @@ describe("engine", () => {
 			types: {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
-				healthComponent: [{ type: HealthComponentType.Service, isCloneable: false }]
+				entityStorageConnector: [
+					{
+						type: EntityStorageConnectorType.Memory,
+						options: { storagePrefix: "test-" }
+					}
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: {
+							entityStorageType: "background-task",
+							partitionContextIds: []
+						}
+					}
+				],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
+				healthComponent: [{ type: HealthComponentType.Service, cloneMode: EngineCloneMode.Never }]
 			}
 		};
 		const engine = new Engine({
@@ -1099,6 +1129,22 @@ describe("engine", () => {
 			types: {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
+				entityStorageConnector: [
+					{
+						type: EntityStorageConnectorType.Memory,
+						options: { storagePrefix: "test-" }
+					}
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: {
+							entityStorageType: "background-task",
+							partitionContextIds: []
+						}
+					}
+				],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 				healthComponent: [{ type: HealthComponentType.Service }]
 			}
 		};
@@ -1127,14 +1173,16 @@ describe("engine", () => {
 		expect(clone.getRegisteredInstances()).toHaveProperty("loggingComponent");
 	});
 
-	test("Can clone the engine and honour isCloneable when the type is in the allowlist", async () => {
+	test("Allowlist overrides Never cloneMode when the type is explicitly included", async () => {
 		const config: IEngineConfig = {
 			debug: true,
 			silent: true,
 			types: {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
-				healthComponent: [{ type: HealthComponentType.Service, isCloneable: false }]
+				dataConverterConnector: [
+					{ type: DataConverterConnectorType.Json, cloneMode: EngineCloneMode.Never }
+				]
 			}
 		};
 		const engine = new Engine({
@@ -1152,12 +1200,12 @@ describe("engine", () => {
 		clone.populateClone(
 			cloneData,
 			{ [ContextIdKeys.Node]: "did:iota:0x123" },
-			{ types: ["loggingConnector", "loggingComponent", "healthComponent"] }
+			{ types: ["loggingConnector", "loggingComponent", "dataConverterConnector"] }
 		);
 		await clone.start();
 
-		expect(engine.getRegisteredInstances()).toHaveProperty("healthComponent");
-		expect(clone.getRegisteredInstances()).not.toHaveProperty("healthComponent");
+		expect(engine.getRegisteredInstances()).toHaveProperty("dataConverterConnector");
+		expect(clone.getRegisteredInstances()).toHaveProperty("dataConverterConnector");
 		expect(clone.getRegisteredInstances()).toHaveProperty("loggingConnector");
 		expect(clone.getRegisteredInstances()).toHaveProperty("loggingComponent");
 	});
@@ -1171,7 +1219,7 @@ describe("engine", () => {
 				loggingComponent: [{ type: LoggingComponentType.Service }],
 				dataConverterConnector: [
 					{ type: DataConverterConnectorType.Json },
-					{ type: DataConverterConnectorType.Xml, isCloneable: false }
+					{ type: DataConverterConnectorType.Xml, cloneMode: EngineCloneMode.Never }
 				]
 			}
 		};
@@ -1202,7 +1250,25 @@ describe("engine", () => {
 			types: {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
-				healthComponent: [{ type: HealthComponentType.Service, isCloneable: true }]
+				entityStorageConnector: [
+					{
+						type: EntityStorageConnectorType.Memory,
+						options: { storagePrefix: "test-" }
+					}
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: {
+							entityStorageType: "background-task",
+							partitionContextIds: []
+						}
+					}
+				],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
+				healthComponent: [
+					{ type: HealthComponentType.Service, cloneMode: EngineCloneMode.Optional }
+				]
 			}
 		};
 		const engine = new Engine({
@@ -1230,7 +1296,23 @@ describe("engine", () => {
 			types: {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
-				healthComponent: [{ type: HealthComponentType.Service, isCloneable: false }]
+				entityStorageConnector: [
+					{
+						type: EntityStorageConnectorType.Memory,
+						options: { storagePrefix: "test-" }
+					}
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: {
+							entityStorageType: "background-task",
+							partitionContextIds: []
+						}
+					}
+				],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
+				healthComponent: [{ type: HealthComponentType.Service, cloneMode: EngineCloneMode.Never }]
 			}
 		};
 		const engine = new Engine({
@@ -1246,8 +1328,9 @@ describe("engine", () => {
 		const cloneData = engine.getCloneData();
 
 		expect(engine.getConfig().types).toHaveProperty("healthComponent");
-		expect(engine.getConfig().types.healthComponent?.[0].isCloneable).toBe(false);
-		expect(cloneData.config.types).not.toHaveProperty("healthComponent");
+		expect(engine.getConfig().types.healthComponent?.[0].cloneMode).toBe(EngineCloneMode.Never);
+		expect(cloneData.config.types).toHaveProperty("healthComponent");
+		expect(cloneData.config.types.healthComponent?.[0].cloneMode).toBe(EngineCloneMode.Never);
 	});
 
 	test("populateClone logLevel does not mutate the original engine config", async () => {
@@ -1321,8 +1404,24 @@ describe("engine", () => {
 				loggingComponent: [{ type: LoggingComponentType.Service }],
 				dataConverterConnector: [
 					{ type: DataConverterConnectorType.Json },
-					{ type: DataConverterConnectorType.Xml, isCloneable: false }
+					{ type: DataConverterConnectorType.Xml, cloneMode: EngineCloneMode.Never }
 				],
+				entityStorageConnector: [
+					{
+						type: EntityStorageConnectorType.Memory,
+						options: { storagePrefix: "test-" }
+					}
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: {
+							entityStorageType: "background-task",
+							partitionContextIds: []
+						}
+					}
+				],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
 				healthComponent: [{ type: HealthComponentType.Service }]
 			}
 		};
@@ -1348,18 +1447,35 @@ describe("engine", () => {
 		expect(clone.getRegisteredInstances()).toHaveProperty("loggingConnector");
 		expect(clone.getRegisteredInstances()).toHaveProperty("loggingComponent");
 		expect(clone.getRegisteredInstances()).not.toHaveProperty("healthComponent");
-		expect(clone.getRegisteredInstances().dataConverterConnector).toHaveLength(1);
-		expect(clone.getRegisteredInstances().dataConverterConnector[0].type).toBe("json");
+		expect(clone.getRegisteredInstances().dataConverterConnector).toHaveLength(2);
 	});
 
-	test("Types allowlist excludes a type regardless of its isCloneable entries", async () => {
+	test("Types allowlist excludes Optional entries when the type is not in the allowlist", async () => {
 		const config: IEngineConfig = {
 			debug: true,
 			silent: true,
 			types: {
 				loggingConnector: [{ type: LoggingConnectorType.Console }],
 				loggingComponent: [{ type: LoggingComponentType.Service }],
-				healthComponent: [{ type: HealthComponentType.Service, isCloneable: true }]
+				entityStorageConnector: [
+					{
+						type: EntityStorageConnectorType.Memory,
+						options: { storagePrefix: "test-" }
+					}
+				],
+				entityStorageComponent: [
+					{
+						type: EntityStorageComponentType.Service,
+						options: {
+							entityStorageType: "background-task",
+							partitionContextIds: []
+						}
+					}
+				],
+				backgroundTaskComponent: [{ type: BackgroundTaskComponentType.Service }],
+				healthComponent: [
+					{ type: HealthComponentType.Service, cloneMode: EngineCloneMode.Optional }
+				]
 			}
 		};
 		const engine = new Engine({
@@ -1384,6 +1500,42 @@ describe("engine", () => {
 		expect(clone.getRegisteredInstances()).toHaveProperty("loggingConnector");
 		expect(clone.getRegisteredInstances()).toHaveProperty("loggingComponent");
 		expect(clone.getRegisteredInstances()).not.toHaveProperty("healthComponent");
+	});
+
+	test("Can clone the engine with an Always entry that bypasses the types allowlist", async () => {
+		const config: IEngineConfig = {
+			debug: true,
+			silent: true,
+			types: {
+				loggingConnector: [{ type: LoggingConnectorType.Console }],
+				loggingComponent: [{ type: LoggingComponentType.Service }],
+				dataConverterConnector: [
+					{ type: DataConverterConnectorType.Json, cloneMode: EngineCloneMode.Always }
+				]
+			}
+		};
+		const engine = new Engine({
+			config,
+			stateStorage: new MemoryStateStorage()
+		});
+
+		await engine.start();
+		await engine.stop();
+
+		Factory.clearFactories();
+
+		const cloneData = engine.getCloneData();
+		const clone = new Engine();
+		clone.populateClone(
+			cloneData,
+			{ [ContextIdKeys.Node]: "did:iota:0x123" },
+			{ types: ["loggingConnector", "loggingComponent"] }
+		);
+		await clone.start();
+
+		expect(clone.getRegisteredInstances()).toHaveProperty("loggingConnector");
+		expect(clone.getRegisteredInstances()).toHaveProperty("loggingComponent");
+		expect(clone.getRegisteredInstances()).toHaveProperty("dataConverterConnector");
 	});
 
 	test("Can clone the engine with a subset of entity types", async () => {
@@ -1610,6 +1762,7 @@ describe("engine", () => {
 					],
 					metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 					metricsProducerComponent: [], // No REST client available for metrics producer
+					restClientProcessor: [{ type: RestClientProcessorType.Tracing }],
 					messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
 					messagingSmsConnector: [{ type: MessagingSmsConnectorType.EntityStorage }],
 					messagingPushNotificationConnector: [
@@ -1922,7 +2075,7 @@ describe("engine", () => {
 				{ from: "legacyField", to: "newField" },
 				{ from: "score", to: "tags" }
 			],
-			transformEntityProperty: (from, to, value) => [`item:${value as number}`]
+			transformEntityProperty: (source, fromSchema, toSchema, value) => [`item:${value as number}`]
 		}));
 
 		// Capture console.info to verify migration log messages are emitted.

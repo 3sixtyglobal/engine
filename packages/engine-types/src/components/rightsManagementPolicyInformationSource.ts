@@ -38,7 +38,8 @@ export function initialiseRightsManagementPolicyInformationSourceComponent(
 			new IdentityPolicyInformationSource(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(IdentityPolicyInformationSource)
 						),
 						identityResolverComponentType: engineCore.getRegisteredInstanceType(
@@ -56,7 +57,8 @@ export function initialiseRightsManagementPolicyInformationSourceComponent(
 			new IdentityProfilePolicyInformationSource(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(IdentityProfilePolicyInformationSource)
 						),
 						identityProfileComponentType: engineCore.getRegisteredInstanceType(
@@ -72,7 +74,8 @@ export function initialiseRightsManagementPolicyInformationSourceComponent(
 			new StaticPolicyInformationSource(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(StaticPolicyInformationSource)
 						)
 					},

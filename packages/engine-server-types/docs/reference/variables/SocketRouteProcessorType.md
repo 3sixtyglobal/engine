@@ -48,6 +48,12 @@ Tenant.
 
 Single Tenant.
 
+### TenantOverride {#tenantoverride}
+
+> `readonly` **TenantOverride**: `"tenant-override"` = `"tenant-override"`
+
+Tenant override.
+
 ### SocketRoute {#socketroute}
 
 > `readonly` **SocketRoute**: `"socket-route"` = `"socket-route"`

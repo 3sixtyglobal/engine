@@ -68,8 +68,10 @@ export function initialiseAuditableItemStreamComponent(
 							engineCore.getRegisteredInstanceType("immutableProofComponent"),
 						eventBusComponentType:
 							engineCore.getRegisteredInstanceTypeOptional("eventBusComponent"),
-						telemetryComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(AuditableItemStreamService)
+						)
 					},
 					createConfig.options
 				)

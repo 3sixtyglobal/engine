@@ -42,9 +42,24 @@ export const RestRouteProcessorType = {
 	SingleTenant: "single-tenant",
 
 	/**
+	 * Tenant override.
+	 */
+	TenantOverride: "tenant-override",
+
+	/**
 	 * REST Route.
 	 */
-	RestRoute: "rest-route"
+	RestRoute: "rest-route",
+
+	/**
+	 * Metrics.
+	 */
+	Metrics: "metrics",
+
+	/**
+	 * Tracing.
+	 */
+	Tracing: "tracing"
 } as const;
 
 /**

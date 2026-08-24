@@ -32,7 +32,16 @@ export function initialiseHealthComponent(
 	if (instanceConfig.type === HealthComponentType.Service) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new HealthService(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						backgroundTaskComponentType:
+							engineCore.getRegisteredInstanceType("backgroundTaskComponent"),
+						config: {
+							includeErrorStack: engineCore.getConfig().debug
+						}
+					},
+					createConfig.options
+				)
 			);
 		instanceTypeName = nameofKebabCase(HealthService);
 	} else if (instanceConfig.type === HealthComponentType.RestClient) {

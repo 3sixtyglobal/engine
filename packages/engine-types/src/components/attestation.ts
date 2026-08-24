@@ -11,7 +11,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { AttestationComponentConfig } from "../models/config/attestationComponentConfig.js";
 import type { AttestationConnectorConfig } from "../models/config/attestationConnectorConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
@@ -73,7 +73,15 @@ export function initialiseAttestationComponent(
 	if (instanceConfig.type === AttestationComponentType.Service) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new AttestationService(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(AttestationService)
+						)
+					},
+					createConfig.options
+				)
 			);
 		instanceTypeName = nameofKebabCase(AttestationService);
 	} else if (instanceConfig.type === AttestationComponentType.RestClient) {

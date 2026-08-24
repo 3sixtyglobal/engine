@@ -62,15 +62,27 @@ all
 
 ***
 
-### silentLoggers? {#silentloggers}
+### silentComponents? {#silentcomponents}
 
-> `optional` **silentLoggers?**: `string`[]
+> `optional` **silentComponents?**: `object`
 
-The loggers to disable output for.
+The components to disable output for.
+
+#### logging?
+
+> `optional` **logging?**: `string`[]
+
+#### telemetry?
+
+> `optional` **telemetry?**: `string`[]
+
+#### tracing?
+
+> `optional` **tracing?**: `string`[]
 
 #### Inherited from
 
-`IEngineCoreConfig.silentLoggers`
+`IEngineCoreConfig.silentComponents`
 
 ***
 
@@ -497,6 +509,12 @@ Dataspace data plane component options which can be overridden by individual com
 > `optional` **platformComponent?**: `IEngineCoreTypeConfig`\<[`PlatformComponentConfig`](../type-aliases/PlatformComponentConfig.md)\>[]
 
 Platform component options which can be overridden by individual components by specifying types other than default.
+
+#### restClientProcessor?
+
+> `optional` **restClientProcessor?**: `IEngineCoreTypeConfig`\<[`RestClientProcessorConfig`](../type-aliases/RestClientProcessorConfig.md)\>[]
+
+REST client processor options.
 
 #### tenantAdminComponent?
 

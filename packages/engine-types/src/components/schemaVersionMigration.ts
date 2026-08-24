@@ -38,7 +38,7 @@ export function initialiseSchemaVersionMigrationComponent(
 			initSchema();
 
 			// No partition keys ([] not [Node]) schema versions track
-			// entity type structure globally — there is no per-context versioning and no scenario
+			// entity type structure globally - there is no per-context versioning and no scenario
 			// where migrations should read from a different connector than the rest of entity storage.
 			initialiseEntityStorageConnector(
 				engineCore,

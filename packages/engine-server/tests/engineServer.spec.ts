@@ -78,6 +78,8 @@ import {
 	TelemetryComponentType,
 	TelemetryConnectorType,
 	TenantAdminComponentType,
+	TracingComponentType,
+	TracingConnectorType,
 	TrustComponentType,
 	TrustGeneratorComponentType,
 	TrustVerifierComponentType,
@@ -193,6 +195,8 @@ describe("engine-server", () => {
 				eventBusComponent: [{ type: EventBusComponentType.Service }],
 				telemetryConnector: [{ type: TelemetryConnectorType.EntityStorage }],
 				telemetryComponent: [{ type: TelemetryComponentType.Service }],
+				tracingConnector: [{ type: TracingConnectorType.EntityStorage }],
+				tracingComponent: [{ type: TracingComponentType.Service }],
 				metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 				metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
 				messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
@@ -375,6 +379,9 @@ describe("engine-server", () => {
 				restRouteProcessor: [
 					{
 						type: RestRouteProcessorType.RestRoute
+					},
+					{
+						type: RestRouteProcessorType.Tracing
 					}
 				],
 				socketRouteProcessor: [
@@ -463,6 +470,10 @@ describe("engine-server", () => {
 			"GET      /telemetry/metric",
 			"GET      /telemetry/metric/:id/value/:valueId",
 			"GET      /telemetry/metric/:id/value",
+			"POST     /tracing",
+			"PUT      /tracing/:spanId",
+			"GET      /tracing",
+			"GET      /tracing/trace/:traceId",
 			"POST     /automation/trigger/:trigger",
 			"POST     /automation",
 			"DELETE   /automation/:actionId",
@@ -496,10 +507,14 @@ describe("engine-server", () => {
 			"GET      /identity/:identity",
 			"POST     /identity/profile",
 			"GET      /identity/profile",
+			"GET      /identity/profile/:userIdentity",
 			"GET      /identity/profile/:identity/public",
 			"PUT      /identity/profile",
+			"PUT      /identity/profile/:userIdentity",
 			"DELETE   /identity/profile",
+			"DELETE   /identity/profile/:userIdentity",
 			"GET      /identity/profile/query",
+			"GET      /identity/profile/admin/query",
 			"POST     /nft",
 			"GET      /nft/:id",
 			"DELETE   /nft/:id",
@@ -579,10 +594,10 @@ describe("engine-server", () => {
 			"PUT      /rights-management/negotiations/admin/:policyId",
 			"DELETE   /rights-management/negotiations/admin/:policyId",
 			"GET      /rights-management/negotiations/admin",
-			"POST     /federated-catalogue/request",
-			"GET      /federated-catalogue/datasets/:datasetId",
-			"POST     /federated-catalogue/datasets",
-			"DELETE   /federated-catalogue/datasets/:datasetId",
+			"POST     /catalog/request",
+			"GET      /catalog/datasets/:datasetId",
+			"POST     /catalog/datasets",
+			"DELETE   /catalog/datasets/:datasetId",
 			// Dataspace Control Plane routes
 			"GET      /.well-known/dspace-version",
 			"POST     /dataspace/transfers/request",

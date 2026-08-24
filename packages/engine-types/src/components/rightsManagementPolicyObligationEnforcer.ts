@@ -33,7 +33,8 @@ export function initialiseRightsManagementPolicyObligationEnforcerComponent(
 			new PassThroughPolicyObligationEnforcer(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(PassThroughPolicyObligationEnforcer)
 						)
 					},

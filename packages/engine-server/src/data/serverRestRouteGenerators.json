@@ -48,6 +48,12 @@
 		"defaultPath": "/telemetry"
 	},
 	{
+		"type": "tracingComponent",
+		"module": "@twin.org/tracing-service",
+		"method": "generateRestRoutesTracing",
+		"defaultPath": "/tracing"
+	},
+	{
 		"type": "automationComponent",
 		"module": "@twin.org/automation-service",
 		"method": "generateRestRoutesAutomation",
@@ -152,7 +158,7 @@
 		"type": "federatedCatalogueComponent",
 		"module": "@twin.org/federated-catalogue-service",
 		"method": "generateRestRoutesFederatedCatalogue",
-		"defaultPath": "/federated-catalogue"
+		"defaultPath": "/catalog"
 	},
 	{
 		"type": "dataspaceControlPlaneComponent",

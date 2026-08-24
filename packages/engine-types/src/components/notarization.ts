@@ -73,7 +73,10 @@ export function initialiseNotarizationConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-						loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(IotaNotarizationConnector)
+						),
 						config: dltConfig?.options?.config
 					},
 					createConfig.options
@@ -108,7 +111,15 @@ export function initialiseNotarizationComponent(
 	if (instanceConfig.type === NotarizationComponentType.Service) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new NotarizationService(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(NotarizationService)
+						)
+					},
+					createConfig.options
+				)
 			);
 		instanceTypeName = nameofKebabCase(NotarizationService);
 	} else if (instanceConfig.type === NotarizationComponentType.RestClient) {

@@ -20,6 +20,7 @@ import {
 	ObjectHelper
 } from "@twin.org/core";
 import {
+	EngineCloneMode,
 	EngineLogLevel,
 	type EngineTypeInitialiser,
 	type IEngineCore,
@@ -454,7 +455,7 @@ export class EngineCore<
 	 * @returns A promise that resolves when the message has been logged.
 	 */
 	public async logInfo(message: string): Promise<void> {
-		if (!this._context.config.silentLoggers?.includes(EngineCore.CLASS_NAME)) {
+		if (!this._context.config.silentComponents?.logging?.includes(EngineCore.CLASS_NAME)) {
 			await this._engineLoggingComponent?.log({
 				source: EngineCore.CLASS_NAME,
 				level: "info",
@@ -586,15 +587,19 @@ export class EngineCore<
 	}
 
 	/**
-	 * Get the registered logger for the component/connector.
-	 * @param componentName The name of the component to get the logger for.
-	 * @returns The logger type name if one is registered and not silenced.
+	 * Get the registered component type for the given component type, if not silenced.
+	 * @param componentType The type of component to get the registered type for.
+	 * @param componentName The name of the component to get the type for.
+	 * @returns The component type name if one is registered and not silenced.
 	 */
-	public getRegisteredLoggerType(componentName: string): string | undefined {
-		if (this._context.config.silentLoggers?.includes(componentName)) {
+	public getRegisteredSilencedType(
+		componentType: "logging" | "telemetry" | "tracing",
+		componentName: string
+	): string | undefined {
+		if (this._context.config.silentComponents?.[componentType]?.includes(componentName)) {
 			return undefined;
 		}
-		return this.getRegisteredInstanceTypeOptional("loggingComponent");
+		return this.getRegisteredInstanceTypeOptional(`${componentType}Component`);
 	}
 
 	/**
@@ -640,16 +645,13 @@ export class EngineCore<
 		for (const typeKey of Object.keys(sourceConfig.types ?? {})) {
 			const entries = sourceConfig.types?.[typeKey];
 			if (Is.arrayValue(entries)) {
-				const cloneableEntries = entries.filter(e => e.isCloneable !== false);
-				if (cloneableEntries.length > 0) {
-					cloneTypes[typeKey] = cloneableEntries;
-				}
+				cloneTypes[typeKey] = [...entries];
 			}
 		}
 
 		const cloneData: IEngineCoreClone<C, S> = {
 			config: { ...sourceConfig, types: cloneTypes },
-			state: this._context.state,
+			state: ObjectHelper.clone(this._context.state),
 			typeInitialisers: this._typeInitialisers,
 			entitySchemas,
 			contextIdKeys: this._contextIdKeys
@@ -708,13 +710,21 @@ export class EngineCore<
 		const sourceTypes = cloneData.config.types ?? {};
 		const partialTypes: { [type: string]: IEngineCoreTypeConfig[] } = {};
 		for (const typeKey of Object.keys(sourceTypes)) {
-			if (!Is.arrayValue(optionsTypes) || optionsTypes.includes(typeKey)) {
-				const entries = sourceTypes[typeKey];
-				if (Is.arrayValue(entries)) {
-					const cloneableEntries = entries.filter(e => e.isCloneable !== false);
-					if (cloneableEntries.length > 0) {
-						partialTypes[typeKey] = cloneableEntries;
+			const entries = sourceTypes[typeKey];
+			if (Is.arrayValue(entries)) {
+				const inAllowlist = !Is.arrayValue(optionsTypes) || optionsTypes.includes(typeKey);
+				const explicitlyInAllowlist = Is.arrayValue(optionsTypes) && optionsTypes.includes(typeKey);
+				const cloneableEntries = entries.filter(e => {
+					if (e.cloneMode === EngineCloneMode.Never) {
+						return explicitlyInAllowlist;
 					}
+					if (e.cloneMode === EngineCloneMode.Always) {
+						return true;
+					}
+					return inAllowlist;
+				});
+				if (cloneableEntries.length > 0) {
+					partialTypes[typeKey] = cloneableEntries;
 				}
 			}
 		}
@@ -733,7 +743,9 @@ export class EngineCore<
 			const filteredTypes: { [type: string]: IEngineCoreTypeConfig[] } = {};
 			for (const typeKey of Object.keys(partialTypes)) {
 				const kept = partialTypes[typeKey].filter(e => {
-					const storageType = ObjectHelper.propertyGet(e.options, "entityStorageType");
+					const storageType = Is.object(e.options)
+						? ObjectHelper.propertyGet(e.options, "entityStorageType")
+						: undefined;
 					return Is.stringValue(storageType) ? optionsEntityTypes.includes(storageType) : true;
 				});
 				if (kept.length > 0) {
@@ -751,8 +763,9 @@ export class EngineCore<
 			stateDirty: false
 		};
 
+		const includedTypeKeys = new Set(Object.keys(partialTypes));
 		this._typeInitialisers = Is.arrayValue(optionsTypes)
-			? cloneData.typeInitialisers.filter(t => optionsTypes.includes(t.type))
+			? cloneData.typeInitialisers.filter(t => includedTypeKeys.has(t.type))
 			: cloneData.typeInitialisers;
 		this._contextIdKeys.push(...cloneData.contextIdKeys);
 		this._contextIds = contextIds;
@@ -905,7 +918,7 @@ export class EngineCore<
 	 * @internal
 	 */
 	private async logDebug(message: string): Promise<void> {
-		if (!this._context.config.silentLoggers?.includes(EngineCore.CLASS_NAME)) {
+		if (!this._context.config.silentComponents?.logging?.includes(EngineCore.CLASS_NAME)) {
 			await this._engineLoggingComponent?.log({
 				source: EngineCore.CLASS_NAME,
 				level: "debug",

@@ -48,8 +48,26 @@ Tenant.
 
 Single Tenant.
 
+### TenantOverride {#tenantoverride}
+
+> `readonly` **TenantOverride**: `"tenant-override"` = `"tenant-override"`
+
+Tenant override.
+
 ### RestRoute {#restroute}
 
 > `readonly` **RestRoute**: `"rest-route"` = `"rest-route"`
 
 REST Route.
+
+### Metrics {#metrics}
+
+> `readonly` **Metrics**: `"metrics"` = `"metrics"`
+
+Metrics.
+
+### Tracing {#tracing}
+
+> `readonly` **Tracing**: `"tracing"` = `"tracing"`
+
+Tracing.

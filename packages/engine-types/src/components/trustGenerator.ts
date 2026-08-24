@@ -33,7 +33,8 @@ export function initialiseTrustGeneratorComponent(
 			new JwtVerifiableCredentialGenerator(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
 							nameof(JwtVerifiableCredentialGenerator)
 						),
 						identityComponentType: engineCore.getRegisteredInstanceType("identityComponent")

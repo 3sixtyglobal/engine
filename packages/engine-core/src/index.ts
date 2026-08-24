@@ -4,3 +4,4 @@ export * from "./engineCore.js";
 export * from "./models/IEngineCoreOptions.js";
 export * from "./storage/fileStateStorage.js";
 export * from "./storage/memoryStateStorage.js";
+export * from "./utils/engineCoreBuilder.js";

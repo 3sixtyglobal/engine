@@ -48,7 +48,7 @@ export function initialiseWalletConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-						faucetConnectorType: engineCore.getRegisteredInstanceType("faucetConnector"),
+						faucetConnectorType: engineCore.getRegisteredInstanceTypeOptional("faucetConnector"),
 						config: dltConfig?.options?.config
 					},
 					createConfig.options
@@ -70,7 +70,7 @@ export function initialiseWalletConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-						faucetConnectorType: engineCore.getRegisteredInstanceType("faucetConnector")
+						faucetConnectorType: engineCore.getRegisteredInstanceTypeOptional("faucetConnector")
 					},
 					createConfig.options
 				)

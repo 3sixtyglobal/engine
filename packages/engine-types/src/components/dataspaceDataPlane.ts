@@ -47,7 +47,8 @@ export function initialiseDataspaceDataPlaneComponent(
 				engineCore,
 				context,
 				instanceConfig.options?.transferProcessEntityStorageType,
-				instanceConfig.options?.dataspaceAppDatasetEntityStorageType
+				instanceConfig.options?.dataspaceAppDatasetEntityStorageType,
+				instanceConfig.options?.transferRetrievalEntityStorageType
 			);
 
 			const partitionContextIds = ContextIdHelper.pickKeysFromAvailable(
@@ -85,18 +86,22 @@ export function initialiseDataspaceDataPlaneComponent(
 			return new DataspaceDataPlaneService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
-						backgroundTaskComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("backgroundTaskComponent"),
-						taskSchedulerComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("taskSchedulerComponent"),
-						trustComponentType: engineCore.getRegisteredInstanceTypeOptional("trustComponent"),
-						pepComponentType: engineCore.getRegisteredInstanceTypeOptional(
-							"rightsManagementPepComponent"
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(DataspaceDataPlaneService)
 						),
+						backgroundTaskComponentType:
+							engineCore.getRegisteredInstanceType("backgroundTaskComponent"),
+						taskSchedulerComponentType:
+							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
+						trustComponentType: engineCore.getRegisteredInstanceType("trustComponent"),
+						pepComponentType: engineCore.getRegisteredInstanceType("rightsManagementPepComponent"),
+						papComponentType: engineCore.getRegisteredInstanceType("rightsManagementPapComponent"),
 						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent"),
-						telemetryComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(DataspaceDataPlaneService)
+						)
 					},
 					createConfig.options
 				)
@@ -112,7 +117,10 @@ export function initialiseDataspaceDataPlaneComponent(
 			new DataspaceDataPlaneSocketClient(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent")
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(DataspaceDataPlaneSocketClient)
+						)
 					},
 					createConfig.options
 				)

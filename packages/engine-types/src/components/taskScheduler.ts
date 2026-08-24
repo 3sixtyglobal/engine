@@ -48,7 +48,10 @@ export function initialiseTaskSchedulerComponent(
 			return new TaskSchedulerService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						loggingComponentType: engineCore.getRegisteredLoggerType(nameof(TaskSchedulerService))
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(TaskSchedulerService)
+						)
 					},
 					createConfig.options
 				)

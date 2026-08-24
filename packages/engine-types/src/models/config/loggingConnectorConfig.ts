@@ -24,7 +24,7 @@ export type LoggingConnectorConfig =
 			options: IMultiLoggingConnectorConstructorOptions;
 	  }
 	| {
-			type: typeof LoggingConnectorType.Otel;
+			type: typeof LoggingConnectorType.OpenTelemetry;
 			options?: IOpenTelemetryLoggingConnectorConstructorOptions;
 	  }
 	| {

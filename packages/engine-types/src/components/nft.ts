@@ -73,7 +73,10 @@ export function initialiseNftConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
-						loggingComponentType: engineCore.getRegisteredInstanceTypeOptional("loggingComponent"),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(IotaNftConnector)
+						),
 						config: dltConfig?.options?.config
 					},
 					createConfig.options
@@ -108,7 +111,15 @@ export function initialiseNftComponent(
 	if (instanceConfig.type === NftComponentType.Service) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new NftService(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(NftService)
+						)
+					},
+					createConfig.options
+				)
 			);
 		instanceTypeName = nameofKebabCase(NftService);
 	} else if (instanceConfig.type === NftComponentType.RestClient) {

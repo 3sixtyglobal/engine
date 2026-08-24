@@ -8,7 +8,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { DocumentManagementComponentConfig } from "../models/config/documentManagementComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { DocumentManagementComponentType } from "../models/types/documentManagementComponentType.js";
@@ -41,8 +41,10 @@ export function initialiseDocumentManagementComponent(
 						attestationComponentType: engineCore.getRegisteredInstanceType("attestationComponent"),
 						dataProcessingComponentType:
 							engineCore.getRegisteredInstanceType("dataProcessingComponent"),
-						telemetryComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("telemetryComponent")
+						telemetryComponentType: engineCore.getRegisteredSilencedType(
+							"telemetry",
+							nameof(DocumentManagementService)
+						)
 					},
 					createConfig.options
 				)

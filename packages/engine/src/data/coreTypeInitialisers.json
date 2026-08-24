@@ -50,6 +50,21 @@
 		"method": "initialiseTelemetryComponent"
 	},
 	{
+		"type": "tracingConnector",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseTracingConnector"
+	},
+	{
+		"type": "tracingComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseTracingComponent"
+	},
+	{
+		"type": "restClientProcessor",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseRestClientProcessorComponent"
+	},
+	{
 		"type": "metricsProducerComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseMetricsProducerComponent"

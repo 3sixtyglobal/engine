@@ -6,6 +6,7 @@ export * from "./models/config/IEngineCoreConfig.js";
 export * from "./models/config/IEngineCoreTypeBaseConfig.js";
 export * from "./models/config/IEngineCoreTypeConfig.js";
 export * from "./models/config/IEngineModuleConfig.js";
+export * from "./models/engineCloneMode.js";
 export * from "./models/engineLogLevel.js";
 export * from "./models/engineTypeInitialiser.js";
 export * from "./models/engineTypeInitialiserReturn.js";
