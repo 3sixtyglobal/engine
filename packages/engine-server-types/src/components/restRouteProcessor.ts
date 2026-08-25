@@ -5,6 +5,9 @@ import {
 	initSchema as initSchemaAuthEntityStorage,
 	type AuthenticationUser
 } from "@twin.org/api-auth-entity-storage-service";
+import {
+	TenantOverrideProcessor
+} from "@twin.org/api-auth-service";
 import { RestRouteProcessorFactory } from "@twin.org/api-models";
 import {
 	ContextIdProcessor,
@@ -16,7 +19,6 @@ import {
 	initSchema as initSchemaTenantProcessor,
 	TenantProcessor,
 	SingleTenantProcessor,
-	TenantOverrideProcessor,
 	type Tenant
 } from "@twin.org/api-tenant-processor";
 import { AuthorizationProcessor } from "@twin.org/authorization-service";
@@ -149,11 +151,11 @@ export function initialiseRestRouteProcessorComponent(
 			);
 		instanceTypeName = nameofKebabCase(SingleTenantProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.TenantOverride) {
-		createComponent = (createConfig: typeof instanceConfig) => {
-			initTenantStorage(engineCore, context, createConfig?.options?.tenantEntityStorageType);
-			return new TenantOverrideProcessor(
+		createComponent = (createConfig: typeof instanceConfig) => new TenantOverrideProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
+						tenantAdminComponentType: engineCore.getRegisteredInstanceType("tenantAdminComponent"),
+						authorizationComponentType: engineCore.getRegisteredInstanceType("authorizationComponent"),
 						config: {
 							includeErrorStack: context.config.debug
 						}
@@ -161,7 +163,6 @@ export function initialiseRestRouteProcessorComponent(
 					createConfig.options
 				)
 			);
-		};
 		instanceTypeName = nameofKebabCase(TenantOverrideProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.Metrics) {
 		createComponent = (createConfig: typeof instanceConfig) =>

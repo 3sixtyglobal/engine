@@ -492,7 +492,7 @@ describe("engine-server", () => {
 			"GET      /authorization/subject/:subject/role/:role",
 			"GET      /authorization/role/:role/subjects",
 			"POST     /authorization/role/:role/inherit",
-			"DELETE   /authorization/role/:role/inherit/:parentRole",
+			"DELETE   /authorization/role/:role/inherit/:inheritsFrom",
 			"GET      /authorization/role/:role/parents",
 			"GET      /authorization/role/:role/children",
 			"POST     /automation/trigger/:trigger",

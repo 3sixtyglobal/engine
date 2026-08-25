@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IAuthHeaderProcessorConstructorOptions } from "@twin.org/api-auth-entity-storage-service";
 import type {
+    ITenantOverrideProcessorConstructorOptions
+} from "@twin.org/api-auth-service";
+import type {
 	IContextIdProcessorConstructorOptions,
 	ILoggingProcessorConstructorOptions,
 	IRestRouteProcessorConstructorOptions,
@@ -9,7 +12,6 @@ import type {
 } from "@twin.org/api-processors";
 import type {
 	ISingleTenantProcessorConstructorOptions,
-	ITenantOverrideProcessorConstructorOptions,
 	ITenantProcessorConstructorOptions
 } from "@twin.org/api-tenant-processor";
 import type { IAuthorizationProcessorConstructorOptions } from "@twin.org/authorization-service";

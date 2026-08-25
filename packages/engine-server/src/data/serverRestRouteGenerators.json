@@ -25,7 +25,7 @@
 	},
 	{
 		"type": "authenticationAuditComponent",
-		"module": "@twin.org/api-auth-entity-storage-service",
+		"module": "@twin.org/api-auth-service",
 		"method": "generateRestRoutesAuthenticationAudit",
 		"defaultPath": "/authentication/audit"
 	},

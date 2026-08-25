@@ -4,7 +4,7 @@ import {
 	EntityStorageAuthenticationRateService,
 	initSchema as initSchemaAuthEntityStorage,
 	type AuthenticationRateEntry
-} from "@twin.org/api-auth-entity-storage-service";
+} from "@twin.org/api-auth-service";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import { ComponentFactory } from "@twin.org/core";
 import type {
