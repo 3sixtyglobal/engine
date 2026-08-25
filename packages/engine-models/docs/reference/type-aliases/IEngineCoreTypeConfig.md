@@ -54,11 +54,11 @@ The path for the socket API.
 
 The options for the socket API route generation.
 
-### isCloneable?
+### cloneMode?
 
-> `optional` **isCloneable?**: `boolean`
+> `optional` **cloneMode?**: [`EngineCloneMode`](EngineCloneMode.md)
 
-Whether this service can be included when creating a clone instance, defaults to true.
+Controls whether this entry is included when creating a clone, defaults to Optional.
 
 ## Type Parameters
 

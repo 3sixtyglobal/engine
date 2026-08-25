@@ -20,6 +20,7 @@ import {
 	ObjectHelper
 } from "@twin.org/core";
 import {
+	EngineCloneMode,
 	EngineLogLevel,
 	type EngineTypeInitialiser,
 	type IEngineCore,
@@ -644,10 +645,7 @@ export class EngineCore<
 		for (const typeKey of Object.keys(sourceConfig.types ?? {})) {
 			const entries = sourceConfig.types?.[typeKey];
 			if (Is.arrayValue(entries)) {
-				const cloneableEntries = entries.filter(e => e.isCloneable !== false);
-				if (cloneableEntries.length > 0) {
-					cloneTypes[typeKey] = cloneableEntries;
-				}
+				cloneTypes[typeKey] = [...entries];
 			}
 		}
 
@@ -712,13 +710,21 @@ export class EngineCore<
 		const sourceTypes = cloneData.config.types ?? {};
 		const partialTypes: { [type: string]: IEngineCoreTypeConfig[] } = {};
 		for (const typeKey of Object.keys(sourceTypes)) {
-			if (!Is.arrayValue(optionsTypes) || optionsTypes.includes(typeKey)) {
-				const entries = sourceTypes[typeKey];
-				if (Is.arrayValue(entries)) {
-					const cloneableEntries = entries.filter(e => e.isCloneable !== false);
-					if (cloneableEntries.length > 0) {
-						partialTypes[typeKey] = cloneableEntries;
+			const entries = sourceTypes[typeKey];
+			if (Is.arrayValue(entries)) {
+				const inAllowlist = !Is.arrayValue(optionsTypes) || optionsTypes.includes(typeKey);
+				const explicitlyInAllowlist = Is.arrayValue(optionsTypes) && optionsTypes.includes(typeKey);
+				const cloneableEntries = entries.filter(e => {
+					if (e.cloneMode === EngineCloneMode.Never) {
+						return explicitlyInAllowlist;
 					}
+					if (e.cloneMode === EngineCloneMode.Always) {
+						return true;
+					}
+					return inAllowlist;
+				});
+				if (cloneableEntries.length > 0) {
+					partialTypes[typeKey] = cloneableEntries;
 				}
 			}
 		}
@@ -757,8 +763,9 @@ export class EngineCore<
 			stateDirty: false
 		};
 
+		const includedTypeKeys = new Set(Object.keys(partialTypes));
 		this._typeInitialisers = Is.arrayValue(optionsTypes)
-			? cloneData.typeInitialisers.filter(t => optionsTypes.includes(t.type))
+			? cloneData.typeInitialisers.filter(t => includedTypeKeys.has(t.type))
 			: cloneData.typeInitialisers;
 		this._contextIdKeys.push(...cloneData.contextIdKeys);
 		this._contextIds = contextIds;
