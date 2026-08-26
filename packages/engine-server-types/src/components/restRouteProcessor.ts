@@ -5,9 +5,7 @@ import {
 	initSchema as initSchemaAuthEntityStorage,
 	type AuthenticationUser
 } from "@twin.org/api-auth-entity-storage-service";
-import {
-	TenantOverrideProcessor
-} from "@twin.org/api-auth-service";
+import { TenantOverrideProcessor } from "@twin.org/api-auth-service";
 import { RestRouteProcessorFactory } from "@twin.org/api-models";
 import {
 	ContextIdProcessor,
@@ -21,7 +19,7 @@ import {
 	SingleTenantProcessor,
 	type Tenant
 } from "@twin.org/api-tenant-processor";
-import { AuthorizationProcessor } from "@twin.org/authorization-service";
+import { AuthorizationRestProcessor } from "@twin.org/authorization-service";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import type { IComponent } from "@twin.org/core";
 import type {
@@ -151,11 +149,13 @@ export function initialiseRestRouteProcessorComponent(
 			);
 		instanceTypeName = nameofKebabCase(SingleTenantProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.TenantOverride) {
-		createComponent = (createConfig: typeof instanceConfig) => new TenantOverrideProcessor(
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new TenantOverrideProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						tenantAdminComponentType: engineCore.getRegisteredInstanceType("tenantAdminComponent"),
-						authorizationComponentType: engineCore.getRegisteredInstanceType("authorizationComponent"),
+						authorizationComponentType:
+							engineCore.getRegisteredInstanceType("authorizationComponent"),
 						config: {
 							includeErrorStack: context.config.debug
 						}
@@ -198,7 +198,7 @@ export function initialiseRestRouteProcessorComponent(
 		instanceTypeName = nameofKebabCase(TracingRouteProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.Authorization) {
 		createComponent = (createConfig: typeof instanceConfig) =>
-			new AuthorizationProcessor(
+			new AuthorizationRestProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						authorizationComponentType:
@@ -210,7 +210,7 @@ export function initialiseRestRouteProcessorComponent(
 					createConfig.options
 				)
 			);
-		instanceTypeName = nameofKebabCase(AuthorizationProcessor);
+		instanceTypeName = nameofKebabCase(AuthorizationRestProcessor);
 	}
 
 	return {
