@@ -478,6 +478,7 @@ describe("engine-server", () => {
 			"PUT      /tracing/:spanId",
 			"GET      /tracing",
 			"GET      /tracing/trace/:traceId",
+			"POST     /authorization/:modelId",
 			"POST     /authorization/:modelId/check",
 			"POST     /authorization/:modelId/policy",
 			"POST     /authorization/:modelId/policy/remove",
