@@ -150,6 +150,7 @@
 		"@twin.org/telemetry-producers": "next",
 		"@twin.org/telemetry-rest-client": "next",
 		"@twin.org/telemetry-service": "next",
+		"@twin.org/tracing-connector-console": "next",
 		"@twin.org/tracing-connector-entity-storage": "next",
 		"@twin.org/tracing-connector-opentelemetry": "next",
 		"@twin.org/tracing-models": "next",
