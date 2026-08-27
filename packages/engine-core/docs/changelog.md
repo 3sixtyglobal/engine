@@ -1,5 +1,72 @@
 # Changelog
 
+## [0.9.3-next.1](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.9.3-next.0...engine-core-v0.9.3-next.1) (2026-08-27)
+
+
+### Features
+
+* add auth admin component ([201cd06](https://github.com/iotaledger/twin-engine/commit/201cd061be83afccb5a6b06856ffe7cf8db7d6b3))
+* add context id features ([#51](https://github.com/iotaledger/twin-engine/issues/51)) ([eaef180](https://github.com/iotaledger/twin-engine/commit/eaef1807397a907bc7655ef1545a151a710ca2f1))
+* add default logging component for web server ([8ad94f0](https://github.com/iotaledger/twin-engine/commit/8ad94f0d2d9a5241a8854b1e59fb9a55ce310142))
+* add engine core builder ([#199](https://github.com/iotaledger/twin-engine/issues/199)) ([a91db96](https://github.com/iotaledger/twin-engine/commit/a91db96f931c451dd97e7209bd93477313d7f2e4))
+* add isPrimary and isClone methods ([a7c63e9](https://github.com/iotaledger/twin-engine/commit/a7c63e97f54c95b104cc81e66d3fa42c6607bdc1))
+* add metrics producer type initialisers to engine ([#122](https://github.com/iotaledger/twin-engine/issues/122)) ([45f52d7](https://github.com/iotaledger/twin-engine/commit/45f52d7ad9c94bda0d2671756049bb5973b64b10))
+* add mimeTypeProcessors and disableNodeIdentity ([bb7e81e](https://github.com/iotaledger/twin-engine/commit/bb7e81e2036fe042068a5645ec59b22e20d33aad))
+* add registered component methods ([a9a2899](https://github.com/iotaledger/twin-engine/commit/a9a2899f266baa48e63bfbda958877a4f941602d))
+* add rights management negotiation ([84ef46b](https://github.com/iotaledger/twin-engine/commit/84ef46bff110611a19512793425c8c873ee2a590))
+* add skipComponentStart flag ([#62](https://github.com/iotaledger/twin-engine/issues/62)) ([07e90af](https://github.com/iotaledger/twin-engine/commit/07e90afa4ba1baaa79c0c6f0f45200d781801534))
+* add sorting to factories so default entries are at start ([1a69356](https://github.com/iotaledger/twin-engine/commit/1a693567befcf27e6edc9880746ee82cfb9538e5))
+* add synchronised storage support ([5142e34](https://github.com/iotaledger/twin-engine/commit/5142e3488f09195cf9f48a9c6c6d1014231a4c2c))
+* add tenant admin routes ([#76](https://github.com/iotaledger/twin-engine/issues/76)) ([3c0af90](https://github.com/iotaledger/twin-engine/commit/3c0af90a572fcda08d8720bdcee9b9f1cd02b872))
+* add tenant component ([#138](https://github.com/iotaledger/twin-engine/issues/138)) ([ebbcb8f](https://github.com/iotaledger/twin-engine/commit/ebbcb8fa3fee05048ddad2891c6ada66bd29e7bd))
+* add validate-locales ([b92ea09](https://github.com/iotaledger/twin-engine/commit/b92ea09dbcfe35225271a51f24d231f59e2d363e))
+* clone log-level control and per-component start timing in engine core ([#189](https://github.com/iotaledger/twin-engine/issues/189)) ([8e4e26d](https://github.com/iotaledger/twin-engine/commit/8e4e26d9992955d380ef2873ad6ad54c31faaf68))
+* close already started components on startup error ([a55a117](https://github.com/iotaledger/twin-engine/commit/a55a117a508998288c8ae804e732fc6085cb22fa))
+* context id handlers repopulated after engine clone ([9712e32](https://github.com/iotaledger/twin-engine/commit/9712e328f4607f5b2c82355c394c61bde0ee39bf))
+* eslint migration to flat config ([6b978da](https://github.com/iotaledger/twin-engine/commit/6b978daf777a615d7758b63c3df57d5a376f6dfb))
+* improve startup error handling ([#65](https://github.com/iotaledger/twin-engine/issues/65)) ([5b2d1c5](https://github.com/iotaledger/twin-engine/commit/5b2d1c539cf5484afa85e294d6d6c18f24ef8274))
+* improved cloning ([#190](https://github.com/iotaledger/twin-engine/issues/190)) ([b43833b](https://github.com/iotaledger/twin-engine/commit/b43833b8bbcf4b1257abbe9c2552238963d3f6e2))
+* initialise context id handlers before bootstrap ([e94df44](https://github.com/iotaledger/twin-engine/commit/e94df440aa553350dba5da2ae93b5c34e0ac3692))
+* interlock stop method ([3806ba7](https://github.com/iotaledger/twin-engine/commit/3806ba7b44b3cb3ce130f4e3684a666533674663))
+* isCloneable to cloneMode ([#237](https://github.com/iotaledger/twin-engine/issues/237)) ([f4f2ce2](https://github.com/iotaledger/twin-engine/commit/f4f2ce281bbe60175c5352044599c0491360ffcc))
+* linting and dependency update ([7289210](https://github.com/iotaledger/twin-engine/commit/7289210726b67b69ded06d9c7a5a7e01e42285a0))
+* maintain isDefault flag for registered instances ([2ac5bee](https://github.com/iotaledger/twin-engine/commit/2ac5bee094bef42b396cc82b0d18bb6aebe27352))
+* make sure options exists ([e77fe22](https://github.com/iotaledger/twin-engine/commit/e77fe227134b2e620b9bc22cfa7b269a238f53f8))
+* multi instance component support ([#83](https://github.com/iotaledger/twin-engine/issues/83)) ([6012b50](https://github.com/iotaledger/twin-engine/commit/6012b50959df5af893f05516d42eea2e0800b31a))
+* organization identifiers ([#152](https://github.com/iotaledger/twin-engine/issues/152)) ([d8e6d51](https://github.com/iotaledger/twin-engine/commit/d8e6d5147f402f0fe17b445efd8ae97db0c36adb))
+* override type initialisers with new registrations ([5b4ff56](https://github.com/iotaledger/twin-engine/commit/5b4ff561d06b6513c870a72bb20ba23c0653cfe8))
+* remove bootstrapped components, component should manage their own state ([5c7e9e4](https://github.com/iotaledger/twin-engine/commit/5c7e9e419ef26933e49c9c5a21a20a8961244e7f))
+* remove unused component states ([d56d648](https://github.com/iotaledger/twin-engine/commit/d56d6486119ea8b8501a33f9e3a3101a08b826ed))
+* set initialised flag when skipping start ([039b4df](https://github.com/iotaledger/twin-engine/commit/039b4dff22c90d0ba3703372a11213709d26aa52))
+* silent telemetry tracing ([#229](https://github.com/iotaledger/twin-engine/issues/229)) ([33b184a](https://github.com/iotaledger/twin-engine/commit/33b184a7def9f28fcff7c540e739b7ae28d46298))
+* simplify config building ([732c871](https://github.com/iotaledger/twin-engine/commit/732c871c5aca236759168f4bc15aeffd98a330a8))
+* standardised engine logging naming ([0dbf857](https://github.com/iotaledger/twin-engine/commit/0dbf857587641f86ddf010143519d0e8333489ff))
+* typescript 6 update ([b227f52](https://github.com/iotaledger/twin-engine/commit/b227f5271b18ac627b932ea8e59d2879ff01ebd7))
+* update dependencies ([e6ebe42](https://github.com/iotaledger/twin-engine/commit/e6ebe42b9d61066227ad8b45dae14c8f8615b760))
+* update dependencies ([97c9f64](https://github.com/iotaledger/twin-engine/commit/97c9f64b6ef096963bcc5de338a2a9e99bdc1a11))
+* update framework core ([acc0f8d](https://github.com/iotaledger/twin-engine/commit/acc0f8d455a4b8ec47f1da643139fa0f07775fa6))
+* upgrade framework components ([efd52e8](https://github.com/iotaledger/twin-engine/commit/efd52e80564fff29c3897bfa09b6305b3a322812))
+* use factory default feature for sorting ([ec8b370](https://github.com/iotaledger/twin-engine/commit/ec8b370c5c028cb300cdd1e76b0a0cdb2263773c))
+* use peer dependencies ([69dd744](https://github.com/iotaledger/twin-engine/commit/69dd7449010b8e6f5f35e7fad201ad4c1cab400c))
+* use shared store mechanism ([#2](https://github.com/iotaledger/twin-engine/issues/2)) ([9eed8d7](https://github.com/iotaledger/twin-engine/commit/9eed8d7766388479b42f03e2542fe761f2156408))
+
+
+### Bug Fixes
+
+* clone state ([#203](https://github.com/iotaledger/twin-engine/issues/203)) ([a240233](https://github.com/iotaledger/twin-engine/commit/a240233eb775d5e35095f3aff3c834d51c473a2c))
+* improve populateClone filtering ([60abfff](https://github.com/iotaledger/twin-engine/commit/60abfffb7ed7140f4be9ab59c7dd0aff689330ae))
+* make sure stop is called even if start is not implemented ([ece2b9d](https://github.com/iotaledger/twin-engine/commit/ece2b9de5c6dff2b5ccf2a3115c1a7328a330125))
+* pass contextIds to populateClone ([#79](https://github.com/iotaledger/twin-engine/issues/79)) ([b22f1bb](https://github.com/iotaledger/twin-engine/commit/b22f1bbf0319069914e316d27de4c2a8623421cf))
+* save state if dirty even if not started ([1abe4b9](https://github.com/iotaledger/twin-engine/commit/1abe4b97e6d27364dd673f62f83034b88b7fae0c))
+* use correct instance type name ([6278486](https://github.com/iotaledger/twin-engine/commit/6278486d8f0f2d601d3cf521a647898cd7cc1f31))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.9.3-next.0 to 0.9.3-next.1
+
 ## [0.9.2](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.9.2...engine-core-v0.9.2) (2026-08-24)
 
 
