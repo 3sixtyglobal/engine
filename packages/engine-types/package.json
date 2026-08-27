@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/engine-types",
-	"version": "0.9.3-next.0",
+	"version": "0.9.3-next.1",
 	"description": "Component and connector type definitions with configuration helpers for engine composition.",
 	"repository": {
 		"type": "git",
@@ -82,8 +82,8 @@
 		"@twin.org/document-management-models": "next",
 		"@twin.org/document-management-rest-client": "next",
 		"@twin.org/document-management-service": "next",
-		"@twin.org/engine-core": "0.9.3-next.0",
-		"@twin.org/engine-models": "0.9.3-next.0",
+		"@twin.org/engine-core": "0.9.3-next.1",
+		"@twin.org/engine-models": "0.9.3-next.1",
 		"@twin.org/entity": "next",
 		"@twin.org/entity-storage-connector-cosmosdb": "next",
 		"@twin.org/entity-storage-connector-dynamodb": "next",
@@ -155,6 +155,7 @@
 		"@twin.org/telemetry-producers": "next",
 		"@twin.org/telemetry-rest-client": "next",
 		"@twin.org/telemetry-service": "next",
+		"@twin.org/tracing-connector-console": "next",
 		"@twin.org/tracing-connector-entity-storage": "next",
 		"@twin.org/tracing-connector-opentelemetry": "next",
 		"@twin.org/tracing-models": "next",

@@ -18,6 +18,12 @@ Entity storage.
 
 OpenTelemetry.
 
+### Console {#console}
+
+> `readonly` **Console**: `"console"` = `"console"`
+
+Console for logging traces to the console.
+
 ### Multi {#multi}
 
 > `readonly` **Multi**: `"multi"` = `"multi"`

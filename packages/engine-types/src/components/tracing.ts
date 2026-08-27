@@ -8,6 +8,7 @@ import type {
 	IEngineCoreContext
 } from "@twin.org/engine-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
+import { ConsoleTracingConnector } from "@twin.org/tracing-connector-console";
 import {
 	EntityStorageTracingConnector,
 	initSchema,
@@ -73,6 +74,12 @@ export function initialiseTracingConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
 			);
 		instanceTypeName = OpenTelemetryTracingConnector.NAMESPACE;
+	} else if (instanceConfig.type === TracingConnectorType.Console) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new ConsoleTracingConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = ConsoleTracingConnector.NAMESPACE;
 	} else if (instanceConfig.type === TracingConnectorType.Multi) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new MultiTracingConnector(
