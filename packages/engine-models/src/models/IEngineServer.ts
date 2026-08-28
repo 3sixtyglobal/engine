@@ -1,5 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
+import type { IRestRoute, ISocketRoute } from "@twin.org/api-models";
 
 /**
  * Interface describing the engine server methods.
@@ -20,6 +21,18 @@ export interface IEngineServer {
 	 * @param method The method to call on the module.
 	 */
 	addSocketRouteGenerator(type: string, module: string, method: string): void;
+
+	/**
+	 * Get the built REST routes.
+	 * @returns The REST routes.
+	 */
+	getRestRoutes(): IRestRoute[];
+
+	/**
+	 * Get the built socket routes.
+	 * @returns The socket routes.
+	 */
+	getSocketRoutes(): ISocketRoute[];
 
 	/**
 	 * Start the engine server.

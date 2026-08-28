@@ -19,7 +19,7 @@ import {
 	SingleTenantProcessor,
 	type Tenant
 } from "@twin.org/api-tenant-processor";
-import { AuthorizationRestProcessor } from "@twin.org/authorization-service";
+import { AuthorizationRouteProcessor } from "@twin.org/authorization-service";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import type { IComponent } from "@twin.org/core";
 import type {
@@ -198,7 +198,7 @@ export function initialiseRestRouteProcessorComponent(
 		instanceTypeName = nameofKebabCase(TracingRouteProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.Authorization) {
 		createComponent = (createConfig: typeof instanceConfig) =>
-			new AuthorizationRestProcessor(
+			new AuthorizationRouteProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						authorizationComponentType:
@@ -210,7 +210,7 @@ export function initialiseRestRouteProcessorComponent(
 					createConfig.options
 				)
 			);
-		instanceTypeName = nameofKebabCase(AuthorizationRestProcessor);
+		instanceTypeName = nameofKebabCase(AuthorizationRouteProcessor);
 	}
 
 	return {

@@ -80,15 +80,7 @@ export function initialiseAuthorizationConnector(
 				contextIds
 			);
 			return new EntityStorageAuthorizationConnector(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{
-						loggingComponentType: engineCore.getRegisteredSilencedType(
-							"logging",
-							nameof(EntityStorageAuthorizationConnector)
-						)
-					},
-					createConfig.options
-				)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
 			);
 		};
 		instanceTypeName = EntityStorageAuthorizationConnector.NAMESPACE;
@@ -135,6 +127,10 @@ export function initialiseAuthorizationComponent(
 			new AuthorizationService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(AuthorizationService)
+						),
 						telemetryComponentType: engineCore.getRegisteredSilencedType(
 							"telemetry",
 							nameof(AuthorizationService)

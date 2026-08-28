@@ -12,6 +12,7 @@ import type {
 	ISingleTenantProcessorConstructorOptions,
 	ITenantProcessorConstructorOptions
 } from "@twin.org/api-tenant-processor";
+import type { IAuthorizationRouteProcessorConstructorOptions } from "@twin.org/authorization-service";
 import type { SocketRouteProcessorType } from "../types/socketRouteProcessorType.js";
 
 /**
@@ -49,4 +50,8 @@ export type SocketRouteProcessorConfig =
 	| {
 			type: typeof SocketRouteProcessorType.SocketRoute;
 			options?: ISocketRouteProcessorConstructorOptions;
+	  }
+	| {
+			type: typeof SocketRouteProcessorType.Authorization;
+			options?: IAuthorizationRouteProcessorConstructorOptions;
 	  };

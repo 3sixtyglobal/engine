@@ -14,6 +14,7 @@ import {
 	StaticContextIdProcessor
 } from "@twin.org/api-processors";
 import { SingleTenantProcessor, TenantProcessor } from "@twin.org/api-tenant-processor";
+import { AuthorizationRouteProcessor } from "@twin.org/authorization-service";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import type { IComponent } from "@twin.org/core";
 import type {
@@ -157,6 +158,21 @@ export function initialiseSocketRouteProcessorComponent(
 				)
 			);
 		instanceTypeName = nameofKebabCase(TenantOverrideProcessor);
+	} else if (instanceConfig.type === SocketRouteProcessorType.Authorization) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new AuthorizationRouteProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						authorizationComponentType:
+							engineCore.getRegisteredInstanceType("authorizationComponent"),
+						config: {
+							includeErrorStack: context.config.debug
+						}
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(AuthorizationRouteProcessor);
 	}
 
 	return {
