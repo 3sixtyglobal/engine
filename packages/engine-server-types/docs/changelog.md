@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.3-next.2](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.9.3-next.1...engine-server-types-v0.9.3-next.2) (2026-09-01)
+
+
+### Bug Fixes
+
+* pass loggingComponentType to MetricsRouteProcessor ([#248](https://github.com/iotaledger/twin-engine/issues/248)) ([a694fc5](https://github.com/iotaledger/twin-engine/commit/a694fc5aee719dd6687a97f2a399faf18c2ac106))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.9.3-next.1 to 0.9.3-next.2
+    * @twin.org/engine-types bumped from 0.9.3-next.1 to 0.9.3-next.2
+
 ## [0.9.3-next.1](https://github.com/iotaledger/twin-engine/compare/engine-server-types-v0.9.3-next.0...engine-server-types-v0.9.3-next.1) (2026-08-27)
 
 
