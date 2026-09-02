@@ -43,7 +43,15 @@ export function initialisePlatformComponent(
 				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
 			);
 			return new PlatformService(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(PlatformService)
+						)
+					},
+					createConfig.options
+				)
 			);
 		};
 		instanceTypeName = nameofKebabCase(PlatformService);

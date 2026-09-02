@@ -48,7 +48,11 @@ export function initialiseTenantAdminComponent(
 			return new TenantAdminService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent"),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(TenantAdminService)
+						)
 					},
 					createConfig.options
 				)
