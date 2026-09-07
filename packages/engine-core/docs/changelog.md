@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.9.3-next.3](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.9.3-next.2...engine-core-v0.9.3-next.3) (2026-09-07)
+
+
+### Features
+
+* add email injection types ([#250](https://github.com/iotaledger/twin-engine/issues/250)) ([110f891](https://github.com/iotaledger/twin-engine/commit/110f8913133f363a6cf0eaffe13524bf06d41487))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.9.3-next.2 to 0.9.3-next.3
+
 ## [0.9.3-next.2](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.9.3-next.1...engine-core-v0.9.3-next.2) (2026-09-01)
 
 
