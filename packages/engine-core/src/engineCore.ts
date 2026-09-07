@@ -689,7 +689,7 @@ export class EngineCore<
 		let optionsEntityTypes: string[] | undefined;
 		let optionsTypes: string[] | undefined;
 		if (Is.object(options)) {
-			if (!Is.empty(options.logLevel)) {
+			if (Is.notEmpty(options.logLevel)) {
 				const logLevel = options.logLevel;
 				Guards.arrayOneOf(
 					EngineCore.CLASS_NAME,
@@ -950,7 +950,7 @@ export class EngineCore<
 	 * @internal
 	 */
 	private async stateSave(): Promise<void> {
-		if (this._stateStorage && !Is.empty(this._context.state) && this._context.stateDirty) {
+		if (this._stateStorage && Is.notEmpty(this._context.state) && this._context.stateDirty) {
 			try {
 				await this._stateStorage.save(this, this._context.state);
 				this._context.stateDirty = false;

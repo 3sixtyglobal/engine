@@ -29,7 +29,7 @@ import {
 } from "@twin.org/entity-storage-models";
 import { EntityStorageRestClient } from "@twin.org/entity-storage-rest-client";
 import { EntityStorageService } from "@twin.org/entity-storage-service";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { EntityStorageComponentConfig } from "../models/config/entityStorageComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { EntityStorageComponentType } from "../models/types/entityStorageComponentType.js";
@@ -124,6 +124,10 @@ export function initialiseEntityStorageConnector(
 			entityStorageConnector = new DynamoDbEntityStorageConnector({
 				entitySchema: schema,
 				partitionContextIds,
+				loggingComponentType: engineCore.getRegisteredSilencedType(
+					"logging",
+					nameof(DynamoDbEntityStorageConnector)
+				),
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -134,6 +138,10 @@ export function initialiseEntityStorageConnector(
 			entityStorageConnector = new CosmosDbEntityStorageConnector({
 				entitySchema: schema,
 				partitionContextIds,
+				loggingComponentType: engineCore.getRegisteredSilencedType(
+					"logging",
+					nameof(CosmosDbEntityStorageConnector)
+				),
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -144,6 +152,10 @@ export function initialiseEntityStorageConnector(
 			entityStorageConnector = new FirestoreEntityStorageConnector({
 				entitySchema: schema,
 				partitionContextIds,
+				loggingComponentType: engineCore.getRegisteredSilencedType(
+					"logging",
+					nameof(FirestoreEntityStorageConnector)
+				),
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -154,6 +166,10 @@ export function initialiseEntityStorageConnector(
 			entityStorageConnector = new ScyllaDBTableConnector({
 				entitySchema: schema,
 				partitionContextIds,
+				loggingComponentType: engineCore.getRegisteredSilencedType(
+					"logging",
+					nameof(ScyllaDBTableConnector)
+				),
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -164,6 +180,10 @@ export function initialiseEntityStorageConnector(
 			entityStorageConnector = new MySqlEntityStorageConnector({
 				entitySchema: schema,
 				partitionContextIds,
+				loggingComponentType: engineCore.getRegisteredSilencedType(
+					"logging",
+					nameof(MySqlEntityStorageConnector)
+				),
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -174,6 +194,10 @@ export function initialiseEntityStorageConnector(
 			entityStorageConnector = new MongoDbEntityStorageConnector({
 				entitySchema: schema,
 				partitionContextIds,
+				loggingComponentType: engineCore.getRegisteredSilencedType(
+					"logging",
+					nameof(MongoDbEntityStorageConnector)
+				),
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,
@@ -184,6 +208,10 @@ export function initialiseEntityStorageConnector(
 			entityStorageConnector = new PostgreSqlEntityStorageConnector({
 				entitySchema: schema,
 				partitionContextIds,
+				loggingComponentType: engineCore.getRegisteredSilencedType(
+					"logging",
+					nameof(PostgreSqlEntityStorageConnector)
+				),
 				...entityStorageConfig.options,
 				config: {
 					...entityStorageConfig.options.config,

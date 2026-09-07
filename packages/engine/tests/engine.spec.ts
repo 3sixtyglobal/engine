@@ -42,6 +42,8 @@ import {
 	ImmutableProofComponentType,
 	LoggingComponentType,
 	LoggingConnectorType,
+	MailboxComponentType,
+	MailStorageComponentType,
 	MessagingAdminComponentType,
 	MessagingComponentType,
 	MessagingEmailConnectorType,
@@ -244,6 +246,8 @@ describe("engine", () => {
 					],
 					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 					messagingComponent: [{ type: MessagingComponentType.Service }],
+					mailStorageComponent: [{ type: MailStorageComponentType.Service }],
+					mailboxComponent: [{ type: MailboxComponentType.Service }],
 					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
 					immutableProofComponent: [{ type: ImmutableProofComponentType.Service }],
 					walletConnector: [{ type: WalletConnectorType.EntityStorage }],
@@ -429,6 +433,8 @@ describe("engine", () => {
 			"automation-service",
 			"messaging-admin-service",
 			"messaging-service",
+			"mail-storage-service",
+			"mailbox-service",
 			"blob-storage-service",
 			"identity-service",
 			"identity-resolver-service",
@@ -475,6 +481,8 @@ describe("engine", () => {
 			"TemplateEntry",
 			"VaultKey",
 			"VaultSecret",
+			"Mailbox",
+			"StoredEmail",
 			"BlobStorageEntry",
 			"WalletAddress",
 			"IdentityDocument",
@@ -529,6 +537,31 @@ describe("engine", () => {
 		expect(AutomationActionFactory.names()).toEqual(["fetch-action"]);
 
 		expect(MetricsProducerFactory.names()).toEqual(["system-metrics-producer"]);
+	});
+
+	test("Can start engine with SMTP email connector", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					entityStorageConnector: [
+						{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+					],
+					messagingEmailConnector: [
+						{
+							type: MessagingEmailConnectorType.Smtp,
+							options: { config: { host: "localhost" } }
+						}
+					],
+					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
+					messagingComponent: [{ type: MessagingComponentType.Service }]
+				}
+			}
+		});
+		await engine.start();
+		await engine.stop();
+		expect(ComponentFactory.names()).toContain("messaging-service");
+		expect(engine.getRegisteredInstances().messagingEmailConnector).toEqual([{ type: "smtp" }]);
 	});
 
 	test("Can start engine with custom entity storage", async () => {
@@ -1770,6 +1803,18 @@ describe("engine", () => {
 					],
 					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 					messagingComponent: [{ type: MessagingComponentType.Service }],
+					mailStorageComponent: [
+						{
+							type: MailStorageComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
+						}
+					],
+					mailboxComponent: [
+						{
+							type: MailboxComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
+						}
+					],
 					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
 					immutableProofComponent: [
 						{
@@ -1979,6 +2024,8 @@ describe("engine", () => {
 			"automation-service",
 			"messaging-admin-service",
 			"messaging-service",
+			"mail-storage-rest-client",
+			"mailbox-rest-client",
 			"blob-storage-rest-client",
 			"identity-rest-client",
 			"identity-resolver-rest-client",

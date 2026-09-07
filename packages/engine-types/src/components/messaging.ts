@@ -23,6 +23,7 @@ import {
 	type PushNotificationMessageEntry,
 	type SmsEntry
 } from "@twin.org/messaging-connector-entity-storage";
+import { SmtpMessagingEmailConnector } from "@twin.org/messaging-connector-smtp";
 import {
 	MessagingEmailConnectorFactory,
 	MessagingPushNotificationsConnectorFactory,
@@ -104,6 +105,20 @@ export function initialiseMessagingEmailConnector(
 				)
 			);
 		instanceTypeName = AwsMessagingEmailConnector.NAMESPACE;
+	} else if (instanceConfig.type === MessagingEmailConnectorType.Smtp) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new SmtpMessagingEmailConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(SmtpMessagingEmailConnector)
+						)
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = SmtpMessagingEmailConnector.NAMESPACE;
 	}
 
 	return {

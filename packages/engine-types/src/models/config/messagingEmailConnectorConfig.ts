@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IAwsMessagingEmailConnectorConstructorOptions } from "@twin.org/messaging-connector-aws";
 import type { IEntityStorageMessagingEmailConnectorConstructorOptions } from "@twin.org/messaging-connector-entity-storage";
+import type { ISmtpMessagingEmailConnectorConstructorOptions } from "@twin.org/messaging-connector-smtp";
 import type { MessagingEmailConnectorType } from "../types/messagingEmailConnectorType.js";
 
 /**
@@ -15,4 +16,8 @@ export type MessagingEmailConnectorConfig =
 	| {
 			type: typeof MessagingEmailConnectorType.Aws;
 			options: IAwsMessagingEmailConnectorConstructorOptions;
+	  }
+	| {
+			type: typeof MessagingEmailConnectorType.Smtp;
+			options: ISmtpMessagingEmailConnectorConstructorOptions;
 	  };
