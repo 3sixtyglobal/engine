@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.9.3-next.5](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.9.3-next.4...engine-core-v0.9.3-next.5) (2026-09-08)
+
+
+### Features
+
+* stop components in reverse order ([34311d0](https://github.com/iotaledger/twin-engine/commit/34311d0782b9e6ce299699d4ab8593f1ad678d09))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.9.3-next.4 to 0.9.3-next.5
+
 ## [0.9.3-next.4](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.9.3-next.3...engine-core-v0.9.3-next.4) (2026-09-08)
 
 
