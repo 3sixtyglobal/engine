@@ -37,7 +37,8 @@ export function initialiseMetricsCollectorComponent(
 							"logging",
 							nameof(MetricsCollectorService)
 						),
-						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent"),
+						telemetryComponentType: engineCore.getRegisteredInstanceType("telemetryComponent")
 					},
 					createConfig.options
 				)
