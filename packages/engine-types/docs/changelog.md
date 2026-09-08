@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.3-next.4](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.3-next.3...engine-types-v0.9.3-next.4) (2026-09-08)
+
+
+### Features
+
+* update telemetry dependencies ([f1f0888](https://github.com/iotaledger/twin-engine/commit/f1f088827752dd304a22ede3a260617a71d3ecc5))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.3-next.3 to 0.9.3-next.4
+    * @twin.org/engine-models bumped from 0.9.3-next.3 to 0.9.3-next.4
+
 ## [0.9.3-next.3](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.3-next.2...engine-types-v0.9.3-next.3) (2026-09-07)
 
 
