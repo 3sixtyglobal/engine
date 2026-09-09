@@ -7,7 +7,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import type { AutomationActionConfig } from "../models/config/automationActionConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { AutomationActionType } from "../models/types/automationActionType.js";
@@ -31,7 +31,15 @@ export function initialiseAutomationAction(
 	if (instanceConfig.type === AutomationActionType.Fetch) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new FetchAction(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(FetchAction)
+						)
+					},
+					createConfig.options
+				)
 			);
 		instanceTypeName = nameofKebabCase(FetchAction);
 	}

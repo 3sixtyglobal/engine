@@ -192,6 +192,24 @@ Messaging admin component options which can be overridden by individual componen
 
 Messaging component options which can be overridden by individual components by specifying types other than default.
 
+##### emailProtocolConnector?
+
+> `optional` **emailProtocolConnector?**: `IEngineCoreTypeConfig`\<`EmailProtocolConnectorConfig`\>[]
+
+Email protocol connector options which can be overridden by individual components by specifying types other than default.
+
+##### mailStorageComponent?
+
+> `optional` **mailStorageComponent?**: `IEngineCoreTypeConfig`\<`MailStorageComponentConfig`\>[]
+
+Mail storage component options which can be overridden by individual components by specifying types other than default.
+
+##### mailboxComponent?
+
+> `optional` **mailboxComponent?**: `IEngineCoreTypeConfig`\<`MailboxComponentConfig`\>[]
+
+Mailbox component options which can be overridden by individual components by specifying types other than default.
+
 ##### schemaVersionMigrationComponent?
 
 > `optional` **schemaVersionMigrationComponent?**: `IEngineCoreTypeConfig`\<`SchemaVersionMigrationComponentConfig`\>[]

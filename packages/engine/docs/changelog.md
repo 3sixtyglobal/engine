@@ -1,5 +1,69 @@
 # Changelog
 
+## [0.9.3-next.5](https://github.com/iotaledger/twin-engine/compare/engine-v0.9.3-next.4...engine-v0.9.3-next.5) (2026-09-08)
+
+
+### Miscellaneous Chores
+
+* **engine:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.3-next.4 to 0.9.3-next.5
+    * @twin.org/engine-models bumped from 0.9.3-next.4 to 0.9.3-next.5
+    * @twin.org/engine-types bumped from 0.9.3-next.4 to 0.9.3-next.5
+
+## [0.9.3-next.4](https://github.com/iotaledger/twin-engine/compare/engine-v0.9.3-next.3...engine-v0.9.3-next.4) (2026-09-08)
+
+
+### Miscellaneous Chores
+
+* **engine:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.3-next.3 to 0.9.3-next.4
+    * @twin.org/engine-models bumped from 0.9.3-next.3 to 0.9.3-next.4
+    * @twin.org/engine-types bumped from 0.9.3-next.3 to 0.9.3-next.4
+
+## [0.9.3-next.3](https://github.com/iotaledger/twin-engine/compare/engine-v0.9.3-next.2...engine-v0.9.3-next.3) (2026-09-07)
+
+
+### Features
+
+* add email injection types ([#250](https://github.com/iotaledger/twin-engine/issues/250)) ([110f891](https://github.com/iotaledger/twin-engine/commit/110f8913133f363a6cf0eaffe13524bf06d41487))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.3-next.2 to 0.9.3-next.3
+    * @twin.org/engine-models bumped from 0.9.3-next.2 to 0.9.3-next.3
+    * @twin.org/engine-types bumped from 0.9.3-next.2 to 0.9.3-next.3
+
+## [0.9.3-next.2](https://github.com/iotaledger/twin-engine/compare/engine-v0.9.3-next.1...engine-v0.9.3-next.2) (2026-09-01)
+
+
+### Miscellaneous Chores
+
+* **engine:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.3-next.1 to 0.9.3-next.2
+    * @twin.org/engine-models bumped from 0.9.3-next.1 to 0.9.3-next.2
+    * @twin.org/engine-types bumped from 0.9.3-next.1 to 0.9.3-next.2
+
 ## [0.9.3-next.1](https://github.com/iotaledger/twin-engine/compare/engine-v0.9.3-next.0...engine-v0.9.3-next.1) (2026-08-27)
 
 

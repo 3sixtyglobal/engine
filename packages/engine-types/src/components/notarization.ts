@@ -58,7 +58,15 @@ export function initialiseNotarizationConnector(
 			);
 
 			return new EntityStorageNotarizationConnector(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(EntityStorageNotarizationConnector)
+						)
+					},
+					createConfig.options
+				)
 			);
 		};
 		instanceTypeName = EntityStorageNotarizationConnector.NAMESPACE;

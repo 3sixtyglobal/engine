@@ -74,7 +74,9 @@ export function initialiseTelemetryConnector(
 						loggingComponentType: engineCore.getRegisteredSilencedType(
 							"logging",
 							nameof(EntityStorageTelemetryConnector)
-						)
+						),
+						backgroundTaskComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("backgroundTaskComponent")
 					},
 					createConfig.options
 				)

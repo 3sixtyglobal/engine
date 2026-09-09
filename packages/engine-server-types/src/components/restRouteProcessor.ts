@@ -172,6 +172,10 @@ export function initialiseRestRouteProcessorComponent(
 						telemetryComponentType: engineCore.getRegisteredSilencedType(
 							"telemetry",
 							nameof(MetricsRouteProcessor)
+						),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(MetricsRouteProcessor)
 						)
 					},
 					createConfig.options

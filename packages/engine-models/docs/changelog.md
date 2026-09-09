@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.9.3-next.5](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.9.3-next.4...engine-models-v0.9.3-next.5) (2026-09-08)
+
+
+### Miscellaneous Chores
+
+* **engine-models:** Synchronize repo versions
+
+## [0.9.3-next.4](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.9.3-next.3...engine-models-v0.9.3-next.4) (2026-09-08)
+
+
+### Miscellaneous Chores
+
+* **engine-models:** Synchronize repo versions
+
+## [0.9.3-next.3](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.9.3-next.2...engine-models-v0.9.3-next.3) (2026-09-07)
+
+
+### Miscellaneous Chores
+
+* **engine-models:** Synchronize repo versions
+
+## [0.9.3-next.2](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.9.3-next.1...engine-models-v0.9.3-next.2) (2026-09-01)
+
+
+### Miscellaneous Chores
+
+* **engine-models:** Synchronize repo versions
+
 ## [0.9.3-next.1](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.9.3-next.0...engine-models-v0.9.3-next.1) (2026-08-27)
 
 

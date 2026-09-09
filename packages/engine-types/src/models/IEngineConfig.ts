@@ -20,6 +20,7 @@ import type { DataspaceControlPlaneComponentConfig } from "./config/dataspaceCon
 import type { DataspaceDataPlaneComponentConfig } from "./config/dataspaceDataPlaneComponentConfig.js";
 import type { DltConfig } from "./config/dltConfig.js";
 import type { DocumentManagementComponentConfig } from "./config/documentManagementComponentConfig.js";
+import type { EmailProtocolConnectorConfig } from "./config/emailProtocolConnectorConfig.js";
 import type { EntityStorageComponentConfig } from "./config/entityStorageComponentConfig.js";
 import type { EntityStorageConnectorConfig } from "./config/entityStorageConnectorConfig.js";
 import type { EventBusComponentConfig } from "./config/eventBusComponentConfig.js";
@@ -37,6 +38,8 @@ import type { IdentityResolverConnectorConfig } from "./config/identityResolverC
 import type { ImmutableProofComponentConfig } from "./config/immutableProofComponentConfig.js";
 import type { LoggingComponentConfig } from "./config/loggingComponentConfig.js";
 import type { LoggingConnectorConfig } from "./config/loggingConnectorConfig.js";
+import type { MailboxComponentConfig } from "./config/mailboxComponentConfig.js";
+import type { MailStorageComponentConfig } from "./config/mailStorageComponentConfig.js";
 import type { MessagingAdminComponentConfig } from "./config/messagingAdminComponentConfig.js";
 import type { MessagingComponentConfig } from "./config/messagingComponentConfig.js";
 import type { MessagingEmailConnectorConfig } from "./config/messagingEmailConnectorConfig.js";
@@ -170,6 +173,21 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Messaging component options which can be overridden by individual components by specifying types other than default.
 		 */
 		messagingComponent?: IEngineCoreTypeConfig<MessagingComponentConfig>[];
+
+		/**
+		 * Email protocol connector options which can be overridden by individual components by specifying types other than default.
+		 */
+		emailProtocolConnector?: IEngineCoreTypeConfig<EmailProtocolConnectorConfig>[];
+
+		/**
+		 * Mail storage component options which can be overridden by individual components by specifying types other than default.
+		 */
+		mailStorageComponent?: IEngineCoreTypeConfig<MailStorageComponentConfig>[];
+
+		/**
+		 * Mailbox component options which can be overridden by individual components by specifying types other than default.
+		 */
+		mailboxComponent?: IEngineCoreTypeConfig<MailboxComponentConfig>[];
 
 		/**
 		 * Schema version migration component options which can be overridden by individual components by specifying types other than default.
