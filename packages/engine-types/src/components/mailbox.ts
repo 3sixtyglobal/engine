@@ -13,6 +13,10 @@ import {
 	initSchema as initSchemaGmail
 } from "@twin.org/mailbox-connector-gmail";
 import { ImapEmailConnector, initSchema as initSchemaImap } from "@twin.org/mailbox-connector-imap";
+import {
+	OutlookEmailConnector,
+	initSchema as initSchemaOutlook
+} from "@twin.org/mailbox-connector-outlook";
 import { Pop3EmailConnector, initSchema as initSchemaPop3 } from "@twin.org/mailbox-connector-pop3";
 import { EmailProtocolConnectorFactory } from "@twin.org/mailbox-models";
 import { MailboxRestClient, MailStorageRestClient } from "@twin.org/mailbox-rest-client";
@@ -97,6 +101,22 @@ export function initialiseEmailProtocolConnector(
 				)
 			);
 		instanceTypeName = GmailEmailConnector.NAMESPACE;
+	} else if (instanceConfig.type === EmailProtocolConnectorType.Outlook) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new OutlookEmailConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						taskSchedulerComponentType:
+							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(OutlookEmailConnector)
+						)
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = OutlookEmailConnector.NAMESPACE;
 	}
 
 	return {
@@ -126,6 +146,7 @@ export function initialiseMailStorageComponent(
 			initSchemaMailboxService();
 			initSchemaGmail();
 			initSchemaImap();
+			initSchemaOutlook();
 			initSchemaPop3();
 
 			initialiseEntityStorageConnector(

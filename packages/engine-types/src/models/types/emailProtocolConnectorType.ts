@@ -19,7 +19,12 @@ export const EmailProtocolConnectorType = {
 	/**
 	 * Gmail.
 	 */
-	Gmail: "gmail"
+	Gmail: "gmail",
+
+	/**
+	 * Outlook.
+	 */
+	Outlook: "outlook"
 } as const;
 
 /**

@@ -274,6 +274,17 @@ describe("engine", () => {
 									clientSecret: "test-client-secret"
 								}
 							}
+						},
+						{
+							type: EmailProtocolConnectorType.Outlook,
+							options: {
+								config: {
+									emailAddress: "test@example.com",
+									tenantId: "test-tenant-id",
+									clientId: "test-client-id",
+									clientSecret: "test-client-secret"
+								}
+							}
 						}
 					],
 					mailStorageComponent: [{ type: MailStorageComponentType.Service }],
@@ -568,9 +579,19 @@ describe("engine", () => {
 
 		expect(MetricsProducerFactory.names()).toEqual(["system-metrics-producer"]);
 
-		expect(EmailProtocolConnectorFactory.names()).toEqual(["pop3", "imap", "gmail"]);
-		expect(EmailProtocolConnectorConfigSchemaFactory.names()).toEqual(["gmail", "imap", "pop3"]);
-		expect(EmailProtocolConnectorStateSchemaFactory.names()).toEqual(["gmail", "imap", "pop3"]);
+		expect(EmailProtocolConnectorFactory.names()).toEqual(["pop3", "imap", "gmail", "outlook"]);
+		expect(EmailProtocolConnectorConfigSchemaFactory.names()).toEqual([
+			"gmail",
+			"imap",
+			"outlook",
+			"pop3"
+		]);
+		expect(EmailProtocolConnectorStateSchemaFactory.names()).toEqual([
+			"gmail",
+			"imap",
+			"outlook",
+			"pop3"
+		]);
 	});
 
 	test("Can start engine with SMTP email connector", async () => {
