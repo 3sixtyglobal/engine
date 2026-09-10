@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.3-next.7](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.3-next.6...engine-types-v0.9.3-next.7) (2026-09-10)
+
+
+### Features
+
+* add outlook email connector ([74d5e1b](https://github.com/iotaledger/twin-engine/commit/74d5e1bfcb129da4bea9bc6a2151aabb4cf08457))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.3-next.6 to 0.9.3-next.7
+    * @twin.org/engine-models bumped from 0.9.3-next.6 to 0.9.3-next.7
+
 ## [0.9.3-next.6](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.3-next.5...engine-types-v0.9.3-next.6) (2026-09-10)
 
 
