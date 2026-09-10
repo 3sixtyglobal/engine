@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.3-next.6](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.3-next.5...engine-types-v0.9.3-next.6) (2026-09-10)
+
+
+### Features
+
+* add gmail ([#258](https://github.com/iotaledger/twin-engine/issues/258)) ([265d088](https://github.com/iotaledger/twin-engine/commit/265d088e931ce78b87aac38d55527ef35f29e7f9))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.3-next.5 to 0.9.3-next.6
+    * @twin.org/engine-models bumped from 0.9.3-next.5 to 0.9.3-next.6
+
 ## [0.9.3-next.5](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.3-next.4...engine-types-v0.9.3-next.5) (2026-09-08)
 
 
