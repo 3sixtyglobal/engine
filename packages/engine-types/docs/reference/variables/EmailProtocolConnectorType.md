@@ -23,3 +23,9 @@ IMAP.
 > `readonly` **Gmail**: `"gmail"` = `"gmail"`
 
 Gmail.
+
+### Outlook {#outlook}
+
+> `readonly` **Outlook**: `"outlook"` = `"outlook"`
+
+Outlook.
