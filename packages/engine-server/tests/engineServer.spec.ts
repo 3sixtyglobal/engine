@@ -580,6 +580,7 @@ describe("engine-server", () => {
 			"GET      /mailbox/mail/:id",
 			"DELETE   /mailbox/mail/:id",
 			"GET      /mailbox/connectors/:connectorType/schema",
+			"GET      /mailbox/authcallback",
 			"POST     /mailbox",
 			"GET      /mailbox",
 			"GET      /mailbox/:id",

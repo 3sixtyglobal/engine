@@ -8,8 +8,12 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { ImapEmailConnector } from "@twin.org/mailbox-connector-imap";
-import { Pop3EmailConnector } from "@twin.org/mailbox-connector-pop3";
+import {
+	GmailEmailConnector,
+	initSchema as initSchemaGmail
+} from "@twin.org/mailbox-connector-gmail";
+import { ImapEmailConnector, initSchema as initSchemaImap } from "@twin.org/mailbox-connector-imap";
+import { Pop3EmailConnector, initSchema as initSchemaPop3 } from "@twin.org/mailbox-connector-pop3";
 import { EmailProtocolConnectorFactory } from "@twin.org/mailbox-models";
 import { MailboxRestClient, MailStorageRestClient } from "@twin.org/mailbox-rest-client";
 import {
@@ -77,6 +81,22 @@ export function initialiseEmailProtocolConnector(
 				)
 			);
 		instanceTypeName = ImapEmailConnector.NAMESPACE;
+	} else if (instanceConfig.type === EmailProtocolConnectorType.Gmail) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new GmailEmailConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						taskSchedulerComponentType:
+							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(GmailEmailConnector)
+						)
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = GmailEmailConnector.NAMESPACE;
 	}
 
 	return {
@@ -104,6 +124,10 @@ export function initialiseMailStorageComponent(
 	if (instanceConfig.type === MailStorageComponentType.Service) {
 		createComponent = (createConfig: typeof instanceConfig) => {
 			initSchemaMailboxService();
+			initSchemaGmail();
+			initSchemaImap();
+			initSchemaPop3();
+
 			initialiseEntityStorageConnector(
 				engineCore,
 				context,
@@ -119,6 +143,7 @@ export function initialiseMailStorageComponent(
 					{
 						taskSchedulerComponentType:
 							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent"),
 						loggingComponentType: engineCore.getRegisteredSilencedType(
 							"logging",
 							nameof(MailStorageService)

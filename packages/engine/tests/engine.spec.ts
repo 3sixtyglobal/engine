@@ -24,6 +24,7 @@ import {
 	DataspaceControlPlaneComponentType,
 	DataspaceDataPlaneComponentType,
 	DocumentManagementComponentType,
+	EmailProtocolConnectorType,
 	EntityStorageComponentType,
 	EntityStorageConnectorType,
 	EventBusComponentType,
@@ -97,6 +98,11 @@ import {
 } from "@twin.org/entity-storage-models";
 import { SchemaVersion } from "@twin.org/entity-storage-service";
 import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
+import {
+	EmailProtocolConnectorConfigSchemaFactory,
+	EmailProtocolConnectorFactory,
+	EmailProtocolConnectorStateSchemaFactory
+} from "@twin.org/mailbox-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import {
 	PolicyArbiterFactory,
@@ -246,6 +252,30 @@ describe("engine", () => {
 					],
 					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 					messagingComponent: [{ type: MessagingComponentType.Service }],
+					emailProtocolConnector: [
+						{
+							type: EmailProtocolConnectorType.Pop3,
+							options: {
+								config: { host: "localhost", username: "test-user", password: "test-password" }
+							}
+						},
+						{
+							type: EmailProtocolConnectorType.Imap,
+							options: {
+								config: { host: "localhost", username: "test-user", password: "test-password" }
+							}
+						},
+						{
+							type: EmailProtocolConnectorType.Gmail,
+							options: {
+								config: {
+									emailAddress: "test@example.com",
+									clientId: "test-client-id",
+									clientSecret: "test-client-secret"
+								}
+							}
+						}
+					],
 					mailStorageComponent: [{ type: MailStorageComponentType.Service }],
 					mailboxComponent: [{ type: MailboxComponentType.Service }],
 					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
@@ -537,6 +567,10 @@ describe("engine", () => {
 		expect(AutomationActionFactory.names()).toEqual(["fetch-action"]);
 
 		expect(MetricsProducerFactory.names()).toEqual(["system-metrics-producer"]);
+
+		expect(EmailProtocolConnectorFactory.names()).toEqual(["pop3", "imap", "gmail"]);
+		expect(EmailProtocolConnectorConfigSchemaFactory.names()).toEqual(["gmail", "imap", "pop3"]);
+		expect(EmailProtocolConnectorStateSchemaFactory.names()).toEqual(["gmail", "imap", "pop3"]);
 	});
 
 	test("Can start engine with SMTP email connector", async () => {

@@ -116,6 +116,7 @@
 		"@twin.org/logging-models": "next",
 		"@twin.org/logging-rest-client": "next",
 		"@twin.org/logging-service": "next",
+		"@twin.org/mailbox-connector-gmail": "next",
 		"@twin.org/mailbox-connector-imap": "next",
 		"@twin.org/mailbox-connector-pop3": "next",
 		"@twin.org/mailbox-models": "next",
