@@ -3,7 +3,7 @@
 import { mkdir, rm } from "node:fs/promises";
 import { AutomationActionFactory } from "@twin.org/automation-models";
 import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@twin.org/context";
-import { ComponentFactory, Factory, I18n } from "@twin.org/core";
+import { ComponentFactory, FacadeFactory, Factory, I18n } from "@twin.org/core";
 import { MemoryStateStorage } from "@twin.org/engine-core";
 import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
 import { EngineCloneMode, EngineLogLevel } from "@twin.org/engine-models";
@@ -29,6 +29,7 @@ import {
 	EntityStorageConnectorType,
 	EventBusComponentType,
 	EventBusConnectorType,
+	FacadeType,
 	FaucetConnectorType,
 	FederatedCatalogueComponentType,
 	FederatedCatalogueFilterComponentType,
@@ -115,6 +116,9 @@ import {
 import { MetricsProducerFactory } from "@twin.org/telemetry-models";
 import { TrustGeneratorFactory, TrustVerifierFactory } from "@twin.org/trust-models";
 import { Engine } from "../src/engine.js";
+
+// The name the tracing facade is registered under, which is what the configuration refers to.
+const TRACING_FACADE_NAME = "tracing-facade";
 
 /**
  * Class representing information for a test entity.
@@ -617,6 +621,53 @@ describe("engine", () => {
 		await engine.stop();
 		expect(ComponentFactory.names()).toContain("messaging-service");
 		expect(engine.getRegisteredInstances().messagingEmailConnector).toEqual([{ type: "smtp" }]);
+	});
+
+	test("Can start engine with a tracing facade activated from the configuration", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					loggingConnector: [{ type: LoggingConnectorType.Console }],
+					loggingComponent: [{ type: LoggingComponentType.Service }],
+					tracingConnector: [{ type: TracingConnectorType.Console }],
+					tracingComponent: [{ type: TracingComponentType.Service }],
+					facade: [{ type: FacadeType.Tracing }]
+				},
+				facades: {
+					component: [{ name: TRACING_FACADE_NAME, excludeTypes: ["^logging-"] }]
+				}
+			}
+		});
+		await engine.start();
+
+		expect(FacadeFactory.names()).toContain(TRACING_FACADE_NAME);
+
+		// The raw instances stay in the factory, so a wrapped component is a different object
+		// to the one the factory holds, and an excluded one is the same object.
+		const rawInstances = ComponentFactory.instancesMap();
+		expect(ComponentFactory.get("tracing-service")).not.toBe(rawInstances["tracing-service"]);
+		expect(ComponentFactory.get("logging-service")).toBe(rawInstances["logging-service"]);
+
+		await engine.stop();
+	});
+
+	test("Can start engine with an unknown facade type", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					facade: [{ type: "unknown-facade" as FacadeType }]
+				}
+			}
+		});
+
+		await expect(engine.start()).rejects.toThrow(
+			expect.objectContaining({
+				name: "GeneralError",
+				message: "engineCore.componentUnknownType"
+			})
+		);
 	});
 
 	test("Can start engine with custom entity storage", async () => {

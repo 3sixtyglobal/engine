@@ -1,5 +1,10 @@
 [
 	{
+		"type": "facade",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseFacade"
+	},
+	{
 		"type": "schemaVersionMigrationComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseSchemaVersionMigrationComponent"

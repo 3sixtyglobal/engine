@@ -161,6 +161,7 @@
 		"@twin.org/tracing-connector-console": "next",
 		"@twin.org/tracing-connector-entity-storage": "next",
 		"@twin.org/tracing-connector-opentelemetry": "next",
+		"@twin.org/tracing-facades": "next",
 		"@twin.org/tracing-models": "next",
 		"@twin.org/tracing-processors": "next",
 		"@twin.org/tracing-rest-client": "next",

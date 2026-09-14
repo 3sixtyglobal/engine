@@ -23,6 +23,7 @@ import type { EntityStorageComponentConfig } from "./config/entityStorageCompone
 import type { EntityStorageConnectorConfig } from "./config/entityStorageConnectorConfig.js";
 import type { EventBusComponentConfig } from "./config/eventBusComponentConfig.js";
 import type { EventBusConnectorConfig } from "./config/eventBusConnectorConfig.js";
+import type { FacadeConfig } from "./config/facadeConfig.js";
 import type { FaucetConnectorConfig } from "./config/faucetConnectorConfig.js";
 import type { FederatedCatalogueComponentConfig } from "./config/federatedCatalogueComponentConfig.js";
 import type { FederatedCatalogueFilterComponentConfig } from "./config/federatedCatalogueFilterComponentConfig.js";
@@ -86,6 +87,11 @@ export interface IEngineConfig extends IEngineCoreConfig {
 	 */
 	types: {
 		[type: string]: IEngineCoreTypeConfig[] | undefined;
+
+		/**
+		 * Facade options, a facade wraps the instances a factory produces.
+		 */
+		facade?: IEngineCoreTypeConfig<FacadeConfig>[];
 
 		/**
 		 * Logging connector options which can be overridden by individual components by specifying types other than default.
