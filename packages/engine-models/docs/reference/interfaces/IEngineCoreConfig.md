@@ -66,6 +66,18 @@ The components to disable output for.
 
 ***
 
+### facades? {#facades}
+
+> `optional` **facades?**: `object`
+
+The facades to activate, keyed by the type name of the factory they apply to.
+
+#### Index Signature
+
+\[`factoryTypeName`: `string`\]: [`IEngineFacadeConfig`](IEngineFacadeConfig.md)[]
+
+***
+
 ### types {#types}
 
 > **types**: `object`
