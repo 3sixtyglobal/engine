@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.3-next.8](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.3-next.7...engine-types-v0.9.3-next.8) (2026-09-14)
+
+
+### Features
+
+* activate factory facades from configuration ([#257](https://github.com/iotaledger/twin-engine/issues/257)) ([ae0a6f0](https://github.com/iotaledger/twin-engine/commit/ae0a6f0d04cf8072a817c29d5a061b039edc4a27))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.9.3-next.7 to 0.9.3-next.8
+    * @twin.org/engine-models bumped from 0.9.3-next.7 to 0.9.3-next.8
+
 ## [0.9.3-next.7](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.9.3-next.6...engine-types-v0.9.3-next.7) (2026-09-10)
 
 
