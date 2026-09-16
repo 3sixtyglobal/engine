@@ -17,6 +17,11 @@ export const TracingConnectorType = {
 	OpenTelemetry: "open-telemetry",
 
 	/**
+	 * Console for logging traces to the console.
+	 */
+	Console: "console",
+
+	/**
 	 * Multi combines other telemetry connectors.
 	 */
 	Multi: "multi",

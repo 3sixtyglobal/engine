@@ -61,6 +61,14 @@ describe("EngineCoreBuilder", () => {
 		expect(result.getConfig().types).toEqual({});
 	});
 
+	test("passes facades option to populateClone", () => {
+		const facades = { component: [{ name: "marking", excludeTypes: ["^test-"] }] };
+		const result = EngineCoreBuilder.fromClone(INSTANCE_NAME, cloneData, undefined, {
+			facades
+		}) as unknown as EngineCore;
+		expect(result.getConfig().facades).toEqual(facades);
+	});
+
 	test("multiple calls produce separate engine core instances", () => {
 		const result1 = EngineCoreBuilder.fromClone("instance-1", cloneData);
 		const result2 = EngineCoreBuilder.fromClone("instance-2", cloneData);

@@ -662,7 +662,7 @@ The context IDs to use for the clone.
 
 ##### options?
 
-`boolean` \| \{ `logLevel?`: `EngineLogLevel`; `types?`: `string`[]; `entityTypes?`: `string`[]; \}
+`boolean` \| \{ `logLevel?`: `EngineLogLevel`; `types?`: `string`[]; `entityTypes?`: `string`[]; `facades?`: \{\[`factoryTypeName`: `string`\]: `IEngineFacadeConfig`[]; \}; \}
 
 An optional object containing the log level, types and entity types to include.
 
@@ -672,7 +672,7 @@ An optional object containing the log level, types and entity types to include.
 
 ###### Type Literal
 
-\{ `logLevel?`: `EngineLogLevel`; `types?`: `string`[]; `entityTypes?`: `string`[]; \}
+\{ `logLevel?`: `EngineLogLevel`; `types?`: `string`[]; `entityTypes?`: `string`[]; `facades?`: \{\[`factoryTypeName`: `string`\]: `IEngineFacadeConfig`[]; \}; \}
 
 An optional object containing the log level, types and entity types to include.
 
@@ -693,6 +693,12 @@ An optional allowlist of type keys to include; when omitted all types are cloned
 `string`[]
 
 An optional allowlist of entity type names; when provided only those entity schemas and their associated storage components are cloned.
+
+###### facades?
+
+\{\[`factoryTypeName`: `string`\]: `IEngineFacadeConfig`[]; \}
+
+An optional override for the facades the clone activates.
 
 #### Returns
 

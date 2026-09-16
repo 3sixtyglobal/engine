@@ -137,6 +137,18 @@
 		"defaultPath": "/documents"
 	},
 	{
+		"type": "mailStorageComponent",
+		"module": "@twin.org/mailbox-service",
+		"method": "generateRestRoutesMailboxStorage",
+		"defaultPath": "/mailbox/mail"
+	},
+	{
+		"type": "mailboxComponent",
+		"module": "@twin.org/mailbox-service",
+		"method": "generateRestRoutesMailbox",
+		"defaultPath": "/mailbox"
+	},
+	{
 		"type": "rightsManagementPapComponent",
 		"module": "@twin.org/rights-management-service",
 		"method": "generateRestRoutesPolicyAdministrationPoint",

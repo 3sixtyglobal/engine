@@ -64,6 +64,57 @@ class FailingStartComponent implements IComponent {
 	}
 }
 
+/**
+ * Test component which records the order in which it is started and stopped.
+ */
+class OrderRecordingComponent implements IComponent {
+	/**
+	 * The name used to identify the component in the recorded order.
+	 * @internal
+	 */
+	private readonly _name: string;
+
+	/**
+	 * The shared list the start and stop calls are recorded in.
+	 * @internal
+	 */
+	private readonly _order: string[];
+
+	/**
+	 * Create a new instance of OrderRecordingComponent.
+	 * @param name The name used to identify the component in the recorded order.
+	 * @param order The shared list the start and stop calls are recorded in.
+	 */
+	constructor(name: string, order: string[]) {
+		this._name = name;
+		this._order = order;
+	}
+
+	/**
+	 * Returns the class name of the component.
+	 * @returns The class name of the component.
+	 */
+	public className(): string {
+		return "OrderRecordingComponent";
+	}
+
+	/**
+	 * Start the component.
+	 * @returns A promise that resolves when the component has started.
+	 */
+	public async start(): Promise<void> {
+		this._order.push(`start:${this._name}`);
+	}
+
+	/**
+	 * Stop the component.
+	 * @returns A promise that resolves when the component has stopped.
+	 */
+	public async stop(): Promise<void> {
+		this._order.push(`stop:${this._name}`);
+	}
+}
+
 describe("engine-core", () => {
 	beforeAll(async () => {
 		I18n.addDictionary("en", locales);
@@ -79,6 +130,28 @@ describe("engine-core", () => {
 		await engine.stop();
 
 		expect(engine).toBeDefined();
+	});
+
+	test("Stops the components in the reverse order they were started", async () => {
+		// A component started later can depend on an earlier one still running to complete its
+		// own shutdown, so teardown has to mirror startup.
+		const order: string[] = [];
+		const engine = new TestEngineCore();
+		engine.addStartableComponent("first", new OrderRecordingComponent("first", order));
+		engine.addStartableComponent("second", new OrderRecordingComponent("second", order));
+		engine.addStartableComponent("third", new OrderRecordingComponent("third", order));
+
+		await engine.start();
+		await engine.stop();
+
+		expect(order).toEqual([
+			"start:first",
+			"start:second",
+			"start:third",
+			"stop:third",
+			"stop:second",
+			"stop:first"
+		]);
 	});
 
 	test("Can start engine core with config and custom bootstrap", async () => {

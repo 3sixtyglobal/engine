@@ -3,6 +3,7 @@
 export * from "./factories/engineCoreFactory.js";
 export * from "./factories/engineServerFactory.js";
 export * from "./models/config/IEngineCoreConfig.js";
+export * from "./models/config/IEngineFacadeConfig.js";
 export * from "./models/config/IEngineCoreTypeBaseConfig.js";
 export * from "./models/config/IEngineCoreTypeConfig.js";
 export * from "./models/config/IEngineModuleConfig.js";

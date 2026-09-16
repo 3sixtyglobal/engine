@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { EngineLogLevel } from "../engineLogLevel.js";
 import type { IEngineCoreTypeConfig } from "./IEngineCoreTypeConfig.js";
+import type { IEngineFacadeConfig } from "./IEngineFacadeConfig.js";
 
 /**
  * Configuration for the engine core.
@@ -32,6 +33,13 @@ export interface IEngineCoreConfig {
 		logging?: string[];
 		telemetry?: string[];
 		tracing?: string[];
+	};
+
+	/**
+	 * The facades to activate, keyed by the type name of the factory they apply to.
+	 */
+	facades?: {
+		[factoryTypeName: string]: IEngineFacadeConfig[];
 	};
 
 	/**

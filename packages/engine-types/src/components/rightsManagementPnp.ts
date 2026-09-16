@@ -9,6 +9,7 @@ import type {
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { PolicyNegotiationPointService } from "@twin.org/rights-management-pnp-service";
 import { PolicyNegotiationPointRestClient } from "@twin.org/rights-management-rest-client";
+import { initialisePnapStorage } from "./rightsManagementPnap.js";
 import type { RightsManagementPnpComponentConfig } from "../models/config/rightsManagementPnpComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { RightsManagementPnpComponentType } from "../models/types/rightsManagementPnpComponentType.js";
@@ -30,8 +31,14 @@ export function initialiseRightsManagementPnpComponent(
 	let instanceTypeName;
 
 	if (instanceConfig.type === RightsManagementPnpComponentType.Service) {
-		createComponent = (createConfig: typeof instanceConfig) =>
-			new PolicyNegotiationPointService(
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initialisePnapStorage(
+				engineCore,
+				context,
+				createConfig.options?.policyNegotiationEntityStorageType
+			);
+
+			return new PolicyNegotiationPointService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						loggingComponentType: engineCore.getRegisteredSilencedType(
@@ -52,11 +59,14 @@ export function initialiseRightsManagementPnpComponent(
 							"rightsManagementPnpComponent",
 							["remote"]
 						),
+						taskSchedulerComponentType:
+							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
 						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
 					},
 					createConfig.options
 				)
 			);
+		};
 		instanceTypeName = nameofKebabCase(PolicyNegotiationPointService);
 	} else if (instanceConfig.type === RightsManagementPnpComponentType.RestClient) {
 		createComponent = (createConfig: typeof instanceConfig) =>

@@ -3,7 +3,7 @@
 import { mkdir, rm } from "node:fs/promises";
 import { AutomationActionFactory } from "@twin.org/automation-models";
 import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@twin.org/context";
-import { ComponentFactory, Factory, I18n } from "@twin.org/core";
+import { ComponentFactory, FacadeFactory, Factory, I18n } from "@twin.org/core";
 import { MemoryStateStorage } from "@twin.org/engine-core";
 import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
 import { EngineCloneMode, EngineLogLevel } from "@twin.org/engine-models";
@@ -24,10 +24,12 @@ import {
 	DataspaceControlPlaneComponentType,
 	DataspaceDataPlaneComponentType,
 	DocumentManagementComponentType,
+	EmailProtocolConnectorType,
 	EntityStorageComponentType,
 	EntityStorageConnectorType,
 	EventBusComponentType,
 	EventBusConnectorType,
+	FacadeType,
 	FaucetConnectorType,
 	FederatedCatalogueComponentType,
 	FederatedCatalogueFilterComponentType,
@@ -42,6 +44,8 @@ import {
 	ImmutableProofComponentType,
 	LoggingComponentType,
 	LoggingConnectorType,
+	MailboxComponentType,
+	MailStorageComponentType,
 	MessagingAdminComponentType,
 	MessagingComponentType,
 	MessagingEmailConnectorType,
@@ -95,6 +99,11 @@ import {
 } from "@twin.org/entity-storage-models";
 import { SchemaVersion } from "@twin.org/entity-storage-service";
 import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
+import {
+	EmailProtocolConnectorConfigSchemaFactory,
+	EmailProtocolConnectorFactory,
+	EmailProtocolConnectorStateSchemaFactory
+} from "@twin.org/mailbox-models";
 import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import {
 	PolicyArbiterFactory,
@@ -107,6 +116,9 @@ import {
 import { MetricsProducerFactory } from "@twin.org/telemetry-models";
 import { TrustGeneratorFactory, TrustVerifierFactory } from "@twin.org/trust-models";
 import { Engine } from "../src/engine.js";
+
+// The name the tracing facade is registered under, which is what the configuration refers to.
+const TRACING_FACADE_NAME = "tracing-facade";
 
 /**
  * Class representing information for a test entity.
@@ -244,6 +256,43 @@ describe("engine", () => {
 					],
 					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 					messagingComponent: [{ type: MessagingComponentType.Service }],
+					emailProtocolConnector: [
+						{
+							type: EmailProtocolConnectorType.Pop3,
+							options: {
+								config: { host: "localhost", username: "test-user", password: "test-password" }
+							}
+						},
+						{
+							type: EmailProtocolConnectorType.Imap,
+							options: {
+								config: { host: "localhost", username: "test-user", password: "test-password" }
+							}
+						},
+						{
+							type: EmailProtocolConnectorType.Gmail,
+							options: {
+								config: {
+									emailAddress: "test@example.com",
+									clientId: "test-client-id",
+									clientSecret: "test-client-secret"
+								}
+							}
+						},
+						{
+							type: EmailProtocolConnectorType.Outlook,
+							options: {
+								config: {
+									emailAddress: "test@example.com",
+									tenantId: "test-tenant-id",
+									clientId: "test-client-id",
+									clientSecret: "test-client-secret"
+								}
+							}
+						}
+					],
+					mailStorageComponent: [{ type: MailStorageComponentType.Service }],
+					mailboxComponent: [{ type: MailboxComponentType.Service }],
 					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
 					immutableProofComponent: [{ type: ImmutableProofComponentType.Service }],
 					walletConnector: [{ type: WalletConnectorType.EntityStorage }],
@@ -429,6 +478,8 @@ describe("engine", () => {
 			"automation-service",
 			"messaging-admin-service",
 			"messaging-service",
+			"mail-storage-service",
+			"mailbox-service",
 			"blob-storage-service",
 			"identity-service",
 			"identity-resolver-service",
@@ -475,6 +526,8 @@ describe("engine", () => {
 			"TemplateEntry",
 			"VaultKey",
 			"VaultSecret",
+			"Mailbox",
+			"StoredEmail",
 			"BlobStorageEntry",
 			"WalletAddress",
 			"IdentityDocument",
@@ -529,6 +582,92 @@ describe("engine", () => {
 		expect(AutomationActionFactory.names()).toEqual(["fetch-action"]);
 
 		expect(MetricsProducerFactory.names()).toEqual(["system-metrics-producer"]);
+
+		expect(EmailProtocolConnectorFactory.names()).toEqual(["pop3", "imap", "gmail", "outlook"]);
+		expect(EmailProtocolConnectorConfigSchemaFactory.names()).toEqual([
+			"gmail",
+			"imap",
+			"outlook",
+			"pop3"
+		]);
+		expect(EmailProtocolConnectorStateSchemaFactory.names()).toEqual([
+			"gmail",
+			"imap",
+			"outlook",
+			"pop3"
+		]);
+	});
+
+	test("Can start engine with SMTP email connector", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					entityStorageConnector: [
+						{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+					],
+					messagingEmailConnector: [
+						{
+							type: MessagingEmailConnectorType.Smtp,
+							options: { config: { host: "localhost" } }
+						}
+					],
+					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
+					messagingComponent: [{ type: MessagingComponentType.Service }]
+				}
+			}
+		});
+		await engine.start();
+		await engine.stop();
+		expect(ComponentFactory.names()).toContain("messaging-service");
+		expect(engine.getRegisteredInstances().messagingEmailConnector).toEqual([{ type: "smtp" }]);
+	});
+
+	test("Can start engine with a tracing facade activated from the configuration", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					loggingConnector: [{ type: LoggingConnectorType.Console }],
+					loggingComponent: [{ type: LoggingComponentType.Service }],
+					tracingConnector: [{ type: TracingConnectorType.Console }],
+					tracingComponent: [{ type: TracingComponentType.Service }],
+					facade: [{ type: FacadeType.Tracing }]
+				},
+				facades: {
+					component: [{ name: TRACING_FACADE_NAME, excludeTypes: ["^logging-"] }]
+				}
+			}
+		});
+		await engine.start();
+
+		expect(FacadeFactory.names()).toContain(TRACING_FACADE_NAME);
+
+		// The raw instances stay in the factory, so a wrapped component is a different object
+		// to the one the factory holds, and an excluded one is the same object.
+		const rawInstances = ComponentFactory.instancesMap();
+		expect(ComponentFactory.get("tracing-service")).not.toBe(rawInstances["tracing-service"]);
+		expect(ComponentFactory.get("logging-service")).toBe(rawInstances["logging-service"]);
+
+		await engine.stop();
+	});
+
+	test("Can start engine with an unknown facade type", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					facade: [{ type: "unknown-facade" as FacadeType }]
+				}
+			}
+		});
+
+		await expect(engine.start()).rejects.toThrow(
+			expect.objectContaining({
+				name: "GeneralError",
+				message: "engineCore.componentUnknownType"
+			})
+		);
 	});
 
 	test("Can start engine with custom entity storage", async () => {
@@ -1770,6 +1909,18 @@ describe("engine", () => {
 					],
 					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 					messagingComponent: [{ type: MessagingComponentType.Service }],
+					mailStorageComponent: [
+						{
+							type: MailStorageComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
+						}
+					],
+					mailboxComponent: [
+						{
+							type: MailboxComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
+						}
+					],
 					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
 					immutableProofComponent: [
 						{
@@ -1979,6 +2130,8 @@ describe("engine", () => {
 			"automation-service",
 			"messaging-admin-service",
 			"messaging-service",
+			"mail-storage-rest-client",
+			"mailbox-rest-client",
 			"blob-storage-rest-client",
 			"identity-rest-client",
 			"identity-resolver-rest-client",

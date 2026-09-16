@@ -6,7 +6,7 @@ import type {
 	IEngineCore,
 	IEngineCoreContext
 } from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
+import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import { MetricsCollectorService } from "@twin.org/telemetry-service";
 import type { MetricsCollectorComponentConfig } from "../models/config/metricsCollectorComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
@@ -33,7 +33,12 @@ export function initialiseMetricsCollectorComponent(
 			new MetricsCollectorService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(MetricsCollectorService)
+						),
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent"),
+						telemetryComponentType: engineCore.getRegisteredInstanceType("telemetryComponent")
 					},
 					createConfig.options
 				)

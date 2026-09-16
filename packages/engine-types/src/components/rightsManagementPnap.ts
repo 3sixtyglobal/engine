@@ -38,19 +38,10 @@ export function initialiseRightsManagementPnapComponent(
 
 	if (instanceConfig.type === RightsManagementPnapComponentType.Service) {
 		createComponent = (createConfig: typeof instanceConfig) => {
-			initSchemaRightsManagementPnap();
-
-			const partitionContextIds = ContextIdHelper.pickKeysFromAvailable(
-				engineCore.getContextIdKeys(),
-				[ContextIdKeys.Node, ContextIdKeys.Tenant]
-			);
-
-			initialiseEntityStorageConnector(
+			initialisePnapStorage(
 				engineCore,
 				context,
-				createConfig.options?.policyNegotiationEntityStorageType,
-				nameof<PolicyNegotiation>(),
-				partitionContextIds
+				createConfig.options?.policyNegotiationEntityStorageType
 			);
 
 			return new PolicyNegotiationAdminPointService(
@@ -60,12 +51,9 @@ export function initialiseRightsManagementPnapComponent(
 							"logging",
 							nameof(PolicyNegotiationAdminPointService)
 						),
-						taskSchedulerComponentType:
-							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
 						policyInformationPointComponentType: engineCore.getRegisteredInstanceType(
 							"rightsManagementPipComponent"
-						),
-						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
+						)
 					},
 					createConfig.options
 				)
@@ -85,4 +73,31 @@ export function initialiseRightsManagementPnapComponent(
 		instanceTypeName,
 		factory: ComponentFactory
 	};
+}
+
+/**
+ * Initialises the storage for the Policy Negotiation Admin Point (PNAP) component.
+ * @param engineCore The engine core.
+ * @param context The context for the engine.
+ * @param policyNegotiationEntityStorageType The type of the policy negotiation entity storage.
+ */
+export function initialisePnapStorage(
+	engineCore: IEngineCore<IEngineConfig>,
+	context: IEngineCoreContext<IEngineConfig>,
+	policyNegotiationEntityStorageType: string | undefined
+): void {
+	initSchemaRightsManagementPnap();
+
+	const partitionContextIds = ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+		ContextIdKeys.Node,
+		ContextIdKeys.Tenant
+	]);
+
+	initialiseEntityStorageConnector(
+		engineCore,
+		context,
+		policyNegotiationEntityStorageType,
+		nameof<PolicyNegotiation>(),
+		partitionContextIds
+	);
 }

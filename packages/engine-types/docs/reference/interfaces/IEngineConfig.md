@@ -86,6 +86,22 @@ The components to disable output for.
 
 ***
 
+### facades? {#facades}
+
+> `optional` **facades?**: `object`
+
+The facades to activate, keyed by the type name of the factory they apply to.
+
+#### Index Signature
+
+\[`factoryTypeName`: `string`\]: `IEngineFacadeConfig`[]
+
+#### Inherited from
+
+`IEngineCoreConfig.facades`
+
+***
+
 ### types {#types}
 
 > **types**: `object`
@@ -95,6 +111,12 @@ The types to initialise in the engine.
 #### Index Signature
 
 \[`type`: `string`\]: `IEngineCoreTypeConfig`[] \| `undefined`
+
+#### facade?
+
+> `optional` **facade?**: `IEngineCoreTypeConfig`\<[`FacadeConfig`](../type-aliases/FacadeConfig.md)\>[]
+
+Facade options, a facade wraps the instances a factory produces.
 
 #### loggingConnector?
 
@@ -185,6 +207,24 @@ Messaging admin component options which can be overridden by individual componen
 > `optional` **messagingComponent?**: `IEngineCoreTypeConfig`\<[`MessagingComponentConfig`](../type-aliases/MessagingComponentConfig.md)\>[]
 
 Messaging component options which can be overridden by individual components by specifying types other than default.
+
+#### emailProtocolConnector?
+
+> `optional` **emailProtocolConnector?**: `IEngineCoreTypeConfig`\<[`EmailProtocolConnectorConfig`](../type-aliases/EmailProtocolConnectorConfig.md)\>[]
+
+Email protocol connector options which can be overridden by individual components by specifying types other than default.
+
+#### mailStorageComponent?
+
+> `optional` **mailStorageComponent?**: `IEngineCoreTypeConfig`\<[`MailStorageComponentConfig`](../type-aliases/MailStorageComponentConfig.md)\>[]
+
+Mail storage component options which can be overridden by individual components by specifying types other than default.
+
+#### mailboxComponent?
+
+> `optional` **mailboxComponent?**: `IEngineCoreTypeConfig`\<[`MailboxComponentConfig`](../type-aliases/MailboxComponentConfig.md)\>[]
+
+Mailbox component options which can be overridden by individual components by specifying types other than default.
 
 #### schemaVersionMigrationComponent?
 

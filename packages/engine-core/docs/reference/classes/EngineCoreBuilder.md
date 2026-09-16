@@ -64,6 +64,12 @@ The types allowlist for the engine core instance.
 
 The entity types allowlist for the engine core instance.
 
+###### facades?
+
+\{\[`factoryTypeName`: `string`\]: `IEngineFacadeConfig`[]; \}
+
+The facades for the engine core instance to activate, overriding those of the engine it was cloned from.
+
 #### Returns
 
 `IEngineCore`

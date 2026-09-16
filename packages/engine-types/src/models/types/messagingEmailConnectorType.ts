@@ -14,7 +14,12 @@ export const MessagingEmailConnectorType = {
 	/**
 	 * AWS.
 	 */
-	Aws: "aws"
+	Aws: "aws",
+
+	/**
+	 * SMTP.
+	 */
+	Smtp: "smtp"
 } as const;
 
 /**

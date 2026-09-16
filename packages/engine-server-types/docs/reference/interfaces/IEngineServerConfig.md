@@ -86,6 +86,22 @@ The components to disable output for.
 
 ***
 
+### facades? {#facades}
+
+> `optional` **facades?**: `object`
+
+The facades to activate, keyed by the type name of the factory they apply to.
+
+#### Index Signature
+
+\[`factoryTypeName`: `string`\]: `IEngineFacadeConfig`[]
+
+#### Inherited from
+
+`IEngineConfig.facades`
+
+***
+
 ### web? {#web}
 
 > `optional` **web?**: `IWebServerOptions`
@@ -101,6 +117,12 @@ Configuration for the web server.
 The types to initialise in the engine.
 
 #### Type Declaration
+
+##### facade?
+
+> `optional` **facade?**: `IEngineCoreTypeConfig`\<`FacadeConfig`\>[]
+
+Facade options, a facade wraps the instances a factory produces.
 
 ##### loggingConnector?
 
@@ -191,6 +213,24 @@ Messaging admin component options which can be overridden by individual componen
 > `optional` **messagingComponent?**: `IEngineCoreTypeConfig`\<`MessagingComponentConfig`\>[]
 
 Messaging component options which can be overridden by individual components by specifying types other than default.
+
+##### emailProtocolConnector?
+
+> `optional` **emailProtocolConnector?**: `IEngineCoreTypeConfig`\<`EmailProtocolConnectorConfig`\>[]
+
+Email protocol connector options which can be overridden by individual components by specifying types other than default.
+
+##### mailStorageComponent?
+
+> `optional` **mailStorageComponent?**: `IEngineCoreTypeConfig`\<`MailStorageComponentConfig`\>[]
+
+Mail storage component options which can be overridden by individual components by specifying types other than default.
+
+##### mailboxComponent?
+
+> `optional` **mailboxComponent?**: `IEngineCoreTypeConfig`\<`MailboxComponentConfig`\>[]
+
+Mailbox component options which can be overridden by individual components by specifying types other than default.
 
 ##### schemaVersionMigrationComponent?
 

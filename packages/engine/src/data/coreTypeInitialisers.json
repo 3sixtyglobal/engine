@@ -1,5 +1,10 @@
 [
 	{
+		"type": "facade",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseFacade"
+	},
+	{
 		"type": "schemaVersionMigrationComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseSchemaVersionMigrationComponent"
@@ -110,6 +115,16 @@
 		"method": "initialiseMessagingComponent"
 	},
 	{
+		"type": "emailProtocolConnector",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseEmailProtocolConnector"
+	},
+	{
+		"type": "mailStorageComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseMailStorageComponent"
+	},
+	{
 		"type": "entityStorageComponent",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseEntityStorageComponent"
@@ -118,6 +133,11 @@
 		"type": "vaultConnector",
 		"module": "@twin.org/engine-types",
 		"method": "initialiseVaultConnector"
+	},
+	{
+		"type": "mailboxComponent",
+		"module": "@twin.org/engine-types",
+		"method": "initialiseMailboxComponent"
 	},
 	{
 		"type": "blobStorageConnector",

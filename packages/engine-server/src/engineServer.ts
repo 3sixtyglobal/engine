@@ -8,7 +8,7 @@ import {
 	type ISocketRoute,
 	type IWebServer
 } from "@twin.org/api-models";
-import { FastifyWebServer } from "@twin.org/api-server-fastify";
+import { FastifyWebServer, type IFastifyWebServerConfig } from "@twin.org/api-server-fastify";
 import { ContextIdStore } from "@twin.org/context";
 import { Guards, Is, StringHelper } from "@twin.org/core";
 import type { IEngineCore, IEngineCoreTypeConfig, IEngineServer } from "@twin.org/engine-models";
@@ -265,7 +265,9 @@ export class EngineServer<
 			loggingComponentType,
 			mimeTypeProcessors,
 			config: {
-				includeErrorStack: coreConfig.debug
+				includeErrorStack: coreConfig.debug,
+				web: coreConfig.web?.customWebConfig as IFastifyWebServerConfig["web"],
+				socket: coreConfig.web?.customSocketConfig as IFastifyWebServerConfig["socket"]
 			}
 		});
 

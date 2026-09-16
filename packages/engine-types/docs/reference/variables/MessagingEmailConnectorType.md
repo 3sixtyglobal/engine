@@ -17,3 +17,9 @@ Entity storage.
 > `readonly` **Aws**: `"aws"` = `"aws"`
 
 AWS.
+
+### Smtp {#smtp}
+
+> `readonly` **Smtp**: `"smtp"` = `"smtp"`
+
+SMTP.
