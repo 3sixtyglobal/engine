@@ -13,11 +13,9 @@ import {
 	StaticContextIdProcessor
 } from "@twin.org/api-processors";
 import {
-	initSchema as initSchemaTenantProcessor,
 	TenantProcessor,
 	SingleTenantProcessor,
-	TenantOverrideProcessor,
-	type Tenant
+	TenantOverrideProcessor
 } from "@twin.org/api-tenant-processor";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
 import type { IComponent } from "@twin.org/core";
@@ -120,11 +118,11 @@ export function initialiseRestRouteProcessorComponent(
 			);
 		instanceTypeName = nameofKebabCase(RestRouteProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.Tenant) {
-		createComponent = (createConfig: typeof instanceConfig) => {
-			initTenantStorage(engineCore, context, createConfig?.options?.tenantEntityStorageType);
-			return new TenantProcessor(
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new TenantProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
+						tenantAdminComponentType: engineCore.getRegisteredInstanceType("tenantAdminComponent"),
 						config: {
 							includeErrorStack: context.config.debug
 						}
@@ -132,7 +130,6 @@ export function initialiseRestRouteProcessorComponent(
 					createConfig.options
 				)
 			);
-		};
 		instanceTypeName = nameofKebabCase(TenantProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.SingleTenant) {
 		createComponent = (createConfig: typeof instanceConfig) =>
@@ -148,11 +145,11 @@ export function initialiseRestRouteProcessorComponent(
 			);
 		instanceTypeName = nameofKebabCase(SingleTenantProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.TenantOverride) {
-		createComponent = (createConfig: typeof instanceConfig) => {
-			initTenantStorage(engineCore, context, createConfig?.options?.tenantEntityStorageType);
-			return new TenantOverrideProcessor(
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new TenantOverrideProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
+						tenantAdminComponentType: engineCore.getRegisteredInstanceType("tenantAdminComponent"),
 						config: {
 							includeErrorStack: context.config.debug
 						}
@@ -160,7 +157,6 @@ export function initialiseRestRouteProcessorComponent(
 					createConfig.options
 				)
 			);
-		};
 		instanceTypeName = nameofKebabCase(TenantOverrideProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.Metrics) {
 		createComponent = (createConfig: typeof instanceConfig) =>
@@ -205,28 +201,4 @@ export function initialiseRestRouteProcessorComponent(
 		instanceTypeName,
 		factory: RestRouteProcessorFactory
 	};
-}
-
-/**
- * Initialise the tenant storage.
- * @param engineCore The engine core.
- * @param context The context for the engine.
- * @param tenantEntityStorageType The tenant entity storage type.
- */
-export function initTenantStorage(
-	engineCore: IEngineCore<IEngineServerConfig>,
-	context: IEngineCoreContext<IEngineServerConfig>,
-	tenantEntityStorageType?: string
-): void {
-	initSchemaTenantProcessor();
-	initialiseEntityStorageConnector(
-		engineCore,
-		context,
-		tenantEntityStorageType,
-		nameof<Tenant>(),
-		ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-			ContextIdKeys.Node,
-			ContextIdKeys.Tenant
-		])
-	);
 }
