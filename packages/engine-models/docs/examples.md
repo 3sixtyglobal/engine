@@ -50,3 +50,29 @@ const coreConfig: IEngineCoreConfig = {
 
 console.log(coreConfig.types.loggingConnector?.[0].type); // "console"
 ```
+
+## EngineCloneHelper
+
+```typescript
+import { EngineCloneHelper } from '@twin.org/engine-models';
+import type { IEngineCoreClone } from '@twin.org/engine-models';
+
+const excludeTypes = EngineCloneHelper.verifyExcludeCloneComponents(['^rightsManagement']);
+
+const cloneData: IEngineCoreClone = {
+  config: {
+    types: {
+      loggingConnector: [{ type: 'console' }],
+      rightsManagementPapComponent: [{ type: 'service' }]
+    }
+  },
+  state: {},
+  typeInitialisers: [],
+  entitySchemas: {},
+  contextIdKeys: []
+};
+
+const filtered = EngineCloneHelper.filterCloneComponents(cloneData, excludeTypes);
+
+console.log(Object.keys(filtered.config.types)); // ["loggingConnector"]
+```

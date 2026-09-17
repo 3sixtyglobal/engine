@@ -30,7 +30,8 @@
 	"dependencies": {
 		"@twin.org/context": "next",
 		"@twin.org/core": "next",
-		"@twin.org/entity": "next"
+		"@twin.org/entity": "next",
+		"@twin.org/nameof": "next"
 	},
 	"devDependencies": {
 		"@twin.org/nameof-transformer": "next",
