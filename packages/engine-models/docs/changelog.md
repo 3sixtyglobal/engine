@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.1-next.2](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.10.1-next.1...engine-models-v0.10.1-next.2) (2026-09-17)
+
+
+### Features
+
+* shared engine clone helper for component exclusions ([#273](https://github.com/iotaledger/twin-engine/issues/273)) ([6741617](https://github.com/iotaledger/twin-engine/commit/6741617e375f3b5ff41c88e72226eb998a770ee7))
+
 ## [0.10.1-next.1](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.10.1-next.0...engine-models-v0.10.1-next.1) (2026-09-17)
 
 
