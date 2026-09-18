@@ -12,6 +12,7 @@ import { nameof, nameofKebabCase } from "@twin.org/nameof";
 import {
 	initSchema as initSchemaRightsManagementPap,
 	type OdrlPolicy,
+	type OdrlPolicyIndex,
 	PolicyAdministrationPointService
 } from "@twin.org/rights-management-pap-service";
 import { PolicyAdministrationPointRestClient } from "@twin.org/rights-management-rest-client";
@@ -50,6 +51,17 @@ export function initialiseRightsManagementPapComponent(
 					ContextIdKeys.Tenant
 				])
 			);
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.odrlPolicyIndexEntityStorageType,
+				nameof<OdrlPolicyIndex>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+
 			return new PolicyAdministrationPointService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{

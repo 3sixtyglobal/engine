@@ -3,7 +3,7 @@
 import { mkdir, rm } from "node:fs/promises";
 import { AutomationActionFactory } from "@twin.org/automation-models";
 import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@twin.org/context";
-import { ComponentFactory, FacadeFactory, Factory, I18n } from "@twin.org/core";
+import { ComponentFactory, FacadeFactory, Factory, I18n, Is } from "@twin.org/core";
 import { MemoryStateStorage } from "@twin.org/engine-core";
 import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
 import { EngineCloneMode, EngineLogLevel } from "@twin.org/engine-models";
@@ -178,6 +178,25 @@ export class TestMigrationEntity {
 	 */
 	@property({ type: "array", itemType: "string", optional: true })
 	public tags?: string[];
+}
+
+/**
+ * Read every schema version record, paging through the results, as the storage shared by the tests
+ * accumulates more records than a single page holds.
+ * @param versionConnector The schema version storage connector.
+ * @returns All the stored schema version records.
+ */
+async function readAllVersionRecords(
+	versionConnector: IEntityStorageConnector<SchemaVersion>
+): Promise<SchemaVersion[]> {
+	const records: SchemaVersion[] = [];
+	let cursor: string | undefined;
+	do {
+		const result = await versionConnector.query(undefined, undefined, undefined, cursor);
+		records.push(...(result.entities as SchemaVersion[]));
+		cursor = result.cursor;
+	} while (Is.stringValue(cursor));
+	return records;
 }
 
 describe("engine", () => {
@@ -536,6 +555,7 @@ describe("engine", () => {
 			"Notarization",
 			"ImmutableProof",
 			"AuditableItemGraphVertex",
+			"AuditableItemGraphVertexIndex",
 			"AuditableItemGraphAlias",
 			"AuditableItemGraphResource",
 			"AuditableItemGraphEdge",
@@ -546,6 +566,7 @@ describe("engine", () => {
 			"ExtractionRuleGroup",
 			"ExtractionRule",
 			"OdrlPolicy",
+			"OdrlPolicyIndex",
 			"PolicyNegotiation",
 			"Dataset",
 			"ActivityLogDetails",
@@ -2203,8 +2224,7 @@ describe("engine", () => {
 		const versionConnector = EntityStorageConnectorFactory.get<
 			IEntityStorageConnector<SchemaVersion>
 		>(nameofKebabCase(SchemaVersion));
-		const { entities } = await versionConnector.query();
-		const rows = entities ?? [];
+		const rows = await readAllVersionRecords(versionConnector);
 
 		expect(rows.some(r => r.schemaName === nameof<SchemaVersion>())).toBe(true);
 		expect(rows.some(r => r.schemaName === "BackgroundTask")).toBe(true);
@@ -2285,8 +2305,8 @@ describe("engine", () => {
 			const versionConnector = EntityStorageConnectorFactory.get<
 				IEntityStorageConnector<SchemaVersion>
 			>(nameofKebabCase(SchemaVersion));
-			const { entities: versionRecords } = await versionConnector.query();
-			const migrationRecord = (versionRecords ?? []).find(
+			const versionRecords = await readAllVersionRecords(versionConnector);
+			const migrationRecord = versionRecords.find(
 				r => r.schemaName === nameof<TestMigrationEntity>()
 			);
 			expect(migrationRecord?.version).toBe(1);

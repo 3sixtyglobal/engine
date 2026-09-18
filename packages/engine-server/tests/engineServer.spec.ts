@@ -92,6 +92,7 @@ import engineTypesLocales from "@twin.org/engine-types/locales/en.json" with { t
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
+import { getFreePort } from "./setupTestEnv.js";
 import packageLocales from "../locales/en.json" with { type: "json" };
 import { EngineServer } from "../src/engineServer.js";
 import {
@@ -99,8 +100,7 @@ import {
 	addDefaultSocketPaths
 } from "../src/utils/engineServerConfigHelper.js";
 
-const basePort = Math.floor(Math.random() * 1000);
-let port = 13000 + basePort;
+let port: number;
 
 /**
  * Class representing information for a test entity.
@@ -122,7 +122,7 @@ describe("engine-server", () => {
 	});
 
 	beforeEach(async () => {
-		port++;
+		port = await getFreePort();
 
 		Factory.clearFactories();
 	});

@@ -5,6 +5,7 @@ import {
 	type AuditableItemGraphChangeset,
 	AuditableItemGraphService,
 	type AuditableItemGraphVertex,
+	type AuditableItemGraphVertexIndex,
 	initSchema as initSchemaAuditableItemGraph
 } from "@twin.org/auditable-item-graph-service";
 import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
@@ -45,6 +46,16 @@ export function initialiseAuditableItemGraphComponent(
 				context,
 				createConfig.options?.vertexEntityStorageType,
 				nameof<AuditableItemGraphVertex>(),
+				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+					ContextIdKeys.Node,
+					ContextIdKeys.Tenant
+				])
+			);
+			initialiseEntityStorageConnector(
+				engineCore,
+				context,
+				createConfig.options?.vertexIndexEntityStorageType,
+				nameof<AuditableItemGraphVertexIndex>(),
 				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
 					ContextIdKeys.Node,
 					ContextIdKeys.Tenant
