@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.10.1-next.3](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.10.1-next.2...engine-core-v0.10.1-next.3) (2026-09-18)
+
+
+### Miscellaneous Chores
+
+* **engine-core:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.10.1-next.2 to 0.10.1-next.3
+
 ## [0.10.1-next.2](https://github.com/iotaledger/twin-engine/compare/engine-core-v0.10.1-next.1...engine-core-v0.10.1-next.2) (2026-09-17)
 
 

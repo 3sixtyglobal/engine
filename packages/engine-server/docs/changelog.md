@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.10.1-next.3](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.10.1-next.2...engine-server-v0.10.1-next.3) (2026-09-18)
+
+
+### Features
+
+* wire indexing types ([#275](https://github.com/iotaledger/twin-engine/issues/275)) ([af69ee4](https://github.com/iotaledger/twin-engine/commit/af69ee49e28cc35d830eaa6295cec6c342a23c0e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-models bumped from 0.10.1-next.2 to 0.10.1-next.3
+    * @twin.org/engine-server-types bumped from 0.10.1-next.2 to 0.10.1-next.3
+  * devDependencies
+    * @twin.org/engine bumped from 0.10.1-next.2 to 0.10.1-next.3
+    * @twin.org/engine-core bumped from 0.10.1-next.2 to 0.10.1-next.3
+    * @twin.org/engine-types bumped from 0.10.1-next.2 to 0.10.1-next.3
+
 ## [0.10.1-next.2](https://github.com/iotaledger/twin-engine/compare/engine-server-v0.10.1-next.1...engine-server-v0.10.1-next.2) (2026-09-17)
 
 
