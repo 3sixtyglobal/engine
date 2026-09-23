@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.10.1-next.4](https://github.com/iotaledger/twin-engine/compare/engine-v0.10.1-next.3...engine-v0.10.1-next.4) (2026-09-23)
+
+
+### Features
+
+* elk logging ([#278](https://github.com/iotaledger/twin-engine/issues/278)) ([c77bcca](https://github.com/iotaledger/twin-engine/commit/c77bcca0708796c2e9c0abde8f9923b5addfb597))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.10.1-next.3 to 0.10.1-next.4
+    * @twin.org/engine-models bumped from 0.10.1-next.3 to 0.10.1-next.4
+    * @twin.org/engine-types bumped from 0.10.1-next.3 to 0.10.1-next.4
+
 ## [0.10.1-next.3](https://github.com/iotaledger/twin-engine/compare/engine-v0.10.1-next.2...engine-v0.10.1-next.3) (2026-09-18)
 
 
