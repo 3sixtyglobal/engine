@@ -8,6 +8,7 @@ import type {
 	IEngineCoreContext
 } from "@twin.org/engine-models";
 import { ConsoleLoggingConnector } from "@twin.org/logging-connector-console";
+import { ElkLoggingConnector } from "@twin.org/logging-connector-elk";
 import {
 	EntityStorageLoggingConnector,
 	initSchema as initSchemaLogging,
@@ -89,6 +90,12 @@ export function initialiseLoggingConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
 			);
 		instanceTypeName = FileLoggingConnector.NAMESPACE;
+	} else if (instanceConfig.type === LoggingConnectorType.Elk) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new ElkLoggingConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = ElkLoggingConnector.NAMESPACE;
 	}
 
 	return {

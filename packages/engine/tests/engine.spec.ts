@@ -88,7 +88,13 @@ import {
 	WalletConnectorType
 } from "@twin.org/engine-types";
 import typeLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
-import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
+import {
+	entity,
+	EntitySchemaFactory,
+	EntitySchemaHelper,
+	EntitySchemaPropertyType,
+	property
+} from "@twin.org/entity";
 import type {
 	IEntityStorageComponent,
 	IEntityStorageConnector
@@ -2248,7 +2254,12 @@ describe("engine", () => {
 				{ from: "legacyField", to: "newField" },
 				{ from: "score", to: "tags" }
 			],
-			transformEntityProperty: (source, fromSchema, toSchema, value) => [`item:${value as number}`]
+			transformEntityProperty: (source, fromSchema, toSchema, value) => {
+				if (toSchema.type === EntitySchemaPropertyType.Array) {
+					return [`item:${value as number}`];
+				}
+				return undefined;
+			}
 		}));
 
 		// Capture console.info to verify migration log messages are emitted.

@@ -110,6 +110,7 @@
 		"@twin.org/immutable-proof-rest-client": "next",
 		"@twin.org/immutable-proof-service": "next",
 		"@twin.org/logging-connector-console": "next",
+		"@twin.org/logging-connector-elk": "next",
 		"@twin.org/logging-connector-entity-storage": "next",
 		"@twin.org/logging-connector-file": "next",
 		"@twin.org/logging-connector-opentelemetry": "next",
