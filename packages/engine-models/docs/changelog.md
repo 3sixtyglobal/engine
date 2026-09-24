@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.1-next.5](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.10.1-next.4...engine-models-v0.10.1-next.5) (2026-09-24)
+
+
+### Bug Fixes
+
+* multiple defects ([#281](https://github.com/iotaledger/twin-engine/issues/281)) ([bf15ae5](https://github.com/iotaledger/twin-engine/commit/bf15ae5b19cddb2e17bcddfaff6d631a91837b54))
+
 ## [0.10.1-next.4](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.10.1-next.3...engine-models-v0.10.1-next.4) (2026-09-23)
 
 

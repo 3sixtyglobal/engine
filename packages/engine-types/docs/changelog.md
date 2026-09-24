@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.10.1-next.5](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.10.1-next.4...engine-types-v0.10.1-next.5) (2026-09-24)
+
+
+### Bug Fixes
+
+* multiple defects ([#281](https://github.com/iotaledger/twin-engine/issues/281)) ([bf15ae5](https://github.com/iotaledger/twin-engine/commit/bf15ae5b19cddb2e17bcddfaff6d631a91837b54))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.10.1-next.4 to 0.10.1-next.5
+    * @twin.org/engine-models bumped from 0.10.1-next.4 to 0.10.1-next.5
+
 ## [0.10.1-next.4](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.10.1-next.3...engine-types-v0.10.1-next.4) (2026-09-23)
 
 
