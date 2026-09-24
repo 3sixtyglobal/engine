@@ -135,6 +135,44 @@ describe("engine-server", () => {
 		expect(engineServer).toBeDefined();
 	});
 
+	test("Stops the engine when the web server fails to start", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: { missingRoutesComponent: [{ type: "service", restPath: "missing" }] },
+				web: { port }
+			}
+		});
+		const engineServer = new EngineServer({ engineCore: engine });
+		engineServer.addRestRouteGenerator(
+			"missingRoutesComponent",
+			"@twin.org/missing-routes-module",
+			"generateRestRoutes"
+		);
+
+		await expect(engineServer.start()).rejects.toThrow();
+		expect(engine.isStarted()).toEqual(false);
+	});
+
+	test("Stops the engine when the web server fails to stop", async () => {
+		const engine = new Engine({ config: { silent: true, types: {}, web: { port } } });
+		const engineServer = new EngineServer({ engineCore: engine });
+		await engineServer.start();
+
+		const webServer = (await engine.getRegisteredComponents()).find(
+			c => c.instanceType === "webServer"
+		)?.component;
+		const stopSpy = webServer ? vi.spyOn(webServer, "stop") : undefined;
+		stopSpy?.mockRejectedValueOnce(new Error("stop failed"));
+
+		await expect(engineServer.stop()).rejects.toThrow("stop failed");
+		expect(stopSpy).toHaveBeenCalled();
+		expect(engine.isStarted()).toEqual(false);
+
+		stopSpy?.mockRestore();
+		await webServer?.stop?.();
+	});
+
 	test("Can start engine server with custom rest path", async () => {
 		const engine = new Engine({
 			config: {

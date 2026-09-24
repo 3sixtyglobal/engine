@@ -90,14 +90,16 @@ export interface IEngineCore<
 	/**
 	 * Log info.
 	 * @param message The message to log.
+	 * @returns A promise that resolves when the message has been logged.
 	 */
-	logInfo(message: string): void;
+	logInfo(message: string): Promise<void>;
 
 	/**
 	 * Log error.
 	 * @param error The error to log.
+	 * @returns A promise that resolves when the error has been logged.
 	 */
-	logError(error: IError): void;
+	logError(error: IError): Promise<void>;
 
 	/**
 	 * Get the config for the engine.

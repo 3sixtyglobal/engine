@@ -9,12 +9,7 @@ export const RightsManagementPepComponentType = {
 	/**
 	 * Service.
 	 */
-	Service: "service",
-
-	/**
-	 * REST client.
-	 */
-	RestClient: "rest-client"
+	Service: "service"
 } as const;
 
 /**

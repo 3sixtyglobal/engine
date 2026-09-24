@@ -1,14 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import path from "node:path";
-import {
-	ComponentFactory,
-	GeneralError,
-	I18n,
-	type IComponent,
-	Is,
-	StringHelper
-} from "@twin.org/core";
+import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
+import { ComponentFactory, GeneralError, type IComponent, Is, StringHelper } from "@twin.org/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
@@ -88,14 +82,6 @@ export function initialiseEntityStorageConnector(
 	if (!EntityStorageConnectorFactory.hasName(instanceName)) {
 		const type = entityStorageConfig.type;
 		let entityStorageConnector: IEntityStorageConnector;
-
-		engineCore.logInfo(
-			I18n.formatMessage("info.engineTypes.configuringEntityStorage", {
-				element: "Entity Storage",
-				storageName: instanceName,
-				storageType: type
-			})
-		);
 
 		if (type === EntityStorageConnectorType.Memory) {
 			entityStorageConnector = new MemoryEntityStorageConnector({
@@ -262,7 +248,11 @@ export function initialiseEntityStorageComponent(
 				context,
 				hasCustom ? kebabName : undefined,
 				createConfig.options.entityStorageType,
-				createConfig.options.partitionContextIds
+				createConfig.options.partitionContextIds ??
+					ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+						ContextIdKeys.Node,
+						ContextIdKeys.Tenant
+					])
 			);
 
 			return new EntityStorageService(

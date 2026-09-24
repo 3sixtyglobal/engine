@@ -72,6 +72,8 @@ import type { TaskSchedulerComponentConfig } from "./config/taskSchedulerCompone
 import type { TelemetryComponentConfig } from "./config/telemetryComponentConfig.js";
 import type { TelemetryConnectorConfig } from "./config/telemetryConnectorConfig.js";
 import type { TenantAdminComponentConfig } from "./config/tenantAdminComponentConfig.js";
+import type { TracingComponentConfig } from "./config/tracingComponentConfig.js";
+import type { TracingConnectorConfig } from "./config/tracingConnectorConfig.js";
 import type { TrustComponentConfig } from "./config/trustComponentConfig.js";
 import type { TrustGeneratorComponentConfig } from "./config/trustGeneratorComponentConfig.js";
 import type { TrustVerifierComponentConfig } from "./config/trustVerifierComponentConfig.js";
@@ -132,6 +134,16 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Telemetry component options which can be overridden by individual components by specifying types other than default.
 		 */
 		telemetryComponent?: IEngineCoreTypeConfig<TelemetryComponentConfig>[];
+
+		/**
+		 * Tracing connector options which can be overridden by individual components by specifying types other than default.
+		 */
+		tracingConnector?: IEngineCoreTypeConfig<TracingConnectorConfig>[];
+
+		/**
+		 * Tracing component options which can be overridden by individual components by specifying types other than default.
+		 */
+		tracingComponent?: IEngineCoreTypeConfig<TracingComponentConfig>[];
 
 		/**
 		 * Metrics producer component options. Creates the `MetricsProducerService` that orchestrates polling.

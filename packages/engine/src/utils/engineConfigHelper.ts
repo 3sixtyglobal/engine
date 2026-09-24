@@ -1,6 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ContextIdKeys } from "@twin.org/context";
 import { Guards, Is, StringHelper } from "@twin.org/core";
 import { EntityStorageComponentType, type IEngineConfig } from "@twin.org/engine-types";
 import { EntitySchemaFactory, type IEntitySchema } from "@twin.org/entity";
@@ -21,7 +20,7 @@ export class EngineConfigHelper {
 	 * @param entityTypeName The entity type name.
 	 * @param entitySchema The entity schema.
 	 * @param restPath The rest path to serve the entity storage from, leave undefined for no endpoints.
-	 * @param partitionContextIds The context ids to use for partitioning.
+	 * @param partitionContextIds The context ids to use for partitioning, leave undefined to partition by whichever of the node and tenant keys are registered with the engine when it starts.
 	 */
 	public static addCustomEntityStorage<T>(
 		engineConfig: IEngineConfig,
@@ -42,7 +41,7 @@ export class EngineConfigHelper {
 			type: EntityStorageComponentType.Service,
 			options: {
 				entityStorageType: entityTypeName,
-				partitionContextIds: partitionContextIds ?? [ContextIdKeys.Node, ContextIdKeys.Tenant]
+				partitionContextIds
 			},
 			overrideInstanceType: StringHelper.kebabCase(entityTypeName),
 			restPath: Is.stringValue(restPath) ? restPath : undefined

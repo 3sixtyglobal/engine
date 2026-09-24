@@ -20,7 +20,7 @@ export type BlobStorageConnectorConfig =
 	  }
 	| {
 			type: typeof BlobStorageConnectorType.Memory;
-			options?: IMemoryStorageConnectorConstructorOptions & { config: never };
+			options?: IMemoryStorageConnectorConstructorOptions;
 	  }
 	| {
 			type: typeof BlobStorageConnectorType.AwsS3;

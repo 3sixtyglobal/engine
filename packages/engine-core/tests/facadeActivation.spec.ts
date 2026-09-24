@@ -229,26 +229,37 @@ describe("EngineCore facades", () => {
 	test("wraps the instances of a factory named in the configuration", async () => {
 		const engine = makeEngine({ component: [{ name: "marking" }] });
 		await engine.start();
-		await engine.stop();
 
 		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("marked:raw");
+
+		await engine.stop();
+	});
+
+	test("deactivates the facades when the engine is stopped", async () => {
+		const engine = makeEngine({ component: [{ name: "marking" }] });
+		await engine.start();
+		await engine.stop();
+
+		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("raw");
 	});
 
 	test("leaves the instances of a factory which is not named", async () => {
 		Factory.createFactory<IComponent>("facade-test-other");
 		const engine = makeEngine({ "facade-test-other": [{ name: "marking" }] });
 		await engine.start();
-		await engine.stop();
 
 		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("raw");
+
+		await engine.stop();
 	});
 
 	test("behaves as it does today with no facades configured", async () => {
 		const engine = makeEngine();
 		await engine.start();
-		await engine.stop();
 
 		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("raw");
+
+		await engine.stop();
 	});
 
 	test("wraps the instances of every factory named in the configuration", async () => {
@@ -260,10 +271,11 @@ describe("EngineCore facades", () => {
 			"facade-test-multi": [{ name: "marking" }]
 		});
 		await engine.start();
-		await engine.stop();
 
 		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("marked:raw");
 		expect(other.get<TestComponent>("other-component").work()).toEqual("marked:raw");
+
+		await engine.stop();
 	});
 
 	test("wraps with the facade listed first as the outermost", async () => {
@@ -271,11 +283,12 @@ describe("EngineCore facades", () => {
 
 		const engine = makeEngine({ component: [{ name: "marking" }, { name: "inner" }] });
 		await engine.start();
-		await engine.stop();
 
 		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual(
 			"marked:inner:raw"
 		);
+
+		await engine.stop();
 	});
 
 	test("fails to start when the facade is not registered", async () => {
@@ -316,9 +329,10 @@ describe("EngineCore facades", () => {
 			component: [{ name: "marking", excludeTypes: ["test-component"] }]
 		});
 		await engine.start();
-		await engine.stop();
 
 		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("raw");
+
+		await engine.stop();
 	});
 
 	test("treats an exclude type as a regular expression", async () => {
@@ -326,25 +340,28 @@ describe("EngineCore facades", () => {
 			component: [{ name: "marking", excludeTypes: ["^test-.*nent$"] }]
 		});
 		await engine.start();
-		await engine.stop();
 
 		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("raw");
+
+		await engine.stop();
 	});
 
 	test("matches an exclude pattern anywhere in the instance type", async () => {
 		const engine = makeEngine({ component: [{ name: "marking", excludeTypes: ["component"] }] });
 		await engine.start();
-		await engine.stop();
 
 		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("raw");
+
+		await engine.stop();
 	});
 
 	test("keeps an instance wrapped when no exclude pattern matches it", async () => {
 		const engine = makeEngine({ component: [{ name: "marking", excludeTypes: ["^other-"] }] });
 		await engine.start();
-		await engine.stop();
 
 		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("marked:raw");
+
+		await engine.stop();
 	});
 
 	test("only excludes the instance types matching one of the patterns", async () => {
@@ -354,10 +371,11 @@ describe("EngineCore facades", () => {
 			component: [{ name: "marking", excludeTypes: ["^test-", "^absent-"] }]
 		});
 		await engine.start();
-		await engine.stop();
 
 		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("raw");
 		expect(ComponentFactory.get<TestComponent>("kept-component").work()).toEqual("marked:raw");
+
+		await engine.stop();
 	});
 
 	test("applies an exclusion only to the facade which carries it", async () => {
@@ -367,9 +385,10 @@ describe("EngineCore facades", () => {
 			component: [{ name: "marking", excludeTypes: ["^test-"] }, { name: "inner" }]
 		});
 		await engine.start();
-		await engine.stop();
 
 		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("inner:raw");
+
+		await engine.stop();
 	});
 
 	test("fails to start when an exclude type is not a valid pattern", async () => {
@@ -473,9 +492,10 @@ describe("EngineCore facades", () => {
 			]
 		);
 		await engine.start();
-		await engine.stop();
 
 		expect(ComponentFactory.get<TestComponent>("pipeline-component").work()).toEqual("marked:raw");
+
+		await engine.stop();
 	});
 
 	test("activates the facades before the other components are constructed", async () => {
@@ -495,10 +515,11 @@ describe("EngineCore facades", () => {
 			]
 		);
 		await engine.start();
-		await engine.stop();
 
 		const dependent = ComponentFactory.get<DependentComponent>("pipeline-dependent");
 		expect(dependent.dependencyWork()).toEqual("marked:marked:raw");
+
+		await engine.stop();
 	});
 
 	test("resolves the instance type of a type which is initialised later", async () => {
@@ -516,10 +537,11 @@ describe("EngineCore facades", () => {
 			]
 		);
 		await engine.start();
-		await engine.stop();
 
 		const naming = ComponentFactory.get<NamingComponent>("pipeline-naming");
 		expect(naming.dependencyType()).toEqual("pipeline-component");
+
+		await engine.stop();
 	});
 
 	test("resolves an overridden instance type of a type which is initialised later", async () => {
@@ -535,10 +557,11 @@ describe("EngineCore facades", () => {
 			]
 		);
 		await engine.start();
-		await engine.stop();
 
 		const naming = ComponentFactory.get<NamingComponent>("pipeline-naming");
 		expect(naming.dependencyType()).toEqual("renamed-component");
+
+		await engine.stop();
 	});
 
 	test("starts the facades before the components they wrap", async () => {
@@ -576,11 +599,12 @@ describe("EngineCore facades", () => {
 			]
 		);
 		await engine.start();
-		await engine.stop();
 
 		expect(ComponentFactory.create<TestComponent>("pipeline-component", {}).work()).toEqual(
 			"marked:raw"
 		);
+
+		await engine.stop();
 	});
 
 	test("matches an exclude pattern against the overridden instance type", async () => {
@@ -596,31 +620,33 @@ describe("EngineCore facades", () => {
 			]
 		);
 		await engine.start();
-		await engine.stop();
 
 		expect(ComponentFactory.get<TestComponent>("renamed-component").work()).toEqual("raw");
+
+		await engine.stop();
 	});
 
 	test("carries the facade configuration into the clone data", async () => {
 		const engine = makeEngine({ component: [{ name: "marking" }] });
 		await engine.start();
-		await engine.stop();
 
 		expect(engine.getCloneData().config.facades).toEqual({ component: [{ name: "marking" }] });
+
+		await engine.stop();
 	});
 
 	test("activates the facades of a clone", async () => {
 		const parent = makeEngine({ component: [{ name: "marking" }] });
 		await parent.start();
 		await parent.stop();
-		ComponentFactory.unuseFacade("marking");
 
 		const clone = new EngineCore();
 		clone.populateClone(parent.getCloneData());
 		await clone.start();
-		await clone.stop();
 
 		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("marked:raw");
+
+		await clone.stop();
 	});
 
 	test("overrides the facades of a clone", async () => {
@@ -629,29 +655,61 @@ describe("EngineCore facades", () => {
 		const parent = makeEngine({ component: [{ name: "marking" }] });
 		await parent.start();
 		await parent.stop();
-		ComponentFactory.unuseFacade("marking");
 
 		const clone = new EngineCore();
 		clone.populateClone(parent.getCloneData(), undefined, {
 			facades: { component: [{ name: "inner" }] }
 		});
 		await clone.start();
-		await clone.stop();
 
 		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("inner:raw");
+
+		await clone.stop();
 	});
 
 	test("activates no facades for a clone given an empty override", async () => {
 		const parent = makeEngine({ component: [{ name: "marking" }] });
 		await parent.start();
 		await parent.stop();
-		ComponentFactory.unuseFacade("marking");
 
 		const clone = new EngineCore();
 		clone.populateClone(parent.getCloneData(), undefined, { facades: {} });
 		await clone.start();
-		await clone.stop();
 
 		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("raw");
+
+		await clone.stop();
+	});
+
+	test("deactivates the facades when the engine fails to start", async () => {
+		const engine = new EngineCore<IEngineCoreConfig>({
+			config: { silent: true, types: {}, facades: { component: [{ name: "marking" }] } },
+			stateStorage: new MemoryStateStorage(),
+			customBootstrap: async () => {
+				throw new Error("bootstrap failed");
+			}
+		});
+
+		await expect(engine.start()).rejects.toThrow("bootstrap failed");
+
+		expect(ComponentFactory.get<TestComponent>("test-component").work()).toEqual("raw");
+	});
+
+	test("does not register the pipeline instances twice when restarted", async () => {
+		const engine = makePipelineEngine({ pipelineComponent: [{ type: "default" }] }, undefined, [
+			{ type: "pipelineComponent", method: "initialisePipelineComponent" }
+		]);
+
+		await engine.start();
+		await engine.stop();
+		await engine.start();
+
+		expect(engine.getRegisteredInstances().pipelineComponent).toEqual([
+			{ type: "pipeline-component", isDefault: undefined, features: undefined }
+		]);
+		const instanceTypes = (await engine.getRegisteredComponents()).map(c => c.instanceType);
+		expect(instanceTypes.filter(t => t === "pipeline-component")).toHaveLength(1);
+
+		await engine.stop();
 	});
 });

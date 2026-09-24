@@ -1,9 +1,16 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { mkdir, rm } from "node:fs/promises";
+import { mkdir, readdir, rm } from "node:fs/promises";
 import { AutomationActionFactory } from "@twin.org/automation-models";
 import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@twin.org/context";
-import { ComponentFactory, FacadeFactory, Factory, I18n, Is } from "@twin.org/core";
+import {
+	ComponentFactory,
+	FacadeFactory,
+	Factory,
+	I18n,
+	type IComponent,
+	Is
+} from "@twin.org/core";
 import { MemoryStateStorage } from "@twin.org/engine-core";
 import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
 import { EngineCloneMode, EngineLogLevel } from "@twin.org/engine-models";
@@ -122,6 +129,7 @@ import {
 import { MetricsProducerFactory } from "@twin.org/telemetry-models";
 import { TrustGeneratorFactory, TrustVerifierFactory } from "@twin.org/trust-models";
 import { Engine } from "../src/engine.js";
+import { EngineConfigHelper } from "../src/utils/engineConfigHelper.js";
 
 // The name the tracing facade is registered under, which is what the configuration refers to.
 const TRACING_FACADE_NAME = "tracing-facade";
@@ -772,6 +780,93 @@ describe("engine", () => {
 
 		const item = await service.get("test");
 		expect(item?.id).toEqual("test");
+	});
+
+	test("Can add a custom entity storage partitioned by the context ID keys the engine has", async () => {
+		const getContextIds = ContextIdStore.getContextIds;
+		ContextIdStore.getContextIds = vi.fn().mockImplementation(() => ({
+			node: "did:iota:0x123"
+		}));
+
+		try {
+			const config: IEngineConfig = {
+				silent: true,
+				types: {
+					entityStorageConnector: [
+						{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+					]
+				}
+			};
+			EngineConfigHelper.addCustomEntityStorage(
+				config,
+				nameof<TestEntity>(),
+				EntitySchemaHelper.getSchema(TestEntity)
+			);
+
+			const engine = new Engine({ config });
+			engine.addContextIdKey(ContextIdKeys.Node, ["did"]);
+			await engine.start();
+
+			const service = ComponentFactory.get<IEntityStorageComponent<TestEntity>>("test-entity");
+			await service.set({ id: "test" });
+			const item = await service.get("test");
+
+			await engine.stop();
+
+			expect(item?.id).toEqual("test");
+		} finally {
+			ContextIdStore.getContextIds = getContextIds;
+		}
+	});
+
+	test("Can start engine with a push notification connector wired into the messaging service", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					entityStorageConnector: [
+						{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+					],
+					messagingPushNotificationConnector: [
+						{ type: MessagingPushNotificationConnectorType.EntityStorage }
+					],
+					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
+					messagingComponent: [{ type: MessagingComponentType.Service }]
+				}
+			}
+		});
+		await engine.start();
+
+		const messagingService = ComponentFactory.get<
+			IComponent & {
+				registerDevice: (applicationId: string, deviceToken: string) => Promise<string>;
+			}
+		>("messaging-service");
+		const deviceId = await messagingService.registerDevice("app-1", "device-token-1");
+
+		await engine.stop();
+
+		expect(Is.stringValue(deviceId)).toEqual(true);
+	});
+
+	test("Can start engine with a file blob storage connector using a storage prefix", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					blobStorageConnector: [
+						{
+							type: BlobStorageConnectorType.File,
+							options: { storagePrefix: "prefix", config: { directory: "tests/.tmp/blob" } }
+						}
+					]
+				}
+			}
+		});
+		await engine.start();
+		await engine.stop();
+
+		expect(await readdir("tests/.tmp/blob")).toEqual(["prefix"]);
 	});
 
 	test("Can clone the engine", async () => {
