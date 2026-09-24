@@ -166,6 +166,18 @@ Telemetry connector options which can be overridden by individual components by 
 
 Telemetry component options which can be overridden by individual components by specifying types other than default.
 
+#### tracingConnector?
+
+> `optional` **tracingConnector?**: `IEngineCoreTypeConfig`\<[`TracingConnectorConfig`](../type-aliases/TracingConnectorConfig.md)\>[]
+
+Tracing connector options which can be overridden by individual components by specifying types other than default.
+
+#### tracingComponent?
+
+> `optional` **tracingComponent?**: `IEngineCoreTypeConfig`\<[`TracingComponentConfig`](../type-aliases/TracingComponentConfig.md)\>[]
+
+Tracing component options which can be overridden by individual components by specifying types other than default.
+
 #### metricsProducerComponent?
 
 > `optional` **metricsProducerComponent?**: `IEngineCoreTypeConfig`\<[`MetricsProducerComponentConfig`](../type-aliases/MetricsProducerComponentConfig.md)\>[]

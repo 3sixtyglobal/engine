@@ -121,7 +121,7 @@
 - [IdentityProfileConnectorType](type-aliases/IdentityProfileConnectorType.md)
 - [IdentityResolverComponentType](type-aliases/IdentityResolverComponentType.md)
 - [IdentityResolverConnectorType](type-aliases/IdentityResolverConnectorType.md)
-- [IImmutableProofComponentType](type-aliases/IImmutableProofComponentType.md)
+- [ImmutableProofComponentType](type-aliases/ImmutableProofComponentType.md)
 - [LoggingComponentType](type-aliases/LoggingComponentType.md)
 - [LoggingConnectorType](type-aliases/LoggingConnectorType.md)
 - [MailStorageComponentType](type-aliases/MailStorageComponentType.md)
