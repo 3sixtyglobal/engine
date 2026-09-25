@@ -17,6 +17,7 @@ import type {
 	IEngineFacadeConfig
 } from "@twin.org/engine-models";
 import { ModuleHelper } from "@twin.org/modules";
+import type { MockInstance } from "vitest";
 import locales from "../locales/en.json" with { type: "json" };
 import { EngineCore } from "../src/engineCore.js";
 import { MemoryStateStorage } from "../src/storage/memoryStateStorage.js";
@@ -180,19 +181,22 @@ function makePipelineEngine(
 }
 
 describe("EngineCore facades", () => {
+	let importSpy: MockInstance<typeof ModuleHelper.importModule>;
+
 	beforeAll(() => {
 		I18n.addDictionary("en", locales);
 
-		ModuleHelper.overrideImport(async moduleName => {
+		const importModule = ModuleHelper.importModule.bind(ModuleHelper);
+		importSpy = vi.spyOn(ModuleHelper, "importModule").mockImplementation(async moduleName => {
 			if (moduleName === PIPELINE_MODULE) {
-				return { module: pipelineModule, useDefault: false };
+				return pipelineModule;
 			}
-			return { useDefault: true };
+			return importModule(moduleName);
 		});
 	});
 
 	afterAll(() => {
-		ModuleHelper.overrideImport(async () => ({ useDefault: true }));
+		importSpy.mockRestore();
 	});
 
 	beforeEach(() => {
