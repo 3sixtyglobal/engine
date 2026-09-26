@@ -20,7 +20,6 @@ Builder class for creating engine core instances.
 
 Creates a new engine core instance populated from clone data.
 Registers the instance in EngineCoreFactory under the given instanceName.
-Safe to call from any V8 isolate (main thread or worker thread).
 
 #### Parameters
 
