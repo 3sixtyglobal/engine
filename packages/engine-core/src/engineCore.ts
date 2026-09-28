@@ -968,6 +968,7 @@ export class EngineCore<
 				config: {
 					translateMessages: true,
 					hideGroups: true,
+					disableColor: this._context.config.disableColor ?? false,
 					levels
 				}
 			});

@@ -306,6 +306,28 @@ describe("engine-core", () => {
 		);
 	});
 
+	test("Can populate a clone with disabled colour and produce uncoloured output", async () => {
+		const engine = new EngineCore({
+			config: { disableColor: true, types: {} },
+			stateStorage: new MemoryStateStorage()
+		});
+		const cloneData = engine.getCloneData();
+
+		const infoSpy = vi.spyOn(console, "info").mockImplementation(() => {});
+
+		const clone = new TestEngineCore();
+		clone.populateClone(cloneData);
+		await clone.start();
+		await clone.stop();
+
+		expect(clone.getConfig().disableColor).toEqual(true);
+		const startingCall = infoSpy.mock.calls.find(call =>
+			call.some(arg => String(arg).includes("Engine is starting"))
+		);
+		expect(startingCall).toBeDefined();
+		expect(startingCall?.some(arg => String(arg).includes("\u001B["))).toEqual(false);
+	});
+
 	test("Can fail to populate a clone with an invalid log level", async () => {
 		const engine = new EngineCore();
 		const cloneData = engine.getCloneData();
