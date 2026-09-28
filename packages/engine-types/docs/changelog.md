@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.10.1-next.7](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.10.1-next.6...engine-types-v0.10.1-next.7) (2026-09-28)
+
+
+### Miscellaneous Chores
+
+* **engine-types:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/engine-core bumped from 0.10.1-next.6 to 0.10.1-next.7
+    * @twin.org/engine-models bumped from 0.10.1-next.6 to 0.10.1-next.7
+
 ## [0.10.1-next.6](https://github.com/iotaledger/twin-engine/compare/engine-types-v0.10.1-next.5...engine-types-v0.10.1-next.6) (2026-09-26)
 
 

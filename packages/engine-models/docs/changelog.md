@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.1-next.7](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.10.1-next.6...engine-models-v0.10.1-next.7) (2026-09-28)
+
+
+### Features
+
+* add console disable colour option ([75d0b8b](https://github.com/iotaledger/twin-engine/commit/75d0b8b140b608cea2acffdb1c56ea996126d3ed))
+
 ## [0.10.1-next.6](https://github.com/iotaledger/twin-engine/compare/engine-models-v0.10.1-next.5...engine-models-v0.10.1-next.6) (2026-09-26)
 
 
