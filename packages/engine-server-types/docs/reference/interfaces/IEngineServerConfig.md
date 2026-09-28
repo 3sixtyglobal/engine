@@ -62,6 +62,24 @@ all
 
 ***
 
+### disableColor? {#disablecolor}
+
+> `optional` **disableColor?**: `boolean`
+
+Disable colour in the engine logger output.
+
+#### Default
+
+```ts
+false
+```
+
+#### Inherited from
+
+`IEngineConfig.disableColor`
+
+***
+
 ### silentComponents? {#silentcomponents}
 
 > `optional` **silentComponents?**: `object`
