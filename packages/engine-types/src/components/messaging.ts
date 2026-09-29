@@ -294,7 +294,7 @@ export function initialiseMessagingComponent(
 						messagingSmsConnectorType:
 							engineCore.getRegisteredInstanceTypeOptional("messagingSmsConnector"),
 						messagingPushNotificationConnectorType: engineCore.getRegisteredInstanceTypeOptional(
-							"messagingNotificationConnector"
+							"messagingPushNotificationConnector"
 						),
 						messagingAdminComponentType:
 							engineCore.getRegisteredInstanceTypeOptional("messagingAdminComponent")

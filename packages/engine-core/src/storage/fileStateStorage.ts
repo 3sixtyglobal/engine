@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rename, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { BaseError, GeneralError, Guards, I18n } from "@twin.org/core";
 import type { IEngineCore, IEngineState, IEngineStateStorage } from "@twin.org/engine-models";
@@ -47,7 +47,7 @@ export class FileStateStorage<
 	 */
 	public async load(engineCore: IEngineCore): Promise<S | undefined> {
 		try {
-			engineCore.logInfo(
+			await engineCore.logInfo(
 				I18n.formatMessage(`${nameofCamelCase<FileStateStorage>()}.loading`, {
 					filename: this._filename
 				})
@@ -75,15 +75,17 @@ export class FileStateStorage<
 	public async save(engineCore: IEngineCore, state: S): Promise<void> {
 		if (!this._readonlyMode) {
 			try {
-				engineCore.logInfo(
+				await engineCore.logInfo(
 					I18n.formatMessage(`${nameofCamelCase<FileStateStorage>()}.saving`, {
 						filename: this._filename
 					})
 				);
-				try {
-					await mkdir(path.dirname(this._filename), { recursive: true });
-				} catch {}
-				await writeFile(this._filename, JSON.stringify(state, undefined, "\t"), "utf8");
+				await mkdir(path.dirname(this._filename), { recursive: true });
+				// Written to a temporary file and renamed, so an interrupted write can not leave
+				// a truncated state file behind.
+				const tempFilename = `${this._filename}.tmp`;
+				await writeFile(tempFilename, JSON.stringify(state, undefined, "\t"), "utf8");
+				await rename(tempFilename, this._filename);
 			} catch (err) {
 				throw new GeneralError(
 					FileStateStorage.CLASS_NAME,
@@ -105,8 +107,13 @@ export class FileStateStorage<
 		try {
 			const stats = await stat(filename);
 			return stats.isFile();
-		} catch {
-			return false;
+		} catch (err) {
+			// Only a missing file means there is no state, any other failure must not be
+			// treated as an empty state as it would be overwritten on the next save.
+			if ((err as NodeJS.ErrnoException).code === "ENOENT") {
+				return false;
+			}
+			throw err;
 		}
 	}
 }

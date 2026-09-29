@@ -11,7 +11,10 @@ export type EntityStorageComponentConfig =
 	| {
 			type: typeof EntityStorageComponentType.Service;
 			options: IEntityStorageServiceConstructorOptions & {
-				partitionContextIds: string[];
+				/**
+				 * The context IDs to partition the data by, defaults to the node and tenant keys the engine has.
+				 */
+				partitionContextIds?: string[];
 			};
 	  }
 	| {

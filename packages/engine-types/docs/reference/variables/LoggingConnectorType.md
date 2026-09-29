@@ -35,3 +35,9 @@ OpenTelemetry.
 > `readonly` **File**: `"file"` = `"file"`
 
 File.
+
+### Elk {#elk}
+
+> `readonly` **Elk**: `"elk"` = `"elk"`
+
+ELK.

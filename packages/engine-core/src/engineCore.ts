@@ -128,6 +128,18 @@ export class EngineCore<
 	private _isClone: boolean;
 
 	/**
+	 * The facades activated by this engine, so they can be deactivated if the start fails.
+	 * @internal
+	 */
+	private _activatedFacades: { factory: Factory<unknown>; facadeName: string }[];
+
+	/**
+	 * Has start been called on the engine, used to release the instances before a restart.
+	 * @internal
+	 */
+	private _hasStartBeenAttempted: boolean;
+
+	/**
 	 * Add type initialisers to the engine.
 	 * @internal
 	 */
@@ -172,6 +184,8 @@ export class EngineCore<
 		this._stateStorage = options.stateStorage;
 		this._isStarted = false;
 		this._isClone = false;
+		this._activatedFacades = [];
+		this._hasStartBeenAttempted = false;
 
 		if (Is.function(this._populateTypeInitialisers)) {
 			this._populateTypeInitialisers(this, this._context);
@@ -257,6 +271,13 @@ export class EngineCore<
 	 */
 	public async start(skipComponentStart?: boolean): Promise<void> {
 		if (!this._isStarted) {
+			// Every type is constructed again on each start, so the instances from a previous
+			// start are released, otherwise they would be started alongside the new ones.
+			if (this._hasStartBeenAttempted) {
+				this.releaseInstances();
+			}
+			this._hasStartBeenAttempted = true;
+
 			this.setupEngineLogger();
 			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.starting`));
 
@@ -385,6 +406,9 @@ export class EngineCore<
 				await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.started`));
 			} catch (err) {
 				await this.stop();
+				// Stop only deactivates the facades of a started engine, so a failure before
+				// the engine is marked as started deactivates them here.
+				this.deactivateFacades();
 				await this.logError(BaseError.fromError(err));
 				throw err;
 			} finally {
@@ -438,6 +462,10 @@ export class EngineCore<
 					}
 				}
 			});
+
+			// The facades are applied to shared factories, so they must not stay active once
+			// the engine has stopped.
+			this.deactivateFacades();
 
 			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopped`));
 			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopped`));
@@ -673,9 +701,9 @@ export class EngineCore<
 		const cloneData: IEngineCoreClone<C, S> = {
 			config: { ...sourceConfig, types: cloneTypes },
 			state: ObjectHelper.clone(this._context.state),
-			typeInitialisers: this._typeInitialisers,
+			typeInitialisers: ObjectHelper.clone(this._typeInitialisers),
 			entitySchemas,
-			contextIdKeys: this._contextIdKeys
+			contextIdKeys: ObjectHelper.clone(this._contextIdKeys)
 		};
 
 		return cloneData;
@@ -718,6 +746,8 @@ export class EngineCore<
 		let optionsEntityTypes: string[] | undefined;
 		let optionsTypes: string[] | undefined;
 		let optionsFacades: { [factoryTypeName: string]: IEngineFacadeConfig[] } | undefined;
+		// The clone data can be shared by several clones, so it is never modified.
+		let cloneLogLevel = cloneData.config.logLevel;
 		if (Is.object(options)) {
 			if (Is.notEmpty(options.logLevel)) {
 				const logLevel = options.logLevel;
@@ -727,13 +757,13 @@ export class EngineCore<
 					logLevel,
 					Object.values(EngineLogLevel)
 				);
-				cloneData.config.logLevel = logLevel;
+				cloneLogLevel = logLevel;
 			}
 			optionsEntityTypes = options.entityTypes;
 			optionsTypes = options.types;
 			optionsFacades = options.facades;
 		} else if (options === true) {
-			cloneData.config.logLevel = EngineLogLevel.Error;
+			cloneLogLevel = EngineLogLevel.Error;
 		}
 
 		let cloneEntitySchemas = cloneData.entitySchemas;
@@ -760,7 +790,11 @@ export class EngineCore<
 			}
 		}
 
-		let cloneConfig: IEngineCoreConfig = { ...cloneData.config, types: partialTypes };
+		let cloneConfig: IEngineCoreConfig = {
+			...cloneData.config,
+			logLevel: cloneLogLevel,
+			types: partialTypes
+		};
 
 		if (Is.arrayValue(optionsEntityTypes)) {
 			const filteredSchemas: { [schema: string]: IEntitySchema } = {};
@@ -783,7 +817,7 @@ export class EngineCore<
 					filteredTypes[typeKey] = kept;
 				}
 			}
-			cloneConfig = { ...cloneData.config, types: filteredTypes };
+			cloneConfig = { ...cloneData.config, logLevel: cloneLogLevel, types: filteredTypes };
 		}
 
 		if (Is.object(optionsFacades)) {
@@ -799,18 +833,23 @@ export class EngineCore<
 		};
 
 		const includedTypeKeys = new Set(Object.keys(partialTypes));
-		this._typeInitialisers = Is.arrayValue(optionsTypes)
-			? cloneData.typeInitialisers.filter(t => includedTypeKeys.has(t.type))
-			: cloneData.typeInitialisers;
-		this._contextIdKeys.push(...cloneData.contextIdKeys);
+		this._typeInitialisers = ObjectHelper.clone(
+			Is.arrayValue(optionsTypes)
+				? cloneData.typeInitialisers.filter(t => includedTypeKeys.has(t.type))
+				: cloneData.typeInitialisers
+		);
+		for (const contextIdKey of ObjectHelper.clone(cloneData.contextIdKeys)) {
+			this.addContextIdKey(contextIdKey.key, contextIdKey.componentFeatures);
+		}
 		this._contextIds = contextIds;
 
 		for (const schemaName of Object.keys(cloneEntitySchemas)) {
 			EntitySchemaFactory.register(schemaName, () => cloneEntitySchemas[schemaName]);
 		}
 
-		this._stateStorage = new MemoryStateStorage(true, cloneData.state);
+		this._stateStorage = new MemoryStateStorage(true, ObjectHelper.clone(cloneData.state));
 		this._isStarted = false;
+		this._hasStartBeenAttempted = false;
 	}
 
 	/**
@@ -929,6 +968,7 @@ export class EngineCore<
 				config: {
 					translateMessages: true,
 					hideGroups: true,
+					disableColor: this._context.config.disableColor ?? false,
 					levels
 				}
 			});
@@ -1004,10 +1044,13 @@ export class EngineCore<
 	 */
 	private async stateSave(): Promise<void> {
 		if (this._stateStorage && Is.notEmpty(this._context.state) && this._context.stateDirty) {
+			// Cleared before saving, so a change marked dirty while the save is in progress is
+			// kept for the next save instead of being discarded.
+			this._context.stateDirty = false;
 			try {
 				await this._stateStorage.save(this, this._context.state);
-				this._context.stateDirty = false;
 			} catch (err) {
+				this._context.stateDirty = true;
 				await this.logError(BaseError.fromError(err));
 			}
 		}
@@ -1062,6 +1105,7 @@ export class EngineCore<
 	 */
 	private activateFacades(): void {
 		const facades = this._context.config.facades;
+		this._activatedFacades = [];
 
 		if (Is.empty(facades)) {
 			return;
@@ -1115,7 +1159,28 @@ export class EngineCore<
 
 		for (const { factory, facadeName, excludeTypes } of resolved) {
 			factory.useFacade(facadeName, excludeTypes);
+			this._activatedFacades.push({ factory, facadeName });
 		}
+	}
+
+	/**
+	 * Deactivate the facades this engine activated.
+	 * @internal
+	 */
+	private deactivateFacades(): void {
+		for (const { factory, facadeName } of this._activatedFacades) {
+			factory.unuseFacade(facadeName);
+		}
+		this._activatedFacades = [];
+	}
+
+	/**
+	 * Release the component instances and registrations made during start.
+	 * @internal
+	 */
+	private releaseInstances(): void {
+		this._context.componentInstances = [];
+		this._context.registeredInstances = {};
 	}
 
 	/**

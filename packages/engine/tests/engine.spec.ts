@@ -1,9 +1,16 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { mkdir, rm } from "node:fs/promises";
+import { mkdir, readdir, rm } from "node:fs/promises";
 import { AutomationActionFactory } from "@twin.org/automation-models";
 import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@twin.org/context";
-import { ComponentFactory, FacadeFactory, Factory, I18n } from "@twin.org/core";
+import {
+	ComponentFactory,
+	FacadeFactory,
+	Factory,
+	I18n,
+	type IComponent,
+	Is
+} from "@twin.org/core";
 import { MemoryStateStorage } from "@twin.org/engine-core";
 import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
 import { EngineCloneMode, EngineLogLevel } from "@twin.org/engine-models";
@@ -88,7 +95,13 @@ import {
 	WalletConnectorType
 } from "@twin.org/engine-types";
 import typeLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
-import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
+import {
+	entity,
+	EntitySchemaFactory,
+	EntitySchemaHelper,
+	EntitySchemaPropertyType,
+	property
+} from "@twin.org/entity";
 import type {
 	IEntityStorageComponent,
 	IEntityStorageConnector
@@ -116,6 +129,7 @@ import {
 import { MetricsProducerFactory } from "@twin.org/telemetry-models";
 import { TrustGeneratorFactory, TrustVerifierFactory } from "@twin.org/trust-models";
 import { Engine } from "../src/engine.js";
+import { EngineConfigHelper } from "../src/utils/engineConfigHelper.js";
 
 // The name the tracing facade is registered under, which is what the configuration refers to.
 const TRACING_FACADE_NAME = "tracing-facade";
@@ -178,6 +192,25 @@ export class TestMigrationEntity {
 	 */
 	@property({ type: "array", itemType: "string", optional: true })
 	public tags?: string[];
+}
+
+/**
+ * Read every schema version record, paging through the results, as the storage shared by the tests
+ * accumulates more records than a single page holds.
+ * @param versionConnector The schema version storage connector.
+ * @returns All the stored schema version records.
+ */
+async function readAllVersionRecords(
+	versionConnector: IEntityStorageConnector<SchemaVersion>
+): Promise<SchemaVersion[]> {
+	const records: SchemaVersion[] = [];
+	let cursor: string | undefined;
+	do {
+		const result = await versionConnector.query(undefined, undefined, undefined, cursor);
+		records.push(...(result.entities as SchemaVersion[]));
+		cursor = result.cursor;
+	} while (Is.stringValue(cursor));
+	return records;
 }
 
 describe("engine", () => {
@@ -536,6 +569,7 @@ describe("engine", () => {
 			"Notarization",
 			"ImmutableProof",
 			"AuditableItemGraphVertex",
+			"AuditableItemGraphVertexIndex",
 			"AuditableItemGraphAlias",
 			"AuditableItemGraphResource",
 			"AuditableItemGraphEdge",
@@ -546,6 +580,7 @@ describe("engine", () => {
 			"ExtractionRuleGroup",
 			"ExtractionRule",
 			"OdrlPolicy",
+			"OdrlPolicyIndex",
 			"PolicyNegotiation",
 			"Dataset",
 			"ActivityLogDetails",
@@ -745,6 +780,93 @@ describe("engine", () => {
 
 		const item = await service.get("test");
 		expect(item?.id).toEqual("test");
+	});
+
+	test("Can add a custom entity storage partitioned by the context ID keys the engine has", async () => {
+		const getContextIds = ContextIdStore.getContextIds;
+		ContextIdStore.getContextIds = vi.fn().mockImplementation(() => ({
+			node: "did:iota:0x123"
+		}));
+
+		try {
+			const config: IEngineConfig = {
+				silent: true,
+				types: {
+					entityStorageConnector: [
+						{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+					]
+				}
+			};
+			EngineConfigHelper.addCustomEntityStorage(
+				config,
+				nameof<TestEntity>(),
+				EntitySchemaHelper.getSchema(TestEntity)
+			);
+
+			const engine = new Engine({ config });
+			engine.addContextIdKey(ContextIdKeys.Node, ["did"]);
+			await engine.start();
+
+			const service = ComponentFactory.get<IEntityStorageComponent<TestEntity>>("test-entity");
+			await service.set({ id: "test" });
+			const item = await service.get("test");
+
+			await engine.stop();
+
+			expect(item?.id).toEqual("test");
+		} finally {
+			ContextIdStore.getContextIds = getContextIds;
+		}
+	});
+
+	test("Can start engine with a push notification connector wired into the messaging service", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					entityStorageConnector: [
+						{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+					],
+					messagingPushNotificationConnector: [
+						{ type: MessagingPushNotificationConnectorType.EntityStorage }
+					],
+					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
+					messagingComponent: [{ type: MessagingComponentType.Service }]
+				}
+			}
+		});
+		await engine.start();
+
+		const messagingService = ComponentFactory.get<
+			IComponent & {
+				registerDevice: (applicationId: string, deviceToken: string) => Promise<string>;
+			}
+		>("messaging-service");
+		const deviceId = await messagingService.registerDevice("app-1", "device-token-1");
+
+		await engine.stop();
+
+		expect(Is.stringValue(deviceId)).toEqual(true);
+	});
+
+	test("Can start engine with a file blob storage connector using a storage prefix", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					blobStorageConnector: [
+						{
+							type: BlobStorageConnectorType.File,
+							options: { storagePrefix: "prefix", config: { directory: "tests/.tmp/blob" } }
+						}
+					]
+				}
+			}
+		});
+		await engine.start();
+		await engine.stop();
+
+		expect(await readdir("tests/.tmp/blob")).toEqual(["prefix"]);
 	});
 
 	test("Can clone the engine", async () => {
@@ -2203,8 +2325,7 @@ describe("engine", () => {
 		const versionConnector = EntityStorageConnectorFactory.get<
 			IEntityStorageConnector<SchemaVersion>
 		>(nameofKebabCase(SchemaVersion));
-		const { entities } = await versionConnector.query();
-		const rows = entities ?? [];
+		const rows = await readAllVersionRecords(versionConnector);
 
 		expect(rows.some(r => r.schemaName === nameof<SchemaVersion>())).toBe(true);
 		expect(rows.some(r => r.schemaName === "BackgroundTask")).toBe(true);
@@ -2228,7 +2349,12 @@ describe("engine", () => {
 				{ from: "legacyField", to: "newField" },
 				{ from: "score", to: "tags" }
 			],
-			transformEntityProperty: (source, fromSchema, toSchema, value) => [`item:${value as number}`]
+			transformEntityProperty: (source, fromSchema, toSchema, value) => {
+				if (toSchema.type === EntitySchemaPropertyType.Array) {
+					return [`item:${value as number}`];
+				}
+				return undefined;
+			}
 		}));
 
 		// Capture console.info to verify migration log messages are emitted.
@@ -2285,8 +2411,8 @@ describe("engine", () => {
 			const versionConnector = EntityStorageConnectorFactory.get<
 				IEntityStorageConnector<SchemaVersion>
 			>(nameofKebabCase(SchemaVersion));
-			const { entities: versionRecords } = await versionConnector.query();
-			const migrationRecord = (versionRecords ?? []).find(
+			const versionRecords = await readAllVersionRecords(versionConnector);
+			const migrationRecord = versionRecords.find(
 				r => r.schemaName === nameof<TestMigrationEntity>()
 			);
 			expect(migrationRecord?.version).toBe(1);

@@ -217,9 +217,17 @@ export class EngineServer<
 	public async start(): Promise<void> {
 		await this._engineCore.start();
 
-		await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
-			await this.startWebServer();
-		});
+		try {
+			await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
+				await this.startWebServer();
+			});
+		} catch (err) {
+			// The engine components are already running, so they must be stopped when the
+			// web server fails to start, the web server itself never started so is discarded.
+			this._webServer = undefined;
+			await this._engineCore.stop();
+			throw err;
+		}
 	}
 
 	/**
@@ -227,15 +235,19 @@ export class EngineServer<
 	 * @returns A promise that resolves when the server has stopped and all connections are closed.
 	 */
 	public async stop(): Promise<void> {
-		await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
-			if (this._webServer) {
-				const webServer = this._webServer;
-				this._webServer = undefined;
-				await webServer.stop();
-			}
-		});
-
-		await this._engineCore.stop();
+		try {
+			await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
+				if (this._webServer) {
+					const webServer = this._webServer;
+					this._webServer = undefined;
+					await webServer.stop();
+				}
+			});
+		} finally {
+			// The engine is always stopped so its components are shut down and state is saved,
+			// even if the web server fails to stop.
+			await this._engineCore.stop();
+		}
 	}
 
 	/**

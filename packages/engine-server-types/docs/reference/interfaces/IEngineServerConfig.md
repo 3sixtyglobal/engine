@@ -62,6 +62,24 @@ all
 
 ***
 
+### disableColor? {#disablecolor}
+
+> `optional` **disableColor?**: `boolean`
+
+Disable colour in the engine logger output.
+
+#### Default
+
+```ts
+false
+```
+
+#### Inherited from
+
+`IEngineConfig.disableColor`
+
+***
+
 ### silentComponents? {#silentcomponents}
 
 > `optional` **silentComponents?**: `object`
@@ -171,6 +189,18 @@ Telemetry connector options which can be overridden by individual components by 
 > `optional` **telemetryComponent?**: `IEngineCoreTypeConfig`\<`TelemetryComponentConfig`\>[]
 
 Telemetry component options which can be overridden by individual components by specifying types other than default.
+
+##### tracingConnector?
+
+> `optional` **tracingConnector?**: `IEngineCoreTypeConfig`\<`TracingConnectorConfig`\>[]
+
+Tracing connector options which can be overridden by individual components by specifying types other than default.
+
+##### tracingComponent?
+
+> `optional` **tracingComponent?**: `IEngineCoreTypeConfig`\<`TracingComponentConfig`\>[]
+
+Tracing component options which can be overridden by individual components by specifying types other than default.
 
 ##### metricsProducerComponent?
 

@@ -1,7 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { GeneralError, I18n, type IComponent } from "@twin.org/core";
-import { EngineLogLevel } from "@twin.org/engine-models";
+import {
+	EngineLogLevel,
+	type IEngineCoreConfig,
+	type IEngineStateStorage
+} from "@twin.org/engine-models";
 import locales from "../locales/en.json" with { type: "json" };
 import { EngineCore } from "../src/engineCore.js";
 import { MemoryStateStorage } from "../src/storage/memoryStateStorage.js";
@@ -302,6 +306,28 @@ describe("engine-core", () => {
 		);
 	});
 
+	test("Can populate a clone with disabled colour and produce uncoloured output", async () => {
+		const engine = new EngineCore({
+			config: { disableColor: true, types: {} },
+			stateStorage: new MemoryStateStorage()
+		});
+		const cloneData = engine.getCloneData();
+
+		const infoSpy = vi.spyOn(console, "info").mockImplementation(() => {});
+
+		const clone = new TestEngineCore();
+		clone.populateClone(cloneData);
+		await clone.start();
+		await clone.stop();
+
+		expect(clone.getConfig().disableColor).toEqual(true);
+		const startingCall = infoSpy.mock.calls.find(call =>
+			call.some(arg => String(arg).includes("Engine is starting"))
+		);
+		expect(startingCall).toBeDefined();
+		expect(startingCall?.some(arg => String(arg).includes("\u001B["))).toEqual(false);
+	});
+
 	test("Can fail to populate a clone with an invalid log level", async () => {
 		const engine = new EngineCore();
 		const cloneData = engine.getCloneData();
@@ -343,5 +369,86 @@ describe("engine-core", () => {
 
 		await clone.stop();
 		await parent.stop();
+	});
+
+	test("Does not modify the clone data or the parent when populating a clone", async () => {
+		const parent = new EngineCore<IEngineCoreConfig>({ config: { silent: true, types: {} } });
+		parent.addTypeInitialiser("custom", "module", "method");
+		parent.addContextIdKey("node", ["did"]);
+
+		const cloneData = parent.getCloneData();
+		const clone = new EngineCore();
+		clone.populateClone(cloneData, undefined, true);
+		clone.addTypeInitialiser("custom", "other-module", "other-method");
+
+		expect(clone.getConfig().logLevel).toEqual(EngineLogLevel.Error);
+		expect(cloneData.config.logLevel).toBeUndefined();
+		expect(cloneData.typeInitialisers).toEqual([
+			{ type: "custom", module: "module", method: "method" }
+		]);
+		expect(parent.getCloneData().typeInitialisers).toEqual([
+			{ type: "custom", module: "module", method: "method" }
+		]);
+		expect(clone.getContextIdKeys()).toEqual(["node"]);
+	});
+
+	test("Keeps the state separate for clones populated from the same clone data", async () => {
+		const parent = new EngineCore({
+			config: { silent: true, types: {} },
+			stateStorage: new MemoryStateStorage(false, { nested: { counter: 1 } })
+		});
+		await parent.start();
+		const cloneData = parent.getCloneData();
+		await parent.stop();
+
+		const firstClone = new EngineCore();
+		firstClone.populateClone(cloneData);
+		const secondClone = new EngineCore();
+		secondClone.populateClone(cloneData);
+		await firstClone.start();
+		await secondClone.start();
+
+		(firstClone.getState() as { nested: { counter: number } }).nested.counter = 2;
+
+		expect((secondClone.getState() as { nested: { counter: number } }).nested.counter).toEqual(1);
+		expect(cloneData.state.nested.counter).toEqual(1);
+
+		await firstClone.stop();
+		await secondClone.stop();
+	});
+
+	test("Keeps state marked dirty while a save is in progress for the next save", async () => {
+		let saveCount = 0;
+		const stateStorage: IEngineStateStorage = {
+			load: async () => ({ value: 1 }),
+			save: async engineCore => {
+				saveCount++;
+				if (saveCount === 1) {
+					engineCore.setStateDirty();
+				}
+			}
+		};
+		const engine = new EngineCore({ config: { silent: true, types: {} }, stateStorage });
+
+		await engine.start();
+		engine.setStateDirty();
+		await engine.stop();
+		await engine.stop();
+
+		expect(saveCount).toEqual(2);
+	});
+
+	test("Does not start the components of a previous start again when restarted", async () => {
+		const engine = new EngineCore({ config: { silent: true, types: {} } });
+
+		await engine.start();
+		const firstStartComponents = (await engine.getRegisteredComponents()).length;
+		await engine.stop();
+		await engine.start();
+
+		expect(await engine.getRegisteredComponents()).toHaveLength(firstStartComponents);
+		expect(engine.getRegisteredInstances().loggingConnector).toHaveLength(1);
+
+		await engine.stop();
 	});
 });

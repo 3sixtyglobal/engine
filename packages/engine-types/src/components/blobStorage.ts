@@ -69,6 +69,8 @@ export function initialiseBlobStorageConnector(
 							[ContextIdKeys.Node, ContextIdKeys.Tenant]
 						)
 					},
+					createConfig.options,
+					// Merged last so the storage prefix is applied to the supplied name, all values are taken from the options.
 					{
 						config: {
 							directory: Is.stringValue(createConfig?.options.storagePrefix)
@@ -78,8 +80,7 @@ export function initialiseBlobStorageConnector(
 									)
 								: (createConfig.options.config.directory ?? "")
 						}
-					},
-					createConfig.options
+					}
 				)
 			);
 		instanceTypeName = FileBlobStorageConnector.NAMESPACE;
@@ -107,6 +108,8 @@ export function initialiseBlobStorageConnector(
 							[ContextIdKeys.Node, ContextIdKeys.Tenant]
 						)
 					},
+					createConfig.options,
+					// Merged last so the storage prefix is applied to the supplied name, all values are taken from the options.
 					{
 						config: {
 							bucketName: createConfig
@@ -114,8 +117,7 @@ export function initialiseBlobStorageConnector(
 								: "",
 							region: createConfig?.options.config.region ?? ""
 						}
-					},
-					createConfig.options
+					}
 				)
 			);
 		instanceTypeName = S3BlobStorageConnector.NAMESPACE;
@@ -129,6 +131,8 @@ export function initialiseBlobStorageConnector(
 							[ContextIdKeys.Node, ContextIdKeys.Tenant]
 						)
 					},
+					createConfig.options,
+					// Merged last so the storage prefix is applied to the supplied name, all values are taken from the options.
 					{
 						config: {
 							bucketName: createConfig
@@ -136,8 +140,7 @@ export function initialiseBlobStorageConnector(
 								: "",
 							projectId: createConfig?.options.config.projectId ?? ""
 						}
-					},
-					createConfig.options
+					}
 				)
 			);
 		instanceTypeName = GcpBlobStorageConnector.NAMESPACE;
@@ -149,7 +152,11 @@ export function initialiseBlobStorageConnector(
 						partitionContextIds: ContextIdHelper.pickKeysFromAvailable(
 							engineCore.getContextIdKeys(),
 							[ContextIdKeys.Node, ContextIdKeys.Tenant]
-						),
+						)
+					},
+					createConfig.options,
+					// Merged last so the storage prefix is applied to the supplied name, all values are taken from the options.
+					{
 						config: {
 							containerName: createConfig
 								? `${createConfig.options.storagePrefix ?? ""}${createConfig.options.config.containerName}`
@@ -157,8 +164,7 @@ export function initialiseBlobStorageConnector(
 							accountName: createConfig?.options.config.accountName ?? "",
 							accountKey: createConfig?.options.config.accountKey ?? ""
 						}
-					},
-					createConfig.options
+					}
 				)
 			);
 		instanceTypeName = AzureBlobStorageConnector.NAMESPACE;

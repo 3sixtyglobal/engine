@@ -92,6 +92,7 @@ import engineTypesLocales from "@twin.org/engine-types/locales/en.json" with { t
 import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
 import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
 import { nameof } from "@twin.org/nameof";
+import { getFreePort } from "./setupTestEnv.js";
 import packageLocales from "../locales/en.json" with { type: "json" };
 import { EngineServer } from "../src/engineServer.js";
 import {
@@ -99,8 +100,7 @@ import {
 	addDefaultSocketPaths
 } from "../src/utils/engineServerConfigHelper.js";
 
-const basePort = Math.floor(Math.random() * 1000);
-let port = 13000 + basePort;
+let port: number;
 
 /**
  * Class representing information for a test entity.
@@ -122,7 +122,7 @@ describe("engine-server", () => {
 	});
 
 	beforeEach(async () => {
-		port++;
+		port = await getFreePort();
 
 		Factory.clearFactories();
 	});
@@ -133,6 +133,44 @@ describe("engine-server", () => {
 		await engineServer.start();
 		await engineServer.stop();
 		expect(engineServer).toBeDefined();
+	});
+
+	test("Stops the engine when the web server fails to start", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: { missingRoutesComponent: [{ type: "service", restPath: "missing" }] },
+				web: { port }
+			}
+		});
+		const engineServer = new EngineServer({ engineCore: engine });
+		engineServer.addRestRouteGenerator(
+			"missingRoutesComponent",
+			"@twin.org/missing-routes-module",
+			"generateRestRoutes"
+		);
+
+		await expect(engineServer.start()).rejects.toThrow();
+		expect(engine.isStarted()).toEqual(false);
+	});
+
+	test("Stops the engine when the web server fails to stop", async () => {
+		const engine = new Engine({ config: { silent: true, types: {}, web: { port } } });
+		const engineServer = new EngineServer({ engineCore: engine });
+		await engineServer.start();
+
+		const webServer = (await engine.getRegisteredComponents()).find(
+			c => c.instanceType === "webServer"
+		)?.component;
+		const stopSpy = webServer ? vi.spyOn(webServer, "stop") : undefined;
+		stopSpy?.mockRejectedValueOnce(new Error("stop failed"));
+
+		await expect(engineServer.stop()).rejects.toThrow("stop failed");
+		expect(stopSpy).toHaveBeenCalled();
+		expect(engine.isStarted()).toEqual(false);
+
+		stopSpy?.mockRestore();
+		await webServer?.stop?.();
 	});
 
 	test("Can start engine server with custom rest path", async () => {

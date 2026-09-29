@@ -228,7 +228,7 @@ True if the engine instance is a clone.
 
 ### logInfo() {#loginfo}
 
-> **logInfo**(`message`): `void`
+> **logInfo**(`message`): `Promise`\<`void`\>
 
 Log info.
 
@@ -242,13 +242,15 @@ The message to log.
 
 #### Returns
 
-`void`
+`Promise`\<`void`\>
+
+A promise that resolves when the message has been logged.
 
 ***
 
 ### logError() {#logerror}
 
-> **logError**(`error`): `void`
+> **logError**(`error`): `Promise`\<`void`\>
 
 Log error.
 
@@ -262,7 +264,9 @@ The error to log.
 
 #### Returns
 
-`void`
+`Promise`\<`void`\>
+
+A promise that resolves when the error has been logged.
 
 ***
 

@@ -64,7 +64,7 @@ The rest path to serve the entity storage from, leave undefined for no endpoints
 
 `string`[]
 
-The context ids to use for partitioning.
+The context ids to use for partitioning, leave undefined to partition by whichever of the node and tenant keys are registered with the engine when it starts.
 
 #### Returns
 

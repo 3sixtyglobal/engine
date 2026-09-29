@@ -27,6 +27,12 @@ export interface IEngineCoreConfig {
 	logLevel?: EngineLogLevel;
 
 	/**
+	 * Disable colour in the engine logger output.
+	 * @default false
+	 */
+	disableColor?: boolean;
+
+	/**
 	 * The components to disable output for.
 	 */
 	silentComponents?: {

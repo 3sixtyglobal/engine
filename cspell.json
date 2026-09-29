@@ -39,7 +39,8 @@
 		"PNAP",
 		"PNRP",
 		"scylladb",
-		"Stiftung"
+		"Stiftung",
+		"unuse"
 	],
 	"ignoreRegExpList": [
 		"/from\\s+(['\"]).*\\1/",
