@@ -4,7 +4,7 @@
 	"description": "Ready-to-use engine runtime that preloads built-in type initialisers.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/iotaledger/twin-engine.git",
+		"url": "git+https://github.com/3sixtyglobal/twin-engine.git",
 		"directory": "packages/engine-core"
 	},
 	"author": "martyn.janes@iota.org",
@@ -86,7 +86,7 @@
 		"engine"
 	],
 	"bugs": {
-		"url": "git+https://github.com/iotaledger/twin-engine/issues"
+		"url": "git+https://github.com/3sixtyglobal/twin-engine/issues"
 	},
 	"homepage": "https://twindev.org"
 }

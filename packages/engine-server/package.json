@@ -4,7 +4,7 @@
 	"description": "Server runtime that exposes engine components through REST and socket routes.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/iotaledger/twin-engine.git",
+		"url": "git+https://github.com/3sixtyglobal/twin-engine.git",
 		"directory": "packages/engine-server"
 	},
 	"author": "martyn.janes@iota.org",
@@ -83,7 +83,7 @@
 		"engine"
 	],
 	"bugs": {
-		"url": "git+https://github.com/iotaledger/twin-engine/issues"
+		"url": "git+https://github.com/3sixtyglobal/twin-engine/issues"
 	},
 	"homepage": "https://twindev.org"
 }
