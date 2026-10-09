@@ -1,4 +1,4 @@
-# @twin.org/engine-core
+# @3sixty/engine-core
 
 ## Classes
 

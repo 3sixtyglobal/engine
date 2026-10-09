@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { EngineTypeInitialiserReturn, IEngineCoreTypeConfig } from "@twin.org/engine-models";
+import type { EngineTypeInitialiserReturn, IEngineCoreTypeConfig } from "@3sixty/engine-models";
 
 /**
  * A type which has been resolved by its initialiser but not yet constructed.

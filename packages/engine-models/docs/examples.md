@@ -5,9 +5,9 @@ These examples show how to register factories and define strongly typed contract
 ## EngineCoreFactory and EngineServerFactory
 
 ```typescript
-import { EngineCoreFactory, EngineServerFactory } from '@twin.org/engine-models';
-import { EngineCore } from '@twin.org/engine-core';
-import { EngineServer } from '@twin.org/engine-server';
+import { EngineCoreFactory, EngineServerFactory } from '@3sixty/engine-models';
+import { EngineCore } from '@3sixty/engine-core';
+import { EngineServer } from '@3sixty/engine-server';
 
 EngineCoreFactory.register(
   'default',
@@ -28,7 +28,7 @@ console.log(server.getRestRoutes().length); // 0
 ## IEngineCoreConfig and IEngineCoreTypeConfig
 
 ```typescript
-import type { IEngineCoreConfig, IEngineCoreTypeConfig } from '@twin.org/engine-models';
+import type { IEngineCoreConfig, IEngineCoreTypeConfig } from '@3sixty/engine-models';
 
 const loggingConnectorConfig: IEngineCoreTypeConfig<{ config: { prettyPrint: boolean } }> = {
   type: 'console',
@@ -54,8 +54,8 @@ console.log(coreConfig.types.loggingConnector?.[0].type); // "console"
 ## EngineCloneHelper
 
 ```typescript
-import { EngineCloneHelper } from '@twin.org/engine-models';
-import type { IEngineCoreClone } from '@twin.org/engine-models';
+import { EngineCloneHelper } from '@3sixty/engine-models';
+import type { IEngineCoreClone } from '@3sixty/engine-models';
 
 const excludeTypes = EngineCloneHelper.verifyExcludeCloneComponents(['^rightsManagement']);
 

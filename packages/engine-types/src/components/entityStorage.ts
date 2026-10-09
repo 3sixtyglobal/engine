@@ -1,29 +1,29 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import path from "node:path";
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory, GeneralError, type IComponent, Is, StringHelper } from "@twin.org/core";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import { ComponentFactory, GeneralError, type IComponent, Is, StringHelper } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { CosmosDbEntityStorageConnector } from "@twin.org/entity-storage-connector-cosmosdb";
-import { DynamoDbEntityStorageConnector } from "@twin.org/entity-storage-connector-dynamodb";
-import { FileEntityStorageConnector } from "@twin.org/entity-storage-connector-file";
-import { FirestoreEntityStorageConnector } from "@twin.org/entity-storage-connector-gcp-firestore";
-import { MemoryEntityStorageConnector } from "@twin.org/entity-storage-connector-memory";
-import { MongoDbEntityStorageConnector } from "@twin.org/entity-storage-connector-mongodb";
-import { MySqlEntityStorageConnector } from "@twin.org/entity-storage-connector-mysql";
-import { PostgreSqlEntityStorageConnector } from "@twin.org/entity-storage-connector-postgresql";
-import { ScyllaDBTableConnector } from "@twin.org/entity-storage-connector-scylladb";
+} from "@3sixty/engine-models";
+import { CosmosDbEntityStorageConnector } from "@3sixty/entity-storage-connector-cosmosdb";
+import { DynamoDbEntityStorageConnector } from "@3sixty/entity-storage-connector-dynamodb";
+import { FileEntityStorageConnector } from "@3sixty/entity-storage-connector-file";
+import { FirestoreEntityStorageConnector } from "@3sixty/entity-storage-connector-gcp-firestore";
+import { MemoryEntityStorageConnector } from "@3sixty/entity-storage-connector-memory";
+import { MongoDbEntityStorageConnector } from "@3sixty/entity-storage-connector-mongodb";
+import { MySqlEntityStorageConnector } from "@3sixty/entity-storage-connector-mysql";
+import { PostgreSqlEntityStorageConnector } from "@3sixty/entity-storage-connector-postgresql";
+import { ScyllaDBTableConnector } from "@3sixty/entity-storage-connector-scylladb";
 import {
 	EntityStorageConnectorFactory,
 	type IEntityStorageConnector
-} from "@twin.org/entity-storage-models";
-import { EntityStorageRestClient } from "@twin.org/entity-storage-rest-client";
-import { EntityStorageService } from "@twin.org/entity-storage-service";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/entity-storage-models";
+import { EntityStorageRestClient } from "@3sixty/entity-storage-rest-client";
+import { EntityStorageService } from "@3sixty/entity-storage-service";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import type { EntityStorageComponentConfig } from "../models/config/entityStorageComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { EntityStorageComponentType } from "../models/types/entityStorageComponentType.js";

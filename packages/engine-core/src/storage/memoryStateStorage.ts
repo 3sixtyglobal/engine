@@ -1,8 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { I18n } from "@twin.org/core";
-import type { IEngineCore, IEngineState, IEngineStateStorage } from "@twin.org/engine-models";
-import { nameof, nameofCamelCase } from "@twin.org/nameof";
+import { I18n } from "@3sixty/core";
+import type { IEngineCore, IEngineState, IEngineStateStorage } from "@3sixty/engine-models";
+import { nameof, nameofCamelCase } from "@3sixty/nameof";
 
 /**
  * Store state in memory.

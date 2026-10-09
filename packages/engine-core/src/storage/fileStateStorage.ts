@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { mkdir, readFile, rename, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { BaseError, GeneralError, Guards, I18n } from "@twin.org/core";
-import type { IEngineCore, IEngineState, IEngineStateStorage } from "@twin.org/engine-models";
-import { nameof, nameofCamelCase } from "@twin.org/nameof";
+import { BaseError, GeneralError, Guards, I18n } from "@3sixty/core";
+import type { IEngineCore, IEngineState, IEngineStateStorage } from "@3sixty/engine-models";
+import { nameof, nameofCamelCase } from "@3sixty/nameof";
 
 /**
  * Store state in a file.

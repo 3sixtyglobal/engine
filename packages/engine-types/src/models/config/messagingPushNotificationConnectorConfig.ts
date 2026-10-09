@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IAwsMessagingPushNotificationConnectorConstructorOptions } from "@twin.org/messaging-connector-aws";
-import type { IEntityStorageMessagingPushNotificationConnectorConstructorOptions } from "@twin.org/messaging-connector-entity-storage";
+import type { IAwsMessagingPushNotificationConnectorConstructorOptions } from "@3sixty/messaging-connector-aws";
+import type { IEntityStorageMessagingPushNotificationConnectorConstructorOptions } from "@3sixty/messaging-connector-entity-storage";
 import type { MessagingPushNotificationConnectorType } from "../types/messagingPushNotificationConnectorType.js";
 
 /**

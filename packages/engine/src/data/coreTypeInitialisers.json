@@ -1,387 +1,387 @@
 [
 	{
 		"type": "facade",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseFacade"
 	},
 	{
 		"type": "schemaVersionMigrationComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseSchemaVersionMigrationComponent"
 	},
 	{
 		"type": "platformComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialisePlatformComponent"
 	},
 	{
 		"type": "loggingConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseLoggingConnector"
 	},
 	{
 		"type": "loggingComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseLoggingComponent"
 	},
 	{
 		"type": "backgroundTaskComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseBackgroundTaskComponent"
 	},
 	{
 		"type": "taskSchedulerComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseTaskSchedulerComponent"
 	},
 	{
 		"type": "eventBusConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseEventBusConnector"
 	},
 	{
 		"type": "eventBusComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseEventBusComponent"
 	},
 	{
 		"type": "telemetryConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseTelemetryConnector"
 	},
 	{
 		"type": "telemetryComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseTelemetryComponent"
 	},
 	{
 		"type": "tracingConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseTracingConnector"
 	},
 	{
 		"type": "tracingComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseTracingComponent"
 	},
 	{
 		"type": "restClientProcessor",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRestClientProcessorComponent"
 	},
 	{
 		"type": "metricsProducerComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseMetricsProducerComponent"
 	},
 	{
 		"type": "metricsCollectorComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseMetricsCollectorComponent"
 	},
 	{
 		"type": "automationComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseAutomationComponent"
 	},
 	{
 		"type": "automationAction",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseAutomationAction"
 	},
 	{
 		"type": "messagingEmailConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseMessagingEmailConnector"
 	},
 	{
 		"type": "messagingSmsConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseMessagingSmsConnector"
 	},
 	{
 		"type": "messagingPushNotificationConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseMessagingPushNotificationConnector"
 	},
 	{
 		"type": "messagingAdminComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseMessagingAdminComponent"
 	},
 	{
 		"type": "messagingComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseMessagingComponent"
 	},
 	{
 		"type": "emailProtocolConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseEmailProtocolConnector"
 	},
 	{
 		"type": "mailStorageComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseMailStorageComponent"
 	},
 	{
 		"type": "entityStorageComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseEntityStorageComponent"
 	},
 	{
 		"type": "vaultConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseVaultConnector"
 	},
 	{
 		"type": "mailboxComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseMailboxComponent"
 	},
 	{
 		"type": "blobStorageConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseBlobStorageConnector"
 	},
 	{
 		"type": "blobStorageComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseBlobStorageComponent"
 	},
 	{
 		"type": "faucetConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseFaucetConnector"
 	},
 	{
 		"type": "walletConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseWalletConnector"
 	},
 	{
 		"type": "identityConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseIdentityConnector"
 	},
 	{
 		"type": "identityComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseIdentityComponent"
 	},
 	{
 		"type": "identityResolverConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseIdentityResolverConnector"
 	},
 	{
 		"type": "identityResolverComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseIdentityResolverComponent"
 	},
 	{
 		"type": "identityProfileConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseIdentityProfileConnector"
 	},
 	{
 		"type": "identityProfileComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseIdentityProfileComponent"
 	},
 	{
 		"type": "nftConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseNftConnector"
 	},
 	{
 		"type": "nftComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseNftComponent"
 	},
 	{
 		"type": "notarizationConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseNotarizationConnector"
 	},
 	{
 		"type": "notarizationComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseNotarizationComponent"
 	},
 	{
 		"type": "immutableProofComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseImmutableProofComponent"
 	},
 	{
 		"type": "attestationConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseAttestationConnector"
 	},
 	{
 		"type": "attestationComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseAttestationComponent"
 	},
 	{
 		"type": "auditableItemGraphComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseAuditableItemGraphComponent"
 	},
 	{
 		"type": "auditableItemStreamComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseAuditableItemStreamComponent"
 	},
 	{
 		"type": "dataConverterConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseDataConverterConnector"
 	},
 	{
 		"type": "dataExtractorConnector",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseDataExtractorConnector"
 	},
 	{
 		"type": "dataProcessingComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseDataProcessingComponent"
 	},
 	{
 		"type": "healthComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseHealthComponent"
 	},
 	{
 		"type": "documentManagementComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseDocumentManagementComponent"
 	},
 	{
 		"type": "trustComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseTrustComponent"
 	},
 	{
 		"type": "trustGeneratorComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseTrustGeneratorComponent"
 	},
 	{
 		"type": "trustVerifierComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseTrustVerifierComponent"
 	},
 	{
 		"type": "rightsManagementPapComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPapComponent"
 	},
 	{
 		"type": "rightsManagementPmpComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPmpComponent"
 	},
 	{
 		"type": "rightsManagementPxpComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPxpComponent"
 	},
 	{
 		"type": "rightsManagementPipComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPipComponent"
 	},
 	{
 		"type": "rightsManagementPdpComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPdpComponent"
 	},
 	{
 		"type": "rightsManagementPepComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPepComponent"
 	},
 	{
 		"type": "rightsManagementPnapComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPnapComponent"
 	},
 	{
 		"type": "rightsManagementPnpComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPnpComponent"
 	},
 	{
 		"type": "rightsManagementPolicyArbiterComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPolicyArbiterComponent"
 	},
 	{
 		"type": "rightsManagementPolicyObligationEnforcerComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPolicyObligationEnforcerComponent"
 	},
 	{
 		"type": "rightsManagementPolicyEnforcementProcessorComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPolicyEnforcementProcessorComponent"
 	},
 	{
 		"type": "rightsManagementPolicyExecutionActionComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPolicyExecutionActionComponent"
 	},
 	{
 		"type": "rightsManagementPolicyInformationSourceComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPolicyInformationSourceComponent"
 	},
 	{
 		"type": "rightsManagementPolicyNegotiatorComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPolicyNegotiatorComponent"
 	},
 	{
 		"type": "rightsManagementPolicyObligationEnforcerComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPolicyObligationEnforcerComponent"
 	},
 	{
 		"type": "rightsManagementPolicyRequesterComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseRightsManagementPolicyRequesterComponent"
 	},
 	{
 		"type": "federatedCatalogueComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseFederatedCatalogueComponent"
 	},
 	{
 		"type": "federatedCatalogueFilterComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseFederatedCatalogueFilterComponent"
 	},
 	{
 		"type": "dataspaceDataPlaneComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseDataspaceDataPlaneComponent"
 	},
 	{
 		"type": "dataspaceControlPlaneComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseDataspaceControlPlaneComponent"
 	},
 	{
 		"type": "tenantAdminComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseTenantAdminComponent"
 	},
 	{
 		"type": "contextIdHandlerComponent",
-		"module": "@twin.org/engine-types",
+		"module": "@3sixty/engine-types",
 		"method": "initialiseContextIdHandlerComponent"
 	}
 ]

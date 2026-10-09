@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { BaseError, GuardError } from "@twin.org/core";
+import { BaseError, GuardError } from "@3sixty/core";
 import { EngineCloneHelper } from "../src/helpers/engineCloneHelper.js";
 import { EngineCloneMode } from "../src/models/engineCloneMode.js";
 import type { IEngineCoreClone } from "../src/models/IEngineCoreClone.js";

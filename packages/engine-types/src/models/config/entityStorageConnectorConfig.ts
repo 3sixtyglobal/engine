@@ -1,14 +1,14 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { ICosmosDbEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-cosmosdb";
-import type { IDynamoDbEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-dynamodb";
-import type { IFileEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-file";
-import type { IFirestoreEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-gcp-firestore";
-import type { IMemoryEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-memory";
-import type { IMongoDbEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-mongodb";
-import type { IMySqlEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-mysql";
-import type { IPostgreSqlEntityStorageConnectorConstructorOptions } from "@twin.org/entity-storage-connector-postgresql";
-import type { IScyllaDBTableConnectorConstructorOptions } from "@twin.org/entity-storage-connector-scylladb";
+import type { ICosmosDbEntityStorageConnectorConstructorOptions } from "@3sixty/entity-storage-connector-cosmosdb";
+import type { IDynamoDbEntityStorageConnectorConstructorOptions } from "@3sixty/entity-storage-connector-dynamodb";
+import type { IFileEntityStorageConnectorConstructorOptions } from "@3sixty/entity-storage-connector-file";
+import type { IFirestoreEntityStorageConnectorConstructorOptions } from "@3sixty/entity-storage-connector-gcp-firestore";
+import type { IMemoryEntityStorageConnectorConstructorOptions } from "@3sixty/entity-storage-connector-memory";
+import type { IMongoDbEntityStorageConnectorConstructorOptions } from "@3sixty/entity-storage-connector-mongodb";
+import type { IMySqlEntityStorageConnectorConstructorOptions } from "@3sixty/entity-storage-connector-mysql";
+import type { IPostgreSqlEntityStorageConnectorConstructorOptions } from "@3sixty/entity-storage-connector-postgresql";
+import type { IScyllaDBTableConnectorConstructorOptions } from "@3sixty/entity-storage-connector-scylladb";
 import type { EntityStorageConnectorType } from "../types/entityStorageConnectorType.js";
 
 /**

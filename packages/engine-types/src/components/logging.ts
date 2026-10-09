@@ -1,25 +1,25 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory, type IComponent } from "@twin.org/core";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { ConsoleLoggingConnector } from "@twin.org/logging-connector-console";
-import { ElkLoggingConnector } from "@twin.org/logging-connector-elk";
+} from "@3sixty/engine-models";
+import { ConsoleLoggingConnector } from "@3sixty/logging-connector-console";
+import { ElkLoggingConnector } from "@3sixty/logging-connector-elk";
 import {
 	EntityStorageLoggingConnector,
 	initSchema as initSchemaLogging,
 	type LogEntry
-} from "@twin.org/logging-connector-entity-storage";
-import { FileLoggingConnector } from "@twin.org/logging-connector-file";
-import { OpenTelemetryLoggingConnector } from "@twin.org/logging-connector-opentelemetry";
-import { LoggingConnectorFactory, MultiLoggingConnector } from "@twin.org/logging-models";
-import { LoggingRestClient } from "@twin.org/logging-rest-client";
-import { LoggingService } from "@twin.org/logging-service";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/logging-connector-entity-storage";
+import { FileLoggingConnector } from "@3sixty/logging-connector-file";
+import { OpenTelemetryLoggingConnector } from "@3sixty/logging-connector-opentelemetry";
+import { LoggingConnectorFactory, MultiLoggingConnector } from "@3sixty/logging-models";
+import { LoggingRestClient } from "@3sixty/logging-rest-client";
+import { LoggingService } from "@3sixty/logging-service";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { LoggingComponentConfig } from "../models/config/loggingComponentConfig.js";
 import type { LoggingConnectorConfig } from "../models/config/loggingConnectorConfig.js";

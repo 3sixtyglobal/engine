@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { ITenantAdminServiceConstructorOptions } from "@twin.org/api-tenant-processor";
+import type { ITenantAdminServiceConstructorOptions } from "@3sixty/api-tenant-processor";
 import type { TenantAdminComponentType } from "../types/tenantAdminComponentType.js";
 
 /**

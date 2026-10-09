@@ -6,7 +6,7 @@ import type {
 	IEngineCoreContext,
 	IEngineState,
 	IEngineStateStorage
-} from "@twin.org/engine-models";
+} from "@3sixty/engine-models";
 
 /**
  * The options for creating engine core.

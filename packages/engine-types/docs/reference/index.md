@@ -1,4 +1,4 @@
-# @twin.org/engine-types
+# @3sixty/engine-types
 
 ## Classes
 

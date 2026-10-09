@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IBaseRestClientConfig } from "@twin.org/api-models";
-import type { IEntityStorageServiceConstructorOptions } from "@twin.org/entity-storage-service";
+import type { IBaseRestClientConfig } from "@3sixty/api-models";
+import type { IEntityStorageServiceConstructorOptions } from "@3sixty/entity-storage-service";
 import type { EntityStorageComponentType } from "../types/entityStorageComponentType.js";
 
 /**

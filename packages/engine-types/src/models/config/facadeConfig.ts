@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { ITracingFacadeConstructorOptions } from "@twin.org/tracing-facades";
+import type { ITracingFacadeConstructorOptions } from "@3sixty/tracing-facades";
 import type { FacadeType } from "../types/facadeType.js";
 
 /**

@@ -10,6 +10,7 @@
 	"versioning": "prerelease",
 	"prerelease": true,
 	"prerelease-type": "next",
+	"last-release-sha": "2c4785307bada1ebb8fd8b2b643606b81d8353a8",
 	"packages": {
 		"packages/engine-models": {
 			"package-name": "engine-models",

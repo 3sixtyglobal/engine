@@ -1,4 +1,4 @@
-# @twin.org/engine-server-types
+# @3sixty/engine-server-types
 
 ## Interfaces
 

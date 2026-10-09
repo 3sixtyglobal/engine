@@ -1,10 +1,10 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import path from "node:path";
-import { ContextIdKeys, ContextIdStore } from "@twin.org/context";
-import { ComponentFactory, Factory, I18n } from "@twin.org/core";
-import { Engine } from "@twin.org/engine";
-import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
+import { ContextIdKeys, ContextIdStore } from "@3sixty/context";
+import { ComponentFactory, Factory, I18n } from "@3sixty/core";
+import { Engine } from "@3sixty/engine";
+import coreLocales from "@3sixty/engine-core/locales/en.json" with { type: "json" };
 import {
 	AuthenticationAdminComponentType,
 	AuthenticationAuditComponentType,
@@ -14,7 +14,7 @@ import {
 	RestRouteProcessorType,
 	SocketRouteProcessorType,
 	type IEngineServerConfig
-} from "@twin.org/engine-server-types";
+} from "@3sixty/engine-server-types";
 import {
 	AttestationComponentType,
 	AttestationConnectorType,
@@ -87,11 +87,11 @@ import {
 	TrustVerifierComponentType,
 	VaultConnectorType,
 	WalletConnectorType
-} from "@twin.org/engine-types";
-import engineTypesLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
-import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
-import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
-import { nameof } from "@twin.org/nameof";
+} from "@3sixty/engine-types";
+import engineTypesLocales from "@3sixty/engine-types/locales/en.json" with { type: "json" };
+import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@3sixty/entity";
+import type { IEntityStorageComponent } from "@3sixty/entity-storage-models";
+import { nameof } from "@3sixty/nameof";
 import { getFreePort } from "./setupTestEnv.js";
 import packageLocales from "../locales/en.json" with { type: "json" };
 import { EngineServer } from "../src/engineServer.js";
@@ -146,7 +146,7 @@ describe("engine-server", () => {
 		const engineServer = new EngineServer({ engineCore: engine });
 		engineServer.addRestRouteGenerator(
 			"missingRoutesComponent",
-			"@twin.org/missing-routes-module",
+			"@3sixty/missing-routes-module",
 			"generateRestRoutes"
 		);
 

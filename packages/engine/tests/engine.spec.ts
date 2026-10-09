@@ -1,19 +1,12 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { mkdir, readdir, rm } from "node:fs/promises";
-import { AutomationActionFactory } from "@twin.org/automation-models";
-import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@twin.org/context";
-import {
-	ComponentFactory,
-	FacadeFactory,
-	Factory,
-	I18n,
-	type IComponent,
-	Is
-} from "@twin.org/core";
-import { MemoryStateStorage } from "@twin.org/engine-core";
-import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
-import { EngineCloneMode, EngineLogLevel } from "@twin.org/engine-models";
+import { AutomationActionFactory } from "@3sixty/automation-models";
+import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@3sixty/context";
+import { ComponentFactory, FacadeFactory, Factory, I18n, type IComponent, Is } from "@3sixty/core";
+import { MemoryStateStorage } from "@3sixty/engine-core";
+import coreLocales from "@3sixty/engine-core/locales/en.json" with { type: "json" };
+import { EngineCloneMode, EngineLogLevel } from "@3sixty/engine-models";
 import {
 	AttestationComponentType,
 	AttestationConnectorType,
@@ -93,31 +86,31 @@ import {
 	TrustVerifierComponentType,
 	VaultConnectorType,
 	WalletConnectorType
-} from "@twin.org/engine-types";
-import typeLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
+} from "@3sixty/engine-types";
+import typeLocales from "@3sixty/engine-types/locales/en.json" with { type: "json" };
 import {
 	entity,
 	EntitySchemaFactory,
 	EntitySchemaHelper,
 	EntitySchemaPropertyType,
 	property
-} from "@twin.org/entity";
+} from "@3sixty/entity";
 import type {
 	IEntityStorageComponent,
 	IEntityStorageConnector
-} from "@twin.org/entity-storage-models";
+} from "@3sixty/entity-storage-models";
 import {
 	EntityStorageConnectorFactory,
 	SchemaMigrationFactory
-} from "@twin.org/entity-storage-models";
-import { SchemaVersion } from "@twin.org/entity-storage-service";
-import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
+} from "@3sixty/entity-storage-models";
+import { SchemaVersion } from "@3sixty/entity-storage-service";
+import { FederatedCatalogueFilterFactory } from "@3sixty/federated-catalogue-models";
 import {
 	EmailProtocolConnectorConfigSchemaFactory,
 	EmailProtocolConnectorFactory,
 	EmailProtocolConnectorStateSchemaFactory
-} from "@twin.org/mailbox-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/mailbox-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import {
 	PolicyArbiterFactory,
 	PolicyEnforcementProcessorFactory,
@@ -125,9 +118,9 @@ import {
 	PolicyInformationSourceFactory,
 	PolicyNegotiatorFactory,
 	PolicyRequesterFactory
-} from "@twin.org/rights-management-models";
-import { MetricsProducerFactory } from "@twin.org/telemetry-models";
-import { TrustGeneratorFactory, TrustVerifierFactory } from "@twin.org/trust-models";
+} from "@3sixty/rights-management-models";
+import { MetricsProducerFactory } from "@3sixty/telemetry-models";
+import { TrustGeneratorFactory, TrustVerifierFactory } from "@3sixty/trust-models";
 import { Engine } from "../src/engine.js";
 import { EngineConfigHelper } from "../src/utils/engineConfigHelper.js";
 

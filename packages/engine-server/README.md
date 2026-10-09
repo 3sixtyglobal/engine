@@ -1,11 +1,11 @@
-# TWIN Engine Server
+# 3Sixty Engine Server
 
 Engine Server exposes runtime capabilities through REST and socket routes and integrates hosting concerns with engine orchestration. It is intended for service deployments that need structured API entry points backed by shared runtime conventions.
 
 ## Installation
 
 ```shell
-npm install @twin.org/engine-server
+npm install @3sixty/engine-server
 ```
 
 ## Examples

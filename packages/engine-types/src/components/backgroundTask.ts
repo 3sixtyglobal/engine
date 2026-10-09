@@ -4,15 +4,15 @@ import {
 	BackgroundTaskService,
 	initSchema,
 	type BackgroundTask
-} from "@twin.org/background-task-service";
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory } from "@twin.org/core";
+} from "@3sixty/background-task-service";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import { ComponentFactory } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { BackgroundTaskComponentConfig } from "../models/config/backgroundTaskComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";

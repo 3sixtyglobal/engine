@@ -1,9 +1,9 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { Guards, Is, StringHelper } from "@twin.org/core";
-import { EntityStorageComponentType, type IEngineConfig } from "@twin.org/engine-types";
-import { EntitySchemaFactory, type IEntitySchema } from "@twin.org/entity";
-import { nameof } from "@twin.org/nameof";
+import { Guards, Is, StringHelper } from "@3sixty/core";
+import { EntityStorageComponentType, type IEngineConfig } from "@3sixty/engine-types";
+import { EntitySchemaFactory, type IEntitySchema } from "@3sixty/entity";
+import { nameof } from "@3sixty/nameof";
 
 /**
  * Helper methods for engine config.

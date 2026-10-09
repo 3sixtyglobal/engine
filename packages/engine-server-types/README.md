@@ -1,11 +1,11 @@
-# TWIN Engine Server Types
+# 3Sixty Engine Server Types
 
 Engine Server Types defines server-focused component and processor types for hosting and API route handling. It provides the configuration model for building predictable REST and socket integration behaviour.
 
 ## Installation
 
 ```shell
-npm install @twin.org/engine-server-types
+npm install @3sixty/engine-server-types
 ```
 
 ## Examples

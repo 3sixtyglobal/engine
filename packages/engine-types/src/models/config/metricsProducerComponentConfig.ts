@@ -3,7 +3,7 @@
 import type {
 	IProcessMetricsProducerConstructorOptions,
 	ISystemMetricsProducerConstructorOptions
-} from "@twin.org/telemetry-producers";
+} from "@3sixty/telemetry-producers";
 import type { MetricsProducerComponentType } from "../types/metricsProducerComponentType.js";
 
 /**

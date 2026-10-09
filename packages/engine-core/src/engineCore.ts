@@ -6,7 +6,7 @@ import {
 	ContextIdStore,
 	type IContextIdHandler,
 	type IContextIds
-} from "@twin.org/context";
+} from "@3sixty/context";
 import {
 	BaseError,
 	ComponentFactory,
@@ -20,7 +20,7 @@ import {
 	type IError,
 	Is,
 	ObjectHelper
-} from "@twin.org/core";
+} from "@3sixty/core";
 import {
 	EngineCloneMode,
 	EngineLogLevel,
@@ -33,19 +33,19 @@ import {
 	type IEngineFacadeConfig,
 	type IEngineState,
 	type IEngineStateStorage
-} from "@twin.org/engine-models";
-import { EntitySchemaFactory, type IEntitySchema } from "@twin.org/entity";
-import { ConsoleLoggingConnector } from "@twin.org/logging-connector-console";
+} from "@3sixty/engine-models";
+import { EntitySchemaFactory, type IEntitySchema } from "@3sixty/entity";
+import { ConsoleLoggingConnector } from "@3sixty/logging-connector-console";
 import {
 	type ILoggingComponent,
 	type ILoggingConnector,
 	LoggingConnectorFactory,
 	LogLevel,
 	SilentLoggingConnector
-} from "@twin.org/logging-models";
-import { LoggingService } from "@twin.org/logging-service";
-import { ModuleHelper } from "@twin.org/modules";
-import { nameof, nameofCamelCase } from "@twin.org/nameof";
+} from "@3sixty/logging-models";
+import { LoggingService } from "@3sixty/logging-service";
+import { ModuleHelper } from "@3sixty/modules";
+import { nameof, nameofCamelCase } from "@3sixty/nameof";
 import type { IEngineCoreOptions } from "./models/IEngineCoreOptions.js";
 import type { IEngineCoreResolvedType } from "./models/IEngineCoreResolvedType.js";
 import { MemoryStateStorage } from "./storage/memoryStateStorage.js";

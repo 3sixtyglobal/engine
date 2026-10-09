@@ -1,18 +1,18 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import type { IComponent } from "@twin.org/core";
-import { ComponentFactory } from "@twin.org/core";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import type { IComponent } from "@3sixty/core";
+import { ComponentFactory } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
+} from "@3sixty/engine-models";
 import {
 	AwsMessagingEmailConnector,
 	AwsMessagingPushNotificationConnector,
 	AwsMessagingSmsConnector
-} from "@twin.org/messaging-connector-aws";
+} from "@3sixty/messaging-connector-aws";
 import {
 	type EmailEntry,
 	EntityStorageMessagingEmailConnector,
@@ -22,20 +22,20 @@ import {
 	type PushNotificationDeviceEntry,
 	type PushNotificationMessageEntry,
 	type SmsEntry
-} from "@twin.org/messaging-connector-entity-storage";
-import { SmtpMessagingEmailConnector } from "@twin.org/messaging-connector-smtp";
+} from "@3sixty/messaging-connector-entity-storage";
+import { SmtpMessagingEmailConnector } from "@3sixty/messaging-connector-smtp";
 import {
 	MessagingEmailConnectorFactory,
 	MessagingPushNotificationsConnectorFactory,
 	MessagingSmsConnectorFactory
-} from "@twin.org/messaging-models";
+} from "@3sixty/messaging-models";
 import {
 	initSchema as initSchemaMessagingService,
 	MessagingAdminService,
 	MessagingService,
 	type TemplateEntry
-} from "@twin.org/messaging-service";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/messaging-service";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { MessagingAdminComponentConfig } from "../models/config/messagingAdminComponentConfig.js";
 import type { MessagingComponentConfig } from "../models/config/messagingComponentConfig.js";

@@ -1,186 +1,186 @@
 [
 	{
 		"type": "informationComponent",
-		"module": "@twin.org/api-service",
+		"module": "@3sixty/api-service",
 		"method": "generateRestRoutesInformation",
 		"defaultPath": ""
 	},
 	{
 		"type": "healthComponent",
-		"module": "@twin.org/api-service",
+		"module": "@3sixty/api-service",
 		"method": "generateRestRoutesHealth",
 		"defaultPath": "/health"
 	},
 	{
 		"type": "authenticationComponent",
-		"module": "@twin.org/api-auth-entity-storage-service",
+		"module": "@3sixty/api-auth-entity-storage-service",
 		"method": "generateRestRoutesAuthentication",
 		"defaultPath": "/authentication"
 	},
 	{
 		"type": "authenticationAdminComponent",
-		"module": "@twin.org/api-auth-entity-storage-service",
+		"module": "@3sixty/api-auth-entity-storage-service",
 		"method": "generateRestRoutesAuthenticationAdmin",
 		"defaultPath": "/authentication/admin"
 	},
 	{
 		"type": "authenticationAuditComponent",
-		"module": "@twin.org/api-auth-entity-storage-service",
+		"module": "@3sixty/api-auth-entity-storage-service",
 		"method": "generateRestRoutesAuthenticationAudit",
 		"defaultPath": "/authentication/audit"
 	},
 	{
 		"type": "loggingComponent",
-		"module": "@twin.org/logging-service",
+		"module": "@3sixty/logging-service",
 		"method": "generateRestRoutesLogging",
 		"defaultPath": "/logging"
 	},
 	{
 		"type": "tenantAdminComponent",
-		"module": "@twin.org/api-tenant-processor",
+		"module": "@3sixty/api-tenant-processor",
 		"method": "generateRestRoutesTenants",
 		"defaultPath": "/tenants"
 	},
 	{
 		"type": "telemetryComponent",
-		"module": "@twin.org/telemetry-service",
+		"module": "@3sixty/telemetry-service",
 		"method": "generateRestRoutesTelemetry",
 		"defaultPath": "/telemetry"
 	},
 	{
 		"type": "tracingComponent",
-		"module": "@twin.org/tracing-service",
+		"module": "@3sixty/tracing-service",
 		"method": "generateRestRoutesTracing",
 		"defaultPath": "/tracing"
 	},
 	{
 		"type": "automationComponent",
-		"module": "@twin.org/automation-service",
+		"module": "@3sixty/automation-service",
 		"method": "generateRestRoutesAutomation",
 		"defaultPath": "/automation"
 	},
 	{
 		"type": "blobStorageComponent",
-		"module": "@twin.org/blob-storage-service",
+		"module": "@3sixty/blob-storage-service",
 		"method": "generateRestRoutesBlobStorage",
 		"defaultPath": "/blob"
 	},
 	{
 		"type": "identityComponent",
-		"module": "@twin.org/identity-service",
+		"module": "@3sixty/identity-service",
 		"method": "generateRestRoutesIdentity",
 		"defaultPath": "/identity"
 	},
 	{
 		"type": "identityResolverComponent",
-		"module": "@twin.org/identity-service",
+		"module": "@3sixty/identity-service",
 		"method": "generateRestRoutesIdentityResolver",
 		"defaultPath": "/identity"
 	},
 	{
 		"type": "identityProfileComponent",
-		"module": "@twin.org/identity-service",
+		"module": "@3sixty/identity-service",
 		"method": "generateRestRoutesIdentityProfile",
 		"defaultPath": "/identity/profile"
 	},
 	{
 		"type": "nftComponent",
-		"module": "@twin.org/nft-service",
+		"module": "@3sixty/nft-service",
 		"method": "generateRestRoutesNft",
 		"defaultPath": "/nft"
 	},
 	{
 		"type": "notarizationComponent",
-		"module": "@twin.org/notarization-service",
+		"module": "@3sixty/notarization-service",
 		"method": "generateRestRoutesNotarization",
 		"defaultPath": "/notarization"
 	},
 	{
 		"type": "immutableProofComponent",
-		"module": "@twin.org/immutable-proof-service",
+		"module": "@3sixty/immutable-proof-service",
 		"method": "generateRestRoutesImmutableProof",
 		"defaultPath": "/immutable-proof"
 	},
 	{
 		"type": "attestationComponent",
-		"module": "@twin.org/attestation-service",
+		"module": "@3sixty/attestation-service",
 		"method": "generateRestRoutesAttestation",
 		"defaultPath": "/attestation"
 	},
 	{
 		"type": "auditableItemGraphComponent",
-		"module": "@twin.org/auditable-item-graph-service",
+		"module": "@3sixty/auditable-item-graph-service",
 		"method": "generateRestRoutesAuditableItemGraph",
 		"defaultPath": "/aig"
 	},
 	{
 		"type": "auditableItemStreamComponent",
-		"module": "@twin.org/auditable-item-stream-service",
+		"module": "@3sixty/auditable-item-stream-service",
 		"method": "generateRestRoutesAuditableItemStream",
 		"defaultPath": "/ais"
 	},
 	{
 		"type": "entityStorageComponent",
-		"module": "@twin.org/entity-storage-service",
+		"module": "@3sixty/entity-storage-service",
 		"method": "generateRestRoutesEntityStorage"
 	},
 	{
 		"type": "dataProcessingComponent",
-		"module": "@twin.org/data-processing-service",
+		"module": "@3sixty/data-processing-service",
 		"method": "generateRestRoutesDataProcessing",
 		"defaultPath": "/data-processing"
 	},
 	{
 		"type": "documentManagementComponent",
-		"module": "@twin.org/document-management-service",
+		"module": "@3sixty/document-management-service",
 		"method": "generateRestRoutesDocumentManagement",
 		"defaultPath": "/documents"
 	},
 	{
 		"type": "mailStorageComponent",
-		"module": "@twin.org/mailbox-service",
+		"module": "@3sixty/mailbox-service",
 		"method": "generateRestRoutesMailboxStorage",
 		"defaultPath": "/mailbox/mail"
 	},
 	{
 		"type": "mailboxComponent",
-		"module": "@twin.org/mailbox-service",
+		"module": "@3sixty/mailbox-service",
 		"method": "generateRestRoutesMailbox",
 		"defaultPath": "/mailbox"
 	},
 	{
 		"type": "rightsManagementPapComponent",
-		"module": "@twin.org/rights-management-service",
+		"module": "@3sixty/rights-management-service",
 		"method": "generateRestRoutesPolicyAdministrationPoint",
 		"defaultPath": "/rights-management"
 	},
 	{
 		"type": "rightsManagementPnpComponent",
-		"module": "@twin.org/rights-management-service",
+		"module": "@3sixty/rights-management-service",
 		"method": "generateRestRoutesPolicyNegotiationPoint",
 		"defaultPath": "/rights-management"
 	},
 	{
 		"type": "rightsManagementPnapComponent",
-		"module": "@twin.org/rights-management-service",
+		"module": "@3sixty/rights-management-service",
 		"method": "generateRestRoutesPolicyNegotiationAdminPoint",
 		"defaultPath": "/rights-management"
 	},
 	{
 		"type": "federatedCatalogueComponent",
-		"module": "@twin.org/federated-catalogue-service",
+		"module": "@3sixty/federated-catalogue-service",
 		"method": "generateRestRoutesFederatedCatalogue",
 		"defaultPath": "/catalog"
 	},
 	{
 		"type": "dataspaceControlPlaneComponent",
-		"module": "@twin.org/dataspace-control-plane-service",
+		"module": "@3sixty/dataspace-control-plane-service",
 		"method": "generateRestRoutesDataspaceControlPlane",
 		"defaultPath": "/dataspace"
 	},
 	{
 		"type": "dataspaceDataPlaneComponent",
-		"module": "@twin.org/dataspace-data-plane-service",
+		"module": "@3sixty/dataspace-data-plane-service",
 		"method": "generateRestRoutesDataspaceDataPlane",
 		"defaultPath": "/dataspace"
 	}

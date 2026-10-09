@@ -1,9 +1,9 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { EngineCore, type IEngineCoreOptions } from "@twin.org/engine-core";
-import type { IEngineState } from "@twin.org/engine-models";
-import type { IEngineConfig } from "@twin.org/engine-types";
-import { nameof } from "@twin.org/nameof";
+import { EngineCore, type IEngineCoreOptions } from "@3sixty/engine-core";
+import type { IEngineState } from "@3sixty/engine-models";
+import type { IEngineConfig } from "@3sixty/engine-types";
+import { nameof } from "@3sixty/nameof";
 import coreTypeInitialisers from "./data/coreTypeInitialisers.json" with { type: "json" };
 
 /**

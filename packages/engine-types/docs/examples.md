@@ -10,7 +10,7 @@ import {
   EntityStorageComponentType,
   LoggingConnectorType,
   type IEngineConfig
-} from '@twin.org/engine-types';
+} from '@3sixty/engine-types';
 
 const engineConfig: IEngineConfig = {
   debug: false,
@@ -54,7 +54,7 @@ import {
   TelemetryComponentType,
   TelemetryConnectorType,
   type IEngineConfig
-} from '@twin.org/engine-types';
+} from '@3sixty/engine-types';
 
 const config: IEngineConfig = {
   debug: true,

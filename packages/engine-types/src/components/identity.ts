@@ -1,22 +1,22 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory } from "@twin.org/core";
-import type { IComponent } from "@twin.org/core";
+import { ComponentFactory } from "@3sixty/core";
+import type { IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
+} from "@3sixty/engine-models";
 import {
 	EntityStorageIdentityConnector,
 	initSchema as initSchemaIdentityStorage,
 	type IdentityDocument
-} from "@twin.org/identity-connector-entity-storage";
-import { IotaIdentityConnector } from "@twin.org/identity-connector-iota";
-import { IdentityConnectorFactory } from "@twin.org/identity-models";
-import { IdentityRestClient } from "@twin.org/identity-rest-client";
-import { IdentityService } from "@twin.org/identity-service";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/identity-connector-entity-storage";
+import { IotaIdentityConnector } from "@3sixty/identity-connector-iota";
+import { IdentityConnectorFactory } from "@3sixty/identity-models";
+import { IdentityRestClient } from "@3sixty/identity-rest-client";
+import { IdentityService } from "@3sixty/identity-service";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { DltConfig } from "../models/config/dltConfig.js";
 import type { IdentityComponentConfig } from "../models/config/identityComponentConfig.js";

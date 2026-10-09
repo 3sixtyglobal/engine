@@ -1,11 +1,11 @@
-# TWIN Engine Types
+# 3Sixty Engine Types
 
 Engine Types contains component and connector type definitions used to compose runtime capabilities. It also includes helpers for retrieving and merging configuration so engine setup remains consistent as integrations grow.
 
 ## Installation
 
 ```shell
-npm install @twin.org/engine-types
+npm install @3sixty/engine-types
 ```
 
 ## Examples

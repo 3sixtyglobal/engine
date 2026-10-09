@@ -3,7 +3,7 @@
 import { mkdtemp, readdir, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { I18n } from "@twin.org/core";
+import { I18n } from "@3sixty/core";
 import locales from "../locales/en.json" with { type: "json" };
 import { EngineCore } from "../src/engineCore.js";
 import { FileStateStorage } from "../src/storage/fileStateStorage.js";

@@ -1,11 +1,11 @@
-# TWIN Engine Core
+# 3Sixty Engine Core
 
 Engine Core provides the runtime lifecycle and orchestration layer for engine instances. It manages component initialisation, context handling, state persistence, and cloning workflows that higher-level packages rely on.
 
 ## Installation
 
 ```shell
-npm install @twin.org/engine-core
+npm install @3sixty/engine-core
 ```
 
 ## Examples

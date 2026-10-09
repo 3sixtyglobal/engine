@@ -1,28 +1,25 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory, type IComponent } from "@twin.org/core";
-import {
-	JsonConverterConnector,
-	XmlConverterConnector
-} from "@twin.org/data-processing-converters";
-import { JsonPathExtractorConnector } from "@twin.org/data-processing-extractors";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import { ComponentFactory, type IComponent } from "@3sixty/core";
+import { JsonConverterConnector, XmlConverterConnector } from "@3sixty/data-processing-converters";
+import { JsonPathExtractorConnector } from "@3sixty/data-processing-extractors";
 import {
 	DataConverterConnectorFactory,
 	DataExtractorConnectorFactory
-} from "@twin.org/data-processing-models";
-import { DataProcessingRestClient } from "@twin.org/data-processing-rest-client";
+} from "@3sixty/data-processing-models";
+import { DataProcessingRestClient } from "@3sixty/data-processing-rest-client";
 import {
 	DataProcessingService,
 	initSchema as initSchemaDataProcessing,
 	type ExtractionRuleGroup
-} from "@twin.org/data-processing-service";
+} from "@3sixty/data-processing-service";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { DataConverterConnectorConfig } from "../models/config/dataConverterConnectorConfig.js";
 import type { DataExtractorConnectorConfig } from "../models/config/dataExtractorConnectorConfig.js";

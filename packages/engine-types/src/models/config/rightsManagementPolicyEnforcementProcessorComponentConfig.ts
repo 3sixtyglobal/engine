@@ -3,7 +3,7 @@
 import type {
 	IDefaultPolicyEnforcementProcessorConstructorOptions,
 	IPassThroughPolicyEnforcementProcessorConstructorOptions
-} from "@twin.org/rights-management-plugins";
+} from "@3sixty/rights-management-plugins";
 import type { RightsManagementPolicyEnforcementProcessorComponentType } from "../types/rightsManagementPolicyEnforcementProcessorComponentType.js";
 
 /**

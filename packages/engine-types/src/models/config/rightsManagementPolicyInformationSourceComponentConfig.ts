@@ -4,7 +4,7 @@ import type {
 	IIdentityPolicyInformationSourceConstructorOptions,
 	IIdentityProfilePolicyInformationSourceConstructorOptions,
 	IStaticPolicyInformationSourceConstructorOptions
-} from "@twin.org/rights-management-plugins";
+} from "@3sixty/rights-management-plugins";
 import type { RightsManagementPolicyInformationSourceComponentType } from "../types/rightsManagementPolicyInformationSourceComponentType.js";
 
 /**

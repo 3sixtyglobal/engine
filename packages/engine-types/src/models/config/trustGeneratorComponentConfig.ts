@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IJwtVerifiableCredentialGeneratorConstructorOptions } from "@twin.org/trust-generators";
+import type { IJwtVerifiableCredentialGeneratorConstructorOptions } from "@3sixty/trust-generators";
 import type { TrustGeneratorComponentType } from "../types/trustGeneratorComponentType.js";
 
 /**

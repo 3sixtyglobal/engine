@@ -8,6 +8,7 @@
 	"release-type": "node",
 	"initial-version": "0.0.1",
 	"versioning": "default",
+	"last-release-sha": "7df5ee41501a8c19d0c33ad500dcdab93d2d8d28",
 	"packages": {
 		"packages/engine-models": {
 			"package-name": "engine-models",

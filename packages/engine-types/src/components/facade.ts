@@ -1,13 +1,13 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { FacadeFactory } from "@twin.org/core";
+import { FacadeFactory } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { TracingFacade } from "@twin.org/tracing-facades";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
+import { TracingFacade } from "@3sixty/tracing-facades";
 import type { FacadeConfig } from "../models/config/facadeConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { FacadeType } from "../models/types/facadeType.js";

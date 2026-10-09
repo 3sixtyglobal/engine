@@ -1,13 +1,13 @@
 [
 	{
 		"type": "eventBusComponent",
-		"module": "@twin.org/event-bus-service",
+		"module": "@3sixty/event-bus-service",
 		"method": "generateSocketRoutesEventBus",
 		"defaultPath": "event-bus"
 	},
 	{
 		"type": "dataspaceDataPlaneComponent",
-		"module": "@twin.org/dataspace-data-plane-service",
+		"module": "@3sixty/dataspace-data-plane-service",
 		"method": "generateSocketRoutesDataspaceDataPlane",
 		"defaultPath": "dataspace"
 	}

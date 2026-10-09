@@ -4,10 +4,10 @@ import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { JwtVerifiableCredentialGenerator } from "@twin.org/trust-generators";
-import { TrustGeneratorFactory } from "@twin.org/trust-models";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
+import { JwtVerifiableCredentialGenerator } from "@3sixty/trust-generators";
+import { TrustGeneratorFactory } from "@3sixty/trust-models";
 import type { TrustGeneratorComponentConfig } from "../models/config/trustGeneratorComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { TrustGeneratorComponentType } from "../models/types/trustGeneratorComponentType.js";

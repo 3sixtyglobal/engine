@@ -1,11 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IS3BlobStorageConnectorConstructorOptions } from "@twin.org/blob-storage-connector-aws-s3";
-import type { IAzureBlobStorageConnectorConstructorOptions } from "@twin.org/blob-storage-connector-azure";
-import type { IFileBlobStorageConnectorConstructorOptions } from "@twin.org/blob-storage-connector-file";
-import type { IGcpBlobStorageConnectorConstructorOptions } from "@twin.org/blob-storage-connector-gcp";
-import type { IIpfsBlobStorageConnectorConstructorOptions } from "@twin.org/blob-storage-connector-ipfs";
-import type { IMemoryStorageConnectorConstructorOptions } from "@twin.org/blob-storage-connector-memory";
+import type { IS3BlobStorageConnectorConstructorOptions } from "@3sixty/blob-storage-connector-aws-s3";
+import type { IAzureBlobStorageConnectorConstructorOptions } from "@3sixty/blob-storage-connector-azure";
+import type { IFileBlobStorageConnectorConstructorOptions } from "@3sixty/blob-storage-connector-file";
+import type { IGcpBlobStorageConnectorConstructorOptions } from "@3sixty/blob-storage-connector-gcp";
+import type { IIpfsBlobStorageConnectorConstructorOptions } from "@3sixty/blob-storage-connector-ipfs";
+import type { IMemoryStorageConnectorConstructorOptions } from "@3sixty/blob-storage-connector-memory";
 import type { BlobStorageConnectorType } from "../types/blobStorageConnectorType.js";
 
 /**

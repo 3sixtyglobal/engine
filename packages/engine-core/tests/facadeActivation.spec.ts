@@ -8,15 +8,15 @@ import {
 	Is,
 	type IComponent,
 	type IFacade
-} from "@twin.org/core";
+} from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreConfig,
 	IEngineCoreTypeConfig,
 	IEngineFacadeConfig
-} from "@twin.org/engine-models";
-import { ModuleHelper } from "@twin.org/modules";
+} from "@3sixty/engine-models";
+import { ModuleHelper } from "@3sixty/modules";
 import type { MockInstance } from "vitest";
 import locales from "../locales/en.json" with { type: "json" };
 import { EngineCore } from "../src/engineCore.js";

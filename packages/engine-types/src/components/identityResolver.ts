@@ -1,23 +1,23 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory } from "@twin.org/core";
-import type { IComponent } from "@twin.org/core";
+import { ComponentFactory } from "@3sixty/core";
+import type { IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
+} from "@3sixty/engine-models";
 import {
 	EntityStorageIdentityResolverConnector,
 	initSchema as initSchemaIdentityStorage,
 	type IdentityDocument
-} from "@twin.org/identity-connector-entity-storage";
-import { IotaIdentityResolverConnector } from "@twin.org/identity-connector-iota";
-import { UniversalResolverConnector } from "@twin.org/identity-connector-universal";
-import { IdentityResolverConnectorFactory } from "@twin.org/identity-models";
-import { IdentityResolverRestClient } from "@twin.org/identity-rest-client";
-import { IdentityResolverService } from "@twin.org/identity-service";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/identity-connector-entity-storage";
+import { IotaIdentityResolverConnector } from "@3sixty/identity-connector-iota";
+import { UniversalResolverConnector } from "@3sixty/identity-connector-universal";
+import { IdentityResolverConnectorFactory } from "@3sixty/identity-models";
+import { IdentityResolverRestClient } from "@3sixty/identity-rest-client";
+import { IdentityResolverService } from "@3sixty/identity-service";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { DltConfig } from "../models/config/dltConfig.js";
 import type { IdentityResolverComponentConfig } from "../models/config/identityResolverComponentConfig.js";

@@ -1,17 +1,17 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IAuthHeaderProcessorConstructorOptions } from "@twin.org/api-auth-entity-storage-service";
+import type { IAuthHeaderProcessorConstructorOptions } from "@3sixty/api-auth-entity-storage-service";
 import type {
 	IContextIdProcessorConstructorOptions,
 	ILoggingProcessorConstructorOptions,
 	ISocketRouteProcessorConstructorOptions,
 	IStaticContextIdProcessorConstructorOptions
-} from "@twin.org/api-processors";
+} from "@3sixty/api-processors";
 import type {
 	ISingleTenantProcessorConstructorOptions,
 	ITenantOverrideProcessorConstructorOptions,
 	ITenantProcessorConstructorOptions
-} from "@twin.org/api-tenant-processor";
+} from "@3sixty/api-tenant-processor";
 import type { SocketRouteProcessorType } from "../types/socketRouteProcessorType.js";
 
 /**

@@ -1,9 +1,9 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IGmailEmailConnectorConstructorOptions } from "@twin.org/mailbox-connector-gmail";
-import type { IImapEmailConnectorConstructorOptions } from "@twin.org/mailbox-connector-imap";
-import type { IOutlookEmailConnectorConstructorOptions } from "@twin.org/mailbox-connector-outlook";
-import type { IPop3EmailConnectorConstructorOptions } from "@twin.org/mailbox-connector-pop3";
+import type { IGmailEmailConnectorConstructorOptions } from "@3sixty/mailbox-connector-gmail";
+import type { IImapEmailConnectorConstructorOptions } from "@3sixty/mailbox-connector-imap";
+import type { IOutlookEmailConnectorConstructorOptions } from "@3sixty/mailbox-connector-outlook";
+import type { IPop3EmailConnectorConstructorOptions } from "@3sixty/mailbox-connector-pop3";
 import type { EmailProtocolConnectorType } from "../types/emailProtocolConnectorType.js";
 
 /**

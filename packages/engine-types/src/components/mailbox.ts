@@ -1,33 +1,33 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import type { IComponent } from "@twin.org/core";
-import { ComponentFactory } from "@twin.org/core";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import type { IComponent } from "@3sixty/core";
+import { ComponentFactory } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
+} from "@3sixty/engine-models";
 import {
 	GmailEmailConnector,
 	initSchema as initSchemaGmail
-} from "@twin.org/mailbox-connector-gmail";
-import { ImapEmailConnector, initSchema as initSchemaImap } from "@twin.org/mailbox-connector-imap";
+} from "@3sixty/mailbox-connector-gmail";
+import { ImapEmailConnector, initSchema as initSchemaImap } from "@3sixty/mailbox-connector-imap";
 import {
 	OutlookEmailConnector,
 	initSchema as initSchemaOutlook
-} from "@twin.org/mailbox-connector-outlook";
-import { Pop3EmailConnector, initSchema as initSchemaPop3 } from "@twin.org/mailbox-connector-pop3";
-import { EmailProtocolConnectorFactory } from "@twin.org/mailbox-models";
-import { MailboxRestClient, MailStorageRestClient } from "@twin.org/mailbox-rest-client";
+} from "@3sixty/mailbox-connector-outlook";
+import { Pop3EmailConnector, initSchema as initSchemaPop3 } from "@3sixty/mailbox-connector-pop3";
+import { EmailProtocolConnectorFactory } from "@3sixty/mailbox-models";
+import { MailboxRestClient, MailStorageRestClient } from "@3sixty/mailbox-rest-client";
 import {
 	type StoredEmail,
 	initSchema as initSchemaMailboxService,
 	type Mailbox,
 	MailboxService,
 	MailStorageService
-} from "@twin.org/mailbox-service";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/mailbox-service";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { EmailProtocolConnectorConfig } from "../models/config/emailProtocolConnectorConfig.js";
 import type { MailboxComponentConfig } from "../models/config/mailboxComponentConfig.js";

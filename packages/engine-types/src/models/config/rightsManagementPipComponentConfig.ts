@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IPolicyInformationPointServiceConstructorOptions } from "@twin.org/rights-management-pip-service";
+import type { IPolicyInformationPointServiceConstructorOptions } from "@3sixty/rights-management-pip-service";
 import type { RightsManagementPipComponentType } from "../types/rightsManagementPipComponentType.js";
 
 /**

@@ -1,27 +1,27 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory, type IComponent } from "@twin.org/core";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { ConsoleTracingConnector } from "@twin.org/tracing-connector-console";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
+import { ConsoleTracingConnector } from "@3sixty/tracing-connector-console";
 import {
 	EntityStorageTracingConnector,
 	initSchema,
 	type Span
-} from "@twin.org/tracing-connector-entity-storage";
-import { OpenTelemetryTracingConnector } from "@twin.org/tracing-connector-opentelemetry";
+} from "@3sixty/tracing-connector-entity-storage";
+import { OpenTelemetryTracingConnector } from "@3sixty/tracing-connector-opentelemetry";
 import {
 	MultiTracingConnector,
 	SilentTracingConnector,
 	TracingConnectorFactory
-} from "@twin.org/tracing-models";
-import { TracingRestClient } from "@twin.org/tracing-rest-client";
-import { TracingService } from "@twin.org/tracing-service";
+} from "@3sixty/tracing-models";
+import { TracingRestClient } from "@3sixty/tracing-rest-client";
+import { TracingService } from "@3sixty/tracing-service";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { TracingComponentConfig } from "../models/config/tracingComponentConfig.js";
 import type { TracingConnectorConfig } from "../models/config/tracingConnectorConfig.js";

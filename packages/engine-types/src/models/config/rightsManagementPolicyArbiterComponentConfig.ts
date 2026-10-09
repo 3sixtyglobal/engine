@@ -3,7 +3,7 @@
 import type {
 	IDefaultPolicyArbiterConstructorOptions,
 	IPassThroughPolicyArbiterConstructorOptions
-} from "@twin.org/rights-management-plugins";
+} from "@3sixty/rights-management-plugins";
 import type { RightsManagementPolicyArbiterComponentType } from "../types/rightsManagementPolicyArbiterComponentType.js";
 
 /**
