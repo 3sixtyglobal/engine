@@ -1,6 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import { GeneralError, I18n, type IComponent } from "@3sixty/core";
+import { SchemaAliasHelper } from "@3sixty/data-core";
 import {
 	EngineLogLevel,
 	type IEngineCoreConfig,
@@ -390,6 +391,70 @@ describe("engine-core", () => {
 			{ type: "custom", module: "module", method: "method" }
 		]);
 		expect(clone.getContextIdKeys()).toEqual(["node"]);
+	});
+
+	describe("schema aliases", () => {
+		const aliases = [
+			{ from: "https://old.example/", to: "https://new.example/" },
+			{
+				from: "/^https:\\/\\/older\\.example\\/(?<name>[^/]+)\\//i",
+				to: "https://new.example/$<name>/"
+			}
+		];
+
+		afterEach(() => {
+			SchemaAliasHelper.setAliases([]);
+		});
+
+		test("Can include the schema aliases in the clone data", () => {
+			SchemaAliasHelper.setAliases(aliases);
+			const parent = new EngineCore({ config: { silent: true, types: {} } });
+
+			const cloneData = parent.getCloneData();
+
+			expect(cloneData.schemaAliases).toEqual(aliases);
+			expect(cloneData.schemaAliases).not.toBe(SchemaAliasHelper.getAliases());
+		});
+
+		test("Can restore the schema aliases when populating a clone", () => {
+			SchemaAliasHelper.setAliases(aliases);
+			const cloneData = new EngineCore({ config: { silent: true, types: {} } }).getCloneData();
+			const serialised = JSON.parse(JSON.stringify(cloneData));
+			SchemaAliasHelper.setAliases([]);
+
+			const clone = new EngineCore();
+			clone.populateClone(serialised);
+
+			expect(SchemaAliasHelper.getAliases()).toEqual(aliases);
+			expect(SchemaAliasHelper.resolve("https://old.example/Type")).toEqual(
+				"https://new.example/Type"
+			);
+			expect(SchemaAliasHelper.resolve("https://OLDER.example/gs1/Type")).toEqual(
+				"https://new.example/gs1/Type"
+			);
+		});
+
+		test("Does not modify the clone data when populating a clone with schema aliases", () => {
+			SchemaAliasHelper.setAliases(aliases);
+			const cloneData = new EngineCore({ config: { silent: true, types: {} } }).getCloneData();
+
+			const clone = new EngineCore();
+			clone.populateClone(cloneData);
+			SchemaAliasHelper.addAlias("https://another.example/", "https://new.example/");
+
+			expect(cloneData.schemaAliases).toEqual(aliases);
+		});
+
+		test("Can leave the schema aliases unchanged when the clone data has none", () => {
+			SchemaAliasHelper.setAliases(aliases);
+			const cloneData = new EngineCore({ config: { silent: true, types: {} } }).getCloneData();
+			delete cloneData.schemaAliases;
+
+			const clone = new EngineCore();
+			clone.populateClone(cloneData);
+
+			expect(SchemaAliasHelper.getAliases()).toEqual(aliases);
+		});
 	});
 
 	test("Keeps the state separate for clones populated from the same clone data", async () => {
