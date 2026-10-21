@@ -30,7 +30,7 @@ Add a custom entity storage to the engine configuration.
 
 #### Type Parameters
 
-##### T
+##### T {#t}
 
 `T`
 

@@ -8,11 +8,11 @@ The engine with built in types.
 
 ## Type Parameters
 
-### C
+### C {#c}
 
 `C` *extends* `IEngineConfig` = `IEngineConfig`
 
-### S
+### S {#s}
 
 `S` *extends* `IEngineState` = `IEngineState`
 

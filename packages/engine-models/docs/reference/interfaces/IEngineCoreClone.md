@@ -4,11 +4,11 @@ Interface describing the data required to clone an engine.
 
 ## Type Parameters
 
-### C
+### C {#c}
 
 `C` *extends* [`IEngineCoreConfig`](IEngineCoreConfig.md) = [`IEngineCoreConfig`](IEngineCoreConfig.md)
 
-### S
+### S {#s}
 
 `S` *extends* [`IEngineState`](IEngineState.md) = [`IEngineState`](IEngineState.md)
 
@@ -75,3 +75,19 @@ The context ID keys.
 #### componentFeatures
 
 > **componentFeatures**: `string`[]
+
+***
+
+### schemaAliases? {#schemaaliases}
+
+> `optional` **schemaAliases?**: `object`[]
+
+The schema aliases.
+
+#### from
+
+> **from**: `string`
+
+#### to
+
+> **to**: `string`

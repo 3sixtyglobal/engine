@@ -4,11 +4,11 @@ Interface describing the engine core methods.
 
 ## Type Parameters
 
-### C
+### C {#c}
 
 `C` *extends* [`IEngineCoreConfig`](IEngineCoreConfig.md) = [`IEngineCoreConfig`](IEngineCoreConfig.md)
 
-### S
+### S {#s}
 
 `S` *extends* [`IEngineState`](IEngineState.md) = [`IEngineState`](IEngineState.md)
 

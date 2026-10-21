@@ -604,8 +604,6 @@ Tenant admin component options which can be overridden by individual components 
 
 Context Id Handler component options which can be overridden by individual components by specifying types other than default.
 
-#### Type Declaration
-
 ##### informationComponent?
 
 > `optional` **informationComponent?**: `IEngineCoreTypeConfig`\<[`InformationComponentConfig`](../type-aliases/InformationComponentConfig.md)\>[]
