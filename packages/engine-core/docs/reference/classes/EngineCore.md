@@ -4,11 +4,11 @@ Core for the engine.
 
 ## Type Parameters
 
-### C
+### C {#c}
 
 `C` *extends* `IEngineCoreConfig` = `IEngineCoreConfig`
 
-### S
+### S {#s}
 
 `S` *extends* `IEngineState` = `IEngineState`
 

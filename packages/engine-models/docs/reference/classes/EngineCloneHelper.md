@@ -56,7 +56,7 @@ Remove the component types matched by the exclude patterns from the clone data.
 
 #### Type Parameters
 
-##### T
+##### T {#t}
 
 `T` *extends* [`IEngineCoreClone`](../interfaces/IEngineCoreClone.md)\<[`IEngineCoreConfig`](../interfaces/IEngineCoreConfig.md), [`IEngineState`](../interfaces/IEngineState.md)\>
 

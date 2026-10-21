@@ -4,7 +4,7 @@ Store state in a file.
 
 ## Type Parameters
 
-### S
+### S {#s}
 
 `S` *extends* `IEngineState` = `IEngineState`
 

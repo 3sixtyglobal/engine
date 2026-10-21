@@ -30,7 +30,7 @@ Get the config for the specified component and type.
 
 #### Type Parameters
 
-##### T
+##### T {#t}
 
 `T` *extends* `IEngineCoreTypeBaseConfig`\<`unknown`\>
 
@@ -71,7 +71,7 @@ Each config parameter can be a different partial type, and they are merged toget
 
 #### Type Parameters
 
-##### T
+##### T {#t-1}
 
 `T` *extends* `unknown`
 

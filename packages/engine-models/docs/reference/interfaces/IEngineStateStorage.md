@@ -4,7 +4,7 @@ Definition of state storage for engine.
 
 ## Type Parameters
 
-### S
+### S {#s}
 
 `S` *extends* [`IEngineState`](IEngineState.md) = [`IEngineState`](IEngineState.md)
 
