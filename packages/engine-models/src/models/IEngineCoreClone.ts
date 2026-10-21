@@ -39,4 +39,9 @@ export interface IEngineCoreClone<
 	 * The context ID keys.
 	 */
 	contextIdKeys: { key: string; componentFeatures: string[] }[];
+
+	/**
+	 * The schema aliases.
+	 */
+	schemaAliases?: { from: string; to: string }[];
 }

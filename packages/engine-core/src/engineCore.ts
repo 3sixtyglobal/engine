@@ -21,6 +21,7 @@ import {
 	Is,
 	ObjectHelper
 } from "@3sixty/core";
+import { SchemaAliasHelper } from "@3sixty/data-core";
 import {
 	EngineCloneMode,
 	EngineLogLevel,
@@ -703,7 +704,8 @@ export class EngineCore<
 			state: ObjectHelper.clone(this._context.state),
 			typeInitialisers: ObjectHelper.clone(this._typeInitialisers),
 			entitySchemas,
-			contextIdKeys: ObjectHelper.clone(this._contextIdKeys)
+			contextIdKeys: ObjectHelper.clone(this._contextIdKeys),
+			schemaAliases: ObjectHelper.clone(SchemaAliasHelper.getAliases())
 		};
 
 		return cloneData;
@@ -845,6 +847,10 @@ export class EngineCore<
 
 		for (const schemaName of Object.keys(cloneEntitySchemas)) {
 			EntitySchemaFactory.register(schemaName, () => cloneEntitySchemas[schemaName]);
+		}
+
+		if (Is.array(cloneData.schemaAliases)) {
+			SchemaAliasHelper.setAliases(ObjectHelper.clone(cloneData.schemaAliases));
 		}
 
 		this._stateStorage = new MemoryStateStorage(true, ObjectHelper.clone(cloneData.state));
