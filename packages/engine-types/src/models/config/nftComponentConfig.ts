@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IBaseRestClientConfig } from "@twin.org/api-models";
-import type { INftServiceConstructorOptions } from "@twin.org/nft-service";
+import type { IBaseRestClientConfig } from "@3sixty/api-models";
+import type { INftServiceConstructorOptions } from "@3sixty/nft-service";
 import type { NftComponentType } from "../types/nftComponentType.js";
 
 /**

@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IBackgroundTaskServiceConstructorOptions } from "@twin.org/background-task-service";
+import type { IBackgroundTaskServiceConstructorOptions } from "@3sixty/background-task-service";
 import type { BackgroundTaskComponentType } from "../types/backgroundTaskComponentType.js";
 
 /**

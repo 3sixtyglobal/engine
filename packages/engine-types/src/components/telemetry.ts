@@ -1,27 +1,27 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory, type IComponent } from "@twin.org/core";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import {
 	EntityStorageTelemetryConnector,
 	initSchema,
 	type TelemetryMetric,
 	type TelemetryMetricValue
-} from "@twin.org/telemetry-connector-entity-storage";
-import { OpenTelemetryTelemetryConnector } from "@twin.org/telemetry-connector-opentelemetry";
+} from "@3sixty/telemetry-connector-entity-storage";
+import { OpenTelemetryTelemetryConnector } from "@3sixty/telemetry-connector-opentelemetry";
 import {
 	MultiTelemetryConnector,
 	SilentTelemetryConnector,
 	TelemetryConnectorFactory
-} from "@twin.org/telemetry-models";
-import { TelemetryRestClient } from "@twin.org/telemetry-rest-client";
-import { TelemetryService } from "@twin.org/telemetry-service";
+} from "@3sixty/telemetry-models";
+import { TelemetryRestClient } from "@3sixty/telemetry-rest-client";
+import { TelemetryService } from "@3sixty/telemetry-service";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { TelemetryComponentConfig } from "../models/config/telemetryComponentConfig.js";
 import type { TelemetryConnectorConfig } from "../models/config/telemetryConnectorConfig.js";

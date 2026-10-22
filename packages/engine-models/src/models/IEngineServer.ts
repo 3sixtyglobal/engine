@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IRestRoute, ISocketRoute } from "@twin.org/api-models";
+import type { IRestRoute, ISocketRoute } from "@3sixty/api-models";
 
 /**
  * Interface describing the engine server methods.

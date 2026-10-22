@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IEntitySchema } from "@twin.org/entity";
+import type { IEntitySchema } from "@3sixty/entity";
 import type { IEngineCoreConfig } from "./config/IEngineCoreConfig.js";
 import type { IEngineState } from "./IEngineState.js";
 
@@ -39,4 +39,9 @@ export interface IEngineCoreClone<
 	 * The context ID keys.
 	 */
 	contextIdKeys: { key: string; componentFeatures: string[] }[];
+
+	/**
+	 * The schema aliases.
+	 */
+	schemaAliases?: { from: string; to: string }[];
 }

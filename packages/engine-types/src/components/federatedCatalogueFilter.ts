@@ -1,18 +1,18 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { FilterByMetadata } from "@twin.org/federated-catalogue-filters";
-import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
+} from "@3sixty/engine-models";
+import { FilterByMetadata } from "@3sixty/federated-catalogue-filters";
+import { FederatedCatalogueFilterFactory } from "@3sixty/federated-catalogue-models";
 import {
 	type Dataset,
 	initSchema as initSchemaFederatedCatalogue
-} from "@twin.org/federated-catalogue-service";
-import { nameof } from "@twin.org/nameof";
+} from "@3sixty/federated-catalogue-service";
+import { nameof } from "@3sixty/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { FederatedCatalogueFilterComponentConfig } from "../models/config/federatedCatalogueFilterComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";

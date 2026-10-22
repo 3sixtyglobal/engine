@@ -46,6 +46,20 @@ all
 
 ***
 
+### disableColor? {#disablecolor}
+
+> `optional` **disableColor?**: `boolean`
+
+Disable colour in the engine logger output.
+
+#### Default
+
+```ts
+false
+```
+
+***
+
 ### silentComponents? {#silentcomponents}
 
 > `optional` **silentComponents?**: `object`
@@ -63,6 +77,18 @@ The components to disable output for.
 #### tracing?
 
 > `optional` **tracing?**: `string`[]
+
+***
+
+### facades? {#facades}
+
+> `optional` **facades?**: `object`
+
+The facades to activate, keyed by the type name of the factory they apply to.
+
+#### Index Signature
+
+\[`factoryTypeName`: `string`\]: [`IEngineFacadeConfig`](IEngineFacadeConfig.md)[]
 
 ***
 

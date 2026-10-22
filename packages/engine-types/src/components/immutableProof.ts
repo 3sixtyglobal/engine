@@ -1,20 +1,20 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory } from "@twin.org/core";
-import type { IComponent } from "@twin.org/core";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import { ComponentFactory } from "@3sixty/core";
+import type { IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { ImmutableProofRestClient } from "@twin.org/immutable-proof-rest-client";
+} from "@3sixty/engine-models";
+import { ImmutableProofRestClient } from "@3sixty/immutable-proof-rest-client";
 import {
 	type ImmutableProof,
 	ImmutableProofService,
 	initSchema as initSchemaImmutableProof
-} from "@twin.org/immutable-proof-service";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/immutable-proof-service";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { ImmutableProofComponentConfig } from "../models/config/immutableProofComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";

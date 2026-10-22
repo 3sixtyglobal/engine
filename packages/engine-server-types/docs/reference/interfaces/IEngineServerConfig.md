@@ -62,6 +62,24 @@ all
 
 ***
 
+### disableColor? {#disablecolor}
+
+> `optional` **disableColor?**: `boolean`
+
+Disable colour in the engine logger output.
+
+#### Default
+
+```ts
+false
+```
+
+#### Inherited from
+
+`IEngineConfig.disableColor`
+
+***
+
 ### silentComponents? {#silentcomponents}
 
 > `optional` **silentComponents?**: `object`
@@ -86,6 +104,22 @@ The components to disable output for.
 
 ***
 
+### facades? {#facades}
+
+> `optional` **facades?**: `object`
+
+The facades to activate, keyed by the type name of the factory they apply to.
+
+#### Index Signature
+
+\[`factoryTypeName`: `string`\]: `IEngineFacadeConfig`[]
+
+#### Inherited from
+
+`IEngineConfig.facades`
+
+***
+
 ### web? {#web}
 
 > `optional` **web?**: `IWebServerOptions`
@@ -101,6 +135,12 @@ Configuration for the web server.
 The types to initialise in the engine.
 
 #### Type Declaration
+
+##### facade?
+
+> `optional` **facade?**: `IEngineCoreTypeConfig`\<`FacadeConfig`\>[]
+
+Facade options, a facade wraps the instances a factory produces.
 
 ##### loggingConnector?
 
@@ -149,6 +189,18 @@ Telemetry connector options which can be overridden by individual components by 
 > `optional` **telemetryComponent?**: `IEngineCoreTypeConfig`\<`TelemetryComponentConfig`\>[]
 
 Telemetry component options which can be overridden by individual components by specifying types other than default.
+
+##### tracingConnector?
+
+> `optional` **tracingConnector?**: `IEngineCoreTypeConfig`\<`TracingConnectorConfig`\>[]
+
+Tracing connector options which can be overridden by individual components by specifying types other than default.
+
+##### tracingComponent?
+
+> `optional` **tracingComponent?**: `IEngineCoreTypeConfig`\<`TracingComponentConfig`\>[]
+
+Tracing component options which can be overridden by individual components by specifying types other than default.
 
 ##### metricsProducerComponent?
 
@@ -551,8 +603,6 @@ Tenant admin component options which can be overridden by individual components 
 > `optional` **contextIdHandlerComponent?**: `IEngineCoreTypeConfig`\<`ContextIdHandlerComponentConfig`\>[]
 
 Context Id Handler component options which can be overridden by individual components by specifying types other than default.
-
-#### Type Declaration
 
 ##### informationComponent?
 

@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IEngineCoreConfig, IEngineCoreTypeConfig } from "@twin.org/engine-models";
+import type { IEngineCoreConfig, IEngineCoreTypeConfig } from "@3sixty/engine-models";
 import type { AttestationComponentConfig } from "./config/attestationComponentConfig.js";
 import type { AttestationConnectorConfig } from "./config/attestationConnectorConfig.js";
 import type { AuditableItemGraphComponentConfig } from "./config/auditableItemGraphComponentConfig.js";
@@ -25,6 +25,7 @@ import type { EntityStorageComponentConfig } from "./config/entityStorageCompone
 import type { EntityStorageConnectorConfig } from "./config/entityStorageConnectorConfig.js";
 import type { EventBusComponentConfig } from "./config/eventBusComponentConfig.js";
 import type { EventBusConnectorConfig } from "./config/eventBusConnectorConfig.js";
+import type { FacadeConfig } from "./config/facadeConfig.js";
 import type { FaucetConnectorConfig } from "./config/faucetConnectorConfig.js";
 import type { FederatedCatalogueComponentConfig } from "./config/federatedCatalogueComponentConfig.js";
 import type { FederatedCatalogueFilterComponentConfig } from "./config/federatedCatalogueFilterComponentConfig.js";
@@ -73,6 +74,8 @@ import type { TaskSchedulerComponentConfig } from "./config/taskSchedulerCompone
 import type { TelemetryComponentConfig } from "./config/telemetryComponentConfig.js";
 import type { TelemetryConnectorConfig } from "./config/telemetryConnectorConfig.js";
 import type { TenantAdminComponentConfig } from "./config/tenantAdminComponentConfig.js";
+import type { TracingComponentConfig } from "./config/tracingComponentConfig.js";
+import type { TracingConnectorConfig } from "./config/tracingConnectorConfig.js";
 import type { TrustComponentConfig } from "./config/trustComponentConfig.js";
 import type { TrustGeneratorComponentConfig } from "./config/trustGeneratorComponentConfig.js";
 import type { TrustVerifierComponentConfig } from "./config/trustVerifierComponentConfig.js";
@@ -88,6 +91,11 @@ export interface IEngineConfig extends IEngineCoreConfig {
 	 */
 	types: {
 		[type: string]: IEngineCoreTypeConfig[] | undefined;
+
+		/**
+		 * Facade options, a facade wraps the instances a factory produces.
+		 */
+		facade?: IEngineCoreTypeConfig<FacadeConfig>[];
 
 		/**
 		 * Logging connector options which can be overridden by individual components by specifying types other than default.
@@ -128,6 +136,16 @@ export interface IEngineConfig extends IEngineCoreConfig {
 		 * Telemetry component options which can be overridden by individual components by specifying types other than default.
 		 */
 		telemetryComponent?: IEngineCoreTypeConfig<TelemetryComponentConfig>[];
+
+		/**
+		 * Tracing connector options which can be overridden by individual components by specifying types other than default.
+		 */
+		tracingConnector?: IEngineCoreTypeConfig<TracingConnectorConfig>[];
+
+		/**
+		 * Tracing component options which can be overridden by individual components by specifying types other than default.
+		 */
+		tracingComponent?: IEngineCoreTypeConfig<TracingComponentConfig>[];
 
 		/**
 		 * Metrics producer component options. Creates the `MetricsProducerService` that orchestrates polling.

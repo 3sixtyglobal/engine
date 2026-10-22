@@ -4,33 +4,31 @@ import {
 	AuthHeaderProcessor,
 	initSchema as initSchemaAuthEntityStorage,
 	type AuthenticationUser
-} from "@twin.org/api-auth-entity-storage-service";
-import { TenantOverrideProcessor } from "@twin.org/api-auth-service";
-import { RestRouteProcessorFactory } from "@twin.org/api-models";
+} from "@3sixty/api-auth-entity-storage-service";
+import { TenantOverrideProcessor } from "@3sixty/api-auth-service";
+import { RestRouteProcessorFactory } from "@3sixty/api-models";
 import {
 	ContextIdProcessor,
 	LoggingProcessor,
 	RestRouteProcessor,
 	StaticContextIdProcessor
-} from "@twin.org/api-processors";
+} from "@3sixty/api-processors";
 import {
-	initSchema as initSchemaTenantProcessor,
 	TenantProcessor,
-	SingleTenantProcessor,
-	type Tenant
-} from "@twin.org/api-tenant-processor";
-import { AuthorizationRouteProcessor } from "@twin.org/authorization-service";
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import type { IComponent } from "@twin.org/core";
+	SingleTenantProcessor
+} from "@3sixty/api-tenant-processor";
+import { AuthorizationRouteProcessor } from "@3sixty/authorization-service";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import type { IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { EngineTypeHelper, initialiseEntityStorageConnector } from "@twin.org/engine-types";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { MetricsRouteProcessor } from "@twin.org/telemetry-processors";
-import { TracingRouteProcessor } from "@twin.org/tracing-processors";
+} from "@3sixty/engine-models";
+import { EngineTypeHelper, initialiseEntityStorageConnector } from "@3sixty/engine-types";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
+import { MetricsRouteProcessor } from "@3sixty/telemetry-processors";
+import { TracingRouteProcessor } from "@3sixty/tracing-processors";
 import type { RestRouteProcessorConfig } from "../models/config/restRouteProcessorConfig.js";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
 import { RestRouteProcessorType } from "../models/types/restRouteProcessorType.js";
@@ -121,11 +119,11 @@ export function initialiseRestRouteProcessorComponent(
 			);
 		instanceTypeName = nameofKebabCase(RestRouteProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.Tenant) {
-		createComponent = (createConfig: typeof instanceConfig) => {
-			initTenantStorage(engineCore, context, createConfig?.options?.tenantEntityStorageType);
-			return new TenantProcessor(
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new TenantProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
+						tenantAdminComponentType: engineCore.getRegisteredInstanceType("tenantAdminComponent"),
 						config: {
 							includeErrorStack: context.config.debug
 						}
@@ -133,7 +131,6 @@ export function initialiseRestRouteProcessorComponent(
 					createConfig.options
 				)
 			);
-		};
 		instanceTypeName = nameofKebabCase(TenantProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.SingleTenant) {
 		createComponent = (createConfig: typeof instanceConfig) =>
@@ -222,28 +219,4 @@ export function initialiseRestRouteProcessorComponent(
 		instanceTypeName,
 		factory: RestRouteProcessorFactory
 	};
-}
-
-/**
- * Initialise the tenant storage.
- * @param engineCore The engine core.
- * @param context The context for the engine.
- * @param tenantEntityStorageType The tenant entity storage type.
- */
-export function initTenantStorage(
-	engineCore: IEngineCore<IEngineServerConfig>,
-	context: IEngineCoreContext<IEngineServerConfig>,
-	tenantEntityStorageType?: string
-): void {
-	initSchemaTenantProcessor();
-	initialiseEntityStorageConnector(
-		engineCore,
-		context,
-		tenantEntityStorageType,
-		nameof<Tenant>(),
-		ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-			ContextIdKeys.Node,
-			ContextIdKeys.Tenant
-		])
-	);
 }

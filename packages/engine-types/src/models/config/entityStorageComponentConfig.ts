@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IBaseRestClientConfig } from "@twin.org/api-models";
-import type { IEntityStorageServiceConstructorOptions } from "@twin.org/entity-storage-service";
+import type { IBaseRestClientConfig } from "@3sixty/api-models";
+import type { IEntityStorageServiceConstructorOptions } from "@3sixty/entity-storage-service";
 import type { EntityStorageComponentType } from "../types/entityStorageComponentType.js";
 
 /**
@@ -11,7 +11,10 @@ export type EntityStorageComponentConfig =
 	| {
 			type: typeof EntityStorageComponentType.Service;
 			options: IEntityStorageServiceConstructorOptions & {
-				partitionContextIds: string[];
+				/**
+				 * The context IDs to partition the data by, defaults to the node and tenant keys the engine has.
+				 */
+				partitionContextIds?: string[];
 			};
 	  }
 	| {

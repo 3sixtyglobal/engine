@@ -1,27 +1,27 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import path from "node:path";
-import { S3BlobStorageConnector } from "@twin.org/blob-storage-connector-aws-s3";
-import { AzureBlobStorageConnector } from "@twin.org/blob-storage-connector-azure";
-import { FileBlobStorageConnector } from "@twin.org/blob-storage-connector-file";
-import { GcpBlobStorageConnector } from "@twin.org/blob-storage-connector-gcp";
-import { IpfsBlobStorageConnector } from "@twin.org/blob-storage-connector-ipfs";
-import { MemoryBlobStorageConnector } from "@twin.org/blob-storage-connector-memory";
-import { BlobStorageConnectorFactory } from "@twin.org/blob-storage-models";
-import { BlobStorageRestClient } from "@twin.org/blob-storage-rest-client";
+import { S3BlobStorageConnector } from "@3sixty/blob-storage-connector-aws-s3";
+import { AzureBlobStorageConnector } from "@3sixty/blob-storage-connector-azure";
+import { FileBlobStorageConnector } from "@3sixty/blob-storage-connector-file";
+import { GcpBlobStorageConnector } from "@3sixty/blob-storage-connector-gcp";
+import { IpfsBlobStorageConnector } from "@3sixty/blob-storage-connector-ipfs";
+import { MemoryBlobStorageConnector } from "@3sixty/blob-storage-connector-memory";
+import { BlobStorageConnectorFactory } from "@3sixty/blob-storage-models";
+import { BlobStorageRestClient } from "@3sixty/blob-storage-rest-client";
 import {
 	BlobStorageService,
 	initSchema as initSchemaBlobStorage,
 	type BlobStorageEntry
-} from "@twin.org/blob-storage-service";
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory, type IComponent, Is } from "@twin.org/core";
+} from "@3sixty/blob-storage-service";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import { ComponentFactory, type IComponent, Is } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { BlobStorageComponentConfig } from "../models/config/blobStorageComponentConfig.js";
 import type { BlobStorageConnectorConfig } from "../models/config/blobStorageConnectorConfig.js";
@@ -69,6 +69,8 @@ export function initialiseBlobStorageConnector(
 							[ContextIdKeys.Node, ContextIdKeys.Tenant]
 						)
 					},
+					createConfig.options,
+					// Merged last so the storage prefix is applied to the supplied name, all values are taken from the options.
 					{
 						config: {
 							directory: Is.stringValue(createConfig?.options.storagePrefix)
@@ -78,8 +80,7 @@ export function initialiseBlobStorageConnector(
 									)
 								: (createConfig.options.config.directory ?? "")
 						}
-					},
-					createConfig.options
+					}
 				)
 			);
 		instanceTypeName = FileBlobStorageConnector.NAMESPACE;
@@ -107,6 +108,8 @@ export function initialiseBlobStorageConnector(
 							[ContextIdKeys.Node, ContextIdKeys.Tenant]
 						)
 					},
+					createConfig.options,
+					// Merged last so the storage prefix is applied to the supplied name, all values are taken from the options.
 					{
 						config: {
 							bucketName: createConfig
@@ -114,8 +117,7 @@ export function initialiseBlobStorageConnector(
 								: "",
 							region: createConfig?.options.config.region ?? ""
 						}
-					},
-					createConfig.options
+					}
 				)
 			);
 		instanceTypeName = S3BlobStorageConnector.NAMESPACE;
@@ -129,6 +131,8 @@ export function initialiseBlobStorageConnector(
 							[ContextIdKeys.Node, ContextIdKeys.Tenant]
 						)
 					},
+					createConfig.options,
+					// Merged last so the storage prefix is applied to the supplied name, all values are taken from the options.
 					{
 						config: {
 							bucketName: createConfig
@@ -136,8 +140,7 @@ export function initialiseBlobStorageConnector(
 								: "",
 							projectId: createConfig?.options.config.projectId ?? ""
 						}
-					},
-					createConfig.options
+					}
 				)
 			);
 		instanceTypeName = GcpBlobStorageConnector.NAMESPACE;
@@ -149,7 +152,11 @@ export function initialiseBlobStorageConnector(
 						partitionContextIds: ContextIdHelper.pickKeysFromAvailable(
 							engineCore.getContextIdKeys(),
 							[ContextIdKeys.Node, ContextIdKeys.Tenant]
-						),
+						)
+					},
+					createConfig.options,
+					// Merged last so the storage prefix is applied to the supplied name, all values are taken from the options.
+					{
 						config: {
 							containerName: createConfig
 								? `${createConfig.options.storagePrefix ?? ""}${createConfig.options.config.containerName}`
@@ -157,8 +164,7 @@ export function initialiseBlobStorageConnector(
 							accountName: createConfig?.options.config.accountName ?? "",
 							accountKey: createConfig?.options.config.accountKey ?? ""
 						}
-					},
-					createConfig.options
+					}
 				)
 			);
 		instanceTypeName = AzureBlobStorageConnector.NAMESPACE;

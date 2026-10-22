@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IFetchActionConstructorOptions } from "@twin.org/automation-actions";
+import type { IFetchActionConstructorOptions } from "@3sixty/automation-actions";
 import type { AutomationActionType } from "../types/automationActionType.js";
 
 /**

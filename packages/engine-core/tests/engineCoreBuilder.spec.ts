@@ -1,7 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { I18n } from "@twin.org/core";
-import { EngineCoreFactory, EngineLogLevel, type IEngineCoreClone } from "@twin.org/engine-models";
+import { I18n } from "@3sixty/core";
+import { EngineCoreFactory, EngineLogLevel, type IEngineCoreClone } from "@3sixty/engine-models";
 import locales from "../locales/en.json" with { type: "json" };
 import { EngineCore } from "../src/engineCore.js";
 import { EngineCoreBuilder } from "../src/utils/engineCoreBuilder.js";
@@ -59,6 +59,14 @@ describe("EngineCoreBuilder", () => {
 			types: ["nonExistentType"]
 		}) as unknown as EngineCore;
 		expect(result.getConfig().types).toEqual({});
+	});
+
+	test("passes facades option to populateClone", () => {
+		const facades = { component: [{ name: "marking", excludeTypes: ["^test-"] }] };
+		const result = EngineCoreBuilder.fromClone(INSTANCE_NAME, cloneData, undefined, {
+			facades
+		}) as unknown as EngineCore;
+		expect(result.getConfig().facades).toEqual(facades);
 	});
 
 	test("multiple calls produce separate engine core instances", () => {

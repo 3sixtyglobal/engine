@@ -11,7 +11,7 @@ import {
   InformationComponentType,
   RestRouteProcessorType,
   SocketRouteProcessorType
-} from '@twin.org/engine-server-types';
+} from '@3sixty/engine-server-types';
 
 const selectedTypes = {
   authentication: AuthenticationComponentType.Service,
@@ -28,14 +28,14 @@ console.log(selectedTypes.restProcessor); // "rest-route"
 ## IEngineServerConfig
 
 ```typescript
-import type { IEngineServerConfig } from '@twin.org/engine-server-types';
+import type { IEngineServerConfig } from '@3sixty/engine-server-types';
 import {
   AuthenticationComponentType,
   HostingComponentType,
   InformationComponentType,
   RestRouteProcessorType,
   SocketRouteProcessorType
-} from '@twin.org/engine-server-types';
+} from '@3sixty/engine-server-types';
 
 const serverConfig: IEngineServerConfig = {
   debug: true,

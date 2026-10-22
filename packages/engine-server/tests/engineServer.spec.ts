@@ -1,10 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import path from "node:path";
-import { ContextIdKeys, ContextIdStore } from "@twin.org/context";
-import { ComponentFactory, Factory, I18n } from "@twin.org/core";
-import { Engine } from "@twin.org/engine";
-import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
+import { ContextIdKeys, ContextIdStore } from "@3sixty/context";
+import { ComponentFactory, Factory, I18n } from "@3sixty/core";
+import { Engine } from "@3sixty/engine";
+import coreLocales from "@3sixty/engine-core/locales/en.json" with { type: "json" };
 import {
 	AuthenticationAdminComponentType,
 	AuthenticationAuditComponentType,
@@ -13,8 +14,9 @@ import {
 	InformationComponentType,
 	RestRouteProcessorType,
 	SocketRouteProcessorType,
+	WebServerType,
 	type IEngineServerConfig
-} from "@twin.org/engine-server-types";
+} from "@3sixty/engine-server-types";
 import {
 	AttestationComponentType,
 	AttestationConnectorType,
@@ -89,11 +91,12 @@ import {
 	TrustVerifierComponentType,
 	VaultConnectorType,
 	WalletConnectorType
-} from "@twin.org/engine-types";
-import engineTypesLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
-import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
-import type { IEntityStorageComponent } from "@twin.org/entity-storage-models";
-import { nameof } from "@twin.org/nameof";
+} from "@3sixty/engine-types";
+import engineTypesLocales from "@3sixty/engine-types/locales/en.json" with { type: "json" };
+import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@3sixty/entity";
+import type { IEntityStorageComponent } from "@3sixty/entity-storage-models";
+import { nameof } from "@3sixty/nameof";
+import { getFreePort } from "./setupTestEnv.js";
 import packageLocales from "../locales/en.json" with { type: "json" };
 import { EngineServer } from "../src/engineServer.js";
 import {
@@ -101,8 +104,7 @@ import {
 	addDefaultSocketPaths
 } from "../src/utils/engineServerConfigHelper.js";
 
-const basePort = Math.floor(Math.random() * 1000);
-let port = 13000 + basePort;
+let port: number;
 
 /**
  * Class representing information for a test entity.
@@ -124,7 +126,7 @@ describe("engine-server", () => {
 	});
 
 	beforeEach(async () => {
-		port++;
+		port = await getFreePort();
 
 		Factory.clearFactories();
 	});
@@ -135,6 +137,124 @@ describe("engine-server", () => {
 		await engineServer.start();
 		await engineServer.stop();
 		expect(engineServer).toBeDefined();
+	});
+
+	test("Can start engine server with hono web server", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				webServerType: WebServerType.Hono,
+				types: {
+					informationComponent: [
+						{
+							type: InformationComponentType.Service,
+							options: { config: { serverInfo: { name: "foo", version: "1" } } },
+							restPath: "/info"
+						}
+					]
+				},
+				web: { port }
+			}
+		});
+		const engineServer = new EngineServer({ engineCore: engine });
+		await engineServer.start();
+
+		const webServer = (await engine.getRegisteredComponents()).find(
+			c => c.instanceType === "webServer"
+		)?.component;
+		expect(webServer?.className()).toEqual("HonoWebServer");
+
+		const response = await fetch(`http://localhost:${port}/info`);
+		expect(response.status).toEqual(200);
+
+		await engineServer.stop();
+	});
+
+	test("Can start engine server with native web server", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				webServerType: WebServerType.Native,
+				types: {
+					informationComponent: [
+						{
+							type: InformationComponentType.Service,
+							options: { config: { serverInfo: { name: "foo", version: "1" } } },
+							restPath: "/info"
+						}
+					]
+				},
+				web: { port }
+			}
+		});
+		const engineServer = new EngineServer({ engineCore: engine });
+		await engineServer.start();
+
+		const webServer = (await engine.getRegisteredComponents()).find(
+			c => c.instanceType === "webServer"
+		)?.component;
+		expect(webServer?.className()).toEqual("NativeWebServer");
+
+		const response = await fetch(`http://localhost:${port}/info`);
+		expect(response.status).toEqual(200);
+
+		await engineServer.stop();
+	});
+
+	test("Fails to start engine server with unsupported web server type", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				webServerType: "foo" as WebServerType,
+				types: {},
+				web: { port }
+			}
+		});
+		const engineServer = new EngineServer({ engineCore: engine });
+
+		await expect(engineServer.start()).rejects.toMatchObject({
+			name: "GuardError",
+			properties: { property: "coreConfig.webServerType", value: "foo" }
+		});
+		expect(engine.isStarted()).toEqual(false);
+	});
+
+	test("Stops the engine when the web server fails to start", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: { missingRoutesComponent: [{ type: "service", restPath: "missing" }] },
+				web: { port }
+			}
+		});
+		const engineServer = new EngineServer({ engineCore: engine });
+		engineServer.addRestRouteGenerator(
+			"missingRoutesComponent",
+			"@3sixty/missing-routes-module",
+			"generateRestRoutes"
+		);
+
+		await expect(engineServer.start()).rejects.toThrow();
+		expect(engine.isStarted()).toEqual(false);
+	});
+
+	test("Stops the engine when the web server fails to stop", async () => {
+		const engine = new Engine({ config: { silent: true, types: {}, web: { port } } });
+		const engineServer = new EngineServer({ engineCore: engine });
+		await engineServer.start();
+
+		const webServer = (await engine.getRegisteredComponents()).find(
+			c => c.instanceType === "webServer"
+		)?.component;
+		const stopSpy = webServer ? vi.spyOn(webServer, "stop") : undefined;
+		stopSpy?.mockRejectedValueOnce(new Error("stop failed"));
+
+		await expect(engineServer.stop()).rejects.toThrow("stop failed");
+		expect(stopSpy).toHaveBeenCalled();
+		expect(engine.isStarted()).toEqual(false);
+
+		stopSpy?.mockRestore();
+		await webServer?.stop?.();
 	});
 
 	test("Can start engine server with custom rest path", async () => {
@@ -602,6 +722,7 @@ describe("engine-server", () => {
 			"GET      /mailbox/mail/:id",
 			"DELETE   /mailbox/mail/:id",
 			"GET      /mailbox/connectors/:connectorType/schema",
+			"GET      /mailbox/authcallback",
 			"POST     /mailbox",
 			"GET      /mailbox",
 			"GET      /mailbox/:id",

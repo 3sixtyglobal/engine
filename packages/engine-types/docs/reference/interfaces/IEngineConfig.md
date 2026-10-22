@@ -62,6 +62,24 @@ all
 
 ***
 
+### disableColor? {#disablecolor}
+
+> `optional` **disableColor?**: `boolean`
+
+Disable colour in the engine logger output.
+
+#### Default
+
+```ts
+false
+```
+
+#### Inherited from
+
+`IEngineCoreConfig.disableColor`
+
+***
+
 ### silentComponents? {#silentcomponents}
 
 > `optional` **silentComponents?**: `object`
@@ -86,6 +104,22 @@ The components to disable output for.
 
 ***
 
+### facades? {#facades}
+
+> `optional` **facades?**: `object`
+
+The facades to activate, keyed by the type name of the factory they apply to.
+
+#### Index Signature
+
+\[`factoryTypeName`: `string`\]: `IEngineFacadeConfig`[]
+
+#### Inherited from
+
+`IEngineCoreConfig.facades`
+
+***
+
 ### types {#types}
 
 > **types**: `object`
@@ -95,6 +129,12 @@ The types to initialise in the engine.
 #### Index Signature
 
 \[`type`: `string`\]: `IEngineCoreTypeConfig`[] \| `undefined`
+
+#### facade?
+
+> `optional` **facade?**: `IEngineCoreTypeConfig`\<[`FacadeConfig`](../type-aliases/FacadeConfig.md)\>[]
+
+Facade options, a facade wraps the instances a factory produces.
 
 #### loggingConnector?
 
@@ -143,6 +183,18 @@ Telemetry connector options which can be overridden by individual components by 
 > `optional` **telemetryComponent?**: `IEngineCoreTypeConfig`\<[`TelemetryComponentConfig`](../type-aliases/TelemetryComponentConfig.md)\>[]
 
 Telemetry component options which can be overridden by individual components by specifying types other than default.
+
+#### tracingConnector?
+
+> `optional` **tracingConnector?**: `IEngineCoreTypeConfig`\<[`TracingConnectorConfig`](../type-aliases/TracingConnectorConfig.md)\>[]
+
+Tracing connector options which can be overridden by individual components by specifying types other than default.
+
+#### tracingComponent?
+
+> `optional` **tracingComponent?**: `IEngineCoreTypeConfig`\<[`TracingComponentConfig`](../type-aliases/TracingComponentConfig.md)\>[]
+
+Tracing component options which can be overridden by individual components by specifying types other than default.
 
 #### metricsProducerComponent?
 

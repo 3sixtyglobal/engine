@@ -20,7 +20,6 @@ Builder class for creating engine core instances.
 
 Creates a new engine core instance populated from clone data.
 Registers the instance in EngineCoreFactory under the given instanceName.
-Safe to call from any V8 isolate (main thread or worker thread).
 
 #### Parameters
 
@@ -63,6 +62,12 @@ The types allowlist for the engine core instance.
 `string`[]
 
 The entity types allowlist for the engine core instance.
+
+###### facades?
+
+\{\[`factoryTypeName`: `string`\]: `IEngineFacadeConfig`[]; \}
+
+The facades for the engine core instance to activate, overriding those of the engine it was cloned from.
 
 #### Returns
 

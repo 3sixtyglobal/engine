@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { ISchemaVersionServiceConstructorOptions } from "@twin.org/entity-storage-service";
+import type { ISchemaVersionServiceConstructorOptions } from "@3sixty/entity-storage-service";
 import type { SchemaVersionMigrationComponentType } from "../types/schemaVersionMigrationComponentType.js";
 
 /**

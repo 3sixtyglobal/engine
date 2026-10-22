@@ -6,11 +6,13 @@ import {
 	ContextIdStore,
 	type IContextIdHandler,
 	type IContextIds
-} from "@twin.org/context";
+} from "@3sixty/context";
 import {
 	BaseError,
 	ComponentFactory,
 	ErrorHelper,
+	FacadeFactory,
+	Factory,
 	GeneralError,
 	Guards,
 	I18n,
@@ -18,7 +20,8 @@ import {
 	type IError,
 	Is,
 	ObjectHelper
-} from "@twin.org/core";
+} from "@3sixty/core";
+import { SchemaAliasHelper } from "@3sixty/data-core";
 import {
 	EngineCloneMode,
 	EngineLogLevel,
@@ -28,22 +31,24 @@ import {
 	type IEngineCoreConfig,
 	type IEngineCoreContext,
 	type IEngineCoreTypeConfig,
+	type IEngineFacadeConfig,
 	type IEngineState,
 	type IEngineStateStorage
-} from "@twin.org/engine-models";
-import { EntitySchemaFactory, type IEntitySchema } from "@twin.org/entity";
-import { ConsoleLoggingConnector } from "@twin.org/logging-connector-console";
+} from "@3sixty/engine-models";
+import { EntitySchemaFactory, type IEntitySchema } from "@3sixty/entity";
+import { ConsoleLoggingConnector } from "@3sixty/logging-connector-console";
 import {
 	type ILoggingComponent,
 	type ILoggingConnector,
 	LoggingConnectorFactory,
 	LogLevel,
 	SilentLoggingConnector
-} from "@twin.org/logging-models";
-import { LoggingService } from "@twin.org/logging-service";
-import { ModuleHelper } from "@twin.org/modules";
-import { nameof, nameofCamelCase } from "@twin.org/nameof";
+} from "@3sixty/logging-models";
+import { LoggingService } from "@3sixty/logging-service";
+import { ModuleHelper } from "@3sixty/modules";
+import { nameof, nameofCamelCase } from "@3sixty/nameof";
 import type { IEngineCoreOptions } from "./models/IEngineCoreOptions.js";
+import type { IEngineCoreResolvedType } from "./models/IEngineCoreResolvedType.js";
 import { MemoryStateStorage } from "./storage/memoryStateStorage.js";
 
 /**
@@ -124,6 +129,18 @@ export class EngineCore<
 	private _isClone: boolean;
 
 	/**
+	 * The facades activated by this engine, so they can be deactivated if the start fails.
+	 * @internal
+	 */
+	private _activatedFacades: { factory: Factory<unknown>; facadeName: string }[];
+
+	/**
+	 * Has start been called on the engine, used to release the instances before a restart.
+	 * @internal
+	 */
+	private _hasStartBeenAttempted: boolean;
+
+	/**
 	 * Add type initialisers to the engine.
 	 * @internal
 	 */
@@ -168,6 +185,8 @@ export class EngineCore<
 		this._stateStorage = options.stateStorage;
 		this._isStarted = false;
 		this._isClone = false;
+		this._activatedFacades = [];
+		this._hasStartBeenAttempted = false;
 
 		if (Is.function(this._populateTypeInitialisers)) {
 			this._populateTypeInitialisers(this, this._context);
@@ -253,6 +272,13 @@ export class EngineCore<
 	 */
 	public async start(skipComponentStart?: boolean): Promise<void> {
 		if (!this._isStarted) {
+			// Every type is constructed again on each start, so the instances from a previous
+			// start are released, otherwise they would be started alongside the new ones.
+			if (this._hasStartBeenAttempted) {
+				this.releaseInstances();
+			}
+			this._hasStartBeenAttempted = true;
+
 			this.setupEngineLogger();
 			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.starting`));
 
@@ -264,8 +290,23 @@ export class EngineCore<
 			try {
 				await this.stateLoad();
 
+				// Resolving every type before anything is constructed, so a component
+				// can be handed the name of one which is initialised after it.
+				const resolvedTypes: IEngineCoreResolvedType[] = [];
 				for (const { type, module, method } of this._typeInitialisers) {
-					await this.initialiseTypeConfig(type, module, method);
+					resolvedTypes.push(...(await this.resolveTypeConfig(type, module, method)));
+				}
+
+				// The facades are constructed and activated before any other component,
+				// so components are wrapped by the facades.
+				for (const resolved of resolvedTypes.filter(r => r.typeKey === "facade")) {
+					this.constructTypeConfig(resolved);
+				}
+
+				this.activateFacades();
+
+				for (const resolved of resolvedTypes.filter(r => r.typeKey !== "facade")) {
+					this.constructTypeConfig(resolved);
 				}
 
 				this.initialiseContextIdHandlers();
@@ -366,6 +407,9 @@ export class EngineCore<
 				await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.started`));
 			} catch (err) {
 				await this.stop();
+				// Stop only deactivates the facades of a started engine, so a failure before
+				// the engine is marked as started deactivates them here.
+				this.deactivateFacades();
 				await this.logError(BaseError.fromError(err));
 				throw err;
 			} finally {
@@ -419,6 +463,10 @@ export class EngineCore<
 					}
 				}
 			});
+
+			// The facades are applied to shared factories, so they must not stay active once
+			// the engine has stopped.
+			this.deactivateFacades();
 
 			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.componentsStopped`));
 			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.stopped`));
@@ -654,9 +702,10 @@ export class EngineCore<
 		const cloneData: IEngineCoreClone<C, S> = {
 			config: { ...sourceConfig, types: cloneTypes },
 			state: ObjectHelper.clone(this._context.state),
-			typeInitialisers: this._typeInitialisers,
+			typeInitialisers: ObjectHelper.clone(this._typeInitialisers),
 			entitySchemas,
-			contextIdKeys: this._contextIdKeys
+			contextIdKeys: ObjectHelper.clone(this._contextIdKeys),
+			schemaAliases: ObjectHelper.clone(SchemaAliasHelper.getAliases())
 		};
 
 		return cloneData;
@@ -670,11 +719,19 @@ export class EngineCore<
 	 * @param options.logLevel The log level for the clone, true maps to error level.
 	 * @param options.types An optional allowlist of type keys to include; when omitted all types are cloned.
 	 * @param options.entityTypes An optional allowlist of entity type names; when provided only those entity schemas and their associated storage components are cloned.
+	 * @param options.facades An optional override for the facades the clone activates.
 	 */
 	public populateClone(
 		cloneData: IEngineCoreClone<C, S>,
 		contextIds?: IContextIds,
-		options?: boolean | { logLevel?: EngineLogLevel; types?: string[]; entityTypes?: string[] }
+		options?:
+			| boolean
+			| {
+					logLevel?: EngineLogLevel;
+					types?: string[];
+					entityTypes?: string[];
+					facades?: { [factoryTypeName: string]: IEngineFacadeConfig[] };
+			  }
 	): void {
 		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData), cloneData);
 		Guards.object(EngineCore.CLASS_NAME, nameof(cloneData.config), cloneData.config);
@@ -690,6 +747,9 @@ export class EngineCore<
 
 		let optionsEntityTypes: string[] | undefined;
 		let optionsTypes: string[] | undefined;
+		let optionsFacades: { [factoryTypeName: string]: IEngineFacadeConfig[] } | undefined;
+		// The clone data can be shared by several clones, so it is never modified.
+		let cloneLogLevel = cloneData.config.logLevel;
 		if (Is.object(options)) {
 			if (Is.notEmpty(options.logLevel)) {
 				const logLevel = options.logLevel;
@@ -699,12 +759,13 @@ export class EngineCore<
 					logLevel,
 					Object.values(EngineLogLevel)
 				);
-				cloneData.config.logLevel = logLevel;
+				cloneLogLevel = logLevel;
 			}
 			optionsEntityTypes = options.entityTypes;
 			optionsTypes = options.types;
+			optionsFacades = options.facades;
 		} else if (options === true) {
-			cloneData.config.logLevel = EngineLogLevel.Error;
+			cloneLogLevel = EngineLogLevel.Error;
 		}
 
 		let cloneEntitySchemas = cloneData.entitySchemas;
@@ -731,7 +792,11 @@ export class EngineCore<
 			}
 		}
 
-		let cloneConfig: IEngineCoreConfig = { ...cloneData.config, types: partialTypes };
+		let cloneConfig: IEngineCoreConfig = {
+			...cloneData.config,
+			logLevel: cloneLogLevel,
+			types: partialTypes
+		};
 
 		if (Is.arrayValue(optionsEntityTypes)) {
 			const filteredSchemas: { [schema: string]: IEntitySchema } = {};
@@ -754,7 +819,11 @@ export class EngineCore<
 					filteredTypes[typeKey] = kept;
 				}
 			}
-			cloneConfig = { ...cloneData.config, types: filteredTypes };
+			cloneConfig = { ...cloneData.config, logLevel: cloneLogLevel, types: filteredTypes };
+		}
+
+		if (Is.object(optionsFacades)) {
+			cloneConfig = { ...cloneConfig, facades: optionsFacades };
 		}
 
 		this._context = {
@@ -766,34 +835,46 @@ export class EngineCore<
 		};
 
 		const includedTypeKeys = new Set(Object.keys(partialTypes));
-		this._typeInitialisers = Is.arrayValue(optionsTypes)
-			? cloneData.typeInitialisers.filter(t => includedTypeKeys.has(t.type))
-			: cloneData.typeInitialisers;
-		this._contextIdKeys.push(...cloneData.contextIdKeys);
+		this._typeInitialisers = ObjectHelper.clone(
+			Is.arrayValue(optionsTypes)
+				? cloneData.typeInitialisers.filter(t => includedTypeKeys.has(t.type))
+				: cloneData.typeInitialisers
+		);
+		for (const contextIdKey of ObjectHelper.clone(cloneData.contextIdKeys)) {
+			this.addContextIdKey(contextIdKey.key, contextIdKey.componentFeatures);
+		}
 		this._contextIds = contextIds;
 
 		for (const schemaName of Object.keys(cloneEntitySchemas)) {
 			EntitySchemaFactory.register(schemaName, () => cloneEntitySchemas[schemaName]);
 		}
 
-		this._stateStorage = new MemoryStateStorage(true, cloneData.state);
+		if (Is.array(cloneData.schemaAliases)) {
+			SchemaAliasHelper.setAliases(ObjectHelper.clone(cloneData.schemaAliases));
+		}
+
+		this._stateStorage = new MemoryStateStorage(true, ObjectHelper.clone(cloneData.state));
 		this._isStarted = false;
+		this._hasStartBeenAttempted = false;
 	}
 
 	/**
-	 * Initialise the types from connector.
-	 * @param typeKey The key for the default types.
+	 * Resolve the instances for a type without constructing them, recording the instance types so
+	 * that they can be looked up before anything is constructed.
+	 * @param typeKey The key of the type to resolve.
 	 * @param module The module containing the initialiser.
-	 * @param method The method to initialise the instance.
-	 * @returns A promise that resolves when the type configuration has been initialised.
+	 * @param method The initialiser method in the module.
+	 * @returns The resolved instances for the type.
 	 * @internal
 	 */
-	private async initialiseTypeConfig(
+	private async resolveTypeConfig(
 		typeKey: string,
 		module: string,
 		method: string
-	): Promise<void> {
+	): Promise<IEngineCoreResolvedType[]> {
 		const typeConfig: IEngineCoreTypeConfig[] | undefined = this._context.config.types?.[typeKey];
+
+		const resolved: IEngineCoreResolvedType[] = [];
 
 		if (Is.arrayValue(typeConfig)) {
 			const instanceMethod = await ModuleHelper.getModuleEntry<EngineTypeInitialiser>(
@@ -810,47 +891,62 @@ export class EngineCore<
 				);
 
 				const result = instanceMethod(this, this._context, typeConfig[i]);
-				const componentCreateMethod = result.createComponent;
 
-				if (Is.stringValue(result.instanceTypeName) && Is.function(componentCreateMethod)) {
-					const finalInstanceType = typeConfig[i].overrideInstanceType ?? result.instanceTypeName;
-
-					// If this is a multi instance component we need to make sure we
-					// generate a unique instance for every factory call
-					// this is often used for REST clients where each instance might
-					// use a different endpoint url
-					// They are generated using the create method of factory
-					// passing custom options, instead of the regular get method
-					// which doesn't allow for custom options
-					if (typeConfig[i].isMultiInstance ?? false) {
-						result.factory?.register(finalInstanceType, params =>
-							componentCreateMethod({
-								type: typeConfig[i].type,
-								options: params
-							})
-						);
-					} else {
-						const component = componentCreateMethod(typeConfig[i]);
-						this._context.componentInstances.push({
-							instanceType: finalInstanceType,
-							component,
-							initialised: false
-						});
-						result.factory?.register(finalInstanceType, () => component);
-					}
-
-					this._context.registeredInstances[typeKey] ??= [];
-					this._context.registeredInstances[typeKey].push({
-						type: finalInstanceType,
-						isDefault: typeConfig[i].isDefault,
-						features: typeConfig[i].features
-					});
-				} else {
+				if (!Is.stringValue(result.instanceTypeName) || !Is.function(result.createComponent)) {
 					throw new GeneralError("engineCore", "componentUnknownType", {
 						type: typeConfig[i].type,
 						componentType: typeKey
 					});
 				}
+
+				const finalInstanceType = typeConfig[i].overrideInstanceType ?? result.instanceTypeName;
+
+				resolved.push({ typeKey, typeConfig: typeConfig[i], result, finalInstanceType });
+
+				this._context.registeredInstances[typeKey] ??= [];
+				this._context.registeredInstances[typeKey].push({
+					type: finalInstanceType,
+					isDefault: typeConfig[i].isDefault,
+					features: typeConfig[i].features
+				});
+			}
+		}
+
+		return resolved;
+	}
+
+	/**
+	 * Construct the instance for a resolved type and register it with its factory.
+	 * @param resolved The resolved type to construct.
+	 * @internal
+	 */
+	private constructTypeConfig(resolved: IEngineCoreResolvedType): void {
+		const { typeConfig, result, finalInstanceType } = resolved;
+		const componentCreateMethod = result.createComponent;
+
+		if (Is.function(componentCreateMethod)) {
+			// If this is a multi instance component we need to make sure we
+			// generate a unique instance for every factory call
+			// this is often used for REST clients where each instance might
+			// use a different endpoint url
+			// They are generated using the create method of factory
+			// passing custom options, instead of the regular get method
+			// which doesn't allow for custom options
+			if (typeConfig.isMultiInstance ?? false) {
+				result.factory?.register(finalInstanceType, params =>
+					componentCreateMethod({
+						type: typeConfig.type,
+						options: params
+					})
+				);
+			} else {
+				const component = componentCreateMethod(typeConfig);
+				this._context.componentInstances.push({
+					instanceType: finalInstanceType,
+					component,
+					initialised: false
+				});
+				result.factory?.register(finalInstanceType, () => component);
 			}
 		}
 	}
@@ -878,6 +974,7 @@ export class EngineCore<
 				config: {
 					translateMessages: true,
 					hideGroups: true,
+					disableColor: this._context.config.disableColor ?? false,
 					levels
 				}
 			});
@@ -953,10 +1050,13 @@ export class EngineCore<
 	 */
 	private async stateSave(): Promise<void> {
 		if (this._stateStorage && Is.notEmpty(this._context.state) && this._context.stateDirty) {
+			// Cleared before saving, so a change marked dirty while the save is in progress is
+			// kept for the next save instead of being discarded.
+			this._context.stateDirty = false;
 			try {
 				await this._stateStorage.save(this, this._context.state);
-				this._context.stateDirty = false;
 			} catch (err) {
+				this._context.stateDirty = true;
 				await this.logError(BaseError.fromError(err));
 			}
 		}
@@ -1000,6 +1100,122 @@ export class EngineCore<
 			}
 
 			await this.logInfo(I18n.formatMessage(`${nameofCamelCase<EngineCore>()}.bootstrapComplete`));
+		}
+	}
+
+	/**
+	 * Activate the configured facades on the factories they apply to.
+	 * @throws GeneralError if a facade, a factory, or an exclude pattern named in the configuration
+	 * is not valid.
+	 * @internal
+	 */
+	private activateFacades(): void {
+		const facades = this._context.config.facades;
+		this._activatedFacades = [];
+
+		if (Is.empty(facades)) {
+			return;
+		}
+
+		// The whole configuration is resolved before any of it is applied, as the factories are
+		// shared, so a failure part way through would otherwise leave the factories already walked
+		// with their facades active.
+		const resolved: {
+			factory: Factory<unknown>;
+			facadeName: string;
+			excludeTypes?: RegExp[];
+		}[] = [];
+
+		for (const factoryTypeName of Object.keys(facades)) {
+			const factory = Factory.getFactory(factoryTypeName);
+
+			if (Is.empty(factory)) {
+				throw new GeneralError(EngineCore.CLASS_NAME, "facadeFactoryUnknown", {
+					factoryTypeName,
+					facades: facades[factoryTypeName].map(f => f.name).join(", ")
+				});
+			}
+
+			for (const facade of facades[factoryTypeName]) {
+				// Wrapping the facades themselves would mean resolving a facade in order to apply it.
+				if (factory.typeName() === FacadeFactory.typeName()) {
+					throw new GeneralError(EngineCore.CLASS_NAME, "facadeOnFacadeFactory", {
+						facadeName: facade.name,
+						factoryTypeName
+					});
+				}
+
+				if (!FacadeFactory.hasName(facade.name)) {
+					throw new GeneralError(EngineCore.CLASS_NAME, "facadeUnknown", {
+						facadeName: facade.name,
+						factoryTypeName
+					});
+				}
+
+				resolved.push({
+					factory,
+					facadeName: facade.name,
+					// The config carries the patterns as strings, as it is serialisable.
+					excludeTypes: facade.excludeTypes?.map(excludeType =>
+						this.compileFacadeExcludeType(excludeType, facade.name, factoryTypeName)
+					)
+				});
+			}
+		}
+
+		for (const { factory, facadeName, excludeTypes } of resolved) {
+			factory.useFacade(facadeName, excludeTypes);
+			this._activatedFacades.push({ factory, facadeName });
+		}
+	}
+
+	/**
+	 * Deactivate the facades this engine activated.
+	 * @internal
+	 */
+	private deactivateFacades(): void {
+		for (const { factory, facadeName } of this._activatedFacades) {
+			factory.unuseFacade(facadeName);
+		}
+		this._activatedFacades = [];
+	}
+
+	/**
+	 * Release the component instances and registrations made during start.
+	 * @internal
+	 */
+	private releaseInstances(): void {
+		this._context.componentInstances = [];
+		this._context.registeredInstances = {};
+	}
+
+	/**
+	 * Compile an exclude pattern from the facade configuration.
+	 * @param excludeType The pattern from the configuration.
+	 * @param facadeName The facade the pattern belongs to, used to report where it came from.
+	 * @param factoryTypeName The factory the facade applies to, used to report where it came from.
+	 * @returns The compiled pattern.
+	 * @throws GeneralError if the pattern is not a valid regular expression.
+	 * @internal
+	 */
+	private compileFacadeExcludeType(
+		excludeType: string,
+		facadeName: string,
+		factoryTypeName: string
+	): RegExp {
+		try {
+			return new RegExp(excludeType);
+		} catch (err) {
+			throw new GeneralError(
+				EngineCore.CLASS_NAME,
+				"facadeExcludeTypeInvalid",
+				{
+					excludeType,
+					facadeName,
+					factoryTypeName
+				},
+				BaseError.fromError(err)
+			);
 		}
 	}
 

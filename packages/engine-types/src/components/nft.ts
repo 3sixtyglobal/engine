@@ -1,23 +1,23 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory } from "@twin.org/core";
-import type { IComponent } from "@twin.org/core";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import { ComponentFactory } from "@3sixty/core";
+import type { IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import {
 	EntityStorageNftConnector,
 	initSchema,
 	type Nft
-} from "@twin.org/nft-connector-entity-storage";
-import { IotaNftConnector } from "@twin.org/nft-connector-iota";
-import { NftConnectorFactory } from "@twin.org/nft-models";
-import { NftRestClient } from "@twin.org/nft-rest-client";
-import { NftService } from "@twin.org/nft-service";
+} from "@3sixty/nft-connector-entity-storage";
+import { IotaNftConnector } from "@3sixty/nft-connector-iota";
+import { NftConnectorFactory } from "@3sixty/nft-models";
+import { NftRestClient } from "@3sixty/nft-rest-client";
+import { NftService } from "@3sixty/nft-service";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { DltConfig } from "../models/config/dltConfig.js";
 import type { NftComponentConfig } from "../models/config/nftComponentConfig.js";

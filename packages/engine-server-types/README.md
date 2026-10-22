@@ -1,11 +1,11 @@
-# TWIN Engine Server Types
+# 3Sixty Engine Server Types
 
 Engine Server Types defines server-focused component and processor types for hosting and API route handling. It provides the configuration model for building predictable REST and socket integration behaviour.
 
 ## Installation
 
 ```shell
-npm install @twin.org/engine-server-types
+npm install @3sixty/engine-server-types
 ```
 
 ## Examples
@@ -19,3 +19,7 @@ Detailed reference documentation for the API can be found in [docs/reference/ind
 ## Changelog
 
 The changes between each version can be found in [docs/changelog.md](docs/changelog.md)
+
+## Origin
+
+This package is derived from the original [iotaledger/twin-engine](https://github.com/iotaledger/twin-engine/tree/next/packages/engine-server-types) repository.

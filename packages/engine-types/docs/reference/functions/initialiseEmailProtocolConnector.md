@@ -1,6 +1,6 @@
 # Function: initialiseEmailProtocolConnector()
 
-> **initialiseEmailProtocolConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`EmailProtocolConnectorConfig`](../type-aliases/EmailProtocolConnectorConfig.md), `Factory`\<`IEmailProtocolConnector`\<`unknown`\>\>\>
+> **initialiseEmailProtocolConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`EmailProtocolConnectorConfig`](../type-aliases/EmailProtocolConnectorConfig.md), `Factory`\<`IEmailProtocolConnector`\<`unknown`, `IEmailProtocolConnectorAuthState`\>\>\>
 
 Initialise an email protocol connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`EmailProtocolConnectorConfig`](../type-aliases/EmailProtocolConnectorConfig.md), `Factory`\<`IEmailProtocolConnector`\<`unknown`\>\>\>
+`EngineTypeInitialiserReturn`\<[`EmailProtocolConnectorConfig`](../type-aliases/EmailProtocolConnectorConfig.md), `Factory`\<`IEmailProtocolConnector`\<`unknown`, `IEmailProtocolConnectorAuthState`\>\>\>
 
 The instance created and the factory for it.

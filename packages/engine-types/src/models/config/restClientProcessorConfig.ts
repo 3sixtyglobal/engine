@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { ITracingRestClientProcessorConstructorOptions } from "@twin.org/tracing-processors";
+import type { ITracingRestClientProcessorConstructorOptions } from "@3sixty/tracing-processors";
 import type { RestClientProcessorType } from "../types/restClientProcessorType.js";
 
 /**

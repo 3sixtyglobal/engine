@@ -1,4 +1,8 @@
-# @twin.org/engine-models
+# @3sixty/engine-models
+
+## Classes
+
+- [EngineCloneHelper](classes/EngineCloneHelper.md)
 
 ## Interfaces
 
@@ -10,6 +14,7 @@
 - [IEngineStateStorage](interfaces/IEngineStateStorage.md)
 - [IEngineCoreConfig](interfaces/IEngineCoreConfig.md)
 - [IEngineCoreTypeBaseConfig](interfaces/IEngineCoreTypeBaseConfig.md)
+- [IEngineFacadeConfig](interfaces/IEngineFacadeConfig.md)
 - [IEngineModuleConfig](interfaces/IEngineModuleConfig.md)
 - [EngineTypeInitialiserReturn](interfaces/EngineTypeInitialiserReturn.md)
 

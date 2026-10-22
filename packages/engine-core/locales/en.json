@@ -6,7 +6,11 @@
 			"componentStartFailed": "Failed to start component type \"{className}\" with instance type \"{instanceType}\"",
 			"componentStopFailed": "Failed to stop component type \"{className}\" with instance type \"{instanceType}\"",
 			"instanceTypeNotFound": "Instance type not found for \"{type}\"",
-			"instanceTypeNotFoundWithFeatures": "Instance type not found for \"{type}\" with features \"{features}\""
+			"instanceTypeNotFoundWithFeatures": "Instance type not found for \"{type}\" with features \"{features}\"",
+			"facadeFactoryUnknown": "The facades \"{facades}\" cannot be applied because there is no factory with the type name \"{factoryTypeName}\"",
+			"facadeUnknown": "The facade \"{facadeName}\" is not registered, so it cannot be applied to the \"{factoryTypeName}\" factory",
+			"facadeOnFacadeFactory": "The facade \"{facadeName}\" cannot be applied to the \"{factoryTypeName}\" factory, as it is the factory the facades themselves are resolved from",
+			"facadeExcludeTypeInvalid": "The exclude type \"{excludeType}\" for the facade \"{facadeName}\" on the \"{factoryTypeName}\" factory is not a valid regular expression"
 		},
 		"fileStateStorage": {
 			"failedLoading": "Failed to load file state storage from \"{filename}\"",

@@ -1,1 +1,7 @@
-{}
+{
+	"error": {
+		"engineCloneHelper": {
+			"invalidExcludeCloneComponent": "The exclude clone component pattern \"{pattern}\" is not a valid regular expression"
+		}
+	}
+}

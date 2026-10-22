@@ -1,22 +1,22 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import type { IComponent } from "@twin.org/core";
-import { ComponentFactory } from "@twin.org/core";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import type { IComponent } from "@3sixty/core";
+import { ComponentFactory } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
+} from "@3sixty/engine-models";
 import {
 	EntityStorageIdentityProfileConnector,
 	initSchema as initSchemaIdentityStorage,
 	type IdentityProfile
-} from "@twin.org/identity-connector-entity-storage";
-import { IdentityProfileConnectorFactory } from "@twin.org/identity-models";
-import { IdentityProfileRestClient } from "@twin.org/identity-rest-client";
-import { IdentityProfileService } from "@twin.org/identity-service";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/identity-connector-entity-storage";
+import { IdentityProfileConnectorFactory } from "@3sixty/identity-models";
+import { IdentityProfileRestClient } from "@3sixty/identity-rest-client";
+import { IdentityProfileService } from "@3sixty/identity-service";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { IdentityProfileComponentConfig } from "../models/config/identityProfileComponentConfig.js";
 import type { IdentityProfileConnectorConfig } from "../models/config/identityProfileConnectorConfig.js";

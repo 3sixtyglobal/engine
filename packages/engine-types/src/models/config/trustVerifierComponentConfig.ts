@@ -3,7 +3,7 @@
 import type {
 	IIdentityAllowDenyVerifierConstructorOptions,
 	IJwtVerifiableCredentialVerifierConstructorOptions
-} from "@twin.org/trust-verifiers";
+} from "@3sixty/trust-verifiers";
 import type { TrustVerifierComponentType } from "../types/trustVerifierComponentType.js";
 
 /**

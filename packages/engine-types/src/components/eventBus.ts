@@ -1,16 +1,16 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, type IComponent } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { LocalEventBusConnector } from "@twin.org/event-bus-connector-local";
-import { EventBusConnectorFactory } from "@twin.org/event-bus-models";
-import { EventBusService } from "@twin.org/event-bus-service";
-import { EventBusSocketClient } from "@twin.org/event-bus-socket-client";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/engine-models";
+import { LocalEventBusConnector } from "@3sixty/event-bus-connector-local";
+import { EventBusConnectorFactory } from "@3sixty/event-bus-models";
+import { EventBusService } from "@3sixty/event-bus-service";
+import { EventBusSocketClient } from "@3sixty/event-bus-socket-client";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import type { EventBusComponentConfig } from "../models/config/eventBusComponentConfig.js";
 import type { EventBusConnectorConfig } from "../models/config/eventBusConnectorConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";

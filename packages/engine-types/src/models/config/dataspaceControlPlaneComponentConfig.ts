@@ -1,7 +1,7 @@
 // Copyright 2025 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IBaseRestClientConfig } from "@twin.org/api-models";
-import type { IDataspaceControlPlaneServiceConstructorOptions } from "@twin.org/dataspace-control-plane-service";
+import type { IBaseRestClientConfig } from "@3sixty/api-models";
+import type { IDataspaceControlPlaneServiceConstructorOptions } from "@3sixty/dataspace-control-plane-service";
 import type { DataspaceControlPlaneComponentType } from "../types/dataspaceControlPlaneComponentType.js";
 
 /**

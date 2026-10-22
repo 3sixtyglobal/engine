@@ -1,11 +1,11 @@
-# TWIN Engine Models
+# 3Sixty Engine Models
 
 Engine Models defines shared contracts and factories used to compose runtime behaviour across the repository. It provides stable interfaces for core and server implementations so packages can interoperate with a clear and predictable structure.
 
 ## Installation
 
 ```shell
-npm install @twin.org/engine-models
+npm install @3sixty/engine-models
 ```
 
 ## Examples
@@ -19,3 +19,7 @@ Detailed reference documentation for the API can be found in [docs/reference/ind
 ## Changelog
 
 The changes between each version can be found in [docs/changelog.md](docs/changelog.md)
+
+## Origin
+
+This package is derived from the original [iotaledger/twin-engine](https://github.com/iotaledger/twin-engine/tree/next/packages/engine-models) repository.

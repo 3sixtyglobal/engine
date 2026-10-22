@@ -1,4 +1,4 @@
-# TWIN Engine
+# 3Sixty Engine
 
 This repository provides a modular engine stack for building, configuring, and running services through a consistent set of runtime, model, and type packages. Each package has a focused responsibility, from shared contracts and core lifecycle orchestration through to server routing and fully assembled runtime entry points.
 
@@ -16,3 +16,7 @@ Together, the packages are designed to reduce integration effort across environm
 ## Contributing
 
 To contribute to this package see the guidelines for building and publishing in [CONTRIBUTING](./CONTRIBUTING.md)
+
+## Origin
+
+This repository is derived from the original [iotaledger/twin-engine](https://github.com/iotaledger/twin-engine) repository.

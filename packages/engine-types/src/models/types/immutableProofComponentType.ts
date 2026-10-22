@@ -20,5 +20,5 @@ export const ImmutableProofComponentType = {
 /**
  * Immutable proof component types.
  */
-export type IImmutableProofComponentType =
+export type ImmutableProofComponentType =
 	(typeof ImmutableProofComponentType)[keyof typeof ImmutableProofComponentType];

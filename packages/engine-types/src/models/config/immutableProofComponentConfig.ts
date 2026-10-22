@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IBaseRestClientConfig } from "@twin.org/api-models";
-import type { IImmutableProofServiceConstructorOptions } from "@twin.org/immutable-proof-service";
+import type { IBaseRestClientConfig } from "@3sixty/api-models";
+import type { IImmutableProofServiceConstructorOptions } from "@3sixty/immutable-proof-service";
 import type { ImmutableProofComponentType } from "../types/immutableProofComponentType.js";
 
 /**

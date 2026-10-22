@@ -1,12 +1,13 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IContextIds } from "@twin.org/context";
+import type { IContextIds } from "@3sixty/context";
 import {
 	EngineCoreFactory,
 	type IEngineCore,
 	type IEngineCoreClone,
+	type IEngineFacadeConfig,
 	type EngineLogLevel
-} from "@twin.org/engine-models";
+} from "@3sixty/engine-models";
 import { EngineCore } from "../engineCore.js";
 
 /**
@@ -16,7 +17,6 @@ export class EngineCoreBuilder {
 	/**
 	 * Creates a new engine core instance populated from clone data.
 	 * Registers the instance in EngineCoreFactory under the given instanceName.
-	 * Safe to call from any V8 isolate (main thread or worker thread).
 	 * @param instanceName The name to register the engine under in EngineCoreFactory.
 	 * @param cloneData The serialized clone data from the source engine.
 	 * @param contextIds Optional context IDs to apply during population.
@@ -24,13 +24,19 @@ export class EngineCoreBuilder {
 	 * @param options.logLevel The log level to use for the engine core instance.
 	 * @param options.types The types allowlist for the engine core instance.
 	 * @param options.entityTypes The entity types allowlist for the engine core instance.
+	 * @param options.facades The facades for the engine core instance to activate, overriding those of the engine it was cloned from.
 	 * @returns The populated engine core instance.
 	 */
 	public static fromClone(
 		instanceName: string,
 		cloneData: IEngineCoreClone,
 		contextIds?: IContextIds,
-		options?: { logLevel?: EngineLogLevel; types?: string[]; entityTypes?: string[] }
+		options?: {
+			logLevel?: EngineLogLevel;
+			types?: string[];
+			entityTypes?: string[];
+			facades?: { [factoryTypeName: string]: IEngineFacadeConfig[] };
+		}
 	): IEngineCore {
 		const engineCore = new EngineCore();
 		engineCore.populateClone(cloneData, contextIds, options);

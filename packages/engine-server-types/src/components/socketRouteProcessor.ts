@@ -4,27 +4,26 @@ import {
 	AuthHeaderProcessor,
 	initSchema as initSchemaAuthEntityStorage,
 	type AuthenticationUser
-} from "@twin.org/api-auth-entity-storage-service";
-import { TenantOverrideProcessor } from "@twin.org/api-auth-service";
-import { SocketRouteProcessorFactory } from "@twin.org/api-models";
+} from "@3sixty/api-auth-entity-storage-service";
+import { TenantOverrideProcessor } from "@3sixty/api-auth-service";
+import { SocketRouteProcessorFactory } from "@3sixty/api-models";
 import {
 	ContextIdProcessor,
 	LoggingProcessor,
 	SocketRouteProcessor,
 	StaticContextIdProcessor
-} from "@twin.org/api-processors";
-import { SingleTenantProcessor, TenantProcessor } from "@twin.org/api-tenant-processor";
-import { AuthorizationRouteProcessor } from "@twin.org/authorization-service";
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import type { IComponent } from "@twin.org/core";
+} from "@3sixty/api-processors";
+import { SingleTenantProcessor, TenantProcessor } from "@3sixty/api-tenant-processor";
+import { AuthorizationRouteProcessor } from "@3sixty/authorization-service";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import type { IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { EngineTypeHelper, initialiseEntityStorageConnector } from "@twin.org/engine-types";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { initTenantStorage } from "./restRouteProcessor.js";
+} from "@3sixty/engine-models";
+import { EngineTypeHelper, initialiseEntityStorageConnector } from "@3sixty/engine-types";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import type { SocketRouteProcessorConfig } from "../models/config/socketRouteProcessorConfig.js";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
 import { SocketRouteProcessorType } from "../models/types/socketRouteProcessorType.js";
@@ -115,11 +114,11 @@ export function initialiseSocketRouteProcessorComponent(
 			);
 		instanceTypeName = nameofKebabCase(SocketRouteProcessor);
 	} else if (instanceConfig.type === SocketRouteProcessorType.Tenant) {
-		createComponent = (createConfig: typeof instanceConfig) => {
-			initTenantStorage(engineCore, context, createConfig?.options?.tenantEntityStorageType);
-			return new TenantProcessor(
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new TenantProcessor(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
+						tenantAdminComponentType: engineCore.getRegisteredInstanceType("tenantAdminComponent"),
 						config: {
 							includeErrorStack: context.config.debug
 						}
@@ -127,7 +126,6 @@ export function initialiseSocketRouteProcessorComponent(
 					createConfig.options
 				)
 			);
-		};
 		instanceTypeName = nameofKebabCase(TenantProcessor);
 	} else if (instanceConfig.type === SocketRouteProcessorType.SingleTenant) {
 		createComponent = (createConfig: typeof instanceConfig) =>

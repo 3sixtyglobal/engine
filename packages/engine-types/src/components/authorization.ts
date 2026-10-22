@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { CasbinAuthorizationConnector } from "@twin.org/authorization-connector-casbin";
+import { CasbinAuthorizationConnector } from "@3sixty/authorization-connector-casbin";
 import {
 	EntityStorageAuthorizationConnector,
 	initSchema,
@@ -8,19 +8,19 @@ import {
 	type AuthorizationRoleAssignment,
 	type AuthorizationRoleInheritance,
 	type AuthorizationRoleName
-} from "@twin.org/authorization-connector-entity-storage";
-import { AuthorizationConnectorFactory } from "@twin.org/authorization-models";
-import { AuthorizationRestClient } from "@twin.org/authorization-rest-client";
-import { AuthorizationService } from "@twin.org/authorization-service";
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import type { IComponent } from "@twin.org/core";
-import { ComponentFactory } from "@twin.org/core";
+} from "@3sixty/authorization-connector-entity-storage";
+import { AuthorizationConnectorFactory } from "@3sixty/authorization-models";
+import { AuthorizationRestClient } from "@3sixty/authorization-rest-client";
+import { AuthorizationService } from "@3sixty/authorization-service";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import type { IComponent } from "@3sixty/core";
+import { ComponentFactory } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { AuthorizationComponentConfig } from "../models/config/authorizationComponentConfig.js";
 import type { AuthorizationConnectorConfig } from "../models/config/authorizationConnectorConfig.js";

@@ -17,3 +17,15 @@ POP3.
 > `readonly` **Imap**: `"imap"` = `"imap"`
 
 IMAP.
+
+### Gmail {#gmail}
+
+> `readonly` **Gmail**: `"gmail"` = `"gmail"`
+
+Gmail.
+
+### Outlook {#outlook}
+
+> `readonly` **Outlook**: `"outlook"` = `"outlook"`
+
+Outlook.

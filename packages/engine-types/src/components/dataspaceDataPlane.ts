@@ -1,22 +1,22 @@
 // Copyright 2025 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory, type IComponent } from "@twin.org/core";
-import { DataspaceDataPlaneRestClient } from "@twin.org/dataspace-data-plane-rest-client";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import { ComponentFactory, type IComponent } from "@3sixty/core";
+import { DataspaceDataPlaneRestClient } from "@3sixty/dataspace-data-plane-rest-client";
 import {
 	type ActivityLogDetails,
 	type ActivityTask,
 	DataspaceDataPlaneService,
 	type PushSubscription,
 	initSchema as initSchemaDataspaceDataPlane
-} from "@twin.org/dataspace-data-plane-service";
-import { DataspaceDataPlaneSocketClient } from "@twin.org/dataspace-data-plane-socket-client";
+} from "@3sixty/dataspace-data-plane-service";
+import { DataspaceDataPlaneSocketClient } from "@3sixty/dataspace-data-plane-socket-client";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { initialiseDataspaceSharedEntityStorages } from "./dataspaceControlPlane.js";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { DataspaceDataPlaneComponentConfig } from "../models/config/dataspaceDataPlaneComponentConfig.js";

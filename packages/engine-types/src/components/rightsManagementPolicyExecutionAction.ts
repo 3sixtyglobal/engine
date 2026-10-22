@@ -4,10 +4,10 @@ import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { PolicyExecutionActionFactory } from "@twin.org/rights-management-models";
-import { LoggingPolicyExecutionAction } from "@twin.org/rights-management-plugins";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
+import { PolicyExecutionActionFactory } from "@3sixty/rights-management-models";
+import { LoggingPolicyExecutionAction } from "@3sixty/rights-management-plugins";
 import type { RightsManagementPolicyExecutionActionComponentConfig } from "../models/config/rightsManagementPolicyExecutionActionComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { RightsManagementPolicyExecutionActionComponentType } from "../models/types/rightsManagementPolicyExecutionActionComponentType.js";

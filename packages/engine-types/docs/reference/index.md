@@ -1,4 +1,4 @@
-# @twin.org/engine-types
+# @3sixty/engine-types
 
 ## Classes
 
@@ -32,6 +32,7 @@
 - [EntityStorageConnectorConfig](type-aliases/EntityStorageConnectorConfig.md)
 - [EventBusComponentConfig](type-aliases/EventBusComponentConfig.md)
 - [EventBusConnectorConfig](type-aliases/EventBusConnectorConfig.md)
+- [FacadeConfig](type-aliases/FacadeConfig.md)
 - [FaucetConnectorConfig](type-aliases/FaucetConnectorConfig.md)
 - [FederatedCatalogueComponentConfig](type-aliases/FederatedCatalogueComponentConfig.md)
 - [FederatedCatalogueFilterComponentConfig](type-aliases/FederatedCatalogueFilterComponentConfig.md)
@@ -109,6 +110,7 @@
 - [EntityStorageConnectorType](type-aliases/EntityStorageConnectorType.md)
 - [EventBusComponentType](type-aliases/EventBusComponentType.md)
 - [EventBusConnectorType](type-aliases/EventBusConnectorType.md)
+- [FacadeType](type-aliases/FacadeType.md)
 - [FaucetConnectorType](type-aliases/FaucetConnectorType.md)
 - [FederatedCatalogueComponentType](type-aliases/FederatedCatalogueComponentType.md)
 - [FederatedCatalogueFilterComponentType](type-aliases/FederatedCatalogueFilterComponentType.md)
@@ -119,7 +121,7 @@
 - [IdentityProfileConnectorType](type-aliases/IdentityProfileConnectorType.md)
 - [IdentityResolverComponentType](type-aliases/IdentityResolverComponentType.md)
 - [IdentityResolverConnectorType](type-aliases/IdentityResolverConnectorType.md)
-- [IImmutableProofComponentType](type-aliases/IImmutableProofComponentType.md)
+- [ImmutableProofComponentType](type-aliases/ImmutableProofComponentType.md)
 - [LoggingComponentType](type-aliases/LoggingComponentType.md)
 - [LoggingConnectorType](type-aliases/LoggingConnectorType.md)
 - [MailStorageComponentType](type-aliases/MailStorageComponentType.md)
@@ -189,6 +191,7 @@
 - [EntityStorageConnectorType](variables/EntityStorageConnectorType.md)
 - [EventBusComponentType](variables/EventBusComponentType.md)
 - [EventBusConnectorType](variables/EventBusConnectorType.md)
+- [FacadeType](variables/FacadeType.md)
 - [FaucetConnectorType](variables/FaucetConnectorType.md)
 - [FederatedCatalogueComponentType](variables/FederatedCatalogueComponentType.md)
 - [FederatedCatalogueFilterComponentType](variables/FederatedCatalogueFilterComponentType.md)
@@ -268,6 +271,7 @@
 - [initialiseEntityStorageComponent](functions/initialiseEntityStorageComponent.md)
 - [initialiseEventBusConnector](functions/initialiseEventBusConnector.md)
 - [initialiseEventBusComponent](functions/initialiseEventBusComponent.md)
+- [initialiseFacade](functions/initialiseFacade.md)
 - [initialiseFaucetConnector](functions/initialiseFaucetConnector.md)
 - [initialiseFederatedCatalogueComponent](functions/initialiseFederatedCatalogueComponent.md)
 - [initialiseFederatedCatalogueFilterComponent](functions/initialiseFederatedCatalogueFilterComponent.md)

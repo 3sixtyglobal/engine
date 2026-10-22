@@ -12,11 +12,6 @@ export const SocketRouteProcessorType = {
 	AuthHeader: "auth-header",
 
 	/**
-	 * Auth verifiable credential.
-	 */
-	AuthVerifiableCredential: "auth-verifiable-credential",
-
-	/**
 	 * Logging.
 	 */
 	Logging: "logging",

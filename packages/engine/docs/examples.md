@@ -5,8 +5,8 @@ These examples show a practical way to configure and run an instance with built-
 ## Engine
 
 ```typescript
-import { Engine } from '@twin.org/engine';
-import type { IEngineConfig } from '@twin.org/engine-types';
+import { Engine } from '@3sixty/engine';
+import type { IEngineConfig } from '@3sixty/engine-types';
 
 const config: IEngineConfig = {
   debug: true,
@@ -19,7 +19,7 @@ const engine = new Engine({ config, skipBootstrap: true });
 engine.addContextIdKey('tenant', ['tenant']);
 engine.addContextId('tenant', 'tenant-a');
 
-engine.addTypeInitialiser('loggingConnector', '@twin.org/engine-types', 'initLoggingConnector');
+engine.addTypeInitialiser('loggingConnector', '@3sixty/engine-types', 'initLoggingConnector');
 
 console.log(engine.getContextIdKeys()); // ["tenant"]
 console.log(engine.getContextIds()); // { tenant: "tenant-a" }
@@ -35,9 +35,9 @@ console.log(engine.isStarted()); // false
 ## EngineConfigHelper
 
 ```typescript
-import { EngineConfigHelper } from '@twin.org/engine';
-import type { IEngineConfig } from '@twin.org/engine-types';
-import type { IEntitySchema } from '@twin.org/entity';
+import { EngineConfigHelper } from '@3sixty/engine';
+import type { IEngineConfig } from '@3sixty/engine-types';
+import type { IEntitySchema } from '@3sixty/entity';
 
 interface Product {
   id: string;

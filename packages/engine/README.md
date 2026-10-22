@@ -1,11 +1,11 @@
-# TWIN Engine
+# 3Sixty Engine
 
 Engine provides a ready-to-use runtime that extends the core layer with built-in type initialisers. It helps applications start from a practical baseline while still allowing customisation of configuration and component selection.
 
 ## Installation
 
 ```shell
-npm install @twin.org/engine
+npm install @3sixty/engine
 ```
 
 ## Examples
@@ -19,3 +19,7 @@ Detailed reference documentation for the API can be found in [docs/reference/ind
 ## Changelog
 
 The changes between each version can be found in [docs/changelog.md](docs/changelog.md)
+
+## Origin
+
+This package is derived from the original [iotaledger/twin-engine](https://github.com/iotaledger/twin-engine/tree/next/packages/engine) repository.

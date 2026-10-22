@@ -4,13 +4,13 @@ import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameofKebabCase } from "@twin.org/nameof";
-import { type ITrustVerifier, TrustVerifierFactory } from "@twin.org/trust-models";
+} from "@3sixty/engine-models";
+import { nameofKebabCase } from "@3sixty/nameof";
+import { type ITrustVerifier, TrustVerifierFactory } from "@3sixty/trust-models";
 import {
 	IdentityAllowDenyVerifier,
 	JwtVerifiableCredentialVerifier
-} from "@twin.org/trust-verifiers";
+} from "@3sixty/trust-verifiers";
 import type { TrustVerifierComponentConfig } from "../models/config/trustVerifierComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { TrustVerifierComponentType } from "../models/types/trustVerifierComponentType.js";

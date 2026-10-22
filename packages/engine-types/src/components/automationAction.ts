@@ -1,13 +1,13 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { FetchAction } from "@twin.org/automation-actions";
-import { AutomationActionFactory } from "@twin.org/automation-models";
+import { FetchAction } from "@3sixty/automation-actions";
+import { AutomationActionFactory } from "@3sixty/automation-models";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import type { AutomationActionConfig } from "../models/config/automationActionConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";
 import { AutomationActionType } from "../models/types/automationActionType.js";

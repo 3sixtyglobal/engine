@@ -29,7 +29,12 @@ export const LoggingConnectorType = {
 	/**
 	 * File.
 	 */
-	File: "file"
+	File: "file",
+
+	/**
+	 * ELK.
+	 */
+	Elk: "elk"
 } as const;
 
 /**

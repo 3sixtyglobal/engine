@@ -5,15 +5,15 @@ These examples show how to wire a core instance into an HTTP server and apply de
 ## EngineServer
 
 ```typescript
-import { Engine } from '@twin.org/engine';
-import { EngineServer } from '@twin.org/engine-server';
-import type { IEngineServerConfig } from '@twin.org/engine-server-types';
+import { Engine } from '@3sixty/engine';
+import { EngineServer } from '@3sixty/engine-server';
+import type { IEngineServerConfig } from '@3sixty/engine-server-types';
 import {
   HostingComponentType,
   InformationComponentType,
   RestRouteProcessorType,
   SocketRouteProcessorType
-} from '@twin.org/engine-server-types';
+} from '@3sixty/engine-server-types';
 
 const config: IEngineServerConfig = {
   debug: false,
@@ -32,12 +32,12 @@ const server = new EngineServer({ engineCore: engine });
 
 server.addRestRouteGenerator(
   'informationComponent',
-  '@twin.org/engine-server-types',
+  '@3sixty/engine-server-types',
   'generateInformationRestRoutes'
 );
 server.addSocketRouteGenerator(
   'informationComponent',
-  '@twin.org/engine-server-types',
+  '@3sixty/engine-server-types',
   'generateInformationSocketRoutes'
 );
 
@@ -50,16 +50,38 @@ console.log(server.getRestRoutes().length > 0); // true
 await server.stop();
 ```
 
+## Web Server Type
+
+Fastify is used by default, set `webServerType` to use Hono or the native Node.js server instead.
+
+```typescript
+import { Engine } from '@3sixty/engine';
+import { EngineServer } from '@3sixty/engine-server';
+import type { IEngineServerConfig } from '@3sixty/engine-server-types';
+import { WebServerType } from '@3sixty/engine-server-types';
+
+const config: IEngineServerConfig = {
+  webServerType: WebServerType.Hono,
+  web: { port: 3001 },
+  types: {}
+};
+
+const server = new EngineServer({ engineCore: new Engine({ config }) });
+
+await server.start();
+await server.stop();
+```
+
 ## addDefaultRestPaths and addDefaultSocketPaths
 
 ```typescript
-import { addDefaultRestPaths, addDefaultSocketPaths } from '@twin.org/engine-server';
-import type { IEngineServerConfig } from '@twin.org/engine-server-types';
+import { addDefaultRestPaths, addDefaultSocketPaths } from '@3sixty/engine-server';
+import type { IEngineServerConfig } from '@3sixty/engine-server-types';
 import {
   InformationComponentType,
   RestRouteProcessorType,
   SocketRouteProcessorType
-} from '@twin.org/engine-server-types';
+} from '@3sixty/engine-server-types';
 
 const serverConfig: IEngineServerConfig = {
   debug: false,

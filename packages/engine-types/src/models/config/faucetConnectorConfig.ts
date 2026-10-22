@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IEntityStorageFaucetConnectorConstructorOptions } from "@twin.org/wallet-connector-entity-storage";
-import type { IIotaFaucetConnectorConstructorOptions } from "@twin.org/wallet-connector-iota";
+import type { IEntityStorageFaucetConnectorConstructorOptions } from "@3sixty/wallet-connector-entity-storage";
+import type { IIotaFaucetConnectorConstructorOptions } from "@3sixty/wallet-connector-iota";
 import type { FaucetConnectorType } from "../types/faucetConnectorType.js";
 
 /**

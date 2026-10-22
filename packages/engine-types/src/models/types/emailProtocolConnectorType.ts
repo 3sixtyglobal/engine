@@ -14,7 +14,17 @@ export const EmailProtocolConnectorType = {
 	/**
 	 * IMAP.
 	 */
-	Imap: "imap"
+	Imap: "imap",
+
+	/**
+	 * Gmail.
+	 */
+	Gmail: "gmail",
+
+	/**
+	 * Outlook.
+	 */
+	Outlook: "outlook"
 } as const;
 
 /**

@@ -1,9 +1,9 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IConsoleTracingConnectorConstructorOptions } from "@twin.org/tracing-connector-console";
-import type { IEntityStorageTracingConnectorConstructorOptions } from "@twin.org/tracing-connector-entity-storage";
-import type { IOpenTelemetryTracingConnectorConstructorOptions } from "@twin.org/tracing-connector-opentelemetry";
-import type { IMultiTracingConnectorConstructorOptions } from "@twin.org/tracing-models";
+import type { IConsoleTracingConnectorConstructorOptions } from "@3sixty/tracing-connector-console";
+import type { IEntityStorageTracingConnectorConstructorOptions } from "@3sixty/tracing-connector-entity-storage";
+import type { IOpenTelemetryTracingConnectorConstructorOptions } from "@3sixty/tracing-connector-opentelemetry";
+import type { IMultiTracingConnectorConstructorOptions } from "@3sixty/tracing-models";
 import type { TracingConnectorType } from "../types/tracingConnectorType.js";
 
 /**

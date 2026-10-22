@@ -1,20 +1,20 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { AuditableItemStreamRestClient } from "@twin.org/auditable-item-stream-rest-client";
+import { AuditableItemStreamRestClient } from "@3sixty/auditable-item-stream-rest-client";
 import {
 	type AuditableItemStream,
 	type AuditableItemStreamEntry,
 	AuditableItemStreamService,
 	initSchema as initSchemaAuditableItemStream
-} from "@twin.org/auditable-item-stream-service";
-import { ContextIdHelper, ContextIdKeys } from "@twin.org/context";
-import { ComponentFactory, type IComponent } from "@twin.org/core";
+} from "@3sixty/auditable-item-stream-service";
+import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { initialiseEntityStorageConnector } from "./entityStorage.js";
 import type { AuditableItemStreamComponentConfig } from "../models/config/auditableItemStreamComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";

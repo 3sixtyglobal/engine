@@ -5,10 +5,5 @@
 			"entityStorageMissing": "Entity storage configuration missing for component \"{storageName}\"",
 			"connectorUnknownType": "Unknown connector type \"{type}\" specified for \"{connectorType}\""
 		}
-	},
-	"info": {
-		"engineTypes": {
-			"configuringEntityStorage": "Configuring {element} with name \"{storageName}\" using \"{storageType}\" connector"
-		}
 	}
 }

@@ -1,14 +1,14 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { ComponentFactory, type IComponent } from "@twin.org/core";
+import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
-import { PolicyNegotiationPointService } from "@twin.org/rights-management-pnp-service";
-import { PolicyNegotiationPointRestClient } from "@twin.org/rights-management-rest-client";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
+import { PolicyNegotiationPointService } from "@3sixty/rights-management-pnp-service";
+import { PolicyNegotiationPointRestClient } from "@3sixty/rights-management-rest-client";
 import { initialisePnapStorage } from "./rightsManagementPnap.js";
 import type { RightsManagementPnpComponentConfig } from "../models/config/rightsManagementPnpComponentConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";

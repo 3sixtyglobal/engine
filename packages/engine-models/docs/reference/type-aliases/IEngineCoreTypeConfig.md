@@ -4,6 +4,12 @@
 
 Configuration for the engine core type.
 
+## Type Parameters
+
+### T {#t}
+
+`T` *extends* [`IEngineCoreTypeBaseConfig`](../interfaces/IEngineCoreTypeBaseConfig.md) = [`IEngineCoreTypeBaseConfig`](../interfaces/IEngineCoreTypeBaseConfig.md)
+
 ## Type Declaration
 
 ### overrideInstanceType?
@@ -59,9 +65,3 @@ The options for the socket API route generation.
 > `optional` **cloneMode?**: [`EngineCloneMode`](EngineCloneMode.md)
 
 Controls whether this entry is included when creating a clone, defaults to Optional.
-
-## Type Parameters
-
-### T
-
-`T` *extends* [`IEngineCoreTypeBaseConfig`](../interfaces/IEngineCoreTypeBaseConfig.md) = [`IEngineCoreTypeBaseConfig`](../interfaces/IEngineCoreTypeBaseConfig.md)

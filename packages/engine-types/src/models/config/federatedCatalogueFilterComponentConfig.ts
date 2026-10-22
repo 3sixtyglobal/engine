@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IFilterByMetadataConstructorOptions } from "@twin.org/federated-catalogue-filters";
+import type { IFilterByMetadataConstructorOptions } from "@3sixty/federated-catalogue-filters";
 import type { FederatedCatalogueFilterComponentType } from "../types/federatedCatalogueFilterComponentType.js";
 
 /**

@@ -4,7 +4,7 @@ Configuration for the engine core type base.
 
 ## Type Parameters
 
-### T
+### T {#t}
 
 `T` = `unknown`
 

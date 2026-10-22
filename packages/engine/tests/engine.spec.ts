@@ -1,12 +1,12 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { mkdir, rm } from "node:fs/promises";
-import { AutomationActionFactory } from "@twin.org/automation-models";
-import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@twin.org/context";
-import { ComponentFactory, Factory, I18n } from "@twin.org/core";
-import { MemoryStateStorage } from "@twin.org/engine-core";
-import coreLocales from "@twin.org/engine-core/locales/en.json" with { type: "json" };
-import { EngineCloneMode, EngineLogLevel } from "@twin.org/engine-models";
+import { mkdir, readdir, rm } from "node:fs/promises";
+import { AutomationActionFactory } from "@3sixty/automation-models";
+import { ContextIdHandlerFactory, ContextIdKeys, ContextIdStore } from "@3sixty/context";
+import { ComponentFactory, FacadeFactory, Factory, I18n, type IComponent, Is } from "@3sixty/core";
+import { MemoryStateStorage } from "@3sixty/engine-core";
+import coreLocales from "@3sixty/engine-core/locales/en.json" with { type: "json" };
+import { EngineCloneMode, EngineLogLevel } from "@3sixty/engine-models";
 import {
 	AttestationComponentType,
 	AttestationConnectorType,
@@ -26,10 +26,12 @@ import {
 	DataspaceControlPlaneComponentType,
 	DataspaceDataPlaneComponentType,
 	DocumentManagementComponentType,
+	EmailProtocolConnectorType,
 	EntityStorageComponentType,
 	EntityStorageConnectorType,
 	EventBusComponentType,
 	EventBusConnectorType,
+	FacadeType,
 	FaucetConnectorType,
 	FederatedCatalogueComponentType,
 	FederatedCatalogueFilterComponentType,
@@ -86,20 +88,31 @@ import {
 	TrustVerifierComponentType,
 	VaultConnectorType,
 	WalletConnectorType
-} from "@twin.org/engine-types";
-import typeLocales from "@twin.org/engine-types/locales/en.json" with { type: "json" };
-import { entity, EntitySchemaFactory, EntitySchemaHelper, property } from "@twin.org/entity";
+} from "@3sixty/engine-types";
+import typeLocales from "@3sixty/engine-types/locales/en.json" with { type: "json" };
+import {
+	entity,
+	EntitySchemaFactory,
+	EntitySchemaHelper,
+	EntitySchemaPropertyType,
+	property
+} from "@3sixty/entity";
 import type {
 	IEntityStorageComponent,
 	IEntityStorageConnector
-} from "@twin.org/entity-storage-models";
+} from "@3sixty/entity-storage-models";
 import {
 	EntityStorageConnectorFactory,
 	SchemaMigrationFactory
-} from "@twin.org/entity-storage-models";
-import { SchemaVersion } from "@twin.org/entity-storage-service";
-import { FederatedCatalogueFilterFactory } from "@twin.org/federated-catalogue-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/entity-storage-models";
+import { SchemaVersion } from "@3sixty/entity-storage-service";
+import { FederatedCatalogueFilterFactory } from "@3sixty/federated-catalogue-models";
+import {
+	EmailProtocolConnectorConfigSchemaFactory,
+	EmailProtocolConnectorFactory,
+	EmailProtocolConnectorStateSchemaFactory
+} from "@3sixty/mailbox-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import {
 	PolicyArbiterFactory,
 	PolicyEnforcementProcessorFactory,
@@ -107,10 +120,14 @@ import {
 	PolicyInformationSourceFactory,
 	PolicyNegotiatorFactory,
 	PolicyRequesterFactory
-} from "@twin.org/rights-management-models";
-import { MetricsProducerFactory } from "@twin.org/telemetry-models";
-import { TrustGeneratorFactory, TrustVerifierFactory } from "@twin.org/trust-models";
+} from "@3sixty/rights-management-models";
+import { MetricsProducerFactory } from "@3sixty/telemetry-models";
+import { TrustGeneratorFactory, TrustVerifierFactory } from "@3sixty/trust-models";
 import { Engine } from "../src/engine.js";
+import { EngineConfigHelper } from "../src/utils/engineConfigHelper.js";
+
+// The name the tracing facade is registered under, which is what the configuration refers to.
+const TRACING_FACADE_NAME = "tracing-facade";
 
 /**
  * Class representing information for a test entity.
@@ -170,6 +187,25 @@ export class TestMigrationEntity {
 	 */
 	@property({ type: "array", itemType: "string", optional: true })
 	public tags?: string[];
+}
+
+/**
+ * Read every schema version record, paging through the results, as the storage shared by the tests
+ * accumulates more records than a single page holds.
+ * @param versionConnector The schema version storage connector.
+ * @returns All the stored schema version records.
+ */
+async function readAllVersionRecords(
+	versionConnector: IEntityStorageConnector<SchemaVersion>
+): Promise<SchemaVersion[]> {
+	const records: SchemaVersion[] = [];
+	let cursor: string | undefined;
+	do {
+		const result = await versionConnector.query(undefined, undefined, undefined, cursor);
+		records.push(...(result.entities as SchemaVersion[]));
+		cursor = result.cursor;
+	} while (Is.stringValue(cursor));
+	return records;
 }
 
 describe("engine", () => {
@@ -250,6 +286,41 @@ describe("engine", () => {
 					],
 					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
 					messagingComponent: [{ type: MessagingComponentType.Service }],
+					emailProtocolConnector: [
+						{
+							type: EmailProtocolConnectorType.Pop3,
+							options: {
+								config: { host: "localhost", username: "test-user", password: "test-password" }
+							}
+						},
+						{
+							type: EmailProtocolConnectorType.Imap,
+							options: {
+								config: { host: "localhost", username: "test-user", password: "test-password" }
+							}
+						},
+						{
+							type: EmailProtocolConnectorType.Gmail,
+							options: {
+								config: {
+									emailAddress: "test@example.com",
+									clientId: "test-client-id",
+									clientSecret: "test-client-secret"
+								}
+							}
+						},
+						{
+							type: EmailProtocolConnectorType.Outlook,
+							options: {
+								config: {
+									emailAddress: "test@example.com",
+									tenantId: "test-tenant-id",
+									clientId: "test-client-id",
+									clientSecret: "test-client-secret"
+								}
+							}
+						}
+					],
 					mailStorageComponent: [{ type: MailStorageComponentType.Service }],
 					mailboxComponent: [{ type: MailboxComponentType.Service }],
 					vaultConnector: [{ type: VaultConnectorType.EntityStorage }],
@@ -500,6 +571,7 @@ describe("engine", () => {
 			"Notarization",
 			"ImmutableProof",
 			"AuditableItemGraphVertex",
+			"AuditableItemGraphVertexIndex",
 			"AuditableItemGraphAlias",
 			"AuditableItemGraphResource",
 			"AuditableItemGraphEdge",
@@ -510,6 +582,7 @@ describe("engine", () => {
 			"ExtractionRuleGroup",
 			"ExtractionRule",
 			"OdrlPolicy",
+			"OdrlPolicyIndex",
 			"PolicyNegotiation",
 			"Dataset",
 			"ActivityLogDetails",
@@ -546,6 +619,20 @@ describe("engine", () => {
 		expect(AutomationActionFactory.names()).toEqual(["fetch-action"]);
 
 		expect(MetricsProducerFactory.names()).toEqual(["system-metrics-producer"]);
+
+		expect(EmailProtocolConnectorFactory.names()).toEqual(["pop3", "imap", "gmail", "outlook"]);
+		expect(EmailProtocolConnectorConfigSchemaFactory.names()).toEqual([
+			"gmail",
+			"imap",
+			"outlook",
+			"pop3"
+		]);
+		expect(EmailProtocolConnectorStateSchemaFactory.names()).toEqual([
+			"gmail",
+			"imap",
+			"outlook",
+			"pop3"
+		]);
 	});
 
 	test("Can start engine with SMTP email connector", async () => {
@@ -571,6 +658,53 @@ describe("engine", () => {
 		await engine.stop();
 		expect(ComponentFactory.names()).toContain("messaging-service");
 		expect(engine.getRegisteredInstances().messagingEmailConnector).toEqual([{ type: "smtp" }]);
+	});
+
+	test("Can start engine with a tracing facade activated from the configuration", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					loggingConnector: [{ type: LoggingConnectorType.Console }],
+					loggingComponent: [{ type: LoggingComponentType.Service }],
+					tracingConnector: [{ type: TracingConnectorType.Console }],
+					tracingComponent: [{ type: TracingComponentType.Service }],
+					facade: [{ type: FacadeType.Tracing }]
+				},
+				facades: {
+					component: [{ name: TRACING_FACADE_NAME, excludeTypes: ["^logging-"] }]
+				}
+			}
+		});
+		await engine.start();
+
+		expect(FacadeFactory.names()).toContain(TRACING_FACADE_NAME);
+
+		// The raw instances stay in the factory, so a wrapped component is a different object
+		// to the one the factory holds, and an excluded one is the same object.
+		const rawInstances = ComponentFactory.instancesMap();
+		expect(ComponentFactory.get("tracing-service")).not.toBe(rawInstances["tracing-service"]);
+		expect(ComponentFactory.get("logging-service")).toBe(rawInstances["logging-service"]);
+
+		await engine.stop();
+	});
+
+	test("Can start engine with an unknown facade type", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					facade: [{ type: "unknown-facade" as FacadeType }]
+				}
+			}
+		});
+
+		await expect(engine.start()).rejects.toThrow(
+			expect.objectContaining({
+				name: "GeneralError",
+				message: "engineCore.componentUnknownType"
+			})
+		);
 	});
 
 	test("Can start engine with custom entity storage", async () => {
@@ -648,6 +782,93 @@ describe("engine", () => {
 
 		const item = await service.get("test");
 		expect(item?.id).toEqual("test");
+	});
+
+	test("Can add a custom entity storage partitioned by the context ID keys the engine has", async () => {
+		const getContextIds = ContextIdStore.getContextIds;
+		ContextIdStore.getContextIds = vi.fn().mockImplementation(() => ({
+			node: "did:iota:0x123"
+		}));
+
+		try {
+			const config: IEngineConfig = {
+				silent: true,
+				types: {
+					entityStorageConnector: [
+						{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+					]
+				}
+			};
+			EngineConfigHelper.addCustomEntityStorage(
+				config,
+				nameof<TestEntity>(),
+				EntitySchemaHelper.getSchema(TestEntity)
+			);
+
+			const engine = new Engine({ config });
+			engine.addContextIdKey(ContextIdKeys.Node, ["did"]);
+			await engine.start();
+
+			const service = ComponentFactory.get<IEntityStorageComponent<TestEntity>>("test-entity");
+			await service.set({ id: "test" });
+			const item = await service.get("test");
+
+			await engine.stop();
+
+			expect(item?.id).toEqual("test");
+		} finally {
+			ContextIdStore.getContextIds = getContextIds;
+		}
+	});
+
+	test("Can start engine with a push notification connector wired into the messaging service", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					entityStorageConnector: [
+						{ type: EntityStorageConnectorType.Memory, options: { storagePrefix: "test-" } }
+					],
+					messagingPushNotificationConnector: [
+						{ type: MessagingPushNotificationConnectorType.EntityStorage }
+					],
+					messagingAdminComponent: [{ type: MessagingAdminComponentType.Service }],
+					messagingComponent: [{ type: MessagingComponentType.Service }]
+				}
+			}
+		});
+		await engine.start();
+
+		const messagingService = ComponentFactory.get<
+			IComponent & {
+				registerDevice: (applicationId: string, deviceToken: string) => Promise<string>;
+			}
+		>("messaging-service");
+		const deviceId = await messagingService.registerDevice("app-1", "device-token-1");
+
+		await engine.stop();
+
+		expect(Is.stringValue(deviceId)).toEqual(true);
+	});
+
+	test("Can start engine with a file blob storage connector using a storage prefix", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					blobStorageConnector: [
+						{
+							type: BlobStorageConnectorType.File,
+							options: { storagePrefix: "prefix", config: { directory: "tests/.tmp/blob" } }
+						}
+					]
+				}
+			}
+		});
+		await engine.start();
+		await engine.stop();
+
+		expect(await readdir("tests/.tmp/blob")).toEqual(["prefix"]);
 	});
 
 	test("Can clone the engine", async () => {
@@ -2122,8 +2343,7 @@ describe("engine", () => {
 		const versionConnector = EntityStorageConnectorFactory.get<
 			IEntityStorageConnector<SchemaVersion>
 		>(nameofKebabCase(SchemaVersion));
-		const { entities } = await versionConnector.query();
-		const rows = entities ?? [];
+		const rows = await readAllVersionRecords(versionConnector);
 
 		expect(rows.some(r => r.schemaName === nameof<SchemaVersion>())).toBe(true);
 		expect(rows.some(r => r.schemaName === "BackgroundTask")).toBe(true);
@@ -2147,7 +2367,12 @@ describe("engine", () => {
 				{ from: "legacyField", to: "newField" },
 				{ from: "score", to: "tags" }
 			],
-			transformEntityProperty: (source, fromSchema, toSchema, value) => [`item:${value as number}`]
+			transformEntityProperty: (source, fromSchema, toSchema, value) => {
+				if (toSchema.type === EntitySchemaPropertyType.Array) {
+					return [`item:${value as number}`];
+				}
+				return undefined;
+			}
 		}));
 
 		// Capture console.info to verify migration log messages are emitted.
@@ -2204,8 +2429,8 @@ describe("engine", () => {
 			const versionConnector = EntityStorageConnectorFactory.get<
 				IEntityStorageConnector<SchemaVersion>
 			>(nameofKebabCase(SchemaVersion));
-			const { entities: versionRecords } = await versionConnector.query();
-			const migrationRecord = (versionRecords ?? []).find(
+			const versionRecords = await readAllVersionRecords(versionConnector);
+			const migrationRecord = versionRecords.find(
 				r => r.schemaName === nameof<TestMigrationEntity>()
 			);
 			expect(migrationRecord?.version).toBe(1);

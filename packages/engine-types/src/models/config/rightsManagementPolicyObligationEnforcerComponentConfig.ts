@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IPassThroughPolicyObligationEnforcerConstructorOptions } from "@twin.org/rights-management-plugins";
+import type { IPassThroughPolicyObligationEnforcerConstructorOptions } from "@3sixty/rights-management-plugins";
 import type { RightsManagementPolicyObligationEnforcerComponentType } from "../types/rightsManagementPolicyObligationEnforcerComponentType.js";
 
 /**

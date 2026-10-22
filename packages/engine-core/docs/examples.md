@@ -5,8 +5,8 @@ These examples focus on common runtime patterns such as lifecycle control, cloni
 ## EngineCore
 
 ```typescript
-import { EngineCore, MemoryStateStorage } from '@twin.org/engine-core';
-import type { IEngineCoreConfig, IEngineState } from '@twin.org/engine-models';
+import { EngineCore, MemoryStateStorage } from '@3sixty/engine-core';
+import type { IEngineCoreConfig, IEngineState } from '@3sixty/engine-models';
 
 interface AppState extends IEngineState {
   runCount?: number;
@@ -25,7 +25,7 @@ const engineCore = new EngineCore<IEngineCoreConfig, AppState>({
   skipBootstrap: true
 });
 
-engineCore.addTypeInitialiser('loggingConnector', '@twin.org/engine-types', 'initLoggingConnector');
+engineCore.addTypeInitialiser('loggingConnector', '@3sixty/engine-types', 'initLoggingConnector');
 console.log(engineCore.getTypeConfig('loggingConnector')?.length ?? 0); // 0
 
 engineCore.addContextIdKey('tenant', ['tenant']);
@@ -56,8 +56,8 @@ console.log(engineCore.isStarted()); // false
 ```
 
 ```typescript
-import { BaseError, GeneralError } from '@twin.org/core';
-import { EngineCore } from '@twin.org/engine-core';
+import { BaseError, GeneralError } from '@3sixty/core';
+import { EngineCore } from '@3sixty/engine-core';
 
 const engineCore = new EngineCore({
   config: { debug: false, silent: true, types: {} },
@@ -74,7 +74,7 @@ await engineCore.logError(wrapped);
 ```
 
 ```typescript
-import { EngineCore } from '@twin.org/engine-core';
+import { EngineCore } from '@3sixty/engine-core';
 
 const primary = new EngineCore({
   config: { debug: false, silent: true, types: {} },
@@ -94,7 +94,7 @@ console.log(clone.getContextIds()); // { node: "node-1", tenant: "tenant-a" }
 ## FileStateStorage
 
 ```typescript
-import { EngineCore, FileStateStorage } from '@twin.org/engine-core';
+import { EngineCore, FileStateStorage } from '@3sixty/engine-core';
 
 const engineCore = new EngineCore({
   config: { debug: false, silent: true, types: {} },
@@ -111,7 +111,7 @@ console.log(loaded); // { ready: true }
 ## MemoryStateStorage
 
 ```typescript
-import { EngineCore, MemoryStateStorage } from '@twin.org/engine-core';
+import { EngineCore, MemoryStateStorage } from '@3sixty/engine-core';
 
 const engineCore = new EngineCore({
   config: { debug: false, silent: true, types: {} },
@@ -128,8 +128,8 @@ console.log(await memoryStorage.load(engineCore)); // { retries: 2 }
 ## EngineModuleHelper
 
 ```typescript
-import { EngineCore, EngineModuleHelper } from '@twin.org/engine-core';
-import type { IEngineModuleConfig } from '@twin.org/engine-models';
+import { EngineCore, EngineModuleHelper } from '@3sixty/engine-core';
+import type { IEngineModuleConfig } from '@3sixty/engine-models';
 
 const engineCore = new EngineCore({
   config: { debug: false, silent: true, types: {} },
@@ -137,7 +137,7 @@ const engineCore = new EngineCore({
 });
 
 const moduleConfig: IEngineModuleConfig = {
-  moduleName: '@twin.org/logging-service',
+  moduleName: '@3sixty/logging-service',
   className: 'LoggingService',
   dependencies: [
     {

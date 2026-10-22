@@ -1,17 +1,17 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { INftAttestationConnectorConstructorOptions } from "@twin.org/attestation-connector-nft";
-import { NftAttestationConnector } from "@twin.org/attestation-connector-nft";
-import { AttestationConnectorFactory } from "@twin.org/attestation-models";
-import { AttestationRestClient } from "@twin.org/attestation-rest-client";
-import { AttestationService } from "@twin.org/attestation-service";
-import { ComponentFactory, type IComponent } from "@twin.org/core";
+import type { INftAttestationConnectorConstructorOptions } from "@3sixty/attestation-connector-nft";
+import { NftAttestationConnector } from "@3sixty/attestation-connector-nft";
+import { AttestationConnectorFactory } from "@3sixty/attestation-models";
+import { AttestationRestClient } from "@3sixty/attestation-rest-client";
+import { AttestationService } from "@3sixty/attestation-service";
+import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
-} from "@twin.org/engine-models";
-import { nameof, nameofKebabCase } from "@twin.org/nameof";
+} from "@3sixty/engine-models";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import type { AttestationComponentConfig } from "../models/config/attestationComponentConfig.js";
 import type { AttestationConnectorConfig } from "../models/config/attestationConnectorConfig.js";
 import type { IEngineConfig } from "../models/IEngineConfig.js";

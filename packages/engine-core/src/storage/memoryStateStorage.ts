@@ -1,8 +1,8 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { I18n } from "@twin.org/core";
-import type { IEngineCore, IEngineState, IEngineStateStorage } from "@twin.org/engine-models";
-import { nameof, nameofCamelCase } from "@twin.org/nameof";
+import { I18n } from "@3sixty/core";
+import type { IEngineCore, IEngineState, IEngineStateStorage } from "@3sixty/engine-models";
+import { nameof, nameofCamelCase } from "@3sixty/nameof";
 
 /**
  * Store state in memory.
@@ -43,7 +43,7 @@ export class MemoryStateStorage<
 	 * @returns The state of the engine or undefined if it doesn't exist.
 	 */
 	public async load(engineCore: IEngineCore): Promise<S | undefined> {
-		engineCore.logInfo(
+		await engineCore.logInfo(
 			I18n.formatMessage(`${nameofCamelCase<MemoryStateStorage>()}.loading`, {
 				filename: this._engineState
 			})
@@ -59,7 +59,9 @@ export class MemoryStateStorage<
 	 */
 	public async save(engineCore: IEngineCore, state: S): Promise<void> {
 		if (!this._readonlyMode) {
-			engineCore.logInfo(I18n.formatMessage(`${nameofCamelCase<MemoryStateStorage>()}.saving`));
+			await engineCore.logInfo(
+				I18n.formatMessage(`${nameofCamelCase<MemoryStateStorage>()}.saving`)
+			);
 			this._engineState = state;
 		}
 	}

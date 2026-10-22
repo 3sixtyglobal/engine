@@ -1,11 +1,11 @@
-# TWIN Engine Types
+# 3Sixty Engine Types
 
 Engine Types contains component and connector type definitions used to compose runtime capabilities. It also includes helpers for retrieving and merging configuration so engine setup remains consistent as integrations grow.
 
 ## Installation
 
 ```shell
-npm install @twin.org/engine-types
+npm install @3sixty/engine-types
 ```
 
 ## Examples
@@ -19,3 +19,7 @@ Detailed reference documentation for the API can be found in [docs/reference/ind
 ## Changelog
 
 The changes between each version can be found in [docs/changelog.md](docs/changelog.md)
+
+## Origin
+
+This package is derived from the original [iotaledger/twin-engine](https://github.com/iotaledger/twin-engine/tree/next/packages/engine-types) repository.

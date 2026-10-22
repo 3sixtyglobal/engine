@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IMessagingAdminServiceConstructorOptions } from "@twin.org/messaging-service";
+import type { IMessagingAdminServiceConstructorOptions } from "@3sixty/messaging-service";
 import type { MessagingAdminComponentType } from "../types/messagingAdminComponentType.js";
 
 /**

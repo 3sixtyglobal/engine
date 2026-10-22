@@ -1,6 +1,6 @@
 // Copyright 2026 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IMetricsCollectorServiceConstructorOptions } from "@twin.org/telemetry-service";
+import type { IMetricsCollectorServiceConstructorOptions } from "@3sixty/telemetry-service";
 import type { MetricsCollectorComponentType } from "../types/metricsCollectorComponentType.js";
 
 /**

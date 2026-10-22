@@ -1,4 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 export * from "./components/authentication.js";
 export * from "./components/authenticationAdmin.js";
@@ -25,3 +26,4 @@ export * from "./models/types/informationComponentType.js";
 export * from "./models/types/mimeTypeProcessorType.js";
 export * from "./models/types/restRouteProcessorType.js";
 export * from "./models/types/socketRouteProcessorType.js";
+export * from "./models/types/webServerType.js";

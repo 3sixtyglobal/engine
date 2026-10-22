@@ -1,4 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import {
 	MimeTypeProcessorFactory,
@@ -7,18 +8,21 @@ import {
 	type IRestRoute,
 	type ISocketRoute,
 	type IWebServer
-} from "@twin.org/api-models";
-import { FastifyWebServer } from "@twin.org/api-server-fastify";
-import { ContextIdStore } from "@twin.org/context";
-import { Guards, Is, StringHelper } from "@twin.org/core";
-import type { IEngineCore, IEngineCoreTypeConfig, IEngineServer } from "@twin.org/engine-models";
+} from "@3sixty/api-models";
+import { FastifyWebServer, type IFastifyWebServerConfig } from "@3sixty/api-server-fastify";
+import { HonoWebServer, type IHonoWebServerConfig } from "@3sixty/api-server-hono";
+import { NativeWebServer, type INativeWebServerConfig } from "@3sixty/api-server-native";
+import { ContextIdStore } from "@3sixty/context";
+import { Guards, Is, StringHelper } from "@3sixty/core";
+import type { IEngineCore, IEngineCoreTypeConfig, IEngineServer } from "@3sixty/engine-models";
 import {
 	RestRouteProcessorType,
 	SocketRouteProcessorType,
+	WebServerType,
 	type IEngineServerConfig
-} from "@twin.org/engine-server-types";
-import { ModuleHelper } from "@twin.org/modules";
-import { nameof } from "@twin.org/nameof";
+} from "@3sixty/engine-server-types";
+import { ModuleHelper } from "@3sixty/modules";
+import { nameof } from "@3sixty/nameof";
 import serverRestRouteGenerators from "./data/serverRestRouteGenerators.json" with { type: "json" };
 import serverSocketRouteGenerators from "./data/serverSocketRouteGenerators.json" with { type: "json" };
 import serverTypeInitialisers from "./data/serverTypeInitialisers.json" with { type: "json" };
@@ -217,9 +221,17 @@ export class EngineServer<
 	public async start(): Promise<void> {
 		await this._engineCore.start();
 
-		await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
-			await this.startWebServer();
-		});
+		try {
+			await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
+				await this.startWebServer();
+			});
+		} catch (err) {
+			// The engine components are already running, so they must be stopped when the
+			// web server fails to start, the web server itself never started so is discarded.
+			this._webServer = undefined;
+			await this._engineCore.stop();
+			throw err;
+		}
 	}
 
 	/**
@@ -227,15 +239,19 @@ export class EngineServer<
 	 * @returns A promise that resolves when the server has stopped and all connections are closed.
 	 */
 	public async stop(): Promise<void> {
-		await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
-			if (this._webServer) {
-				const webServer = this._webServer;
-				this._webServer = undefined;
-				await webServer.stop();
-			}
-		});
-
-		await this._engineCore.stop();
+		try {
+			await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
+				if (this._webServer) {
+					const webServer = this._webServer;
+					this._webServer = undefined;
+					await webServer.stop();
+				}
+			});
+		} finally {
+			// The engine is always stopped so its components are shut down and state is saved,
+			// even if the web server fails to stop.
+			await this._engineCore.stop();
+		}
 	}
 
 	/**
@@ -257,17 +273,51 @@ export class EngineServer<
 		);
 
 		const coreConfig = this._engineCore.getConfig();
-		const loggingComponentType = coreConfig.silent
-			? undefined
-			: this._engineCore.getRegisteredSilencedType("logging", nameof(FastifyWebServer));
+		const webServerType = coreConfig.webServerType ?? WebServerType.Fastify;
+		Guards.arrayOneOf<WebServerType>(
+			EngineServer.CLASS_NAME,
+			nameof(coreConfig.webServerType),
+			webServerType,
+			Object.values(WebServerType)
+		);
 
-		this._webServer = new FastifyWebServer({
-			loggingComponentType,
-			mimeTypeProcessors,
-			config: {
-				includeErrorStack: coreConfig.debug
-			}
-		});
+		if (webServerType === WebServerType.Hono) {
+			this._webServer = new HonoWebServer({
+				loggingComponentType: coreConfig.silent
+					? undefined
+					: this._engineCore.getRegisteredSilencedType("logging", nameof(HonoWebServer)),
+				mimeTypeProcessors,
+				config: {
+					includeErrorStack: coreConfig.debug,
+					web: coreConfig.web?.customWebConfig as IHonoWebServerConfig["web"],
+					socket: coreConfig.web?.customSocketConfig as IHonoWebServerConfig["socket"]
+				}
+			});
+		} else if (webServerType === WebServerType.Native) {
+			this._webServer = new NativeWebServer({
+				loggingComponentType: coreConfig.silent
+					? undefined
+					: this._engineCore.getRegisteredSilencedType("logging", nameof(NativeWebServer)),
+				mimeTypeProcessors,
+				config: {
+					includeErrorStack: coreConfig.debug,
+					web: coreConfig.web?.customWebConfig as INativeWebServerConfig["web"],
+					socket: coreConfig.web?.customSocketConfig as INativeWebServerConfig["socket"]
+				}
+			});
+		} else {
+			this._webServer = new FastifyWebServer({
+				loggingComponentType: coreConfig.silent
+					? undefined
+					: this._engineCore.getRegisteredSilencedType("logging", nameof(FastifyWebServer)),
+				mimeTypeProcessors,
+				config: {
+					includeErrorStack: coreConfig.debug,
+					web: coreConfig.web?.customWebConfig as IFastifyWebServerConfig["web"],
+					socket: coreConfig.web?.customSocketConfig as IFastifyWebServerConfig["socket"]
+				}
+			});
+		}
 
 		await this._engineCore.addRegisteredComponent("webServer", this._webServer);
 

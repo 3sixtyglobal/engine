@@ -1,7 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import { Is } from "@twin.org/core";
-import type { IEngineServerConfig } from "@twin.org/engine-server-types";
+import { Is } from "@3sixty/core";
+import type { IEngineServerConfig } from "@3sixty/engine-server-types";
 import serverRestRouteGenerators from "../data/serverRestRouteGenerators.json" with { type: "json" };
 import serverSocketRouteGenerators from "../data/serverSocketRouteGenerators.json" with { type: "json" };
 
