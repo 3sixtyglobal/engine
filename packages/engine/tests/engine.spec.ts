@@ -218,13 +218,20 @@ describe("engine", () => {
 		}));
 	});
 
+	let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+
 	beforeEach(async () => {
 		Factory.clearFactories();
 		await mkdir("tests/.tmp", { recursive: true });
+		consoleErrorSpy = vi.spyOn(console, "error");
 	});
 
 	afterEach(async () => {
 		await rm("tests/.tmp", { recursive: true });
+		// Any error level log output fails the test.
+		const errorCalls = [...consoleErrorSpy.mock.calls];
+		consoleErrorSpy.mockRestore();
+		expect(errorCalls).toEqual([]);
 	});
 
 	test("Can start engine with no config", async () => {

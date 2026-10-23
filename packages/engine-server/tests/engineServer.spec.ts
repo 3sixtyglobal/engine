@@ -6,6 +6,7 @@ import { ContextIdKeys, ContextIdStore } from "@3sixty/context";
 import { ComponentFactory, Factory, I18n } from "@3sixty/core";
 import { Engine } from "@3sixty/engine";
 import coreLocales from "@3sixty/engine-core/locales/en.json" with { type: "json" };
+import { EngineCoreFactory } from "@3sixty/engine-models";
 import {
 	AuthenticationAdminComponentType,
 	AuthenticationAuditComponentType,
@@ -125,10 +126,20 @@ describe("engine-server", () => {
 		ContextIdStore.getContextIds = vi.fn().mockImplementation(() => ({ node: "node" }));
 	});
 
+	let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+
 	beforeEach(async () => {
 		port = await getFreePort();
 
 		Factory.clearFactories();
+		consoleErrorSpy = vi.spyOn(console, "error");
+	});
+
+	afterEach(() => {
+		// Any error level log output fails the test.
+		const errorCalls = [...consoleErrorSpy.mock.calls];
+		consoleErrorSpy.mockRestore();
+		expect(errorCalls).toEqual([]);
 	});
 
 	test("Can start engine server with no config", async () => {
@@ -549,6 +560,8 @@ describe("engine-server", () => {
 			config
 		});
 		engine.addContextId(ContextIdKeys.Node, "did:iota:0x123");
+		// Background task workers clone the engine registered under this name.
+		EngineCoreFactory.register("engine", () => engine);
 		const engineServer = new EngineServer({
 			engineCore: engine
 		});
