@@ -130,6 +130,10 @@ Get the built REST routes.
 
 The REST routes.
 
+#### Implementation of
+
+`IEngineServer.getRestRoutes`
+
 ***
 
 ### getSocketRoutes() {#getsocketroutes}
@@ -143,6 +147,10 @@ Get the built socket routes.
 `ISocketRoute`\<`any`, `any`\>[]
 
 The socket routes.
+
+#### Implementation of
+
+`IEngineServer.getSocketRoutes`
 
 ***
 
