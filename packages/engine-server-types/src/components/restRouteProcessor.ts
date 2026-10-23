@@ -13,10 +13,7 @@ import {
 	RestRouteProcessor,
 	StaticContextIdProcessor
 } from "@3sixty/api-processors";
-import {
-	TenantProcessor,
-	SingleTenantProcessor
-} from "@3sixty/api-tenant-processor";
+import { TenantProcessor, SingleTenantProcessor } from "@3sixty/api-tenant-processor";
 import { AuthorizationRouteProcessor } from "@3sixty/authorization-service";
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import type { IComponent } from "@3sixty/core";

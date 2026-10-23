@@ -146,6 +146,7 @@
 		"@3sixty/rights-management-pnp-service": "next",
 		"@3sixty/rights-management-pxp-service": "next",
 		"@3sixty/rights-management-rest-client": "next",
+		"@3sixty/rights-management-service": "next",
 		"@3sixty/telemetry-connector-entity-storage": "next",
 		"@3sixty/telemetry-connector-opentelemetry": "next",
 		"@3sixty/telemetry-models": "next",

@@ -972,6 +972,9 @@ importers:
       '@3sixty/rights-management-rest-client':
         specifier: next
         version: 0.20.0-next.1(supports-color@10.2.2)
+      '@3sixty/rights-management-service':
+        specifier: next
+        version: 0.20.0-next.1
       '@3sixty/telemetry-connector-entity-storage':
         specifier: next
         version: 0.20.0-next.1
@@ -1684,6 +1687,10 @@ packages:
 
   '@3sixty/rights-management-rest-client@0.20.0-next.1':
     resolution: {integrity: sha512-gHNXBwv6syNpkYNxBIZnhq7K2QUYVSayOUQOPUEn0eM95cbmhuKOb+s4qwMBbzGYeAJgVBXJoJNaO1oH3rGU2g==}
+    engines: {node: '>=24.0.0'}
+
+  '@3sixty/rights-management-service@0.20.0-next.1':
+    resolution: {integrity: sha512-TAoyt9PooqyXyQMubSYpgJRISHMLPflhv/b3Fxjx+KEM2kPMimp1iGvW2l4PXEhVP+ERzMigsdXS/nwaWS9znw==}
     engines: {node: '>=24.0.0'}
 
   '@3sixty/standards-dataspace-protocol@0.20.0-next.2':
@@ -8062,6 +8069,19 @@ snapshots:
       - bufferutil
       - supports-color
       - utf-8-validate
+
+  '@3sixty/rights-management-service@0.20.0-next.1':
+    dependencies:
+      '@3sixty/api-models': 0.20.0-next.1
+      '@3sixty/context': 0.20.0-next.2
+      '@3sixty/core': 0.20.0-next.2
+      '@3sixty/entity': 0.20.0-next.2
+      '@3sixty/nameof': 0.20.0-next.2
+      '@3sixty/rights-management-models': 0.20.0-next.1
+      '@3sixty/standards-dataspace-protocol': 0.20.0-next.2
+      '@3sixty/standards-w3c-did': 0.20.0-next.2
+      '@3sixty/standards-w3c-odrl': 0.20.0-next.2
+      '@3sixty/web': 0.20.0-next.2
 
   '@3sixty/standards-dataspace-protocol@0.20.0-next.2':
     dependencies:
