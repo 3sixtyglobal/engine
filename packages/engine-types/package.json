@@ -1,6 +1,6 @@
 {
 	"name": "@3sixty/engine-types",
-	"version": "0.20.0-next.1",
+	"version": "0.20.0-next.2",
 	"description": "Component and connector type definitions with configuration helpers for engine composition.",
 	"repository": {
 		"type": "git",
@@ -76,7 +76,7 @@
 		"@3sixty/dlt-iota": "next",
 		"@3sixty/document-management-rest-client": "next",
 		"@3sixty/document-management-service": "next",
-		"@3sixty/engine-models": "0.20.0-next.1",
+		"@3sixty/engine-models": "0.20.0-next.2",
 		"@3sixty/entity-storage-connector-cosmosdb": "next",
 		"@3sixty/entity-storage-connector-dynamodb": "next",
 		"@3sixty/entity-storage-connector-file": "next",
@@ -173,7 +173,7 @@
 		"@3sixty/wallet-models": "next"
 	},
 	"devDependencies": {
-		"@3sixty/engine-core": "0.20.0-next.1",
+		"@3sixty/engine-core": "0.20.0-next.2",
 		"@3sixty/nameof-transformer": "next",
 		"@3sixty/nameof-vitest-plugin": "next",
 		"@3sixty/validate-locales": "next",

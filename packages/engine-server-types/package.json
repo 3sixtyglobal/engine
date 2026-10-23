@@ -1,6 +1,6 @@
 {
 	"name": "@3sixty/engine-server-types",
-	"version": "0.20.0-next.1",
+	"version": "0.20.0-next.2",
 	"description": "Server-focused component types and configuration models for API routing and hosting.",
 	"repository": {
 		"type": "git",
@@ -39,8 +39,8 @@
 		"@3sixty/authorization-service": "next",
 		"@3sixty/context": "next",
 		"@3sixty/core": "next",
-		"@3sixty/engine-models": "0.20.0-next.1",
-		"@3sixty/engine-types": "0.20.0-next.1",
+		"@3sixty/engine-models": "0.20.0-next.2",
+		"@3sixty/engine-types": "0.20.0-next.2",
 		"@3sixty/nameof": "next",
 		"@3sixty/telemetry-processors": "next",
 		"@3sixty/tracing-processors": "next"
