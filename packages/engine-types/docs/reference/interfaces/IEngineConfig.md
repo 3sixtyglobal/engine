@@ -208,6 +208,18 @@ Metrics producer component options. Creates the `MetricsProducerService` that or
 
 Metrics collector options. Each entry registers a collector in `MetricsCollectorFactory`.
 
+#### authorizationConnector?
+
+> `optional` **authorizationConnector?**: `IEngineCoreTypeConfig`\<[`AuthorizationConnectorConfig`](../type-aliases/AuthorizationConnectorConfig.md)\>[]
+
+Authorization connector options which can be overridden by individual components by specifying types other than default.
+
+#### authorizationComponent?
+
+> `optional` **authorizationComponent?**: `IEngineCoreTypeConfig`\<[`AuthorizationComponentConfig`](../type-aliases/AuthorizationComponentConfig.md)\>[]
+
+Authorization component options which can be overridden by individual components by specifying types other than default.
+
 #### messagingEmailConnector?
 
 > `optional` **messagingEmailConnector?**: `IEngineCoreTypeConfig`\<[`MessagingEmailConnectorConfig`](../type-aliases/MessagingEmailConnectorConfig.md)\>[]

@@ -65,3 +65,9 @@ Metrics.
 > `readonly` **Tracing**: `"tracing"` = `"tracing"`
 
 Tracing.
+
+### Authorization {#authorization}
+
+> `readonly` **Authorization**: `"authorization"` = `"authorization"`
+
+Authorization.

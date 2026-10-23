@@ -68,6 +68,34 @@ The method to call on the module.
 
 ***
 
+### getRestRoutes() {#getrestroutes}
+
+> **getRestRoutes**(): `IRestRoute`\<`any`, `any`\>[]
+
+Get the built REST routes.
+
+#### Returns
+
+`IRestRoute`\<`any`, `any`\>[]
+
+The REST routes.
+
+***
+
+### getSocketRoutes() {#getsocketroutes}
+
+> **getSocketRoutes**(): `ISocketRoute`\<`any`, `any`\>[]
+
+Get the built socket routes.
+
+#### Returns
+
+`ISocketRoute`\<`any`, `any`\>[]
+
+The socket routes.
+
+***
+
 ### start() {#start}
 
 > **start**(): `Promise`\<`void`\>

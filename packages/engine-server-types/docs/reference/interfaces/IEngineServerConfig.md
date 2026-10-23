@@ -120,6 +120,20 @@ The facades to activate, keyed by the type name of the factory they apply to.
 
 ***
 
+### webServerType? {#webservertype}
+
+> `optional` **webServerType?**: [`WebServerType`](../type-aliases/WebServerType.md)
+
+The type of web server to use.
+
+#### Default
+
+```ts
+fastify
+```
+
+***
+
 ### web? {#web}
 
 > `optional` **web?**: `IWebServerOptions`
@@ -213,6 +227,18 @@ Metrics producer component options. Creates the `MetricsProducerService` that or
 > `optional` **metricsCollectorComponent?**: `IEngineCoreTypeConfig`\<`MetricsCollectorComponentConfig`\>[]
 
 Metrics collector options. Each entry registers a collector in `MetricsCollectorFactory`.
+
+##### authorizationConnector?
+
+> `optional` **authorizationConnector?**: `IEngineCoreTypeConfig`\<`AuthorizationConnectorConfig`\>[]
+
+Authorization connector options which can be overridden by individual components by specifying types other than default.
+
+##### authorizationComponent?
+
+> `optional` **authorizationComponent?**: `IEngineCoreTypeConfig`\<`AuthorizationComponentConfig`\>[]
+
+Authorization component options which can be overridden by individual components by specifying types other than default.
 
 ##### messagingEmailConnector?
 

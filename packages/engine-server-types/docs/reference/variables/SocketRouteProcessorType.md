@@ -53,3 +53,9 @@ Tenant override.
 > `readonly` **SocketRoute**: `"socket-route"` = `"socket-route"`
 
 Socket Route.
+
+### Authorization {#authorization}
+
+> `readonly` **Authorization**: `"authorization"` = `"authorization"`
+
+Authorization.

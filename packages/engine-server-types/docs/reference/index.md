@@ -22,6 +22,7 @@
 - [MimeTypeProcessorType](type-aliases/MimeTypeProcessorType.md)
 - [RestRouteProcessorType](type-aliases/RestRouteProcessorType.md)
 - [SocketRouteProcessorType](type-aliases/SocketRouteProcessorType.md)
+- [WebServerType](type-aliases/WebServerType.md)
 
 ## Variables
 
@@ -33,6 +34,7 @@
 - [MimeTypeProcessorType](variables/MimeTypeProcessorType.md)
 - [RestRouteProcessorType](variables/RestRouteProcessorType.md)
 - [SocketRouteProcessorType](variables/SocketRouteProcessorType.md)
+- [WebServerType](variables/WebServerType.md)
 
 ## Functions
 
