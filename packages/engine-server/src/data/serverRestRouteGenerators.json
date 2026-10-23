@@ -25,7 +25,7 @@
 	},
 	{
 		"type": "authenticationAuditComponent",
-		"module": "@3sixty/api-auth-entity-storage-service",
+		"module": "@3sixty/api-auth-service",
 		"method": "generateRestRoutesAuthenticationAudit",
 		"defaultPath": "/authentication/audit"
 	},
@@ -52,6 +52,12 @@
 		"module": "@3sixty/tracing-service",
 		"method": "generateRestRoutesTracing",
 		"defaultPath": "/tracing"
+	},
+	{
+		"type": "authorizationComponent",
+		"module": "@3sixty/authorization-service",
+		"method": "generateRestRoutesAuthorization",
+		"defaultPath": "/authorization"
 	},
 	{
 		"type": "automationComponent",

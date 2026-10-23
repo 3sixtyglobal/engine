@@ -44,7 +44,12 @@ export const SocketRouteProcessorType = {
 	/**
 	 * Socket Route.
 	 */
-	SocketRoute: "socket-route"
+	SocketRoute: "socket-route",
+
+	/**
+	 * Authorization.
+	 */
+	Authorization: "authorization"
 } as const;
 
 /**

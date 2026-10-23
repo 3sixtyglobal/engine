@@ -1,4 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IWebServerOptions } from "@3sixty/api-models";
 import type { IEngineCoreTypeConfig } from "@3sixty/engine-models";
@@ -11,11 +12,18 @@ import type { InformationComponentConfig } from "./config/informationComponentCo
 import type { MimeTypeProcessorConfig } from "./config/mimeTypeProcessorConfig.js";
 import type { RestRouteProcessorConfig } from "./config/restRouteProcessorConfig.js";
 import type { SocketRouteProcessorConfig } from "./config/socketRouteProcessorConfig.js";
+import type { WebServerType } from "./types/webServerType.js";
 
 /**
  * Extended engine server config with known types.
  */
 export interface IEngineServerConfig extends IEngineConfig {
+	/**
+	 * The type of web server to use.
+	 * @default fastify
+	 */
+	webServerType?: WebServerType;
+
 	/**
 	 * Configuration for the web server.
 	 */

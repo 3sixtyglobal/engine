@@ -1,4 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import {
 	MimeTypeProcessorFactory,
@@ -9,12 +10,15 @@ import {
 	type IWebServer
 } from "@3sixty/api-models";
 import { FastifyWebServer, type IFastifyWebServerConfig } from "@3sixty/api-server-fastify";
+import { HonoWebServer, type IHonoWebServerConfig } from "@3sixty/api-server-hono";
+import { NativeWebServer, type INativeWebServerConfig } from "@3sixty/api-server-native";
 import { ContextIdStore } from "@3sixty/context";
 import { Guards, Is, StringHelper } from "@3sixty/core";
 import type { IEngineCore, IEngineCoreTypeConfig, IEngineServer } from "@3sixty/engine-models";
 import {
 	RestRouteProcessorType,
 	SocketRouteProcessorType,
+	WebServerType,
 	type IEngineServerConfig
 } from "@3sixty/engine-server-types";
 import { ModuleHelper } from "@3sixty/modules";
@@ -269,19 +273,51 @@ export class EngineServer<
 		);
 
 		const coreConfig = this._engineCore.getConfig();
-		const loggingComponentType = coreConfig.silent
-			? undefined
-			: this._engineCore.getRegisteredSilencedType("logging", nameof(FastifyWebServer));
+		const webServerType = coreConfig.webServerType ?? WebServerType.Fastify;
+		Guards.arrayOneOf<WebServerType>(
+			EngineServer.CLASS_NAME,
+			nameof(coreConfig.webServerType),
+			webServerType,
+			Object.values(WebServerType)
+		);
 
-		this._webServer = new FastifyWebServer({
-			loggingComponentType,
-			mimeTypeProcessors,
-			config: {
-				includeErrorStack: coreConfig.debug,
-				web: coreConfig.web?.customWebConfig as IFastifyWebServerConfig["web"],
-				socket: coreConfig.web?.customSocketConfig as IFastifyWebServerConfig["socket"]
-			}
-		});
+		if (webServerType === WebServerType.Hono) {
+			this._webServer = new HonoWebServer({
+				loggingComponentType: coreConfig.silent
+					? undefined
+					: this._engineCore.getRegisteredSilencedType("logging", nameof(HonoWebServer)),
+				mimeTypeProcessors,
+				config: {
+					includeErrorStack: coreConfig.debug,
+					web: coreConfig.web?.customWebConfig as IHonoWebServerConfig["web"],
+					socket: coreConfig.web?.customSocketConfig as IHonoWebServerConfig["socket"]
+				}
+			});
+		} else if (webServerType === WebServerType.Native) {
+			this._webServer = new NativeWebServer({
+				loggingComponentType: coreConfig.silent
+					? undefined
+					: this._engineCore.getRegisteredSilencedType("logging", nameof(NativeWebServer)),
+				mimeTypeProcessors,
+				config: {
+					includeErrorStack: coreConfig.debug,
+					web: coreConfig.web?.customWebConfig as INativeWebServerConfig["web"],
+					socket: coreConfig.web?.customSocketConfig as INativeWebServerConfig["socket"]
+				}
+			});
+		} else {
+			this._webServer = new FastifyWebServer({
+				loggingComponentType: coreConfig.silent
+					? undefined
+					: this._engineCore.getRegisteredSilencedType("logging", nameof(FastifyWebServer)),
+				mimeTypeProcessors,
+				config: {
+					includeErrorStack: coreConfig.debug,
+					web: coreConfig.web?.customWebConfig as IFastifyWebServerConfig["web"],
+					socket: coreConfig.web?.customSocketConfig as IFastifyWebServerConfig["socket"]
+				}
+			});
+		}
 
 		await this._engineCore.addRegisteredComponent("webServer", this._webServer);
 

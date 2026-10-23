@@ -4,7 +4,7 @@ import {
 	EntityStorageAuthenticationAuditService,
 	initSchema as initSchemaAuthEntityStorage,
 	type AuthenticationAuditEntry
-} from "@3sixty/api-auth-entity-storage-service";
+} from "@3sixty/api-auth-service";
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import { ComponentFactory } from "@3sixty/core";
 import type {

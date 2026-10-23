@@ -1,6 +1,7 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IAuthHeaderProcessorConstructorOptions } from "@3sixty/api-auth-entity-storage-service";
+import type { ITenantOverrideProcessorConstructorOptions } from "@3sixty/api-auth-service";
 import type {
 	IContextIdProcessorConstructorOptions,
 	ILoggingProcessorConstructorOptions,
@@ -9,9 +10,9 @@ import type {
 } from "@3sixty/api-processors";
 import type {
 	ISingleTenantProcessorConstructorOptions,
-	ITenantOverrideProcessorConstructorOptions,
 	ITenantProcessorConstructorOptions
 } from "@3sixty/api-tenant-processor";
+import type { IAuthorizationRouteProcessorConstructorOptions } from "@3sixty/authorization-service";
 import type { IMetricsRouteProcessorConstructorOptions } from "@3sixty/telemetry-processors";
 import type { ITracingRouteProcessorConstructorOptions } from "@3sixty/tracing-processors";
 import type { RestRouteProcessorType } from "../types/restRouteProcessorType.js";
@@ -59,4 +60,8 @@ export type RestRouteProcessorConfig =
 	| {
 			type: typeof RestRouteProcessorType.Tracing;
 			options?: ITracingRouteProcessorConstructorOptions;
+	  }
+	| {
+			type: typeof RestRouteProcessorType.Authorization;
+			options?: IAuthorizationRouteProcessorConstructorOptions;
 	  };

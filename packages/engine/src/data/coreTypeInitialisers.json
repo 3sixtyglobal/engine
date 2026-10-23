@@ -80,6 +80,16 @@
 		"method": "initialiseMetricsCollectorComponent"
 	},
 	{
+		"type": "authorizationConnector",
+		"module": "@3sixty/engine-types",
+		"method": "initialiseAuthorizationConnector"
+	},
+	{
+		"type": "authorizationComponent",
+		"module": "@3sixty/engine-types",
+		"method": "initialiseAuthorizationComponent"
+	},
+	{
 		"type": "automationComponent",
 		"module": "@3sixty/engine-types",
 		"method": "initialiseAutomationComponent"

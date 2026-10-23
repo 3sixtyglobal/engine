@@ -5,6 +5,7 @@ import {
 	initSchema as initSchemaAuthEntityStorage,
 	type AuthenticationUser
 } from "@3sixty/api-auth-entity-storage-service";
+import { TenantOverrideProcessor } from "@3sixty/api-auth-service";
 import { RestRouteProcessorFactory } from "@3sixty/api-models";
 import {
 	ContextIdProcessor,
@@ -12,11 +13,8 @@ import {
 	RestRouteProcessor,
 	StaticContextIdProcessor
 } from "@3sixty/api-processors";
-import {
-	TenantProcessor,
-	SingleTenantProcessor,
-	TenantOverrideProcessor
-} from "@3sixty/api-tenant-processor";
+import { TenantProcessor, SingleTenantProcessor } from "@3sixty/api-tenant-processor";
+import { AuthorizationRouteProcessor } from "@3sixty/authorization-service";
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import type { IComponent } from "@3sixty/core";
 import type {
@@ -150,6 +148,8 @@ export function initialiseRestRouteProcessorComponent(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						tenantAdminComponentType: engineCore.getRegisteredInstanceType("tenantAdminComponent"),
+						authorizationComponentType:
+							engineCore.getRegisteredInstanceType("authorizationComponent"),
 						config: {
 							includeErrorStack: context.config.debug
 						}
@@ -194,6 +194,21 @@ export function initialiseRestRouteProcessorComponent(
 				)
 			);
 		instanceTypeName = nameofKebabCase(TracingRouteProcessor);
+	} else if (instanceConfig.type === RestRouteProcessorType.Authorization) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new AuthorizationRouteProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						authorizationComponentType:
+							engineCore.getRegisteredInstanceType("authorizationComponent"),
+						config: {
+							includeErrorStack: context.config.debug
+						}
+					},
+					createConfig.options
+				)
+			);
+		instanceTypeName = nameofKebabCase(AuthorizationRouteProcessor);
 	}
 
 	return {

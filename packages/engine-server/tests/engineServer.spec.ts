@@ -1,10 +1,12 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import path from "node:path";
 import { ContextIdKeys, ContextIdStore } from "@3sixty/context";
 import { ComponentFactory, Factory, I18n } from "@3sixty/core";
 import { Engine } from "@3sixty/engine";
 import coreLocales from "@3sixty/engine-core/locales/en.json" with { type: "json" };
+import { EngineCoreFactory } from "@3sixty/engine-models";
 import {
 	AuthenticationAdminComponentType,
 	AuthenticationAuditComponentType,
@@ -13,6 +15,7 @@ import {
 	InformationComponentType,
 	RestRouteProcessorType,
 	SocketRouteProcessorType,
+	WebServerType,
 	type IEngineServerConfig
 } from "@3sixty/engine-server-types";
 import {
@@ -20,6 +23,8 @@ import {
 	AttestationConnectorType,
 	AuditableItemGraphComponentType,
 	AuditableItemStreamComponentType,
+	AuthorizationComponentType,
+	AuthorizationConnectorType,
 	AutomationActionType,
 	AutomationComponentType,
 	BackgroundTaskComponentType,
@@ -121,10 +126,20 @@ describe("engine-server", () => {
 		ContextIdStore.getContextIds = vi.fn().mockImplementation(() => ({ node: "node" }));
 	});
 
+	let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+
 	beforeEach(async () => {
 		port = await getFreePort();
 
 		Factory.clearFactories();
+		consoleErrorSpy = vi.spyOn(console, "error");
+	});
+
+	afterEach(() => {
+		// Any error level log output fails the test.
+		const errorCalls = [...consoleErrorSpy.mock.calls];
+		consoleErrorSpy.mockRestore();
+		expect(errorCalls).toEqual([]);
 	});
 
 	test("Can start engine server with no config", async () => {
@@ -133,6 +148,86 @@ describe("engine-server", () => {
 		await engineServer.start();
 		await engineServer.stop();
 		expect(engineServer).toBeDefined();
+	});
+
+	test("Can start engine server with hono web server", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				webServerType: WebServerType.Hono,
+				types: {
+					informationComponent: [
+						{
+							type: InformationComponentType.Service,
+							options: { config: { serverInfo: { name: "foo", version: "1" } } },
+							restPath: "/info"
+						}
+					]
+				},
+				web: { port }
+			}
+		});
+		const engineServer = new EngineServer({ engineCore: engine });
+		await engineServer.start();
+
+		const webServer = (await engine.getRegisteredComponents()).find(
+			c => c.instanceType === "webServer"
+		)?.component;
+		expect(webServer?.className()).toEqual("HonoWebServer");
+
+		const response = await fetch(`http://localhost:${port}/info`);
+		expect(response.status).toEqual(200);
+
+		await engineServer.stop();
+	});
+
+	test("Can start engine server with native web server", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				webServerType: WebServerType.Native,
+				types: {
+					informationComponent: [
+						{
+							type: InformationComponentType.Service,
+							options: { config: { serverInfo: { name: "foo", version: "1" } } },
+							restPath: "/info"
+						}
+					]
+				},
+				web: { port }
+			}
+		});
+		const engineServer = new EngineServer({ engineCore: engine });
+		await engineServer.start();
+
+		const webServer = (await engine.getRegisteredComponents()).find(
+			c => c.instanceType === "webServer"
+		)?.component;
+		expect(webServer?.className()).toEqual("NativeWebServer");
+
+		const response = await fetch(`http://localhost:${port}/info`);
+		expect(response.status).toEqual(200);
+
+		await engineServer.stop();
+	});
+
+	test("Fails to start engine server with unsupported web server type", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				webServerType: "foo" as WebServerType,
+				types: {},
+				web: { port }
+			}
+		});
+		const engineServer = new EngineServer({ engineCore: engine });
+
+		await expect(engineServer.start()).rejects.toMatchObject({
+			name: "GuardError",
+			properties: { property: "coreConfig.webServerType", value: "foo" }
+		});
+		expect(engine.isStarted()).toEqual(false);
 	});
 
 	test("Stops the engine when the web server fails to start", async () => {
@@ -237,6 +332,8 @@ describe("engine-server", () => {
 				telemetryComponent: [{ type: TelemetryComponentType.Service }],
 				tracingConnector: [{ type: TracingConnectorType.EntityStorage }],
 				tracingComponent: [{ type: TracingComponentType.Service }],
+				authorizationConnector: [{ type: AuthorizationConnectorType.EntityStorage }],
+				authorizationComponent: [{ type: AuthorizationComponentType.Service }],
 				metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 				metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
 				messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
@@ -463,6 +560,8 @@ describe("engine-server", () => {
 			config
 		});
 		engine.addContextId(ContextIdKeys.Node, "did:iota:0x123");
+		// Background task workers clone the engine registered under this name.
+		EngineCoreFactory.register("engine", () => engine);
 		const engineServer = new EngineServer({
 			engineCore: engine
 		});
@@ -484,6 +583,7 @@ describe("engine-server", () => {
 			"POST     /authentication/logout",
 			"POST     /authentication/refresh",
 			"PUT      /authentication/password",
+			"GET      /authentication/policy",
 			"POST     /authentication/admin/users",
 			"PUT      /authentication/admin/users/:email",
 			"PUT      /authentication/admin/users/:email/password",
@@ -516,6 +616,24 @@ describe("engine-server", () => {
 			"PUT      /tracing/:spanId",
 			"GET      /tracing",
 			"GET      /tracing/trace/:traceId",
+			"POST     /authorization/:modelId",
+			"POST     /authorization/:modelId/check",
+			"POST     /authorization/:modelId/policy",
+			"POST     /authorization/:modelId/policy/remove",
+			"GET      /authorization/:modelId/policy",
+			"GET      /authorization/:modelId/roles",
+			"POST     /authorization/:modelId/roles/has",
+			"GET      /authorization/:modelId/policy/:subject",
+			"POST     /authorization/:modelId/subject/:subject/role",
+			"DELETE   /authorization/:modelId/subject/:subject/role/:role",
+			"DELETE   /authorization/:modelId/subject/:subject/roles",
+			"GET      /authorization/:modelId/subject/:subject/roles",
+			"GET      /authorization/:modelId/subject/:subject/role/:role",
+			"GET      /authorization/:modelId/role/:role/subjects",
+			"POST     /authorization/:modelId/role/:role/inherit",
+			"DELETE   /authorization/:modelId/role/:role/inherit/:inheritsFrom",
+			"GET      /authorization/:modelId/role/:role/parents",
+			"GET      /authorization/:modelId/role/:role/children",
 			"POST     /automation/trigger/:trigger",
 			"POST     /automation",
 			"DELETE   /automation/:actionId",
@@ -539,8 +657,8 @@ describe("engine-server", () => {
 			"POST     /identity/:identity/verifiable-credential/:verificationMethodId",
 			"POST     /identity/verifiable-credential/verify/document",
 			"GET      /identity/verifiable-credential/verify",
-			"GET      /identity/:identity/verifiable-credential/revoke/:revocationIndex",
-			"GET      /identity/:identity/verifiable-credential/unrevoke/:revocationIndex",
+			"POST     /identity/:identity/verifiable-credential/revoke/:revocationIndex",
+			"POST     /identity/:identity/verifiable-credential/unrevoke/:revocationIndex",
 			"POST     /identity/:identity/verifiable-presentation/:verificationMethodId",
 			"POST     /identity/verifiable-presentation/verify/document",
 			"GET      /identity/verifiable-presentation/verify",

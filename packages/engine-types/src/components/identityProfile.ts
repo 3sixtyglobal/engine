@@ -89,7 +89,9 @@ export function initialiseIdentityProfileComponent(
 					{
 						profileEntityConnectorType: engineCore.getRegisteredInstanceType(
 							"identityProfileConnector"
-						)
+						),
+						authorizationComponentType:
+							engineCore.getRegisteredInstanceType("authorizationComponent")
 					},
 					createConfig.options
 				)

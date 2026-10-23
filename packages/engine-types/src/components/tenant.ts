@@ -46,7 +46,12 @@ export function initialiseTenantAdminComponent(
 				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [ContextIdKeys.Node])
 			);
 			return new TenantAdminService(
-				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
+					},
+					createConfig.options
+				)
 			);
 		};
 		instanceTypeName = nameofKebabCase(TenantAdminService);

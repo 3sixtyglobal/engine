@@ -12,6 +12,8 @@ import {
 	AttestationConnectorType,
 	AuditableItemGraphComponentType,
 	AuditableItemStreamComponentType,
+	AuthorizationComponentType,
+	AuthorizationConnectorType,
 	AutomationActionType,
 	AutomationComponentType,
 	BackgroundTaskComponentType,
@@ -216,13 +218,20 @@ describe("engine", () => {
 		}));
 	});
 
+	let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+
 	beforeEach(async () => {
 		Factory.clearFactories();
 		await mkdir("tests/.tmp", { recursive: true });
+		consoleErrorSpy = vi.spyOn(console, "error");
 	});
 
 	afterEach(async () => {
 		await rm("tests/.tmp", { recursive: true });
+		// Any error level log output fails the test.
+		const errorCalls = [...consoleErrorSpy.mock.calls];
+		consoleErrorSpy.mockRestore();
+		expect(errorCalls).toEqual([]);
 	});
 
 	test("Can start engine with no config", async () => {
@@ -269,6 +278,8 @@ describe("engine", () => {
 					tracingComponent: [{ type: TracingComponentType.Service }],
 					metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 					metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
+					authorizationConnector: [{ type: AuthorizationConnectorType.EntityStorage }],
+					authorizationComponent: [{ type: AuthorizationComponentType.Service }],
 					restClientProcessor: [{ type: RestClientProcessorType.Tracing }],
 					automationComponent: [{ type: AutomationComponentType.Service }],
 					automationAction: [
@@ -501,6 +512,7 @@ describe("engine", () => {
 			"telemetry-service",
 			"tracing-service",
 			"metrics-collector-service",
+			"authorization-service",
 			"automation-service",
 			"messaging-admin-service",
 			"messaging-service",
@@ -544,6 +556,10 @@ describe("engine", () => {
 			"SpanEvent",
 			"SpanLink",
 			"Span",
+			"AuthorizationPolicy",
+			"AuthorizationRoleAssignment",
+			"AuthorizationRoleInheritance",
+			"AuthorizationRoleName",
 			"AutomationActionEntry",
 			"EmailEntry",
 			"SmsEntry",
@@ -885,6 +901,8 @@ describe("engine", () => {
 					tracingComponent: [{ type: TracingComponentType.Service }],
 					metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 					metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
+					authorizationConnector: [{ type: AuthorizationConnectorType.EntityStorage }],
+					authorizationComponent: [{ type: AuthorizationComponentType.Service }],
 					restClientProcessor: [{ type: RestClientProcessorType.Tracing }],
 					automationComponent: [{ type: AutomationComponentType.Service }],
 					automationAction: [
@@ -1114,6 +1132,8 @@ describe("engine", () => {
 				telemetryComponent: [{ type: TelemetryComponentType.Service }],
 				metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 				metricsProducerComponent: [{ type: MetricsProducerComponentType.System }],
+				authorizationConnector: [{ type: AuthorizationConnectorType.EntityStorage }],
+				authorizationComponent: [{ type: AuthorizationComponentType.Service }],
 				automationComponent: [{ type: AutomationComponentType.Service }],
 				automationAction: [
 					{ type: AutomationActionType.Fetch, options: { config: { url: "http://example.com" } } }
@@ -2016,6 +2036,13 @@ describe("engine", () => {
 					],
 					metricsCollectorComponent: [{ type: MetricsCollectorComponentType.Service }],
 					metricsProducerComponent: [], // No REST client available for metrics producer
+					authorizationConnector: [{ type: AuthorizationConnectorType.EntityStorage }],
+					authorizationComponent: [
+						{
+							type: AuthorizationComponentType.RestClient,
+							options: { endpoint: "http://localhost:3000" }
+						}
+					],
 					restClientProcessor: [{ type: RestClientProcessorType.Tracing }],
 					messagingEmailConnector: [{ type: MessagingEmailConnectorType.EntityStorage }],
 					messagingSmsConnector: [{ type: MessagingSmsConnectorType.EntityStorage }],
@@ -2242,6 +2269,7 @@ describe("engine", () => {
 			"event-bus-socket-client",
 			"telemetry-rest-client",
 			"metrics-collector-service",
+			"authorization-rest-client",
 			"automation-service",
 			"messaging-admin-service",
 			"messaging-service",
@@ -2281,6 +2309,10 @@ describe("engine", () => {
 			"ScheduledTask",
 			"TelemetryMetric",
 			"TelemetryMetricValue",
+			"AuthorizationPolicy",
+			"AuthorizationRoleAssignment",
+			"AuthorizationRoleInheritance",
+			"AuthorizationRoleName",
 			"AutomationActionEntry",
 			"EmailEntry",
 			"SmsEntry",
@@ -2362,7 +2394,7 @@ describe("engine", () => {
 						entityStorageConnector: [
 							{
 								type: EntityStorageConnectorType.Memory,
-								options: { storagePrefix: "test-" }
+								options: { storagePrefix: "migrate-" }
 							}
 						],
 						entityStorageComponent: [
