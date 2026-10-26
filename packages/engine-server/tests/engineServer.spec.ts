@@ -212,6 +212,58 @@ describe("engine-server", () => {
 		await engineServer.stop();
 	});
 
+	test("Calls engineReady once the engine and routes are ready, before listening", async () => {
+		const engine = new Engine({
+			config: {
+				silent: true,
+				types: {
+					informationComponent: [
+						{
+							type: InformationComponentType.Service,
+							options: { config: { serverInfo: { name: "foo", version: "1" } } },
+							restPath: "/info"
+						}
+					]
+				},
+				web: { port }
+			}
+		});
+		const engineServer = new EngineServer({ engineCore: engine });
+
+		let engineStarted = false;
+		let routeCount = 0;
+		let listening = true;
+		await engineServer.start(async () => {
+			engineStarted = engine.isStarted();
+			routeCount = engineServer.getRestRoutes().length;
+			listening = await fetch(`http://localhost:${port}/info`).then(
+				() => true,
+				() => false
+			);
+		});
+
+		expect(engineStarted).toEqual(true);
+		expect(routeCount).toBeGreaterThan(0);
+		expect(listening).toEqual(false);
+
+		const response = await fetch(`http://localhost:${port}/info`);
+		expect(response.status).toEqual(200);
+
+		await engineServer.stop();
+	});
+
+	test("Stops the engine when engineReady fails", async () => {
+		const engine = new Engine({ config: { silent: true, types: {}, web: { port } } });
+		const engineServer = new EngineServer({ engineCore: engine });
+
+		await expect(
+			engineServer.start(async () => {
+				throw new Error("not ready");
+			})
+		).rejects.toThrow("not ready");
+		expect(engine.isStarted()).toEqual(false);
+	});
+
 	test("Fails to start engine server with unsupported web server type", async () => {
 		const engine = new Engine({
 			config: {

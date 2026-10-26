@@ -1,4 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IRestRoute, ISocketRoute } from "@3sixty/api-models";
 
@@ -36,9 +37,10 @@ export interface IEngineServer {
 
 	/**
 	 * Start the engine server.
+	 * @param engineReady Called once the engine has started and the routes are built, before the web server accepts requests.
 	 * @returns A promise that resolves when the server has started and is ready to accept requests.
 	 */
-	start(): Promise<void>;
+	start(engineReady?: () => Promise<void>): Promise<void>;
 
 	/**
 	 * Stop the engine server.
