@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.20.0-next.4](https://github.com/3sixtyglobal/engine/compare/engine-server-v0.20.0-next.3...engine-server-v0.20.0-next.4) (2026-10-26)
+
+
+### Features
+
+* release to next [skip ci] ([#30](https://github.com/3sixtyglobal/engine/issues/30)) ([dca87a6](https://github.com/3sixtyglobal/engine/commit/dca87a61dffb102de116a31fd58b31a149057159))
+
+
+### Bug Fixes
+
+* run engineReady before the web server listens ([#28](https://github.com/3sixtyglobal/engine/issues/28)) ([7b90952](https://github.com/3sixtyglobal/engine/commit/7b909521054ae2368874e7f74bb461bcbff2663e))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/engine-models bumped from 0.20.0-next.3 to 0.20.0-next.4
+    * @3sixty/engine-server-types bumped from 0.20.0-next.3 to 0.20.0-next.4
+  * devDependencies
+    * @3sixty/engine bumped from 0.20.0-next.3 to 0.20.0-next.4
+    * @3sixty/engine-core bumped from 0.20.0-next.3 to 0.20.0-next.4
+    * @3sixty/engine-types bumped from 0.20.0-next.3 to 0.20.0-next.4
+
 ## [0.20.0-next.3](https://github.com/3sixtyglobal/engine/compare/engine-server-v0.20.0-next.2...engine-server-v0.20.0-next.3) (2026-10-26)
 
 
