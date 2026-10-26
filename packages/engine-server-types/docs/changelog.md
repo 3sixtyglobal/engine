@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.20.0-next.4](https://github.com/3sixtyglobal/engine/compare/engine-server-types-v0.20.0-next.3...engine-server-types-v0.20.0-next.4) (2026-10-26)
+
+
+### Features
+
+* release to next [skip ci] ([#30](https://github.com/3sixtyglobal/engine/issues/30)) ([dca87a6](https://github.com/3sixtyglobal/engine/commit/dca87a61dffb102de116a31fd58b31a149057159))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/engine-models bumped from 0.20.0-next.3 to 0.20.0-next.4
+    * @3sixty/engine-types bumped from 0.20.0-next.3 to 0.20.0-next.4
+
 ## [0.20.0-next.3](https://github.com/3sixtyglobal/engine/compare/engine-server-types-v0.20.0-next.2...engine-server-types-v0.20.0-next.3) (2026-10-26)
 
 

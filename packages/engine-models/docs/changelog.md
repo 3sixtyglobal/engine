@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.20.0-next.4](https://github.com/3sixtyglobal/engine/compare/engine-models-v0.20.0-next.3...engine-models-v0.20.0-next.4) (2026-10-26)
+
+
+### Features
+
+* release to next [skip ci] ([#30](https://github.com/3sixtyglobal/engine/issues/30)) ([dca87a6](https://github.com/3sixtyglobal/engine/commit/dca87a61dffb102de116a31fd58b31a149057159))
+
+
+### Bug Fixes
+
+* run engineReady before the web server listens ([#28](https://github.com/3sixtyglobal/engine/issues/28)) ([7b90952](https://github.com/3sixtyglobal/engine/commit/7b909521054ae2368874e7f74bb461bcbff2663e))
+
 ## [0.20.0-next.3](https://github.com/3sixtyglobal/engine/compare/engine-models-v0.20.0-next.2...engine-models-v0.20.0-next.3) (2026-10-26)
 
 
