@@ -156,9 +156,17 @@ The socket routes.
 
 ### start() {#start}
 
-> **start**(): `Promise`\<`void`\>
+> **start**(`engineReady?`): `Promise`\<`void`\>
 
 Start the engine server.
+
+#### Parameters
+
+##### engineReady?
+
+() => `Promise`\<`void`\>
+
+Called once the engine has started and the routes are built, before the web server accepts requests.
 
 #### Returns
 
