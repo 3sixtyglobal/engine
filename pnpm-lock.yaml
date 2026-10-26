@@ -245,13 +245,13 @@ importers:
         specifier: next
         version: 0.20.0-next.4
       '@3sixty/engine-core':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../engine-core
       '@3sixty/engine-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../engine-models
       '@3sixty/engine-types':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../engine-types
       '@3sixty/entity':
         specifier: next
@@ -336,7 +336,7 @@ importers:
         specifier: next
         version: 0.20.0-next.4
       '@3sixty/engine-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../engine-models
       '@3sixty/entity':
         specifier: next
@@ -467,10 +467,10 @@ importers:
         specifier: next
         version: 0.20.0-next.4
       '@3sixty/engine-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../engine-models
       '@3sixty/engine-server-types':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../engine-server-types
       '@3sixty/modules':
         specifier: next
@@ -480,13 +480,13 @@ importers:
         version: 0.20.0-next.4
     devDependencies:
       '@3sixty/engine':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../engine
       '@3sixty/engine-core':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../engine-core
       '@3sixty/engine-types':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../engine-types
       '@3sixty/entity':
         specifier: next
@@ -564,10 +564,10 @@ importers:
         specifier: next
         version: 0.20.0-next.4
       '@3sixty/engine-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../engine-models
       '@3sixty/engine-types':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../engine-types
       '@3sixty/nameof':
         specifier: next
@@ -763,7 +763,7 @@ importers:
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/engine-models':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../engine-models
       '@3sixty/entity-storage-connector-cosmosdb':
         specifier: next
@@ -1049,7 +1049,7 @@ importers:
         version: 0.20.0-next.2
     devDependencies:
       '@3sixty/engine-core':
-        specifier: 0.20.0-next.2
+        specifier: 0.20.0-next.3
         version: link:../engine-core
       '@3sixty/nameof-transformer':
         specifier: next
