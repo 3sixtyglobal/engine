@@ -216,14 +216,15 @@ export class EngineServer<
 
 	/**
 	 * Start the engine server.
+	 * @param engineReady Called once the engine has started and the routes are built, before the web server accepts requests.
 	 * @returns A promise that resolves when the server has started and is ready to accept requests.
 	 */
-	public async start(): Promise<void> {
+	public async start(engineReady?: () => Promise<void>): Promise<void> {
 		await this._engineCore.start();
 
 		try {
 			await ContextIdStore.run(this._engineCore.getContextIds() ?? {}, async () => {
-				await this.startWebServer();
+				await this.startWebServer(engineReady);
 			});
 		} catch (err) {
 			// The engine components are already running, so they must be stopped when the
@@ -256,10 +257,11 @@ export class EngineServer<
 
 	/**
 	 * Starts the web server.
+	 * @param engineReady Called after the web server is built and before it starts listening.
 	 * @returns A promise that resolves when the web server is built and listening.
 	 * @internal
 	 */
-	private async startWebServer(): Promise<void> {
+	private async startWebServer(engineReady?: () => Promise<void>): Promise<void> {
 		this._restRoutes = await this.buildRestRoutes();
 		this._socketRoutes = await this.buildSocketRoutes();
 		const restRouteProcessors = RestRouteProcessorFactory.names().map(n =>
@@ -328,6 +330,13 @@ export class EngineServer<
 			this._socketRoutes,
 			coreConfig.web
 		);
+
+		// Work which must complete before any request is served, such as seeding the
+		// authorization model the route processors check requests against.
+		if (Is.function(engineReady)) {
+			await engineReady();
+		}
+
 		await this._webServer.start();
 	}
 

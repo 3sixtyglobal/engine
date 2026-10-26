@@ -72,6 +72,15 @@ await server.start();
 await server.stop();
 ```
 
+Pass `engineReady` to `start` for work which must complete before the first request is served. It runs once the engine has started and the routes are built, before the web server listens:
+
+```typescript
+await server.start(async () => {
+  const routes = server.getRestRoutes();
+  // e.g. seed data the route processors depend on
+});
+```
+
 ## addDefaultRestPaths and addDefaultSocketPaths
 
 ```typescript
