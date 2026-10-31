@@ -1,19 +1,19 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
-import {
-	EntityStorageAuthenticationAdminService,
-	initSchema as initSchemaAuthEntityStorage,
-	type AuthenticationUser
-} from "@3sixty/api-auth-entity-storage-service";
-import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
+import { EntityStorageAuthenticationAdminService } from "@3sixty/api-auth-entity-storage-service";
 import { ComponentFactory } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
-import { EngineTypeHelper, initialiseEntityStorageConnector } from "@3sixty/engine-types";
-import { nameof, nameofKebabCase } from "@3sixty/nameof";
+import { EngineTypeHelper } from "@3sixty/engine-types";
+import { nameofKebabCase } from "@3sixty/nameof";
+import {
+	initialiseAuthenticationPasswordResetEntityStorage,
+	initialiseAuthenticationUserEntityStorage
+} from "./authentication.js";
 import type { AuthenticationAdminComponentConfig } from "../models/config/authenticationAdminComponentConfig.js";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
 import { AuthenticationAdminComponentType } from "../models/types/authenticationAdminComponentType.js";
@@ -35,23 +35,31 @@ export function initialiseAuthenticationAdminComponent(
 
 	if (instanceConfig.type === AuthenticationAdminComponentType.EntityStorage) {
 		createComponent = (createConfig: typeof instanceConfig) => {
-			initSchemaAuthEntityStorage();
-			initialiseEntityStorageConnector(
+			initialiseAuthenticationUserEntityStorage(
 				engineCore,
 				context,
-				createConfig.options?.userEntityStorageType,
-				nameof<AuthenticationUser>(),
-				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-					ContextIdKeys.Node,
-					ContextIdKeys.Tenant
-				])
+				createConfig.options?.userEntityStorageType
+			);
+			// The password reset tokens of a removed account are removed with it.
+			initialiseAuthenticationPasswordResetEntityStorage(
+				engineCore,
+				context,
+				createConfig.options?.passwordResetEntityStorageType
 			);
 			return new EntityStorageAuthenticationAdminService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						authenticationAuditServiceType: engineCore.getRegisteredInstanceTypeOptional(
 							"authenticationAuditComponent"
-						)
+						),
+						authenticationAccountAdminComponentType: engineCore.getRegisteredInstanceTypeOptional(
+							"authenticationAccountAdminComponent"
+						),
+						organizationRequestAdminComponentType: engineCore.getRegisteredInstanceTypeOptional(
+							"organizationRequestAdminComponent"
+						),
+						authorizationComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("authorizationComponent")
 					},
 					createConfig.options
 				)

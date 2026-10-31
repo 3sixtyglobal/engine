@@ -10,6 +10,26 @@
 		"method": "initialiseAuthenticationRateComponent"
 	},
 	{
+		"type": "organizationComponent",
+		"module": "@3sixty/engine-server-types",
+		"method": "initialiseOrganizationComponent"
+	},
+	{
+		"type": "authenticationAccountComponent",
+		"module": "@3sixty/engine-server-types",
+		"method": "initialiseAuthenticationAccountComponent"
+	},
+	{
+		"type": "authenticationAccountAdminComponent",
+		"module": "@3sixty/engine-server-types",
+		"method": "initialiseAuthenticationAccountAdminComponent"
+	},
+	{
+		"type": "organizationRequestAdminComponent",
+		"module": "@3sixty/engine-server-types",
+		"method": "initialiseOrganizationRequestAdminComponent"
+	},
+	{
 		"type": "authenticationAdminComponent",
 		"module": "@3sixty/engine-server-types",
 		"method": "initialiseAuthenticationAdminComponent"
@@ -18,6 +38,16 @@
 		"type": "authenticationComponent",
 		"module": "@3sixty/engine-server-types",
 		"method": "initialiseAuthenticationComponent"
+	},
+	{
+		"type": "authenticationProvider",
+		"module": "@3sixty/engine-server-types",
+		"method": "initialiseAuthenticationProvider"
+	},
+	{
+		"type": "oauthComponent",
+		"module": "@3sixty/engine-server-types",
+		"method": "initialiseOAuthComponent"
 	},
 	{
 		"type": "informationComponent",

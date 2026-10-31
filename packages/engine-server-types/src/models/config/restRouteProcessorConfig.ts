@@ -1,10 +1,13 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
+import type { IAuthenticationAccountProcessorConstructorOptions } from "@3sixty/api-auth-account-service";
 import type { IAuthHeaderProcessorConstructorOptions } from "@3sixty/api-auth-entity-storage-service";
 import type { ITenantOverrideProcessorConstructorOptions } from "@3sixty/api-auth-service";
 import type {
 	IContextIdProcessorConstructorOptions,
 	ILoggingProcessorConstructorOptions,
+	IOriginCheckProcessorConstructorOptions,
 	IRestRouteProcessorConstructorOptions,
 	IStaticContextIdProcessorConstructorOptions
 } from "@3sixty/api-processors";
@@ -24,6 +27,10 @@ export type RestRouteProcessorConfig =
 	| {
 			type: typeof RestRouteProcessorType.AuthHeader;
 			options?: IAuthHeaderProcessorConstructorOptions;
+	  }
+	| {
+			type: typeof RestRouteProcessorType.AuthenticationAccount;
+			options?: IAuthenticationAccountProcessorConstructorOptions;
 	  }
 	| {
 			type: typeof RestRouteProcessorType.Logging;
@@ -64,4 +71,8 @@ export type RestRouteProcessorConfig =
 	| {
 			type: typeof RestRouteProcessorType.Authorization;
 			options?: IAuthorizationRouteProcessorConstructorOptions;
+	  }
+	| {
+			type: typeof RestRouteProcessorType.OriginCheck;
+			options?: IOriginCheckProcessorConstructorOptions;
 	  };

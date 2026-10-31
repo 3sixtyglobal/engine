@@ -1,9 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { EntityStorageAuthenticationRestClient } from "@3sixty/api-auth-entity-storage-rest-client";
 import {
 	EntityStorageAuthenticationService,
 	initSchema as initSchemaAuthEntityStorage,
+	type AuthenticationPasswordReset,
 	type AuthenticationUser
 } from "@3sixty/api-auth-entity-storage-service";
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
@@ -18,6 +20,56 @@ import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import type { AuthenticationComponentConfig } from "../models/config/authenticationComponentConfig.js";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
 import { AuthenticationComponentType } from "../models/types/authenticationComponentType.js";
+
+/**
+ * Initialise the entity storage of the authentication users, shared by every component that uses
+ * it so the schema and partitions match.
+ * @param engineCore The engine core.
+ * @param context The context for the engine.
+ * @param storageType The configured storage type.
+ */
+export function initialiseAuthenticationUserEntityStorage(
+	engineCore: IEngineCore<IEngineServerConfig>,
+	context: IEngineCoreContext<IEngineServerConfig>,
+	storageType: string | undefined
+): void {
+	initSchemaAuthEntityStorage();
+	initialiseEntityStorageConnector(
+		engineCore,
+		context,
+		storageType,
+		nameof<AuthenticationUser>(),
+		ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+			ContextIdKeys.Node,
+			ContextIdKeys.Tenant
+		])
+	);
+}
+
+/**
+ * Initialise the entity storage of the password reset and sign up verification tokens, partitioned
+ * like the accounts they belong to.
+ * @param engineCore The engine core.
+ * @param context The context for the engine.
+ * @param storageType The configured storage type.
+ */
+export function initialiseAuthenticationPasswordResetEntityStorage(
+	engineCore: IEngineCore<IEngineServerConfig>,
+	context: IEngineCoreContext<IEngineServerConfig>,
+	storageType: string | undefined
+): void {
+	initSchemaAuthEntityStorage();
+	initialiseEntityStorageConnector(
+		engineCore,
+		context,
+		storageType,
+		nameof<AuthenticationPasswordReset>(),
+		ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+			ContextIdKeys.Node,
+			ContextIdKeys.Tenant
+		])
+	);
+}
 
 /**
  * Initialise the authentication component.
@@ -36,16 +88,15 @@ export function initialiseAuthenticationComponent(
 
 	if (instanceConfig.type === AuthenticationComponentType.EntityStorage) {
 		createComponent = (createConfig: typeof instanceConfig) => {
-			initSchemaAuthEntityStorage();
-			initialiseEntityStorageConnector(
+			initialiseAuthenticationUserEntityStorage(
 				engineCore,
 				context,
-				createConfig.options?.userEntityStorageType,
-				nameof<AuthenticationUser>(),
-				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-					ContextIdKeys.Node,
-					ContextIdKeys.Tenant
-				])
+				createConfig.options?.userEntityStorageType
+			);
+			initialiseAuthenticationPasswordResetEntityStorage(
+				engineCore,
+				context,
+				createConfig.options?.passwordResetEntityStorageType
 			);
 			return new EntityStorageAuthenticationService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
@@ -58,7 +109,26 @@ export function initialiseAuthenticationComponent(
 						),
 						authenticationRateServiceType: engineCore.getRegisteredInstanceType(
 							"authenticationRateComponent"
-						)
+						),
+						authenticationAccountAdminComponentType: engineCore.getRegisteredInstanceTypeOptional(
+							"authenticationAccountAdminComponent"
+						),
+						authenticationAccountComponentType: engineCore.getRegisteredInstanceTypeOptional(
+							"authenticationAccountComponent"
+						),
+						authorizationComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("authorizationComponent"),
+						organizationRequestAdminComponentType: engineCore.getRegisteredInstanceTypeOptional(
+							"organizationRequestAdminComponent"
+						),
+						messagingComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("messagingComponent"),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(EntityStorageAuthenticationService)
+						),
+						taskSchedulerComponentType:
+							engineCore.getRegisteredInstanceTypeOptional("taskSchedulerComponent")
 					},
 					createConfig.options
 				)
