@@ -104,31 +104,31 @@ export function initialiseAuthenticationComponent(
 						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
 						tenantAdminComponentType:
 							engineCore.getRegisteredInstanceTypeOptional("tenantAdminComponent"),
-						authenticationAuditServiceType: engineCore.getRegisteredInstanceTypeOptional(
+						authenticationAuditServiceType: engineCore.getRegisteredInstanceType(
 							"authenticationAuditComponent"
 						),
 						authenticationRateServiceType: engineCore.getRegisteredInstanceType(
 							"authenticationRateComponent"
 						),
-						authenticationAccountAdminComponentType: engineCore.getRegisteredInstanceTypeOptional(
+						authenticationAccountAdminComponentType: engineCore.getRegisteredInstanceType(
 							"authenticationAccountAdminComponent"
 						),
-						authenticationAccountComponentType: engineCore.getRegisteredInstanceTypeOptional(
+						authenticationAccountComponentType: engineCore.getRegisteredInstanceType(
 							"authenticationAccountComponent"
 						),
 						authorizationComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("authorizationComponent"),
-						organizationRequestAdminComponentType: engineCore.getRegisteredInstanceTypeOptional(
+							engineCore.getRegisteredInstanceType("authorizationComponent"),
+						organizationRequestAdminComponentType: engineCore.getRegisteredInstanceType(
 							"organizationRequestAdminComponent"
 						),
-						messagingComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("messagingComponent"),
+						messagingComponentType: engineCore.getRegisteredInstanceType("messagingComponent"),
 						loggingComponentType: engineCore.getRegisteredSilencedType(
 							"logging",
 							nameof(EntityStorageAuthenticationService)
 						),
 						taskSchedulerComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("taskSchedulerComponent")
+							engineCore.getRegisteredInstanceType("taskSchedulerComponent"),
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
 					},
 					createConfig.options
 				)

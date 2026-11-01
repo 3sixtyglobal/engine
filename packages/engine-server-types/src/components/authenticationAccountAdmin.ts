@@ -10,6 +10,7 @@ import type {
 } from "@3sixty/engine-models";
 import { EngineTypeHelper } from "@3sixty/engine-types";
 import { nameofKebabCase } from "@3sixty/nameof";
+import { initialiseAuthenticationUserEntityStorage } from "./authentication.js";
 import {
 	initialiseAccountDataEntityStorage,
 	initialiseOrganizationEntityStorage,
@@ -52,12 +53,21 @@ export function initialiseAuthenticationAccountAdminComponent(
 				context,
 				createConfig.options?.organizationRequestEntityStorageType
 			);
+			// The accounts are looked up to check one exists before its data is changed.
+			initialiseAuthenticationUserEntityStorage(
+				engineCore,
+				context,
+				createConfig.options?.userEntityStorageType
+			);
 			return new EntityStorageAuthenticationAccountAdminService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						authorizationComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("authorizationComponent"),
-						identityComponentType: engineCore.getRegisteredInstanceTypeOptional("identityComponent")
+							engineCore.getRegisteredInstanceType("authorizationComponent"),
+						identityComponentType: engineCore.getRegisteredInstanceType("identityComponent"),
+						authenticationRateServiceType: engineCore.getRegisteredInstanceType(
+							"authenticationRateComponent"
+						)
 					},
 					createConfig.options
 				)

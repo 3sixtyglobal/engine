@@ -136,8 +136,8 @@ const types: Partial<IEngineServerConfig['types']> = {
       type: AuthenticationComponentType.EntityStorage,
       options: {
         config: {
-          passwordResetEnabled: true,
           passwordResetUrl: 'https://app.example.org/reset-password',
+          registrationVerificationUrl: 'https://app.example.org/verify',
           emailSender: 'no-reply@example.org'
         }
       }

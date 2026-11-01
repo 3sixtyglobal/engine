@@ -56,7 +56,7 @@ export function initialiseOrganizationRequestAdminComponent(
 					{
 						identityComponentType: engineCore.getRegisteredInstanceType("identityComponent"),
 						authorizationComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("authorizationComponent")
+							engineCore.getRegisteredInstanceType("authorizationComponent")
 					},
 					createConfig.options
 				)

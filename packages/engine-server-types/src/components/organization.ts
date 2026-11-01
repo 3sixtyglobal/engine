@@ -55,11 +55,10 @@ export function initialiseOrganizationComponent(
 			return new EntityStorageOrganizationService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						identityComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("identityComponent"),
+						identityComponentType: engineCore.getRegisteredInstanceType("identityComponent"),
 						authorizationComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("authorizationComponent"),
-						authenticationRateServiceType: engineCore.getRegisteredInstanceTypeOptional(
+							engineCore.getRegisteredInstanceType("authorizationComponent"),
+						authenticationRateServiceType: engineCore.getRegisteredInstanceType(
 							"authenticationRateComponent"
 						)
 					},

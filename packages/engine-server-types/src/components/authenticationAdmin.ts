@@ -49,17 +49,17 @@ export function initialiseAuthenticationAdminComponent(
 			return new EntityStorageAuthenticationAdminService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						authenticationAuditServiceType: engineCore.getRegisteredInstanceTypeOptional(
+						authenticationAuditServiceType: engineCore.getRegisteredInstanceType(
 							"authenticationAuditComponent"
 						),
-						authenticationAccountAdminComponentType: engineCore.getRegisteredInstanceTypeOptional(
+						authenticationAccountAdminComponentType: engineCore.getRegisteredInstanceType(
 							"authenticationAccountAdminComponent"
 						),
-						organizationRequestAdminComponentType: engineCore.getRegisteredInstanceTypeOptional(
+						organizationRequestAdminComponentType: engineCore.getRegisteredInstanceType(
 							"organizationRequestAdminComponent"
 						),
 						authorizationComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("authorizationComponent")
+							engineCore.getRegisteredInstanceType("authorizationComponent")
 					},
 					createConfig.options
 				)
