@@ -8,11 +8,17 @@ import { Engine } from "@3sixty/engine";
 import coreLocales from "@3sixty/engine-core/locales/en.json" with { type: "json" };
 import { EngineCoreFactory } from "@3sixty/engine-models";
 import {
+	AuthenticationAccountAdminComponentType,
+	AuthenticationAccountComponentType,
 	AuthenticationAdminComponentType,
 	AuthenticationAuditComponentType,
 	AuthenticationComponentType,
+	AuthenticationProviderType,
 	AuthenticationRateComponentType,
 	InformationComponentType,
+	OAuthComponentType,
+	OrganizationComponentType,
+	OrganizationRequestAdminComponentType,
 	RestRouteProcessorType,
 	SocketRouteProcessorType,
 	WebServerType,
@@ -592,12 +598,55 @@ describe("engine-server", () => {
 				],
 				authenticationComponent: [
 					{
-						type: AuthenticationComponentType.EntityStorage
+						type: AuthenticationComponentType.EntityStorage,
+						options: {
+							config: {
+								passwordResetUrl: "https://twin.example.org/reset-password",
+								registrationVerificationUrl: "https://twin.example.org/verify",
+								emailSender: "noreply@twin.example.org"
+							}
+						}
 					}
 				],
 				authenticationAdminComponent: [
 					{
 						type: AuthenticationAdminComponentType.EntityStorage
+					}
+				],
+				authenticationProvider: [
+					{
+						type: AuthenticationProviderType.EntityStorage
+					}
+				],
+				authenticationAccountComponent: [
+					{
+						type: AuthenticationAccountComponentType.EntityStorage
+					}
+				],
+				authenticationAccountAdminComponent: [
+					{
+						type: AuthenticationAccountAdminComponentType.EntityStorage
+					}
+				],
+				organizationRequestAdminComponent: [
+					{
+						type: OrganizationRequestAdminComponentType.EntityStorage
+					}
+				],
+				organizationComponent: [
+					{
+						type: OrganizationComponentType.EntityStorage
+					}
+				],
+				oauthComponent: [
+					{
+						type: OAuthComponentType.Service,
+						options: {
+							config: {
+								successRedirectUrl: "https://app.example.com/",
+								failureRedirectUrl: "https://app.example.com/login"
+							}
+						}
 					}
 				],
 				platformComponent: [
@@ -632,13 +681,24 @@ describe("engine-server", () => {
 			"GET      /spec",
 			"GET      /health",
 			"POST     /authentication/login",
+			"POST     /authentication/login/:authProviderId",
+			"POST     /authentication/register",
+			"POST     /authentication/register/verify",
+			"GET      /authentication/me",
+			"DELETE   /authentication/me",
 			"POST     /authentication/logout",
 			"POST     /authentication/refresh",
 			"PUT      /authentication/password",
+			"POST     /authentication/password/forgot",
+			"POST     /authentication/password/reset",
 			"GET      /authentication/policy",
+			"GET      /authentication/providers",
 			"POST     /authentication/admin/users",
+			"GET      /authentication/admin/users",
 			"PUT      /authentication/admin/users/:email",
 			"PUT      /authentication/admin/users/:email/password",
+			"POST     /authentication/admin/users/:email/disable",
+			"POST     /authentication/admin/users/:email/enable",
 			"GET      /authentication/admin/users/:email",
 			"GET      /authentication/admin/users/identity/:identity",
 			"DELETE   /authentication/admin/users/:email",
@@ -647,12 +707,65 @@ describe("engine-server", () => {
 			"PUT      /authentication/audit/:id",
 			"DELETE   /authentication/audit/:id",
 			"GET      /authentication/audit",
+			"GET      /authentication/oauth/:authProviderId/start",
+			"GET      /authentication/oauth/:authProviderId/callback",
+			"POST     /authentication/account/identity",
+			"POST     /authentication/account/identity/export",
+			"POST     /authentication/account/identity/import",
+			"DELETE   /authentication/account/identity",
+			"GET      /authentication/account/export",
+			"POST     /authentication/account/import",
+			"GET      /authentication/account/organization",
+			"GET      /authentication/account/organization/request",
+			"DELETE   /authentication/account/organization/request/:organization",
+			"POST     /authentication/account/organization",
+			"POST     /authentication/account/organization/create",
+			"DELETE   /authentication/account/organization/:organization",
+			"GET      /authentication/account/public/identity/:identity",
+			"GET      /authentication/account/public/account/:accountId",
+			"POST     /authentication/account",
+			"GET      /authentication/account/:id",
+			"PUT      /authentication/account/:id",
+			"DELETE   /authentication/account/:id",
+			"GET      /authentication/account",
+			"POST     /authentication/admin/account",
+			"POST     /authentication/admin/account/:accountId/identity",
+			"POST     /authentication/admin/account/:accountId/identity/export",
+			"POST     /authentication/admin/account/:accountId/identity/import",
+			"GET      /authentication/admin/account/:accountId/export",
+			"POST     /authentication/admin/account/:accountId/import",
+			"GET      /authentication/admin/account/managed",
+			"GET      /authentication/admin/account/roles/assignable",
+			"GET      /authentication/admin/account/:accountId/roles",
+			"PUT      /authentication/admin/account/:accountId/roles/:role",
+			"DELETE   /authentication/admin/account/:accountId/roles/:role",
+			"GET      /authentication/admin/account/:id",
+			"PUT      /authentication/admin/account/:id",
+			"DELETE   /authentication/admin/account/:id",
+			"GET      /authentication/admin/account",
+			"GET      /authentication/admin/organization-request/count",
+			"GET      /authentication/admin/organization-request/:id",
+			"GET      /authentication/admin/organization-request",
+			"POST     /authentication/admin/organization-request/:id/accept",
+			"POST     /authentication/admin/organization-request/:id/reject",
+			"DELETE   /authentication/admin/organization-request/account/:accountId",
+			"POST     /authentication/organization",
+			"GET      /authentication/organization",
+			"GET      /authentication/organization/search",
+			"GET      /authentication/organization/:id",
+			"PUT      /authentication/organization/:id",
+			"DELETE   /authentication/organization/:id",
+			"GET      /authentication/organization/:id/member",
+			"PUT      /authentication/organization/:id/admin/:accountId",
+			"DELETE   /authentication/organization/:id/admin/:accountId",
+			"POST     /authentication/organization/:id/export",
 			"POST     /logging",
 			"GET      /logging",
 			"GET      /tenants",
 			"POST     /tenants",
 			"GET      /tenants/:id",
 			"GET      /tenants/api-key/:apiKey",
+			"GET      /tenants/organization/:organizationId",
 			"GET      /tenants/public-origin/:publicOrigin",
 			"DELETE   /tenants/:id",
 			"PUT      /tenants/:id",
@@ -700,6 +813,8 @@ describe("engine-server", () => {
 			"GET      /blob",
 			"POST     /identity",
 			"DELETE   /identity/:identity",
+			"POST     /identity/:identity/export",
+			"POST     /identity/import",
 			"POST     /identity/:identity/verification-method",
 			"DELETE   /identity/:identity/verification-method/:verificationMethodId",
 			"POST     /identity/:identity/service",
@@ -820,7 +935,6 @@ describe("engine-server", () => {
 			"GET      /catalog/datasets/:datasetId",
 			"POST     /catalog/datasets",
 			"DELETE   /catalog/datasets/:datasetId",
-			// Dataspace Control Plane routes
 			"GET      /.well-known/dspace-version",
 			"POST     /dataspace/transfers/request",
 			"GET      /dataspace/transfers/:pid",
@@ -833,7 +947,6 @@ describe("engine-server", () => {
 			"GET      /dataspace/app-datasets/:id",
 			"PUT      /dataspace/app-datasets/:id",
 			"DELETE   /dataspace/app-datasets/:id",
-			// Dataspace Data Plane routes
 			"POST     /dataspace/inbox",
 			"GET      /dataspace/activity-logs/:id",
 			"GET      /dataspace/entities",

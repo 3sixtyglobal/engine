@@ -1,31 +1,31 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
-import {
-	AuthHeaderProcessor,
-	initSchema as initSchemaAuthEntityStorage,
-	type AuthenticationUser
-} from "@3sixty/api-auth-entity-storage-service";
+import { AuthenticationAccountProcessor } from "@3sixty/api-auth-account-service";
+import { AuthHeaderProcessor } from "@3sixty/api-auth-entity-storage-service";
 import { TenantOverrideProcessor } from "@3sixty/api-auth-service";
 import { RestRouteProcessorFactory } from "@3sixty/api-models";
 import {
 	ContextIdProcessor,
 	LoggingProcessor,
+	OriginCheckProcessor,
 	RestRouteProcessor,
 	StaticContextIdProcessor
 } from "@3sixty/api-processors";
 import { TenantProcessor, SingleTenantProcessor } from "@3sixty/api-tenant-processor";
 import { AuthorizationRouteProcessor } from "@3sixty/authorization-service";
-import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import type { IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
-import { EngineTypeHelper, initialiseEntityStorageConnector } from "@3sixty/engine-types";
+import { EngineTypeHelper } from "@3sixty/engine-types";
 import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { MetricsRouteProcessor } from "@3sixty/telemetry-processors";
 import { TracingRouteProcessor } from "@3sixty/tracing-processors";
+import { initialiseAuthenticationUserEntityStorage } from "./authentication.js";
+import { initialiseAccountDataEntityStorage } from "./authenticationAccount.js";
 import type { RestRouteProcessorConfig } from "../models/config/restRouteProcessorConfig.js";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
 import { RestRouteProcessorType } from "../models/types/restRouteProcessorType.js";
@@ -47,16 +47,10 @@ export function initialiseRestRouteProcessorComponent(
 
 	if (instanceConfig.type === RestRouteProcessorType.AuthHeader) {
 		createComponent = (createConfig: typeof instanceConfig) => {
-			initSchemaAuthEntityStorage();
-			initialiseEntityStorageConnector(
+			initialiseAuthenticationUserEntityStorage(
 				engineCore,
 				context,
-				createConfig.options?.userEntityStorageType,
-				nameof<AuthenticationUser>(),
-				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-					ContextIdKeys.Node,
-					ContextIdKeys.Tenant
-				])
+				createConfig.options?.userEntityStorageType
 			);
 
 			return new AuthHeaderProcessor(
@@ -76,6 +70,18 @@ export function initialiseRestRouteProcessorComponent(
 			);
 		};
 		instanceTypeName = nameofKebabCase(AuthHeaderProcessor);
+	} else if (instanceConfig.type === RestRouteProcessorType.AuthenticationAccount) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initialiseAccountDataEntityStorage(
+				engineCore,
+				context,
+				createConfig.options?.accountDataEntityStorageType
+			);
+			return new AuthenticationAccountProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = nameofKebabCase(AuthenticationAccountProcessor);
 	} else if (instanceConfig.type === RestRouteProcessorType.Logging) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new LoggingProcessor(
@@ -209,6 +215,12 @@ export function initialiseRestRouteProcessorComponent(
 				)
 			);
 		instanceTypeName = nameofKebabCase(AuthorizationRouteProcessor);
+	} else if (instanceConfig.type === RestRouteProcessorType.OriginCheck) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new OriginCheckProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(OriginCheckProcessor);
 	}
 
 	return {

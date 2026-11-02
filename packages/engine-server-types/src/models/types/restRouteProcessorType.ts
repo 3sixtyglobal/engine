@@ -1,4 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 
 /**
@@ -10,6 +11,11 @@ export const RestRouteProcessorType = {
 	 * Auth header.
 	 */
 	AuthHeader: "auth-header",
+
+	/**
+	 * Authentication account, sets the identity and organization of the signed in account.
+	 */
+	AuthenticationAccount: "authentication-account",
 
 	/**
 	 * Logging.
@@ -59,7 +65,12 @@ export const RestRouteProcessorType = {
 	/**
 	 * Authorization.
 	 */
-	Authorization: "authorization"
+	Authorization: "authorization",
+
+	/**
+	 * Origin check, rejects cookie authenticated state changing requests from other origins.
+	 */
+	OriginCheck: "origin-check"
 } as const;
 
 /**

@@ -1,4 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import type { IComponent } from "@3sixty/core";
@@ -297,7 +298,11 @@ export function initialiseMessagingComponent(
 							"messagingPushNotificationConnector"
 						),
 						messagingAdminComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("messagingAdminComponent")
+							engineCore.getRegisteredInstanceTypeOptional("messagingAdminComponent"),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(MessagingService)
+						)
 					},
 					createConfig.options
 				)

@@ -1,4 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { ComponentFactory } from "@3sixty/core";
 import type { IComponent } from "@3sixty/core";
@@ -53,6 +54,10 @@ export function initialiseIdentityConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
 						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(IotaIdentityConnector)
+						),
 						config: dltConfig?.options?.config
 					},
 					createConfig.options
@@ -72,7 +77,13 @@ export function initialiseIdentityConnector(
 			);
 			return new EntityStorageIdentityConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
-					{ vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector") },
+					{
+						vaultConnectorType: engineCore.getRegisteredInstanceType("vaultConnector"),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(EntityStorageIdentityConnector)
+						)
+					},
 					createConfig.options
 				)
 			);

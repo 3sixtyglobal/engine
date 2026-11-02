@@ -1,29 +1,29 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
-import {
-	AuthHeaderProcessor,
-	initSchema as initSchemaAuthEntityStorage,
-	type AuthenticationUser
-} from "@3sixty/api-auth-entity-storage-service";
+import { AuthenticationAccountProcessor } from "@3sixty/api-auth-account-service";
+import { AuthHeaderProcessor } from "@3sixty/api-auth-entity-storage-service";
 import { TenantOverrideProcessor } from "@3sixty/api-auth-service";
 import { SocketRouteProcessorFactory } from "@3sixty/api-models";
 import {
 	ContextIdProcessor,
 	LoggingProcessor,
+	OriginCheckProcessor,
 	SocketRouteProcessor,
 	StaticContextIdProcessor
 } from "@3sixty/api-processors";
 import { SingleTenantProcessor, TenantProcessor } from "@3sixty/api-tenant-processor";
 import { AuthorizationRouteProcessor } from "@3sixty/authorization-service";
-import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import type { IComponent } from "@3sixty/core";
 import type {
 	EngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
-import { EngineTypeHelper, initialiseEntityStorageConnector } from "@3sixty/engine-types";
+import { EngineTypeHelper } from "@3sixty/engine-types";
 import { nameof, nameofKebabCase } from "@3sixty/nameof";
+import { initialiseAuthenticationUserEntityStorage } from "./authentication.js";
+import { initialiseAccountDataEntityStorage } from "./authenticationAccount.js";
 import type { SocketRouteProcessorConfig } from "../models/config/socketRouteProcessorConfig.js";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
 import { SocketRouteProcessorType } from "../models/types/socketRouteProcessorType.js";
@@ -45,16 +45,10 @@ export function initialiseSocketRouteProcessorComponent(
 
 	if (instanceConfig.type === SocketRouteProcessorType.AuthHeader) {
 		createComponent = (createConfig: typeof instanceConfig) => {
-			initSchemaAuthEntityStorage();
-			initialiseEntityStorageConnector(
+			initialiseAuthenticationUserEntityStorage(
 				engineCore,
 				context,
-				createConfig.options?.userEntityStorageType,
-				nameof<AuthenticationUser>(),
-				ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
-					ContextIdKeys.Node,
-					ContextIdKeys.Tenant
-				])
+				createConfig.options?.userEntityStorageType
 			);
 
 			return new AuthHeaderProcessor(
@@ -74,6 +68,18 @@ export function initialiseSocketRouteProcessorComponent(
 			);
 		};
 		instanceTypeName = nameofKebabCase(AuthHeaderProcessor);
+	} else if (instanceConfig.type === SocketRouteProcessorType.AuthenticationAccount) {
+		createComponent = (createConfig: typeof instanceConfig) => {
+			initialiseAccountDataEntityStorage(
+				engineCore,
+				context,
+				createConfig.options?.accountDataEntityStorageType
+			);
+			return new AuthenticationAccountProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		};
+		instanceTypeName = nameofKebabCase(AuthenticationAccountProcessor);
 	} else if (instanceConfig.type === SocketRouteProcessorType.Logging) {
 		createComponent = (createConfig: typeof instanceConfig) =>
 			new LoggingProcessor(
@@ -171,6 +177,12 @@ export function initialiseSocketRouteProcessorComponent(
 				)
 			);
 		instanceTypeName = nameofKebabCase(AuthorizationRouteProcessor);
+	} else if (instanceConfig.type === SocketRouteProcessorType.OriginCheck) {
+		createComponent = (createConfig: typeof instanceConfig) =>
+			new OriginCheckProcessor(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(createConfig.options)
+			);
+		instanceTypeName = nameofKebabCase(OriginCheckProcessor);
 	}
 
 	return {

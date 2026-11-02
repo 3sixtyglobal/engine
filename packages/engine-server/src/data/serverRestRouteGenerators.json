@@ -30,6 +30,36 @@
 		"defaultPath": "/authentication/audit"
 	},
 	{
+		"type": "oauthComponent",
+		"module": "@3sixty/api-auth-oauth-service",
+		"method": "generateRestRoutesOAuth",
+		"defaultPath": "/authentication/oauth"
+	},
+	{
+		"type": "authenticationAccountComponent",
+		"module": "@3sixty/api-auth-account-service",
+		"method": "generateRestRoutesAuthenticationAccount",
+		"defaultPath": "/authentication/account"
+	},
+	{
+		"type": "authenticationAccountAdminComponent",
+		"module": "@3sixty/api-auth-account-service",
+		"method": "generateRestRoutesAuthenticationAccountAdmin",
+		"defaultPath": "/authentication/admin/account"
+	},
+	{
+		"type": "organizationRequestAdminComponent",
+		"module": "@3sixty/api-auth-account-service",
+		"method": "generateRestRoutesOrganizationRequestAdmin",
+		"defaultPath": "/authentication/admin/organization-request"
+	},
+	{
+		"type": "organizationComponent",
+		"module": "@3sixty/api-auth-account-service",
+		"method": "generateRestRoutesOrganization",
+		"defaultPath": "/authentication/organization"
+	},
+	{
 		"type": "loggingComponent",
 		"module": "@3sixty/logging-service",
 		"method": "generateRestRoutesLogging",
@@ -85,8 +115,8 @@
 	},
 	{
 		"type": "identityProfileComponent",
-		"module": "@3sixty/identity-service",
-		"method": "generateRestRoutesIdentityProfile",
+		"module": "@3sixty/api-auth-account-service",
+		"method": "generateRestRoutesIdentityProfileDeprecated",
 		"defaultPath": "/identity/profile"
 	},
 	{
