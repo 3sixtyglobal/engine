@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.20.0-next.5](https://github.com/3sixtyglobal/engine/compare/engine-server-v0.20.0-next.4...engine-server-v0.20.0-next.5) (2026-11-02)
+
+
+### Features
+
+* account onboarding, organizations and OAuth sign in ([#32](https://github.com/3sixtyglobal/engine/issues/32)) ([34df36e](https://github.com/3sixtyglobal/engine/commit/34df36eb74007e789fcbe1132f8878b715f4ba6a))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/engine-models bumped from 0.20.0-next.4 to 0.20.0-next.5
+    * @3sixty/engine-server-types bumped from 0.20.0-next.4 to 0.20.0-next.5
+  * devDependencies
+    * @3sixty/engine bumped from 0.20.0-next.4 to 0.20.0-next.5
+    * @3sixty/engine-core bumped from 0.20.0-next.4 to 0.20.0-next.5
+    * @3sixty/engine-types bumped from 0.20.0-next.4 to 0.20.0-next.5
+
 ## [0.20.0-next.4](https://github.com/3sixtyglobal/engine/compare/engine-server-v0.20.0-next.3...engine-server-v0.20.0-next.4) (2026-10-26)
 
 
