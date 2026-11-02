@@ -132,6 +132,8 @@ export function initialiseAuthenticationAccountComponent(
 			return new EntityStorageAuthenticationAccountService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
+						authorizationComponentType:
+							engineCore.getRegisteredInstanceType("authorizationComponent"),
 						identityComponentType: engineCore.getRegisteredInstanceType("identityComponent"),
 						authenticationRateServiceType: engineCore.getRegisteredInstanceType(
 							"authenticationRateComponent"
