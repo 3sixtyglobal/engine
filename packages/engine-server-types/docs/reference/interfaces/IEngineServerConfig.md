@@ -678,6 +678,42 @@ Authentication component options which can be overridden by individual component
 
 Authentication admin component options which can be overridden by individual components by specifying types other than default.
 
+##### authenticationProvider?
+
+> `optional` **authenticationProvider?**: `IEngineCoreTypeConfig`\<[`AuthenticationProviderConfig`](../type-aliases/AuthenticationProviderConfig.md)\>[]
+
+Authentication providers, each registered under its authentication provider id.
+
+##### authenticationAccountComponent?
+
+> `optional` **authenticationAccountComponent?**: `IEngineCoreTypeConfig`\<[`AuthenticationAccountComponentConfig`](../type-aliases/AuthenticationAccountComponentConfig.md)\>[]
+
+Authentication account component options, for the data stored against the signed in account.
+
+##### authenticationAccountAdminComponent?
+
+> `optional` **authenticationAccountAdminComponent?**: `IEngineCoreTypeConfig`\<[`AuthenticationAccountAdminComponentConfig`](../type-aliases/AuthenticationAccountAdminComponentConfig.md)\>[]
+
+Authentication account admin component options, for the data stored against any account.
+
+##### organizationRequestAdminComponent?
+
+> `optional` **organizationRequestAdminComponent?**: `IEngineCoreTypeConfig`\<[`OrganizationRequestAdminComponentConfig`](../type-aliases/OrganizationRequestAdminComponentConfig.md)\>[]
+
+Organization request admin component options, for reviewing the requests to join an organization.
+
+##### organizationComponent?
+
+> `optional` **organizationComponent?**: `IEngineCoreTypeConfig`\<[`OrganizationComponentConfig`](../type-aliases/OrganizationComponentConfig.md)\>[]
+
+Organization component options, for the organizations registered on the node and their profiles.
+
+##### oauthComponent?
+
+> `optional` **oauthComponent?**: `IEngineCoreTypeConfig`\<[`OAuthComponentConfig`](../type-aliases/OAuthComponentConfig.md)\>[]
+
+OAuth sign in component options which can be overridden by individual components by specifying types other than default.
+
 #### Overrides
 
 `IEngineConfig.types`
