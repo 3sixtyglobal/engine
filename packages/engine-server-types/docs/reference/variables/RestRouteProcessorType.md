@@ -12,6 +12,12 @@ REST route processor types.
 
 Auth header.
 
+### AuthenticationAccount {#authenticationaccount}
+
+> `readonly` **AuthenticationAccount**: `"authentication-account"` = `"authentication-account"`
+
+Authentication account, sets the identity and organization of the signed in account.
+
 ### Logging {#logging}
 
 > `readonly` **Logging**: `"logging"` = `"logging"`
@@ -71,3 +77,9 @@ Tracing.
 > `readonly` **Authorization**: `"authorization"` = `"authorization"`
 
 Authorization.
+
+### OriginCheck {#origincheck}
+
+> `readonly` **OriginCheck**: `"origin-check"` = `"origin-check"`
+
+Origin check, rejects cookie authenticated state changing requests from other origins.
