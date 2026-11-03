@@ -1,4 +1,5 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import { ComponentFactory, type IComponent } from "@3sixty/core";
@@ -61,7 +62,11 @@ export function initialiseTracingConnector(
 			return new EntityStorageTracingConnector(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
 					{
-						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent")
+						platformComponentType: engineCore.getRegisteredInstanceType("platformComponent"),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(EntityStorageTracingConnector)
+						)
 					},
 					createConfig.options
 				)

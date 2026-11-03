@@ -9,7 +9,7 @@ import type {
 	IEngineCoreContext
 } from "@3sixty/engine-models";
 import { EngineTypeHelper } from "@3sixty/engine-types";
-import { nameofKebabCase } from "@3sixty/nameof";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import {
 	initialiseAccountDataEntityStorage,
 	initialiseOrganizationEntityStorage,
@@ -60,6 +60,10 @@ export function initialiseOrganizationComponent(
 							engineCore.getRegisteredInstanceType("authorizationComponent"),
 						authenticationRateServiceType: engineCore.getRegisteredInstanceType(
 							"authenticationRateComponent"
+						),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(EntityStorageOrganizationService)
 						)
 					},
 					createConfig.options

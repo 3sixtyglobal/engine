@@ -11,6 +11,7 @@ import type {
 	IEngineCoreContext
 } from "@3sixty/engine-models";
 import { EngineTypeHelper } from "@3sixty/engine-types";
+import { nameof } from "@3sixty/nameof";
 import { initialiseAuthenticationUserEntityStorage } from "./authentication.js";
 import type { AuthenticationProviderConfig } from "../models/config/authenticationProviderConfig.js";
 import type { IEngineServerConfig } from "../models/IEngineServerConfig.js";
@@ -45,11 +46,31 @@ export function initialiseAuthenticationProvider(
 		instanceTypeName = EntityStorageAuthenticationProviderConnector.NAMESPACE;
 	} else if (instanceConfig.type === AuthenticationProviderType.Google) {
 		createComponent = (createConfig: typeof instanceConfig) =>
-			new GoogleOAuthProviderConnector(createConfig.options);
+			new GoogleOAuthProviderConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(GoogleOAuthProviderConnector)
+						)
+					},
+					createConfig.options
+				)
+			);
 		instanceTypeName = GoogleOAuthProviderConnector.NAMESPACE;
 	} else if (instanceConfig.type === AuthenticationProviderType.Microsoft) {
 		createComponent = (createConfig: typeof instanceConfig) =>
-			new MicrosoftOAuthProviderConnector(createConfig.options);
+			new MicrosoftOAuthProviderConnector(
+				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(
+					{
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(MicrosoftOAuthProviderConnector)
+						)
+					},
+					createConfig.options
+				)
+			);
 		instanceTypeName = MicrosoftOAuthProviderConnector.NAMESPACE;
 	}
 
