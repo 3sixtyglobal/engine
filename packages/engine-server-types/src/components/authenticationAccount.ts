@@ -137,6 +137,10 @@ export function initialiseAuthenticationAccountComponent(
 						identityComponentType: engineCore.getRegisteredInstanceType("identityComponent"),
 						authenticationRateServiceType: engineCore.getRegisteredInstanceType(
 							"authenticationRateComponent"
+						),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(EntityStorageAuthenticationAccountService)
 						)
 					},
 					createConfig.options

@@ -298,7 +298,7 @@ export function initialiseMessagingComponent(
 							"messagingPushNotificationConnector"
 						),
 						messagingAdminComponentType:
-							engineCore.getRegisteredInstanceTypeOptional("messagingAdminComponent"),
+							engineCore.getRegisteredInstanceType("messagingAdminComponent"),
 						loggingComponentType: engineCore.getRegisteredSilencedType(
 							"logging",
 							nameof(MessagingService)

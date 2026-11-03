@@ -9,7 +9,7 @@ import type {
 	IEngineCoreContext
 } from "@3sixty/engine-models";
 import { EngineTypeHelper } from "@3sixty/engine-types";
-import { nameofKebabCase } from "@3sixty/nameof";
+import { nameof, nameofKebabCase } from "@3sixty/nameof";
 import { initialiseAuthenticationUserEntityStorage } from "./authentication.js";
 import {
 	initialiseAccountDataEntityStorage,
@@ -67,6 +67,10 @@ export function initialiseAuthenticationAccountAdminComponent(
 						identityComponentType: engineCore.getRegisteredInstanceType("identityComponent"),
 						authenticationRateServiceType: engineCore.getRegisteredInstanceType(
 							"authenticationRateComponent"
+						),
+						loggingComponentType: engineCore.getRegisteredSilencedType(
+							"logging",
+							nameof(EntityStorageAuthenticationAccountAdminService)
 						)
 					},
 					createConfig.options
