@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import path from "node:path";
 import { ContextIdKeys, ContextIdStore } from "@3sixty/context";
-import { ComponentFactory, Factory, I18n } from "@3sixty/core";
+import { ComponentFactory, DurationConstants, Factory, I18n } from "@3sixty/core";
 import { Engine } from "@3sixty/engine";
 import coreLocales from "@3sixty/engine-core/locales/en.json" with { type: "json" };
 import { EngineCoreFactory } from "@3sixty/engine-models";
@@ -355,7 +355,7 @@ describe("engine-server", () => {
 		await engineServer.start();
 
 		// Give the server a moment to start
-		await new Promise(resolve => setTimeout(resolve, 1000));
+		await new Promise(resolve => setTimeout(resolve, DurationConstants.MsPerSecond));
 
 		const res = await fetch(`http://localhost:${port}/foo/info`);
 		expect(await res.json()).toEqual({
@@ -962,7 +962,7 @@ describe("engine-server", () => {
 		]);
 
 		// Give the server a moment to start
-		await new Promise(resolve => setTimeout(resolve, 1000));
+		await new Promise(resolve => setTimeout(resolve, DurationConstants.MsPerSecond));
 
 		const res = await fetch(`http://localhost:${port}/info`);
 		expect(await res.json()).toEqual({
@@ -1003,7 +1003,7 @@ describe("engine-server", () => {
 		await engineServer.start();
 
 		// Give the server a moment to start
-		await new Promise(resolve => setTimeout(resolve, 1000));
+		await new Promise(resolve => setTimeout(resolve, DurationConstants.MsPerSecond));
 
 		const res = await fetch(`http://localhost:${port}/test/value`);
 		expect(await res.json()).toEqual({
@@ -1055,7 +1055,7 @@ describe("engine-server", () => {
 		await service.set({ id: "test1234" });
 
 		// Give the server a moment to start
-		await new Promise(resolve => setTimeout(resolve, 1000));
+		await new Promise(resolve => setTimeout(resolve, DurationConstants.MsPerSecond));
 
 		const res = await fetch(`http://localhost:${port}/foo/test1234`);
 		expect(await res.json()).toEqual({
