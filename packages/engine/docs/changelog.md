@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.20.0-next.6](https://github.com/3sixtyglobal/engine/compare/engine-v0.20.0-next.5...engine-v0.20.0-next.6) (2026-11-03)
+
+
+### Miscellaneous Chores
+
+* **engine:** Synchronize repo versions
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/engine-core bumped from 0.20.0-next.5 to 0.20.0-next.6
+    * @3sixty/engine-models bumped from 0.20.0-next.5 to 0.20.0-next.6
+    * @3sixty/engine-types bumped from 0.20.0-next.5 to 0.20.0-next.6
+
 ## [0.20.0-next.5](https://github.com/3sixtyglobal/engine/compare/engine-v0.20.0-next.4...engine-v0.20.0-next.5) (2026-11-02)
 
 
