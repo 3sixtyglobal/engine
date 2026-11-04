@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.20.0-next.7](https://github.com/3sixtyglobal/engine/compare/engine-server-types-v0.20.0-next.6...engine-server-types-v0.20.0-next.7) (2026-11-04)
+
+
+### Features
+
+* add the feature component ([#38](https://github.com/3sixtyglobal/engine/issues/38)) ([6f00f60](https://github.com/3sixtyglobal/engine/commit/6f00f6053cfcf76a82c3b41aa065c2b8d5158d73))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/engine-models bumped from 0.20.0-next.6 to 0.20.0-next.7
+    * @3sixty/engine-types bumped from 0.20.0-next.6 to 0.20.0-next.7
+
 ## [0.20.0-next.6](https://github.com/3sixtyglobal/engine/compare/engine-server-types-v0.20.0-next.5...engine-server-types-v0.20.0-next.6) (2026-11-03)
 
 

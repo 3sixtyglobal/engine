@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0-next.7](https://github.com/3sixtyglobal/engine/compare/engine-models-v0.20.0-next.6...engine-models-v0.20.0-next.7) (2026-11-04)
+
+
+### Miscellaneous Chores
+
+* **engine-models:** Synchronize repo versions
+
 ## [0.20.0-next.6](https://github.com/3sixtyglobal/engine/compare/engine-models-v0.20.0-next.5...engine-models-v0.20.0-next.6) (2026-11-03)
 
 
