@@ -153,3 +153,27 @@ const types: Partial<IEngineServerConfig['types']> = {
 
 console.log(types.organizationComponent?.length); // 1
 ```
+
+## Features
+
+The feature component lists the features registered with `FeatureFactory` that the signed in account can use, at `GET /features`. A node runs the service, and a node or client that reaches another node uses the REST client.
+
+```typescript
+import type { IEngineServerConfig } from '@3sixty/engine-server-types';
+import { FeatureComponentType } from '@3sixty/engine-server-types';
+
+const types: IEngineServerConfig['types'] = {
+  featureComponent: [
+    { type: FeatureComponentType.Service, options: { config: { authorizationModelId: 'system' } } }
+  ]
+};
+
+const remoteTypes: IEngineServerConfig['types'] = {
+  featureComponent: [
+    { type: FeatureComponentType.RestClient, options: { endpoint: 'https://node.example.org' } }
+  ]
+};
+
+console.log(types.featureComponent?.[0].type); // "service"
+console.log(remoteTypes.featureComponent?.[0].type); // "rest-client"
+```

@@ -39,6 +39,7 @@
 		"@3sixty/api-auth-oauth-connector-google": "next",
 		"@3sixty/api-auth-oauth-connector-microsoft": "next",
 		"@3sixty/api-auth-oauth-service": "next",
+		"@3sixty/api-auth-rest-client": "next",
 		"@3sixty/api-auth-service": "next",
 		"@3sixty/api-models": "next",
 		"@3sixty/api-processors": "next",

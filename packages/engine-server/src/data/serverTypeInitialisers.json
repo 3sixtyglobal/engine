@@ -50,6 +50,11 @@
 		"method": "initialiseOAuthComponent"
 	},
 	{
+		"type": "featureComponent",
+		"module": "@3sixty/engine-server-types",
+		"method": "initialiseFeatureComponent"
+	},
+	{
 		"type": "informationComponent",
 		"module": "@3sixty/engine-server-types",
 		"method": "initialiseInformationComponent",

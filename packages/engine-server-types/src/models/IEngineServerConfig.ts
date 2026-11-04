@@ -11,6 +11,7 @@ import type { AuthenticationAuditComponentConfig } from "./config/authentication
 import type { AuthenticationComponentConfig } from "./config/authenticationComponentConfig.js";
 import type { AuthenticationProviderConfig } from "./config/authenticationProviderConfig.js";
 import type { AuthenticationRateComponentConfig } from "./config/authenticationRateComponentConfig.js";
+import type { FeatureComponentConfig } from "./config/featureComponentConfig.js";
 import type { InformationComponentConfig } from "./config/informationComponentConfig.js";
 import type { MimeTypeProcessorConfig } from "./config/mimeTypeProcessorConfig.js";
 import type { OAuthComponentConfig } from "./config/oauthComponentConfig.js";
@@ -70,6 +71,11 @@ export interface IEngineServerConfig extends IEngineConfig {
 		 * Authentication rate component options which can be overridden by individual components by specifying types other than default.
 		 */
 		authenticationRateComponent?: IEngineCoreTypeConfig<AuthenticationRateComponentConfig>[];
+
+		/**
+		 * Feature component options which can be overridden by individual components by specifying types other than default.
+		 */
+		featureComponent?: IEngineCoreTypeConfig<FeatureComponentConfig>[];
 
 		/**
 		 * Authentication component options which can be overridden by individual components by specifying types other than default.
