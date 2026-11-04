@@ -30,6 +30,12 @@
 		"defaultPath": "/authentication/audit"
 	},
 	{
+		"type": "featureComponent",
+		"module": "@3sixty/api-auth-service",
+		"method": "generateRestRoutesFeature",
+		"defaultPath": "/features"
+	},
+	{
 		"type": "oauthComponent",
 		"module": "@3sixty/api-auth-oauth-service",
 		"method": "generateRestRoutesOAuth",
