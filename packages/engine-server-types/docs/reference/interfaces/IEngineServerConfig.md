@@ -666,6 +666,12 @@ Authentication audit component options which can be overridden by individual com
 
 Authentication rate component options which can be overridden by individual components by specifying types other than default.
 
+##### featureComponent?
+
+> `optional` **featureComponent?**: `IEngineCoreTypeConfig`\<[`FeatureComponentConfig`](../type-aliases/FeatureComponentConfig.md)\>[]
+
+Feature component options which can be overridden by individual components by specifying types other than default.
+
 ##### authenticationComponent?
 
 > `optional` **authenticationComponent?**: `IEngineCoreTypeConfig`\<[`AuthenticationComponentConfig`](../type-aliases/AuthenticationComponentConfig.md)\>[]
