@@ -4,7 +4,6 @@
 /**
  * Rights management PNP component types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const RightsManagementPnpComponentType = {
 	/**
 	 * Service.

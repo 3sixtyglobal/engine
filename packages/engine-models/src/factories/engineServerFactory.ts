@@ -6,5 +6,4 @@ import type { IEngineServer } from "../models/IEngineServer.js";
 /**
  * Factory for creating engine servers.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const EngineServerFactory = Factory.createFactory<IEngineServer>("engine-server");

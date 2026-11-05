@@ -4,7 +4,6 @@
 /**
  * Controls whether a type config entry is included when creating a clone.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const EngineCloneMode = {
 	/**
 	 * Always include this entry in a clone, even when a types allowlist is provided.

@@ -4,7 +4,6 @@
 /**
  * Schema version migration component types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const SchemaVersionMigrationComponentType = {
 	/**
 	 * Service.

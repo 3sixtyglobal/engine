@@ -19,6 +19,7 @@
 		"changelog.md"
 	],
 	"words": [
+		"3sixtyglobal",
 		"abbrev",
 		"autorelease",
 		"bech",
@@ -37,9 +38,9 @@
 		"nameof",
 		"Odrl",
 		"openapi",
-		"Postgre",
 		"PNAP",
 		"PNRP",
+		"Postgre",
 		"scylladb",
 		"Stiftung",
 		"unuse"

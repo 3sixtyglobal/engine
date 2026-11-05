@@ -4,7 +4,6 @@
 /**
  * Rights management Policy Requester component types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const RightsManagementPolicyRequesterComponentType = {
 	/**
 	 * PassThrough.

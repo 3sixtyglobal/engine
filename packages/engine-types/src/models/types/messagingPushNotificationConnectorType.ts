@@ -4,7 +4,6 @@
 /**
  * Messaging push notification connector types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const MessagingPushNotificationConnectorType = {
 	/**
 	 * Entity storage.

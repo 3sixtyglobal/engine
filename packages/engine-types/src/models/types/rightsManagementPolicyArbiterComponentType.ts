@@ -4,7 +4,6 @@
 /**
  * Rights management Policy Arbiter component types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const RightsManagementPolicyArbiterComponentType = {
 	/**
 	 * PassThrough.

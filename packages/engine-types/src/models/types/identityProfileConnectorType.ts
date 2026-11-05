@@ -4,7 +4,6 @@
 /**
  * Identity profile connector types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const IdentityProfileConnectorType = {
 	/**
 	 * Entity storage.

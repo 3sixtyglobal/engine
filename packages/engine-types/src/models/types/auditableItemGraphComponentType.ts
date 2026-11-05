@@ -4,7 +4,6 @@
 /**
  * Auditable item graph component types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const AuditableItemGraphComponentType = {
 	/**
 	 * Service.

@@ -4,7 +4,6 @@
 /**
  * Vault connector types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const VaultConnectorType = {
 	/**
 	 * Entity storage.

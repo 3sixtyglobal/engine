@@ -4,7 +4,6 @@
 /**
  * REST client processor types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const RestClientProcessorType = {
 	/**
 	 * Tracing.

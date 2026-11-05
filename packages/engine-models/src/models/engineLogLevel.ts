@@ -4,7 +4,6 @@
 /**
  * The log levels for the engine logger.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const EngineLogLevel = {
 	/**
 	 * No output.

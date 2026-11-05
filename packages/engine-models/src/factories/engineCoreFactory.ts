@@ -6,5 +6,4 @@ import type { IEngineCore } from "../models/IEngineCore.js";
 /**
  * Factory for creating engine cores.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const EngineCoreFactory = Factory.createFactory<IEngineCore>("engine-core");

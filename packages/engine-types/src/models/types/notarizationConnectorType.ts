@@ -4,7 +4,6 @@
 /**
  * Notarization connector types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const NotarizationConnectorType = {
 	/**
 	 * Entity storage.

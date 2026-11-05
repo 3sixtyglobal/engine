@@ -4,7 +4,6 @@
 /**
  * Rights management PIP component types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const RightsManagementPipComponentType = {
 	/**
 	 * Service.

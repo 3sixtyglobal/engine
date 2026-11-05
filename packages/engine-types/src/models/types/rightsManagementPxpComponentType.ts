@@ -4,7 +4,6 @@
 /**
  * Rights management PXP component types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const RightsManagementPxpComponentType = {
 	/**
 	 * Service.

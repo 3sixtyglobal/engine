@@ -4,7 +4,6 @@
 /**
  * Rights management PAP component types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const RightsManagementPapComponentType = {
 	/**
 	 * Service.

@@ -4,7 +4,6 @@
 /**
  * Authentication account component types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const AuthenticationAccountComponentType = {
 	/**
 	 * Entity storage.

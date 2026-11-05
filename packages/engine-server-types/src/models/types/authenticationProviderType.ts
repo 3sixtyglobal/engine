@@ -4,7 +4,6 @@
 /**
  * Authentication provider types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const AuthenticationProviderType = {
 	/**
 	 * Passwords for accounts held in entity storage.

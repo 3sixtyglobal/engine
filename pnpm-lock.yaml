@@ -243,7 +243,7 @@ importers:
     dependencies:
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/engine-core':
         specifier: 0.20.0-next.7
         version: link:../engine-core
@@ -255,17 +255,17 @@ importers:
         version: link:../engine-types
       '@3sixty/entity':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
     devDependencies:
       '@3sixty/automation-models':
         specifier: next
         version: 0.20.0-next.2
       '@3sixty/context':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/entity-storage-models':
         specifier: next
         version: 0.20.0-next.4
@@ -280,10 +280,10 @@ importers:
         version: 0.20.0-next.4
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.10(@opentelemetry/api@1.9.1)(@types/node@26.6.6)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
+        version: 0.20.0-next.11(@opentelemetry/api@1.9.1)(@types/node@26.6.6)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
       '@3sixty/rights-management-models':
         specifier: next
         version: 0.20.0-next.3
@@ -295,7 +295,7 @@ importers:
         version: 0.20.0-next.2
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@types/node':
         specifier: 26.6.6
         version: 26.6.6
@@ -328,10 +328,10 @@ importers:
     dependencies:
       '@3sixty/context':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/data-core':
         specifier: next
         version: 0.20.0-next.5
@@ -340,7 +340,7 @@ importers:
         version: link:../engine-models
       '@3sixty/entity':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/logging-connector-console':
         specifier: next
         version: 0.20.0-next.2
@@ -352,20 +352,20 @@ importers:
         version: 0.20.0-next.2
       '@3sixty/modules':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
     devDependencies:
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.10(@opentelemetry/api@1.9.1)(@types/node@26.6.6)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
+        version: 0.20.0-next.11(@opentelemetry/api@1.9.1)(@types/node@26.6.6)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@types/node':
         specifier: 26.6.6
         version: 26.6.6
@@ -401,26 +401,26 @@ importers:
         version: 0.20.0-next.9
       '@3sixty/context':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/entity':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
     devDependencies:
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.10(@opentelemetry/api@1.9.1)(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0)(yaml@2.9.1))
+        version: 0.20.0-next.11(@opentelemetry/api@1.9.1)(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0)(yaml@2.9.1))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@vitest/coverage-v8':
         specifier: 5.0.5
         version: 5.0.5(vitest@5.0.5)
@@ -462,10 +462,10 @@ importers:
         version: 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/context':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/engine-models':
         specifier: 0.20.0-next.7
         version: link:../engine-models
@@ -474,10 +474,10 @@ importers:
         version: link:../engine-server-types
       '@3sixty/modules':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
     devDependencies:
       '@3sixty/engine':
         specifier: 0.20.0-next.7
@@ -490,19 +490,19 @@ importers:
         version: link:../engine-types
       '@3sixty/entity':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/entity-storage-models':
         specifier: next
         version: 0.20.0-next.4
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.10(@opentelemetry/api@1.9.1)(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0)(yaml@2.9.1))
+        version: 0.20.0-next.11(@opentelemetry/api@1.9.1)(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0)(yaml@2.9.1))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@vitest/coverage-v8':
         specifier: 5.0.5
         version: 5.0.5(vitest@5.0.5)
@@ -583,10 +583,10 @@ importers:
         version: 0.20.0-next.3
       '@3sixty/context':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/engine-models':
         specifier: 0.20.0-next.7
         version: link:../engine-models
@@ -595,7 +595,7 @@ importers:
         version: link:../engine-types
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/telemetry-processors':
         specifier: next
         version: 0.20.0-next.3
@@ -605,13 +605,13 @@ importers:
     devDependencies:
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.10(@opentelemetry/api@1.9.1)(@types/node@26.6.6)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.6)(jiti@2.7.0))
+        version: 0.20.0-next.11(@opentelemetry/api@1.9.1)(@types/node@26.6.6)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.6)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@types/node':
         specifier: 26.6.6
         version: 26.6.6
@@ -740,10 +740,10 @@ importers:
         version: 0.20.0-next.2
       '@3sixty/context':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/core':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/data-processing-converters':
         specifier: next
         version: 0.20.0-next.2
@@ -935,7 +935,7 @@ importers:
         version: 0.20.0-next.4
       '@3sixty/nameof':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/nft-connector-entity-storage':
         specifier: next
         version: 0.20.0-next.2
@@ -1077,13 +1077,13 @@ importers:
         version: link:../engine-core
       '@3sixty/nameof-transformer':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@3sixty/nameof-vitest-plugin':
         specifier: next
-        version: 0.20.0-next.10(@opentelemetry/api@1.9.1)(@types/node@26.6.6)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.6)(jiti@2.7.0))
+        version: 0.20.0-next.11(@opentelemetry/api@1.9.1)(@types/node@26.6.6)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.6)(jiti@2.7.0))
       '@3sixty/validate-locales':
         specifier: next
-        version: 0.20.0-next.10
+        version: 0.20.0-next.11
       '@types/node':
         specifier: 26.6.6
         version: 26.6.6
@@ -1344,20 +1344,20 @@ packages:
     resolution: {integrity: sha512-mFVBtuWk65VyjpAKFXSICgth0TCwmI/2JszeHg1RNBf+BBzTekhoLpZR46GQNySHL18wZFriizFdu7RatYg1Xw==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/cli-core@0.20.0-next.10':
-    resolution: {integrity: sha512-XwHe+6BVtmv7PE9oo8bEBWF76O7vxrpMZsbEW7xMPOCg0MNOulJCKqZut2P4HplL2860Hf+SN6jmG1RXXcuZUA==}
+  '@3sixty/cli-core@0.20.0-next.11':
+    resolution: {integrity: sha512-H6/R1sIahm9qSsMxBapkqcNY7tyZ8okWJ9vDyeJpJDQhr/gJ/I9UIhbH8Q4ClTg9oJ6LPCjfnOiAZH9kRv+O5Q==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/context@0.20.0-next.10':
-    resolution: {integrity: sha512-L3us+l0GOKYx5PP4rkA84HJMkRKnISiz9JX7ii+noFhlL5QM1L9dJpTaDxvbx2b/kK3f2X2pCG5pahNoQ3r/nw==}
+  '@3sixty/context@0.20.0-next.11':
+    resolution: {integrity: sha512-LItdeIYtcg20lm1RFZuR7M5lHnz0dEKbvzltOT7RS/rqeEJ3cwB2QXPKRtAfEo4FjPvcRqiLtSIBCm9G4gtJ+g==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/core@0.20.0-next.10':
-    resolution: {integrity: sha512-LeS0ZVpsUvMBC0M1ZMYH9607V1SAtNqwqf6Us7Xg7Y5K2P5hgEY3BBdeZGtIrYYNJ9YXTQtf/+Vshu43k9Ey/A==}
+  '@3sixty/core@0.20.0-next.11':
+    resolution: {integrity: sha512-SM6Nj/TT5eHy2iOXD4dO6XW9i+uilBik6rPsI2EfQ3QemHny1UV1Z7ZH/gYQFplYTkMs/cI7jGmIF5A7fcFRTg==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/crypto@0.20.0-next.10':
-    resolution: {integrity: sha512-IYMUwAK6j4iIm7Kcp6TC1EtktwdXRPiFccHSXX4wqOzs+BUAHcnW6vIHVAE/KKLR2+K1pb5HWhqErSdPHkF/xw==}
+  '@3sixty/crypto@0.20.0-next.11':
+    resolution: {integrity: sha512-1q0p7OEl0reU2tX5iA9D1/bn+PCsJgI6ITzMS2c8zHV5EIM4tthl/EhwpYpkQrKeZcfoXw5a7Bv1r6BOoXxEhg==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
   '@3sixty/data-core@0.20.0-next.5':
@@ -1488,8 +1488,8 @@ packages:
     resolution: {integrity: sha512-0j5DCzL2x0vVBzPb5tb3qwy+NrBfoAwS/O8oTKJyEN89kiaViMIEG2yCXTpShfGHECYizPFkeXZ+Yl6Lv4qu2g==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/entity@0.20.0-next.10':
-    resolution: {integrity: sha512-SqJJQDVyu+Rav1kuIJBdQ8EcgZnbuzXszPI73WehYFtGd5wQO6U9+HpgiZdn439rkEYSI3X+U0kT6MibN0pAhg==}
+  '@3sixty/entity@0.20.0-next.11':
+    resolution: {integrity: sha512-Z3twHt9NZ/U5h4rQB5IkrTEQgk+DkcwgcHuEbHmkQMJ4sWoOgftT9T73eqsY/UcrW5zjSyW46V5a4pYif0Uoyw==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
   '@3sixty/event-bus-connector-local@0.20.0-next.2':
@@ -1644,21 +1644,21 @@ packages:
     resolution: {integrity: sha512-A9wqhNQEStO7qZix6nLm5+FflGY6k8fBFoY46mha8xhojQzfFgx3mWAxvm6K7OP277FQdxu30CB5Msw/26M8CQ==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/modules@0.20.0-next.10':
-    resolution: {integrity: sha512-y6jvMICDynFBmcRCYhntmNj80WWSwom8rb7jY5Qs21d7QdxnYdzg1/NUihI+fGkXzkm0d4ZL5CNylS/zq5fwXQ==}
+  '@3sixty/modules@0.20.0-next.11':
+    resolution: {integrity: sha512-Hx7S4g3m1igAWNXiCnL1AFFl4aoAKXZw6MIi4GW9DoGE9sbm/gq+T0QqTQNRermPRdrAuCrsO0A2AMfoMMQ4oQ==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/nameof-transformer@0.20.0-next.10':
-    resolution: {integrity: sha512-PaoI2W0soCMjDwTkwCXQ6hUvA4U5iEJz9FAlaChqV00ycy2WrJqPgEEIXa7noL/fHVRpRFDTOUTIBoT2ueFVCw==}
+  '@3sixty/nameof-transformer@0.20.0-next.11':
+    resolution: {integrity: sha512-fSxSCWCQjLaqtb2//I9sUdFiKryhYKD5a/qrFFtqwe1++VrSxO+Vtqf9FNVPzMv5uxTUQs4pi0vumga+ZDv/8A==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
     hasBin: true
 
-  '@3sixty/nameof-vitest-plugin@0.20.0-next.10':
-    resolution: {integrity: sha512-8GKXCS1kgpazGCefGeptKhtG6O3Hg2s6l4yIMNDXauS4Bi6UOgiyWnqLkhO/VWPk4//pEzTqg6Urrhm8VjITMA==}
+  '@3sixty/nameof-vitest-plugin@0.20.0-next.11':
+    resolution: {integrity: sha512-KdSxLJu4Bc31V9DvKYMjj0ITdYGbPbuwvaBF7e9vFeewGEHBMmvq8yz2BAYVTaoLgdjeA4OSHmf0eCra58tNjA==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/nameof@0.20.0-next.10':
-    resolution: {integrity: sha512-3ezpxoSZLvQJZvLL0x/69xfkHqx9TDhzyvssvtCiHIIt/v1f7FuJfAbtMXCQ2nQGQg9hCoJauuknEsHAQiCInA==}
+  '@3sixty/nameof@0.20.0-next.11':
+    resolution: {integrity: sha512-s/nCvXZV6l7K7vkBCtB923VAfBUCXTJD2MW6OesFn7/f5Zcg6Fmp/oAgq8uk9Prop5MfoRzQDbBLSKLjp6G1gA==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
   '@3sixty/nft-connector-entity-storage@0.20.0-next.2':
@@ -1857,8 +1857,8 @@ packages:
     resolution: {integrity: sha512-eCR+abriqpYV5mIe90x+5nhc/ERVcEbLzjMsqHlIpN1/pQC4GckiKQnrazZcsXQjioGAy4BSTsQ85Sw+H6POEw==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/validate-locales@0.20.0-next.10':
-    resolution: {integrity: sha512-XomjloPkMkfM+WeoIWkU4MvIVokhKZ1G9uF9gLIgJonbJpnyWSOndbjNB99u4yLzh+q1PgRxfvpaGAW+AQfYgQ==}
+  '@3sixty/validate-locales@0.20.0-next.11':
+    resolution: {integrity: sha512-F+XC4hDloQwcjlRy4cV344IJPzc/a7H5GC/Co/yTDd7fOG1OuYq0F5x4eyBbZRA3QEb3cNFpao4ZVkYSIdwiWA==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
     hasBin: true
 
@@ -1886,8 +1886,8 @@ packages:
     resolution: {integrity: sha512-RiLD4idLpUrDC7NuuQ2jxxQkzAeYX834OSdA4WLkHEX6ouj6f697LsZ3xAtK50O57mK0LSjD8m0v6yuTJ4gy4Q==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
-  '@3sixty/web@0.20.0-next.10':
-    resolution: {integrity: sha512-w/3o64lP0N8MfgIRk32DtyTCEwIG/7R36U1xzIfpoic9qFh+94fRMbzFw5fEoSg2V/fCWf9YuAIg5vCvOmGFHg==}
+  '@3sixty/web@0.20.0-next.11':
+    resolution: {integrity: sha512-m0lOYnvOSNsBvPk5hWJ93gR7kJjztsNlg5WIfGGdOX/TtR0p+juG2fj2p55ppBL2ZC1N85s3YAty2rMsYeh1cg==}
     engines: {bun: '>=1.4.4', node: '>=24.0.0'}
 
   '@aws-sdk/checksums@3.1001.4':
@@ -2691,6 +2691,9 @@ packages:
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
     engines: {node: '>=12'}
+
+  '@isaacs/nonrecursive-glob-match@1.0.3':
+    resolution: {integrity: sha512-SI7kyKHq4XXDRozw+r9GlRZkia1ZkFrpLW98r2IC2Bpr8YkFGE3fvjzmxCG0x78A++69HmDNrDvSMYBZmHGpKA==}
 
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
@@ -4107,8 +4110,8 @@ packages:
     resolution: {integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==}
     engines: {node: '>=8'}
 
-  dotenv@18.0.8:
-    resolution: {integrity: sha512-2KDeoFoK/zRtcnbunCDlLG5VWVMcyqeQc6iK65o231nfNAcuGrKoqUQfJFUtBI+QlShk5HKIHxwebBtUl3rEfA==}
+  dotenv@18.0.9:
+    resolution: {integrity: sha512-3fVOW4cB02R066PUSwn8O4TJyz9NckQl7F81blIbaq9jKBm2tSmOKky7ZHIXzGvkVPXCSn6jkpziBPZdGFs8Tw==}
     engines: {node: '>=12'}
     hasBin: true
 
@@ -4553,6 +4556,10 @@ packages:
     resolution: {integrity: sha512-Wjlyrolmm8uDpm/ogGyXZXb1Z+Ca2B8NbJwqBVg0axK9GbBeoS7yGV6vjXnYdGm6X53iehEuxxbyiKp8QmN4Vw==}
     engines: {node: 18 || 20 || >=22}
 
+  glob@14.0.3:
+    resolution: {integrity: sha512-A1vjIwC3qpdCso45Iw127gnp7sPhqgY8lUQhDrArIs+GbmfaaVPFuoyy7WyLT9EPZCRZ7j7aLdwUhQmHWesEow==}
+    engines: {node: 18 || 20 || >=22}
+
   global-directory@5.0.0:
     resolution: {integrity: sha512-1pgFdhK3J2LeM+dVf2Pd424yHx2ou338lC0ErNP2hPx4j8eW1Sp0XqSjNxtk6Tc4Kr5wlWtSvz8cn2yb7/SG/w==}
     engines: {node: '>=20'}
@@ -4840,8 +4847,8 @@ packages:
   jose@5.10.0:
     resolution: {integrity: sha512-s+3Al/p9g32Iq+oqXxkW//7jk2Vig6FF1CFqzVXoTUXt2qz89YWbL+OwS17NFYEvxC35n0FKeGO2LGYSxeM2Gg==}
 
-  jose@6.2.12:
-    resolution: {integrity: sha512-9NiFmJEex0sy2Dk58j2UGBSHgUs2ypF9eZSu4L6vjOX3Dp96Sw1F3uL+H+D1sx02jZZdzUT0HgvCy59CuvXcWw==}
+  jose@6.2.15:
+    resolution: {integrity: sha512-qdF6ewcZARtef63fJ9AKKZPgxw+t7USH6HLXYcD4CrdmSvDp79rpJSPFEKc90QBeGS63u1KQtN2MZQHC0yDIzA==}
 
   js-tokens@10.0.0:
     resolution: {integrity: sha512-lM/UBzQmfJRo9ABXbPWemivdCW8V2G8FHaHdypQaIy523snUjog0W71ayWXTjiR+ixeMyVHN2XcpnTd/liPg/Q==}
@@ -5281,6 +5288,10 @@ packages:
     resolution: {integrity: sha512-vpLQEs+VLCr1nU0BXS07maYoFwlDAH0gngQuuttxIwutDFEMHq2blX+8vpgxDdK3J1PwjCJiep77OitTZ4Ll1A==}
     engines: {node: 18 || 20 || >=22}
 
+  minimatch@11.0.4:
+    resolution: {integrity: sha512-/UJ1dEoVQTjPNDh6SGlUo+ueLMmoHTas4q+8yaAR/5t6nLAIiBDJtoYUh20IYleix7ehiQkgczb84PE3uzHkxg==}
+    engines: {node: 20 || >=22}
+
   minimatch@3.1.5:
     resolution: {integrity: sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==}
 
@@ -5532,6 +5543,10 @@ packages:
     resolution: {integrity: sha512-3O/iVVsJAPsOnpwWIeD+d6z/7PmqApyQePUtCndjatj/9I5LylHvt5qluFaBT3I5h3r1ejfR056c+FCv+NnNXg==}
     engines: {node: 18 || 20 || >=22}
 
+  path-scurry@3.0.0:
+    resolution: {integrity: sha512-1pTbQqH1wIwMi/eleQ5leFTTCkzFsPcgXNjwOA8YGGW/W4/kHT3dssE7Z6NH+zuqNLOzOB0uaD61yl7cAcVhgg==}
+    engines: {node: 18 || 20 || >=22}
+
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
@@ -5737,8 +5752,8 @@ packages:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
 
-  rfc6902@5.3.0:
-    resolution: {integrity: sha512-8x9uqKB5FeC3jhdtmBtI2Z2GR0+VE1VLbQ7Luy5RcnCxUa4+Z1n8w2G1D+GevkRUT33nbbfpAK5O4LhRbnaIPQ==}
+  rfc6902@5.4.0:
+    resolution: {integrity: sha512-GT16EIVrrcGvyDkey5Fqa36lzx4X+VF0IwGIRkSW5WVKZYQyDTYTC4wfuCr7nDfs5vzUpiIxtIpSTJY1aZMBZQ==}
 
   rfdc@1.4.1:
     resolution: {integrity: sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==}
@@ -6073,6 +6088,9 @@ packages:
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
+
+  tslib@2.9.1:
+    resolution: {integrity: sha512-a4Ux9VKuIMHsOS7ENbEq6hK2ZGYIT27Rtl0E4eD9KqwxhKiQeMZE/9xb3IdYwWaSOyIBQLExhQgXDTYoiCxnWA==}
 
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
@@ -6432,11 +6450,11 @@ snapshots:
       '@3sixty/api-auth-models': 0.20.0-next.7
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-w3c-did': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -6447,34 +6465,34 @@ snapshots:
       '@3sixty/api-auth-models': 0.20.0-next.7
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/authorization-models': 0.20.0-next.3
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/identity-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-schema-org': 0.20.0-next.3
       '@3sixty/standards-w3c-did': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/api-auth-connector-entity-storage@0.20.0-next.7':
     dependencies:
       '@3sixty/api-auth-entity-storage-models': 0.20.0-next.7
       '@3sixty/api-auth-entity-storage-service': 0.20.0-next.7
       '@3sixty/api-auth-models': 0.20.0-next.7
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/api-auth-entity-storage-models@0.20.0-next.7':
     dependencies:
       '@3sixty/api-auth-models': 0.20.0-next.7
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/api-auth-entity-storage-rest-client@0.20.0-next.7(supports-color@10.2.2)':
     dependencies:
@@ -6482,9 +6500,9 @@ snapshots:
       '@3sixty/api-auth-models': 0.20.0-next.7
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -6497,55 +6515,55 @@ snapshots:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/authorization-models': 0.20.0-next.3
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
       '@3sixty/messaging-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/vault-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/api-auth-models@0.20.0-next.7':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/identity-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-schema-org': 0.20.0-next.3
       '@3sixty/standards-w3c-did': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
       schema-dts: 2.1.0
 
   '@3sixty/api-auth-oauth-connector-google@0.20.0-next.7':
     dependencies:
       '@3sixty/api-auth-models': 0.20.0-next.7
       '@3sixty/api-auth-oauth-models': 0.20.0-next.7
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/api-auth-oauth-connector-microsoft@0.20.0-next.7':
     dependencies:
       '@3sixty/api-auth-models': 0.20.0-next.7
       '@3sixty/api-auth-oauth-models': 0.20.0-next.7
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/api-auth-oauth-models@0.20.0-next.7':
     dependencies:
       '@3sixty/api-auth-entity-storage-models': 0.20.0-next.7
       '@3sixty/api-auth-models': 0.20.0-next.7
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-schema-org': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
       schema-dts: 2.1.0
 
   '@3sixty/api-auth-oauth-service@0.20.0-next.7':
@@ -6554,22 +6572,22 @@ snapshots:
       '@3sixty/api-auth-models': 0.20.0-next.7
       '@3sixty/api-auth-oauth-models': 0.20.0-next.7
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/vault-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/api-auth-rest-client@0.20.0-next.7(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-auth-models': 0.20.0-next.7
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -6581,30 +6599,30 @@ snapshots:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/authorization-models': 0.20.0-next.3
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/api-core-server@0.20.0-next.9':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/api-processors': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/api-core@0.20.0-next.9(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
       socket.io-client: 4.8.4(supports-color@10.2.2)
     transitivePeerDependencies:
       - bufferutil
@@ -6613,26 +6631,26 @@ snapshots:
 
   '@3sixty/api-models@0.20.0-next.9':
     dependencies:
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/api-processors@0.20.0-next.9':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/api-rest-client@0.20.0-next.9(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -6642,10 +6660,10 @@ snapshots:
     dependencies:
       '@3sixty/api-core-server': 0.20.0-next.9
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
       '@fastify/compress': 9.3.0
       '@fastify/cors': 11.3.1
       fastify: 5.12.7
@@ -6660,10 +6678,10 @@ snapshots:
     dependencies:
       '@3sixty/api-core-server': 0.20.0-next.9
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
       '@hono/node-server': 2.1.5(hono@4.13.16)
       hono: 4.13.16
       socket.io: 4.8.4(supports-color@10.2.2)
@@ -6676,10 +6694,10 @@ snapshots:
     dependencies:
       '@3sixty/api-core-server': 0.20.0-next.9
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
       find-my-way: 9.10.0
       socket.io: 4.8.4(supports-color@10.2.2)
     transitivePeerDependencies:
@@ -6691,54 +6709,54 @@ snapshots:
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/modules': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/modules': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/api-tenant-processor@0.20.0-next.9':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/attestation-connector-nft@0.20.0-next.2':
     dependencies:
       '@3sixty/attestation-models': 0.20.0-next.2
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/identity-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/nft-models': 0.20.0-next.2
       '@3sixty/standards-schema-org': 0.20.0-next.3
       '@3sixty/standards-w3c-did': 0.20.0-next.3
 
   '@3sixty/attestation-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/standards-schema-org': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/attestation-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/attestation-models': 0.20.0-next.2
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -6748,34 +6766,34 @@ snapshots:
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/attestation-models': 0.20.0-next.2
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-schema-org': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/auditable-item-graph-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/immutable-proof-models': 0.20.0-next.2
       '@3sixty/standards-schema-org': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/auditable-item-graph-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/auditable-item-graph-models': 0.20.0-next.2
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -6785,41 +6803,41 @@ snapshots:
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/auditable-item-graph-models': 0.20.0-next.2
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/event-bus-models': 0.20.0-next.2
       '@3sixty/immutable-proof-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-schema-org': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/auditable-item-stream-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/immutable-proof-models': 0.20.0-next.2
       '@3sixty/standards-schema-org': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/auditable-item-stream-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/auditable-item-stream-models': 0.20.0-next.2
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -6829,40 +6847,40 @@ snapshots:
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/auditable-item-stream-models': 0.20.0-next.2
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/event-bus-models': 0.20.0-next.2
       '@3sixty/immutable-proof-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-schema-org': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/authorization-connector-casbin@0.20.0-next.3':
     dependencies:
       '@3sixty/authorization-models': 0.20.0-next.3
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/authorization-connector-entity-storage@0.20.0-next.3':
     dependencies:
       '@3sixty/authorization-models': 0.20.0-next.3
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/authorization-models@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/telemetry-models': 0.20.0-next.3
 
   '@3sixty/authorization-rest-client@0.20.0-next.3(supports-color@10.2.2)':
@@ -6870,9 +6888,9 @@ snapshots:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/authorization-models': 0.20.0-next.3
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -6882,34 +6900,34 @@ snapshots:
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/authorization-models': 0.20.0-next.3
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/automation-actions@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/automation-models': 0.20.0-next.2
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/automation-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
 
   '@3sixty/automation-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/automation-models': 0.20.0-next.2
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -6919,60 +6937,60 @@ snapshots:
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/automation-models': 0.20.0-next.2
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/background-task-models@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
 
   '@3sixty/background-task-scheduler@0.20.0-next.3':
     dependencies:
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/background-task-service@0.20.0-next.3':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/modules': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/modules': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/blob-storage-connector-aws-s3@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/blob-storage-models': 0.20.0-next.2
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@aws-sdk/client-s3': 3.1153.0
 
   '@3sixty/blob-storage-connector-azure@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/blob-storage-models': 0.20.0-next.2
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@azure/storage-blob': 12.34.0(supports-color@10.2.2)
     transitivePeerDependencies:
       - supports-color
@@ -6981,22 +6999,22 @@ snapshots:
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/blob-storage-models': 0.20.0-next.2
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/blob-storage-connector-gcp@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/blob-storage-models': 0.20.0-next.2
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
       '@google-cloud/storage': 8.4.0(supports-color@10.2.2)
       google-auth-library: 11.3.1(supports-color@10.2.2)
     transitivePeerDependencies:
@@ -7006,42 +7024,42 @@ snapshots:
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/blob-storage-models': 0.20.0-next.2
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/blob-storage-connector-memory@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/blob-storage-models': 0.20.0-next.2
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/blob-storage-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/standards-schema-org': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/blob-storage-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7051,40 +7069,40 @@ snapshots:
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/blob-storage-models': 0.20.0-next.2
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-schema-org': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
       '@3sixty/vault-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
-  '@3sixty/cli-core@0.20.0-next.10':
+  '@3sixty/cli-core@0.20.0-next.11':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       chalk: 6.0.1
       commander: 15.0.0
-      dotenv: 18.0.8
+      dotenv: 18.0.9
 
-  '@3sixty/context@0.20.0-next.10':
+  '@3sixty/context@0.20.0-next.11':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
 
-  '@3sixty/core@0.20.0-next.10':
+  '@3sixty/core@0.20.0-next.11':
     dependencies:
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       intl-messageformat: 12.1.4
-      rfc6902: 5.3.0
+      rfc6902: 5.4.0
 
-  '@3sixty/crypto@0.20.0-next.10':
+  '@3sixty/crypto@0.20.0-next.11':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@noble/ciphers': 2.4.0
       '@noble/curves': 2.4.0
       '@noble/hashes': 2.4.0
@@ -7095,56 +7113,56 @@ snapshots:
 
   '@3sixty/data-core@0.20.0-next.5':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
       ajv: 8.20.0
       ajv-formats: 3.0.1(ajv@8.20.0)
 
   '@3sixty/data-json-ld@0.20.0-next.5':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
       '@types/jsonld': 1.5.15
       jsonld: 9.0.0
 
   '@3sixty/data-json-path@0.20.0-next.5':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       json-p3: 3.0.2
 
   '@3sixty/data-processing-converters@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-processing-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
       xml2js: 0.6.2
 
   '@3sixty/data-processing-extractors@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-path': 0.20.0-next.5
       '@3sixty/data-processing-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/data-processing-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
 
   '@3sixty/data-processing-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-processing-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7153,34 +7171,34 @@ snapshots:
   '@3sixty/data-processing-service@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-processing-models': 0.20.0-next.2
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/dataspace-app-runner@0.20.0-next.2':
     dependencies:
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/dataspace-models': 0.20.0-next.2
-      '@3sixty/modules': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/modules': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/rights-management-models': 0.20.0-next.3
       '@3sixty/standards-w3c-activity-streams': 0.20.0-next.3
       '@3sixty/trust-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/dataspace-control-plane-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/dataspace-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7190,32 +7208,32 @@ snapshots:
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/dataspace-models': 0.20.0-next.2
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/federated-catalogue-models': 0.20.0-next.2
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/rights-management-models': 0.20.0-next.3
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
       '@3sixty/standards-w3c-dcat': 0.20.0-next.3
       '@3sixty/standards-w3c-odrl': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
       '@3sixty/trust-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/dataspace-data-plane-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-w3c-activity-streams': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7225,18 +7243,18 @@ snapshots:
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/dataspace-app-runner': 0.20.0-next.2
       '@3sixty/dataspace-models': 0.20.0-next.2
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/modules': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/modules': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/rights-management-models': 0.20.0-next.3
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
       '@3sixty/standards-schema-org': 0.20.0-next.3
@@ -7244,17 +7262,17 @@ snapshots:
       '@3sixty/standards-w3c-odrl': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
       '@3sixty/trust-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/dataspace-data-plane-socket-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/dataspace-models': 0.20.0-next.2
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-w3c-activity-streams': 0.20.0-next.3
     transitivePeerDependencies:
       - bufferutil
@@ -7264,33 +7282,33 @@ snapshots:
   '@3sixty/dataspace-models@0.20.0-next.2':
     dependencies:
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/rights-management-models': 0.20.0-next.3
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
       '@3sixty/standards-schema-org': 0.20.0-next.3
       '@3sixty/standards-w3c-activity-streams': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/dlt-account@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/vault-models': 0.20.0-next.2
 
   '@3sixty/dlt-iota@0.20.0-next.3(typescript@6.0.3)':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/dlt-account': 0.20.0-next.3
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/vault-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
       '@iota/bcs': 1.6.0
       '@iota/identity-wasm': 1.9.7-beta.1(@iota/iota-sdk@1.15.0(typescript@6.0.3))
       '@iota/iota-sdk': 1.15.0(typescript@6.0.3)
@@ -7305,23 +7323,23 @@ snapshots:
       '@3sixty/attestation-models': 0.20.0-next.2
       '@3sixty/auditable-item-graph-models': 0.20.0-next.2
       '@3sixty/blob-storage-models': 0.20.0-next.2
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/standards-schema-org': 0.20.0-next.3
       '@3sixty/standards-unece': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/document-management-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/auditable-item-graph-models': 0.20.0-next.2
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7333,27 +7351,27 @@ snapshots:
       '@3sixty/attestation-models': 0.20.0-next.2
       '@3sixty/auditable-item-graph-models': 0.20.0-next.2
       '@3sixty/blob-storage-models': 0.20.0-next.2
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/data-processing-models': 0.20.0-next.2
       '@3sixty/document-management-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-schema-org': 0.20.0-next.3
       '@3sixty/standards-unece': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/entity-storage-connector-cosmosdb@0.20.0-next.4(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@azure/cosmos': 4.10.1(supports-color@10.2.2)
     transitivePeerDependencies:
       - supports-color
@@ -7361,12 +7379,12 @@ snapshots:
   '@3sixty/entity-storage-connector-dynamodb@0.20.0-next.4':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@aws-sdk/client-dynamodb': 3.1161.0
       '@aws-sdk/lib-dynamodb': 3.1161.0(@aws-sdk/client-dynamodb@3.1161.0)
       '@aws-sdk/util-dynamodb': 3.996.9(@aws-sdk/client-dynamodb@3.1161.0)
@@ -7374,22 +7392,22 @@ snapshots:
   '@3sixty/entity-storage-connector-file@0.20.0-next.4':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/entity-storage-connector-gcp-firestore@0.20.0-next.4(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@google-cloud/firestore': 9.4.0(supports-color@10.2.2)
       google-auth-library: 11.3.2(supports-color@10.2.2)
     transitivePeerDependencies:
@@ -7398,22 +7416,22 @@ snapshots:
   '@3sixty/entity-storage-connector-memory@0.20.0-next.4':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/entity-storage-connector-mongodb@0.20.0-next.4(socks@2.8.10)':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       mongodb: 7.8.0(socks@2.8.10)
     transitivePeerDependencies:
       - '@aws-sdk/credential-providers'
@@ -7427,12 +7445,12 @@ snapshots:
   '@3sixty/entity-storage-connector-mysql@0.20.0-next.4(@types/node@26.6.6)':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       mysql2: 3.24.6(@types/node@26.6.6)
     transitivePeerDependencies:
       - '@types/node'
@@ -7440,43 +7458,43 @@ snapshots:
   '@3sixty/entity-storage-connector-postgresql@0.20.0-next.4':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       postgres: 4.0.0
 
   '@3sixty/entity-storage-connector-scylladb@0.20.0-next.4':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       cassandra-driver: 4.10.0
 
   '@3sixty/entity-storage-models@0.20.0-next.4':
     dependencies:
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/entity-storage-rest-client@0.20.0-next.4(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7485,47 +7503,47 @@ snapshots:
   '@3sixty/entity-storage-service@0.20.0-next.4':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
-  '@3sixty/entity@0.20.0-next.10':
+  '@3sixty/entity@0.20.0-next.11':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       reflect-metadata: 0.2.2
-      tslib: 2.8.1
+      tslib: 2.9.1
 
   '@3sixty/event-bus-connector-local@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/event-bus-models': 0.20.0-next.2
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/event-bus-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
 
   '@3sixty/event-bus-service@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/event-bus-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/event-bus-socket-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/event-bus-models': 0.20.0-next.2
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7533,34 +7551,34 @@ snapshots:
 
   '@3sixty/federated-catalogue-filters@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/federated-catalogue-models': 0.20.0-next.2
       '@3sixty/federated-catalogue-service': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-w3c-dcat': 0.20.0-next.3
       '@3sixty/trust-models': 0.20.0-next.2
 
   '@3sixty/federated-catalogue-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
       '@3sixty/standards-w3c-dcat': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
       '@3sixty/trust-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/federated-catalogue-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/federated-catalogue-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
       '@3sixty/standards-w3c-dcat': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7569,15 +7587,15 @@ snapshots:
   '@3sixty/federated-catalogue-service@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/federated-catalogue-models': 0.20.0-next.2
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
       '@3sixty/standards-dublin-core': 0.20.0-next.3
       '@3sixty/standards-foaf': 0.20.0-next.3
@@ -7585,36 +7603,36 @@ snapshots:
       '@3sixty/standards-w3c-odrl': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
       '@3sixty/trust-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/identity-connector-entity-storage@0.20.0-next.4':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/identity-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-w3c-did': 0.20.0-next.3
       '@3sixty/vault-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/identity-connector-iota@0.20.0-next.4(@iota/iota-sdk@1.15.0(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/dlt-account': 0.20.0-next.3
       '@3sixty/dlt-iota': 0.20.0-next.3(typescript@6.0.3)
       '@3sixty/identity-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-w3c-did': 0.20.0-next.3
       '@3sixty/vault-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
       '@iota/identity-wasm': 1.9.6-beta.1(@iota/iota-sdk@1.15.0(typescript@6.0.3))
       '@iota/iota-interaction-ts': 0.14.0(@iota/iota-sdk@1.15.0(typescript@6.0.3))
     transitivePeerDependencies:
@@ -7627,32 +7645,32 @@ snapshots:
   '@3sixty/identity-connector-universal@0.20.0-next.4':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/identity-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-w3c-did': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/identity-models@0.20.0-next.4':
     dependencies:
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-w3c-did': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/identity-rest-client@0.20.0-next.4(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/identity-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-w3c-did': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7662,35 +7680,35 @@ snapshots:
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/authorization-models': 0.20.0-next.3
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/dlt-account': 0.20.0-next.3
       '@3sixty/identity-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-w3c-did': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
       '@3sixty/vault-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/immutable-proof-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/standards-w3c-did': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/immutable-proof-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/immutable-proof-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7700,73 +7718,73 @@ snapshots:
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/event-bus-models': 0.20.0-next.2
       '@3sixty/identity-models': 0.20.0-next.4
       '@3sixty/immutable-proof-models': 0.20.0-next.2
       '@3sixty/immutable-proof-task': 0.20.0-next.2
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/notarization-models': 0.20.0-next.2
       '@3sixty/standards-w3c-did': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/immutable-proof-task@0.20.0-next.2':
     dependencies:
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/identity-models': 0.20.0-next.4
       '@3sixty/immutable-proof-models': 0.20.0-next.2
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/modules': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/modules': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/notarization-models': 0.20.0-next.2
       '@3sixty/standards-w3c-did': 0.20.0-next.3
 
   '@3sixty/logging-connector-console@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/logging-connector-elk@0.20.0-next.2':
     dependencies:
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/logging-connector-entity-storage@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/logging-connector-file@0.20.0-next.2':
     dependencies:
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/logging-connector-opentelemetry@0.20.0-next.2(@opentelemetry/api@1.9.1)':
     dependencies:
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@opentelemetry/api-logs': 0.223.0
       '@opentelemetry/exporter-logs-otlp-http': 0.223.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/resources': 2.12.0(@opentelemetry/api@1.9.1)
@@ -7777,18 +7795,18 @@ snapshots:
 
   '@3sixty/logging-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/logging-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7797,20 +7815,20 @@ snapshots:
   '@3sixty/logging-service@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/mailbox-connector-gmail@0.20.0-next.4(supports-color@10.2.2)':
     dependencies:
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
       '@3sixty/mailbox-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       googleapis: 189.0.0(supports-color@10.2.2)
     transitivePeerDependencies:
       - supports-color
@@ -7818,21 +7836,21 @@ snapshots:
   '@3sixty/mailbox-connector-imap@0.20.0-next.4':
     dependencies:
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
       '@3sixty/mailbox-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       imapflow: 2.10.0
 
   '@3sixty/mailbox-connector-outlook@0.20.0-next.4(buffer@6.0.3)':
     dependencies:
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
       '@3sixty/mailbox-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@azure/msal-node': 7.1.2
       '@microsoft/microsoft-graph-client': 3.0.7(buffer@6.0.3)
     transitivePeerDependencies:
@@ -7844,29 +7862,29 @@ snapshots:
   '@3sixty/mailbox-connector-pop3@0.20.0-next.4':
     dependencies:
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
       '@3sixty/mailbox-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       node-pop3: 0.15.3
 
   '@3sixty/mailbox-models@0.20.0-next.4':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
       postal-mime: 4.2.0
 
   '@3sixty/mailbox-rest-client@0.20.0-next.4(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/mailbox-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7876,73 +7894,73 @@ snapshots:
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
       '@3sixty/mailbox-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/telemetry-models': 0.20.0-next.3
       '@3sixty/vault-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/messaging-connector-aws@0.20.0-next.4':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
       '@3sixty/messaging-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
       '@aws-sdk/client-ses': 3.1161.0
       '@aws-sdk/client-sns': 3.1161.0
 
   '@3sixty/messaging-connector-entity-storage@0.20.0-next.4':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
       '@3sixty/messaging-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/messaging-connector-smtp@0.20.0-next.4':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
       '@3sixty/messaging-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       nodemailer: 10.3.1
 
   '@3sixty/messaging-models@0.20.0-next.4':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
 
   '@3sixty/messaging-service@0.20.0-next.4':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
       '@3sixty/messaging-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
-  '@3sixty/modules@0.20.0-next.10':
+  '@3sixty/modules@0.20.0-next.11':
     dependencies:
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
 
-  '@3sixty/nameof-transformer@0.20.0-next.10':
+  '@3sixty/nameof-transformer@0.20.0-next.11':
     dependencies:
       typescript: 6.0.3
       typescript-native: typescript@7.1.0-beta
 
-  '@3sixty/nameof-vitest-plugin@0.20.0-next.10(@opentelemetry/api@1.9.1)(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0)(yaml@2.9.1))':
+  '@3sixty/nameof-vitest-plugin@0.20.0-next.11(@opentelemetry/api@1.9.1)(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0)(yaml@2.9.1))':
     dependencies:
-      '@3sixty/nameof-transformer': 0.20.0-next.10
+      '@3sixty/nameof-transformer': 0.20.0-next.11
       vitest: 5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.6.2)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.2)(jiti@2.7.0)(yaml@2.9.1))
     transitivePeerDependencies:
       - '@edge-runtime/vm'
@@ -7959,9 +7977,9 @@ snapshots:
       - msw
       - vite
 
-  '@3sixty/nameof-vitest-plugin@0.20.0-next.10(@opentelemetry/api@1.9.1)(@types/node@26.6.6)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))':
+  '@3sixty/nameof-vitest-plugin@0.20.0-next.11(@opentelemetry/api@1.9.1)(@types/node@26.6.6)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))':
     dependencies:
-      '@3sixty/nameof-transformer': 0.20.0-next.10
+      '@3sixty/nameof-transformer': 0.20.0-next.11
       vitest: 5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.6.6)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1))
     transitivePeerDependencies:
       - '@edge-runtime/vm'
@@ -7978,9 +7996,9 @@ snapshots:
       - msw
       - vite
 
-  '@3sixty/nameof-vitest-plugin@0.20.0-next.10(@opentelemetry/api@1.9.1)(@types/node@26.6.6)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.6)(jiti@2.7.0))':
+  '@3sixty/nameof-vitest-plugin@0.20.0-next.11(@opentelemetry/api@1.9.1)(@types/node@26.6.6)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.6)(jiti@2.7.0))':
     dependencies:
-      '@3sixty/nameof-transformer': 0.20.0-next.10
+      '@3sixty/nameof-transformer': 0.20.0-next.11
       vitest: 5.0.5(@opentelemetry/api@1.9.1)(@types/node@26.6.6)(@vitest/coverage-v8@5.0.5)(vite@8.3.4(@types/node@26.6.6)(jiti@2.7.0))
     transitivePeerDependencies:
       - '@edge-runtime/vm'
@@ -7997,23 +8015,23 @@ snapshots:
       - msw
       - vite
 
-  '@3sixty/nameof@0.20.0-next.10': {}
+  '@3sixty/nameof@0.20.0-next.11': {}
 
   '@3sixty/nft-connector-entity-storage@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/nft-models': 0.20.0-next.2
 
   '@3sixty/nft-connector-iota@0.20.0-next.2(typescript@6.0.3)':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/dlt-account': 0.20.0-next.3
       '@3sixty/dlt-iota': 0.20.0-next.3(typescript@6.0.3)
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/nft-models': 0.20.0-next.2
       '@3sixty/vault-models': 0.20.0-next.2
     transitivePeerDependencies:
@@ -8024,16 +8042,16 @@ snapshots:
 
   '@3sixty/nft-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/telemetry-models': 0.20.0-next.3
 
   '@3sixty/nft-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -8042,29 +8060,29 @@ snapshots:
   '@3sixty/nft-service@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/nft-models': 0.20.0-next.2
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/notarization-connector-entity-storage@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/notarization-models': 0.20.0-next.2
 
   '@3sixty/notarization-connector-iota@0.20.0-next.2(typescript@6.0.3)':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/dlt-account': 0.20.0-next.3
       '@3sixty/dlt-iota': 0.20.0-next.3(typescript@6.0.3)
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/notarization-models': 0.20.0-next.2
       '@3sixty/vault-models': 0.20.0-next.2
       '@iota/iota-sdk': 1.15.0(typescript@6.0.3)
@@ -8077,16 +8095,16 @@ snapshots:
 
   '@3sixty/notarization-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/telemetry-models': 0.20.0-next.3
 
   '@3sixty/notarization-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -8095,95 +8113,95 @@ snapshots:
   '@3sixty/notarization-service@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/notarization-models': 0.20.0-next.2
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/rights-management-models@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
       '@3sixty/standards-w3c-odrl': 0.20.0-next.3
       '@3sixty/trust-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/rights-management-pap-service@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/rights-management-models': 0.20.0-next.3
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
       '@3sixty/standards-w3c-odrl': 0.20.0-next.3
 
   '@3sixty/rights-management-pdp-service@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/rights-management-models': 0.20.0-next.3
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
       '@3sixty/standards-w3c-odrl': 0.20.0-next.3
 
   '@3sixty/rights-management-pep-service@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/rights-management-models': 0.20.0-next.3
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
       '@3sixty/standards-w3c-odrl': 0.20.0-next.3
 
   '@3sixty/rights-management-pip-service@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/rights-management-models': 0.20.0-next.3
       '@3sixty/standards-w3c-odrl': 0.20.0-next.3
 
   '@3sixty/rights-management-plugins@0.20.0-next.3':
     dependencies:
       '@3sixty/automation-models': 0.20.0-next.2
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/data-json-path': 0.20.0-next.5
       '@3sixty/identity-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/rights-management-models': 0.20.0-next.3
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
       '@3sixty/standards-w3c-odrl': 0.20.0-next.3
 
   '@3sixty/rights-management-pmp-service@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/rights-management-models': 0.20.0-next.3
 
   '@3sixty/rights-management-pnp-service@0.20.0-next.3':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/rights-management-models': 0.20.0-next.3
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
       '@3sixty/standards-w3c-odrl': 0.20.0-next.3
@@ -8191,9 +8209,9 @@ snapshots:
 
   '@3sixty/rights-management-pxp-service@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/rights-management-models': 0.20.0-next.3
       '@3sixty/standards-w3c-odrl': 0.20.0-next.3
 
@@ -8201,13 +8219,13 @@ snapshots:
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/entity': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/rights-management-models': 0.20.0-next.3
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -8216,21 +8234,21 @@ snapshots:
   '@3sixty/rights-management-service@0.20.0-next.3':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/rights-management-models': 0.20.0-next.3
       '@3sixty/standards-dataspace-protocol': 0.20.0-next.3
       '@3sixty/standards-w3c-odrl': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/standards-dataspace-protocol@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/standards-dublin-core': 0.20.0-next.3
       '@3sixty/standards-foaf': 0.20.0-next.3
       '@3sixty/standards-w3c-dcat': 0.20.0-next.3
@@ -8243,34 +8261,34 @@ snapshots:
 
   '@3sixty/standards-foaf@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
 
   '@3sixty/standards-schema-org@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       schema-dts: 2.1.0
 
   '@3sixty/standards-unece@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/standards-w3c-activity-streams@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
 
   '@3sixty/standards-w3c-dcat@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/standards-dublin-core': 0.20.0-next.3
@@ -8279,38 +8297,38 @@ snapshots:
 
   '@3sixty/standards-w3c-did@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/standards-w3c-odrl@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-core': 0.20.0-next.5
       '@3sixty/data-json-ld': 0.20.0-next.5
 
   '@3sixty/telemetry-connector-entity-storage@0.20.0-next.3':
     dependencies:
       '@3sixty/background-task-models': 0.20.0-next.3
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/modules': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/modules': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/telemetry-models': 0.20.0-next.3
 
   '@3sixty/telemetry-connector-opentelemetry@0.20.0-next.3':
     dependencies:
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/telemetry-connector-entity-storage': 0.20.0-next.3
       '@3sixty/telemetry-models': 0.20.0-next.3
       '@opentelemetry/api': 1.9.1
@@ -8321,32 +8339,32 @@ snapshots:
 
   '@3sixty/telemetry-models@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/telemetry-processors@0.20.0-next.3':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/telemetry-models': 0.20.0-next.3
 
   '@3sixty/telemetry-producers@0.20.0-next.3':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/telemetry-models': 0.20.0-next.3
 
   '@3sixty/telemetry-rest-client@0.20.0-next.3(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -8355,36 +8373,36 @@ snapshots:
   '@3sixty/telemetry-service@0.20.0-next.3':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/telemetry-models': 0.20.0-next.3
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/tracing-connector-console@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/tracing-models': 0.20.0-next.2
 
   '@3sixty/tracing-connector-entity-storage@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/tracing-models': 0.20.0-next.2
 
   '@3sixty/tracing-connector-opentelemetry@0.20.0-next.2':
     dependencies:
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/tracing-models': 0.20.0-next.2
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/core': 2.12.0(@opentelemetry/api@1.9.1)
@@ -8394,37 +8412,37 @@ snapshots:
 
   '@3sixty/tracing-facades@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/tracing-models': 0.20.0-next.2
 
   '@3sixty/tracing-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/tracing-processors@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/tracing-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/tracing-rest-client@0.20.0-next.2(supports-color@10.2.2)':
     dependencies:
       '@3sixty/api-core': 0.20.0-next.9(supports-color@10.2.2)
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/tracing-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -8433,100 +8451,100 @@ snapshots:
   '@3sixty/tracing-service@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/tracing-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/trust-generators@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/identity-models': 0.20.0-next.4
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/trust-models': 0.20.0-next.2
 
   '@3sixty/trust-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
 
   '@3sixty/trust-service@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/trust-models': 0.20.0-next.2
 
   '@3sixty/trust-verifiers@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/data-json-ld': 0.20.0-next.5
       '@3sixty/identity-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/trust-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
-  '@3sixty/validate-locales@0.20.0-next.10':
+  '@3sixty/validate-locales@0.20.0-next.11':
     dependencies:
-      '@3sixty/cli-core': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/nameof-transformer': 0.20.0-next.10
+      '@3sixty/cli-core': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/nameof-transformer': 0.20.0-next.11
       commander: 15.0.0
-      glob: 13.0.6
+      glob: 14.0.3
       typescript: 6.0.3
 
   '@3sixty/vault-connector-entity-storage@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/vault-models': 0.20.0-next.2
 
   '@3sixty/vault-connector-hashicorp@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/logging-models': 0.20.0-next.2
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/vault-models': 0.20.0-next.2
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/vault-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      '@3sixty/web': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      '@3sixty/web': 0.20.0-next.11
 
   '@3sixty/wallet-connector-entity-storage@0.20.0-next.2':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
       '@3sixty/dlt-account': 0.20.0-next.3
-      '@3sixty/entity': 0.20.0-next.10
+      '@3sixty/entity': 0.20.0-next.11
       '@3sixty/entity-storage-models': 0.20.0-next.4
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/vault-models': 0.20.0-next.2
       '@3sixty/wallet-models': 0.20.0-next.2
 
   '@3sixty/wallet-connector-iota@0.20.0-next.2(typescript@6.0.3)':
     dependencies:
       '@3sixty/api-models': 0.20.0-next.9
-      '@3sixty/context': 0.20.0-next.10
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/context': 0.20.0-next.11
+      '@3sixty/core': 0.20.0-next.11
       '@3sixty/dlt-account': 0.20.0-next.3
       '@3sixty/dlt-iota': 0.20.0-next.3(typescript@6.0.3)
-      '@3sixty/nameof': 0.20.0-next.10
+      '@3sixty/nameof': 0.20.0-next.11
       '@3sixty/vault-models': 0.20.0-next.2
       '@3sixty/wallet-models': 0.20.0-next.2
     transitivePeerDependencies:
@@ -8537,14 +8555,14 @@ snapshots:
 
   '@3sixty/wallet-models@0.20.0-next.2':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
+      '@3sixty/core': 0.20.0-next.11
 
-  '@3sixty/web@0.20.0-next.10':
+  '@3sixty/web@0.20.0-next.11':
     dependencies:
-      '@3sixty/core': 0.20.0-next.10
-      '@3sixty/crypto': 0.20.0-next.10
-      '@3sixty/nameof': 0.20.0-next.10
-      jose: 6.2.12
+      '@3sixty/core': 0.20.0-next.11
+      '@3sixty/crypto': 0.20.0-next.11
+      '@3sixty/nameof': 0.20.0-next.11
+      jose: 6.2.15
 
   '@aws-sdk/checksums@3.1001.4':
     dependencies:
@@ -9670,6 +9688,8 @@ snapshots:
       strip-ansi-cjs: strip-ansi@6.0.1
       wrap-ansi: 8.1.0
       wrap-ansi-cjs: wrap-ansi@7.0.0
+
+  '@isaacs/nonrecursive-glob-match@1.0.3': {}
 
   '@jridgewell/resolve-uri@3.1.2': {}
 
@@ -11008,7 +11028,7 @@ snapshots:
     dependencies:
       is-obj: 2.0.0
 
-  dotenv@18.0.8: {}
+  dotenv@18.0.9: {}
 
   dunder-proto@1.0.1:
     dependencies:
@@ -11552,6 +11572,12 @@ snapshots:
       minipass: 7.1.3
       path-scurry: 2.0.2
 
+  glob@14.0.3:
+    dependencies:
+      minimatch: 11.0.4
+      minipass: 7.1.3
+      path-scurry: 3.0.0
+
   global-directory@5.0.0:
     dependencies:
       ini: 6.0.0
@@ -11859,7 +11885,7 @@ snapshots:
 
   jose@5.10.0: {}
 
-  jose@6.2.12: {}
+  jose@6.2.15: {}
 
   js-tokens@10.0.0: {}
 
@@ -12405,6 +12431,11 @@ snapshots:
     dependencies:
       brace-expansion: 5.0.12
 
+  minimatch@11.0.4:
+    dependencies:
+      '@isaacs/nonrecursive-glob-match': 1.0.3
+      brace-expansion: 5.0.12
+
   minimatch@3.1.5:
     dependencies:
       brace-expansion: 1.1.21
@@ -12623,6 +12654,11 @@ snapshots:
       minipass: 7.1.3
 
   path-scurry@2.0.2:
+    dependencies:
+      lru-cache: 11.5.3
+      minipass: 7.1.3
+
+  path-scurry@3.0.0:
     dependencies:
       lru-cache: 11.5.3
       minipass: 7.1.3
@@ -12859,7 +12895,7 @@ snapshots:
 
   reusify@1.1.0: {}
 
-  rfc6902@5.3.0: {}
+  rfc6902@5.4.0: {}
 
   rfdc@1.4.1: {}
 
@@ -13209,6 +13245,8 @@ snapshots:
       typescript: 6.0.3
 
   tslib@2.8.1: {}
+
+  tslib@2.9.1: {}
 
   type-check@0.4.0:
     dependencies:

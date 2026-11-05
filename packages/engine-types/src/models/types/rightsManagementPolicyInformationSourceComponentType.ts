@@ -4,7 +4,6 @@
 /**
  * Rights management Policy Information Source component types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const RightsManagementPolicyInformationSourceComponentType = {
 	/**
 	 * Identity.

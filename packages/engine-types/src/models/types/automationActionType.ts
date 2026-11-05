@@ -4,7 +4,6 @@
 /**
  * Automation action types.
  */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const AutomationActionType = {
 	/**
 	 * Fetch action.
