@@ -1,6 +1,6 @@
 # Function: initialiseDataspaceControlPlaneComponent()
 
-> **initialiseDataspaceControlPlaneComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`DataspaceControlPlaneComponentConfig`](../type-aliases/DataspaceControlPlaneComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseDataspaceControlPlaneComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`DataspaceControlPlaneComponentConfig`](../type-aliases/DataspaceControlPlaneComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the dataspace control plane component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`DataspaceControlPlaneComponentConfig`](../type-aliases/DataspaceControlPlaneComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`DataspaceControlPlaneComponentConfig`](../type-aliases/DataspaceControlPlaneComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

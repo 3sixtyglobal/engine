@@ -1,6 +1,6 @@
 # Function: initialiseTracingConnector()
 
-> **initialiseTracingConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`TracingConnectorConfig`](../type-aliases/TracingConnectorConfig.md), `Factory`\<`ITracingConnector`\>\>
+> **initialiseTracingConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`TracingConnectorConfig`](../type-aliases/TracingConnectorConfig.md), `Factory`\<`ITracingConnector`\>\>
 
 Initialise a tracing connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`TracingConnectorConfig`](../type-aliases/TracingConnectorConfig.md), `Factory`\<`ITracingConnector`\>\>
+`IEngineTypeInitialiserReturn`\<[`TracingConnectorConfig`](../type-aliases/TracingConnectorConfig.md), `Factory`\<`ITracingConnector`\>\>
 
 The instance created and the factory for it.

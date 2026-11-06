@@ -1,6 +1,6 @@
 # Type Alias: EngineTypeInitialiser\<T, F\>
 
-> **EngineTypeInitialiser**\<`T`, `F`\> = (`engineCore`, `context`, `instanceConfig`) => [`EngineTypeInitialiserReturn`](../interfaces/EngineTypeInitialiserReturn.md)\<`T`, `F`\>
+> **EngineTypeInitialiser**\<`T`, `F`\> = (`engineCore`, `context`, `instanceConfig`) => [`IEngineTypeInitialiserReturn`](../interfaces/IEngineTypeInitialiserReturn.md)\<`T`, `F`\>
 
 Method definition for the engine type initialiser.
 
@@ -30,4 +30,4 @@ Method definition for the engine type initialiser.
 
 ## Returns
 
-[`EngineTypeInitialiserReturn`](../interfaces/EngineTypeInitialiserReturn.md)\<`T`, `F`\>
+[`IEngineTypeInitialiserReturn`](../interfaces/IEngineTypeInitialiserReturn.md)\<`T`, `F`\>

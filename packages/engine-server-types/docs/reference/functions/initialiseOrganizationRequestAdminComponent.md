@@ -1,6 +1,6 @@
 # Function: initialiseOrganizationRequestAdminComponent()
 
-> **initialiseOrganizationRequestAdminComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`OrganizationRequestAdminComponentConfig`](../type-aliases/OrganizationRequestAdminComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseOrganizationRequestAdminComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`OrganizationRequestAdminComponentConfig`](../type-aliases/OrganizationRequestAdminComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the organization request admin component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`OrganizationRequestAdminComponentConfig`](../type-aliases/OrganizationRequestAdminComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`OrganizationRequestAdminComponentConfig`](../type-aliases/OrganizationRequestAdminComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

@@ -1,6 +1,6 @@
 # Function: initialiseWalletConnector()
 
-> **initialiseWalletConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`WalletConnectorConfig`](../type-aliases/WalletConnectorConfig.md), `Factory`\<`IWalletConnector`\>\>
+> **initialiseWalletConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`WalletConnectorConfig`](../type-aliases/WalletConnectorConfig.md), `Factory`\<`IWalletConnector`\>\>
 
 Initialise a wallet connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`WalletConnectorConfig`](../type-aliases/WalletConnectorConfig.md), `Factory`\<`IWalletConnector`\>\>
+`IEngineTypeInitialiserReturn`\<[`WalletConnectorConfig`](../type-aliases/WalletConnectorConfig.md), `Factory`\<`IWalletConnector`\>\>
 
 The instance created and the factory for it.

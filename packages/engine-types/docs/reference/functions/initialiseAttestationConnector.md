@@ -1,6 +1,6 @@
 # Function: initialiseAttestationConnector()
 
-> **initialiseAttestationConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AttestationConnectorConfig`](../type-aliases/AttestationConnectorConfig.md), `Factory`\<`IAttestationConnector`\>\>
+> **initialiseAttestationConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`AttestationConnectorConfig`](../type-aliases/AttestationConnectorConfig.md), `Factory`\<`IAttestationConnector`\>\>
 
 Initialise the attestation connector.
 
@@ -26,6 +26,6 @@ The instance config type.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`AttestationConnectorConfig`](../type-aliases/AttestationConnectorConfig.md), `Factory`\<`IAttestationConnector`\>\>
+`IEngineTypeInitialiserReturn`\<[`AttestationConnectorConfig`](../type-aliases/AttestationConnectorConfig.md), `Factory`\<`IAttestationConnector`\>\>
 
 The instance created and the factory for it.

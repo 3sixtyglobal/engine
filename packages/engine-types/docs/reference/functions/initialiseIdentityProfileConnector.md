@@ -1,6 +1,6 @@
 # Function: initialiseIdentityProfileConnector()
 
-> **initialiseIdentityProfileConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`IdentityProfileConnectorConfig`](../type-aliases/IdentityProfileConnectorConfig.md), `Factory`\<`IIdentityProfileConnector`\<`IJsonLdDocument`, `IJsonLdDocument`\>\>\>
+> **initialiseIdentityProfileConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`IdentityProfileConnectorConfig`](../type-aliases/IdentityProfileConnectorConfig.md), `Factory`\<`IIdentityProfileConnector`\<`IJsonLdDocument`, `IJsonLdDocument`\>\>\>
 
 Initialise the identity profile connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`IdentityProfileConnectorConfig`](../type-aliases/IdentityProfileConnectorConfig.md), `Factory`\<`IIdentityProfileConnector`\<`IJsonLdDocument`, `IJsonLdDocument`\>\>\>
+`IEngineTypeInitialiserReturn`\<[`IdentityProfileConnectorConfig`](../type-aliases/IdentityProfileConnectorConfig.md), `Factory`\<`IIdentityProfileConnector`\<`IJsonLdDocument`, `IJsonLdDocument`\>\>\>
 
 The instance created and the factory for it.

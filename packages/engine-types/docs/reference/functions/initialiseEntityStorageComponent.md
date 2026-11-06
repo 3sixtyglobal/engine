@@ -1,6 +1,6 @@
 # Function: initialiseEntityStorageComponent()
 
-> **initialiseEntityStorageComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`EntityStorageComponentConfig`](../type-aliases/EntityStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseEntityStorageComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`EntityStorageComponentConfig`](../type-aliases/EntityStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the entity storage component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`EntityStorageComponentConfig`](../type-aliases/EntityStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`EntityStorageComponentConfig`](../type-aliases/EntityStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

@@ -1,6 +1,6 @@
 # Function: initialiseHealthComponent()
 
-> **initialiseHealthComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`HealthComponentConfig`](../type-aliases/HealthComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseHealthComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`HealthComponentConfig`](../type-aliases/HealthComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the health component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`HealthComponentConfig`](../type-aliases/HealthComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`HealthComponentConfig`](../type-aliases/HealthComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

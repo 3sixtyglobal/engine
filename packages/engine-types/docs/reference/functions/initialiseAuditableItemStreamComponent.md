@@ -1,6 +1,6 @@
 # Function: initialiseAuditableItemStreamComponent()
 
-> **initialiseAuditableItemStreamComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AuditableItemStreamComponentConfig`](../type-aliases/AuditableItemStreamComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseAuditableItemStreamComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`AuditableItemStreamComponentConfig`](../type-aliases/AuditableItemStreamComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the auditable item stream component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`AuditableItemStreamComponentConfig`](../type-aliases/AuditableItemStreamComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`AuditableItemStreamComponentConfig`](../type-aliases/AuditableItemStreamComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

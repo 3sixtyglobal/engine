@@ -1,6 +1,6 @@
 # Function: initialiseIdentityProfileComponent()
 
-> **initialiseIdentityProfileComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`IdentityProfileComponentConfig`](../type-aliases/IdentityProfileComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseIdentityProfileComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`IdentityProfileComponentConfig`](../type-aliases/IdentityProfileComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the identity profile component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`IdentityProfileComponentConfig`](../type-aliases/IdentityProfileComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`IdentityProfileComponentConfig`](../type-aliases/IdentityProfileComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPepComponent()
 
-> **initialiseRightsManagementPepComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPepComponentConfig`](../type-aliases/RightsManagementPepComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseRightsManagementPepComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`RightsManagementPepComponentConfig`](../type-aliases/RightsManagementPepComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the rights management PEP component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`RightsManagementPepComponentConfig`](../type-aliases/RightsManagementPepComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`RightsManagementPepComponentConfig`](../type-aliases/RightsManagementPepComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

@@ -1,6 +1,6 @@
 # Function: initialiseAuthenticationAuditComponent()
 
-> **initialiseAuthenticationAuditComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AuthenticationAuditComponentConfig`](../type-aliases/AuthenticationAuditComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseAuthenticationAuditComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`AuthenticationAuditComponentConfig`](../type-aliases/AuthenticationAuditComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the authentication audit.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`AuthenticationAuditComponentConfig`](../type-aliases/AuthenticationAuditComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`AuthenticationAuditComponentConfig`](../type-aliases/AuthenticationAuditComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

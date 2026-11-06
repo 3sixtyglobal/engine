@@ -1,6 +1,6 @@
 # Function: initialiseAuthorizationConnector()
 
-> **initialiseAuthorizationConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AuthorizationConnectorConfig`](../type-aliases/AuthorizationConnectorConfig.md), `Factory`\<`IAuthorizationConnector`\>\>
+> **initialiseAuthorizationConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`AuthorizationConnectorConfig`](../type-aliases/AuthorizationConnectorConfig.md), `Factory`\<`IAuthorizationConnector`\>\>
 
 Initialise the authorization connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`AuthorizationConnectorConfig`](../type-aliases/AuthorizationConnectorConfig.md), `Factory`\<`IAuthorizationConnector`\>\>
+`IEngineTypeInitialiserReturn`\<[`AuthorizationConnectorConfig`](../type-aliases/AuthorizationConnectorConfig.md), `Factory`\<`IAuthorizationConnector`\>\>
 
 The instance created and the factory for it.

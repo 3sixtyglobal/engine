@@ -1,6 +1,6 @@
 # Function: initialiseAuthorizationComponent()
 
-> **initialiseAuthorizationComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AuthorizationComponentConfig`](../type-aliases/AuthorizationComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseAuthorizationComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`AuthorizationComponentConfig`](../type-aliases/AuthorizationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the authorization component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`AuthorizationComponentConfig`](../type-aliases/AuthorizationComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`AuthorizationComponentConfig`](../type-aliases/AuthorizationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

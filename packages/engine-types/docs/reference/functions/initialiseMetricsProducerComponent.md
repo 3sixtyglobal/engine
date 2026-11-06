@@ -1,6 +1,6 @@
 # Function: initialiseMetricsProducerComponent()
 
-> **initialiseMetricsProducerComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`MetricsProducerComponentConfig`](../type-aliases/MetricsProducerComponentConfig.md), `Factory`\<`IMetricsProducer`\>\>
+> **initialiseMetricsProducerComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`MetricsProducerComponentConfig`](../type-aliases/MetricsProducerComponentConfig.md), `Factory`\<`IMetricsProducer`\>\>
 
 Initialise a metrics producer.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`MetricsProducerComponentConfig`](../type-aliases/MetricsProducerComponentConfig.md), `Factory`\<`IMetricsProducer`\>\>
+`IEngineTypeInitialiserReturn`\<[`MetricsProducerComponentConfig`](../type-aliases/MetricsProducerComponentConfig.md), `Factory`\<`IMetricsProducer`\>\>
 
 The instance created and the factory for it.

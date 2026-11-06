@@ -1,6 +1,6 @@
 # Function: initialiseFederatedCatalogueComponent()
 
-> **initialiseFederatedCatalogueComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`FederatedCatalogueComponentConfig`](../type-aliases/FederatedCatalogueComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseFederatedCatalogueComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`FederatedCatalogueComponentConfig`](../type-aliases/FederatedCatalogueComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the federated catalogue component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`FederatedCatalogueComponentConfig`](../type-aliases/FederatedCatalogueComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`FederatedCatalogueComponentConfig`](../type-aliases/FederatedCatalogueComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

@@ -1,6 +1,6 @@
 # Function: initialiseAuthenticationAccountAdminComponent()
 
-> **initialiseAuthenticationAccountAdminComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AuthenticationAccountAdminComponentConfig`](../type-aliases/AuthenticationAccountAdminComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseAuthenticationAccountAdminComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`AuthenticationAccountAdminComponentConfig`](../type-aliases/AuthenticationAccountAdminComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the authentication account admin component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`AuthenticationAccountAdminComponentConfig`](../type-aliases/AuthenticationAccountAdminComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`AuthenticationAccountAdminComponentConfig`](../type-aliases/AuthenticationAccountAdminComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

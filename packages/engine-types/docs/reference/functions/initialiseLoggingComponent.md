@@ -1,6 +1,6 @@
 # Function: initialiseLoggingComponent()
 
-> **initialiseLoggingComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`LoggingComponentConfig`](../type-aliases/LoggingComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseLoggingComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`LoggingComponentConfig`](../type-aliases/LoggingComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the logging component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`LoggingComponentConfig`](../type-aliases/LoggingComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`LoggingComponentConfig`](../type-aliases/LoggingComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

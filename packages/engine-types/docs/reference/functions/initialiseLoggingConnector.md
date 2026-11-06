@@ -1,6 +1,6 @@
 # Function: initialiseLoggingConnector()
 
-> **initialiseLoggingConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`LoggingConnectorConfig`](../type-aliases/LoggingConnectorConfig.md), `Factory`\<`ILoggingConnector`\>\>
+> **initialiseLoggingConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`LoggingConnectorConfig`](../type-aliases/LoggingConnectorConfig.md), `Factory`\<`ILoggingConnector`\>\>
 
 Initialise the logging connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`LoggingConnectorConfig`](../type-aliases/LoggingConnectorConfig.md), `Factory`\<`ILoggingConnector`\>\>
+`IEngineTypeInitialiserReturn`\<[`LoggingConnectorConfig`](../type-aliases/LoggingConnectorConfig.md), `Factory`\<`ILoggingConnector`\>\>
 
 The instance created and the factory for it.

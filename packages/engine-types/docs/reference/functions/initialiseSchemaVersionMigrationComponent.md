@@ -1,6 +1,6 @@
 # Function: initialiseSchemaVersionMigrationComponent()
 
-> **initialiseSchemaVersionMigrationComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`SchemaVersionMigrationComponentConfig`](../type-aliases/SchemaVersionMigrationComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseSchemaVersionMigrationComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`SchemaVersionMigrationComponentConfig`](../type-aliases/SchemaVersionMigrationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the schema version migration component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`SchemaVersionMigrationComponentConfig`](../type-aliases/SchemaVersionMigrationComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`SchemaVersionMigrationComponentConfig`](../type-aliases/SchemaVersionMigrationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

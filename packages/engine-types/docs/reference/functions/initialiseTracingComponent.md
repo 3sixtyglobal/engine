@@ -1,6 +1,6 @@
 # Function: initialiseTracingComponent()
 
-> **initialiseTracingComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`TracingComponentConfig`](../type-aliases/TracingComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseTracingComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`TracingComponentConfig`](../type-aliases/TracingComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the tracing component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`TracingComponentConfig`](../type-aliases/TracingComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`TracingComponentConfig`](../type-aliases/TracingComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

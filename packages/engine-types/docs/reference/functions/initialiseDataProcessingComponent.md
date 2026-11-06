@@ -1,6 +1,6 @@
 # Function: initialiseDataProcessingComponent()
 
-> **initialiseDataProcessingComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`DataProcessingComponentConfig`](../type-aliases/DataProcessingComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseDataProcessingComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`DataProcessingComponentConfig`](../type-aliases/DataProcessingComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the data processing component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`DataProcessingComponentConfig`](../type-aliases/DataProcessingComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`DataProcessingComponentConfig`](../type-aliases/DataProcessingComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

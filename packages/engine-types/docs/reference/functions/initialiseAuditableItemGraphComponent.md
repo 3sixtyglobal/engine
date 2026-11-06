@@ -1,6 +1,6 @@
 # Function: initialiseAuditableItemGraphComponent()
 
-> **initialiseAuditableItemGraphComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AuditableItemGraphComponentConfig`](../type-aliases/AuditableItemGraphComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseAuditableItemGraphComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`AuditableItemGraphComponentConfig`](../type-aliases/AuditableItemGraphComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the auditable item graph component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`AuditableItemGraphComponentConfig`](../type-aliases/AuditableItemGraphComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`AuditableItemGraphComponentConfig`](../type-aliases/AuditableItemGraphComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

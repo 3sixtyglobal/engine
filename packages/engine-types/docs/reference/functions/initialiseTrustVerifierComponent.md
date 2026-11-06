@@ -1,6 +1,6 @@
 # Function: initialiseTrustVerifierComponent()
 
-> **initialiseTrustVerifierComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`TrustVerifierComponentConfig`](../type-aliases/TrustVerifierComponentConfig.md), `Factory`\<`ITrustVerifier`\>\>
+> **initialiseTrustVerifierComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`TrustVerifierComponentConfig`](../type-aliases/TrustVerifierComponentConfig.md), `Factory`\<`ITrustVerifier`\>\>
 
 Initialise the trust verifier component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`TrustVerifierComponentConfig`](../type-aliases/TrustVerifierComponentConfig.md), `Factory`\<`ITrustVerifier`\>\>
+`IEngineTypeInitialiserReturn`\<[`TrustVerifierComponentConfig`](../type-aliases/TrustVerifierComponentConfig.md), `Factory`\<`ITrustVerifier`\>\>
 
 The instance created and the factory for it.

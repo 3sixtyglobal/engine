@@ -1,6 +1,6 @@
 # Function: initialiseBlobStorageComponent()
 
-> **initialiseBlobStorageComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`BlobStorageComponentConfig`](../type-aliases/BlobStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseBlobStorageComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`BlobStorageComponentConfig`](../type-aliases/BlobStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the blob storage component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`BlobStorageComponentConfig`](../type-aliases/BlobStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`BlobStorageComponentConfig`](../type-aliases/BlobStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

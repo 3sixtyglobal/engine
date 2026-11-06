@@ -1,6 +1,6 @@
 # Function: initialiseTaskSchedulerComponent()
 
-> **initialiseTaskSchedulerComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`TaskSchedulerComponentConfig`](../type-aliases/TaskSchedulerComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseTaskSchedulerComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`TaskSchedulerComponentConfig`](../type-aliases/TaskSchedulerComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise a task scheduler.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`TaskSchedulerComponentConfig`](../type-aliases/TaskSchedulerComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`TaskSchedulerComponentConfig`](../type-aliases/TaskSchedulerComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

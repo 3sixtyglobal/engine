@@ -1,6 +1,6 @@
 # Function: initialiseDocumentManagementComponent()
 
-> **initialiseDocumentManagementComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`DocumentManagementComponentConfig`](../type-aliases/DocumentManagementComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseDocumentManagementComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`DocumentManagementComponentConfig`](../type-aliases/DocumentManagementComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the document management component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`DocumentManagementComponentConfig`](../type-aliases/DocumentManagementComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`DocumentManagementComponentConfig`](../type-aliases/DocumentManagementComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

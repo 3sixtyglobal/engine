@@ -1,6 +1,6 @@
 # Function: initialiseContextIdHandlerComponent()
 
-> **initialiseContextIdHandlerComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`ContextIdHandlerComponentConfig`](../type-aliases/ContextIdHandlerComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseContextIdHandlerComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`ContextIdHandlerComponentConfig`](../type-aliases/ContextIdHandlerComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the context id handler component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`ContextIdHandlerComponentConfig`](../type-aliases/ContextIdHandlerComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`ContextIdHandlerComponentConfig`](../type-aliases/ContextIdHandlerComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

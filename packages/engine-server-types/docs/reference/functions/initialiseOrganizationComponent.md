@@ -1,6 +1,6 @@
 # Function: initialiseOrganizationComponent()
 
-> **initialiseOrganizationComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`OrganizationComponentConfig`](../type-aliases/OrganizationComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseOrganizationComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`OrganizationComponentConfig`](../type-aliases/OrganizationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the organization component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`OrganizationComponentConfig`](../type-aliases/OrganizationComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`OrganizationComponentConfig`](../type-aliases/OrganizationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

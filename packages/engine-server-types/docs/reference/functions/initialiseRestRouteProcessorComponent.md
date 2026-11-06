@@ -1,6 +1,6 @@
 # Function: initialiseRestRouteProcessorComponent()
 
-> **initialiseRestRouteProcessorComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RestRouteProcessorConfig`](../type-aliases/RestRouteProcessorConfig.md), `Factory`\<`IRestRouteProcessor`\>\>
+> **initialiseRestRouteProcessorComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`RestRouteProcessorConfig`](../type-aliases/RestRouteProcessorConfig.md), `Factory`\<`IRestRouteProcessor`\>\>
 
 Initialise the rest route processor.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`RestRouteProcessorConfig`](../type-aliases/RestRouteProcessorConfig.md), `Factory`\<`IRestRouteProcessor`\>\>
+`IEngineTypeInitialiserReturn`\<[`RestRouteProcessorConfig`](../type-aliases/RestRouteProcessorConfig.md), `Factory`\<`IRestRouteProcessor`\>\>
 
 The instance created and the factory for it.

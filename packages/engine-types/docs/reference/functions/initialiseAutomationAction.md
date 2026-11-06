@@ -1,6 +1,6 @@
 # Function: initialiseAutomationAction()
 
-> **initialiseAutomationAction**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AutomationActionConfig`](../type-aliases/AutomationActionConfig.md), `Factory`\<`IAutomationAction`\>\>
+> **initialiseAutomationAction**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`AutomationActionConfig`](../type-aliases/AutomationActionConfig.md), `Factory`\<`IAutomationAction`\>\>
 
 Initialise the automation actions.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`AutomationActionConfig`](../type-aliases/AutomationActionConfig.md), `Factory`\<`IAutomationAction`\>\>
+`IEngineTypeInitialiserReturn`\<[`AutomationActionConfig`](../type-aliases/AutomationActionConfig.md), `Factory`\<`IAutomationAction`\>\>
 
 The instance created and the factory for it.

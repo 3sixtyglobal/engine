@@ -1,6 +1,6 @@
 # Function: initialiseFaucetConnector()
 
-> **initialiseFaucetConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`FaucetConnectorConfig`](../type-aliases/FaucetConnectorConfig.md), `Factory`\<`IFaucetConnector`\>\>
+> **initialiseFaucetConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`FaucetConnectorConfig`](../type-aliases/FaucetConnectorConfig.md), `Factory`\<`IFaucetConnector`\>\>
 
 Initialise a faucet connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`FaucetConnectorConfig`](../type-aliases/FaucetConnectorConfig.md), `Factory`\<`IFaucetConnector`\>\>
+`IEngineTypeInitialiserReturn`\<[`FaucetConnectorConfig`](../type-aliases/FaucetConnectorConfig.md), `Factory`\<`IFaucetConnector`\>\>
 
 The instance created and the factory for it.

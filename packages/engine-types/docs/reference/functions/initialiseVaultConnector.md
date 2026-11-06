@@ -1,6 +1,6 @@
 # Function: initialiseVaultConnector()
 
-> **initialiseVaultConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`VaultConnectorConfig`](../type-aliases/VaultConnectorConfig.md), `Factory`\<`IVaultConnector`\>\>
+> **initialiseVaultConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`VaultConnectorConfig`](../type-aliases/VaultConnectorConfig.md), `Factory`\<`IVaultConnector`\>\>
 
 Initialise the vault connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`VaultConnectorConfig`](../type-aliases/VaultConnectorConfig.md), `Factory`\<`IVaultConnector`\>\>
+`IEngineTypeInitialiserReturn`\<[`VaultConnectorConfig`](../type-aliases/VaultConnectorConfig.md), `Factory`\<`IVaultConnector`\>\>
 
 The instance created and the factory for it.
