@@ -65,7 +65,7 @@ console.log(serverConfig.types.restRouteProcessor?.length ?? 0); // 2
 
 ## Authentication Providers and OAuth
 
-Each provider is registered with the authentication provider factory under its id, so `entity-storage` handles password logins and `google` or `microsoft` handle OAuth sign in through the OAuth component. `entity-storage-oauth` signs the same password accounts in through OAuth 2.0, with the node as the authorization server, sending the browser to `loginPageUrl` for the e-mail address and password. It creates the `authentication-authorization-code` storage, which the authentication component also creates, so codes issued by the authorize endpoint can be redeemed.
+Each provider is registered with the authentication provider factory under its id, so `3sixty` handles password logins and `google` or `microsoft` handle OAuth sign in through the OAuth component. `3sixty-oauth` signs the same password accounts in through OAuth 2.0, with the node as the authorization server, sending the browser to `loginPageUrl` for the e-mail address and password. It creates the `authentication-authorization-code` storage, which the authentication component also creates, so codes issued by the authorize endpoint can be redeemed.
 
 ```typescript
 import type { IEngineServerConfig } from '@3sixty/engine-server-types';
@@ -78,9 +78,9 @@ import {
 const types: Partial<IEngineServerConfig['types']> = {
   authenticationComponent: [{ type: AuthenticationComponentType.EntityStorage }],
   authenticationProvider: [
-    { type: AuthenticationProviderType.EntityStorage },
+    { type: AuthenticationProviderType.ThreeSixty },
     {
-      type: AuthenticationProviderType.EntityStorageOAuth,
+      type: AuthenticationProviderType.ThreeSixtyOAuth,
       options: { config: { loginPageUrl: 'https://app.example.org/login' } }
     },
     {

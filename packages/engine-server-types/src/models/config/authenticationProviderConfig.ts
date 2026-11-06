@@ -11,11 +11,11 @@ import type { AuthenticationProviderType } from "../types/authenticationProvider
  */
 export type AuthenticationProviderConfig =
 	| {
-			type: typeof AuthenticationProviderType.EntityStorage;
+			type: typeof AuthenticationProviderType.ThreeSixty;
 			options?: IEntityStorageAuthenticationProviderConnectorConstructorOptions;
 	  }
 	| {
-			type: typeof AuthenticationProviderType.EntityStorageOAuth;
+			type: typeof AuthenticationProviderType.ThreeSixtyOAuth;
 			options: IEntityStorageOAuthProviderConnectorConstructorOptions;
 	  }
 	| {

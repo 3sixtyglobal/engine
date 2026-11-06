@@ -8,12 +8,12 @@ export const AuthenticationProviderType = {
 	/**
 	 * Passwords for accounts held in entity storage.
 	 */
-	EntityStorage: "entity-storage",
+	ThreeSixty: "3sixty",
 
 	/**
 	 * The password accounts held in entity storage, signed in through OAuth 2.0.
 	 */
-	EntityStorageOAuth: "entity-storage-oauth",
+	ThreeSixtyOAuth: "3sixty-oauth",
 
 	/**
 	 * Google.

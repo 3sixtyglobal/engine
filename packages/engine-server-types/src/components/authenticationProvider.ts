@@ -36,7 +36,7 @@ export function initialiseAuthenticationProvider(
 	let createComponent;
 	let instanceTypeName;
 
-	if (instanceConfig.type === AuthenticationProviderType.EntityStorage) {
+	if (instanceConfig.type === AuthenticationProviderType.ThreeSixty) {
 		createComponent = (createConfig: typeof instanceConfig) => {
 			initialiseAuthenticationUserEntityStorage(
 				engineCore,
@@ -48,7 +48,7 @@ export function initialiseAuthenticationProvider(
 			);
 		};
 		instanceTypeName = EntityStorageAuthenticationProviderConnector.NAMESPACE;
-	} else if (instanceConfig.type === AuthenticationProviderType.EntityStorageOAuth) {
+	} else if (instanceConfig.type === AuthenticationProviderType.ThreeSixtyOAuth) {
 		createComponent = (createConfig: typeof instanceConfig) => {
 			initialiseAuthenticationUserEntityStorage(
 				engineCore,
