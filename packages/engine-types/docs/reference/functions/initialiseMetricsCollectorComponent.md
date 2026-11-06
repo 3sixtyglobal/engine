@@ -1,6 +1,6 @@
 # Function: initialiseMetricsCollectorComponent()
 
-> **initialiseMetricsCollectorComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`MetricsCollectorComponentConfig`](../type-aliases/MetricsCollectorComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseMetricsCollectorComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`MetricsCollectorComponentConfig`](../type-aliases/MetricsCollectorComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the metrics collector orchestrator component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`MetricsCollectorComponentConfig`](../type-aliases/MetricsCollectorComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`MetricsCollectorComponentConfig`](../type-aliases/MetricsCollectorComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

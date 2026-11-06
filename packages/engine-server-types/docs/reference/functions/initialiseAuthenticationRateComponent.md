@@ -1,6 +1,6 @@
 # Function: initialiseAuthenticationRateComponent()
 
-> **initialiseAuthenticationRateComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AuthenticationRateComponentConfig`](../type-aliases/AuthenticationRateComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseAuthenticationRateComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`AuthenticationRateComponentConfig`](../type-aliases/AuthenticationRateComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the authentication rate.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`AuthenticationRateComponentConfig`](../type-aliases/AuthenticationRateComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`AuthenticationRateComponentConfig`](../type-aliases/AuthenticationRateComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPmpComponent()
 
-> **initialiseRightsManagementPmpComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPmpComponentConfig`](../type-aliases/RightsManagementPmpComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseRightsManagementPmpComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`RightsManagementPmpComponentConfig`](../type-aliases/RightsManagementPmpComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the rights management PMP component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`RightsManagementPmpComponentConfig`](../type-aliases/RightsManagementPmpComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`RightsManagementPmpComponentConfig`](../type-aliases/RightsManagementPmpComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

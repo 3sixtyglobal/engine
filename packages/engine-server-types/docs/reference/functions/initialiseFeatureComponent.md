@@ -1,6 +1,6 @@
 # Function: initialiseFeatureComponent()
 
-> **initialiseFeatureComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`FeatureComponentConfig`](../type-aliases/FeatureComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseFeatureComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`FeatureComponentConfig`](../type-aliases/FeatureComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the feature component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`FeatureComponentConfig`](../type-aliases/FeatureComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`FeatureComponentConfig`](../type-aliases/FeatureComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

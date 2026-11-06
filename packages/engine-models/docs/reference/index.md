@@ -12,11 +12,11 @@
 - [IEngineServer](interfaces/IEngineServer.md)
 - [IEngineState](interfaces/IEngineState.md)
 - [IEngineStateStorage](interfaces/IEngineStateStorage.md)
+- [IEngineTypeInitialiserReturn](interfaces/IEngineTypeInitialiserReturn.md)
 - [IEngineCoreConfig](interfaces/IEngineCoreConfig.md)
 - [IEngineCoreTypeBaseConfig](interfaces/IEngineCoreTypeBaseConfig.md)
 - [IEngineFacadeConfig](interfaces/IEngineFacadeConfig.md)
 - [IEngineModuleConfig](interfaces/IEngineModuleConfig.md)
-- [EngineTypeInitialiserReturn](interfaces/EngineTypeInitialiserReturn.md)
 
 ## Type Aliases
 

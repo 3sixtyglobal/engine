@@ -1,6 +1,6 @@
 # Function: initialiseAuthenticationProvider()
 
-> **initialiseAuthenticationProvider**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AuthenticationProviderConfig`](../type-aliases/AuthenticationProviderConfig.md), `Factory`\<`IAuthenticationProvider`\<`unknown`\>\>\>
+> **initialiseAuthenticationProvider**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`AuthenticationProviderConfig`](../type-aliases/AuthenticationProviderConfig.md), `Factory`\<`IAuthenticationProvider`\<`unknown`\>\>\>
 
 Initialise an authentication provider, registered under its authentication provider id.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`AuthenticationProviderConfig`](../type-aliases/AuthenticationProviderConfig.md), `Factory`\<`IAuthenticationProvider`\<`unknown`\>\>\>
+`IEngineTypeInitialiserReturn`\<[`AuthenticationProviderConfig`](../type-aliases/AuthenticationProviderConfig.md), `Factory`\<`IAuthenticationProvider`\<`unknown`\>\>\>
 
 The instance created and the factory for it.

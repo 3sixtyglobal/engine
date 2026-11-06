@@ -1,6 +1,6 @@
 # Function: initialisePlatformComponent()
 
-> **initialisePlatformComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`PlatformComponentConfig`](../type-aliases/PlatformComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialisePlatformComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`PlatformComponentConfig`](../type-aliases/PlatformComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the platform component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`PlatformComponentConfig`](../type-aliases/PlatformComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`PlatformComponentConfig`](../type-aliases/PlatformComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

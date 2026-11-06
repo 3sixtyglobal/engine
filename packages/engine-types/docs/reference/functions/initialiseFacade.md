@@ -1,6 +1,6 @@
 # Function: initialiseFacade()
 
-> **initialiseFacade**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`FacadeConfig`](../type-aliases/FacadeConfig.md), `Factory`\<`IFacade`\<`unknown`\>\>\>
+> **initialiseFacade**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`FacadeConfig`](../type-aliases/FacadeConfig.md), `Factory`\<`IFacade`\<`unknown`\>\>\>
 
 Initialise a facade.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`FacadeConfig`](../type-aliases/FacadeConfig.md), `Factory`\<`IFacade`\<`unknown`\>\>\>
+`IEngineTypeInitialiserReturn`\<[`FacadeConfig`](../type-aliases/FacadeConfig.md), `Factory`\<`IFacade`\<`unknown`\>\>\>
 
 The instance created and the factory for it.

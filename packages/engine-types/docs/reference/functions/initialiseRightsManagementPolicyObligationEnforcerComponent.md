@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPolicyObligationEnforcerComponent()
 
-> **initialiseRightsManagementPolicyObligationEnforcerComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPolicyObligationEnforcerComponentConfig`](../type-aliases/RightsManagementPolicyObligationEnforcerComponentConfig.md), `Factory`\<`IPolicyObligationEnforcer`\>\>
+> **initialiseRightsManagementPolicyObligationEnforcerComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`RightsManagementPolicyObligationEnforcerComponentConfig`](../type-aliases/RightsManagementPolicyObligationEnforcerComponentConfig.md), `Factory`\<`IPolicyObligationEnforcer`\>\>
 
 Initialise the rights management policy obligation enforcer component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`RightsManagementPolicyObligationEnforcerComponentConfig`](../type-aliases/RightsManagementPolicyObligationEnforcerComponentConfig.md), `Factory`\<`IPolicyObligationEnforcer`\>\>
+`IEngineTypeInitialiserReturn`\<[`RightsManagementPolicyObligationEnforcerComponentConfig`](../type-aliases/RightsManagementPolicyObligationEnforcerComponentConfig.md), `Factory`\<`IPolicyObligationEnforcer`\>\>
 
 The instance created and the factory for it.

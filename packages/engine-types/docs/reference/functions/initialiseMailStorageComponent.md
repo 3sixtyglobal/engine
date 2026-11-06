@@ -1,6 +1,6 @@
 # Function: initialiseMailStorageComponent()
 
-> **initialiseMailStorageComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`MailStorageComponentConfig`](../type-aliases/MailStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseMailStorageComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`MailStorageComponentConfig`](../type-aliases/MailStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the mail storage component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`MailStorageComponentConfig`](../type-aliases/MailStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`MailStorageComponentConfig`](../type-aliases/MailStorageComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

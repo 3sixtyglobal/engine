@@ -1,6 +1,6 @@
 # Function: initialiseNotarizationConnector()
 
-> **initialiseNotarizationConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`NotarizationConnectorConfig`](../type-aliases/NotarizationConnectorConfig.md), `Factory`\<`INotarizationConnector`\>\>
+> **initialiseNotarizationConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`NotarizationConnectorConfig`](../type-aliases/NotarizationConnectorConfig.md), `Factory`\<`INotarizationConnector`\>\>
 
 Initialise the notarization connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`NotarizationConnectorConfig`](../type-aliases/NotarizationConnectorConfig.md), `Factory`\<`INotarizationConnector`\>\>
+`IEngineTypeInitialiserReturn`\<[`NotarizationConnectorConfig`](../type-aliases/NotarizationConnectorConfig.md), `Factory`\<`INotarizationConnector`\>\>
 
 The instance created and the factory for it.

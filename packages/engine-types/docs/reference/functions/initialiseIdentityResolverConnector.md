@@ -1,6 +1,6 @@
 # Function: initialiseIdentityResolverConnector()
 
-> **initialiseIdentityResolverConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`IdentityResolverConnectorConfig`](../type-aliases/IdentityResolverConnectorConfig.md), `Factory`\<`IIdentityResolverConnector`\>\>
+> **initialiseIdentityResolverConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`IdentityResolverConnectorConfig`](../type-aliases/IdentityResolverConnectorConfig.md), `Factory`\<`IIdentityResolverConnector`\>\>
 
 Initialise the identity resolver connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`IdentityResolverConnectorConfig`](../type-aliases/IdentityResolverConnectorConfig.md), `Factory`\<`IIdentityResolverConnector`\>\>
+`IEngineTypeInitialiserReturn`\<[`IdentityResolverConnectorConfig`](../type-aliases/IdentityResolverConnectorConfig.md), `Factory`\<`IIdentityResolverConnector`\>\>
 
 The instance created and the factory for it.

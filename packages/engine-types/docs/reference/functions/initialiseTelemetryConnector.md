@@ -1,6 +1,6 @@
 # Function: initialiseTelemetryConnector()
 
-> **initialiseTelemetryConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`TelemetryConnectorConfig`](../type-aliases/TelemetryConnectorConfig.md), `Factory`\<`ITelemetryConnector`\>\>
+> **initialiseTelemetryConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`TelemetryConnectorConfig`](../type-aliases/TelemetryConnectorConfig.md), `Factory`\<`ITelemetryConnector`\>\>
 
 Initialise a telemetry connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`TelemetryConnectorConfig`](../type-aliases/TelemetryConnectorConfig.md), `Factory`\<`ITelemetryConnector`\>\>
+`IEngineTypeInitialiserReturn`\<[`TelemetryConnectorConfig`](../type-aliases/TelemetryConnectorConfig.md), `Factory`\<`ITelemetryConnector`\>\>
 
 The instance created and the factory for it.

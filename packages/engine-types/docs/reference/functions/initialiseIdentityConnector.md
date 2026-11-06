@@ -1,6 +1,6 @@
 # Function: initialiseIdentityConnector()
 
-> **initialiseIdentityConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`IdentityConnectorConfig`](../type-aliases/IdentityConnectorConfig.md), `Factory`\<`IIdentityConnector`\>\>
+> **initialiseIdentityConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`IdentityConnectorConfig`](../type-aliases/IdentityConnectorConfig.md), `Factory`\<`IIdentityConnector`\>\>
 
 Initialise the identity connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`IdentityConnectorConfig`](../type-aliases/IdentityConnectorConfig.md), `Factory`\<`IIdentityConnector`\>\>
+`IEngineTypeInitialiserReturn`\<[`IdentityConnectorConfig`](../type-aliases/IdentityConnectorConfig.md), `Factory`\<`IIdentityConnector`\>\>
 
 The instance created and the factory for it.

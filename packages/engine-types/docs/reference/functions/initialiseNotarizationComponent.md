@@ -1,6 +1,6 @@
 # Function: initialiseNotarizationComponent()
 
-> **initialiseNotarizationComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`NotarizationComponentConfig`](../type-aliases/NotarizationComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseNotarizationComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`NotarizationComponentConfig`](../type-aliases/NotarizationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the notarization component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`NotarizationComponentConfig`](../type-aliases/NotarizationComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`NotarizationComponentConfig`](../type-aliases/NotarizationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPipComponent()
 
-> **initialiseRightsManagementPipComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPipComponentConfig`](../type-aliases/RightsManagementPipComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseRightsManagementPipComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`RightsManagementPipComponentConfig`](../type-aliases/RightsManagementPipComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the rights management PIP component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`RightsManagementPipComponentConfig`](../type-aliases/RightsManagementPipComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`RightsManagementPipComponentConfig`](../type-aliases/RightsManagementPipComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

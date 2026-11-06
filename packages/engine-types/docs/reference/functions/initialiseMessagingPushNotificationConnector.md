@@ -1,6 +1,6 @@
 # Function: initialiseMessagingPushNotificationConnector()
 
-> **initialiseMessagingPushNotificationConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`MessagingPushNotificationConnectorConfig`](../type-aliases/MessagingPushNotificationConnectorConfig.md), `Factory`\<`IMessagingPushNotificationsConnector`\>\>
+> **initialiseMessagingPushNotificationConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`MessagingPushNotificationConnectorConfig`](../type-aliases/MessagingPushNotificationConnectorConfig.md), `Factory`\<`IMessagingPushNotificationsConnector`\>\>
 
 Initialise a messaging push notification connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`MessagingPushNotificationConnectorConfig`](../type-aliases/MessagingPushNotificationConnectorConfig.md), `Factory`\<`IMessagingPushNotificationsConnector`\>\>
+`IEngineTypeInitialiserReturn`\<[`MessagingPushNotificationConnectorConfig`](../type-aliases/MessagingPushNotificationConnectorConfig.md), `Factory`\<`IMessagingPushNotificationsConnector`\>\>
 
 The instance created and the factory for it.

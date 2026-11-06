@@ -1,4 +1,4 @@
-# Interface: EngineTypeInitialiserReturn\<T, F\>
+# Interface: IEngineTypeInitialiserReturn\<T, F\>
 
 Engine type initialiser return type.
 

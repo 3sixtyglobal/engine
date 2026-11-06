@@ -1,6 +1,6 @@
 # Function: initialiseRestClientProcessorComponent()
 
-> **initialiseRestClientProcessorComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RestClientProcessorConfig`](../type-aliases/RestClientProcessorConfig.md), `Factory`\<`IRestClientProcessor`\>\>
+> **initialiseRestClientProcessorComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`RestClientProcessorConfig`](../type-aliases/RestClientProcessorConfig.md), `Factory`\<`IRestClientProcessor`\>\>
 
 Initialise the REST client processor.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`RestClientProcessorConfig`](../type-aliases/RestClientProcessorConfig.md), `Factory`\<`IRestClientProcessor`\>\>
+`IEngineTypeInitialiserReturn`\<[`RestClientProcessorConfig`](../type-aliases/RestClientProcessorConfig.md), `Factory`\<`IRestClientProcessor`\>\>
 
 The instance created and the factory for it.

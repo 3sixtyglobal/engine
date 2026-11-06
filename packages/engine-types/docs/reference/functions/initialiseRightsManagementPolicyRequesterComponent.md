@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPolicyRequesterComponent()
 
-> **initialiseRightsManagementPolicyRequesterComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPolicyRequesterComponentConfig`](../type-aliases/RightsManagementPolicyRequesterComponentConfig.md), `Factory`\<`IPolicyRequester`\>\>
+> **initialiseRightsManagementPolicyRequesterComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`RightsManagementPolicyRequesterComponentConfig`](../type-aliases/RightsManagementPolicyRequesterComponentConfig.md), `Factory`\<`IPolicyRequester`\>\>
 
 Initialise the rights management policy requester component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`RightsManagementPolicyRequesterComponentConfig`](../type-aliases/RightsManagementPolicyRequesterComponentConfig.md), `Factory`\<`IPolicyRequester`\>\>
+`IEngineTypeInitialiserReturn`\<[`RightsManagementPolicyRequesterComponentConfig`](../type-aliases/RightsManagementPolicyRequesterComponentConfig.md), `Factory`\<`IPolicyRequester`\>\>
 
 The instance created and the factory for it.

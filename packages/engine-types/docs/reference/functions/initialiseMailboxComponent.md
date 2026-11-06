@@ -1,6 +1,6 @@
 # Function: initialiseMailboxComponent()
 
-> **initialiseMailboxComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`MailboxComponentConfig`](../type-aliases/MailboxComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseMailboxComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`MailboxComponentConfig`](../type-aliases/MailboxComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the mailbox component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`MailboxComponentConfig`](../type-aliases/MailboxComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`MailboxComponentConfig`](../type-aliases/MailboxComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

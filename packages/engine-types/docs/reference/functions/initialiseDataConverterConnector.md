@@ -1,6 +1,6 @@
 # Function: initialiseDataConverterConnector()
 
-> **initialiseDataConverterConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`DataConverterConnectorConfig`](../type-aliases/DataConverterConnectorConfig.md), `Factory`\<`IDataConverterConnector`\>\>
+> **initialiseDataConverterConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`DataConverterConnectorConfig`](../type-aliases/DataConverterConnectorConfig.md), `Factory`\<`IDataConverterConnector`\>\>
 
 Initialise the data converter connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`DataConverterConnectorConfig`](../type-aliases/DataConverterConnectorConfig.md), `Factory`\<`IDataConverterConnector`\>\>
+`IEngineTypeInitialiserReturn`\<[`DataConverterConnectorConfig`](../type-aliases/DataConverterConnectorConfig.md), `Factory`\<`IDataConverterConnector`\>\>
 
 The instance created and the factory for it.

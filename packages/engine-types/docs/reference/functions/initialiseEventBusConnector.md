@@ -1,6 +1,6 @@
 # Function: initialiseEventBusConnector()
 
-> **initialiseEventBusConnector**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`EventBusConnectorConfig`](../type-aliases/EventBusConnectorConfig.md), `Factory`\<`IEventBusConnector`\>\>
+> **initialiseEventBusConnector**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`EventBusConnectorConfig`](../type-aliases/EventBusConnectorConfig.md), `Factory`\<`IEventBusConnector`\>\>
 
 Initialise a event bus connector.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`EventBusConnectorConfig`](../type-aliases/EventBusConnectorConfig.md), `Factory`\<`IEventBusConnector`\>\>
+`IEngineTypeInitialiserReturn`\<[`EventBusConnectorConfig`](../type-aliases/EventBusConnectorConfig.md), `Factory`\<`IEventBusConnector`\>\>
 
 The instance created and the factory for it.

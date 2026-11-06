@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPnpComponent()
 
-> **initialiseRightsManagementPnpComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPnpComponentConfig`](../type-aliases/RightsManagementPnpComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseRightsManagementPnpComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`RightsManagementPnpComponentConfig`](../type-aliases/RightsManagementPnpComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the rights management PNP component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`RightsManagementPnpComponentConfig`](../type-aliases/RightsManagementPnpComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`RightsManagementPnpComponentConfig`](../type-aliases/RightsManagementPnpComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

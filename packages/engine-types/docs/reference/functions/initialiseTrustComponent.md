@@ -1,6 +1,6 @@
 # Function: initialiseTrustComponent()
 
-> **initialiseTrustComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`TrustComponentConfig`](../type-aliases/TrustComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseTrustComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`TrustComponentConfig`](../type-aliases/TrustComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the trust component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`TrustComponentConfig`](../type-aliases/TrustComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`TrustComponentConfig`](../type-aliases/TrustComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

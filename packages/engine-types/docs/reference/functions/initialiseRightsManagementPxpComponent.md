@@ -1,6 +1,6 @@
 # Function: initialiseRightsManagementPxpComponent()
 
-> **initialiseRightsManagementPxpComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`RightsManagementPxpComponentConfig`](../type-aliases/RightsManagementPxpComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseRightsManagementPxpComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`RightsManagementPxpComponentConfig`](../type-aliases/RightsManagementPxpComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the rights management PXP component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`RightsManagementPxpComponentConfig`](../type-aliases/RightsManagementPxpComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`RightsManagementPxpComponentConfig`](../type-aliases/RightsManagementPxpComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

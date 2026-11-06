@@ -1,6 +1,6 @@
 # Function: initialiseAttestationComponent()
 
-> **initialiseAttestationComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`AttestationComponentConfig`](../type-aliases/AttestationComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseAttestationComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`AttestationComponentConfig`](../type-aliases/AttestationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the attestation component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`AttestationComponentConfig`](../type-aliases/AttestationComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`AttestationComponentConfig`](../type-aliases/AttestationComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

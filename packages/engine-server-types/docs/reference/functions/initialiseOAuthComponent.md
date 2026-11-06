@@ -1,6 +1,6 @@
 # Function: initialiseOAuthComponent()
 
-> **initialiseOAuthComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`OAuthComponentConfig`](../type-aliases/OAuthComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseOAuthComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`OAuthComponentConfig`](../type-aliases/OAuthComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the OAuth sign in component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`OAuthComponentConfig`](../type-aliases/OAuthComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`OAuthComponentConfig`](../type-aliases/OAuthComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

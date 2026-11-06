@@ -1,6 +1,6 @@
 # Function: initialiseTelemetryComponent()
 
-> **initialiseTelemetryComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`TelemetryComponentConfig`](../type-aliases/TelemetryComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseTelemetryComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`TelemetryComponentConfig`](../type-aliases/TelemetryComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise the telemetry component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`TelemetryComponentConfig`](../type-aliases/TelemetryComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`TelemetryComponentConfig`](../type-aliases/TelemetryComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

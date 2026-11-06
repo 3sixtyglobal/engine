@@ -1,6 +1,6 @@
 # Function: initialiseBackgroundTaskComponent()
 
-> **initialiseBackgroundTaskComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`BackgroundTaskComponentConfig`](../type-aliases/BackgroundTaskComponentConfig.md), `Factory`\<`IComponent`\>\>
+> **initialiseBackgroundTaskComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`BackgroundTaskComponentConfig`](../type-aliases/BackgroundTaskComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 Initialise a background task component.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`BackgroundTaskComponentConfig`](../type-aliases/BackgroundTaskComponentConfig.md), `Factory`\<`IComponent`\>\>
+`IEngineTypeInitialiserReturn`\<[`BackgroundTaskComponentConfig`](../type-aliases/BackgroundTaskComponentConfig.md), `Factory`\<`IComponent`\>\>
 
 The instance created and the factory for it.

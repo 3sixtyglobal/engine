@@ -1,6 +1,6 @@
 # Function: initialiseMimeTypeProcessorComponent()
 
-> **initialiseMimeTypeProcessorComponent**(`engineCore`, `context`, `instanceConfig`): `EngineTypeInitialiserReturn`\<[`MimeTypeProcessorConfig`](../type-aliases/MimeTypeProcessorConfig.md), `Factory`\<`IMimeTypeProcessor`\>\>
+> **initialiseMimeTypeProcessorComponent**(`engineCore`, `context`, `instanceConfig`): `IEngineTypeInitialiserReturn`\<[`MimeTypeProcessorConfig`](../type-aliases/MimeTypeProcessorConfig.md), `Factory`\<`IMimeTypeProcessor`\>\>
 
 Initialise the mime type processor.
 
@@ -26,6 +26,6 @@ The instance config.
 
 ## Returns
 
-`EngineTypeInitialiserReturn`\<[`MimeTypeProcessorConfig`](../type-aliases/MimeTypeProcessorConfig.md), `Factory`\<`IMimeTypeProcessor`\>\>
+`IEngineTypeInitialiserReturn`\<[`MimeTypeProcessorConfig`](../type-aliases/MimeTypeProcessorConfig.md), `Factory`\<`IMimeTypeProcessor`\>\>
 
 The instance created and the factory for it.
