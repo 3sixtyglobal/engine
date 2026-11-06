@@ -615,10 +615,10 @@ describe("engine-server", () => {
 				],
 				authenticationProvider: [
 					{
-						type: AuthenticationProviderType.EntityStorage
+						type: AuthenticationProviderType.ThreeSixty
 					},
 					{
-						type: AuthenticationProviderType.EntityStorageOAuth,
+						type: AuthenticationProviderType.ThreeSixtyOAuth,
 						options: {
 							config: {
 								loginPageUrl: "https://twin.example.org/login"
@@ -689,6 +689,9 @@ describe("engine-server", () => {
 			"GET      /spec",
 			"GET      /health",
 			"POST     /authentication/login",
+			"POST     /authentication/authorize",
+			"POST     /authentication/token",
+			"GET      /.well-known/oauth-authorization-server",
 			"POST     /authentication/login/:authProviderId",
 			"POST     /authentication/register",
 			"POST     /authentication/register/verify",
