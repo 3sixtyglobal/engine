@@ -616,6 +616,14 @@ describe("engine-server", () => {
 				authenticationProvider: [
 					{
 						type: AuthenticationProviderType.EntityStorage
+					},
+					{
+						type: AuthenticationProviderType.EntityStorageOAuth,
+						options: {
+							config: {
+								loginPageUrl: "https://twin.example.org/login"
+							}
+						}
 					}
 				],
 				authenticationAccountComponent: [

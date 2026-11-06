@@ -5,6 +5,7 @@ import { EntityStorageAuthenticationRestClient } from "@3sixty/api-auth-entity-s
 import {
 	EntityStorageAuthenticationService,
 	initSchema as initSchemaAuthEntityStorage,
+	type AuthenticationAuthorizationCode,
 	type AuthenticationPasswordReset,
 	type AuthenticationUser
 } from "@3sixty/api-auth-entity-storage-service";
@@ -72,6 +73,31 @@ export function initialiseAuthenticationPasswordResetEntityStorage(
 }
 
 /**
+ * Initialise the entity storage of the OAuth 2.0 authorization codes of password accounts,
+ * partitioned like the accounts they belong to.
+ * @param engineCore The engine core.
+ * @param context The context for the engine.
+ * @param storageType The configured storage type.
+ */
+export function initialiseAuthenticationAuthorizationCodeEntityStorage(
+	engineCore: IEngineCore<IEngineServerConfig>,
+	context: IEngineCoreContext<IEngineServerConfig>,
+	storageType: string | undefined
+): void {
+	initSchemaAuthEntityStorage();
+	initialiseEntityStorageConnector(
+		engineCore,
+		context,
+		storageType,
+		nameof<AuthenticationAuthorizationCode>(),
+		ContextIdHelper.pickKeysFromAvailable(engineCore.getContextIdKeys(), [
+			ContextIdKeys.Node,
+			ContextIdKeys.Tenant
+		])
+	);
+}
+
+/**
  * Initialise the authentication component.
  * @param engineCore The engine core.
  * @param context The context for the engine.
@@ -97,6 +123,11 @@ export function initialiseAuthenticationComponent(
 				engineCore,
 				context,
 				createConfig.options?.passwordResetEntityStorageType
+			);
+			initialiseAuthenticationAuthorizationCodeEntityStorage(
+				engineCore,
+				context,
+				createConfig.options?.authorizationCodeEntityStorageType
 			);
 			return new EntityStorageAuthenticationService(
 				EngineTypeHelper.mergeConfig<(typeof instanceConfig)["options"]>(

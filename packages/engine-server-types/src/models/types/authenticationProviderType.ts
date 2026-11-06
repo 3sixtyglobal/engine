@@ -11,6 +11,11 @@ export const AuthenticationProviderType = {
 	EntityStorage: "entity-storage",
 
 	/**
+	 * The password accounts held in entity storage, signed in through OAuth 2.0.
+	 */
+	EntityStorageOAuth: "entity-storage-oauth",
+
+	/**
 	 * Google.
 	 */
 	Google: "google",
