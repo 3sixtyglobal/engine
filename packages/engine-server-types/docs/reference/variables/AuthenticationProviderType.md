@@ -6,11 +6,17 @@ Authentication provider types.
 
 ## Type Declaration
 
-### EntityStorage {#entitystorage}
+### ThreeSixty {#threesixty}
 
-> `readonly` **EntityStorage**: `"entity-storage"` = `"entity-storage"`
+> `readonly` **ThreeSixty**: `"3sixty"` = `"3sixty"`
 
 Passwords for accounts held in entity storage.
+
+### ThreeSixtyOAuth {#threesixtyoauth}
+
+> `readonly` **ThreeSixtyOAuth**: `"3sixty-oauth"` = `"3sixty-oauth"`
+
+The password accounts held in entity storage, signed in through OAuth 2.0.
 
 ### Google {#google}
 
