@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.20.0-next.8](https://github.com/3sixtyglobal/engine/compare/engine-server-types-v0.20.0-next.7...engine-server-types-v0.20.0-next.8) (2026-11-06)
+
+
+### Features
+
+* name the password authentication providers 3sixty and 3sixty-oauth ([#41](https://github.com/3sixtyglobal/engine/issues/41)) ([9f797f6](https://github.com/3sixtyglobal/engine/commit/9f797f6f69dc756861654411a969a56d5be1d8c1))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/engine-models bumped from 0.20.0-next.7 to 0.20.0-next.8
+    * @3sixty/engine-types bumped from 0.20.0-next.7 to 0.20.0-next.8
+
 ## [0.20.0-next.7](https://github.com/3sixtyglobal/engine/compare/engine-server-types-v0.20.0-next.6...engine-server-types-v0.20.0-next.7) (2026-11-04)
 
 
