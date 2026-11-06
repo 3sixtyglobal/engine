@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.20.0-next.9](https://github.com/3sixtyglobal/engine/compare/engine-server-types-v0.20.0-next.8...engine-server-types-v0.20.0-next.9) (2026-11-06)
+
+
+### Bug Fixes
+
+* apply the shared lint rules for interface names, model locations and deprecated apis ([fdca60d](https://github.com/3sixtyglobal/engine/commit/fdca60d5da4a2ff46f6857fb53a84e923fc6c328))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @3sixty/engine-models bumped from 0.20.0-next.8 to 0.20.0-next.9
+    * @3sixty/engine-types bumped from 0.20.0-next.8 to 0.20.0-next.9
+
 ## [0.20.0-next.8](https://github.com/3sixtyglobal/engine/compare/engine-server-types-v0.20.0-next.7...engine-server-types-v0.20.0-next.8) (2026-11-06)
 
 

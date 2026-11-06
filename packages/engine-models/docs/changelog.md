@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0-next.9](https://github.com/3sixtyglobal/engine/compare/engine-models-v0.20.0-next.8...engine-models-v0.20.0-next.9) (2026-11-06)
+
+
+### Bug Fixes
+
+* apply the shared lint rules for interface names, model locations and deprecated apis ([fdca60d](https://github.com/3sixtyglobal/engine/commit/fdca60d5da4a2ff46f6857fb53a84e923fc6c328))
+
 ## [0.20.0-next.8](https://github.com/3sixtyglobal/engine/compare/engine-models-v0.20.0-next.7...engine-models-v0.20.0-next.8) (2026-11-06)
 
 
