@@ -61,6 +61,7 @@
 
 - [initialiseAuthenticationUserEntityStorage](functions/initialiseAuthenticationUserEntityStorage.md)
 - [initialiseAuthenticationPasswordResetEntityStorage](functions/initialiseAuthenticationPasswordResetEntityStorage.md)
+- [initialiseAuthenticationAuthorizationCodeEntityStorage](functions/initialiseAuthenticationAuthorizationCodeEntityStorage.md)
 - [initialiseAuthenticationComponent](functions/initialiseAuthenticationComponent.md)
 - [initialiseAccountDataEntityStorage](functions/initialiseAccountDataEntityStorage.md)
 - [initialiseOrganizationRequestEntityStorage](functions/initialiseOrganizationRequestEntityStorage.md)
