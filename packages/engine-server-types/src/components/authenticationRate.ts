@@ -1,4 +1,5 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import {
 	EntityStorageAuthenticationRateService,
@@ -8,7 +9,7 @@ import {
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import { ComponentFactory } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -29,7 +30,7 @@ export function initialiseAuthenticationRateComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: AuthenticationRateComponentConfig
-): EngineTypeInitialiserReturn<AuthenticationRateComponentConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<AuthenticationRateComponentConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

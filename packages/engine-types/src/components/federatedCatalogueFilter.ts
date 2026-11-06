@@ -1,8 +1,9 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -30,7 +31,7 @@ export function initialiseFederatedCatalogueFilterComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: FederatedCatalogueFilterComponentConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof FederatedCatalogueFilterFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof FederatedCatalogueFilterFactory> {
 	let createComponent;
 	let instanceTypeName;
 

@@ -1,4 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import path from "node:path";
 import { S3BlobStorageConnector } from "@3sixty/blob-storage-connector-aws-s3";
@@ -17,7 +18,7 @@ import {
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import { ComponentFactory, type IComponent, Is } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -41,7 +42,7 @@ export function initialiseBlobStorageConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: BlobStorageConnectorConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof BlobStorageConnectorFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof BlobStorageConnectorFactory> {
 	let createComponent;
 	let instanceTypeName;
 
@@ -188,7 +189,7 @@ export function initialiseBlobStorageComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: BlobStorageComponentConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

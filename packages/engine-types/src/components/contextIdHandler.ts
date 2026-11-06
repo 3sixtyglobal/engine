@@ -1,9 +1,10 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { TenantIdContextIdHandler } from "@3sixty/api-tenant-processor";
 import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -24,7 +25,7 @@ export function initialiseContextIdHandlerComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: ContextIdHandlerComponentConfig
-): EngineTypeInitialiserReturn<ContextIdHandlerComponentConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<ContextIdHandlerComponentConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

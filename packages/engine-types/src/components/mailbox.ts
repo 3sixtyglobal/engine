@@ -1,10 +1,11 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import type { IComponent } from "@3sixty/core";
 import { ComponentFactory } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -49,7 +50,7 @@ export function initialiseEmailProtocolConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: EmailProtocolConnectorConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof EmailProtocolConnectorFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof EmailProtocolConnectorFactory> {
 	let createComponent;
 	let instanceTypeName;
 
@@ -137,7 +138,7 @@ export function initialiseMailStorageComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: MailStorageComponentConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 
@@ -199,7 +200,7 @@ export function initialiseMailboxComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: MailboxComponentConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

@@ -1,6 +1,7 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
-import type { EngineTypeInitialiserReturn, IEngineCoreTypeConfig } from "@3sixty/engine-models";
+import type { IEngineTypeInitialiserReturn, IEngineCoreTypeConfig } from "@3sixty/engine-models";
 
 /**
  * A type which has been resolved by its initialiser but not yet constructed.
@@ -20,7 +21,7 @@ export interface IEngineCoreResolvedType {
 	/**
 	 * What the initialiser returned for the entry.
 	 */
-	result: EngineTypeInitialiserReturn;
+	result: IEngineTypeInitialiserReturn;
 
 	/**
 	 * The instance type the component is registered under.

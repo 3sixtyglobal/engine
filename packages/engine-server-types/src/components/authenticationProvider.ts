@@ -7,7 +7,7 @@ import { GoogleOAuthProviderConnector } from "@3sixty/api-auth-oauth-connector-g
 import { MicrosoftOAuthProviderConnector } from "@3sixty/api-auth-oauth-connector-microsoft";
 import type { IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -32,7 +32,10 @@ export function initialiseAuthenticationProvider(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: AuthenticationProviderConfig
-): EngineTypeInitialiserReturn<AuthenticationProviderConfig, typeof AuthenticationProviderFactory> {
+): IEngineTypeInitialiserReturn<
+	AuthenticationProviderConfig,
+	typeof AuthenticationProviderFactory
+> {
 	let createComponent;
 	let instanceTypeName;
 

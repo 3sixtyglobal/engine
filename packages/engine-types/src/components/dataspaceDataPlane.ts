@@ -1,4 +1,5 @@
 // Copyright 2025 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import { ComponentFactory, type IComponent } from "@3sixty/core";
@@ -12,7 +13,7 @@ import {
 } from "@3sixty/dataspace-data-plane-service";
 import { DataspaceDataPlaneSocketClient } from "@3sixty/dataspace-data-plane-socket-client";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -35,7 +36,7 @@ export function initialiseDataspaceDataPlaneComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: DataspaceDataPlaneComponentConfig
-): EngineTypeInitialiserReturn<DataspaceDataPlaneComponentConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<DataspaceDataPlaneComponentConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

@@ -1,8 +1,9 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import type { IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -28,7 +29,7 @@ export function initialiseRightsManagementPolicyEnforcementProcessorComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: RightsManagementPolicyEnforcementProcessorComponentConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof PolicyEnforcementProcessorFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof PolicyEnforcementProcessorFactory> {
 	let createComponent;
 	let instanceTypeName;
 

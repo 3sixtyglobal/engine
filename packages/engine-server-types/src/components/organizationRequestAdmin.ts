@@ -4,7 +4,7 @@ import { OrganizationRequestAdminRestClient } from "@3sixty/api-auth-account-res
 import { EntityStorageOrganizationRequestAdminService } from "@3sixty/api-auth-account-service";
 import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -30,7 +30,7 @@ export function initialiseOrganizationRequestAdminComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: OrganizationRequestAdminComponentConfig
-): EngineTypeInitialiserReturn<OrganizationRequestAdminComponentConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<OrganizationRequestAdminComponentConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

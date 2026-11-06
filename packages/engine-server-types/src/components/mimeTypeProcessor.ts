@@ -1,9 +1,10 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { MimeTypeProcessorFactory } from "@3sixty/api-models";
 import { JwtMimeTypeProcessor } from "@3sixty/api-processors";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -23,7 +24,7 @@ export function initialiseMimeTypeProcessorComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: MimeTypeProcessorConfig
-): EngineTypeInitialiserReturn<MimeTypeProcessorConfig, typeof MimeTypeProcessorFactory> {
+): IEngineTypeInitialiserReturn<MimeTypeProcessorConfig, typeof MimeTypeProcessorFactory> {
 	let createComponent;
 	let instanceTypeName;
 

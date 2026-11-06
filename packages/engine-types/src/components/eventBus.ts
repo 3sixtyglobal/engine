@@ -1,8 +1,9 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -29,7 +30,7 @@ export function initialiseEventBusConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: EventBusConnectorConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof EventBusConnectorFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof EventBusConnectorFactory> {
 	let createComponent;
 	let instanceTypeName;
 
@@ -67,7 +68,7 @@ export function initialiseEventBusComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: EventBusComponentConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

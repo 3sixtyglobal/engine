@@ -1,4 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import type { Factory, IComponent } from "@3sixty/core";
 import type { IEngineCoreTypeBaseConfig } from "./config/IEngineCoreTypeBaseConfig.js";
@@ -6,7 +7,7 @@ import type { IEngineCoreTypeBaseConfig } from "./config/IEngineCoreTypeBaseConf
 /**
  * Engine type initialiser return type.
  */
-export interface EngineTypeInitialiserReturn<
+export interface IEngineTypeInitialiserReturn<
 	T extends IEngineCoreTypeBaseConfig = IEngineCoreTypeBaseConfig,
 	F = Factory<unknown>
 > {

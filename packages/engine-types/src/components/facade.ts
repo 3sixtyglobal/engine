@@ -1,8 +1,9 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { FacadeFactory } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -24,7 +25,7 @@ export function initialiseFacade(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: FacadeConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof FacadeFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof FacadeFactory> {
 	let createComponent;
 	let instanceTypeName;
 

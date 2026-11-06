@@ -4,7 +4,7 @@
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -42,7 +42,7 @@ export function initialiseTracingConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: TracingConnectorConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof TracingConnectorFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof TracingConnectorFactory> {
 	let createComponent;
 	let instanceTypeName;
 
@@ -114,7 +114,7 @@ export function initialiseTracingComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: TracingComponentConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

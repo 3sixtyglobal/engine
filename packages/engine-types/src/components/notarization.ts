@@ -1,10 +1,11 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import { ComponentFactory } from "@3sixty/core";
 import type { IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -39,7 +40,7 @@ export function initialiseNotarizationConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: NotarizationConnectorConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof NotarizationConnectorFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof NotarizationConnectorFactory> {
 	let createComponent;
 	let instanceTypeName;
 
@@ -112,7 +113,7 @@ export function initialiseNotarizationComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: NotarizationComponentConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

@@ -1,9 +1,10 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { FetchAction } from "@3sixty/automation-actions";
 import { AutomationActionFactory } from "@3sixty/automation-models";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -24,7 +25,7 @@ export function initialiseAutomationAction(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: AutomationActionConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof AutomationActionFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof AutomationActionFactory> {
 	let createComponent;
 	let instanceTypeName;
 

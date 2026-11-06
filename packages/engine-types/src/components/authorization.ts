@@ -1,4 +1,5 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { CasbinAuthorizationConnector } from "@3sixty/authorization-connector-casbin";
 import {
@@ -16,7 +17,7 @@ import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import type { IComponent } from "@3sixty/core";
 import { ComponentFactory } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -40,7 +41,7 @@ export function initialiseAuthorizationConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: AuthorizationConnectorConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof AuthorizationConnectorFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof AuthorizationConnectorFactory> {
 	let createComponent;
 	let instanceTypeName;
 
@@ -118,7 +119,7 @@ export function initialiseAuthorizationComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: AuthorizationComponentConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

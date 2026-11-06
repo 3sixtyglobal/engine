@@ -1,10 +1,11 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { HealthRestClient } from "@3sixty/api-rest-client";
 import { HealthService } from "@3sixty/api-service";
 import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -25,7 +26,7 @@ export function initialiseHealthComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: HealthComponentConfig
-): EngineTypeInitialiserReturn<HealthComponentConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<HealthComponentConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

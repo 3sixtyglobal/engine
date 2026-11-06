@@ -5,7 +5,7 @@ import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import type { IComponent } from "@3sixty/core";
 import { ComponentFactory } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -62,7 +62,7 @@ export function initialiseMessagingEmailConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: MessagingEmailConnectorConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof MessagingEmailConnectorFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof MessagingEmailConnectorFactory> {
 	let createComponent;
 	let instanceTypeName;
 
@@ -140,7 +140,7 @@ export function initialiseMessagingSmsConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: MessagingSmsConnectorConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof MessagingSmsConnectorFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof MessagingSmsConnectorFactory> {
 	let createComponent;
 	let instanceTypeName;
 
@@ -204,7 +204,7 @@ export function initialiseMessagingPushNotificationConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: MessagingPushNotificationConnectorConfig
-): EngineTypeInitialiserReturn<
+): IEngineTypeInitialiserReturn<
 	typeof instanceConfig,
 	typeof MessagingPushNotificationsConnectorFactory
 > {
@@ -281,7 +281,7 @@ export function initialiseMessagingComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: MessagingComponentConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 
@@ -328,7 +328,7 @@ export function initialiseMessagingAdminComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: MessagingAdminComponentConfig
-): EngineTypeInitialiserReturn<MessagingAdminComponentConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<MessagingAdminComponentConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

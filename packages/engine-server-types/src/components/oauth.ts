@@ -3,7 +3,7 @@
 import { OAuthService } from "@3sixty/api-auth-oauth-service";
 import { ComponentFactory } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -24,7 +24,7 @@ export function initialiseOAuthComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: OAuthComponentConfig
-): EngineTypeInitialiserReturn<OAuthComponentConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<OAuthComponentConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

@@ -4,7 +4,7 @@ import { FeatureRestClient } from "@3sixty/api-auth-rest-client";
 import { FeatureService } from "@3sixty/api-auth-service";
 import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -25,7 +25,7 @@ export function initialiseFeatureComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: FeatureComponentConfig
-): EngineTypeInitialiserReturn<FeatureComponentConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<FeatureComponentConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

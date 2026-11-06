@@ -1,4 +1,5 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import {
 	ComponentFactory,
@@ -10,7 +11,7 @@ import {
 	type IFacade
 } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreConfig,
 	IEngineCoreTypeConfig,
@@ -115,7 +116,7 @@ class MarkingFacade implements IFacade, IComponent {
  * type initialiser pipeline rather than the components being registered directly.
  */
 const pipelineModule = {
-	initialisePipelineFacade: (): EngineTypeInitialiserReturn<
+	initialisePipelineFacade: (): IEngineTypeInitialiserReturn<
 		IEngineCoreTypeConfig,
 		typeof FacadeFactory
 	> => ({
@@ -123,7 +124,7 @@ const pipelineModule = {
 		instanceTypeName: "pipeline-facade",
 		factory: FacadeFactory
 	}),
-	initialisePipelineComponent: (): EngineTypeInitialiserReturn<
+	initialisePipelineComponent: (): IEngineTypeInitialiserReturn<
 		IEngineCoreTypeConfig,
 		typeof ComponentFactory
 	> => ({
@@ -133,7 +134,7 @@ const pipelineModule = {
 	}),
 	initialisePipelineDependent: (
 		engineCore: IEngineCore
-	): EngineTypeInitialiserReturn<IEngineCoreTypeConfig, typeof ComponentFactory> => ({
+	): IEngineTypeInitialiserReturn<IEngineCoreTypeConfig, typeof ComponentFactory> => ({
 		createComponent: () =>
 			new DependentComponent(engineCore.getRegisteredInstanceType("pipelineComponent")),
 		instanceTypeName: "pipeline-dependent",
@@ -141,7 +142,7 @@ const pipelineModule = {
 	}),
 	initialisePipelineNaming: (
 		engineCore: IEngineCore
-	): EngineTypeInitialiserReturn<IEngineCoreTypeConfig, typeof ComponentFactory> => ({
+	): IEngineTypeInitialiserReturn<IEngineCoreTypeConfig, typeof ComponentFactory> => ({
 		createComponent: () =>
 			new NamingComponent(engineCore.getRegisteredInstanceType("pipelineComponent")),
 		instanceTypeName: "pipeline-naming",

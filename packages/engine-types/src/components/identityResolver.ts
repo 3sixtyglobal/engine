@@ -1,9 +1,10 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { ComponentFactory } from "@3sixty/core";
 import type { IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -39,7 +40,7 @@ export function initialiseIdentityResolverConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: IdentityResolverConnectorConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof IdentityResolverConnectorFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof IdentityResolverConnectorFactory> {
 	let createComponent;
 	let instanceTypeName;
 
@@ -104,7 +105,7 @@ export function initialiseIdentityResolverComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: IdentityResolverComponentConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

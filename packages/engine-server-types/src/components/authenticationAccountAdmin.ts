@@ -4,7 +4,7 @@ import { EntityStorageAuthenticationAccountAdminRestClient } from "@3sixty/api-a
 import { EntityStorageAuthenticationAccountAdminService } from "@3sixty/api-auth-account-service";
 import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -31,7 +31,10 @@ export function initialiseAuthenticationAccountAdminComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: AuthenticationAccountAdminComponentConfig
-): EngineTypeInitialiserReturn<AuthenticationAccountAdminComponentConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<
+	AuthenticationAccountAdminComponentConfig,
+	typeof ComponentFactory
+> {
 	let createComponent;
 	let instanceTypeName;
 

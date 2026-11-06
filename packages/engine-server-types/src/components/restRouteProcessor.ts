@@ -16,7 +16,7 @@ import { TenantProcessor, SingleTenantProcessor } from "@3sixty/api-tenant-proce
 import { AuthorizationRouteProcessor } from "@3sixty/authorization-service";
 import type { IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -41,7 +41,7 @@ export function initialiseRestRouteProcessorComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: RestRouteProcessorConfig
-): EngineTypeInitialiserReturn<RestRouteProcessorConfig, typeof RestRouteProcessorFactory> {
+): IEngineTypeInitialiserReturn<RestRouteProcessorConfig, typeof RestRouteProcessorFactory> {
 	let createComponent;
 	let instanceTypeName;
 

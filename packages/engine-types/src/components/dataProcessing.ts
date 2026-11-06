@@ -1,4 +1,5 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import { ComponentFactory, type IComponent } from "@3sixty/core";
@@ -15,7 +16,7 @@ import {
 	type ExtractionRuleGroup
 } from "@3sixty/data-processing-service";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -41,7 +42,10 @@ export function initialiseDataConverterConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: DataConverterConnectorConfig
-): EngineTypeInitialiserReturn<DataConverterConnectorConfig, typeof DataConverterConnectorFactory> {
+): IEngineTypeInitialiserReturn<
+	DataConverterConnectorConfig,
+	typeof DataConverterConnectorFactory
+> {
 	let createComponent;
 	let instanceTypeName;
 
@@ -71,7 +75,10 @@ export function initialiseDataExtractorConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: DataExtractorConnectorConfig
-): EngineTypeInitialiserReturn<DataExtractorConnectorConfig, typeof DataExtractorConnectorFactory> {
+): IEngineTypeInitialiserReturn<
+	DataExtractorConnectorConfig,
+	typeof DataExtractorConnectorFactory
+> {
 	let createComponent;
 	let instanceTypeName;
 
@@ -98,7 +105,7 @@ export function initialiseDataProcessingComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: DataProcessingComponentConfig
-): EngineTypeInitialiserReturn<DataProcessingComponentConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<DataProcessingComponentConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

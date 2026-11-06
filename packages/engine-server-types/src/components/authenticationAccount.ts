@@ -11,7 +11,7 @@ import {
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -108,7 +108,7 @@ export function initialiseAuthenticationAccountComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: AuthenticationAccountComponentConfig
-): EngineTypeInitialiserReturn<AuthenticationAccountComponentConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<AuthenticationAccountComponentConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

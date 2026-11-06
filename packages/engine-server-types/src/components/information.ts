@@ -1,10 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import { InformationRestClient } from "@3sixty/api-rest-client";
 import { InformationService } from "@3sixty/api-service";
 import { ComponentFactory, type IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -25,7 +26,7 @@ export function initialiseInformationComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: InformationComponentConfig
-): EngineTypeInitialiserReturn<InformationComponentConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<InformationComponentConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

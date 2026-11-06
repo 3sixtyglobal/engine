@@ -1,10 +1,11 @@
 // Copyright 2024 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import path from "node:path";
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import { ComponentFactory, GeneralError, type IComponent, Is, StringHelper } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -231,7 +232,7 @@ export function initialiseEntityStorageComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: EntityStorageComponentConfig
-): EngineTypeInitialiserReturn<EntityStorageComponentConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<EntityStorageComponentConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0.
 import { RestClientProcessorFactory } from "@3sixty/api-models";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -25,7 +25,7 @@ export function initialiseRestClientProcessorComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: RestClientProcessorConfig
-): EngineTypeInitialiserReturn<RestClientProcessorConfig, typeof RestClientProcessorFactory> {
+): IEngineTypeInitialiserReturn<RestClientProcessorConfig, typeof RestClientProcessorFactory> {
 	let createComponent;
 	let instanceTypeName;
 

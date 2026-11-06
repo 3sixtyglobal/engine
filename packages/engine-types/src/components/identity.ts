@@ -4,7 +4,7 @@
 import { ComponentFactory } from "@3sixty/core";
 import type { IComponent } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -39,7 +39,7 @@ export function initialiseIdentityConnector(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: IdentityConnectorConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof IdentityConnectorFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof IdentityConnectorFactory> {
 	let createComponent;
 	let instanceTypeName;
 
@@ -109,7 +109,7 @@ export function initialiseIdentityComponent(
 	engineCore: IEngineCore<IEngineConfig>,
 	context: IEngineCoreContext<IEngineConfig>,
 	instanceConfig: IdentityComponentConfig
-): EngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<typeof instanceConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 

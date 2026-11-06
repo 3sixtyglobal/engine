@@ -1,4 +1,5 @@
 // Copyright 2026 IOTA Stiftung.
+// Copyright 2026 3Sixty Trade Ltd.
 // SPDX-License-Identifier: Apache-2.0.
 import {
 	EntityStorageAuthenticationAuditService,
@@ -8,7 +9,7 @@ import {
 import { ContextIdHelper, ContextIdKeys } from "@3sixty/context";
 import { ComponentFactory } from "@3sixty/core";
 import type {
-	EngineTypeInitialiserReturn,
+	IEngineTypeInitialiserReturn,
 	IEngineCore,
 	IEngineCoreContext
 } from "@3sixty/engine-models";
@@ -29,7 +30,7 @@ export function initialiseAuthenticationAuditComponent(
 	engineCore: IEngineCore<IEngineServerConfig>,
 	context: IEngineCoreContext<IEngineServerConfig>,
 	instanceConfig: AuthenticationAuditComponentConfig
-): EngineTypeInitialiserReturn<AuthenticationAuditComponentConfig, typeof ComponentFactory> {
+): IEngineTypeInitialiserReturn<AuthenticationAuditComponentConfig, typeof ComponentFactory> {
 	let createComponent;
 	let instanceTypeName;
 
